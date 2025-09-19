@@ -46,28 +46,28 @@ healthScore:
 Good (web component):
 
 ```ts
-'use client';
+"use client";
 
-import path from 'path';
-import React, { useMemo } from 'react';
+import path from "path";
+import React, { useMemo } from "react";
 
-import { analyzeHar } from 'src/analyze';
-import type { HarSummary } from 'src/types';
+import { analyze } from "src/analyze";
+import type { Summary } from "src/types";
 
-import { toDuration } from '../lib/format';
-import type { Row } from '../types';
+import { toDuration } from "../lib/format";
+import type { Row } from "../types";
 
-import './component.css';
+import "./component.css";
 ```
 
 Good (script):
 
 ```ts
-import fs from 'fs';
-import { EOL } from 'os';
+import fs from "fs";
+import { EOL } from "os";
 
-import { buildMessage } from '../../lib/commit';
-import type { CommitOptions } from '../../lib/types';
+import { buildMessage } from "../../lib/commit";
+import type { CommitOptions } from "../../lib/types";
 ```
 
 ## Enforcement (ESLint)
@@ -78,19 +78,28 @@ import type { CommitOptions } from '../../lib/types';
 // .eslintrc.cjs (fragment)
 module.exports = {
   rules: {
-    'import/order': [
-      'warn',
+    "import/order": [
+      "warn",
       {
-        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
-        'newlines-between': 'always',
-        alphabetize: { order: 'asc', caseInsensitive: true },
-        pathGroups: [
-          { pattern: '@root/**', group: 'internal', position: 'after' },
-          { pattern: 'src/**', group: 'internal', position: 'after' },
-          { pattern: 'web/**', group: 'internal', position: 'after' },
-          { pattern: 'scripts/**', group: 'internal', position: 'after' },
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type",
         ],
-        pathGroupsExcludedImportTypes: ['builtin'],
+        "newlines-between": "always",
+        alphabetize: { order: "asc", caseInsensitive: true },
+        pathGroups: [
+          { pattern: "@root/**", group: "internal", position: "after" },
+          { pattern: "src/**", group: "internal", position: "after" },
+          { pattern: "web/**", group: "internal", position: "after" },
+          { pattern: "scripts/**", group: "internal", position: "after" },
+        ],
+        pathGroupsExcludedImportTypes: ["builtin"],
       },
     ],
   },

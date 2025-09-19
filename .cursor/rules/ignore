@@ -1,12 +1,6 @@
 node_modules/
-dist/
-coverage/
 .git/
 .github/
-*.log
-example.har
-*.har
-fixtures/
 
 
 

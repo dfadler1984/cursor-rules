@@ -63,6 +63,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
   - Attach: `assistant-git-usage.mdc`
   - PR triggers: pr|pull request|open pr|create pr → prefer repo script `yarn pr:create` (Octokit) instead of GH CLI
 - ERD creation
+
   - Triggers: <verb> + <erd-term> [optional: <lite|quick>]
     - Verbs: create|generate|draft|write|produce
     - ERD terms: erd|engineering requirements document|engineering requirements doc|engineering spec|eng spec
@@ -100,16 +101,19 @@ This lightweight router keeps context minimal by attaching specific rules only w
 ## Fuzzy matching & confirmation
 
 - Confidence tiers
+
   - High: exact phrase or strong synonym match → attach immediately.
   - Medium: fuzzy match (minor typos/synonyms/partial phrase) → ask a 1‑line confirmation; attach only on explicit confirmation (e.g., “Yes”, “Go”).
   - Low: vague/ambiguous → ask one clarifying question; do not attach.
 
 - Fuzzy signals (medium confidence examples)
+
   - Edit distance ≤2 around key phrases (e.g., "generate tasks from erd" → "gen tasks erd").
   - Synonyms: generate|create|draft; tasks|checklist|steps; ERD|engineering requirements.
   - Partial patterns: "tasks from erd", "erd tasks", "make tasks for <feature>".
 
 - Confirmation prompt (for medium confidence)
+
   - "I think you want to generate tasks from an ERD and use the two‑phase flow (parent tasks → ‘Go’ → sub‑tasks). Proceed?"
 
 - Safeguards
@@ -122,7 +126,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - "Add tests for the API client" → attach: testing, tdd-first
 - "Can you add a spec for rules-list?" → attach: testing, tdd-first
 - "Refactor parse.ts to be pure" → attach: refactoring, testing
-- "Fix bug in har-summary CLI" → attach: tdd-first, code-style, testing
+- "Fix bug in summary CLI" → attach: tdd-first, code-style, testing
 - "Increase Jest coverage for parse" → attach: testing, tdd-first
 - "Create an ERD for checkout flow" → attach: create-erd, guidance-first
 - "Create ERD" → ask for feature name and full vs lite; then attach: create-erd, guidance-first

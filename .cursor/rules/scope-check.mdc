@@ -47,7 +47,7 @@ healthScore:
 - **Exact change**: imperative one-liner, include identifiers when possible.
 - **Success criteria**: measurable check (test assertion, output text, screenshot delta, perf budget). Include failure cases if relevant.
 - **Constraints**: perf, API compat, architecture; call out semver/compat requirements.
-- **Run instructions**: commands to build/test/repro (e.g., `npm run dev`, `npm test`, `node dist/cli/har-summary.js example.har`), sample inputs, and any env notes (redacted).
+- **Run instructions**: commands to build/test/repro (e.g., `npm run dev`, `npm test`, `node dist/cli/summary.js example.txt`), sample inputs, and any env notes (redacted).
 
 ### Exceptions
 

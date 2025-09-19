@@ -24,13 +24,13 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
   - Never call `git commit` directly for multi‑line messages.
 - Flexible modes:
   - Quick mode (header only) for small, obvious changes.
-    - Example: `fix(parse): handle empty HAR entries`
+    - Example: `fix(parse): handle empty entries`
   - Structured mode (header + body + footers) for multi-file or user‑visible changes, breaking changes, or rationale.
     - Non-interactive example using multiple `-m` flags:
       ```bash
       git commit -m "feat(cli): add endpoints summary" \
         -m "- Prints counts and unique domains" \
-        -m "- Updates docs and example.har" \
+        -m "- Updates docs and example.txt" \
         -m "Refs: T123"
       ```
     - Breaking change example:
@@ -44,7 +44,7 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
 
 - Preferred pattern: `<github-login>/<type>-<feature-name>-<task>`
   - Types follow Conventional Commits (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert).
-  - Example: `dfadler1984/feat-har-endpoints-summary`
+  - Example: `userLogin/feat-thing-endpoints-summary`
 - Minimum requirement: `<github-login>/<task>`.
 - The helper script resolves the GitHub login from the `origin` remote; it falls back to `git config user.name` when origin is not GitHub.
 
