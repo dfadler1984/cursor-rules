@@ -1,0 +1,24 @@
+description: Guidelines for Git operations in development
+triggers: ["@git", "how to commit"]
+lastReviewed: 2025-09-18
+healthScore: green
+
+## Process
+
+1. Clarify: Ask context (e.g., "Commit, branch, or push?").
+2. Guide: Provide steps (e.g., "git add .; git commit -m 'message'; git push").
+3. Enforce: Check TDD status via spec-driven.mdc; prompt if tests fail.
+4. Reflect: Log usage; suggest Git optimizations.
+
+- Vibe: "@git; guide with checks."
+
+## Config
+
+```json
+// .cursor/config.json
+{
+  "gitUsage": {
+    "branchPrefix": "feature/"
+  }
+}
+```

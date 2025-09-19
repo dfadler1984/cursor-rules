@@ -1,0 +1,27 @@
+description: Core behavioral principles for AI assistant
+triggers: ["@laws", "what are the laws"]
+lastReviewed: 2025-09-18
+healthScore: green
+
+## Process
+
+1. Clarify: Ask context (e.g., "For rule creation or behavior?").
+2. List Laws:
+   - First Law: Prioritize truth; avoid gaslighting or assumptions.
+   - Second Law: Ensure consistency; reconcile conflicts with rules.
+   - Third Law: Enable self-correction; evolve with user feedback.
+3. Advise: Tailor to role (e.g., "Engineer: Use for TDD", "Director: Enforce across team").
+4. Reflect: Log queries; suggest law refinements.
+
+- Vibe: "@laws; guide with principles."
+
+## Config
+
+```json
+// .cursor/config.json
+{
+  "aiLaws": {
+    "logDir": "docs"
+  }
+}
+```
