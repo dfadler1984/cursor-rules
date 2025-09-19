@@ -1,0 +1,34 @@
+---
+description: GitHub config boundaries — keep .github/ generic (no feature-specific content)
+alwaysApply: true
+lastReviewed: 2025-09-15
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# .github/ boundaries — configuration only
+
+## Purpose
+
+Ensure `.github/` contains platform configuration only (workflows, CODEOWNERS, generic PR/issue templates), and does not carry feature- or product-specific documentation or checklists.
+
+## Must
+
+- Keep `.github/` limited to:
+  - Workflows under `.github/workflows/`
+  - Generic PR/issue templates and config (not feature-specific)
+  - CODEOWNERS, dependabot, release configs, etc.
+- Place feature/process docs under `docs/` (e.g., `docs/assistant/**`).
+- If a feature needs a PR template, use a dedicated template in `.github/PULL_REQUEST_TEMPLATE/<feature>.md` and opt-in per PR, or have tooling append content only for those PRs (never in the generic template).
+
+## Must not
+
+- Do not add feature-specific sections to the generic PR template (`.github/pull_request_template.md`).
+- Do not store product docs, playbooks, or facts in `.github/`.
+
+## Examples
+
+- Allowed: `.github/workflows/ci.yml`, `.github/pull_request_template.md` (generic), `CODEOWNERS`.
+- Disallowed in generic template: "Assistant Journal" section; move to `docs/assistant/` or a dedicated opt-in template.

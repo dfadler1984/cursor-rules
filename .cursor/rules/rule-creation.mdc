@@ -1,0 +1,36 @@
+---
+description: How to create and update project rules for this repo
+globs: .cursor/rules/**
+alwaysApply: false
+lastReviewed: 2025-09-10
+healthScore:
+  content: green # Clear creation guidelines, good examples
+  usability: green # Concise workflow, actionable steps
+  maintenance: green # Recently reviewed, valid references
+---
+
+## When to create a rule
+
+- Addresses a recurring, repo-specific issue.
+- Not covered by existing rules or external docs (link out if it is).
+- Narrow scope; one clear purpose per file.
+
+## How to write it
+
+- Keep it focused (50–150 lines, 2–4 sections).
+- Use precise `globs` so auto-attachment only triggers where intended.
+- Include 1–2 repo-relevant examples; link related rules instead of duplicating.
+- See `front-matter.mdc` for complete front matter standards.
+
+## Avoid
+
+- Duplicating generic guidance (testing basics, SOLID, generic Git).
+- Over-broad `globs` (e.g., `**/*`) that cause noisy attachments.
+- Project names/paths from other repos.
+
+## Update workflow
+
+1. Make targeted edits; keep filenames stable.
+2. Update `lastReviewed` and adjust `healthScore` if scope/quality changes.
+3. See `rule-maintenance.mdc` for validation procedures.
+4. Test in Cursor by referencing affected files to confirm the rule attaches appropriately.

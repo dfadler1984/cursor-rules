@@ -1,0 +1,33 @@
+---
+description: Respond with plan-only when message starts with "DRY RUN:"
+alwaysApply: false
+lastReviewed: 2025-09-11
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+## Purpose
+
+When a user message begins with `DRY RUN:`, treat the request as guidance-only: produce a concise plan and step list, and do not perform any actions.
+
+## Behavior
+
+- Detect exact-phrase prefix `DRY RUN:` (case-sensitive) at the start of the message.
+- Output only:
+  - a short plan (1–3 bullets) and
+  - a bulleted list of steps to accomplish the task.
+- Do not execute tools, file edits, terminal commands, or modify todos.
+- End with a brief consent prompt (e.g., "Proceed?").
+
+## Precedence
+
+- This trigger has highest priority and overrides other routing rules.
+- Combine with `guidance-first.mdc` tone (clarify if scope is unclear), but avoid implementation.
+
+## Related
+
+- See `assistant-behavior.mdc` for consent requirements
+- See `guidance-first.mdc` for guidance handling
+- See `intent-routing.mdc` for trigger wiring

@@ -1,0 +1,109 @@
+---
+description: Coding Standards for JS/TS
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx
+alwaysApply: true
+lastReviewed: 2025-09-11
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Functional & Declarative Code Style
+
+Applies to all JavaScript and TypeScript in this repository. Deviations are rare and must be explicitly justified with an owner, reason, and expiry.
+
+## Principles (must)
+
+- Immutability by default: prefer `const` and persistent updates over mutation.
+- Purity first: functions are pure by default; isolate effects at boundaries (I/O, time, randomness, DOM, process env).
+- Composition over control flow: use `map`/`filter`/`reduce`/combinators and pipelines over loops and step-wise mutation.
+- Data over objects: avoid classes/inheritance; use discriminated unions and plain data structures.
+- Declarative APIs: describe what, not how; avoid imperative step-by-step state changes.
+- Named exports only; avoid default exports.
+- Predictable errors: prefer `Result`/`Either`-style returns for recoverable failures; reserve `throw` for truly exceptional, unrecoverable cases.
+- Explicit context: pass dependencies via parameters; avoid globals/singletons.
+
+## Do / Don’t
+
+- Do: use `const`, readonly types, spreads/copies for updates, `Map/Set` for dynamic collections, and function composition/pipelines.
+- Don’t: mutate arguments/state, use classes/`this`, write `for/while` loops with mutation, rely on hidden global state, or use default exports.
+
+```ts
+// Prefer (declarative + pure)
+const activeUserNames = users
+  .filter((u) => u.active)
+  .map((u) => u.name)
+  .toSorted((a, b) => a.localeCompare(b));
+
+// Avoid (imperative + mutable)
+let names: string[] = [];
+for (let i = 0; i < users.length; i++) {
+  if (users[i].active) names.push(users[i].name);
+}
+names.sort();
+```
+
+## Effects & Boundaries
+
+- Keep domain logic pure; return values instead of performing side effects.
+- Perform effects only in boundary modules (adapters/controllers) or, in React, inside event handlers/`useEffect`.
+- Dependency injection via parameters enables testability and purity.
+
+```ts
+// Domain (pure)
+export type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
+
+export function parseModel(input: string): Result<Model, string> {
+  try {
+    return { ok: true, value: decode(input) };
+  } catch {
+    return { ok: false, error: 'Invalid input' };
+  }
+}
+
+// Effect boundary (impure)
+export async function loadModel(path: string): Promise<Result<Model, Error>> {
+  try {
+    const data = await fs.promises.readFile(path, 'utf8');
+    return parseModel(data);
+  } catch (e) {
+    return { ok: false, error: e as Error };
+  }
+}
+```
+
+## Data & Types
+
+- Prefer discriminated unions for variants; use exhaustive `switch` to handle all cases.
+- Prefer readonly arrays/tuples/props and `as const` where appropriate.
+- Choose structures by intent:
+  - Objects/`Record<K,V>` for fixed, known key sets and JSON-shaped data.
+  - `Map/Set` for dynamic/unbounded keys, frequent insert/delete, or non-string keys.
+
+```ts
+type Status = { _tag: 'Idle' } | { _tag: 'Loading' } | { _tag: 'Error'; message: string };
+
+function view(s: Status): string {
+  switch (s._tag) {
+    case 'Idle':
+      return '…';
+    case 'Loading':
+      return 'Loading…';
+    case 'Error':
+      return `Error: ${s.message}`;
+  }
+}
+```
+
+## Pipelines & Composition
+
+- Prefer expressing transformations as pipelines. Use lightweight helpers if needed, otherwise favor native method chaining.
+- Small, single-purpose functions compose better than large multi-step procedures.
+
+## Imports & Module Shape
+
+- Named exports only; keep modules side-effect free by default.
+- Favor flat, composable modules inside feature folders; avoid deep cross-feature imports—prefer importing from a feature’s public `index`.
+
+ 

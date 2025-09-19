@@ -1,0 +1,42 @@
+---
+description: Handle guidance requests by asking questions before proposing implementation
+alwaysApply: false
+lastReviewed: 2025-09-10
+healthScore:
+  content: green # Clear guidance vs implementation distinction
+  usability: green # Good examples, scannable format
+  maintenance: green # Recently reviewed, valid references
+---
+
+## When to Apply
+
+When user asks guidance questions (see `user-intent.mdc` for complete pattern recognition).
+
+## Required Behavior
+
+1. **Ask clarifying questions first** - understand the specific need before proposing solutions
+2. **Explore existing patterns** - check current rules/patterns before suggesting new approaches
+3. **Provide guidance, not implementation** - explain options and trade-offs
+4. **Ask for consent** before creating files or systems
+
+## Anti-patterns
+
+- Jumping to implementation without understanding the need
+- Creating systems when guidance was requested
+- Assuming scope from guidance questions
+- Building solutions before asking clarifying questions
+
+## Examples
+
+### Good Response
+
+"To help you choose the best approach, I need to understand: What specific [X] do you need? Are you thinking about [option A] or [option B]? What constraints should I consider?"
+
+### Bad Response
+
+_[Creates systems or files without asking clarifying questions]_
+
+## Related
+
+- See `scope-check.mdc` for guidance vs implementation detection
+- See `assistant-behavior.mdc` for consent requirements

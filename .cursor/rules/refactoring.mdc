@@ -1,0 +1,36 @@
+---
+description: Refactoring workflow and safeguards
+globs: **/*
+alwaysApply: false
+lastReviewed: 2025-09-11
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+## Refactoring Workflow
+
+Refactors should preserve behavior. Keep changes incremental, reversible, and covered by tests.
+
+### Musts
+
+- Validate with tests before and after changes.
+  - Run the full test suite before refactoring to establish a green baseline.
+  - Run tests after each meaningful edit; revert quickly on regressions.
+- Keep effects isolated; extract pure helpers and compose them, per `code-style.mdc`.
+- Prefer small, end-to-end slices; defer cross-cutting cleanups.
+- Maintain named exports; avoid defaults.
+
+### Recommended Steps
+
+1. Read existing tests to understand intended behavior.
+2. If gaps exist, add a focused spec first (TDD red).
+3. Perform minimal refactor to make the spec green.
+4. Run the full suite and fix any regressions.
+
+## Related
+
+- See `tdd-first.mdc` for methodology
+- See `testing.mdc` for test conventions
+- See `code-style.mdc` for functional/declarative standards

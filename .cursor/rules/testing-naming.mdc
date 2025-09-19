@@ -1,0 +1,30 @@
+---
+description: Testing file naming and preferred test APIs
+globs: **/*.spec*,**/*.test*
+alwaysApply: false
+lastReviewed: 2025-09-11
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+## File naming
+
+- Prefer file names ending in `.spec.*` over `.test.*`.
+- Examples (Do):
+  - `src/foo/foo.spec.ts`
+  - `web/src/components/Button/Button.spec.tsx`
+- Examples (Not that):
+  - `src/foo/foo.test.ts`
+  - `web/src/components/Button/Button.test.tsx`
+
+## Colocation (must)
+
+- Colocate tests next to the file under test.
+- For scripts and libraries under `scripts/**`, place specs alongside sources (e.g., `scripts/git/lib/branch-validate.spec.ts`).
+
+## Test API
+
+- Prefer `it()` over `test()` (Jest supports both).
+- Use behavior-focused, present-tense titles.

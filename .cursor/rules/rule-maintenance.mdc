@@ -1,0 +1,99 @@
+---
+description: Rule maintenance cadence, validation, and conflict resolution for this repo
+globs: .cursor/rules/**
+alwaysApply: false
+lastReviewed: 2025-09-14
+healthScore:
+  content: green # Accurate maintenance procedures
+  usability: green # Clear checklist format, actionable steps
+  maintenance: green # Recently reviewed, current validation script
+---
+
+## Cadence
+
+- Monthly quick review; quarterly deep review.
+
+## Checks per file
+
+- See `front-matter.mdc` for complete front matter standards.
+- Examples are still accurate; `globs` target intended files.
+- Cross-references resolve; no contradictory guidance.
+- Update `lastReviewed` on any substantive edit.
+
+## Date verification
+
+- **Always check current date**: Run `date +%Y-%m-%d` to get the actual current date
+- **Never assume dates**: Don't guess or assume what the current date should be
+- **Format**: Use YYYY-MM-DD format (e.g., `2025-09-10`)
+- **When to update**: Only update `lastReviewed` when making substantive changes to rule content
+
+## Content relevance review
+
+- **Scope alignment**: Does the content match the rule's stated purpose and `globs`?
+- **Detail balance**: Is the level of detail appropriate for the target audience and use case?
+- **Organization**: Are sections logically ordered and easy to navigate?
+- **Actionability**: Can someone follow the guidance without additional context?
+- **Completeness**: Are there gaps that would leave users confused or stuck?
+- **Redundancy**: Is any content duplicated elsewhere or unnecessarily verbose?
+
+## Rule Organization
+
+- When multiple rules reference the same details, consolidate them into a shared rule file
+- Reference the shared rule from other files rather than duplicating content
+- Only create new rule files when there's a distinct purpose that can't be consolidated
+- Prefer referencing existing rules over creating overlapping guidance
+
+### Progressive attachment
+
+- Prefer small, focused rules that can be attached incrementally (e.g., a minimal TDD checklist vs full testing guide).
+- Attach the thinnest rule that unblocks the current step; load more detailed rules only when needed (e.g., when creating tests or after a failure).
+- Keep routing lightweight by mapping signals → minimal rules first; avoid loading broad guidance prematurely.
+
+## Conflicts
+
+- Prefer consolidate/clarify over adding more rules.
+- Deprecate with a header and pointer; remove only after replacement lands.
+
+## Looping/Deadlock Mitigations
+
+- Ensure every "must" has a non-contradictory path to compliance.
+  - If two rules gate each other (e.g., "always do X before Y" and "never do X without Z" where Z depends on Y), clarify precedence or add an escape valve.
+- Add explicit escape valves for consent and creation gates:
+  - If consent is required and absent, ask one concise question and then pause (no retries).
+  - If TDD requires creating a new spec but file creation needs consent, ask once; if no reply, pause.
+- Scope-check up front to avoid oscillation:
+  - Require a minimal acceptance bundle (targets, exact change, success criteria). If missing, ask one clarifying question and stop.
+- Make heavy defaults advisory in guidance-only conversations:
+  - Treat parallel tool calls and mandatory status updates as advisory when the user only seeks guidance (no edits/commands requested).
+- Single attempt per gate:
+  - Do not re-ask the same consent/clarification within the same interaction; escalate to pause after one attempt.
+
+## Reference validation
+
+- **Automated validation**: Run `yarn rules:validate` to check all cross-references
+- **Update broken links**: If a referenced file is renamed or deleted, update all references immediately
+- **Use consistent naming**: Reference files by their exact filename (including `.mdc` extension)
+
+## Validation
+
+- **Always run the validation script** before committing rule edits: `yarn rules:validate`
+- The script automatically validates front matter, cross-references, and format requirements
+- Manual content review is still needed for relevance and quality (see Content relevance review section)
+
+## Capabilities synchronization
+
+- Keep `capabilities.mdc` in sync whenever rules, rule scripts, or referenced repo scripts/behaviors change.
+- Trigger points:
+  - New/changed rule files under `.cursor/rules/*.mdc`
+  - New/changed rule scripts under `.cursor/rules/scripts/*`
+  - New/changed repo scripts referenced by rules (e.g., `package.json` scripts)
+  - Changes to assistant behavior/routing that affect what users can ask
+- Steps:
+  1. Inventory current rules and metadata: `yarn rules:list`
+  2. Update `capabilities.mdc`:
+     - Add/remove items under “What you can ask the assistant to do”
+     - Reflect new validation/automation commands (e.g., `yarn rules:validate`, `yarn rules:list`)
+     - Keep platform features in `cursor-platform-capabilities.mdc` (don’t duplicate)
+  3. Update dates: set `lastReviewed` (YYYY-MM-DD) on edited rule(s) and `capabilities.mdc`
+  4. Validate: `yarn rules:validate` and fix issues before merging
+  5. PR hygiene: include a checklist item “Updated `@capabilities`” in the PR description

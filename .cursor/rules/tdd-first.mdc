@@ -1,0 +1,139 @@
+---
+description: Test-driven development as default approach
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs
+alwaysApply: true
+lastReviewed: 2025-09-14
+healthScore:
+  content: green     # Clear TDD principles, good examples
+  usability: green   # Well-organized, practical guidance
+  maintenance: green # Recently reviewed, current practices
+---
+
+# TDD First: Test-Driven Development
+
+## When to use TDD
+
+**Always** when implementing any code changes. No exceptions.
+
+- Bug fixes (test the bug, then fix)
+- New features (test the behavior, then implement)
+- Refactoring (ensure tests pass before/after)
+- API changes (test the contract, then update)
+- System updates (test new behavior, then implement)
+
+If you don't understand what behavior to test, ask the engineer for clarification before writing any implementation code.
+
+## The cycle
+
+1. **Red**: Write a failing test that describes the desired behavior
+2. **Green**: Write minimal code to make the test pass
+3. **Refactor**: Clean up while keeping tests green
+
+## Coverage of effects (must)
+
+- Isolate effects (subprocess, env, FS, network, time/random) behind injected adapters.
+- Keep decision logic in pure functions; write failing specs for the pure core first.
+- Adapters receive minimal "contract" checks (parsing/shape), not full E2E.
+
+### Example (effects seam)
+
+```ts
+// Pure core
+export function resolveGithubLogin(input: {
+  tokenLogin?: string;
+  ciActor?: string;
+  ghCliLogin?: string;
+  originOwner?: string;
+  fallbackUser: string;
+}): string {
+  return (
+    input.tokenLogin || input.ciActor || input.ghCliLogin || input.originOwner || input.fallbackUser
+  );
+}
+
+// Boundary (CLI)
+async function main() {
+  const login = resolveGithubLogin({
+    tokenLogin: await readFromOctokit(),
+    ciActor: process.env.GITHUB_ACTOR?.toLowerCase(),
+    ghCliLogin: readFromGhCli(),
+    originOwner: readOriginOwner(),
+    fallbackUser: readGitUserName(),
+  });
+  console.log(login);
+}
+```
+
+## Hard gate (repo‑wide, no skip)
+
+- Scope: applies to all maintained sources: `**/*.{ts,tsx,js,jsx}` excluding `node_modules/**`, `dist/**`, `build/**`, `web/dist/**`.
+- Owner spec rule (deterministic): for any edited file `f.ext`, the owner spec is the colocated `f.spec.ext` in the same folder. If N sources change, N owner specs must change.
+- New files: creating `a.ts` requires creating `a.spec.ts` in the same folder (tsx/js/jsx analogously).
+- Public API changes: added/changed exports in `f` must be reflected in `f.spec.*` (add or update the appropriate `describe`).
+- Unit focus: even during refactors that touch multiple files, each file’s owner spec must show Red → Green for its own behavior. Integration specs are optional extras, never substitutes.
+
+## Pre‑edit confirmation (agent behavior)
+
+- Before any code edit to `**/*.{ts,tsx,js,jsx}`, the assistant must:
+  - Infer and list exact owner spec path(s) to add/update (colocated), and
+  - Provide a one‑line failing assertion description for each owner spec (the "Red").
+- No skip path: if tests cannot be authored as initially framed, adjust the approach (use the FP effects seam) rather than skipping tests.
+- One-shot consent for new specs: If creating a new owner spec is required and file creation needs consent, ask once; if no reply, pause.
+
+## Effects seam (functional style)
+
+- Keep resolvers pure: `result = resolver(input, deps)` where `deps` is a plain object of effect functions.
+- Put all external effects behind `deps` (subprocess, env, FS, network, time/random, ESM‑only libs).
+- CLIs may use dynamic import at the boundary; unit tests never import third‑party ESM directly.
+- Unit tests cover resolvers with fake `deps`; adapters receive minimal contract checks when warranted.
+
+## Why TDD
+
+- **Leverage engineering tools**: Use tests to verify correctness, not manual analysis
+- **Avoid trial-and-error**: Tests provide immediate feedback on changes
+- **Make requirements explicit**: Tests document expected behavior
+- **Catch regressions**: Existing tests prevent breaking changes
+
+## Examples
+
+### Bug fix
+
+```ts
+// 1. Red: Test the bug
+it('handles empty input gracefully', () => {
+  expect(() => processInput('')).not.toThrow();
+});
+
+// 2. Green: Fix the bug
+function processInput(input) {
+  if (!input) return null;
+  // ... rest of logic
+}
+```
+
+### New feature
+
+```ts
+// 1. Red: Test the new behavior
+it('validates CSV format for globs', () => {
+  expect(validateGlobs("['invalid']")).toThrow(/invalid format/);
+  expect(validateGlobs('valid,pattern')).not.toThrow();
+});
+
+// 2. Green: Implement validation
+function validateGlobs(globs) {
+  if (/[\[\]]/.test(globs)) {
+    throw new Error('invalid format; expected CSV');
+  }
+}
+```
+
+## Anti-patterns
+
+- **Implement first, test later**: Leads to incomplete test coverage
+- **Manual verification**: Inefficient and error-prone
+- **Skip tests for "simple" changes**: Simple changes break things too
+
+## Related
+
+- See `testing.mdc` for test structure and naming conventions

@@ -1,0 +1,23 @@
+---
+description: Cursor platform capabilities — docs as source of truth and citations
+alwaysApply: true
+lastReviewed: 2025-09-10
+healthScore:
+  content: green # Accurate platform capabilities
+  usability: green # Concise reference format
+  maintenance: green # Recently reviewed, valid citations
+---
+
+## Source of truth and citations
+
+- Must: Treat the official Cursor documentation as the single source of truth for capabilities.
+- Must: When stating a Cursor capability, include a citation to the relevant docs page.
+- Must: If uncertain, say so and defer to the docs rather than guessing.
+- Should: Prefer quoting or closely paraphrasing the docs.
+- Avoid: Speculating or inferring from marketing/changelogs without a docs citation.
+- Resolve conflicts: If memory or prior guidance conflicts with the docs, reconcile to the docs and note the correction.
+
+## Scope
+
+- Applies when discussing Cursor product features (limits, models, tool use, context, UI behaviors).
+- For repo-specific automations, see `@capabilities`.

@@ -1,0 +1,63 @@
+---
+description: Favor tooling over manual steps; use detective mode only when signals warrant it
+alwaysApply: true
+lastReviewed: 2025-09-13
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Favor Tooling (Default Working Mode)
+
+Prefer automated tools and quick, targeted checks over manual procedures. Switch to “detective mode” only when signals indicate something’s off.
+
+## Principles
+
+- Tooling first: rely on linters, type checkers, tests, and generators before manual scanning.
+- Smallest useful check: run the smallest spec/CLI that hits the change (behavior ping) instead of full suites.
+- Widen-then-narrow on signals: only expand scope (whole-file scan, cross-file glance) after errors or mismatches.
+- Single source of truth: define aliases and core mappings once (tsconfig) and derive others (Jest/ESLint) from it.
+
+## Default Behavior
+
+- After an edit, do one behavior ping relevant to the change:
+  - Example (tests): `yarn test path/to/spec -t "focused name"`
+  - Example (CLI): run the edited command with a minimal argument set
+- Autofix-first: run linter autofixes before manual refactors. If autofix changes semantics or adds noise, revert and fix manually.
+- Scoped checks locally: prefer file/dir-scoped lint/type/test runs; leave full runs to CI, unless doing a risky refactor.
+
+## When to Enter Detective Mode (triggered)
+
+- Persisting errors (e.g., unresolved import after alias edits)
+- Behavior mismatch (change not reflected at runtime)
+- Flaky or unexpected failures in targeted checks
+
+If triggered, perform:
+
+- Whole-file scan: skim top→bottom to spot duplicates/overrides/shadowed blocks
+- Cross-file glance: check sibling/related files for conflicting patterns (duplicate routes/providers/configs)
+- Print effective config for the affected file(s):
+  - ESLint: `npx eslint --print-config <file>`
+  - Jest: `npx jest --showConfig`
+  - TypeScript: `npx tsc --showConfig`
+
+## Tooling Catalog (use these instead of manual work)
+
+- Linting: ESLint with TypeScript + import plugins; prefer `--fix` first
+- Architecture: ESLint boundaries or a light dependency graph when needed
+- JSON/YAML keys: JSONC/YAML ESLint plugins for duplicate keys or structure issues
+- CI preflight (lightweight):
+  - Full lint/type/test
+  - Sanity checks for single-entry configs (e.g., single `module.exports` in config files)
+
+## Notes
+
+- Time budget: if any local check exceeds a reasonable threshold, prefer watchers or defer to CI for full runs.
+- Keep overrides minimal and necessary (e.g., project pointers for sub-packages like `web/`).
+
+## Related
+
+- See `rule-maintenance.mdc` for keeping rules current
+- See `testing.mdc` and `tdd-first.mdc` for test practices
+- See `assistant-git-usage.mdc` for commit gates and Conventional Commits

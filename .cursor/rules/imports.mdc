@@ -1,0 +1,102 @@
+---
+description: Import placement and ordering for TS/JS modules
+globs: src/**/*.ts,src/**/*.tsx,web/src/**/*.ts,web/src/**/*.tsx,scripts/**/*.ts
+alwaysApply: false
+lastReviewed: 2025-09-13
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Imports — Placement and Order
+
+## Placement
+
+- Put all `import` statements at the very top of the file.
+- Allowed before imports:
+  - File banner comments (license/overview)
+  - Directive prologues: 'use client', 'use strict'
+- Avoid `require(...)`; use ESM `import` syntax.
+- Keep modules side-effect free by default; prefer named exports (avoid default exports).
+
+## Order (groups, with a blank line between groups)
+
+1. Node builtins (e.g., `fs`, `path`)
+2. External packages (from `node_modules`)
+3. Internal packages/workspaces (this repo, e.g., `src/**`, `web/**`, `scripts/**`, `@root/**`)
+4. Parent-relative (`../...`)
+5. Sibling-relative (`./...`)
+6. Index (`.`) if used
+7. Side-effect imports (polyfills, CSS, global styles)
+   - Example: `import './styles.css'`
+
+## Within-group sorting
+
+- Alphabetize by module specifier (case-insensitive), one import per line.
+- Keep type-only imports adjacent to their value imports; prefer `import type { X } from '...'`.
+
+## Type-only imports (TypeScript)
+
+- Use `import type { Foo } from '...'` for types.
+- Do not mix value and type in the same named list; split into two imports if needed.
+
+## Examples
+
+Good (web component):
+
+```ts
+'use client';
+
+import path from 'path';
+import React, { useMemo } from 'react';
+
+import { analyzeHar } from 'src/analyze';
+import type { HarSummary } from 'src/types';
+
+import { toDuration } from '../lib/format';
+import type { Row } from '../types';
+
+import './component.css';
+```
+
+Good (script):
+
+```ts
+import fs from 'fs';
+import { EOL } from 'os';
+
+import { buildMessage } from '../../lib/commit';
+import type { CommitOptions } from '../../lib/types';
+```
+
+## Enforcement (ESLint)
+
+- Use `eslint-plugin-import` with `import/order`:
+
+```js
+// .eslintrc.cjs (fragment)
+module.exports = {
+  rules: {
+    'import/order': [
+      'warn',
+      {
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+        'newlines-between': 'always',
+        alphabetize: { order: 'asc', caseInsensitive: true },
+        pathGroups: [
+          { pattern: '@root/**', group: 'internal', position: 'after' },
+          { pattern: 'src/**', group: 'internal', position: 'after' },
+          { pattern: 'web/**', group: 'internal', position: 'after' },
+          { pattern: 'scripts/**', group: 'internal', position: 'after' },
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
+      },
+    ],
+  },
+};
+```
+
+## Related
+
+- See `code-style.mdc` for functional/declarative standards and named exports.

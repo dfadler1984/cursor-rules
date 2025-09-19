@@ -1,0 +1,106 @@
+---
+description: Assistant Git usage — commits, branch naming, and commit gates (tests/lint/types)
+alwaysApply: false
+lastReviewed: 2025-09-15
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Assistant Git Usage
+
+Defines commit message standards, minimal branch naming guidance, and when/how to run checks before committing. Optimized for assistant automation and human ergonomics.
+
+## Commit Messages
+
+- Use Conventional Commits 1.0.0 for headers, scopes, and footers.
+  - Reference: https://www.conventionalcommits.org/en/v1.0.0/
+- Length limits (must):
+  - Title/header ≤72 chars.
+  - Body lines ≤100 chars (wrap bullets; use multiple `-m` flags when needed).
+- Assistant behavior (hard rule):
+  - For any commit with a body, always use the commit helper (`yarn git:commit`).
+  - Never call `git commit` directly for multi‑line messages.
+- Flexible modes:
+  - Quick mode (header only) for small, obvious changes.
+    - Example: `fix(parse): handle empty HAR entries`
+  - Structured mode (header + body + footers) for multi-file or user‑visible changes, breaking changes, or rationale.
+    - Non-interactive example using multiple `-m` flags:
+      ```bash
+      git commit -m "feat(cli): add endpoints summary" \
+        -m "- Prints counts and unique domains" \
+        -m "- Updates docs and example.har" \
+        -m "Refs: T123"
+      ```
+    - Breaking change example:
+      ```bash
+      git commit -m "feat(api)!: change parse result shape" \
+        -m "BREAKING CHANGE: 'requests' renamed to 'entries'"
+      ```
+- Encourage small, atomic commits. Separate refactors from behavior changes when practical.
+
+## Branch Naming
+
+- Preferred pattern: `<github-login>/<type>-<feature-name>-<task>`
+  - Types follow Conventional Commits (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert).
+  - Example: `dfadler1984/feat-har-endpoints-summary`
+- Minimum requirement: `<github-login>/<task>`.
+- The helper script resolves the GitHub login from the `origin` remote; it falls back to `git config user.name` when origin is not GitHub.
+
+### Enforcement
+
+- Pre-push branch name validation runs via `simple-git-hooks` and `scripts/git/validate-branch-name.ts`.
+- Login derivation precedence: origin owner (GitHub) → CI actor (`GITHUB_ACTOR`) → token-authenticated API lookup (Octokit) → `git config user.name` fallback.
+
+## Pull Requests (Octokit, no GH CLI dependency)
+
+- Use the repo script to create PRs via the GitHub API:
+  - `yarn pr:create --title "..." [--body "..."] [--base master] [--head current]`
+- Auth: set `GITHUB_TOKEN` or `GH_TOKEN` in your environment. Fine‑grained or classic tokens are supported; minimum scope to open PRs is repo access for the target repository.
+- Fallback: when no token is available, the script prints a compare URL you can open in the browser.
+
+## Commit Gate (Tests/Lint/Types)
+
+- During TDD: run only tests relevant to the change for fast feedback.
+- Before commit (local gate): run full checks when reasonably fast
+  - Root workspace:
+    - `yarn test`
+    - `yarn lint`
+    - `yarn typecheck`
+  - Web workspace (no Jest tests):
+    - `yarn --cwd web tsc -b --noEmit`
+- Test colocation (must): colocate specs next to sources; no `__tests__/` directories.
+  - CI guard: `yarn guard:no-tests-dir` fails if `**/__tests__/**` exists.
+
+### Hooks and repo scripts
+
+- Pre-commit hooks must call repo scripts without extra path args; scripts should auto-detect targets.
+- Example: use `yarn lint:workflows` (no args); the script resolves `.github/workflows` internally.
+- Lockfile enforcement: a pre-commit step should verify that `yarn.lock` is staged whenever `package.json` changes.
+
+## Staging and Cleanup
+
+- Stage only intended files. Remove temporary artifacts and generated files not meant for source control before committing.
+- Never commit secrets. Redact tokens from messages and logs.
+  - See: `security.mdc` for comprehensive security guidelines
+
+## Cross-References
+
+- Task lists and ERD-derived tasks should reference this rule for commit and gate expectations.
+  - See: `generate-tasks-from-erd.mdc`
+  - See: `docs/git-checks-evolution.md`
+
+## Sources / Inspiration
+
+- Conventional Commits 1.0.0 — https://www.conventionalcommits.org/en/v1.0.0/
+- Task List Management Guidelines — https://raw.githubusercontent.com/snarktank/ai-dev-tasks/refs/heads/main/process-task-list.md
+
+## Tooling scripts
+
+- Create Conventional Commit messages:
+  - `yarn git:commit --type <type> [--scope <scope>] --description <desc> [--body <line>]... [--footer <f>]... [--breaking <desc>]`
+  - Types validated: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+- Suggest a branch name from your git user:
+  - `yarn git:branch-name --task <slug> [--type <feat|fix|...>] [--feature <name>]`
+  - Validates branch type (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)

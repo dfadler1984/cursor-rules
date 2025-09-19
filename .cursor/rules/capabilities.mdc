@@ -1,0 +1,93 @@
+---
+description: Discoverable capabilities for the repo's AI assistant
+alwaysApply: false
+lastReviewed: 2025-09-14
+healthScore:
+  content: green # Accurate capability descriptions
+  usability: green # Clear list format, easy to scan
+  maintenance: green # Recently reviewed, current features
+---
+
+## What you can ask the assistant to do
+
+### Rules management
+
+- Create new project rules (Always / Auto Attached / Agent Requested / Manual)
+- Update existing rules with proper metadata and globs
+- Validate rules (required front matter, healthScore, lastReviewed)
+- Suggest rule structure, scope, and examples
+
+### Validation and automation
+
+- Run `yarn rules:validate` to check metadata
+- List rules and their metadata via `yarn rules:list`
+
+### Engineering docs & planning
+
+- Create ERDs (Full or Lite) at `/docs/erd-[feature-name].md` after clarifying questions. See `create-erd.mdc`.
+- Generate tasks from an ERD (two‑phase): create `/tasks/tasks-[erd-file-name].md`, output parent tasks first, wait for “Go,” then add sub‑tasks and relevant files; TDD‑first. See `generate-tasks-from-erd.mdc`.
+
+### Git assistance
+
+- Generate Conventional Commits via CLI: `yarn git:commit ...` (supports bodies, footers, breaking changes). See `assistant-git-usage.mdc`.
+- Suggest branch names with validated types: `yarn git:branch-name ...`. See `assistant-git-usage.mdc`.
+- Run commit gates locally when requested: `yarn test`, `yarn lint`, `yarn typecheck` (and `yarn --cwd web tsc -b --noEmit` for the web workspace).
+- Create pull requests via Octokit (no GH CLI dependency): `yarn pr:create --title "..." [--body "..."] [--base master] [--head current]`.
+
+### Intent routing & user intent
+
+- Explain and apply routing per `intent-routing.mdc` and `user-intent.mdc` (triggers, signals, consent-after-plan, minimal rule attachment).
+- Enforce the JS/TS pre-edit TDD gate and scope-check protocol when implementation intent is detected.
+
+### Loop/Deadlock safeguards
+
+- Apply one-shot consent rules for verification/tool use (`assistant-behavior.mdc`).
+- Apply one-shot consent when a new owner spec must be created (`tdd-first.mdc`).
+- Pause when ambiguity persists after one clarifying question (`intent-routing.mdc`).
+- Add or refine mitigations in `rule-maintenance.mdc` under “Looping/Deadlock Mitigations”.
+
+### Rules automation
+
+- Generate/normalize rule front matter: `yarn gen:front`.
+- (See also: `yarn rules:list`, `yarn rules:validate`).
+
+### Testing & TDD
+
+- Author or adjust Jest specs following `testing-naming.mdc` and `testing-structure.mdc`.
+- Enforce TDD cycle: add failing spec → implement minimal change → run focused tests (`yarn test path -t "name"`) → refactor. See `tdd-first.mdc`.
+
+### Imports & formatting
+
+- Organize imports per `imports.mdc` (grouping, alphabetization, type-only imports) and keep modules side-effect free by default.
+
+### Security & workspace policy
+
+- Audit Cursor workspace trust and autoruns: check `.vscode/tasks.json` for `runOn: "folderOpen"`, advise removal; prefer manual runs. See `workspace-security.mdc`.
+- Run security scan: `yarn security:scan`.
+
+### CI/tooling assistance
+
+- Lint GitHub workflows: `yarn lint:workflows`.
+- Install Actionlint locally when needed: `yarn install:actionlint`.
+- Run config preflight checks: `yarn preflight`.
+
+### Validation gates & helpers
+
+- Validate PR titles locally: `yarn pr:title:check` (programmatic commitlint).
+- Enforce spec-diff in CI: `scripts/ci/enforce-specs-in-diff.ts` (TS/JS changes require colocated spec changes).
+- Run related tests pre-commit: `yarn test:related`.
+- Validate branch name pre-push: `scripts/git/validate-branch-name.ts`.
+
+### How to invoke
+
+- Reference this rule: `@capabilities`
+- Ask directly in chat: “What can you do here?” or “List available tasks.”
+
+### Adding new capabilities
+
+- Add new sections here describing new tasks as they’re implemented
+- Keep entries short and action-oriented
+
+### Platform reference
+
+- For Cursor platform features and constraints, see `@cursor-platform-capabilities`.

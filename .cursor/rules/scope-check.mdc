@@ -1,0 +1,61 @@
+---
+description: Protocol for detecting vague/oversized requests; clarify/split and seek consent
+alwaysApply: true
+lastReviewed: 2025-09-11
+healthScore:
+  content: green # Accurate guidance, addresses stated purpose clearly
+  usability: green # <100 lines, scannable structure, minimal duplication
+  maintenance: green # Recently reviewed, valid cross-references
+---
+
+## Quick Checklist
+
+- **Triggers**: vague goal • oversized scope • contradictions • risky unknowns • context bloat
+- **Do next**:
+  1. Scope check: 1–2 bullets naming the top risk(s)
+  2. Clarify or split: ask ≤3 precise questions or propose a minimal slice (+ 1–2 follow-ups)
+  3. Safe next step: state exact edit/command + expected effect; ask consent
+- **Acceptance bundle**:
+  - Target paths/files/components (name functions if relevant)
+  - Exact change (one sentence, imperative)
+  - Success criteria (measurable), constraints, run/repro commands + sample input
+- **Fast-track**: If the bundle is complete (e.g., "Run `npm test`", "Fix typo in `README.md`"), skip to action and ask "Proceed?"
+
+## When to Trigger
+
+- **Vague goal**: missing targets or acceptance criteria. Ask for paths, exact change, success criteria, repro input.
+- **Oversized scope**: cross-cutting or multi-feature. Propose one minimal end-to-end slice first.
+- **Contradictions**: docs/code/tests disagree. Ask which source is authoritative.
+- **Risky unknowns**: missing commands, env, or external deps. Request run commands and sample inputs.
+- **Context bloat**: long threads/many files/ambiguous refs. Restate a narrowed target and request explicit names.
+
+## Assistant Behavior
+
+1. **Scope check** (concise)
+   - 1–2 bullets on the top risk(s), concrete phrasing.
+   - Example: "Concern: target file unspecified. Proposal: limit to `web/src/parse.ts`."
+2. **Clarify or split**
+   - Ask ≤3 precise questions; prefer yes/no or single-fact answers.
+   - If splitting, list: (1) minimal slice; (2–3) follow-ups only.
+3. **Safe next step**
+   - Describe the exact edit/command and expected effect; ask "Proceed?"
+   - Execute only the agreed step.
+
+### Acceptance bundle (details)
+
+- **Targets**: specific file(s)/component(s); include function names when relevant; avoid wildcards; note cross-boundary impacts.
+- **Exact change**: imperative one-liner, include identifiers when possible.
+- **Success criteria**: measurable check (test assertion, output text, screenshot delta, perf budget). Include failure cases if relevant.
+- **Constraints**: perf, API compat, architecture; call out semver/compat requirements.
+- **Run instructions**: commands to build/test/repro (e.g., `npm run dev`, `npm test`, `node dist/cli/har-summary.js example.har`), sample inputs, and any env notes (redacted).
+
+### Exceptions
+
+- Trivial docs/typos or isolated additive files: fast-track; still surface surprises (e.g., formatter diffs).
+- Guidance questions: ask first; don’t create files without explicit consent.
+
+### References
+
+- See `guidance-first.mdc` for handling guidance requests.
+- See `user-intent.mdc` for intent detection patterns.
+- See `assistant-behavior.mdc` and `00-assistant-laws.mdc` for consent-first and accuracy requirements.

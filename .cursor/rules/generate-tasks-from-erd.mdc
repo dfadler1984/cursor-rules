@@ -1,0 +1,88 @@
+---
+description: Generate a step-by-step, junior-friendly tasks document from an ERD
+alwaysApply: false
+lastReviewed: 2025-09-12
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Rule: Generating a Task List from an ERD
+
+## Goal
+
+Guide the assistant to create a clear, junior-friendly, step-by-step task list in Markdown from an Engineering Requirements Document (ERD), aligned with a TDD-first workflow and structure.
+
+## Output
+
+- Format: Markdown (.md)
+- Location: `/tasks/`
+- Filename: `tasks-[erd-file-name].md` (e.g., `tasks-erd-user-profile-editing.md`)
+
+## Process
+
+1. Receive ERD Reference: The user points to a specific ERD file.
+2. Analyze ERD: Read and analyze the functional requirements, user stories, constraints, and success criteria.
+3. Assess Current State: Review the codebase to understand existing infrastructure, conventions, and reusable modules across relevant backend and frontend areas.
+4. Phase 1: Generate Parent Tasks
+   - Create the `/tasks/tasks-[erd-file-name].md` file.
+   - Draft 4–8 high-level parent tasks required to implement the feature end to end.
+   - Inform the user: Present only the parent tasks in chat. Say: “I have generated the high-level tasks based on the ERD. Ready to generate the sub-tasks? Respond with ‘Go’ to proceed.”
+5. Wait for Confirmation: Pause until the user replies “Go”.
+6. Phase 2: Generate Sub-Tasks
+   - For each parent task, add smaller, actionable sub-tasks necessary to complete the parent task.
+   - Keep TDD-first: add or adjust a failing spec before implementation; then implement; then refactor while tests stay green.
+7. Identify Relevant Files
+   - List potential files to create or modify, including corresponding test files.
+8. Generate Final Output
+   - Combine parent tasks, sub-tasks, relevant files, and notes into the final Markdown structure.
+9. Save Task List
+   - Save to `/tasks/tasks-[erd-file-name].md`.
+
+## Output Format
+
+```markdown
+## Relevant Files
+
+- `path/to/potential/file1.ts`
+  - Brief description (e.g., Main module for this feature’s domain logic).
+- `path/to/file1.spec.ts`
+  - Unit tests for `file1.ts`.
+- `components/FeatureView.tsx`
+  - UI component for the feature’s primary view.
+- `components/FeatureView.spec.tsx`
+  - Unit tests for `FeatureView.tsx`.
+
+### Notes
+
+- Tests run with `yarn test [optional/path/to/spec]`. Running without a path executes all tests configured in Jest.
+- TDD-first: start by writing/adjusting a failing spec, then implement to pass, then refactor.
+
+## Tasks
+
+- [ ] 1.0 Parent Task Title
+  - [ ] 1.1 Sub-task description 1.1
+  - [ ] 1.2 Sub-task description 1.2
+- [ ] 2.0 Parent Task Title
+  - [ ] 2.1 Sub-task description 2.1
+- [ ] 3.0 Parent Task Title (may not require sub-tasks if structural/config)
+```
+
+## Interaction Model
+
+- Phase 1: Output only the parent tasks and the intended `/tasks/` file path. Wait for the user to reply “Go.”
+- Phase 2: After “Go,” output the sub-tasks and the `Relevant Files` section; then save the final document.
+
+## Target Audience
+
+- Primary reader is a junior developer who will implement the feature within the target repository’s conventions and TDD-first expectations.
+
+## Notes
+
+- Prefer reusing existing utilities/components over creating new ones.
+- Keep implementation details concise and test-led; avoid speculative sub-tasks not required by the ERD.
+
+## Inspiration
+
+- Inspired by: `https://raw.githubusercontent.com/snarktank/ai-dev-tasks/refs/heads/main/generate-tasks.md`

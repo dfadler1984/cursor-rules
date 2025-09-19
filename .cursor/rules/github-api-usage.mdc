@@ -1,0 +1,37 @@
+---
+description: GitHub API automation (Octokit) — usage and troubleshooting
+alwaysApply: true
+lastReviewed: 2025-09-15
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# GitHub API automation — Usage
+
+## PR creation (script)
+
+- Use the repo script to create PRs via the GitHub API:
+  - `yarn pr:create --title "..." [--body "..."] [--base <defaultBase>] [--head current]`
+- The script auto-detects owner/repo from `origin` and falls back to printing a compare URL if API creation is rejected.
+
+## Authentication
+
+- Set `GH_TOKEN` or `GITHUB_TOKEN` in your environment (classic or fine-grained).
+- Minimum permissions:
+  - Classic: `repo` scope
+  - Fine‑grained: Repository selected + `Metadata: Read`, `Contents: Read`, `Pull requests: Write`
+- For orgs with SSO: approve the token for the org.
+
+## Troubleshooting
+
+- Verify token: `curl -H "Authorization: token $GH_TOKEN" https://api.github.com/user` → 200 and `X-RateLimit-Limit: 5000`.
+- 404 creating PR: ensure repo parsing strips `.git` in remote URL; the script already does this.
+- 422 `base invalid`: pass the correct base or rely on auto-detected default (from `git remote show origin`).
+- 422 `not all refs are readable`: ensure token can read both base and head refs; use `owner:short-branch`.
+- 401 `Bad credentials`: re-export token (no quotes/newlines) and re-approve SSO if prompted.
+
+## Notes
+
+- The script logs a compare URL fallback when API creation isn’t possible; use that to complete the PR in the browser.

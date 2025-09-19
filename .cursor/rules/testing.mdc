@@ -1,0 +1,47 @@
+---
+description: Testing conventions
+globs: **/*.spec*,**/*.test*
+alwaysApply: false
+lastReviewed: 2025-09-11
+healthScore:
+  content: green     # Accurate testing conventions
+  usability: green   # Clear structure, good examples
+  maintenance: green # Recently reviewed, current standards
+---
+
+# Testing Overview
+
+- This overview anchors testing conventions and links to focused rules.
+
+## Naming Conventions
+
+- See `testing-naming.mdc` for file naming and test API preferences.
+
+## Structure & Style
+
+- See `testing-structure.mdc` for behavior-focused titles and test layout.
+
+## Notes
+
+- Jest config already supports `.spec` and `.test` via `testMatch`.
+- Prefer incremental migration: rename when touching a file or alongside nearby changes.
+
+## Environment variables (must)
+
+- Snapshot/restore `process.env` in specs that modify tokens or other env vars:
+  - At top of `describe`: `const ORIGINAL_ENV: NodeJS.ProcessEnv = { ...process.env };`
+  - `beforeEach`: `process.env = { ...ORIGINAL_ENV };`
+  - `afterAll`: `process.env = ORIGINAL_ENV;`
+- Prefer wrappers over mutation: expose a `getGithubToken()` helper in the module under test and mock it in specs instead of deleting `process.env.GITHUB_TOKEN`/`GH_TOKEN`.
+- If you must simulate missing tokens, delete only within the test and restore immediately after, never globally.
+
+## No placeholders (must)
+
+- Do not add placeholder specs or placeholder assertions.
+  - Not allowed: `expect(true).toBe(true)`, existence-only checks, empty `it()` blocks, or `.skip` used to satisfy gates.
+- Tests must assert real behavior of the owner module (see `testing-naming.mdc` for colocation) and fail meaningfully when behavior is incorrect.
+
+## Related
+
+- See `jest.config.cjs` for `testMatch` alignment
+- See `tdd-first.mdc` for TDD methodology

@@ -1,0 +1,113 @@
+---
+description: User intent classification and handling strategies
+alwaysApply: true
+lastReviewed: 2025-09-11
+healthScore:
+  content: green # Clear intent classification, good examples
+  usability: green # Well-organized patterns, actionable guidance
+  maintenance: green # Recently reviewed, valid references
+---
+
+# User Intent Classification
+
+## Intent Types
+
+### Guidance Requests
+
+**Patterns:**
+
+- "How can we..."
+- "What's the best way to..."
+- "Should we consider..."
+- "What would you recommend for..."
+- "What are the options for..."
+- "Which approach is better..."
+
+**Behavioral Requirements:**
+
+1. **Ask clarifying questions first** - understand the specific need before proposing solutions
+2. **Explore existing patterns** - check current rules/patterns before suggesting new approaches
+3. **Provide guidance, not implementation** - explain options and trade-offs
+4. **Ask for consent** before creating files or systems
+
+**Anti-patterns:**
+
+- Jumping to implementation without understanding the need
+- Creating systems when guidance was requested
+- Assuming scope from guidance questions
+- Building solutions before asking clarifying questions
+
+### Implementation Requests
+
+**Patterns:**
+
+- "Implement X"
+- "Create Y"
+- "Add Z to file"
+- "Build a system for..."
+- "Fix the bug in..."
+- "Refactor the..."
+- "Update the..."
+
+**Composite signals:**
+
+- If the previous assistant message proposed concrete code edits and the user replies within one turn with a consent phrase (e.g., "proceed", "go ahead", "sounds good", "do it", "ship it"), classify as Implementation.
+
+**Behavioral Requirements:**
+
+1. **Apply scope check** - ensure request is specific and appropriately sized
+2. **Verify requirements** - confirm target files, exact changes, success criteria
+3. **Seek consent** - get explicit approval before proceeding
+4. **Execute systematically** - follow TDD principles when applicable
+5. **Testing/TDD by default** - For any implementation-like intent (implement/add/fix/refactor/update or composite consent-after-plan), attach `testing.mdc` and `tdd-first.mdc` by default. See routing mechanics in `intent-routing.mdc`.
+
+## Ambiguous Requests
+
+**Common ambiguous patterns:**
+
+- "We need to handle X" (guidance or implementation?)
+- "The system should do Y" (explanation or build request?)
+- "Can you help with Z?" (unclear what type of help)
+
+**Clarifying question strategies:**
+
+### For unclear intent:
+
+- "Are you looking for guidance on approaches, or would you like me to implement something specific?"
+- "Do you want me to explain options, or should I build a solution?"
+
+### For unclear scope:
+
+- "What specific [X] do you need? Are you thinking about [option A] or [option B]?"
+- "What constraints should I consider?"
+
+### For unclear requirements:
+
+- "What should the end result look like?"
+- "How will we know when this is complete?"
+
+## Examples
+
+### Good Response to Guidance Request
+
+**User:** "How can we handle user authentication?"
+
+**Assistant:** "To help you choose the best approach, I need to understand: What specific authentication features do you need? Are you thinking about [option A] or [option B]? What constraints should I consider?"
+
+### Good Response to Implementation Request
+
+**User:** "Implement user login functionality"
+
+**Assistant:** "I'll help you implement user login. To ensure I build exactly what you need: What specific files should I target? What should the login form look like? How will we verify it works? Proceed with creating the login component?"
+
+### Good Response to Ambiguous Request
+
+**User:** "We need to handle errors better"
+
+**Assistant:** "I can help with error handling. Are you looking for guidance on error handling strategies, or would you like me to implement specific error handling code? What types of errors are you most concerned about?"
+
+## Related
+
+- See `assistant-behavior.mdc` for consent requirements
+- See `scope-check.mdc` for implementation request handling
+- See `guidance-first.mdc` for guidance request handling

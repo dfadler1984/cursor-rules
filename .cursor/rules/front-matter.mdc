@@ -1,0 +1,121 @@
+---
+description: Front matter structure and usage standards for Cursor Rules
+globs: .cursor/rules/*.mdc
+alwaysApply: false
+lastReviewed: 2025-09-11
+healthScore:
+  content: green # Accurate standards, clear definitions
+  usability: green # Well-organized, good examples, scannable
+  maintenance: green # Recently updated, valid references
+---
+
+# Front Matter Standards
+
+## Required Fields
+
+All rule files must include these fields in the front matter:
+
+- `description`: Brief description of the rule's purpose
+- `lastReviewed`: Date in YYYY-MM-DD format (when rule was last reviewed)
+- `healthScore`: Multi-dimensional health assessment (see Health Score Format below)
+
+## Optional Fields
+
+- `globs`: CSV list of file patterns this rule applies to (e.g., `**/*.spec*,**/*.test*`)
+- `alwaysApply`: Boolean indicating if rule always applies (default: `false`)
+- `overrides`: CSV list of directory patterns to override parent rules (e.g., `../foo/**,../../shared-rules/**`)
+
+## Format Rules
+
+### CSV Fields (globs, overrides)
+
+- Use comma-separated values without brackets or quotes
+- No spaces around commas
+- Do not use brace expansion `{}`; write separate CSV entries instead
+- Examples:
+  - `globs: **/*.spec*,**/*.test*`
+  - `overrides: ../foo/**,../../shared-rules/**`
+
+### Boolean Fields (alwaysApply)
+
+- Use `true` or `false` (lowercase)
+- No quotes needed
+
+### Date Fields (lastReviewed)
+
+- Must be in YYYY-MM-DD format
+- Examples: `2025-01-15`, `2024-12-31`
+
+### Health Score Format
+
+Health scores use a multi-dimensional YAML object with three required dimensions:
+
+```yaml
+healthScore:
+  content: green # Accuracy, relevance, no contradictions
+  usability: yellow # Length, organization, scannability
+  maintenance: green # Up-to-date, no broken references
+```
+
+#### Dimension Definitions
+
+**Content** (accuracy and relevance):
+
+- `green`: Accurate examples, no contradictions, addresses stated purpose clearly
+- `yellow`: Minor inaccuracies or gaps, mostly relevant
+- `red`: Major contradictions, outdated examples, or misaligned purpose
+
+**Usability** (organization and scannability):
+
+- `green`: <100 lines, 2-4 clear sections, scannable format, good examples
+- `yellow`: 100-150 lines OR moderate complexity OR needs better organization
+- `red`: >150 lines OR poor organization OR excessive nesting OR hard to scan
+
+**Maintenance** (currency and references):
+
+- `green`: Recently reviewed, current examples, valid cross-references
+- `yellow`: Slightly outdated or minor broken references
+- `red`: Significantly outdated, broken references, or conflicting guidance
+
+## Examples
+
+### Basic Rule
+
+```yaml
+---
+description: Testing conventions
+globs: **/*.spec*,**/*.test*
+alwaysApply: false
+lastReviewed: 2025-01-15
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+```
+
+### Rule with Overrides
+
+```yaml
+---
+description: Team-specific patterns
+globs: src/**/*.ts
+overrides: ../foo/**,../../shared-rules/**
+alwaysApply: false
+lastReviewed: 2025-01-15
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+```
+
+## Validation
+
+See `rule-maintenance.mdc` for validation procedures.
+
+## Related
+
+- See `rule-creation.mdc` for rule writing guidelines
+- See `rule-maintenance.mdc` for maintenance procedures
+- See `rule-quality.mdc` for quality standards

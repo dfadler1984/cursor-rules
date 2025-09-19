@@ -1,0 +1,33 @@
+---
+description: Secrets handling and command execution safety rules
+alwaysApply: true
+lastReviewed: 2025-09-11
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Security and command execution
+
+## Principles
+
+- Never expose secrets; scrub tokens/keys from outputs and logs.
+- Ask before sending large file contents or potentially sensitive snippets into chat.
+- Keep security-sensitive effects explicit and minimal.
+
+## Secrets handling
+
+- Treat env vars, tokens, API keys, session IDs, and credentials as sensitive data.
+- Do not commit secrets. If exposure is suspected, rotate immediately and document remediation.
+- Redact or mask secrets in logs, errors, and UI surfaces.
+- Avoid echoing request headers such as `Authorization`, `Cookie`, `Set-Cookie`, `Proxy-Authorization`, or custom auth headers.
+
+## Command execution rules
+
+- Ask for consent before running local commands or using the web for research.
+- When approved:
+  - Use absolute paths and non-interactive flags.
+  - Pipe pagers to `| cat` to avoid blocking.
+  - Background long-lived tasks and include a brief rationale.
+  - Precede each command with one sentence explaining why it is needed.

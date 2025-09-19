@@ -1,0 +1,45 @@
+---
+description: Practical test-quality rules (coverage>0 guards, owner coupling, sabotage checks)
+globs: **/*.spec*,**/*.test*
+alwaysApply: false
+lastReviewed: 2025-09-14
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+## Purpose
+
+Keep tests meaningful and resistant to false positives with minimal friction. Pair objective execution signals with good structure.
+
+## Core signals (must)
+
+- Coverage>0 for changed sources:
+  - For each changed TS/JS file, related tests must execute >0 lines in that file.
+  - Local: run `jest --findRelatedTests --coverage --coverageProvider=v8 --coverageReporters=json-summary` on staged files; fail if any changed SUT file has 0 executed lines.
+  - CI: compute PR diff and enforce the same. Spec-diff may pass if either a colocated spec changed or coverage>0.
+
+- Owner coupling:
+  - A spec should import/require its owner module (sibling path). Pure resolver tests import the resolver; boundary tests import the adapter.
+
+- Sabotage spot-check (review practice):
+  - Temporarily comment out or early-return in the SUT and re-run related tests; they should fail. Revert immediately.
+
+## Structure & effects seam
+
+- Prefer pure resolvers; inject effects (env, FS, subprocess, time) as parameters. See `tdd-first.mdc` and [James Sinclair on side effects](https://jrsinclair.com/articles/2018/how-to-deal-with-dirty-side-effects-in-your-pure-functional-javascript/).
+- Boundary tests: assert logging, exit codes, and argument parsing via spies/injected deps.
+
+## Linting aids (should)
+
+- Enable: `jest/expect-expect`, `jest/no-disabled-tests`, `jest/no-identical-title`, `jest/no-commented-out-tests`.
+- Optional heuristic denylist in CI to catch obvious placeholders: `expect(true).toBe(true)`, `.skip(`, and "placeholder" in test titles.
+
+## Exceptions
+
+- Re-export barrels and generated files may be excluded or covered with a minimal surface test; document exclusions in the PR.
+
+## Related
+
+- See `testing.mdc`, `testing-structure.mdc`, `testing-naming.mdc`, `tdd-first.mdc` for methodology and style.

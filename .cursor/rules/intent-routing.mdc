@@ -1,0 +1,143 @@
+---
+description: Always-on intent router attaching rules via phrases, keywords, and signals
+alwaysApply: true
+lastReviewed: 2025-09-14
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Intent Routing Extensions (ERD Tasks)
+
+## Trigger → Rule Attachment
+
+- Trigger: Phrases matching `create|generate tasks from ERD`
+- Attach: `generate-tasks-from-erd.mdc`
+- Behavior: Use the two-phase flow — output parent tasks first, pause for “Go,” then emit sub-tasks and relevant files.
+
+## Notes
+
+- Keep terminology consistent: ERD (Engineering Requirements Document), not PRD.
+- Follow TDD-first rules when generating sub-tasks.
+
+# Intent-routed rule attachment
+
+This lightweight router keeps context minimal by attaching specific rules only when intent is detected in the user's request. It does not duplicate content; it maps intents → rules.
+
+## Triggers → Rules
+
+- DRY RUN (plan-only)
+  - Triggers: Message begins with the exact phrase `DRY RUN:` (highest priority exact phrase trigger)
+  - Attach: `dry-run.mdc`, `guidance-first.mdc`
+- Create tests
+  - Triggers: <verb> + <test-term>
+    - Verbs: create|generate|add|write
+    - Test terms: test|tests|spec|specs|unit test|jest
+  - Keywords (fallback): coverage|assert|assertion|assertions
+  - Attach: `testing.mdc`, `tdd-first.mdc`
+- Refactoring
+  - Triggers: <refactor-verb>
+    - Verbs: refactor|extract|rename|reorganize
+  - Attach: `refactoring.mdc`, `testing.mdc`
+- Implement feature / Fix bug
+  - Triggers: <verb> + <change-term>
+    - Verbs: implement|add|fix|update
+    - Change terms: feature|bug|logic|behavior
+  - Consent-after-plan (composite): If the previous assistant turn proposed concrete code edits and the user replies with a consent phrase within one turn (e.g., "proceed", "go ahead", "sounds good", "do it", "ship it"), route to implementation.
+  - Attach: `tdd-first.mdc`, `code-style.mdc`
+  - Hard gate: before any JS/TS edits, require a TDD confirmation (spec path(s) + failing assertion). If absent, ask and do not proceed with edits.
+  - Note: Per `user-intent.mdc` policy, testing + TDD attach by default for implementation intents
+- Rules authoring/maintenance
+  - Triggers: <verb> + <rules-term>
+    - Verbs: write|update|maintain
+    - Rules terms: rule|front matter|rules validation
+  - Attach: `front-matter.mdc`, `rule-creation.mdc`, `rule-maintenance.mdc`, `rule-quality.mdc`
+- Cursor capabilities
+  - Triggers: <cursor-term>
+    - Terms: cursor features|cursor limits|platform capabilities
+  - Attach: `cursor-platform-capabilities.mdc`
+- Git usage
+  - Triggers: <git-term>
+    - Terms: commit|commit message|commits|branch|branch name|branch naming|pre-commit|pre-push|conventional commits|git hooks
+  - Attach: `assistant-git-usage.mdc`
+  - PR triggers: pr|pull request|open pr|create pr → prefer repo script `yarn pr:create` (Octokit) instead of GH CLI
+- ERD creation
+  - Triggers: <verb> + <erd-term> [optional: <lite|quick>]
+    - Verbs: create|generate|draft|write|produce
+    - ERD terms: erd|engineering requirements document|engineering requirements doc|engineering spec|eng spec
+    - If the optional modifier `lite` or `quick` is present, select Lite mode
+    - Exclusions: review|discuss|read|summarize|compare|analyze (do not trigger creation; ask a brief clarifying question)
+    - Prefer: include "for <feature>"; if missing and ambiguous, ask for the feature name
+  - Attach: `create-erd.mdc`, `guidance-first.mdc`
+
+- Task lists
+  - Triggers: task list phrases
+    - Terms: task list|update tasks|mark sub-task|mark subtask|check off|relevant files section
+  - Attach: `task-list-process.mdc`
+
+## File/context signals (supporting)
+
+- If any focused/open/edited path matches `**/*.(spec|test).[tj]s?(x)`, attach `testing.mdc`, `tdd-first.mdc`.
+- If the user mentions "jest", "coverage", or "assert", attach testing rules.
+- On implementation verbs (implement/add/fix/refactor/update), attach testing + TDD by default (see `user-intent.mdc`).
+- JS/TS pre-edit gate: If the next step targets JS/TS files (`*.ts|*.tsx|*.js|*.mjs|*.cjs`), attach a minimal TDD checklist and enforce tests-first before edits. Load full `testing.mdc` progressively when test authoring or failures occur.
+  - Enforcement: block edits until the TDD confirmation is present (see Assistant Behavior rule).
+- If any focused/open/edited path matches `**/tasks/*.md`, attach `assistant-git-usage.mdc`.
+- If any focused/open/edited path matches `**/tasks/*.md`, attach `task-list-process.mdc`.
+
+## Decision policy (weights)
+
+1. Exact phrase triggers (highest)
+   - `DRY RUN:` prefix takes precedence over all other triggers and forces plan-only behavior
+2. Composite consent-after-plan (recent concrete plan + consent phrase within one turn)
+3. Keyword fallback (word-boundary intent words) if phrases not found
+4. File/context signals
+5. If still ambiguous and intent suggests implementation, attach testing + TDD and ask one clarifying question
+
+- If ambiguity persists after one clarifying question, do not attach additional rules and pause.
+
+## Fuzzy matching & confirmation
+
+- Confidence tiers
+  - High: exact phrase or strong synonym match → attach immediately.
+  - Medium: fuzzy match (minor typos/synonyms/partial phrase) → ask a 1‑line confirmation; attach only on explicit confirmation (e.g., “Yes”, “Go”).
+  - Low: vague/ambiguous → ask one clarifying question; do not attach.
+
+- Fuzzy signals (medium confidence examples)
+  - Edit distance ≤2 around key phrases (e.g., "generate tasks from erd" → "gen tasks erd").
+  - Synonyms: generate|create|draft; tasks|checklist|steps; ERD|engineering requirements.
+  - Partial patterns: "tasks from erd", "erd tasks", "make tasks for <feature>".
+
+- Confirmation prompt (for medium confidence)
+  - "I think you want to generate tasks from an ERD and use the two‑phase flow (parent tasks → ‘Go’ → sub‑tasks). Proceed?"
+
+- Safeguards
+  - Never auto-create files on medium/low confidence.
+  - Prefer smallest rule set when multiple fuzzy matches; ask which rule the user means.
+  - Include which phrase triggered the prompt in the status note for transparency.
+
+## Few-shot routing examples
+
+- "Add tests for the API client" → attach: testing, tdd-first
+- "Can you add a spec for rules-list?" → attach: testing, tdd-first
+- "Refactor parse.ts to be pure" → attach: refactoring, testing
+- "Fix bug in har-summary CLI" → attach: tdd-first, code-style, testing
+- "Increase Jest coverage for parse" → attach: testing, tdd-first
+- "Create an ERD for checkout flow" → attach: create-erd, guidance-first
+- "Create ERD" → ask for feature name and full vs lite; then attach: create-erd, guidance-first
+- "Review the ERD for checkout flow" → do not attach create-erd; ask a clarifying question
+- "Update front matter across rules" → attach: front-matter, rule-maintenance, rule-creation
+
+## Notes
+
+- Keep this file small; do not restate target rule content.
+- Prefer the smallest matching set of rules to minimize context.
+- If multiple triggers match, attach the union (deduplicated).
+- Status transparency: In status updates, include which signal triggered routing (e.g., explicit verb, consent-after-plan, file signal) for traceability.
+
+Related
+
+- See `guidance-first.mdc` for handling guidance requests before implementation
+- See `user-intent.mdc` for the TDD-by-default policy on implementation intents
+- See `00-assistant-laws.mdc` for accuracy and consistency requirements

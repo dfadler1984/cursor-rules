@@ -1,0 +1,42 @@
+---
+description: Direct answers — root-cause-first responses to direct questions
+alwaysApply: true
+lastReviewed: 2025-09-14
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Direct Answers — Root-Cause-First
+
+## Trigger
+
+- Direct questions about behavior or mistakes, e.g. “Why didn’t you X?”, “What caused Y?”, “Who changed Z?”, “Where is W handled?”
+
+## Required Response Shape
+
+1. Cause (one line): State exactly what happened and why.
+2. Evidence (one line): Cite the concrete place/signal (file path, hook, log).
+3. Next step (one line): Smallest corrective action or confirmation question.
+
+Keep to ≤3 lines total unless asked to elaborate. No rule recaps unless explicitly requested.
+
+## Prohibitions
+
+- Do not restate known policies or what “should have” happened.
+- Do not provide generic background or broad overviews.
+- Do not defer without a single, concrete next step.
+
+## Example
+
+- Q: “Why didn’t you follow the branch naming rule?”
+- A:
+  - Cause: I created the branch manually (`git checkout -b feat/...`) instead of using the generator, so it lacked the `dfadler1984/` prefix.
+  - Evidence: Pre-push error from `scripts/git/validate-branch-name.ts` → `Branch must start with 'dfadler1984/'`.
+  - Next: Rename to `dfadler1984/feat-assistant-journal` and push — proceed?
+
+## Notes
+
+- If the direct question implies an edit, propose the minimal fix and ask “Proceed?” once.
+- If safety/compliance is at risk, add one short caveat; otherwise keep to the 3-line format.

@@ -1,0 +1,23 @@
+---
+description: Rule validation checklist and detail balance for this repo
+globs: .cursor/rules/**
+alwaysApply: false
+lastReviewed: 2025-09-10
+healthScore:
+  content: green # Clear quality criteria and validation steps
+  usability: green # Concise checklist, easy to apply
+  maintenance: green # Recently reviewed, aligned with standards
+---
+
+## Validate before finalizing
+
+- Examples executable/relevant to this repo.
+- Globs target intended paths; avoid accidental global attachment.
+- No contradictions or duplication with other rules.
+- See `front-matter.mdc` for complete front matter standards.
+
+## Detail balance
+
+- Avoid >200 lines or excessive nesting.
+- Prefer “do this / not that” with 1–2 concrete examples.
+- Split overly broad files; merge overlapping files.
