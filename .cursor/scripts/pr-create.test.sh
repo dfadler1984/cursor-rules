@@ -5,6 +5,17 @@ IFS=$'\n\t'
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 SCRIPT="$ROOT_DIR/.cursor/scripts/pr-create.sh"
 
+# Snapshot and auto-restore GITHUB_TOKEN for test isolation
+ORIGINAL_GITHUB_TOKEN="${GITHUB_TOKEN-}"
+restore_github_token() {
+  if [ -n "${ORIGINAL_GITHUB_TOKEN+x}" ]; then
+    export GITHUB_TOKEN="$ORIGINAL_GITHUB_TOKEN"
+  else
+    unset GITHUB_TOKEN || true
+  fi
+}
+trap restore_github_token EXIT
+
 # 1) Dry-run prints JSON with required keys
 export GITHUB_TOKEN="dummy"
 # Fake git environment by running outside a git repo? We rely on origin; skip derivation by setting owner/repo/head.
