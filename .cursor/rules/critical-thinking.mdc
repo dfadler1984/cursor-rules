@@ -30,5 +30,5 @@ Ensure responses identify the true, system-encoded root cause (rules/config/hook
 ## Example
 
 - Event: Branch push failed.
-- Root cause: Branch prefix validator in `scripts/git/lib/branch-validate.ts` rejected the name because it lacked the required `<expectedUserSlug>/` prefix (resolved by `validate-branch-name.ts`). Enforcement runs pre-push, not at branch creation.
-- Next step: Use the branch generator (`yarn git:branch-name ...`) or rename current branch to `<expectedUserSlug>/...` and push.
+- Root cause: Pre-push hook enforcing the branch naming policy rejected the name because it lacked the required `<login>/` prefix (policy derived from `.cursor/scripts/git-branch-name.sh`). Enforcement runs pre-push, not at branch creation.
+- Next step: Use the branch generator (`.cursor/scripts/git-branch-name.sh --task <slug> [--type <feat|fix|...>] [--feature <name>] [--apply]`) or rename current branch to `<login>/...` and push.

@@ -1,0 +1,49 @@
+---
+description: Phased workflow for automated task planning and progress tracking, inspired by GitHub's Spec-Driven Development
+alwaysApply: false # Trigger on explicit user requests or detected planning needs
+lastReviewed: 2025-09-24
+healthScore:
+  content: green # DRY via references
+  usability: green # Delegated for consistency
+  maintenance: green # Easier updates
+references: [
+    "create-erd.mdc",
+    "generate-tasks-from-erd.mdc",
+    "task-list-process.mdc",
+    "assistant-behavior.mdc",
+    "tdd-first.mdc",
+    "assistant-learning-log.mdc",
+  ] # Dependencies for delegation
+---
+
+## Workflow Triggers
+
+- Activate when user messages include planning verbs (e.g., "plan", "break down", "workflow for") or imply tasks (e.g., "implement feature X").
+- Consent: Apply protocol from assistant-behavior.mdc (e.g., present overview and ask "Proceed?").
+
+## Phases (Spec as Executable Source)
+
+1. **Specify**: Gather and clarify requirements; treat as source for generation.
+
+   - Delegate core gathering to create-erd.mdc (e.g., output spec.md with Goals, Acceptance Criteria, Edge Cases, Security/Design).
+   - Integration: Reference constitution.mdc (if exists) for non-negotiables.
+   - Verify: Cross-check with First Law; optional AI gen via Cursor.
+
+2. **Plan**: Break into actionable tasks; enable regeneration on changes.
+
+   - Delegate breakdown to generate-tasks-from-erd.mdc if ERD input; else, lightweight (numbered tasks, dependencies, effort).
+   - Enforce TDD prefixes per tdd-first.mdc.
+   - Progress: Use Markdown checkboxes.
+   - Consent: Per assistant-behavior.mdc (ask "Proceed or regenerate?").
+
+3. **Tasks**: Execute with monitoring and AI assistance.
+   - Delegate execution to task-list-process.mdc (sequential handling, checkbox updates).
+   - Integration: If MCP detected, suggest links (e.g., "Create Jira ticket?") or auto-PR.
+   - AI Synergy: Feed spec/plan to agents (e.g., Copilot).
+   - Logging: Trigger logging.mdc on completion/issues.
+   - Halt on issues: Pause and correct per Third Law; support regen to reduce debt.
+
+## Portability Notes
+
+- Outputs configurable via .cursor/config.json.
+- Templates: Use GitHub spec-kit inspired, but defer formats to referenced rules.

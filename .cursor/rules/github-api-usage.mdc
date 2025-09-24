@@ -13,7 +13,7 @@ healthScore:
 ## PR creation (script)
 
 - Use the repo script to create PRs via the GitHub API:
-  - `yarn pr:create --title "..." [--body "..."] [--base <defaultBase>] [--head current]`
+  - `.cursor/scripts/pr-create.sh --title "..." [--body "..."] [--base <branch>] [--head <branch>]`
 - The script auto-detects owner/repo from `origin` and falls back to printing a compare URL if API creation is rejected.
 
 ## Authentication

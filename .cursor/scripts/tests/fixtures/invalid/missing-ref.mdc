@@ -1,0 +1,10 @@
+---
+description: Missing ref
+lastReviewed: 2025-09-20
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+See `docs/nonexistent.md`.

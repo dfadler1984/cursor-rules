@@ -1,7 +1,7 @@
 ---
 description: Assistant Git usage — commits, branch naming, and commit gates (tests/lint/types)
 alwaysApply: false
-lastReviewed: 2025-09-15
+lastReviewed: 2025-09-24
 healthScore:
   content: green
   usability: green
@@ -20,7 +20,7 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
   - Title/header ≤72 chars.
   - Body lines ≤100 chars (wrap bullets; use multiple `-m` flags when needed).
 - Assistant behavior (hard rule):
-  - For any commit with a body, always use the commit helper (`yarn git:commit`).
+  - For any commit with a body, always use the commit helper (`.cursor/scripts/git-commit.sh`).
   - Never call `git commit` directly for multi‑line messages.
 - Flexible modes:
   - Quick mode (header only) for small, obvious changes.
@@ -50,33 +50,27 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
 
 ### Enforcement
 
-- Pre-push branch name validation runs via `simple-git-hooks` and `scripts/git/validate-branch-name.ts`.
+- Pre-push branch name validation should run via your git hooks; enforce the branch naming policy (see `.cursor/scripts/git-branch-name.sh`).
 - Login derivation precedence: origin owner (GitHub) → CI actor (`GITHUB_ACTOR`) → token-authenticated API lookup (Octokit) → `git config user.name` fallback.
 
-## Pull Requests (Octokit, no GH CLI dependency)
+## Pull Requests (curl + GitHub API; no GH CLI dependency)
 
 - Use the repo script to create PRs via the GitHub API:
-  - `yarn pr:create --title "..." [--body "..."] [--base master] [--head current]`
+  - `.cursor/scripts/pr-create.sh --title "..." [--body "..."] [--base <branch>] [--head <branch>]`
 - Auth: set `GITHUB_TOKEN` or `GH_TOKEN` in your environment. Fine‑grained or classic tokens are supported; minimum scope to open PRs is repo access for the target repository.
 - Fallback: when no token is available, the script prints a compare URL you can open in the browser.
 
 ## Commit Gate (Tests/Lint/Types)
 
 - During TDD: run only tests relevant to the change for fast feedback.
-- Before commit (local gate): run full checks when reasonably fast
-  - Root workspace:
-    - `yarn test`
-    - `yarn lint`
-    - `yarn typecheck`
-  - Web workspace (no Jest tests):
-    - `yarn --cwd web tsc -b --noEmit`
+- Before commit (local gate): run your repository's full checks when reasonably fast (tests, lint, types). Prefer targeted runs during iteration and full runs before committing.
 - Test colocation (must): colocate specs next to sources; no `__tests__/` directories.
   - CI guard: `yarn guard:no-tests-dir` fails if `**/__tests__/**` exists.
 
 ### Hooks and repo scripts
 
-- Pre-commit hooks must call repo scripts without extra path args; scripts should auto-detect targets.
-- Example: use `yarn lint:workflows` (no args); the script resolves `.github/workflows` internally.
+- Pre-commit hooks should call local scripts without extra path args; scripts should auto-detect targets.
+- Example: use `.cursor/scripts/lint-workflows.sh` (no args); it resolves `.github/workflows` internally.
 - Lockfile enforcement: a pre-commit step should verify that `yarn.lock` is staged whenever `package.json` changes.
 
 ## Staging and Cleanup
@@ -89,7 +83,6 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
 
 - Task lists and ERD-derived tasks should reference this rule for commit and gate expectations.
   - See: `generate-tasks-from-erd.mdc`
-  - See: `docs/git-checks-evolution.md`
 
 ## Sources / Inspiration
 
@@ -99,8 +92,8 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
 ## Tooling scripts
 
 - Create Conventional Commit messages:
-  - `yarn git:commit --type <type> [--scope <scope>] --description <desc> [--body <line>]... [--footer <f>]... [--breaking <desc>]`
+  - `.cursor/scripts/git-commit.sh --type <type> [--scope <scope>] --description <desc> [--body <line>]... [--footer <f>]... [--breaking <desc>]`
   - Types validated: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
 - Suggest a branch name from your git user:
-  - `yarn git:branch-name --task <slug> [--type <feat|fix|...>] [--feature <name>]`
+  - `.cursor/scripts/git-branch-name.sh --task <slug> [--type <feat|fix|...>] [--feature <name>] [--apply]`
   - Validates branch type (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)

@@ -70,13 +70,13 @@ healthScore:
 
 ## Reference validation
 
-- **Automated validation**: Run `yarn rules:validate` to check all cross-references
+- **Automated validation**: Run `.cursor/scripts/rules-validate.sh` to check all cross-references
 - **Update broken links**: If a referenced file is renamed or deleted, update all references immediately
 - **Use consistent naming**: Reference files by their exact filename (including `.mdc` extension)
 
 ## Validation
 
-- **Always run the validation script** before committing rule edits: `yarn rules:validate`
+- **Always run the validation script** before committing rule edits: `.cursor/scripts/rules-validate.sh`
 - The script automatically validates front matter, cross-references, and format requirements
 - Manual content review is still needed for relevance and quality (see Content relevance review section)
 
@@ -89,11 +89,11 @@ healthScore:
   - New/changed repo scripts referenced by rules (e.g., `package.json` scripts)
   - Changes to assistant behavior/routing that affect what users can ask
 - Steps:
-  1. Inventory current rules and metadata: `yarn rules:list`
+  1. Inventory current rules and metadata: `.cursor/scripts/rules-list.sh`
   2. Update `capabilities.mdc`:
      - Add/remove items under “What you can ask the assistant to do”
-     - Reflect new validation/automation commands (e.g., `yarn rules:validate`, `yarn rules:list`)
+     - Reflect new validation/automation commands (e.g., `.cursor/scripts/rules-validate.sh`, `.cursor/scripts/rules-list.sh`)
      - Keep platform features in `cursor-platform-capabilities.mdc` (don’t duplicate)
   3. Update dates: set `lastReviewed` (YYYY-MM-DD) on edited rule(s) and `capabilities.mdc`
-  4. Validate: `yarn rules:validate` and fix issues before merging
+  4. Validate: `.cursor/scripts/rules-validate.sh` and fix issues before merging
   5. PR hygiene: include a checklist item “Updated `@capabilities`” in the PR description
