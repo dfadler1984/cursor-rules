@@ -1,8 +1,8 @@
 ---
 description: Refactoring workflow and safeguards
-globs: **/*
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx
 alwaysApply: false
-lastReviewed: 2025-09-11
+lastReviewed: 2025-09-24
 healthScore:
   content: green
   usability: green

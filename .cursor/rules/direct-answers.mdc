@@ -33,7 +33,7 @@ Keep to ≤3 lines total unless asked to elaborate. No rule recaps unless explic
 - Q: “Why didn’t you follow the branch naming rule?”
 - A:
   - Cause: I created the branch manually (`git checkout -b feat/...`) instead of using the generator, so it lacked the `dfadler1984/` prefix.
-  - Evidence: Pre-push error from `scripts/git/validate-branch-name.ts` → `Branch must start with 'dfadler1984/'`.
+  - Evidence: Pre-push hook enforced the branch naming policy (see `.cursor/scripts/git-branch-name.sh`) → `Branch must start with '<login>/'`.
   - Next: Rename to `dfadler1984/feat-assistant-journal` and push — proceed?
 
 ## Notes

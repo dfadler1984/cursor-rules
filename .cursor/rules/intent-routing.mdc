@@ -61,7 +61,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
   - Triggers: <git-term>
     - Terms: commit|commit message|commits|branch|branch name|branch naming|pre-commit|pre-push|conventional commits|git hooks
   - Attach: `assistant-git-usage.mdc`
-  - PR triggers: pr|pull request|open pr|create pr → prefer repo script `yarn pr:create` (Octokit) instead of GH CLI
+- PR triggers: pr|pull request|open pr|create pr → prefer repo script `.cursor/scripts/pr-create.sh` (curl/GitHub API) instead of GH CLI
 - ERD creation
 
   - Triggers: <verb> + <erd-term> [optional: <lite|quick>]

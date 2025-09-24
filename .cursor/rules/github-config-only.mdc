@@ -20,7 +20,7 @@ Ensure `.github/` contains platform configuration only (workflows, CODEOWNERS, g
   - Workflows under `.github/workflows/`
   - Generic PR/issue templates and config (not feature-specific)
   - CODEOWNERS, dependabot, release configs, etc.
-- Place feature/process docs under `docs/` (e.g., `docs/assistant/**`).
+- Place feature/process docs under `docs/`.
 - If a feature needs a PR template, use a dedicated template in `.github/PULL_REQUEST_TEMPLATE/<feature>.md` and opt-in per PR, or have tooling append content only for those PRs (never in the generic template).
 
 ## Must not
@@ -31,4 +31,4 @@ Ensure `.github/` contains platform configuration only (workflows, CODEOWNERS, g
 ## Examples
 
 - Allowed: `.github/workflows/ci.yml`, `.github/pull_request_template.md` (generic), `CODEOWNERS`.
-- Disallowed in generic template: "Assistant Journal" section; move to `docs/assistant/` or a dedicated opt-in template.
+- Disallowed in generic template: feature-specific sections; move to `docs/` or a dedicated opt-in template.
