@@ -27,7 +27,6 @@ die() {
 have_cmd()    { command -v "$1" >/dev/null 2>&1; }
 require_cmd() { have_cmd "$1" || die 127 "Required command not found: $1"; }
 
-ensure_file_exists() { [ -f "$1" ] || die 1 "File not found: $1"; }
 ensure_dir_exists()  { [ -d "$1" ] || die 1 "Directory not found: $1"; }
 
 repo_root() {
