@@ -60,6 +60,7 @@ Automate generation and maintenance of a root `CHANGELOG.md` from Conventional C
 - Owner: rules-maintainers
 - Cadence: automatic on merge to `main`
 - Initial enablement: introduce configuration and a smoke test PR to verify CI behavior
+- Status: completed (see `docs/projects/changelog-automation/final-summary.md`)
 
 ## Consolidated Open Questions
 
