@@ -1,189 +1,231 @@
 #!/usr/bin/env bash
 set -euo pipefail
-IFS=$'\n\t'
 
-# Validate rule files' front matter for required fields and formats.
-# Usage: .cursor/scripts/rules-validate.sh [--dir PATH] [--fail-on-missing-refs] [-h|--help] [--version]
+# Portable rules validator for .cursor/rules/*.mdc
+# - Uses only POSIX-ish tools available on macOS (BSD grep/awk/sed)
+# - Prints diagnostics as: path:line: message
+# - Exits non-zero if any issues are found
 
-# shellcheck disable=SC1090
-source "$(dirname "$0")/.lib.sh"
+LC_ALL=C
 
-VERSION="0.1.0"
-
-ROOT_DIR="$(repo_root)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RULES_DIR="$ROOT_DIR/.cursor/rules"
-FAIL_ON_REFS=0
 
-usage() {
-  cat <<USAGE
-Usage: ${script_name} [--dir PATH] [--fail-on-missing-refs] [--version] [-h|--help]
+fail_count=0
 
-Options:
-  --dir PATH               Directory containing rule files (default: .cursor/rules)
-  --fail-on-missing-refs   Treat missing internal references as errors (default: warn)
-  --version                Print version and exit
-  -h, --help               Show this help and exit
-USAGE
+print_usage() {
+  cat <<EOF
+Usage: $(basename "$0") [--list] [--dir <rules-dir>] [--help]
+
+Validates rule files under .cursor/rules/*.mdc for:
+  - Required front matter fields and formats
+  - CSV spacing and brace expansion { } in globs/overrides
+  - Boolean casing for alwaysApply
+  - Deprecated references (assistant-learning-log.mdc)
+  - Common typography typo (ev<space>ents)
+  - Invariants for tdd-first.mdc (globs includes **/*.cjs)
+EOF
 }
 
-while [ $# -gt 0 ]; do
-  case "$1" in
-    --dir)
-      [ $# -ge 2 ] || die 2 "--dir requires a path"
-      RULES_DIR="$2"; shift 2 ;;
-    --fail-on-missing-refs)
-      FAIL_ON_REFS=1; shift ;;
-    --version)
-      printf '%s\n' "$VERSION"; exit 0 ;;
-    -h|--help)
-      usage; exit 0 ;;
-    *)
-      die 2 "Unknown argument: $1" ;;
-  esac
-done
-
-if [ ! -d "$RULES_DIR" ]; then
-  log_error "Rules directory not found: $RULES_DIR"
-  exit 1
-fi
-
-mapfile -t FILES < <(find "$RULES_DIR" -maxdepth 1 -type f -name "*.mdc" | sort -f)
-
-error_count=0
-warn_count=0
-
-# Extract first front matter block
-front_matter() {
-  awk 'BEGIN{inside=0} /^---$/ { if(inside==0){inside=1; next} else{ exit } } inside==1{ print }' "$1"
+list_rule_files() {
+  find "$RULES_DIR" -type f -name "*.mdc" | sort
 }
 
-trim() {
-  printf '%s' "$1" \
-    | sed -E 's/[[:space:]]+#.*$//' \
-    | sed -E 's/^[[:space:]]+//' \
-    | sed -E 's/[[:space:]]+$//'
+extract_front_matter() {
+  # Args: <file>
+  # Prints only the first YAML front matter block (lines between first pair of ---)
+  awk 'BEGIN{inside=0} /^---[ \t]*$/{ if(inside==0){inside=1; next}else{ exit } } inside==1{ print }' "$1"
 }
 
-validate_csv() {
-  local v="$1"
-  # No spaces, no braces, no quotes
-  if echo "$v" | grep -qE '[[:space:]]' ; then return 1; fi
-  if echo "$v" | grep -q '[{}]' ; then return 1; fi
-  if echo "$v" | grep -q '"' ; then return 1; fi
-  return 0
+report_line() {
+  # Args: <file> <line> <message>
+  printf "%s:%s: %s\n" "$1" "$2" "$3"
+  fail_count=$((fail_count+1))
 }
 
-check_refs() {
-  local f="$1" root="$2"; local fm="$3"
-  # naive: backtick-enclosed references
-  local refs
-  refs=$(printf '%s\n' "$fm" | grep -oE '`[^`]+`' | tr -d '`' || true)
-  local missing=0
-  if [ -n "$refs" ]; then
-    while IFS= read -r r; do
-      # Skip http/https URLs and @tokens
-      if printf '%s' "$r" | grep -qE '^https?://'; then continue; fi
-      if printf '%s' "$r" | grep -qE '^@'; then continue; fi
-      # Skip placeholders/commands/globs/absolute paths
-      if printf '%s' "$r" | grep -qE '\[[^]]*\]'; then continue; fi
-      if printf '%s' "$r" | grep -qE '[[:space:]]'; then continue; fi
-      if printf '%s' "$r" | grep -qE '^/'; then continue; fi
-      if printf '%s' "$r" | grep -qE '\*'; then continue; fi
-      # Skip directory-style tokens (ending with a slash)
-      if printf '%s' "$r" | grep -qE '/$'; then continue; fi
-
-      local path="$r"
-      # Skip CODEOWNERS example
-      if [ "$path" = "CODEOWNERS" ]; then continue; fi
-      # If it's a bare .mdc filename, resolve under .cursor/rules/
-      if printf '%s' "$r" | grep -qE '^([^/]+)\.mdc$'; then
-        path=".cursor/rules/$r"
-      fi
-
-      # Only validate references within the repo docs/rules areas (skip .github examples)
-      if ! printf '%s' "$path" | grep -qE '^(.cursor/|docs/|tasks/|CODEOWNERS$)'; then
-        continue
-      fi
-      case "$path" in
-        *.mdc|*.md|*.cjs|*.json|*.ts|*.tsx|CODEOWNERS)
-          if [ -f "$root/$path" ]; then :; else missing=$((missing+1)); fi ;;
-        *) : ;;
-      esac
-    done <<< "$refs"
+report_block() {
+  # Args: <multi-line string>
+  # Each line already formatted as path:line: message
+  # Count lines and echo
+  local out="$1"
+  if [ -n "$out" ]; then
+    printf "%s\n" "$out"
+    # Count lines (portable)
+    # Trim trailing newline to avoid off-by-one
+    local n
+    n=$(printf "%s" "$out" | awk 'END{print NR}')
+    # awk prints 0 for empty input; we guarded for non-empty
+    fail_count=$((fail_count + n))
   fi
-  if [ $missing -gt 0 ]; then
-    if [ $FAIL_ON_REFS -eq 1 ]; then
-      printf '%s: ERROR missing %d referenced file(s)\n' "$f" "$missing" >&2
-      return 1
-    else
-      printf '%s: WARN missing %d referenced file(s)\n' "$f" "$missing" >&2
-      return 0
+}
+
+check_required_fields() {
+  local f="$1"
+  local fm
+  fm="$(extract_front_matter "$f")"
+  # description
+  if ! printf "%s\n" "$fm" | grep -qE '^description:'; then
+    report_line "$f" 1 'missing required field: description'
+  fi
+  # lastReviewed format
+  if ! printf "%s\n" "$fm" | grep -qE '^lastReviewed:[[:space:]]*[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+    # Try to locate the line number if present; else default to 1
+    local ln
+    ln="$(awk 'BEGIN{inside=0} /^---[ \t]*$/{ if(inside==0){inside=1; next}else{ exit } } inside==1 && $1=="lastReviewed:"{ print NR; exit }' "$f")"
+    [ -z "$ln" ] && ln=1
+    report_line "$f" "$ln" 'missing or invalid lastReviewed (YYYY-MM-DD)'
+  fi
+  # healthScore keys
+  if ! printf "%s\n" "$fm" | grep -qE '^healthScore:'; then
+    report_line "$f" 1 'missing healthScore'
+  else
+    for k in content usability maintenance; do
+      if ! printf "%s\n" "$fm" | grep -qE "^[[:space:]]{2}$k:[[:space:]]*(green|yellow|red)"; then
+        report_line "$f" 1 "missing healthScore.$k"
+      fi
+    done
+  fi
+}
+
+check_csv_and_boolean() {
+  local f="$1"
+  # Use awk to validate CSV fields and boolean casing
+  local out
+  out="$(awk -v file="$f" '
+    function report(ln,msg){ printf "%s:%d: %s\n", file, ln, msg }
+    {
+      if ($0 ~ /^(globs|overrides):/) {
+        if ($0 ~ /,\s+/) report(NR, "spaces around commas in CSV (globs/overrides)")
+        if ($0 ~ /[{}]/) report(NR, "brace expansion {} not allowed in CSV (globs/overrides)")
+      }
+      if ($0 ~ /^alwaysApply:[[:space:]]*/) {
+        line=$0
+        sub(/^alwaysApply:[[:space:]]*/, "", line)
+        if (line !~ /^(true|false)$/) report(NR, "alwaysApply must be unquoted lowercase true|false")
+      }
+    }
+  ' "$f")"
+  report_block "$out"
+}
+
+check_deprecated_and_typos() {
+  local f="$1"
+  local out
+  # Deprecated reference
+  if grep -nE 'assistant-learning-log\.mdc' "$f" >/dev/null 2>&1; then
+    out="$(grep -nE 'assistant-learning-log\.mdc' "$f" | sed -e "s|^|$f:|" -e 's/$/: deprecated reference, use `logging-protocol.mdc`/')"
+    report_block "$out"
+  fi
+
+  # Typography typo: ev\s+ents
+  if grep -nE 'ev[[:space:]]+ents' "$f" >/dev/null 2>&1; then
+    out="$(grep -nE 'ev[[:space:]]+ents' "$f" | sed -e "s|^|$f:|" -e 's/$/: fix typography: use "events"/')"
+    report_block "$out"
+  fi
+}
+
+check_tdd_first_invariant() {
+  local f="$1"
+  local base
+  base="$(basename "$f")"
+  if [ "$base" = "tdd-first.mdc" ]; then
+    local fm
+    fm="$(extract_front_matter "$f")"
+    if ! printf "%s\n" "$fm" | grep -qE '^globs:.*\*\*/\*\.cjs'; then
+      # Try to locate the globs line number
+      local ln
+      ln="$(awk 'BEGIN{inside=0} /^---[ \t]*$/{ if(inside==0){inside=1; next}else{ exit } } inside==1 && $1=="globs:"{ print NR; exit }' "$f")"
+      [ -z "$ln" ] && ln=1
+      report_line "$f" "$ln" 'tdd-first.mdc: globs should include **/*.cjs'
     fi
   fi
-  return 0
 }
 
-for f in "${FILES[@]}"; do
-  fm="$(front_matter "$f")"
-  [ -n "$fm" ] || { printf '%s: ERROR missing front matter\n' "${f#$ROOT_DIR/}" >&2; error_count=$((error_count+1)); continue; }
+check_embedded_front_matter_and_duplicate_headers() {
+  local f="$1"
+  # Detect embedded front matter blocks beyond the first pair of --- lines
+  local fm_out
+  fm_out=$(awk -v file="$f" '
+    BEGIN{sepCount=0; inCode=0}
+    /^```/ { inCode = 1 - inCode; next }
+    /^---[ \t]*$/ {
+      if (!inCode) {
+        sepCount++
+        if (sepCount>2) { printf "%s:%d: embedded front matter block detected\n", file, NR }
+      }
+    }
+  ' "$f")
+  report_block "$fm_out"
 
-  desc="$(printf '%s\n' "$fm" | awk -F':' '/^description:/{ $1=""; sub(/^ /,""); print; exit }')"
-  last="$(printf '%s\n' "$fm" | awk -F':' '/^lastReviewed:/{ $1=""; sub(/^ /,""); print; exit }')"
-  always="$(printf '%s\n' "$fm" | awk -F':' '/^alwaysApply:/{ $1=""; sub(/^ /,""); print; exit }')"
-  globs="$(printf '%s\n' "$fm" | awk -F':' '/^globs:/{ $1=""; sub(/^ /,""); print; exit }')"
-  overrides="$(printf '%s\n' "$fm" | awk -F':' '/^overrides:/{ $1=""; sub(/^ /,""); print; exit }')"
+  # Detect duplicate top-level headers (# ...)
+  local hdr_out
+  hdr_out=$(awk -v file="$f" '
+    BEGIN{firstSeen=0; inCode=0}
+    /^```/ { inCode = 1 - inCode; next }
+    /^# [^#]/ {
+      if (!inCode) {
+        if (firstSeen==0) { firstSeen=1 }
+        else { printf "%s:%d: duplicate top-level header\n", file, NR }
+      }
+    }
+  ' "$f")
+  report_block "$hdr_out"
+}
 
-  desc="$(trim "$desc")"
-  last="$(trim "$last")"
-  always="$(trim "$always")"
-  globs="$(trim "$globs")"
-  overrides="$(trim "$overrides")"
+main() {
+  # Parse simple args
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --list)
+        list_rule_files
+        exit 0
+        ;;
+      --dir)
+        shift
+        RULES_DIR="${1:-}"
+        if [ -z "$RULES_DIR" ]; then
+          echo "--dir requires a value" >&2
+          exit 2
+        fi
+        ;;
+      --help|-h)
+        print_usage
+        exit 0
+        ;;
+      *)
+        echo "Unknown argument: $1" >&2
+        print_usage >&2
+        exit 2
+        ;;
+    esac
+    shift
+  done
 
-  # healthScore keys
-  has_hs=$(printf '%s\n' "$fm" | grep -c '^healthScore:') || true
-  hs_content=$(printf '%s\n' "$fm" | awk -F':' '/^[[:space:]]+content:/{ $1=""; sub(/^ /,""); print; exit }')
-  hs_usability=$(printf '%s\n' "$fm" | awk -F':' '/^[[:space:]]+usability:/{ $1=""; sub(/^ /,""); print; exit }')
-  hs_maintenance=$(printf '%s\n' "$fm" | awk -F':' '/^[[:space:]]+maintenance:/{ $1=""; sub(/^ /,""); print; exit }')
-
-  rel="${f#$ROOT_DIR/}"
-
-  if [ -z "$desc" ]; then printf '%s: ERROR missing description\n' "$rel" >&2; error_count=$((error_count+1)); fi
-  if [ -z "$last" ]; then printf '%s: ERROR missing lastReviewed\n' "$rel" >&2; error_count=$((error_count+1)); fi
-  if [ -n "$last" ] && ! echo "$last" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
-    printf '%s: ERROR invalid lastReviewed format (YYYY-MM-DD): %s\n' "$rel" "$last" >&2; error_count=$((error_count+1));
+  if [ ! -d "$RULES_DIR" ]; then
+    printf "No rules directory found at %s\n" "$RULES_DIR" >&2
+    exit 1
   fi
 
-  if [ "$has_hs" -eq 0 ]; then printf '%s: ERROR missing healthScore block\n' "$rel" >&2; error_count=$((error_count+1)); fi
-  if [ -z "$(trim "$hs_content")" ]; then printf '%s: ERROR missing healthScore.content\n' "$rel" >&2; error_count=$((error_count+1)); fi
-  if [ -z "$(trim "$hs_usability")" ]; then printf '%s: ERROR missing healthScore.usability\n' "$rel" >&2; error_count=$((error_count+1)); fi
-  if [ -z "$(trim "$hs_maintenance")" ]; then printf '%s: ERROR missing healthScore.maintenance\n' "$rel" >&2; error_count=$((error_count+1)); fi
+  while IFS= read -r f; do
+    # Front matter
+    check_required_fields "$f"
+    # CSV + boolean
+    check_csv_and_boolean "$f"
+    # Deprecated refs and typos
+    check_deprecated_and_typos "$f"
+    # Invariants
+    check_tdd_first_invariant "$f"
+    # Structure hygiene
+    check_embedded_front_matter_and_duplicate_headers "$f"
+  done < <(list_rule_files)
 
-  if [ -n "$always" ] && ! echo "$always" | grep -qE '^(true|false)$'; then
-    printf '%s: ERROR alwaysApply must be true or false (lowercase)\n' "$rel" >&2; error_count=$((error_count+1));
+  if [ "$fail_count" -gt 0 ]; then
+    printf "rules-validate: %d issue(s) found\n" "$fail_count" >&2
+    exit 1
+  else
+    printf "rules-validate: OK\n"
   fi
+}
 
-  if [ -n "$globs" ] && ! validate_csv "$globs"; then
-    printf '%s: ERROR globs must be CSV without spaces, quotes, or braces\n' "$rel" >&2; error_count=$((error_count+1));
-  fi
-  if [ -n "$overrides" ] && ! validate_csv "$overrides"; then
-    printf '%s: ERROR overrides must be CSV without spaces, quotes, or braces\n' "$rel" >&2; error_count=$((error_count+1));
-  fi
-
-  # Check references in front matter and in full file content
-  if ! check_refs "$rel" "$ROOT_DIR" "$fm"; then
-    if [ $FAIL_ON_REFS -eq 1 ]; then error_count=$((error_count+1)); else warn_count=$((warn_count+1)); fi
-  fi
-  file_content="$(cat "$f")"
-  if ! check_refs "$rel" "$ROOT_DIR" "$file_content"; then
-    if [ $FAIL_ON_REFS -eq 1 ]; then error_count=$((error_count+1)); else warn_count=$((warn_count+1)); fi
-  fi
-
-done
-
-if [ $error_count -ne 0 ]; then
-  printf 'Validation failed: %d error(s), %d warning(s)\n' "$error_count" "$warn_count" >&2
-  exit 1
-fi
-
-printf 'Validation passed: %d file(s), %d warning(s)\n' "${#FILES[@]}" "$warn_count" >&2
-exit 0
+main "$@"

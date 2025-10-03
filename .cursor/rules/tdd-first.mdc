@@ -1,15 +1,36 @@
 ---
-description: Test-driven development as default approach
-globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs
+description: TDD-First — owner spec gate, minimal implementation, refactor; with logging at Red/Green
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs,**/*.sh
 alwaysApply: true
-lastReviewed: 2025-09-14
+lastReviewed: 2025-10-02
 healthScore:
-  content: green     # Clear TDD principles, good examples
-  usability: green   # Well-organized, practical guidance
-  maintenance: green # Recently reviewed, current practices
+  content: green
+  usability: green
+  maintenance: green
 ---
 
-# TDD First: Test-Driven Development
+# Rule: TDD-First
+
+## Pre-edit Gate
+
+- Before editing JS/TS: list owner spec path(s) colocated with the source file
+- Red: add or update a failing owner spec
+- Green: implement minimal change to pass
+- Refactor: clean up while keeping tests green
+
+## Effects Seam
+
+- Isolate IO/env/time/random behind injected dependencies; test pure resolvers first
+
+## Logging
+
+- Write an assistant learning log at Red (spec added/updated and failing) and Green (tests passing) per `logging-protocol.mdc`
+
+## References
+
+- `spec-driven.mdc`, `deterministic-outputs.mdc`, `logging-protocol.mdc`
+
+## TDD First: Test-Driven Development
 
 ## When to use TDD
 
@@ -47,7 +68,11 @@ export function resolveGithubLogin(input: {
   fallbackUser: string;
 }): string {
   return (
-    input.tokenLogin || input.ciActor || input.ghCliLogin || input.originOwner || input.fallbackUser
+    input.tokenLogin ||
+    input.ciActor ||
+    input.ghCliLogin ||
+    input.originOwner ||
+    input.fallbackUser
   );
 }
 
@@ -66,7 +91,7 @@ async function main() {
 
 ## Hard gate (repo‑wide, no skip)
 
-- Scope: applies to all maintained sources: `**/*.{ts,tsx,js,jsx}` excluding `node_modules/**`, `dist/**`, `build/**`, `web/dist/**`.
+- Scope: applies to all maintained sources: `**/*.{ts,tsx,js,jsx,mjs,cjs,sh}` excluding `node_modules/**`, `dist/**`, `build/**`, `web/dist/**`.
 - Owner spec rule (deterministic): for any edited file `f.ext`, the owner spec is the colocated `f.spec.ext` in the same folder. If N sources change, N owner specs must change.
 - New files: creating `a.ts` requires creating `a.spec.ts` in the same folder (tsx/js/jsx analogously).
 - Public API changes: added/changed exports in `f` must be reflected in `f.spec.*` (add or update the appropriate `describe`).
@@ -79,6 +104,12 @@ async function main() {
   - Provide a one‑line failing assertion description for each owner spec (the "Red").
 - No skip path: if tests cannot be authored as initially framed, adjust the approach (use the FP effects seam) rather than skipping tests.
 - One-shot consent for new specs: If creating a new owner spec is required and file creation needs consent, ask once; if no reply, pause.
+
+## Shell scripts (TDD‑style gating)
+
+- Preferred: colocate a `script.spec.sh` next to the script and run it in CI (use `bats`/`shunit2` when available; otherwise portable `sh` checks).
+- Minimum: provide a deterministic self‑check (e.g., `--self-test` or a small harness) and add a CI step that fails on non‑zero.
+- Apply the same pre‑edit confirmation: name the self‑check path and the failing assertion it covers before implementation.
 
 ## Effects seam (functional style)
 
@@ -100,8 +131,8 @@ async function main() {
 
 ```ts
 // 1. Red: Test the bug
-it('handles empty input gracefully', () => {
-  expect(() => processInput('')).not.toThrow();
+it("handles empty input gracefully", () => {
+  expect(() => processInput("")).not.toThrow();
 });
 
 // 2. Green: Fix the bug
@@ -115,15 +146,15 @@ function processInput(input) {
 
 ```ts
 // 1. Red: Test the new behavior
-it('validates CSV format for globs', () => {
+it("validates CSV format for globs", () => {
   expect(validateGlobs("['invalid']")).toThrow(/invalid format/);
-  expect(validateGlobs('valid,pattern')).not.toThrow();
+  expect(validateGlobs("valid,pattern")).not.toThrow();
 });
 
 // 2. Green: Implement validation
 function validateGlobs(globs) {
   if (/[\[\]]/.test(globs)) {
-    throw new Error('invalid format; expected CSV');
+    throw new Error("invalid format; expected CSV");
   }
 }
 ```

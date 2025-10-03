@@ -1,19 +1,15 @@
 ---
-description: Configurable logging system for assistant reflections and rule updates
-alwaysApply: true
-lastReviewed: 2025-09-19
+description: Deprecated — use logging-protocol.mdc for assistant learning logs
+alwaysApply: false
+lastReviewed: 2025-10-03
 healthScore:
-  content: green # Simplified for reduced complexity
-  usability: green # Descriptive names improve discoverability
-  maintenance: green # Supports scanning and config overrides
+  content: green
+  usability: green
+  maintenance: green
 ---
 
-## Logging Protocol
+## Deprecated
 
-- Trigger: After key interactions (e.g., corrections via Third Law, user feedback, or rule conflicts), log the outcome.
-- Config: Use a configurable directory (default: ./assistant-logs/). Allow override via environment variable (e.g., ASSISTANT_LOG_DIR) or .cursor/config.json key (e.g., "logDir": "./custom-logs/").
-- Storage: Create individual files per log entry or session, named with a timestamp prefix followed by a short descriptive name (e.g., log-2025-09-19T12:00:00Z-law-clarification.md). Generate the description automatically based on the outcome (keep it concise, 3-5 words).
-- Format: Each file is Markdown with a single entry, including Timestamp, Outcome, What Worked, Improvements, and Proposed Rule Changes.
-- Evolution: Periodically scan the directory the logs are stored in (e.g., via a future /review-rules command or automated script) to aggregate insights and drive rule updates.
-- Privacy: Rely on the privacy settings of the repository (e.g., if the repo is private, logs remain internal). Ensure directory is git-ignored if sensitive; do not share logs without explicit user consent.
-- Fallback: If dir not writable, fall back to root repository directory docs/assistant-learning-logs/.
+This rule has been replaced by `logging-protocol.mdc`, which defines the single authoritative triggers, schema, and safety guidance for assistant learning logs.
+
+Rationale: reduce duplication and conflicts; keep one minimal, high-signal protocol.

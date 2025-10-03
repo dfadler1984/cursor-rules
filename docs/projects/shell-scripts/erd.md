@@ -1,4 +1,9 @@
+---
+---
+
 # Engineering Requirements Document — Shell Scripts Suite
+
+[Links: Glossary](../../docs/glossary.md)
 
 Mode: Lite
 
@@ -41,6 +46,10 @@ Create a cohesive suite of shell scripts to replace Node/yarn-based helpers with
   - All scripts live under `.cursor/scripts/`
   - Tests are named `*.test.sh` and discovered under `.cursor/scripts/` (the runner also supports `scripts/*.test.sh` during transition)
   - Do not expose via package.json; scripts are standalone executables
+
+### 4.1 Standards Adoption
+
+- The suite explicitly adopts the repository bash standards defined in `docs/projects/bash-scripts/erd.md` §3.1. Scripts in this suite MUST comply.
 
 ## 5. Risks/Edge Cases
 

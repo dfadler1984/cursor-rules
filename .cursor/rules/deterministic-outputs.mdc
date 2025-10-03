@@ -1,0 +1,133 @@
+---
+description: Deterministic, structured outputs — Spec/Plan/Tasks templates, acceptance bundle, and validation rules
+alwaysApply: false
+lastReviewed: 2025-10-02
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Rule: Deterministic, Structured Outputs
+
+## Purpose
+
+Standardize planning artifacts so they are predictable, linkable, and toolable across repositories. Define minimal templates, an acceptance bundle schema, and validation rules that tie planning to execution.
+
+## Triggers
+
+- Planning flows (Specify/Plan/Tasks) and ERD follow-ups
+- Requests to create/update Spec/Plan/Tasks artifacts
+- Mentions of “acceptance bundle”, “deterministic outputs”, or artifact contracts
+
+## Artifacts and Locations
+
+- Specs: docs/specs/<feature>-spec.md
+- Plans: docs/plans/<feature>-plan.md
+- Tasks: docs/projects/<feature>/tasks.md
+
+Respect portability configuration:
+
+- `artifacts.specsDir` (default: `docs/specs`)
+- `artifacts.plansDir` (default: `docs/plans`)
+- `artifacts.tasksDir` (default: `docs/projects` per-feature tasks.md)
+
+All paths are repo-relative. Do not use absolute paths in configuration.
+
+## Templates (required minimum)
+
+Spec template:
+
+```markdown
+# <feature> Spec
+
+## Overview
+
+## Goals
+
+## Functional Requirements
+
+## Acceptance Criteria
+
+## Risks/Edge Cases
+
+[Links: Plan | Tasks]
+```
+
+Plan template:
+
+```markdown
+# <feature> Plan
+
+## Steps
+
+## Acceptance Bundle
+
+## Risks
+
+[Links: Spec | Tasks]
+```
+
+Tasks template (docs/projects/<feature>/tasks.md):
+
+```markdown
+# Tasks — <feature>
+
+## Relevant Files
+
+- docs/specs/<feature>-spec.md
+- docs/plans/<feature>-plan.md
+
+## Todo
+
+- [ ] First actionable sub-task (only one active)
+```
+
+Template rules:
+
+- `<feature>` uses kebab-case and must match across all three files
+- Include top-of-file sibling cross-links using the `[Links: …]` line
+- Tasks file enforces exactly one active sub-task at a time
+
+## Acceptance Bundle (schema)
+
+Required keys:
+
+- `targets`: string[] — files/components to change
+- `exactChange`: string — one imperative sentence describing the change
+- `successCriteria`: string[] — measurable checks (e.g., test names, output text)
+- `constraints`: string[] (optional)
+- `runInstructions`: string[] — commands to verify behavior
+- `ownerSpecs`: string[] — for JS/TS changes, colocated spec path(s) per TDD-first
+
+Example:
+
+```json
+{
+  "targets": ["src/parse.ts", "src/parse.spec.ts"],
+  "exactChange": "Validate CSV-only globs in parse.ts",
+  "successCriteria": ["Spec 'rejects bracketed globs' passes"],
+  "constraints": ["No new dependencies"],
+  "runInstructions": [
+    "yarn test src/parse.spec.ts -t 'rejects bracketed globs'"
+  ],
+  "ownerSpecs": ["src/parse.spec.ts"]
+}
+```
+
+## Validation Rules
+
+- Reject artifacts missing the required headings shown in Templates
+- Verify sibling cross-links resolve to existing files
+- Enforce kebab-case `<feature>` consistency across filenames
+- For JS/TS changes, require `ownerSpecs` in the acceptance bundle and verify colocation
+- Adhere to house style: use Markdown per `markdown_spec` and code citation per `citing_code`
+
+## Policy
+
+- Single active sub-task policy in Tasks: mark only one sub-task as active at a time; check off immediately upon completion
+
+## References
+
+- ERD: `docs/erd-deterministic-outputs.md`
+- Related rules: `create-erd.mdc`, `front-matter.mdc`, `rule-maintenance.mdc`, `rule-quality.mdc`, `logging-protocol.mdc`

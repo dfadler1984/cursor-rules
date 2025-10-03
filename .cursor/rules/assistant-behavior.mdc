@@ -49,10 +49,12 @@ healthScore:
 ## JS/TS TDD pre-edit gate
 
 - If the next action includes editing JavaScript/TypeScript files (`**/*.{ts,tsx,js,jsx,mjs,cjs}` excluding `node_modules/**`, `dist/**`, `build/**`, `web/dist/**`), you must first provide a TDD confirmation with:
+
   - The exact owner spec path(s) to add/update (colocated next to each changed source), and
   - A one-line failing assertion description for each owner spec.
 
   Then proceed in order:
+
   1. Add or update a failing/meaningful spec that expresses the desired behavior (Red).
   2. Implement the minimal change to pass (Green).
   3. Run tests and report results before further edits.
@@ -72,6 +74,12 @@ healthScore:
 - If sources disagree: summarize the discrepancy in one line; ask one clarifying question or choose the safest default.
 - If you err: acknowledge → correct → note impact → propose minimal fix.
 - Keep reasoning consistent; if it changes, say why—briefly.
+
+### Micro-checks (before effects/assertions)
+
+- Tooling-first: consult `favor-tooling.mdc` and the target rule’s Contract; use official scripts (e.g., `alp-logger.sh`).
+- Scope & consent: confirm project vs repo-wide target; get explicit consent for global edits.
+- Verification before assertion: run the relevant validator/CLI and paste exact output before claiming status.
 
 ## Scope
 

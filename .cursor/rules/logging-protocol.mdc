@@ -1,0 +1,69 @@
+---
+description: Assistant Learning Logs — always-on logging protocol with redaction, learning outcomes, and safe fallbacks
+alwaysApply: true
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Rule: Assistant Learning Logging Protocol
+
+## Purpose
+
+Write concise, redacted learning logs automatically at key events to improve reflection and rule evolution while avoiding sensitive data leakage. Capture mistakes, bottlenecks, and concrete learnings to improve future interactions and drive rules/scripts updates.
+
+## Triggers (high-signal only)
+
+- Misunderstanding Resolved: assistant and user reconciled an incorrect assumption
+- Improvement Opportunity: assistant identifies a clearly better approach or process
+- Rule Confusion/Performance Issue: guidance/routing caused confusion or inefficiency
+- TDD: Red (owner spec failing) and Green (passing)
+- Rules: Rule Added or Rule Updated with meaningful impact
+- Task Completed with a concrete learning (not just status)
+- Routing Corrected: misrouted intent fixed with a takeaway
+- Safety Near-Miss: unsafe path avoided or guard clarified
+
+Optional (off by default; enable per team practice):
+
+- Major ERD/spec/plan decision with explicit learning
+- Repeated pattern detected across 3+ occurrences (from code reviews or commits)
+- New library/tool adoption pattern worth standardizing
+- Common error pattern that a rule could prevent
+
+## Contract
+
+- Use `.cursor/scripts/alp-redaction.sh` to sanitize content
+- Use `.cursor/scripts/alp-logger.sh write-with-fallback <destDir> <short-name> <<'BODY' ... BODY` to write
+- Destination directory: `logDir` from `.cursor/config.json` (default `./assistant-logs/`)
+- Filename: `log-<ISO>-<short>.md` where `<short>` is 3–5 words
+
+Minimum body schema (Markdown):
+
+```
+Timestamp: <ISO8601>
+Event: <Misunderstanding Resolved | Improvement Opportunity | Rule Confusion | TDD Red | TDD Green | Rule Added | Rule Updated | Task Completed | Routing Corrected | Safety Near-Miss>
+Owner: <feature or rule>
+What Changed: <one line, concrete>
+Next Step: <one line, actionable>
+Links: <paths or PR/issues>
+Learning: <one line summary of what to do differently next time>
+```
+
+Notes:
+
+- Keep entries concise (≤6 lines). If there is no concrete Learning, skip logging.
+
+## Safety & Consent
+
+- Redact tokens/headers and secret-like values before writing
+- If `assistant-learning-protocol` is disabled, skip writes
+- Before writing, prefer the default destination (`assistant-logs/`). If it is not writable, use `docs/assistant-learning-logs/` (fallback) and include a one-line note in the entry indicating fallback reason.
+- Respect consent-first creation. Once consent is granted, write logs for all triggers automatically.
+
+## References
+
+- `alp-logger.sh`, `alp-redaction.sh`
+- `deterministic-outputs.mdc`
+- `spec-driven.mdc`, `create-erd.mdc`, `tdd-first.mdc`

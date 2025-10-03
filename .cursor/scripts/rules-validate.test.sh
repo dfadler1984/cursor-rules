@@ -71,4 +71,46 @@ if bash "$SCRIPT" --dir "$FIXTURES/refs" --fail-on-missing-refs >/dev/null 2>&1;
   echo "expected fail-on-missing-refs to fail"; exit 1
 fi
 
+# 4) Embedded front matter beyond first must fail
+cat > "$FIXTURES/invalid/embedded-fm.mdc" <<'YAML'
+---
+description: Has extra fm
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# content
+
+---
+extra: true
+---
+YAML
+
+if bash "$SCRIPT" --dir "$FIXTURES/invalid" >/dev/null 2>&1; then
+  echo "expected embedded front matter to fail"; exit 1
+fi
+
+# 5) Duplicate top-level header must fail
+cat > "$FIXTURES/invalid/dup-header.mdc" <<'YAML'
+---
+description: Duplicate header
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Title
+
+# Title
+YAML
+
+if bash "$SCRIPT" --dir "$FIXTURES/invalid" >/dev/null 2>&1; then
+  echo "expected duplicate header to fail"; exit 1
+fi
+
 exit 0

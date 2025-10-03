@@ -10,11 +10,12 @@ healthScore:
 
 # Task List Process
 
-Guidelines for managing task lists in Markdown under `/tasks/`.
+Guidelines for managing task lists in Markdown. Default location for per‑feature tasks is `docs/projects/<feature>/tasks.md` colocated with the ERD.
 
 ## Task Implementation
 
-- One sub-task at a time: do not start the next sub-task until the user approves.
+- One sub-task at a time: do not start the next sub-task until the user approves and the commit protocol for the previous sub-task has completed.
+- Respect dependencies and priorities when selecting the next task; if multiple are ready, choose the highest priority.
 - Completion protocol:
   1. After finishing a sub-task, immediately mark it `[x]`.
   2. If all sub-tasks under a parent are `[x]`, then:
@@ -43,6 +44,7 @@ When working with task lists, the assistant must:
 4. Keep “Relevant Files” accurate
 5. Before starting, check which sub-task is next
 6. After each sub-task, update the list and pause for approval
+7. When selecting next work, choose from tasks whose `dependencies` are satisfied; if multiple are ready, pick highest `priority`.
 
 ## References
 

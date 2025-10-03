@@ -1,0 +1,80 @@
+---
+description: Project lifecycle — completion policy and validation
+alwaysApply: false
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Rule: Project Lifecycle — Completion Policy
+
+## Purpose
+
+Codify how projects transition to Completed without breaking links: status tagging over moves, a closure checklist, a final summary, and an index update. Provide a light validator and optional automation.
+
+## Scope
+
+- Applies to all projects under `docs/projects/<name>/`.
+- Completion flows are documentation-first; optional automation is additive and opt-in.
+
+## Status Tagging Schema (ERD front matter)
+
+```yaml
+---
+status: active|completed
+completed: YYYY-MM-DD # required when status: completed
+owner: <github-handle-or-team>
+---
+```
+
+- Location: `docs/projects/<name>/erd.md` (and optionally mirrored in `tasks.md`).
+- Paths remain stable; avoid moving folders on completion (no link rot).
+
+## Closure Checklist (Definition of Done)
+
+- ERD front matter has `status: completed`, `completed: <date>`, and `owner`.
+- All items in `docs/projects/<name>/tasks.md` are checked off.
+- Tests/lint/types pass; coverage > 0% for new/changed modules (policy-level check).
+- ADRs updated/added for consequential decisions (if any).
+- User-facing docs/examples updated (README/guides as applicable).
+- Ownership/handoff note present (owner, next review date).
+
+Reference template: `docs/projects/project-lifecycle/completion-checklist.template.md`.
+
+## Final Summary
+
+- File: `docs/projects/<name>/final-summary.md`
+- Link this file from the ERD near the top.
+- Template: `docs/projects/project-lifecycle/final-summary.template.md`.
+
+## Projects Index Update
+
+- Landing page: `docs/projects/README.md`
+- When a project completes, move its entry from Active to Completed and keep the name as a link to `./<name>/erd.md` with a short description.
+
+## Validator and CLI
+
+- Script: `.cursor/scripts/project-lifecycle-validate.sh`
+  - Dry-run by default. Exits non-zero when Completed projects are missing required pieces.
+  - Checks (minimum):
+    - ERD contains `status: completed`, `completed:`, `owner:` in front matter
+    - `final-summary.md` exists
+    - `docs/projects/README.md` contains a Completed link for the project
+
+## Acceptance Criteria
+
+- Any project flipped to Completed includes required ERD fields and a final summary, and appears under Completed in `docs/projects/README.md`.
+- The checklist template and summary template are referenced from the ERD.
+- The validator script reports failures clearly and exits non-zero when requirements are unmet.
+
+## Notes
+
+- Archive is optional: only move to `docs/projects/_archive/<name>` for legacy/large projects; leave a stub/redirect if moved.
+- Prefer manual, explicit updates first; automation may be added later.
+
+## Rollout
+
+- Owner: rules-maintainers
+- Start manual; optionally add a CI job to run the validator in dry-run mode on PRs that change project docs.

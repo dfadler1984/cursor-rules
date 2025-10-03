@@ -1,20 +1,76 @@
 ---
-description: Phased workflow for automated task planning and progress tracking, inspired by GitHub's Spec-Driven Development
-alwaysApply: false # Trigger on explicit user requests or detected planning needs
-lastReviewed: 2025-09-24
+description: Spec-Driven workflow — Specify → Plan → Tasks with deterministic artifacts and TDD coupling
+alwaysApply: false
+lastReviewed: 2025-10-02
 healthScore:
-  content: green # DRY via references
-  usability: green # Delegated for consistency
-  maintenance: green # Easier updates
-references: [
-    "create-erd.mdc",
-    "generate-tasks-from-erd.mdc",
-    "task-list-process.mdc",
-    "assistant-behavior.mdc",
-    "tdd-first.mdc",
-    "assistant-learning-log.mdc",
-  ] # Dependencies for delegation
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - create-erd.mdc
+  - generate-tasks-from-erd.mdc
+  - task-list-process.mdc
+  - assistant-behavior.mdc
+  - tdd-first.mdc
+  - logging-protocol.mdc
 ---
+
+# Rule: Spec-Driven Workflow
+
+## Purpose
+
+Drive work through three phased, deterministic artifacts to reduce rework and enable automation: Specify (ERD/spec), Plan, Tasks. Couple code changes to TDD-first.
+
+## Triggers & Invocation
+
+- Phrases: "create ERD", "plan tasks", "generate plan", mentions of "acceptance bundle"
+- Slash commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`
+- Slash commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash commands take precedence; if both appear, follow slash-command flow)
+- Precedence: Slash commands take precedence over phrase triggers; on ambiguity, ask one clarifying question
+
+## Phases & Deliverables
+
+- Specify → docs/specs/<feature>-spec.md
+  - Sections: Overview, Goals, Functional Requirements, Acceptance Criteria, Risks/Edge Cases
+- Plan → docs/plans/<feature>-plan.md
+  - Sections: Steps, Acceptance Bundle, Risks
+  - Acceptance bundle: include targets, exactChange, successCriteria, runInstructions; ownerSpecs for JS/TS
+- Tasks → docs/projects/<feature>/tasks.md
+  - Sections: Relevant Files, Todo (single active sub-task policy)
+
+Cross-links: Each artifact links siblings at the top with the `[Links: …]` line. Filenames use the same kebab-case `<feature>`.
+
+## Progress & Consent Rules
+
+- One active sub-task at a time; check off immediately upon completion
+- Provide status updates summarizing what changed, what’s next, and blockers
+- Log events after each deliverable is produced (Specify/Plan/Tasks) and when a sub-task is completed using the logging protocol
+- Ask one clarifying question when targets/acceptance are ambiguous
+- Proceed without extra confirmation when the user issues explicit action verbs (implement/add/fix/refactor/update)
+
+## TDD Coupling
+
+- Any code-changing step must:
+  1. Add/update the owner spec first (Red)
+  2. Implement the minimal change to pass (Green)
+  3. Refactor while staying Green
+- JS/TS changes must list owner spec path(s) in the acceptance bundle
+
+## Portability
+
+- Respect `artifacts.*Dir` configuration for write locations
+- Default locations:
+  - Specs: `docs/specs`
+  - Plans: `docs/plans`
+  - Tasks: `docs/projects/<feature>/tasks.md`
+  - ERD (canonical): `docs/projects/<feature>/erd.md`
+
+## References
+
+- Deterministic outputs: `deterministic-outputs.mdc`
+- TDD-first: `tdd-first.mdc`
+- Logging: `logging-protocol.mdc`
+- Guidance-first (clarify-first posture): `guidance-first.mdc`
 
 ## Workflow Triggers
 
@@ -37,11 +93,16 @@ references: [
    - Consent: Per assistant-behavior.mdc (ask "Proceed or regenerate?").
 
 3. **Tasks**: Execute with monitoring and AI assistance.
+
    - Delegate execution to task-list-process.mdc (sequential handling, checkbox updates).
    - Integration: If MCP detected, suggest links (e.g., "Create Jira ticket?") or auto-PR.
    - AI Synergy: Feed spec/plan to agents (e.g., Copilot).
    - Logging: Trigger logging.mdc on completion/issues.
    - Halt on issues: Pause and correct per Third Law; support regen to reduce debt.
+
+4. **Analyze**: Cross-artifact check prior to implementation.
+   - Ensure coverage/consistency across ERD/plan/tasks; surface `[NEEDS CLARIFICATION]` items or state “No discrepancies found”.
+   - Proceed to `/implement` only after analysis is satisfactory.
 
 ## Portability Notes
 
