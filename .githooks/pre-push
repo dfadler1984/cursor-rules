@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+# Block pushes to main (defense-in-depth)
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$current_branch" = "main" ]; then
+  echo "❌ Pre-push blocked: do not push directly to main." 1>&2
+  echo "Push a feature branch and open a PR instead." 1>&2
+  exit 1
+fi
+
+exit 0
+
+
