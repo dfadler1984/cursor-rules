@@ -90,6 +90,30 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
   - Rule Maintenance & Validator ERD: `docs/projects/rule-maintenance/erd.md`
   - Collaboration Options ERD: `docs/projects/collaboration-options/erd.md`
 
+## Changelog & Versioning
+
+- Canonical version lives in `VERSION` (single line, e.g., `1.2.3`).
+- Changelog is generated in `CHANGELOG.md` via Changesets.
+- No GitHub Releases are published; updates occur via a bot PR named "Version Packages".
+
+Author workflow:
+
+```bash
+# In your feature branch
+npx changeset
+# Follow prompts to select bump type and write a summary
+git add . && git commit -m "chore(changeset): add"
+git push
+
+# After your PR merges to main, a bot opens/updates a Version Packages PR.
+# Maintainers review and merge it. That PR updates CHANGELOG.md and VERSION.
+```
+
+CI details:
+
+- On push to `main`, the workflow opens/updates the Version Packages PR when pending changesets exist.
+- When that PR is merged, the workflow writes the computed version into `VERSION` and commits the updated `CHANGELOG.md`.
+
 ## What's New
 
 - Deterministic outputs (Spec/Plan/Tasks) — ERD + rules + validator shell script
