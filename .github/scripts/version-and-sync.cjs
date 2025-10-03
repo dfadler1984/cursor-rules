@@ -6,7 +6,8 @@ function run(cmd) {
 }
 
 // 1) Version packages via Changesets
-run('npx -y @changesets/cli@^2.27.9 changeset version');
+// Note: when invoking via npx with the package name, call the subcommand directly (no leading "changeset").
+run('npx -y @changesets/cli@^2.27.9 version');
 
 // 2) Sync canonical VERSION from package.json
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
