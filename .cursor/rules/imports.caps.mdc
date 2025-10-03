@@ -1,0 +1,37 @@
+---
+description: Capabilities for import organization (grouping, alphabetization, type-only imports)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - imports.mdc
+---
+
+## Capabilities
+
+- Normalize imports: group by type/source, alphabetize, prefer type-only imports
+- Keep modules side-effect free by default; prefer named exports only
+
+## Triggers & Routing
+
+- When editing TS/JS files or encountering lint warnings about imports
+
+## Inputs → Outputs
+
+- Inputs: target file(s)
+- Outputs: organized import blocks matching repo conventions
+
+## Constraints & Guards
+
+- Avoid default exports; avoid side-effectful top-level code
+- Preserve existing code style and formatting
+
+## Examples
+
+- "Normalize imports in src/utils/date.ts (type-only where applicable)"
+
+## Related
+
+- code-style.mdc, testing.caps.mdc

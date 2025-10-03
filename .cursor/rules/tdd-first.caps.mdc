@@ -1,0 +1,40 @@
+---
+description: Capabilities for TDD-first (owner specs, Red → Green → Refactor)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - tdd-first.mdc
+---
+
+## Capabilities
+
+- Enforce owner specs before code edits in JS/TS (pre-edit gate)
+- Guide Red → Green → Refactor flow with focused test runs
+- Encourage pure cores with effect seams for testability
+
+## Triggers & Routing
+
+- Implementation verbs detected on JS/TS files; attach pre-edit gate
+- Requires listing owner spec paths in the plan (acceptance bundle)
+
+## Inputs → Outputs
+
+- Inputs: target files/components and acceptance bundle
+- Outputs: updated spec files (failing → passing) and minimal code edits
+
+## Constraints & Guards
+
+- No implementation before a meaningful failing spec exists
+- Keep changes minimal; refactor only after green
+
+## Examples
+
+- "Add failing spec for parse.ts, then implement minimal fix"
+- "List owner spec paths for route handler before editing"
+
+## Related
+
+- spec-driven.caps.mdc, testing.caps.mdc (if present)

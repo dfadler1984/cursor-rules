@@ -29,7 +29,7 @@ Tasks Model
 
 Logging & Progress
 
-- Reflective logs: `assistant-learning-log.mdc` + `logging-protocol.mdc` (strong). No token/time operation block yet.
+- Reflective logs: `logging-protocol.mdc` (authoritative). Operation/Dependency Impact captured.
 
 Licensing & Reuse
 
@@ -158,3 +158,79 @@ Operational notes
 Review window
 
 - 1–2 days for feedback; collect refinements and schedule a light follow-up pass if needed.
+
+## Logging Enhancements (Protocol updates)
+
+Summary
+
+- Always-on learning logs; consent-aware; redaction enforced.
+- Persist to `assistant-logs/` (default), fallback to `docs/assistant-learning-logs/` with a one-line reason when used.
+- Add Operation and Dependency Impact sections to each entry.
+- Extend improvement triggers and capture signals derived from Taskmaster’s `self_improve.mdc`.
+
+Triggers (expanded)
+
+- NewPattern≥3 | RepeatedFeedback | CommonBug | NewLibrary | EmergingPractice | CoverageSignal
+- Existing: TDD Red/Green, Task Completed, Analyze Completed, Rule Added/Updated, Routing Corrected, Safety Near-Miss
+
+Schema additions
+
+- ImprovementTrigger: one of the expanded triggers above
+- Signals: concrete evidence (file paths, PR reviews, links)
+- PatternSummary: 1–2 lines describing the recognized pattern/gap
+- Scope: files=n, modules=n
+- Decision: AddRule | ModifyRule | DeprecateRule
+- QualityCheck: actionable/specific, current refs, consistent enforcement (quick pass/fail note)
+- References: upstream docs/links used
+- ReviewAfter: YYYY-MM-DD (schedule follow-up)
+- Operation: Elapsed, TokenIn, TokenOut, Units; optional SamplesReviewed, CoverageDelta
+- Dependency Impact: RulesAffected, DocsAffected, AffectedTasks, Unblocked, Added/Removed
+
+Storage & persistence
+
+- Primary: `assistant-logs/` per `.cursor/config.json: logDir`
+- Fallback (non-writable primary): `docs/assistant-learning-logs/` with a one-line fallback reason noted in the entry
+
+Example
+Timestamp: 2025-10-03T14:12:01Z
+Event: Analyze Completed
+Owner: ai-workflow-integration
+What Changed: Verified ERD→Spec coverage; flagged 1 gap and 2 [P] tasks
+Next Step: Fill spec for FR-3 and reprioritize tasks by effort
+Links: docs/projects/ai-workflow-integration/erd.md
+Learning: Coverage map up-front avoids rework later
+
+ImprovementTrigger: EmergingPractice
+Signals:
+
+- docs/projects/.../discussions.md (3 mentions)
+- PR reviews citing task selection issues
+  PatternSummary: Prefer ready + high-priority tasks; mark [P] when coupling is low
+  Scope: files=2, modules=1
+  Decision: ModifyRule
+  QualityCheck: actionable ✅ current refs ✅ consistent ✅
+  References: spec-kit/spec-driven.md, ai-dev-tasks/generate-tasks.md
+  ReviewAfter: 2025-10-17
+
+Operation:
+
+- Elapsed: 3m12s
+- TokenIn: N/A
+- TokenOut: N/A
+- Units: 2 rules updated
+- SamplesReviewed: 5
+- CoverageDelta: N/A
+
+Dependency Impact:
+
+- RulesAffected: .cursor/rules/generate-tasks-from-erd.mdc, .cursor/rules/task-list-process.mdc
+- DocsAffected: docs/projects/ai-workflow-integration/tasks.md
+- AffectedTasks: 2.0, 5.0
+- Unblocked: 3.0
+- Added/Removed: N/A
+
+## Todos
+
+- [ ] Deep dive claude-task-master `.cursor/rules/` and extract self-improvement/logging patterns
+- [ ] Review `ai-dev-tasks/create-prd.md` and capture reusable ERD/spec prompts
+- [ ] Ensure our spec workflow aligns with `spec-kit/spec-driven.md` (routing, phases, analyze gate)

@@ -1,0 +1,40 @@
+---
+description: Capabilities for intent routing (signals → minimal rule attachment)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - intent-routing.mdc
+---
+
+## Capabilities
+
+- Map user phrases and context to the smallest useful rule set
+- Prefer slash-command precedence; attach only what's needed (thin-first)
+
+## Triggers & Routing
+
+- Exact phrase triggers (DRY RUN:) → plan-only behavior
+- Composite consent-after-plan → implementation path
+- Keywords + file signals → attach testing/TDD by default for implementation intents
+
+## Inputs → Outputs
+
+- Inputs: user message, open files, repo state
+- Outputs: selected rules attached (e.g., tdd-first, spec-driven)
+
+## Constraints & Guards
+
+- Ask one concise clarifying question when ambiguous
+- Do not auto-create files on medium/low confidence
+
+## Examples
+
+- "Add tests for API client" → attach testing + tdd-first
+- "Refactor parse.ts to be pure" → attach refactoring + testing
+
+## Related
+
+- commands.caps.mdc, spec-driven.caps.mdc

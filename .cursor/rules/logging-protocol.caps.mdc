@@ -1,0 +1,38 @@
+---
+description: Capabilities for the Assistant Learning Logging Protocol
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - logging-protocol.mdc
+---
+
+## Capabilities
+
+- Always-on learning logs with redaction and safe fallbacks
+- Operation and Dependency Impact sections; improvement triggers supported
+
+## Triggers & Routing
+
+- High-signal events (TDD Red/Green, Analyze Completed, Task Completed, Rule Added/Updated, etc.)
+- Consent-aware; skip writes only if explicitly disabled
+
+## Inputs → Outputs
+
+- Inputs: event context (owner, changes, links)
+- Outputs: assistant-logs/ entries (or docs/assistant-learning-logs/ fallback)
+
+## Constraints & Guards
+
+- Redact tokens/headers and secret-like values
+- Prefer primary logDir; note fallback reason when used
+
+## Examples
+
+- "Log Analyze Completed for ai-workflow-integration with 1 gap found"
+
+## Related
+
+- spec-driven.caps.mdc, create-erd.caps.mdc

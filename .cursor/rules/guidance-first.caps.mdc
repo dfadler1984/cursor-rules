@@ -1,0 +1,27 @@
+---
+description: Capabilities for guidance-first (ask before proposing implementation)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - guidance-first.mdc
+---
+
+## Capabilities
+
+- Handle guidance requests by clarifying needs before offering solutions
+
+## Triggers & Routing
+
+- When user asks for approaches/options rather than edits
+
+## Inputs → Outputs
+
+- Inputs: user context and constraints
+- Outputs: options/trade-offs and a consent prompt
+
+## Related
+
+- assistant-behavior.caps.mdc, scope-check.caps.mdc

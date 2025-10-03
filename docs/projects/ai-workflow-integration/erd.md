@@ -59,12 +59,11 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
    - Add “Dependency Impact” notes: which tasks/sections were affected.
    - Respect redaction and fallback directories.
 
-6. Configuration & Toggles
-   - Add config keys in `.cursor/config.json` (examples):
-     - `features.specKitCommands: boolean` (default false)
-     - `features.taskDependencies: boolean` (default false)
-     - `features.loggingOperationBlock: boolean` (default false)
-   - All new features off by default; rules behave as today when disabled.
+6. Unified Defaults (No Toggles)
+
+- Slash‑commands recognized by default; phrase triggers remain supported.
+- Tasks support `dependencies`, `priority`, and `[P]` markers by default.
+- Self‑improvement logging is always on via `logging-protocol.mdc` with Operation and Dependency Impact sections.
 
 ## 5. Non-Functional Requirements
 
@@ -81,10 +80,8 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
   - `generate-tasks-from-erd.mdc` (optional dependencies/priority/[P])
   - `task-list-process.mdc` (dependency/priority selection note)
   - `spec-driven.mdc` (slash‑commands, `/analyze` gate, cross‑links)
-  - `assistant-learning-log.mdc` (Operation/Dependency Impact blocks)
-- Configuration:
-  - `.cursor/config.json` feature flags (see Functional §6).
-- Flow: User can choose phrase triggers (today) or slash‑commands (if enabled). Tasks remain two‑phase with pauses and TDD coupling.
+  - `logging-protocol.mdc` (Operation/Dependency Impact blocks)
+- Flow: User can choose phrase triggers or slash‑commands. Tasks remain two‑phase with pauses and TDD coupling.
 
 ## 7. Data Model and Storage
 
@@ -106,16 +103,16 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 ## 10. Edge Cases and Constraints
 
 - Offline or agents without slash‑commands: phrase triggers remain primary.
-- Teams that prefer minimalism can keep all new features disabled.
+- Teams that prefer minimalism can keep new ERD/spec artifacts lightweight.
 - Licensing: maintain our rules; do not copy proprietary content verbatim.
 
 ## 11. Testing & Acceptance
 
 - Acceptance (docs-level):
   - Creating a new ERD triggers uncertainty markers when prompts are ambiguous.
-  - Generating tasks (phase 1) yields only parent tasks; phase 2 adds sub‑tasks; optional deps/priority appear when enabled.
+  - Generating tasks (phase 1) yields only parent tasks; phase 2 adds sub‑tasks.
   - Task‑list process enforces one‑sub‑task gating and dependency‑aware next selection.
-  - Logging entries include the optional Operation block when enabled.
+  - Logging entries include the Operation block (best‑effort) and Dependency Impact.
   - Spec‑driven rule lists slash‑commands and `/analyze` gate.
 - Spot checks:
   - Validate rule front‑matter and references compile with our validation script.
@@ -123,10 +120,10 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 ## 12. Rollout & Ops
 
-- Phase 0: Add feature flags (all off) and update rules with optional sections.
-- Phase 1: Enable in a demo branch; collect feedback; adjust wording.
-- Phase 2: Opt‑in enablement per project via `.cursor/config.json`.
-- Rollback: Disable flags; existing rules continue to function as before.
+- Phase 0: Update rules with optional sections (no toggles).
+- Phase 1: Enable unified defaults in a demo branch; collect feedback; adjust wording.
+- Phase 2: Document unified defaults in README.
+- Rollback: Not applicable; unified defaults are docs-only.
 
 ## 13. Success Metrics
 

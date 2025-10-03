@@ -1,0 +1,43 @@
+---
+description: Capabilities for generating a task list from an ERD (two‑phase with deps/priority/[P])
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - generate-tasks-from-erd.mdc
+---
+
+## Capabilities
+
+- Produce two‑phase tasks from an ERD: parents first → wait for “Go” → sub‑tasks
+- Support `dependencies`, `priority`, and `[P]` (parallelizable) markers
+- Emit a "Relevant Files" section with likely touched files and test counterparts
+- Couple to TDD-first: surface owner specs and test-first posture in sub‑tasks
+
+## Triggers & Routing
+
+- Slash: /tasks
+- Phrase: "generate tasks", "tasks from ERD"
+- Pause after parent tasks until explicit "Go"
+
+## Inputs → Outputs
+
+- Inputs: ERD path (docs/projects/<feature>/erd.md)
+- Output: docs/projects/<feature>/tasks.md
+
+## Constraints & Guards
+
+- Do not generate sub‑tasks until the user replies "Go"
+- Prefer ready tasks (deps satisfied); among ready, pick highest priority
+- Keep sub‑tasks small, actionable, and test-led; avoid speculative items
+
+## Examples
+
+- "/tasks for checkout using docs/projects/checkout/erd.md"
+- "Generate tasks from ERD for search; stop after parent tasks"
+
+## Related
+
+- task-list-process.caps.mdc, spec-driven.caps.mdc

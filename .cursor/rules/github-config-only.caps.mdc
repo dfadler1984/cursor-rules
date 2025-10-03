@@ -1,0 +1,28 @@
+---
+description: Capabilities for .github/ boundaries — configuration only
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - github-config-only.mdc
+---
+
+## Capabilities
+
+- Keep `.github/` limited to platform config (workflows, templates, CODEOWNERS)
+- Route feature docs to `docs/` and use opt-in PR templates if needed
+
+## Triggers & Routing
+
+- When modifying `.github/` contents
+
+## Inputs → Outputs
+
+- Inputs: proposed `.github/` changes
+- Outputs: guidance to keep boundaries clean
+
+## Related
+
+- project-lifecycle.caps.mdc

@@ -1,0 +1,36 @@
+---
+description: Capabilities for Cursor Workspace Trust and autorun prevention
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - workspace-security.mdc
+---
+
+## Capabilities
+
+- Audit workspace trust and autoruns; prefer manual, explicit execution
+- Identify risky configs (e.g., .vscode/tasks.json runOn: "folderOpen") and suggest fixes
+
+## Triggers & Routing
+
+- When onboarding a repo or after cloning/opening the workspace
+
+## Inputs → Outputs
+
+- Inputs: repo workspace config files
+- Outputs: guidance and actionable steps to disable autoruns and confirm trust settings
+
+## Constraints & Guards
+
+- Do not change trust settings without consent; propose reversible steps
+
+## Examples
+
+- "Check for folder-open autoruns and advise removal"
+
+## Related
+
+- security.caps.mdc
