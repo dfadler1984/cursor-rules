@@ -1,6 +1,5 @@
 ---
 description: Import placement and ordering for TS/JS modules
-globs: src/**/*.ts,src/**/*.tsx,web/src/**/*.ts,web/src/**/*.tsx,scripts/**/*.ts
 alwaysApply: false
 lastReviewed: 2025-09-13
 healthScore:

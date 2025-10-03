@@ -21,7 +21,7 @@ healthScore:
 - Keep terminology consistent: ERD (Engineering Requirements Document), not PRD.
 - Follow TDD-first rules when generating sub-tasks.
 
-# Intent-routed rule attachment
+## Intent-routed rule attachment
 
 This lightweight router keeps context minimal by attaching specific rules only when intent is detected in the user's request. It does not duplicate content; it maps intents → rules.
 
@@ -53,6 +53,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
     - Verbs: write|update|maintain
     - Rules terms: rule|front matter|rules validation
   - Attach: `front-matter.mdc`, `rule-creation.mdc`, `rule-maintenance.mdc`, `rule-quality.mdc`
+  - Safeguard: treat soft phrasing (e.g., “we probably need to…”, “should consider…”) as plan-only; ask for explicit consent before repo-wide edits. Confirm target scope (project vs repo-wide) and name files before proceeding.
 - Cursor capabilities
   - Triggers: <cursor-term>
     - Terms: cursor features|cursor limits|platform capabilities
@@ -139,6 +140,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - Prefer the smallest matching set of rules to minimize context.
 - If multiple triggers match, attach the union (deduplicated).
 - Status transparency: In status updates, include which signal triggered routing (e.g., explicit verb, consent-after-plan, file signal) for traceability.
+- Logging: For routing corrections or guard triggers, write a brief Assistant Learning Log via `.cursor/scripts/alp-logger.sh write-with-fallback assistant-logs "routing-correction" <<'BODY' … BODY`.
 
 Related
 

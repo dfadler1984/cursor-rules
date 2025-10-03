@@ -8,7 +8,96 @@ healthScore:
   maintenance: green
 ---
 
-# Rule: Generating an Engineering Requirements Document (ERD)
+# Rule: ERD Creation (Default: Full)
+
+## Goal
+
+Guide the assistant to create clear, actionable Engineering Requirements Documents (ERDs) with engineering-focused sections (architecture, non-functional requirements, rollout/ops). Default to Full mode unless the user explicitly requests Lite.
+
+## Triggers
+
+- Phrases: create|generate|draft|write|produce + erd|engineering requirements document|engineering spec|eng spec
+- Optional modifiers: lite|quick → selects Lite mode; otherwise default is Full.
+- Slash-commands: `/specify`, `/clarify`, `/plan` (see `spec-driven.mdc`)
+
+## Clarifying Questions (required before generation)
+
+Ask concise questions with selectable options when possible:
+
+- Problem/Goal: What problem does this solve? Desired outcome?
+- Target User: Primary persona/team/system?
+- Scope: Net-new, extension, or refactor? Any non-goals?
+- Core Functionality: Key capabilities and flows?
+- Non-Functional: SLOs/latency, reliability, security/privacy, cost?
+- Architecture: Required patterns or integration points?
+- Data: Read/write data, schemas/migrations, retention/PII?
+- API/Contracts: New/updated REST/GraphQL/events? Versioning/back-compat?
+- Ops/Rollout: Feature flags, migrations, monitoring, rollback?
+- Testing & Acceptance: Entry/exit criteria, tests to prove behavior?
+- Success Metrics: How will we measure success?
+- Output Path/Name: Confirm `docs/projects/<feature>/erd.md`; provide `<feature>`.
+- Mode: Full (default) or Lite?
+
+### Uncertainty markers
+
+- When information is ambiguous or missing, include explicit markers in the ERD:
+  - `[NEEDS CLARIFICATION: <short question>]`
+  - Do not guess; surface unknowns for confirmation.
+
+Before generating, print a consolidated list of all `[NEEDS CLARIFICATION]` items at the end so the user can resolve them quickly.
+
+## Output Location
+
+- Path: `docs/projects/<feature>/erd.md`
+- Filename: `erd.md` under `docs/projects/<feature>/` (kebab-case `<feature>` directory)
+- Create the directory if it does not exist; do not write outside `docs/projects/<feature>/`.
+
+## ERD Structures
+
+### Full ERD (default)
+
+1. Introduction/Overview
+2. Goals/Objectives
+3. User Stories
+4. Functional Requirements
+5. Non-Functional Requirements
+6. Architecture/Design
+7. Data Model and Storage
+8. API/Contracts
+9. Integrations/Dependencies
+10. Edge Cases and Constraints
+11. Testing & Acceptance
+12. Rollout & Ops
+13. Success Metrics
+14. Open Questions
+
+### Lite ERD (explicit opt-in)
+
+1. Introduction/Overview — 1–2 paragraphs
+2. Goals/Objectives — 3–5 bullets
+3. Functional Requirements — 3–10 items
+4. Acceptance Criteria — 3–7 bullets
+5. Risks/Edge Cases — top 3–5
+6. Rollout Note — flag/owner/date (one-liner)
+
+Optional (Lite): Non-Functional (short), Success Metrics (1–3 bullets)
+
+## Templates
+
+- Full template: `.cursor/rules/erd-full.md` (reference-only)
+- Lite template: `.cursor/rules/erd-lite.md` (reference-only)
+
+## Defaults and Guardrails
+
+- Default Mode: Full (unless user explicitly says Lite/Quick)
+- Require clarifying questions before generation
+- Enforce path/filename convention above
+- Keep outputs concise and scannable; prefer lists and numbered items
+- Omit optional sections only if the user opts out explicitly
+- Consent-first: Do not write files without explicit user direction
+  - Logging: When an ERD is created or upgraded (Lite→Full), write an assistant learning log entry per `logging-protocol.mdc`
+
+## Rule: Generating an Engineering Requirements Document (ERD)
 
 ## Goal
 
@@ -25,14 +114,14 @@ Guide the AI assistant to create a clear, actionable Engineering Requirements Do
    - Use the structure defined below. Include engineering-focused sections.
    - Omit optional sections if the user opts out.
 4. Save ERD
-   - Location: `/docs/erd-[feature-name].md`
+   - Location: `docs/projects/<feature>/erd.md`
    - Format: Markdown (`.md`)
 
 ### Lite Mode (Optional)
 
 - Purpose: Produce a fast, minimal ERD for small/low-risk work, with a clear upgrade path.
 - How to enable: User asks for a "lite" or "quick" ERD, or selects Lite when prompted.
-- Output: Same path `/docs/erd-[feature-name].md`, include a header note: `Mode: Lite`.
+- Output: Same path `docs/projects/<feature>/erd.md`, include a header note: `Mode: Lite`.
 
 ## Clarifying Questions (pick-letter/number answers encouraged)
 
@@ -45,11 +134,11 @@ Customize based on the prompt. Keep concise and focused:
 - Non-Functional: "Any performance SLOs, latency budgets, throughput, availability, security/privacy, cost targets?"
 - Architecture: "Any required patterns, constraints, or integration points to reuse?"
 - Data: "What data is read/written? New schemas/migrations? Retention/PII considerations?"
-- API/Contracts: "New or updated REST/GraphQL/ev ents? Versioning/back-compat requirements?"
+- API/Contracts: "New or updated REST/GraphQL/events? Versioning/back-compat requirements?"
 - Ops/Rollout: "Feature flags, migrations, monitoring, rollback strategy?"
 - Testing & Acceptance: "What tests prove this works? Entry/exit criteria?"
 - Success Metrics: "How will we measure success?"
-- Output Path & Naming: "Confirm `/docs/erd-[feature-name].md`? Provide feature-name."
+- Output Path & Naming: "Confirm `docs/projects/<feature>/erd.md`? Provide `<feature>`."
 - Mode: "Lite or Full? (default: Full). If Lite, we’ll include essentials only."
 
 Include selectable defaults when possible, e.g. audience, sections to include/omit.
@@ -124,8 +213,8 @@ Include at the end:
 ## Output
 
 - Format: Markdown (`.md`)
-- Location: `/docs/erd-[feature-name].md`
-- Filename: `erd-[feature-name].md`
+- Location: `docs/projects/<feature>/erd.md`
+- Filename: `erd.md` in `docs/projects/<feature>/`
 
 ## Audience
 

@@ -2,6 +2,22 @@
 
 This repository includes a suite of standalone shell scripts to assist with rules management, Git workflows, PR creation, and repo hygiene. Scripts target macOS with bash and prefer POSIX sh where feasible.
 
+## How to mark a project completed
+
+1. Add front matter to the project ERD (`docs/projects/<name>/erd.md`):
+
+   ```yaml
+   ---
+   status: completed
+   completed: YYYY-MM-DD
+   owner: <you>
+   ---
+   ```
+
+2. Ensure the Project Completion Checklist is satisfied (`docs/projects/project-lifecycle/completion-checklist.template.md`).
+3. Add a brief final summary using the template (`docs/projects/project-lifecycle/final-summary.template.md`).
+4. Update `docs/projects/README.md`: move the project from Active to Completed.
+
 ## Scripts
 
 - `.cursor/scripts/rules-list.sh`
@@ -40,3 +56,63 @@ This repository includes a suite of standalone shell scripts to assist with rule
 ## Workspace Security
 
 See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance.
+
+## Docs
+
+- Assistant Learning Protocol (ALP): `docs/projects/assistant-learning/erd.md`
+- Deterministic, Structured Outputs ERD: `docs/projects/deterministic-outputs/erd.md`
+- Rule — Deterministic Outputs: `.cursor/rules/deterministic-outputs.mdc`
+- Rule — Capabilities Discovery: `.cursor/rules/capabilities-discovery.mdc`
+- Rule — Spec-Driven Workflow: `.cursor/rules/spec-driven.mdc`
+- ERD creation rule (default: Full): `.cursor/rules/create-erd.mdc`
+- Unified Workflow (Spec → Plan → Tasks → Analyze → Implement): see `.cursor/rules/spec-driven.mdc`, `.cursor/rules/create-erd.mdc`, `.cursor/rules/generate-tasks-from-erd.mdc`, `.cursor/rules/task-list-process.mdc`, `.cursor/rules/logging-protocol.mdc`.
+- Artifacts/paths: `docs/projects/<feature>/erd.md`, `docs/plans/<feature>-plan.md`, `docs/projects/<feature>/tasks.md`.
+- Slash-commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`.
+- Logs and summaries: `docs/assistant-learning-logs/` (local fallback). Weekly summary via CI.
+- ERD Split Progress: `docs/projects/split-progress/erd.md`
+  - Glossary: `docs/glossary.md`
+  - Owner Map: `docs/owner-map.md`
+  - Drawing Board ERD: `docs/projects/drawing-board/erd.md`
+  - Intent Router ERD: `docs/projects/intent-router/erd.md`
+  - Framework Selection ERD: `docs/projects/framework-selection/erd.md`
+  - Role–Phase Mapping ERD: `docs/projects/role-phase-mapping/erd.md`
+  - Git Usage ERD: `docs/projects/git-usage/erd.md`
+  - Bash Script Standards ERD: `docs/projects/bash-scripts/erd.md`
+- Archived Source ERD (reference-only): `docs/projects/rules-grok-alignment/erd.md`
+- Portability ERD: `docs/projects/portability/erd.md`
+- MCP Synergy ERD: `docs/projects/mcp-synergy/erd.md`
+  - Roles & Intent Routing ERD: `docs/projects/roles/erd.md`
+  - Capabilities Discovery ERD: `docs/projects/capabilities-discovery/erd.md`
+  - Spec‑Driven Workflow ERD: `docs/projects/spec-driven/erd.md`
+  - TDD‑First ERD: `docs/projects/tdd-first/erd.md`
+  - Core Values ERD: `docs/projects/core-values/erd.md`
+  - Productivity & Automation ERD: `docs/projects/productivity/erd.md`
+  - Rule Maintenance & Validator ERD: `docs/projects/rule-maintenance/erd.md`
+  - Collaboration Options ERD: `docs/projects/collaboration-options/erd.md`
+
+## What's New
+
+- Deterministic outputs (Spec/Plan/Tasks) — ERD + rules + validator shell script
+  - ERD: `docs/projects/deterministic-outputs/erd.md`
+  - Rule: `.cursor/rules/deterministic-outputs.mdc`
+  - Validator: `.cursor/scripts/validate-artifacts.sh` (+ test)
+  - Smoke test: `.cursor/scripts/validate-artifacts-smoke.sh`
+  - Workflow (manual): `.github/workflows/deterministic-outputs-validate.yml`
+  - Sample trio: `docs/specs/sample-feature-spec.md`, `docs/plans/sample-feature-plan.md`, `tasks/tasks-sample-feature.md`
+
+## Validator (Deterministic Outputs)
+
+Run locally:
+
+```bash
+.cursor/scripts/validate-artifacts.sh --paths \
+  docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md,tasks/tasks-sample-feature.md
+```
+
+Expected output: "Validation passed" (exit code 0). On missing sections/links, returns non‑zero with error messages.
+
+Smoke test (default + overridden dirs):
+
+```bash
+.cursor/scripts/validate-artifacts-smoke.sh
+```

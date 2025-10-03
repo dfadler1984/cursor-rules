@@ -6,6 +6,11 @@ Mode: Lite
 
 <one-paragraph summary>
 
+### Uncertainty / Assumptions
+
+- [NEEDS CLARIFICATION: <unknown>]
+- Assumptions: <brief list>
+
 ## 2. Goals/Objectives
 
 - [goal 1]

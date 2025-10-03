@@ -25,3 +25,4 @@ Prevent IDE autoruns in Cursor that could execute untrusted code on folder open.
 ## References
 
 - Policy: `.cursor/rules/workspace-security.mdc`
+- External reference: [Cursor AI Code Editor Flaw Enables Silent Code Execution via Malicious Repositories — The Hacker News](https://thehackernews.com/2025/09/cursor-ai-code-editor-flaw-enables.html?m=1)

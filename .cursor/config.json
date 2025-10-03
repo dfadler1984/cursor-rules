@@ -1,0 +1,26 @@
+{
+  "logDir": "./assistant-logs/",
+  "featureFlags": {
+    "assistant-learning-protocol": true
+  },
+  "assistantLearning": {
+    "persona": "senior-engineer",
+    "autoTriggers": {
+      "tddFix": true,
+      "intentResolution": true,
+      "ruleFix": true,
+      "taskCompletion": true,
+      "mcpRecovery": true
+    },
+    "backends": {
+      "local": true,
+      "googleDocs": false,
+      "confluence": false
+    }
+  },
+  "artifacts": {
+    "specsDir": "docs/specs",
+    "plansDir": "docs/plans",
+    "tasksDir": "tasks"
+  }
+}

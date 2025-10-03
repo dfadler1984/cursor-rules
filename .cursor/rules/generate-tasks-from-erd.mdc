@@ -17,16 +17,16 @@ Guide the assistant to create a clear, junior-friendly, step-by-step task list i
 ## Output
 
 - Format: Markdown (.md)
-- Location: `/tasks/`
-- Filename: `tasks-[erd-file-name].md` (e.g., `tasks-erd-user-profile-editing.md`)
+- Location: `docs/projects/<feature>/`
+- Filename: `tasks.md` (colocated with `erd.md`)
 
 ## Process
 
-1. Receive ERD Reference: The user points to a specific ERD file.
+1. Receive ERD Reference: The user points to a specific ERD file (prefer `docs/projects/<feature>/erd.md`).
 2. Analyze ERD: Read and analyze the functional requirements, user stories, constraints, and success criteria.
 3. Assess Current State: Review the codebase to understand existing infrastructure, conventions, and reusable modules across relevant backend and frontend areas.
 4. Phase 1: Generate Parent Tasks
-   - Create the `/tasks/tasks-[erd-file-name].md` file.
+   - Create `docs/projects/<feature>/tasks.md` next to the ERD.
    - Draft 4–8 high-level parent tasks required to implement the feature end to end.
    - Inform the user: Present only the parent tasks in chat. Say: “I have generated the high-level tasks based on the ERD. Ready to generate the sub-tasks? Respond with ‘Go’ to proceed.”
 5. Wait for Confirmation: Pause until the user replies “Go”.
@@ -38,7 +38,7 @@ Guide the assistant to create a clear, junior-friendly, step-by-step task list i
 8. Generate Final Output
    - Combine parent tasks, sub-tasks, relevant files, and notes into the final Markdown structure.
 9. Save Task List
-   - Save to `/tasks/tasks-[erd-file-name].md`.
+   - Save to `docs/projects/<feature>/tasks.md`.
 
 ## Output Format
 
@@ -71,7 +71,7 @@ Guide the assistant to create a clear, junior-friendly, step-by-step task list i
 
 ## Interaction Model
 
-- Phase 1: Output only the parent tasks and the intended `/tasks/` file path. Wait for the user to reply “Go.”
+- Phase 1: Output only the parent tasks and the intended `docs/projects/<feature>/tasks.md` file path. Wait for the user to reply “Go.”
 - Phase 2: After “Go,” output the sub-tasks and the `Relevant Files` section; then save the final document.
 
 ## Target Audience
@@ -82,6 +82,11 @@ Guide the assistant to create a clear, junior-friendly, step-by-step task list i
 
 - Prefer reusing existing utilities/components over creating new ones.
 - Keep implementation details concise and test-led; avoid speculative sub-tasks not required by the ERD.
+- When `dependencies` are present, propose next tasks only from those whose dependencies are all satisfied; among ready tasks, prefer highest `priority`.
+- Fields:
+  - `dependencies: [<task ids>]` to indicate prerequisite tasks
+  - `priority: high|medium|low` to guide next-task selection
+  - `[P]` prefix to signal a task or group is parallelizable
 
 ## Inspiration
 

@@ -27,6 +27,13 @@ Prefer automated tools and quick, targeted checks over manual procedures. Switch
 - Autofix-first: run linter autofixes before manual refactors. If autofix changes semantics or adds noise, revert and fix manually.
 - Scoped checks locally: prefer file/dir-scoped lint/type/test runs; leave full runs to CI, unless doing a risky refactor.
 
+### Preflight Checklist (before side effects)
+
+- Consult the relevant rule’s Contract for prescribed tools (e.g., `logging-protocol.mdc` → `alp-logger.sh`).
+- Prefer official scripts over ad‑hoc shell writes: announce the chosen tool before executing.
+- For writes with fallbacks (e.g., logs): attempt default destination first; note the fallback reason in the entry if used.
+- If a script is not executable, ask the user for permission to make it executable (e.g., `chmod +x script.sh`) so you can use the simplified invocation; if consent is not granted, invoke it explicitly via the interpreter (e.g., `bash script.sh`).
+
 ## When to Enter Detective Mode (triggered)
 
 - Persisting errors (e.g., unresolved import after alias edits)
