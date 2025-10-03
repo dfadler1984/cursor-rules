@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+# Chain to global pre-commit if configured (e.g., secret-guard)
+GLOBAL_HOOKS_PATH=$(git config --global core.hooksPath || echo "")
+if [ -n "$GLOBAL_HOOKS_PATH" ] && [ -x "$GLOBAL_HOOKS_PATH/pre-commit" ]; then
+  "$GLOBAL_HOOKS_PATH/pre-commit" "$@"
+fi
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$branch" = "main" ]; then
+  echo "❌ Pre-commit blocked: do not commit directly to main." 1>&2
+  echo "Create a branch and commit there, then open a PR." 1>&2
+  exit 1
+fi
+
+exit 0
+
+
