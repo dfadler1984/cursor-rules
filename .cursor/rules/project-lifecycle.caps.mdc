@@ -1,0 +1,36 @@
+---
+description: Capabilities for project lifecycle (completion checklist, summaries, status)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - project-lifecycle.mdc
+---
+
+## Capabilities
+
+- Manage project status (active → completed) with front matter
+- Use completion checklist and final summary templates
+
+## Triggers & Routing
+
+- When a project reaches completion criteria
+
+## Inputs → Outputs
+
+- Inputs: project ERD/tasks and completion checklist
+- Outputs: updated ERD front matter, final summary, README project list updates
+
+## Constraints & Guards
+
+- Keep dates accurate; ensure checklists are satisfied before marking complete
+
+## Examples
+
+- "Mark changelog-automation completed and add final summary"
+
+## Related
+
+- capabilities-discovery.mdc

@@ -1,0 +1,36 @@
+---
+description: Capabilities for testing naming (file patterns, spec names)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - testing-naming.mdc
+---
+
+## Capabilities
+
+- Standardize test file naming and patterns (e.g., \*.spec.ts[x])
+- Promote clear, behavior-centric names for suites and cases
+
+## Triggers & Routing
+
+- When creating new tests or normalizing existing names
+
+## Inputs → Outputs
+
+- Inputs: file/module names
+- Outputs: consistently named test files and cases
+
+## Constraints & Guards
+
+- Keep names short yet descriptive; avoid internal implementation terms
+
+## Examples
+
+- "Create FeatureView.spec.tsx with focused behaviors"
+
+## Related
+
+- testing.caps.mdc, testing-structure.caps.mdc, test-quality.caps.mdc

@@ -1,0 +1,27 @@
+---
+description: Capabilities for rule maintenance (cadence, validation, conflicts)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - rule-maintenance.mdc
+---
+
+## Capabilities
+
+- Validate front matter, references, and conflicts; maintain review cadence
+
+## Triggers & Routing
+
+- Before PRs touching rules; during periodic reviews
+
+## Inputs → Outputs
+
+- Inputs: rule files and references
+- Outputs: validation results and maintenance actions
+
+## Related
+
+- rule-quality.caps.mdc, front-matter.mdc

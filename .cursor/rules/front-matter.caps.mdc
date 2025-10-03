@@ -1,0 +1,27 @@
+---
+description: Capabilities for rule front matter standards
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - front-matter.mdc
+---
+
+## Capabilities
+
+- Define required and optional front matter fields and formats
+
+## Triggers & Routing
+
+- When creating or updating any rule file
+
+## Inputs → Outputs
+
+- Inputs: rule draft
+- Outputs: valid front matter block with required fields
+
+## Related
+
+- rule-creation.caps.mdc, rule-maintenance.caps.mdc

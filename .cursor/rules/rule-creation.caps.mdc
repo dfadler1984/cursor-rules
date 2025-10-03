@@ -1,0 +1,27 @@
+---
+description: Capabilities for rule creation (front matter, scope, examples)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - rule-creation.mdc
+---
+
+## Capabilities
+
+- Create focused rules with correct front matter and scannable structure
+
+## Triggers & Routing
+
+- When a recurring repo-specific issue needs guidance
+
+## Inputs → Outputs
+
+- Inputs: problem description
+- Outputs: a new rule skeleton with front matter and 2–4 sections
+
+## Related
+
+- rule-maintenance.caps.mdc, rule-quality.caps.mdc, front-matter.mdc

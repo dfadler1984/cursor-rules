@@ -1,0 +1,39 @@
+---
+description: Capabilities for task execution and maintenance (one sub‑task at a time)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - task-list-process.mdc
+---
+
+## Capabilities
+
+- Enforce one sub‑task at a time and commit protocol
+- Respect `dependencies` and `priority` when selecting next work; mark `[P]` appropriately
+- Maintain "Relevant Files" and update checkboxes as work progresses
+
+## Triggers & Routing
+
+- When a tasks.md exists and work proceeds on it
+- Integrates with git usage rules for commits and branches
+
+## Inputs → Outputs
+
+- Inputs: docs/projects/<feature>/tasks.md
+- Outputs: updated tasks.md with progress and accurate "Relevant Files"
+
+## Constraints & Guards
+
+- Pause for approval after each sub‑task; do not start the next prematurely
+- Run tests before marking parent complete; keep diffs scoped
+
+## Examples
+
+- "Mark 1.2 complete and propose next ready sub‑task by priority"
+
+## Related
+
+- generate-tasks-from-erd.caps.mdc, assistant-git-usage.mdc

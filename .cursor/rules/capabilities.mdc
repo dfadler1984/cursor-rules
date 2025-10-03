@@ -24,8 +24,43 @@ healthScore:
 
 ### Engineering docs & planning
 
-- Create ERDs (Full or Lite) at `/docs/erd-[feature-name].md` after clarifying questions. See `create-erd.mdc`.
-- Generate tasks from an ERD (two‑phase): create `/tasks/tasks-[erd-file-name].md`, output parent tasks first, wait for “Go,” then add sub‑tasks and relevant files; TDD‑first. See `generate-tasks-from-erd.mdc`.
+- See per‑rule capabilities for details:
+  - `spec-driven.caps.mdc`
+  - `create-erd.caps.mdc`
+  - `generate-tasks-from-erd.caps.mdc`
+  - `task-list-process.caps.mdc`
+  - `logging-protocol.caps.mdc`
+  - `commands.caps.mdc`
+  - `assistant-git-usage.caps.mdc`
+  - `tdd-first.caps.mdc`
+  - `intent-routing.caps.mdc`
+  - `assistant-behavior.caps.mdc`
+  - `favor-tooling.caps.mdc`
+  - `scope-check.caps.mdc`
+  - `testing.caps.mdc`
+  - `testing-structure.caps.mdc`
+  - `testing-naming.caps.mdc`
+  - `test-quality.caps.mdc`
+  - `refactoring.caps.mdc`
+  - `project-lifecycle.caps.mdc`
+  - `imports.caps.mdc`
+  - `workspace-security.caps.mdc`
+  - `security.caps.mdc`
+  - `github-api-usage.caps.mdc`
+  - `00-assistant-laws.caps.mdc`
+  - `capabilities-discovery.caps.mdc`
+  - `code-style.caps.mdc`
+  - `critical-thinking.caps.mdc`
+  - `direct-answers.caps.mdc`
+  - `dry-run.caps.mdc`
+  - `deterministic-outputs.caps.mdc`
+  - `dependencies.caps.mdc`
+  - `rule-creation.caps.mdc`
+  - `rule-maintenance.caps.mdc`
+  - `rule-quality.caps.mdc`
+  - `front-matter.caps.mdc`
+  - `guidance-first.caps.mdc`
+  - `github-config-only.caps.mdc`
 
 ### Git assistance
 

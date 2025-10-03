@@ -5,6 +5,7 @@ A landing page for all projects, grouped by status.
 ## Active
 
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
+- [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
 - [artifact-migration](./artifact-migration/erd.md) — Safe, repeatable artifact moves with reference rewrites and verification.
 - [bash-scripts](./bash-scripts/erd.md) — Bash script standards: style, safety, logging, optional linting exploration.
 - [capabilities-discovery](./capabilities-discovery/erd.md) — Deterministic index of abilities from rules, MCP servers, and local scripts.

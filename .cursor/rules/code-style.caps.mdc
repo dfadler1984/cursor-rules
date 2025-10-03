@@ -1,0 +1,28 @@
+---
+description: Capabilities for code style (functional, declarative, readability)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - code-style.mdc
+---
+
+## Capabilities
+
+- Promote high-verbosity, readable code with functional patterns
+- Prefer data over objects; named exports; pure functions; explicit context
+
+## Triggers & Routing
+
+- During refactors or new code authoring; when style guidance is needed
+
+## Inputs → Outputs
+
+- Inputs: target modules/components
+- Outputs: style-aligned code suggestions and checks
+
+## Related
+
+- imports.caps.mdc, refactoring.caps.mdc

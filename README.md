@@ -2,6 +2,14 @@
 
 This repository includes a suite of standalone shell scripts to assist with rules management, Git workflows, PR creation, and repo hygiene. Scripts target macOS with bash and prefer POSIX sh where feasible.
 
+## Unified Defaults (No Toggles)
+
+- Slash‑commands recognized by default; phrase triggers remain supported
+- Tasks support `dependencies`, `priority`, and `[P]` markers
+- Assistant learning logs are always on via `logging-protocol.mdc` (with Operation and Dependency Impact)
+- See commands overview: `.cursor/rules/commands.caps.mdc`
+- See per‑rule capabilities: `.cursor/rules/capabilities.mdc` (links to `<rule>.caps.mdc` files)
+
 ## How to mark a project completed
 
 1. Add front matter to the project ERD (`docs/projects/<name>/erd.md`):
@@ -109,7 +117,7 @@ git push
 # Maintainers review and merge it. That PR updates CHANGELOG.md and VERSION.
 ```
 
-CI details:
+## CI details:
 
 - On push to `main`, the workflow opens/updates the Version Packages PR when pending changesets exist.
 - When that PR is merged, the workflow writes the computed version into `VERSION` and commits the updated `CHANGELOG.md`.

@@ -1,0 +1,36 @@
+---
+description: Capabilities for practical test quality (coverage>0 guards, owner coupling)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - test-quality.mdc
+---
+
+## Capabilities
+
+- Promote useful, non-brittle tests with measurable coverage (>0 minimum)
+- Couple tests to owners and behaviors rather than internals
+
+## Triggers & Routing
+
+- When assessing test usefulness or refactoring brittle suites
+
+## Inputs → Outputs
+
+- Inputs: target specs/modules and coverage signals (if available)
+- Outputs: improved tests and a clearer quality bar
+
+## Constraints & Guards
+
+- Avoid excessive mocks; prefer seams and real behavior
+
+## Examples
+
+- "Raise quality of parse.spec.ts by asserting outcomes and edge cases"
+
+## Related
+
+- testing.caps.mdc, tdd-first.caps.mdc

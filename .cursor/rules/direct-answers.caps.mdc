@@ -1,0 +1,27 @@
+---
+description: Capabilities for direct answers (root-cause-first format)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - direct-answers.mdc
+---
+
+## Capabilities
+
+- Provide 3-line responses: Cause, Evidence, Next step
+
+## Triggers & Routing
+
+- When user asks direct behavior/mistake/root-cause questions
+
+## Inputs → Outputs
+
+- Inputs: specific event/context
+- Outputs: concise answer with one concrete next step
+
+## Related
+
+- critical-thinking.caps.mdc

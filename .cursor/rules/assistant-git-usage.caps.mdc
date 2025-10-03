@@ -1,0 +1,43 @@
+---
+description: Capabilities for Git workflows (commits, branches, PRs, local gates)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - assistant-git-usage.mdc
+---
+
+## Capabilities
+
+- Compose Conventional Commits via script (supports type/scope/body/footers/breaking)
+- Suggest/validate branch names; rename current branch with --apply
+- Create PRs via shell (curl + GitHub API), returning a compare/PR URL
+- Encourage local gates (test/lint/types) before push when configured
+
+## Triggers & Routing
+
+- Phrases: "commit", "branch", "pr", "pull request"
+- After completing a tasks.md sub-task, propose commit body lines referencing the task
+
+## Inputs → Outputs
+
+- Inputs: commit type/scope/description/body/footers; branch task/type/feature; PR title/body/base/head
+- Outputs: git commit created; branch renamed/applied; PR created or compare URL provided
+
+## Constraints & Guards
+
+- Do not include secrets in commit messages or PR bodies
+- Keep commits scoped to intended diffs; follow Conventional Commits
+- Use non-interactive flags in scripts (e.g., --dry-run when previewing)
+
+## Examples
+
+- ".cursor/scripts/git-commit.sh --type feat --scope tasks --description \"deps-aware selection\" --body \"Implements 2.4\""
+- ".cursor/scripts/git-branch-name.sh --task ai-workflow-integration --type feat --feature deps-aware --apply"
+- ".cursor/scripts/pr-create.sh --title \"feat: ai workflow integration\" --base main --head user/feat-ai-workflow"
+
+## Related
+
+- task-list-process.caps.mdc, commands.caps.mdc

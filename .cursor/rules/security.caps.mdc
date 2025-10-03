@@ -1,0 +1,36 @@
+---
+description: Capabilities for security and secrets handling
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - security.mdc
+---
+
+## Capabilities
+
+- Enforce secrets hygiene: never commit tokens/keys; redact sensitive values
+- Recommend basic scans (e.g., npm/yarn audit) and safe defaults
+
+## Triggers & Routing
+
+- When handling logs, headers, environment variables, or adding dependencies
+
+## Inputs → Outputs
+
+- Inputs: planned actions involving secrets or dependencies
+- Outputs: sanitized outputs, scan suggestions, and safer alternatives
+
+## Constraints & Guards
+
+- Avoid echoing Authorization/Cookie headers; mask secrets in any output
+
+## Examples
+
+- "Sanitize logs for PR body; remove tokens and PII"
+
+## Related
+
+- logging-protocol.caps.mdc, workspace-security.caps.mdc

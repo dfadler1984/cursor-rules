@@ -1,0 +1,41 @@
+---
+description: Capabilities for assistant behavior (consent-first, status updates, minimal prompts)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - assistant-behavior.mdc
+  - 00-assistant-laws.mdc
+---
+
+## Capabilities
+
+- Enforce consent-first behavior; proceed only on explicit action verbs
+- Provide brief status updates and summaries; minimize confirmations
+- Apply repo-wide Laws (Truth/Consistency/Self-Correction) and safety posture
+
+## Triggers & Routing
+
+- Implementation verbs (implement/add/fix/refactor/update) → proceed with gates
+- Guidance-only requests → ask one clarifying question before proposing steps
+
+## Inputs → Outputs
+
+- Inputs: user intent and current repo context
+- Outputs: clear next action (or one clarifying question) and minimal plan
+
+## Constraints & Guards
+
+- Secrets handling: redact tokens/headers; avoid echoing sensitive data
+- Prefer reversible steps when confidence is low; surface uncertainties
+
+## Examples
+
+- "Implement login" → propose smallest next edit + ask "Proceed?" once
+- "How should we handle errors?" → ask 1–2 clarifiers, then outline options
+
+## Related
+
+- intent-routing.caps.mdc, scope-check.caps.mdc, tdd-first.caps.mdc, security.mdc

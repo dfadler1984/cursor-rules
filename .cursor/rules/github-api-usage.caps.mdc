@@ -1,0 +1,36 @@
+---
+description: Capabilities for GitHub API automation (PR creation via script)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - github-api-usage.mdc
+---
+
+## Capabilities
+
+- Create PRs via `.cursor/scripts/pr-create.sh` using curl and environment token
+- Provide troubleshooting (token scopes, SSO approval, base/head refs)
+
+## Triggers & Routing
+
+- When asked to open a PR or generate a compare URL
+
+## Inputs → Outputs
+
+- Inputs: title, body, base, head, owner/repo (auto-detected when possible)
+- Outputs: PR created or compare URL; logs with redaction
+
+## Constraints & Guards
+
+- Redact tokens; prefer dry-run when demonstrating
+
+## Examples
+
+- ".cursor/scripts/pr-create.sh --title 'feat: AI workflow' --base main --head user/feat-ai-workflow"
+
+## Related
+
+- assistant-git-usage.caps.mdc

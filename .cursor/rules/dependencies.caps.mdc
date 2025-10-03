@@ -1,0 +1,28 @@
+---
+description: Capabilities for dependency selection (lightweight, permissive, low-bloat)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - dependencies.mdc
+---
+
+## Capabilities
+
+- Prefer standard library and small, well-maintained libs with permissive licenses
+- Consider install/runtime size and build impact; avoid heavy deps for trivial tasks
+
+## Triggers & Routing
+
+- When proposing new dependencies or evaluating alternatives
+
+## Inputs → Outputs
+
+- Inputs: candidate libraries and purpose
+- Outputs: recommendation with rationale and security/license check note
+
+## Related
+
+- security.caps.mdc

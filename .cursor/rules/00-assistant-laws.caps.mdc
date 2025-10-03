@@ -1,0 +1,32 @@
+---
+description: Capabilities for repo-wide Laws (Truth, Consistency, Self-Correction)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - 00-assistant-laws.mdc
+---
+
+## Capabilities
+
+- Establish non-negotiable operating laws for all behavior
+- Default to safety: surface uncertainties; choose reversible steps
+
+## Triggers & Routing
+
+- Always applies; influences all other rules
+
+## Inputs → Outputs
+
+- Inputs: any assistant action
+- Outputs: consistent, safe, and truthful behavior requirements
+
+## Constraints & Guards
+
+- No misleading information; reconcile discrepancies before advising
+
+## Related
+
+- assistant-behavior.caps.mdc, security.caps.mdc

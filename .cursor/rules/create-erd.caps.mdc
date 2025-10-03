@@ -1,0 +1,40 @@
+---
+description: Capabilities for ERD authoring (Full default, Lite optional)
+lastReviewed: 2025-10-03
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - create-erd.mdc
+---
+
+## Capabilities
+
+- Author Engineering Requirements Documents with engineering sections
+- Support Full (default) and Lite modes; include Uncertainty/Assumptions
+- Consolidate [NEEDS CLARIFICATION] list before generation
+
+## Triggers & Routing
+
+- Phrases: create|generate|draft|write|produce + erd|engineering spec
+- Slash: /specify; asks clarifying questions first
+
+## Inputs → Outputs
+
+- Inputs: prompt + clarifications
+- Output: docs/projects/<feature>/erd.md
+
+## Constraints & Guards
+
+- Consent-first writes; path enforcement under docs/projects/<feature>/
+- Log ERD creation/upgrade via logging protocol
+
+## Examples
+
+- "Create an ERD for checkout (Full)"
+- "Quick ERD for search (Lite)"
+
+## Related
+
+- spec-driven.caps.mdc, logging-protocol.caps.mdc
