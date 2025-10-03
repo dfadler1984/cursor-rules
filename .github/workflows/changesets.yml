@@ -1,0 +1,43 @@
+name: Changesets — Version Packages
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  status:
+    name: Changesets status (PR)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npx -y @changesets/cli@^2.27.9 changeset status --since=origin/main
+
+  version-pr:
+    name: Open/Update “Version Packages” PR
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: changesets/action@v1
+        with:
+          version: bash -lc "npx -y changeset version && node -e \"const fs=require('fs');const v=require('./package.json').version;fs.writeFileSync('VERSION', v+'\\n');require('child_process').execSync('git add VERSION',{stdio:'inherit'})\""
+          commit: "chore: version packages"
+          title: "Version Packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
