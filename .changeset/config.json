@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "dfadler1984/cursor-rules" }
+  ],
   "commit": false,
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

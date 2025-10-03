@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      - run: npm i -D @changesets/changelog-github@^0.5.0
       - run: npx -y @changesets/cli@^2.27.9 changeset status --since=origin/main
 
   version-pr:
@@ -34,6 +35,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      - run: npm i -D @changesets/changelog-github@^0.5.0
       - uses: changesets/action@v1
         with:
           version: node .github/scripts/version-and-sync.cjs
