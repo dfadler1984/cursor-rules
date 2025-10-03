@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.2
+
+### Patch Changes
+
+- [#13](https://github.com/dfadler1984/cursor-rules/pull/13) [`fc29369`](https://github.com/dfadler1984/cursor-rules/commit/fc293690dbbe50eeaf063e0a07eafb36fd8dd9b4) Thanks [@dfadler1984](https://github.com/dfadler1984)! - chore: demo linked changelog entries with GitHub formatter
+
 ## 0.0.1
 
 ### Patch Changes
