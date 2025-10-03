@@ -36,7 +36,7 @@ jobs:
           node-version: "20"
       - uses: changesets/action@v1
         with:
-          version: bash -lc "npx -y changeset version && node -e \"const fs=require('fs');const v=require('./package.json').version;fs.writeFileSync('VERSION', v+'\\n');require('child_process').execSync('git add VERSION',{stdio:'inherit'})\""
+          version: npm run --silent version:changesets
           commit: "chore: version packages"
           title: "Version Packages"
         env:
