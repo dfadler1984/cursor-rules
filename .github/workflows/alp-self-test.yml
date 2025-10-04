@@ -1,0 +1,39 @@
+name: Assistant Learning Protocol Self-Test
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  self-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure scripts are executable
+        run: |
+          chmod +x .cursor/scripts/alp-redaction.sh
+          chmod +x .cursor/scripts/alp-logger.sh
+
+      - name: Write test log via logger
+        run: |
+          mkdir -p assistant-logs
+          ./.cursor/scripts/alp-logger.sh write-with-fallback assistant-logs ci-self-test <<'BODY'
+          Timestamp: $(date -u +%Y-%m-%dT%H-%M-%SZ)
+          Event: Rule Added
+          Owner: assistant-learning-protocol
+          What Changed: CI validated logger can write with fallback
+          Next Step: Use scripts in real triggers
+          Links: .cursor/rules/logging-protocol.mdc
+          Outcome: Logger operational in CI
+          Bottleneck: None
+          Proposed Rule/Script Change: Add alias function for convenience (done)
+          Interaction Hint: Keep entries concise
+          BODY
+
+      - name: Verify log file exists
+        run: |
+          ls -la assistant-logs | grep ci-self-test
