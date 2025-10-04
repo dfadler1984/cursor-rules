@@ -8,9 +8,15 @@ IFS=$'\n\t'
 # shellcheck disable=SC1090
 source "$(dirname "$0")/.lib.sh"
 
+# Prefer current working directory during tests; fallback to repo root
 ROOT_DIR="$(repo_root)"
+CWD="$(pwd)"
+SCAN_DIR="$CWD"
+if [ ! -f "$CWD/package.json" ] && [ -f "$ROOT_DIR/package.json" ]; then
+  SCAN_DIR="$ROOT_DIR"
+fi
 
-if [ -f "$ROOT_DIR/package.json" ]; then
+if [ -f "$SCAN_DIR/package.json" ]; then
   if have_cmd yarn; then
     log_info "Running: yarn npm audit --all"
     yarn npm audit --all || true
@@ -21,5 +27,6 @@ if [ -f "$ROOT_DIR/package.json" ]; then
     log_warn "Neither yarn nor npm found; skipping audit"
   fi
 else
-  log_info "No package.json; skipping security scan"
+  echo "No package.json; skipping security scan" >&2
+  exit 0
 fi
