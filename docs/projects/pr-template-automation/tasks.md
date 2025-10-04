@@ -19,14 +19,14 @@
   - [x] 2.3 Compose body: `TEMPLATE + optional\n\n## Context\n<append>`
   - [x] 2.4 Handle missing file/read errors with clear messages
 
-- [ ] 3.0 Retrofit existing open PRs created via script (priority: medium)
+- [x] 3.0 Retrofit existing open PRs created via script (priority: medium)
 
-  - [ ] 3.1 Update PR #20 to include template at top
-  - [ ] 3.2 Update any other open PRs (if applicable)
+  - [x] 3.1 Update PR #20 to include template at top
+  - [x] 3.2 Update any other open PRs (N/A: none open)
 
-- [ ] 4.0 Documentation (priority: low)
-  - [ ] 4.1 README: mention template auto-injection behavior and flags
-  - [ ] 4.2 Add examples to `.cursor/scripts/` README (if present)
+- [x] 4.0 Documentation (priority: low)
+  - [x] 4.1 README: mention template auto-injection behavior and flags
+  - [x] 4.2 Add examples to `.cursor/scripts/` README (N/A: not present)
 
 ### Notes
 
