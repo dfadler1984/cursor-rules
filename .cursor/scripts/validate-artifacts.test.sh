@@ -5,25 +5,7 @@ IFS=$'\n\t'
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 SCRIPT="$ROOT_DIR/.cursor/scripts/validate-artifacts.sh"
 
-TMP_DIR="$ROOT_DIR/docs/examples/validator-spec"
-rm -rf "$TMP_DIR" || true
-mkdir -p "$TMP_DIR"
-
-# 1) Create an invalid spec missing required headings
-INVALID_SPEC="$TMP_DIR/invalid-feature-spec.md"
-cat > "$INVALID_SPEC" <<'MD'
-# invalid-feature Spec
-
-## Overview
-
-## Goals
-
-## Functional Requirements
-
-## Risks/Edge Cases
-
-[Links: Plan | Tasks]
-MD
+INVALID_SPEC="$ROOT_DIR/.cursor/scripts/tests/fixtures/validator-spec/invalid-feature-spec.md"
 
 set +e
 out="$($SCRIPT --paths "$INVALID_SPEC" 2>&1)"
