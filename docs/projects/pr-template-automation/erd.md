@@ -21,12 +21,14 @@ Ensure PRs created via scripts/API include the repository’s PR template by def
 ## 3. Functional Requirements
 
 1. Script Behavior
+
    - Default: prefill PR body with template contents.
    - `--no-template`: disable template injection.
    - `--template <path>`: use a specific template file.
    - `--body-append <text>`: append additional context under a `## Context` section.
 
 2. Template Discovery
+
    - Prefer `.github/pull_request_template.md`.
    - Fallback to the first file under `.github/PULL_REQUEST_TEMPLATE/` (sorted by name).
 
