@@ -72,8 +72,8 @@ redact_if_possible() {
 }
 
 write_with_fallback_cmd() {
-  local primaryPath="$1"; local content="$2"; local fallbackDir="$3"
-  local primaryDir="$ALP_LOG_DIR"
+  local primaryPath="$1"; local content="$2"; local fallbackDir="${3-}"
+  local primaryDir="${ALP_LOG_DIR-}"
   if [[ -z "${primaryDir:-}" ]]; then
     primaryDir="$(dirname "$primaryPath")"
   fi
@@ -84,6 +84,9 @@ write_with_fallback_cmd() {
   if printf '%s' "$content" > "$target" 2>/dev/null; then
     printf '%s\n' "$target"; return 0
   fi
+  if [[ -z "${fallbackDir:-}" ]]; then
+    fallbackDir="docs/assistant-learning-logs"
+  fi
   mkdir -p -- "$fallbackDir"
   target="$fallbackDir/$fileName"
   printf '%s' "$content" > "$target"
@@ -91,8 +94,8 @@ write_with_fallback_cmd() {
 }
 
 write_with_fallback_file_cmd() {
-  local primaryPath="$1"; local tmpFile="$2"; local fallbackDir="$3"
-  local primaryDir="$ALP_LOG_DIR"
+  local primaryPath="$1"; local tmpFile="$2"; local fallbackDir="${3-}"
+  local primaryDir="${ALP_LOG_DIR-}"
   if [[ -z "${primaryDir:-}" ]]; then
     primaryDir="$(dirname "$primaryPath")"
   fi
@@ -101,6 +104,9 @@ write_with_fallback_file_cmd() {
   local target="$primaryDir/$fileName"
   if cp "$tmpFile" "$target" 2>/dev/null; then
     printf '%s\n' "$target"; return 0
+  fi
+  if [[ -z "${fallbackDir:-}" ]]; then
+    fallbackDir="docs/assistant-learning-logs"
   fi
   mkdir -p -- "$fallbackDir"
   target="$fallbackDir/$fileName"
