@@ -1,5 +1,6 @@
 ---
-status: active
+status: completed
+completed: 2025-10-04
 owner: rules-maintainers
 ---
 
