@@ -9,7 +9,7 @@ IFS=$'\n\t'
 # shellcheck disable=SC1090
 source "$(dirname "$0")/.lib.sh"
 
-VERSION="0.1.0"
+VERSION="0.2.0"
 
 TITLE=""
 BODY=""
@@ -19,14 +19,26 @@ OWNER=""
 REPO=""
 DRY_RUN=0
 
+# Template injection controls
+USE_TEMPLATE=1
+TEMPLATE_PATH=""
+BODY_APPEND=""
+
 usage() {
   cat <<'USAGE'
 Usage: pr-create.sh --title <title> [--body <body>] [--base <branch>] [--head <branch>] \
-                    [--owner <owner>] [--repo <repo>] [--dry-run] [--version] [-h|--help]
+                    [--owner <owner>] [--repo <repo>] [--no-template] \
+                    [--template <path>] [--body-append <text>] \
+                    [--dry-run] [--version] [-h|--help]
 
 Notes:
   - Requires GITHUB_TOKEN in env for actual API calls
   - Owner/repo and head/base are auto-derived when omitted
+  - By default, the PR body is prefilled from .github/pull_request_template.md (if present)
+    or the first file under .github/PULL_REQUEST_TEMPLATE/. Use --no-template to opt-out.
+    Use --template <path> to select a specific template. Use --body-append to add
+    extra context under a "## Context" section. When using --body without --no-template,
+    the provided body is appended under "## Context" as well (backward-compatible).
 USAGE
 }
 
@@ -50,6 +62,9 @@ while [ $# -gt 0 ]; do
     --head) HEAD="${2:-}"; shift 2 ;;
     --owner) OWNER="${2:-}"; shift 2 ;;
     --repo) REPO="${2:-}"; shift 2 ;;
+    --no-template) USE_TEMPLATE=0; shift ;;
+    --template) TEMPLATE_PATH="${2:-}"; shift 2 ;;
+    --body-append) BODY_APPEND="${2:-}"; shift 2 ;;
     --dry-run) DRY_RUN=1; shift ;;
     --version) printf '%s\n' "$VERSION"; exit 0 ;;
     -h|--help) usage; exit 0 ;;
@@ -65,6 +80,53 @@ derive_owner_repo
 [ -n "$REPO" ] || die 1 "Unable to derive --repo; pass explicitly"
 [ -n "$HEAD" ] || die 1 "Unable to derive --head; pass explicitly"
 [ -n "$BASE" ] || BASE="main"
+
+# Discover and inject template content if enabled
+compose_body_with_template() {
+  local root tmpl candidate context_section composed
+  root="$(repo_root)"
+  if [ -n "$TEMPLATE_PATH" ]; then
+    candidate="$TEMPLATE_PATH"
+  else
+    if [ -f "$root/.github/pull_request_template.md" ]; then
+      candidate="$root/.github/pull_request_template.md"
+    elif [ -d "$root/.github/PULL_REQUEST_TEMPLATE" ]; then
+      # Pick first file by name for determinism
+      candidate=$(find "$root/.github/PULL_REQUEST_TEMPLATE" -type f -maxdepth 1 2>/dev/null | sort | head -n1 || true)
+    fi
+  fi
+
+  if [ -n "${candidate:-}" ] && [ -f "$candidate" ]; then
+    tmpl="$(cat "$candidate")"
+  else
+    log_warn "PR template not found; proceeding without template injection"
+    return 0
+  fi
+
+  composed="$tmpl"
+
+  # Build Context section if any extra content supplied
+  if [ -n "${BODY:-}" ] || [ -n "${BODY_APPEND:-}" ]; then
+    context_section="## Context\n"
+    if [ -n "${BODY:-}" ]; then
+      context_section+="$BODY\n"
+    fi
+    if [ -n "${BODY_APPEND:-}" ]; then
+      # Separate with a blank line if both present
+      if [ -n "${BODY:-}" ]; then
+        context_section+="\n"
+      fi
+      context_section+="$BODY_APPEND\n"
+    fi
+    composed+="\n\n${context_section}"
+  fi
+
+  BODY="$composed"
+}
+
+if [ $USE_TEMPLATE -eq 1 ]; then
+  compose_body_with_template
+fi
 
 PAYLOAD=$(cat <<JSON
 {
