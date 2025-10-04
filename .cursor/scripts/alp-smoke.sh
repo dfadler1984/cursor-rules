@@ -37,7 +37,8 @@ Proposed Rule/Script Change: N/A
 Interaction Hint: Use this to verify after changes.
 EOF
 
-path="$(.cursor/scripts/alp-logger.sh write-with-fallback "$destDir" "$short" <"$body_file")"
+file_name="$(.cursor/scripts/alp-logger.sh build-filename "$short" --at "$ts")"
+path="$(.cursor/scripts/alp-logger.sh write-with-fallback-file "$destDir/$file_name" "$body_file" 2>/dev/null || true)"
 rm -f "$body_file"
 echo "$path"
 
