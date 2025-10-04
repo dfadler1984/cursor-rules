@@ -68,6 +68,7 @@ fails=0
 failed_list=()
 outputs_dir="$(mktemp -d 2>/dev/null || mktemp -d -t sh-tests)"
 
+export ALP_LOG_DIR="$(mktemp -d 2>/dev/null || mktemp -d -t alp-logs)"
 for t in "${TESTS[@]}"; do
   if [ $VERBOSE -eq 1 ]; then
     log_info "Running: $t"
