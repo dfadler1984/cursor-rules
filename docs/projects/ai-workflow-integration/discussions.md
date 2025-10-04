@@ -52,8 +52,8 @@ Anchors
 
 Unified Workflow
 
-- Slash‑commands are first‑class: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`.
-- Tasks include `dependencies`, `priority`, and optional `[P]` for parallelization.
+- Slash‑commands are first‑class (optional): `/constitution`, `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash > phrase precedence).
+- Tasks include `dependencies`, `priority`, and optional `[P]` for parallelization (different‑file tasks only; group safe parallel sets in tasks.md).
 - Learning logs include an Operation block and Dependency Impact by default (values may be N/A if not available).
 
 Out of Scope (initial)
@@ -96,7 +96,7 @@ Out of Scope (initial)
 
   3.3 `/analyze` gate
 
-- Add a brief analysis step before `/implement` to validate coverage/consistency across ERD/plan/tasks.
+- Add a brief analysis step before `/implement` to validate coverage/consistency across ERD/plan/tasks. Trigger expansion when shared‑file coupling is high or sub‑task count > N; record "why expand".
 
   3.4 `constitution.md` feasibility
 
@@ -111,7 +111,7 @@ Out of Scope (initial)
 
   4.2 Minimal additions to `generate-tasks-from-erd.mdc`
 
-- Keep two‑phase flow; add a short optional note explaining deps/priority fields and when to use them.
+- Keep two‑phase flow; add a short optional note explaining deps/priority fields and when to use them. Define next‑task selection: highest‑priority unblocked; tie → shortest critical path.
 
   4.3 Operational metrics patterns (`src/progress/*`, `mcp-server/src/logger.js`)
 
@@ -185,6 +185,7 @@ Schema additions
 - ReviewAfter: YYYY-MM-DD (schedule follow-up)
 - Operation: Elapsed, TokenIn, TokenOut, Units; optional SamplesReviewed, CoverageDelta
 - Dependency Impact: RulesAffected, DocsAffected, AffectedTasks, Unblocked, Added/Removed
+- Research Notes: one‑line summary when research ping used before a risky sub‑task
 
 Storage & persistence
 

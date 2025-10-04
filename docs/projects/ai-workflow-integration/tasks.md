@@ -14,6 +14,10 @@
 ### Notes
 
 - Optional fields (dependencies/priority/[P]) are additive and controlled by feature flags.
+- Next-task selection: choose highest‑priority unblocked task; on ties, prefer shortest critical path.
+- Parallelization `[P]`: mark only when tasks touch different files; include a short "safe parallel groups" note when applicable.
+- Research ping: for risky or unfamiliar sub‑tasks, do a brief research step and add a one‑line "Research notes" summary here.
+- Evidence-based completion: mark a sub‑task complete only after tests pass and lint/type checks are clean (manual override: docs‑only/emergency).
 
 ## Tasks
 

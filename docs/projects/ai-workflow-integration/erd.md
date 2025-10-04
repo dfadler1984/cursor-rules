@@ -31,6 +31,7 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 1. ERD Creation
 
    - Add explicit uncertainty markers: `[NEEDS CLARIFICATION: …]` when inputs are ambiguous.
+   - Include a brief, numbered Clarifications section; resolve or explicitly defer items before `/implement`.
    - Optionally recognize slash‑commands (`/specify`, `/clarify`, `/plan`) in addition to phrase triggers.
    - Output path remains `docs/projects/<feature>/erd.md`.
 
@@ -49,7 +50,7 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 4. Spec‑Driven Workflow Integration
 
-   - Document optional slash‑commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`.
+   - Document optional slash‑commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash takes precedence over phrases when present).
    - Add an analysis gate before implementation (Spec Kit `/analyze`).
    - Cross‑link artifacts (spec/plan/tasks) at file tops.
 
@@ -59,11 +60,12 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
    - Add “Dependency Impact” notes: which tasks/sections were affected.
    - Respect redaction and fallback directories.
 
-6. Unified Defaults (No Toggles)
+6. Defaults & Configuration
 
-- Slash‑commands recognized by default; phrase triggers remain supported.
-- Tasks support `dependencies`, `priority`, and `[P]` markers by default.
-- Self‑improvement logging is always on via `logging-protocol.mdc` with Operation and Dependency Impact sections.
+- Defaults remain unchanged by default; features are opt‑in via `.cursor/config.json`.
+- Slash‑commands may be enabled as an option; phrase triggers remain supported.
+- Tasks may include optional `dependencies`, `priority`, and `[P]` markers.
+- Self‑improvement logging retains current behavior; optional Operation/Dependency Impact can be enabled.
 
 ## 5. Non-Functional Requirements
 
@@ -110,8 +112,9 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 - Acceptance (docs-level):
   - Creating a new ERD triggers uncertainty markers when prompts are ambiguous.
+  - Clarifications section exists; either cleared or explicitly deferred with rationale before `/implement`.
   - Generating tasks (phase 1) yields only parent tasks; phase 2 adds sub‑tasks.
-  - Task‑list process enforces one‑sub‑task gating and dependency‑aware next selection.
+  - Task‑list process enforces one‑sub‑task gating and dependency‑aware next selection (highest‑priority unblocked; tie → shortest critical path).
   - Logging entries include the Operation block (best‑effort) and Dependency Impact.
   - Spec‑driven rule lists slash‑commands and `/analyze` gate.
 - Spot checks:
