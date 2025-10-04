@@ -74,6 +74,10 @@ for t in "${TESTS[@]}"; do
     log_info "Running: $t"
   fi
   out="$outputs_dir/$(basename "$t").out"
+  # Ensure test artifacts go to a dedicated dir
+  export TEST_ARTIFACTS_DIR="${TEST_ARTIFACTS_DIR:-.test-artifacts}"
+  export ALP_LOG_DIR="$TEST_ARTIFACTS_DIR/alp"
+  mkdir -p "$ALP_LOG_DIR" || true
   set +e
   bash "$t" >"$out" 2>&1
   status=$?

@@ -7,6 +7,11 @@ here="$(cd "$(dirname "$0")" && pwd)"
 root="$(cd "$here/../.." && pwd)"
 cd "$root"
 
+# Prefer test artifacts dir if provided
+if [[ -n "${TEST_ARTIFACTS_DIR-}" ]]; then
+  export ALP_LOG_DIR="$TEST_ARTIFACTS_DIR/alp"
+fi
+
 # Resolve dest dir similarly to alp-aliases.sh
 if [[ -n "${ASSISTANT_LOG_DIR:-}" ]]; then
   destDir="$ASSISTANT_LOG_DIR"
