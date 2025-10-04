@@ -10,7 +10,7 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Project Lifecycle & Completion Process (Lite)
 
-Links: `docs/projects/project-lifecycle/tasks.md` | `docs/projects/project-lifecycle/completion-checklist.template.md` | `docs/projects/project-lifecycle/final-summary.template.md` | `docs/projects/project-lifecycle/final-summary.md`
+Links: `docs/projects/project-lifecycle/tasks.md` | `.cursor/templates/project-lifecycle/completion-checklist.template.md` | `.cursor/templates/project-lifecycle/final-summary.template.md` | `docs/projects/project-lifecycle/final-summary.md`
 
 ## 1. Introduction/Overview
 

@@ -41,13 +41,13 @@ owner: <github-handle-or-team>
 - User-facing docs/examples updated (README/guides as applicable).
 - Ownership/handoff note present (owner, next review date).
 
-Reference template: `docs/projects/project-lifecycle/completion-checklist.template.md`.
+Reference template: `.cursor/templates/project-lifecycle/completion-checklist.template.md`.
 
 ## Final Summary
 
 - File: `docs/projects/<name>/final-summary.md`
 - Link this file from the ERD near the top.
-- Template: `docs/projects/project-lifecycle/final-summary.template.md`.
+- Template: `.cursor/templates/project-lifecycle/final-summary.template.md`.
 
 ## Projects Index Update
 
@@ -63,6 +63,12 @@ Reference template: `docs/projects/project-lifecycle/completion-checklist.templa
     - `final-summary.md` exists
     - `docs/projects/README.md` contains a Completed link for the project
 
+## PR Title Guidance
+
+- Prefer Conventional Commit when closing a project so it lands in `CHANGELOG.md`:
+  - `feat: Finalize <Project Name>` (or `feat(projects): finalize <name>`)
+  - If the closing PR is purely docs, `docs: finalize <Project Name>` is acceptable.
+
 ## Acceptance Criteria
 
 - Any project flipped to Completed includes required ERD fields and a final summary, and appears under Completed in `docs/projects/README.md`.
@@ -71,10 +77,18 @@ Reference template: `docs/projects/project-lifecycle/completion-checklist.templa
 
 ## Notes
 
-- Archive is optional: only move to `docs/projects/_archive/<name>` for legacy/large projects; leave a stub/redirect if moved.
+- Archive is optional: only move to `docs/projects/_archived/<YYYY>/<name>` for legacy/large projects; leave a stub/redirect if moved.
 - Prefer manual, explicit updates first; automation may be added later.
 
 ## Rollout
 
 - Owner: rules-maintainers
 - Start manual; optionally add a CI job to run the validator in dry-run mode on PRs that change project docs.
+
+## Archival Move Procedure
+
+1. Confirm project is Completed and stable.
+2. Create `docs/projects/_archived/<YYYY>/<project>/` and move the folder.
+3. At the original path, leave a short redirect note using `.cursor/templates/project-lifecycle/archive-redirect.template.md`.
+4. Update `docs/projects/README.md` under Archived.
+5. Prefer a Conventional Commit title noting the archival (e.g., `docs(projects): archive <name>`).
