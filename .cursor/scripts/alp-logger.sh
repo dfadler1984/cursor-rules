@@ -30,7 +30,12 @@ write_with_fallback() {
   fileName="log-${ts}-$(slugify "$shortName").md"
 
   local primaryDir
-  primaryDir="${destDir}"
+  # Allow tests to redirect logs to a temp dir via ALP_LOG_DIR
+  if [[ -n "${ALP_LOG_DIR-}" ]]; then
+    primaryDir="${ALP_LOG_DIR}"
+  else
+    primaryDir="${destDir}"
+  fi
   local fallbackDir
   fallbackDir="docs/assistant-learning-logs"
 
