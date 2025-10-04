@@ -5,6 +5,8 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Project Lifecycle Hardening (Full)
 
+Mode: Full
+
 Links: `docs/projects/project-lifecycle-hardening/tasks.md` | `.cursor/templates/project-lifecycle/`
 
 ## 1. Introduction/Overview
