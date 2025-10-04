@@ -36,3 +36,4 @@ A landing page for all projects, grouped by status.
 
 - [assistant-learning](./assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
 - [project-lifecycle](./project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
+- [pr-template-automation](./pr-template-automation/erd.md) — Default PR template injection in script + docs.

@@ -2,7 +2,7 @@
 description: TDD-First — owner spec gate, minimal implementation, refactor; with logging at Red/Green
 globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs,**/*.sh
 alwaysApply: true
-lastReviewed: 2025-10-02
+lastReviewed: 2025-10-04
 healthScore:
   content: green
   usability: green
@@ -105,11 +105,14 @@ async function main() {
 - No skip path: if tests cannot be authored as initially framed, adjust the approach (use the FP effects seam) rather than skipping tests.
 - One-shot consent for new specs: If creating a new owner spec is required and file creation needs consent, ask once; if no reply, pause.
 
-## Shell scripts (TDD‑style gating)
+## Shell scripts (Hard gate)
 
-- Preferred: colocate a `script.spec.sh` next to the script and run it in CI (use `bats`/`shunit2` when available; otherwise portable `sh` checks).
-- Minimum: provide a deterministic self‑check (e.g., `--self-test` or a small harness) and add a CI step that fails on non‑zero.
-- Apply the same pre‑edit confirmation: name the self‑check path and the failing assertion it covers before implementation.
+- Hard gate: Any change to `.cursor/scripts/*.sh` (excluding `*.test.sh`) MUST be accompanied by changes to the corresponding `*.test.sh` in the same folder.
+- Tests-first flow (Red → Green → Refactor) applies exactly as for JS/TS: write or update a failing test, then implement the minimal change to pass.
+- Evidence required in PR:
+  - Command: `bash .cursor/scripts/tests/run.sh -k <script-name-without-ext> -v`
+  - Paste the focused passing output or link to CI output.
+- If direct testing is brittle, extract a pure resolver function and test that seam; do not skip tests.
 
 ## Effects seam (functional style)
 

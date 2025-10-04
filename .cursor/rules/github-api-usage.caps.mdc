@@ -1,6 +1,6 @@
 ---
 description: Capabilities for GitHub API automation (PR creation via script)
-lastReviewed: 2025-10-03
+lastReviewed: 2025-10-04
 healthScore:
   content: green
   usability: green
@@ -23,9 +23,21 @@ references:
 - Inputs: title, body, base, head, owner/repo (auto-detected when possible)
 - Outputs: PR created or compare URL; logs with redaction
 
+### Template Injection (Default)
+
+- By default, PRs created via `.cursor/scripts/pr-create.sh` are prefilled from:
+  1. `.github/pull_request_template.md` if present, else
+  2. the first file under `.github/PULL_REQUEST_TEMPLATE/` (sorted by name).
+- The provided `--body` is appended under a `## Context` section when template injection is active.
+- Flags:
+  - `--no-template`: disable template injection
+  - `--template <path>`: use a specific template file
+  - `--body-append <text>`: append additional context under `## Context`
+
 ## Constraints & Guards
 
 - Redact tokens; prefer dry-run when demonstrating
+- Keep `.github/` config-only; avoid feature-specific templates in the default path
 
 ## Examples
 

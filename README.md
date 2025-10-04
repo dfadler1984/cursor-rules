@@ -42,7 +42,10 @@ This repository includes a suite of standalone shell scripts to assist with rule
   - Flags: `--task`, `--type`, `--feature`, `--apply`
 - `.cursor/scripts/pr-create.sh`
   - Create GitHub PR via API (`curl`); requires `GITHUB_TOKEN` (non-dry-run)
+  - Default behavior: prefill PR body from `.github/pull_request_template.md` (if present) or the first file in `.github/PULL_REQUEST_TEMPLATE/`
   - Flags: `--title`, `--body`, `--base`, `--head`, `--owner`, `--repo`, `--dry-run`
+  - Template flags: `--no-template` (disable), `--template <path>` (select file), `--body-append <text>` (append under `## Context`)
+  - Note: when template injection is active, `--body` is appended under `## Context` (preserves template headings)
 - `.cursor/scripts/security-scan.sh`
   - Best-effort `npm/yarn` audit if `package.json` exists; otherwise no-op
 - `.cursor/scripts/lint-workflows.sh`
