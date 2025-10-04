@@ -8,4 +8,4 @@
   - Targets: web
   - Exact change: minimal UI + handler
   - Success criteria: UI renders; handler returns message
-  - Run: yarn test; curl http://localhost:3000/example
+  - Run (example only): yarn test; `curl http://localhost:3000/example` (replace with your env)

@@ -21,16 +21,14 @@ for erd in "$PROJECTS_DIR"/*/erd.md; do
   # Read first 50 lines to catch front matter quickly
   head_block=$(head -n 50 "$erd" || true)
 
-  # Detect completed status via simple grep (YAML front matter)
-  if echo "$head_block" | grep -qi "^status:\s*completed"; then
+  # Detect completed status (portable on BSD/macOS grep)
+  if echo "$head_block" | grep -iqE '^status:[[:space:]]*completed'; then
     missing=()
-    if ! echo "$head_block" | grep -qi "^completed:\s*[0-9]{4}-[0-9]{2}-[0-9]{2}"; then
-      # looser date check
-      if ! echo "$head_block" | grep -Eq "^completed:\s*[0-9]{4}-[0-9]{2}-[0-9]{2}$"; then
-        missing+=("front matter: completed date (YYYY-MM-DD)")
-      fi
+    # Require completed date in ISO format and owner field
+    if ! echo "$head_block" | grep -Eq '^completed:[[:space:]]*[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+      missing+=("front matter: completed date (YYYY-MM-DD)")
     fi
-    if ! echo "$head_block" | grep -qi "^owner:\s*"; then
+    if ! echo "$head_block" | grep -iqE '^owner:[[:space:]]*'; then
       missing+=("front matter: owner")
     fi
     if [[ ! -f "$dir/final-summary.md" ]]; then

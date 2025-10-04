@@ -6,7 +6,9 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 SCRIPT="$ROOT_DIR/.cursor/scripts/security-scan.sh"
 
 # 1) Without package.json, prints skip message and exits 0
+pushd "$(mktemp -d 2>/dev/null || mktemp -d -t sec-scan)" >/dev/null
 out="$(bash "$SCRIPT" 2>&1)"
+popd >/dev/null
 printf '%s' "$out" | grep -qi "skipping security scan" || { echo "expected skip message"; exit 1; }
 
 # 2) With package.json, does not error if npm/yarn missing (best-effort)

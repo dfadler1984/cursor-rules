@@ -4,6 +4,7 @@ A landing page for all projects, grouped by status.
 
 ## Active
 
+- [project-lifecycle-hardening](./project-lifecycle-hardening/erd.md) — Harden lifecycle: centralized templates, rule‑encoded usage, validator, discoverability, archival.
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
 - [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
 - [artifact-migration](./artifact-migration/erd.md) — Safe, repeatable artifact moves with reference rewrites and verification.
@@ -37,3 +38,7 @@ A landing page for all projects, grouped by status.
 - [assistant-learning](./assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
 - [project-lifecycle](./project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
 - [pr-template-automation](./pr-template-automation/erd.md) — Default PR template injection in script + docs.
+
+## Archived
+
+- See `docs/projects/_archived/README.md`

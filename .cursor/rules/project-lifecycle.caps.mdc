@@ -12,7 +12,7 @@ references:
 ## Capabilities
 
 - Manage project status (active → completed) with front matter
-- Use completion checklist and final summary templates
+- Use completion checklist and final summary templates from `.cursor/templates/project-lifecycle/`
 
 ## Triggers & Routing
 
@@ -22,6 +22,7 @@ references:
 
 - Inputs: project ERD/tasks and completion checklist
 - Outputs: updated ERD front matter, final summary, README project list updates
+- Validator: `.cursor/scripts/validate-project-lifecycle.sh` (dry-run by default)
 
 ## Constraints & Guards
 

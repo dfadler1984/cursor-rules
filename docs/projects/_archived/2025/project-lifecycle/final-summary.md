@@ -1,3 +1,9 @@
+---
+template: project-lifecycle/final-summary
+version: 1.0.0
+last-updated: 2025-10-04
+---
+
 # Final Summary
 
 ## Outcome

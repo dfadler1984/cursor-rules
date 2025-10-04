@@ -100,6 +100,18 @@ compose_body_with_template() {
     tmpl="$(cat "$candidate")"
   else
     log_warn "PR template not found; proceeding without template injection"
+    # Still compose a Context section if BODY/BODY_APPEND present
+    if [ -n "${BODY:-}" ] || [ -n "${BODY_APPEND:-}" ]; then
+      composed=""
+      context_section="## Context\n"
+      if [ -n "${BODY:-}" ]; then context_section+="$BODY\n"; fi
+      if [ -n "${BODY_APPEND:-}" ]; then
+        if [ -n "${BODY:-}" ]; then context_section+="\n"; fi
+        context_section+="$BODY_APPEND\n"
+      fi
+      composed+="$context_section"
+      BODY="${composed}"
+    fi
     return 0
   fi
 

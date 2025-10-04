@@ -6,8 +6,14 @@ IFS=$'\n\t'
 source "$(dirname "$0")/.lib.sh"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
-PRIMARY_DIR="$ROOT_DIR/assistant-logs"
-FALLBACK_DIR="$ROOT_DIR/docs/assistant-learning-logs"
+# When running tests, route artifacts to a dedicated dir
+if [[ -n "${TEST_ARTIFACTS_DIR-}" ]]; then
+  PRIMARY_DIR="$TEST_ARTIFACTS_DIR/alp"
+  FALLBACK_DIR="$TEST_ARTIFACTS_DIR/alp"
+else
+  PRIMARY_DIR="$ROOT_DIR/assistant-logs"
+  FALLBACK_DIR="$ROOT_DIR/docs/assistant-learning-logs"
+fi
 
 OUT_FILE="$FALLBACK_DIR/summary-$(date -u +"%Y-%m-%dT%H-%M-%SZ").md"
 
@@ -48,7 +54,7 @@ scan_dir "$FALLBACK_DIR"
     printf '\n'
   else
     for k in "${!candidate_count[@]}"; do
-      printf '%s\n' "- $k (${candidate_count[$k]})"
+      printf '%s\n' "- $k (${candidate_count[$k]:-0})"
     done
     printf '\n'
   fi

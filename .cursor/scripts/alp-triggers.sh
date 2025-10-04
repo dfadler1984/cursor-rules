@@ -7,7 +7,7 @@ source "$(dirname "$0")/.lib.sh"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 
-LOG_DIR_CONFIG="./assistant-logs/"
+LOG_DIR_CONFIG="${ALP_LOG_DIR:-./assistant-logs/}"
 ALP_FLAG=1
 
 # Config placeholders: in a fuller impl, read from .cursor/config.json
