@@ -40,6 +40,13 @@ Enforce Red → Green → Refactor with colocated owner specs and effects seams.
 
 - Focused Jest run examples and config notes
 
+## 9. Lessons Learned (2025-10-04)
+
+- Incident: While adding `.cursor/scripts/project-lifecycle-validate.sh`, I initially wrote a test that only checked exit codes and did not assert observable behavior (OK/FAIL lines, reasons, or flag handling). I also claimed behavior (“validated outputs”) that the test did not actually verify.
+- Impact: The test could pass even if the validator script regressed (e.g., empty output or missing checks), violating the spirit of Red → Green and our Laws (Truth/Accuracy).
+- Correction: Strengthened the test to assert concrete outputs and failure reasons and to exercise the `--projects-dir` flag. Re-ran focused tests to green.
+- Policy reinforcement: Tests must fail meaningfully when the SUT behavior is incorrect; avoid assertion gaps that mask regressions. When stating what a test verifies, ensure assertions explicitly cover those claims.
+
 ## 8. Examples
 
 - Owner spec path and failing assertion:
