@@ -29,6 +29,7 @@ references:
 
 - Background or long-lived processes should be minimized or summarized
 - Avoid noisy, repo-wide scans unless required by failure signals
+ - Tooling complements, never replaces, tests: dry-runs/validators are diagnostics, not acceptance. Always pair with TDD when changes are implemented.
 
 ## Examples
 
