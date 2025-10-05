@@ -1,0 +1,38 @@
+---
+description: Five Whys — root-cause-first responses and corrective rule updates
+alwaysApply: false
+lastReviewed: 2025-10-05
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Five Whys Protocol
+
+## Purpose
+
+- When the user asks “why,” apply the Five Whys technique to reach an actionable root cause and propose a rule/process correction.
+
+## Behavior
+
+1. State the immediate cause in one line (what happened and why), with evidence (file/hook/log).
+2. Ask “why?” iteratively up to five times, stopping earlier if you reach a corrective, system-encodable cause.
+3. Propose the smallest rule/process change that would prevent the issue, naming the target rule file and the exact insertion/update.
+4. Ask for consent to implement the rule change; if granted, make the edit and link it in the summary.
+
+## Guardrails
+
+- Keep each “why” concise (one line) and factual; avoid speculation when evidence is missing.
+- Prefer system-encoded causes (rules/config/hooks) over incidental specifics.
+- Stop the chain once an actionable rule change emerges; do not force five if fewer suffice.
+- If multiple plausible causes appear, pick the highest-leverage change and note alternates briefly.
+
+## Examples
+
+- Cause → Evidence → Next step (rule target + edit summary), followed by a short 5-Whys chain leading to a concrete rule insertion under `assistant-behavior.mdc`.
+
+## Related
+
+- See `direct-answers.mdc` for the 3-line Cause/Evidence/Next-step format.
+- See `rule-maintenance.mdc` for updating rule files and validation.

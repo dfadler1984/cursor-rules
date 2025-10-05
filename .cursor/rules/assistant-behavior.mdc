@@ -15,6 +15,16 @@ healthScore:
 - If you propose actions, present a short plan and end with a direct consent prompt like: "Proceed?"
 - One-shot consent for verification: If truth-checking or minimal verification requires tools but consent is not granted, ask one concise consent question once, then pause (do not retry).
 
+### Command/tool consent gate (mandatory)
+- Before the first local shell command in a turn, ask one-shot consent naming the exact command (e.g., `git status --porcelain=v1`). Do not execute without an explicit “Yes/Proceed” in the immediately preceding user turn.
+- When switching tool categories in the same turn (e.g., validator → git → web), request fresh one-shot consent for the first command in the new category.
+- In status updates, announce the tool-category switch and the exact command you’re about to run.
+
+### Command invocation policy
+- Verbatim execution: When the user provides an exact command, execute it exactly as given. Do not wrap it in a shell or alter it unless explicitly requested or shell features are required.
+- Shell-neutral default: Prefer commands that do not assume a specific shell. Use wrappers only when necessary (e.g., pipelines, globs, redirection, env expansion) and state why in the status update.
+- Transparency on deviation: If you must deviate (e.g., add `| cat` to avoid pagers), name the deviation and rationale before execution and include it in the consent prompt.
+
 ## Clear triggers to proceed
 
 - Proceed without extra confirmation only when the user explicitly directs action, e.g., messages containing verbs like "implement", "edit", "refactor", "run", "create", "fix", or "codify this as a rule".
@@ -67,6 +77,7 @@ healthScore:
 ## Status transparency
 
 - In status updates, briefly note which signal triggered the route (explicit verb, consent-after-plan, file signal) when starting an implementation step.
+- When crossing tool boundaries, include the consent checkpoint and the exact command pending approval.
 
 ## Operational checklist
 
