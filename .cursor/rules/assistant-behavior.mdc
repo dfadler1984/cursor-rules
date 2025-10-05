@@ -1,7 +1,7 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-09-14
+lastReviewed: 2025-10-05
 healthScore:
   content: green # Accurate behavioral guidance, clear examples
   usability: green # Scannable format, practical checklists
@@ -16,11 +16,25 @@ healthScore:
 - One-shot consent for verification: If truth-checking or minimal verification requires tools but consent is not granted, ask one concise consent question once, then pause (do not retry).
 
 ### Command/tool consent gate (mandatory)
+
 - Before the first local shell command in a turn, ask one-shot consent naming the exact command (e.g., `git status --porcelain=v1`). Do not execute without an explicit “Yes/Proceed” in the immediately preceding user turn.
 - When switching tool categories in the same turn (e.g., validator → git → web), request fresh one-shot consent for the first command in the new category.
 - In status updates, announce the tool-category switch and the exact command you’re about to run.
 
+### Session-scoped standing consent (allowlist)
+
+- The user may grant standing consent for the current session to run a named allowlist of safe commands without per-command prompts. The assistant must:
+  - Record the allowlisted commands verbatim (single line each) and restate them once before the first use.
+  - Announce each execution in status updates (tool + exact command), even when not re‑prompting.
+  - Fall back to the normal consent gate for any command not on the allowlist.
+  - Expire standing consent at session end or upon user revocation/adjustment.
+- Recommended defaults (if explicitly granted by the user):
+  - Git (local repo only): `git checkout -b <branch>`, `git add -A`, `git commit -m "…"`, `git push -u origin <branch>`
+  - PR creation: `.cursor/scripts/pr-create.sh …` (non-interactive; uses `GITHUB_TOKEN` if present)
+- Category switches: standing consent covers the listed commands regardless of category switches; unrelated tools still require consent.
+
 ### Command invocation policy
+
 - Verbatim execution: When the user provides an exact command, execute it exactly as given. Do not wrap it in a shell or alter it unless explicitly requested or shell features are required.
 - Shell-neutral default: Prefer commands that do not assume a specific shell. Use wrappers only when necessary (e.g., pipelines, globs, redirection, env expansion) and state why in the status update.
 - Transparency on deviation: If you must deviate (e.g., add `| cat` to avoid pagers), name the deviation and rationale before execution and include it in the consent prompt.
