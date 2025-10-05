@@ -23,11 +23,15 @@ jobs:
             echo "$missing" >&2
             exit 1
           fi
-      - name: Verify project ERDs have tasks.md siblings
+      - name: Verify project ERDs have tasks.md siblings (skip archive redirects)
         run: |
           errs=0
           while IFS= read -r -d '' erd; do
             dir=$(dirname "$erd")
+            # Skip archive redirect ERDs
+            if grep -q "^template:\s*project-lifecycle/archive-redirect" "$erd"; then
+              continue
+            fi
             if [ ! -f "$dir/tasks.md" ]; then
               echo "Missing tasks.md for $erd" >&2
               errs=1
