@@ -1,9 +1,12 @@
 ---
+status: active
+owner: rules-maintainers
+lastUpdated: 2025-10-05
 ---
 
 # Engineering Requirements Document — Intent Router (Lite)
 
-Links: `.cursor/rules/intent-router.mdc` | `docs/projects/intent-router/tasks.md` | `docs/projects/split-progress/erd.md`
+Links: `.cursor/rules/intent-routing.mdc` | `docs/projects/intent-router/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 
@@ -21,8 +24,10 @@ Define a central intent router that parses user inputs and routes to the correct
 - Triggers: implicit (natural language) and explicit (slash commands)
 - Parsing: extract verb, targets, and scope; default to clarify when uncertain
 - Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, drawing-board)
+- Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, drawing-board, task-list-process)
 - Gates: enforce phase checks and TDD owner spec paths before JS/TS edits
 - Status: emit brief status updates per step
+- Signals: use file/context signals as supporting triggers (e.g., focused test files)
 
 ## 4. Acceptance Criteria
 
@@ -45,8 +50,49 @@ Define a central intent router that parses user inputs and routes to the correct
 - Dry-run parse: “Implement rounding” → gate on TDD with owner spec path required
 - Dry-run parse: “Could you add X to the drawing board?” → `/draw X`
 
+- Conflicting intents: “Refactor parse.ts and open a PR” → choose one; PR waits for green
+- Missing details: “Add tests” (no target) → ask once for file/module; then proceed
+- Slash vs phrase + consent-after-plan: “/plan X then implement it” → plan, then ask “Proceed to implement?”; if yes, TDD gate
+- JS/TS hard gate: Any edit on `**/*.{ts,tsx,js,jsx}` requires owner spec path + failing assertion before code changes
+
+DRY RUN:
+
+- Exact-phrase `DRY RUN:` forces plan-only behavior; attach guidance-first; no edits/commands
+
+## 8. Clarify-on-Ambiguity Policy
+
+- Decision weights: exact phrase triggers > consent-after-plan > keyword fallback > file/context signals. If still ambiguous, ask one clarifying question and pause.
+- Confidence tiers:
+  - High confidence: attach immediately.
+  - Medium (fuzzy/partial): ask one confirmation; attach only on “Yes/Go”.
+  - Low (vague): ask one clarifying question; do not attach.
+- One-shot question templates:
+  - Guidance vs implementation: “Do you want guidance or for me to implement this now?”
+  - Target missing: “Which file(s)/component(s) should this affect?”
+  - Scope missing: “Is this limited to a directory or repo‑wide?”
+  - Rule choice: “Should I route this to `tdd-first` or `spec-driven`?”
+- Safety defaults: No edits/commands without consent; JS/TS edits hard‑gate on TDD confirmation (owner spec path + failing assertion) before any code change.
+
+## 9. Example Parses
+
+| Input                                 | Intent    | Route                 | Gates                                                       |
+| ------------------------------------- | --------- | --------------------- | ----------------------------------------------------------- |
+| Implement user login                  | implement | tdd-first, code-style | TDD: owner spec path + failing assertion; consent for edits |
+| /plan checkout flow                   | plan      | spec-driven           | consent; produce plan scaffold                              |
+| Open a PR from feat/foo               | git-usage | assistant-git-usage   | consent + non-interactive                                   |
+| Add “test flakiness” to drawing board | ideate    | drawing-board         | no code/TDD gates                                           |
+| What are Cursor’s limits?             | guidance  | capabilities          | docs-backed answer; no edits                                |
+| Refactor src/parse.ts                 | refactor  | tdd-first             | TDD gate enforced                                           |
+
+## 10. Integration Points and Handoff
+
+- spec-driven: For specify/plan/tasks/analyze; emits acceptance-bundle scaffolds and links required artifacts.
+- tdd-first: For implement/refactor/fix in JS/TS; pre‑edit hard gate requires owner spec path + failing assertion; block edits until Red is established.
+- assistant-git-usage: For branch/commit/PR; request explicit command consent and use repo scripts non‑interactively.
+- capabilities: For platform knowledge; docs-backed responses; no edits/commands.
+- drawing-board: For ideation; create/update entries; no code/TDD gates.
+- Handoff contract: Router supplies {intent, targets, rule, gates, consentState}; callee rule executes and reports status back for consistent updates.
+
 ---
 
 Owner: rules-maintainers
-
-Last updated: 2025-10-02
