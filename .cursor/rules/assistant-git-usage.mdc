@@ -60,6 +60,18 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
 - Auth: set `GITHUB_TOKEN` or `GH_TOKEN` in your environment. Fine‑grained or classic tokens are supported; minimum scope to open PRs is repo access for the target repository.
 - Fallback: when no token is available, the script prints a compare URL you can open in the browser.
 
+### PR description policy (must)
+
+- Always submit a fully filled PR description. Replace placeholders with concrete, repo-specific details.
+- Include:
+  - Summary: one short paragraph of what changed and why.
+  - Changes: bullets of key edits (files or areas), user-facing impact if any.
+  - Why: the problem addressed; alternatives considered if relevant.
+  - Acceptance & Validation: checklist of checks and how to verify.
+  - Risk & Rollout: compat notes, rollback, comms.
+  - Citations: links for external references (docs/specs), if used.
+- If the template is injected by the script, pass a complete `--body` to avoid placeholders.
+
 ## Commit Gate (Tests/Lint/Types)
 
 - During TDD: run only tests relevant to the change for fast feedback.
