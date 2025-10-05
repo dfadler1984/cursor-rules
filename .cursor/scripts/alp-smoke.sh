@@ -7,6 +7,11 @@ here="$(cd "$(dirname "$0")" && pwd)"
 root="$(cd "$here/../.." && pwd)"
 cd "$root"
 
+# Prefer test artifacts dir if provided
+if [[ -n "${TEST_ARTIFACTS_DIR-}" ]]; then
+  export ALP_LOG_DIR="$TEST_ARTIFACTS_DIR/alp"
+fi
+
 # Resolve dest dir similarly to alp-aliases.sh
 if [[ -n "${ASSISTANT_LOG_DIR:-}" ]]; then
   destDir="$ASSISTANT_LOG_DIR"
@@ -32,7 +37,8 @@ Proposed Rule/Script Change: N/A
 Interaction Hint: Use this to verify after changes.
 EOF
 
-path="$(.cursor/scripts/alp-logger.sh write-with-fallback "$destDir" "$short" <"$body_file")"
+file_name="$(.cursor/scripts/alp-logger.sh build-filename "$short" --at "$ts")"
+path="$(.cursor/scripts/alp-logger.sh write-with-fallback-file "$destDir/$file_name" "$body_file" 2>/dev/null || true)"
 rm -f "$body_file"
 echo "$path"
 
