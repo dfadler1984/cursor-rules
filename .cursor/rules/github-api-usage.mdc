@@ -16,6 +16,12 @@ healthScore:
   - `.cursor/scripts/pr-create.sh --title "..." [--body "..."] [--base <branch>] [--head <branch>]`
 - The script auto-detects owner/repo from `origin` and falls back to printing a compare URL if API creation is rejected.
 
+### PR description policy (must)
+
+- Provide a complete PR body via `--body` to avoid placeholder sections.
+- Body should include: Summary, Changes, Why, Acceptance & Validation, Risk & Rollout, Citations (if applicable).
+- If a template is prefilled by the API, programmatically replace or append to ensure no TODO/placeholder remains.
+
 ## Authentication
 
 - Set `GH_TOKEN` or `GITHUB_TOKEN` in your environment (classic or fine-grained).
