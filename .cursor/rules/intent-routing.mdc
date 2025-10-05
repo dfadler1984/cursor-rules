@@ -73,10 +73,23 @@ This lightweight router keeps context minimal by attaching specific rules only w
     - Prefer: include "for <feature>"; if missing and ambiguous, ask for the feature name
   - Attach: `create-erd.mdc`, `guidance-first.mdc`
 
+- Planning / Specification
+
+  - Triggers: <verb> + <plan-term>
+    - Verbs: plan|specify|analyze|outline|draft
+    - Plan terms: plan|spec|specification|analysis|acceptance bundle
+  - Attach: `spec-driven.mdc`, `guidance-first.mdc`
+
 - Task lists
   - Triggers: task list phrases
     - Terms: task list|update tasks|mark sub-task|mark subtask|check off|relevant files section
   - Attach: `task-list-process.mdc`
+
+## Slash commands
+
+- `/plan <topic>` → route to `spec-driven.mdc` (plan/specify); consent-first; produce plan scaffold
+- `/tasks` → route to `task-list-process.mdc`; manage/update tasks non-interactively when safe
+- `/pr` → route to `assistant-git-usage.mdc`; prefer `.cursor/scripts/pr-create.sh` with explicit consent and non-interactive flags
 
 ## File/context signals (supporting)
 
@@ -85,8 +98,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - On implementation verbs (implement/add/fix/refactor/update), attach testing + TDD by default (see `user-intent.mdc`).
 - JS/TS pre-edit gate: If the next step targets JS/TS files (`*.ts|*.tsx|*.js|*.mjs|*.cjs`), attach a minimal TDD checklist and enforce tests-first before edits. Load full `testing.mdc` progressively when test authoring or failures occur.
   - Enforcement: block edits until the TDD confirmation is present (see Assistant Behavior rule).
-- If any focused/open/edited path matches `**/tasks/*.md`, attach `assistant-git-usage.mdc`.
-- If any focused/open/edited path matches `**/tasks/*.md`, attach `task-list-process.mdc`.
+- If any focused/open/edited path matches `**/tasks/*.md`, attach `assistant-git-usage.mdc`, `task-list-process.mdc`.
 
 ## Decision policy (weights)
 
@@ -98,6 +110,11 @@ This lightweight router keeps context minimal by attaching specific rules only w
 5. If still ambiguous and intent suggests implementation, attach testing + TDD and ask one clarifying question
 
 - If ambiguity persists after one clarifying question, do not attach additional rules and pause.
+
+### Role–phase and split-progress advisory
+
+- Prefer phase-consistent routing: when a project is in a planning phase, route “what/why” requests to `spec-driven` over implementation rules.
+- Consult split-progress status (if available) to decide between plan vs implement; when unavailable, ask one clarifying question.
 
 ## Fuzzy matching & confirmation
 
@@ -141,6 +158,22 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - If multiple triggers match, attach the union (deduplicated).
 - Status transparency: In status updates, include which signal triggered routing (e.g., explicit verb, consent-after-plan, file signal) for traceability.
 - Logging: For routing corrections or guard triggers, write a brief Assistant Learning Log via `.cursor/scripts/alp-logger.sh write-with-fallback assistant-logs "routing-correction" <<'BODY' … BODY`.
+
+## Handoff contract
+
+Router outputs a normalized context object for downstream rules:
+
+```json
+{
+  "intent": "implement|plan|refactor|guidance|git|tasks|erd",
+  "targets": ["file paths or feature names"],
+  "rule": "tdd-first|spec-driven|assistant-git-usage|task-list-process|cursor-platform-capabilities",
+  "gates": ["consent", "tdd-owner-spec"],
+  "consentState": "required|granted|not-applicable"
+}
+```
+
+Callees must respect `gates` and update `consentState` as they proceed.
 
 Related
 
