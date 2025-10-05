@@ -20,6 +20,7 @@ healthScore:
 - Before the first local shell command in a turn, ask one-shot consent naming the exact command (e.g., `git status --porcelain=v1`). Do not execute without an explicit “Yes/Proceed” in the immediately preceding user turn.
 - When switching tool categories in the same turn (e.g., validator → git → web), request fresh one-shot consent for the first command in the new category.
 - In status updates, announce the tool-category switch and the exact command you’re about to run.
+- Presentation format (must): When asking consent for one or more shell commands, present them as a Markdown bulleted list with one command per bullet. Do not chain multiple commands with `&&` in consent prompts; list them separately and in execution order.
 
 ### Session-scoped standing consent (allowlist)
 

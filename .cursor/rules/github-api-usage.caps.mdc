@@ -23,6 +23,12 @@ references:
 - Inputs: title, body, base, head, owner/repo (auto-detected when possible)
 - Outputs: PR created or compare URL; logs with redaction
 
+### PR Description (must)
+
+- Provide a complete PR body (Summary, Changes, Why, Acceptance & Validation, Risk & Rollout). Avoid placeholder sections.
+- When supplying a full body, use `--replace-body` to bypass templates and set the body exactly.
+- For existing PRs, use `.cursor/scripts/pr-update.sh --pr <number> --body <text>` to replace the body.
+
 ### Template Injection (Default)
 
 - By default, PRs created via `.cursor/scripts/pr-create.sh` are prefilled from:
@@ -33,6 +39,7 @@ references:
   - `--no-template`: disable template injection
   - `--template <path>`: use a specific template file
   - `--body-append <text>`: append additional context under `## Context`
+  - `--replace-body`: bypass template and set body exactly to provided content
 
 ## Constraints & Guards
 
