@@ -1,7 +1,7 @@
 ---
-description: Assistant Git usage — commits, branch naming, and commit gates (tests/lint/types)
+description: Assistant Git usage — commits, branch naming, changesets, and commit gates (tests/lint/types)
 alwaysApply: false
-lastReviewed: 2025-09-24
+lastReviewed: 2025-10-05
 healthScore:
   content: green
   usability: green
@@ -10,7 +10,7 @@ healthScore:
 
 # Assistant Git Usage
 
-Defines commit message standards, minimal branch naming guidance, and when/how to run checks before committing. Optimized for assistant automation and human ergonomics.
+Defines commit message standards, minimal branch naming guidance, changeset expectations, and when/how to run checks before committing. Optimized for assistant automation and human ergonomics.
 
 ## Commit Messages
 
@@ -71,6 +71,28 @@ Defines commit message standards, minimal branch naming guidance, and when/how t
   - Risk & Rollout: compat notes, rollback, comms.
   - Citations: links for external references (docs/specs), if used.
 - If the template is injected by the script, pass a complete `--body` to avoid placeholders.
+
+## Changesets (must)
+
+- Always include a Changeset in PRs that modify repository behavior or published artifacts (rules, scripts, docs that affect workflows, or any code changes).
+  - Default: add a changeset. Only skip with the `skip-changeset` label and explicit maintainer consent.
+- Author workflow:
+
+  - Interactive (preferred locally): `npx changeset` → follow prompts → commit the generated file under `.changeset/`.
+  - Non‑interactive (automation friendly): create a file like `.changeset/<slug>.md` with front matter and summary:
+
+    ```md
+    ---
+    "cursor-rules": patch
+    ---
+
+    Short one‑line summary of the change.
+    ```
+
+- PR hygiene (must):
+  - Ensure the PR includes the `.changeset/*.md` file.
+  - PR body includes an acceptance checkbox: “Changeset included”.
+  - After merge, approve the automatic “Version Packages” PR to update `CHANGELOG.md` and `VERSION`.
 
 ## Commit Gate (Tests/Lint/Types)
 
