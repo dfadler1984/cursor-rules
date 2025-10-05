@@ -32,7 +32,7 @@ A landing page for all projects, grouped by status.
 - [spec-driven](./spec-driven/erd.md) — Phased workflow: Specify → Plan → Tasks with deterministic artifacts and rules.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
 - [tdd-first](./tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
-- [project-erd-front-matter](./project-erd-front-matter/erd.md) — Minimal ERD front matter placeholder for future follow-up.
+- [project-erd-front-matter](./project-erd-front-matter/erd.md) — Minimal ERD front matter standard and examples.
 
 ## Completed
 
