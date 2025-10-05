@@ -11,16 +11,22 @@ SCRIPT="$ROOT_DIR/.cursor/scripts/checks-status.sh"
 url="$($SCRIPT --dry-run)"
 echo "$url" | grep -q "/commits/" || { echo "dry-run did not include /commits/"; exit 1; }
 
-# 2) --json returns a JSON array (requires jq)
+# Mock JSON used for non-networked checks
+MOCK_OK='{"check_runs":[{"name":"links","status":"completed","conclusion":"success","started_at":"t","completed_at":"t"}]}'
+
+# 2) --json returns a JSON array (mocked via CURL_CMD seam)
 if command -v jq >/dev/null 2>&1; then
-  out_json="$($SCRIPT --json)"
+  out_json=$(GITHUB_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --json 2>/dev/null)
   echo "$out_json" | jq -e . >/dev/null 2>&1 || { echo "--json not valid JSON"; exit 1; }
 fi
 
-# 3) --strict should pass for current HEAD (expect success or skipped only)
-if ! $SCRIPT --strict >/dev/null 2>&1; then
-  echo "strict mode failed for current HEAD" >&2; exit 1
-fi
+# 3) --strict should pass on success JSON (mocked via CURL_CMD seam)
+MOCK_STRICT='{"check_runs":[{"name":"links","status":"completed","conclusion":"success"}]}'
+set +e
+GITHUB_TOKEN=dummy echo "$MOCK_STRICT" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --strict >/dev/null 2>&1
+rc=$?
+set -e
+[ $rc -eq 0 ] || { echo "strict mode failed on success JSON"; exit 1; }
 
 # 4) Failing path: feed a mocked JSON with a failing conclusion and expect exit 1
 MOCK='{"check_runs":[{"name":"links","status":"completed","conclusion":"failure"}]}'
@@ -42,7 +48,6 @@ set -e
 [ $rc -ne 0 ] || { echo "expected error without token"; exit 1; }
 
 # 7) no-jq path should print raw JSON and exit 0
-MOCK_OK='{"check_runs":[{"name":"links","status":"completed","conclusion":"success","started_at":"t","completed_at":"t"}]}'
 set +e
 out_nojq=$(GITHUB_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=/nonexistent $SCRIPT 2>/dev/null)
 rc=$?
