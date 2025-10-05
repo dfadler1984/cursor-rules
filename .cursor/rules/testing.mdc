@@ -1,8 +1,8 @@
 ---
-description: Testing conventions
+description: Testing conventions — meaningful assertions against owner modules; pointers to TDD cycles
 globs: **/*.spec*,**/*.test*
 alwaysApply: false
-lastReviewed: 2025-09-11
+lastReviewed: 2025-10-05
 healthScore:
   content: green     # Accurate testing conventions
   usability: green   # Clear structure, good examples
@@ -40,6 +40,36 @@ healthScore:
 - Do not add placeholder specs or placeholder assertions.
   - Not allowed: `expect(true).toBe(true)`, existence-only checks, empty `it()` blocks, or `.skip` used to satisfy gates.
 - Tests must assert real behavior of the owner module (see `testing-naming.mdc` for colocation) and fail meaningfully when behavior is incorrect.
+- Assertions should target observable outputs or effects of the SUT’s public API, not incidental internals. Prefer value/result checks over mocks, and when mocking, assert the resulting behavior, not just that a mock was called.
+
+### Examples (good)
+
+```ts
+// Owner: src/validateGlobs.ts → src/validateGlobs.spec.ts
+it("rejects bracketed globs", () => {
+  expect(() => validateGlobs("['invalid']")).toThrow(/invalid format/);
+});
+
+// Effects seam injection example
+it("formats UTC year-month", () => {
+  const fixedNow = () => new Date("2025-10-02T00:00:00Z");
+  expect(formatNow(fixedNow)).toBe("2025-10");
+});
+```
+
+### Anti-examples (avoid)
+
+```ts
+// Placeholder assertion — does not exercise SUT behavior
+expect(true).toBe(true);
+
+// Existence-only check without behavior
+expect(validateGlobs).toBeDefined();
+```
+
+## References
+
+- See TDD cycles and Three Laws in `tdd-first.mdc` for the nano/micro/milli cycles and boundary checks.
 
 ## Related
 

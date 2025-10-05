@@ -1,8 +1,8 @@
 ---
-description: TDD-First — owner spec gate, minimal implementation, refactor; with logging at Red/Green
+description: TDD-First — Three Laws, R/G/R, Specific→Generic; owner specs; effects seam; logging at Red/Green
 globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs,**/*.sh
 alwaysApply: true
-lastReviewed: 2025-10-04
+lastReviewed: 2025-10-05
 healthScore:
   content: green
   usability: green
@@ -13,7 +13,7 @@ healthScore:
 
 ## Pre-edit Gate
 
-- Before editing JS/TS: list owner spec path(s) colocated with the source file
+- Before editing list owner spec path(s) colocated with the source file
 - Red: add or update a failing owner spec
 - Green: implement minimal change to pass
 - Refactor: clean up while keeping tests green
@@ -21,14 +21,6 @@ healthScore:
 ## Effects Seam
 
 - Isolate IO/env/time/random behind injected dependencies; test pure resolvers first
-
-## Logging
-
-- Write an assistant learning log at Red (spec added/updated and failing) and Green (tests passing) per `logging-protocol.mdc`
-
-## References
-
-- `spec-driven.mdc`, `deterministic-outputs.mdc`, `logging-protocol.mdc`
 
 ## TDD First: Test-Driven Development
 
@@ -44,11 +36,33 @@ healthScore:
 
 If you don't understand what behavior to test, ask the engineer for clarification before writing any implementation code.
 
-## The cycle
+## The Three Laws and Cycles of TDD
 
-1. **Red**: Write a failing test that describes the desired behavior
-2. **Green**: Write minimal code to make the test pass
-3. **Refactor**: Clean up while keeping tests green
+### Three Laws (nano-cycle)
+
+1. Write a failing test before any production code.
+2. Do not write more test than necessary to fail (or fail to compile).
+3. Do not write more production code than necessary to make the failing test pass.
+
+Source: Uncle Bob, The Three Rules of TDD — see link in References.
+
+Granularity: Prefer line-by-line alternation between a failing test line and the minimal production line to make it pass, repeating rapidly. Smallest-possible steps reduce rework and keep feedback continuous.
+
+### Red → Green → Refactor (micro-cycle)
+
+1. Red: Add a failing unit test expressing the next sliver of behavior.
+2. Green: Write the minimal production code to pass that test.
+3. Refactor: Improve structure with tests green.
+
+### Specific ↔ Generic (milli-cycle)
+
+- As tests get more specific, the production code should become more generic. Favor solutions that would also satisfy unwritten-but-plausible tests, avoiding overfitting to the last assertion.
+
+When stuck: If making the next test pass requires a large leap outside the nano/micro cycles, backtrack. Delete or revise overly specific recent tests and choose a path that increases code generality while adding test specificity more slowly.
+
+### Hourly boundary check (primary cycle)
+
+- Periodically step back to evaluate architectural boundaries; keep domain logic pure and effects isolated.
 
 ## Coverage of effects (must)
 
@@ -104,6 +118,12 @@ async function main() {
   - Provide a one‑line failing assertion description for each owner spec (the "Red").
 - No skip path: if tests cannot be authored as initially framed, adjust the approach (use the FP effects seam) rather than skipping tests.
 - One-shot consent for new specs: If creating a new owner spec is required and file creation needs consent, ask once; if no reply, pause.
+
+### Execution protocol (assistant)
+
+- Enforce second-by-second adherence to the Three Laws: introduce only the minimal failing assertion change before writing the minimal production change.
+- Run focused tests for the current spec or test name before proceeding to the next step.
+- After Green, refactor in small steps while keeping tests green; then proceed to the next Red.
 
 ## Shell scripts (Hard gate)
 
@@ -167,7 +187,30 @@ function validateGlobs(globs) {
 - **Implement first, test later**: Leads to incomplete test coverage
 - **Manual verification**: Inefficient and error-prone
 - **Skip tests for "simple" changes**: Simple changes break things too
+- **Assertion gaps**: Tests must assert observable behavior of the system under test (SUT). Avoid placeholders or existence-only checks. Couple assertions to the owner module’s public API, not incidental internals.
+
+## Do / Don’t
+
+### Do
+
+- Write one failing assertion line, then one minimal production line (nano-cycle granularity).
+- Run focused tests between steps (spec path or test name) to keep feedback continuous.
+- Increase generality as tests get more specific (Specific↔Generic milli-cycle).
+- Isolate effects behind seams and test pure cores; keep adapters thin.
+- Pause hourly to check architectural boundaries and keep concerns separated.
+
+### Don’t
+
+- Write more test than needed to fail, or more production than needed to pass.
+- Overfit code to the last test; avoid implementations that wouldn’t satisfy plausible unwritten cases.
+- Rely on manual verification or placeholder assertions.
+- Skip tests for “simple” changes or defer refactoring until later.
+
+## References
+
+- Robert C. Martin, “The Cycles of TDD” (`https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html`)
+- Robert C. Martin, “The Three Rules of TDD” (`http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd`)
 
 ## Related
 
-- See `testing.mdc` for test structure and naming conventions
+- See `testing.mdc` for test structure, naming, and meaningful assertion requirements

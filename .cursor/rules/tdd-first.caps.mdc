@@ -1,6 +1,6 @@
 ---
-description: Capabilities for TDD-first (owner specs, Red → Green → Refactor)
-lastReviewed: 2025-10-03
+description: Capabilities for TDD-first (Three Laws; nano/micro/milli cycles; owner specs)
+lastReviewed: 2025-10-05
 healthScore:
   content: green
   usability: green
@@ -12,7 +12,8 @@ references:
 ## Capabilities
 
 - Enforce owner specs before code edits in JS/TS (pre-edit gate)
-- Guide Red → Green → Refactor flow with focused test runs
+- Guide Three Laws and Red → Green → Refactor with focused runs
+- Promote Specific→Generic pressure: avoid overfitting to last assertion
 - Encourage pure cores with effect seams for testability
 
 ## Triggers & Routing
@@ -27,8 +28,9 @@ references:
 
 ## Constraints & Guards
 
-- No implementation before a meaningful failing spec exists
+- No implementation before a meaningful failing spec exists (assert real behavior of the owner module)
 - Keep changes minimal; refactor only after green
+- Hourly boundary checks encouraged to maintain clean architecture
 
 ## Examples
 
