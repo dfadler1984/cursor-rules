@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.3
+
+### Patch Changes
+
+- [#25](https://github.com/dfadler1984/cursor-rules/pull/25) [`3972974`](https://github.com/dfadler1984/cursor-rules/commit/3972974de0880d754489ba8e992cb617e28bf9e1) Thanks [@dfadler1984](https://github.com/dfadler1984)! - fix: correct duplicate JSON in .changeset/config.json to unblock changesets action
+
+- [#24](https://github.com/dfadler1984/cursor-rules/pull/24) [`a129980`](https://github.com/dfadler1984/cursor-rules/commit/a129980087f2cb05edf1eb63d5c3d91ab78f556a) Thanks [@dfadler1984](https://github.com/dfadler1984)! - chore: seed initial changeset to re-enable automated changelog and version PR
+
 ## 0.0.2
 
 ### Patch Changes
