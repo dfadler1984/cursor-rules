@@ -31,6 +31,10 @@ healthScore:
 - Recommended defaults (if explicitly granted by the user):
   - Git (local repo only): `git checkout -b <branch>`, `git add -A`, `git commit -m "…"`, `git push -u origin <branch>`
   - PR creation: `.cursor/scripts/pr-create.sh …` (non-interactive; uses `GITHUB_TOKEN` if present)
+  - PR update: `.cursor/scripts/pr-update.sh --pr <number>|--head <branch> [--title] [--body]` (non-interactive; uses `GITHUB_TOKEN`)
+  - Checks status: `.cursor/scripts/checks-status.sh --pr <number>` (read-only; token required unless `--dry-run`)
+  - Script tests: `bash .cursor/scripts/tests/run.sh -k <keyword> -v` (local only)
+  - Rules validation/listing: `.cursor/scripts/rules-validate.sh …`, `.cursor/scripts/rules-list.sh …` (local only)
 - Category switches: standing consent covers the listed commands regardless of category switches; unrelated tools still require consent.
 
 ### Command invocation policy

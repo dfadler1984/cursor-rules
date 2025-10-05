@@ -9,7 +9,7 @@ IFS=$'\n\t'
 # shellcheck disable=SC1090
 source "$(dirname "$0")/.lib.sh"
 
-VERSION="0.2.0"
+VERSION="0.3.0"
 
 TITLE=""
 BODY=""
@@ -23,12 +23,15 @@ DRY_RUN=0
 USE_TEMPLATE=1
 TEMPLATE_PATH=""
 BODY_APPEND=""
+# Body composition controls
+REPLACE_BODY=0
+SKIP_CONTEXT=0
 
 usage() {
   cat <<'USAGE'
 Usage: pr-create.sh --title <title> [--body <body>] [--base <branch>] [--head <branch>] \
                     [--owner <owner>] [--repo <repo>] [--no-template] \
-                    [--template <path>] [--body-append <text>] \
+                    [--template <path>] [--body-append <text>] [--replace-body] \
                     [--dry-run] [--version] [-h|--help]
 
 Notes:
@@ -39,6 +42,7 @@ Notes:
     Use --template <path> to select a specific template. Use --body-append to add
     extra context under a "## Context" section. When using --body without --no-template,
     the provided body is appended under "## Context" as well (backward-compatible).
+  - Use --replace-body to bypass templates and context; BODY becomes the exact PR body.
 USAGE
 }
 
@@ -66,6 +70,7 @@ while [ $# -gt 0 ]; do
     --template) TEMPLATE_PATH="${2:-}"; shift 2 ;;
     --body-append) BODY_APPEND="${2:-}"; shift 2 ;;
     --dry-run) DRY_RUN=1; shift ;;
+    --replace-body) REPLACE_BODY=1; shift ;;
     --version) printf '%s\n' "$VERSION"; exit 0 ;;
     -h|--help) usage; exit 0 ;;
     *) die 2 "Unknown argument: $1" ;;
@@ -80,6 +85,12 @@ derive_owner_repo
 [ -n "$REPO" ] || die 1 "Unable to derive --repo; pass explicitly"
 [ -n "$HEAD" ] || die 1 "Unable to derive --head; pass explicitly"
 [ -n "$BASE" ] || BASE="main"
+
+# If replacing body, disable templates and context injection entirely
+if [ $REPLACE_BODY -eq 1 ]; then
+  USE_TEMPLATE=0
+  SKIP_CONTEXT=1
+fi
 
 # Discover and inject template content if enabled
 compose_body_with_template() {
@@ -101,7 +112,7 @@ compose_body_with_template() {
   else
     log_warn "PR template not found; proceeding without template injection"
     # Still compose a Context section if BODY/BODY_APPEND present
-    if [ -n "${BODY:-}" ] || [ -n "${BODY_APPEND:-}" ]; then
+    if [ $SKIP_CONTEXT -eq 0 ] && { [ -n "${BODY:-}" ] || [ -n "${BODY_APPEND:-}" ]; }; then
       composed=""
       context_section="## Context\n"
       if [ -n "${BODY:-}" ]; then context_section+="$BODY\n"; fi
