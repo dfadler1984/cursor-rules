@@ -17,6 +17,7 @@ Commands:
   build-filename <short> [--at <ISO>]
   write-local <path> <content>
   is-writable <dir>
+  write-with-fallback <destDir> <short> [reads body from stdin] (back-compat)
   write-with-fallback <primaryPath> <content> <fallbackDir>
   write-with-fallback-file <primaryPath> <tmpFile> <fallbackDir>
 USAGE
@@ -63,7 +64,7 @@ is_writable_cmd() {
 redact_if_possible() {
   local body="$1"
   if [[ -x ".cursor/scripts/alp-redaction.sh" ]]; then
-    if redacted="$(printf "%s" "$body" | .cursor/scripts/alp-redaction.sh 2>/dev/null)"; then
+    if redacted="$(printf "%s" "$body" | .cursor/scripts/alp-redaction.sh redact 2>/dev/null)"; then
       printf '%s' "$redacted"
       return 0
     fi
@@ -72,6 +73,33 @@ redact_if_possible() {
 }
 
 write_with_fallback_cmd() {
+  # Back-compat form: write-with-fallback <destDir> <short>, body from stdin
+  if [[ $# -eq 2 ]]; then
+    local destDir="$1"; local short="$2"
+    local primaryDir="${ALP_LOG_DIR-}"
+    if [[ -z "${primaryDir:-}" ]]; then
+      primaryDir="$destDir"
+    fi
+    local fileName
+    fileName="$(build_filename "$short")"
+    local target="$primaryDir/$fileName"
+    mkdir -p -- "$primaryDir" || true
+    # Read body from stdin and redact if possible
+    local body
+    body="$(cat -)"
+    body="$(redact_if_possible "$body")"
+    if printf '%s' "$body" > "$target" 2>/dev/null; then
+      printf '%s\n' "$target"; return 0
+    fi
+    local fallbackDir="docs/assistant-learning-logs"
+    mkdir -p -- "$fallbackDir"
+    target="$fallbackDir/$fileName"
+    printf '%s' "$body" > "$target"
+    printf '%s\n' "$target"
+    return 0
+  fi
+
+  # Modern form: write-with-fallback <primaryPath> <content> <fallbackDir>
   local primaryPath="$1"; local content="$2"; local fallbackDir="${3-}"
   local primaryDir="${ALP_LOG_DIR-}"
   if [[ -z "${primaryDir:-}" ]]; then
