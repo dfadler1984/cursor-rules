@@ -31,3 +31,8 @@ healthScore:
   - Pipe pagers to `| cat` to avoid blocking.
   - Background long-lived tasks and include a brief rationale.
   - Precede each command with one sentence explaining why it is needed.
+
+## Command execution security
+- Shell-neutral default: Prefer commands that do not assume a specific shell; avoid implicit wrappers.
+- Verbatim execution: When the user provides an exact approved command, execute it exactly as given. Do not alter unless necessary for safety or non-interactive behavior, and state the change explicitly.
+- Non-interactive runs: If a command may page or prompt, add the minimal non-interactive flags (e.g., `--yes`) or `| cat` only with consent and rationale.

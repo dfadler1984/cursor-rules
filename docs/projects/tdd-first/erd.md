@@ -14,6 +14,7 @@ Enforce Red → Green → Refactor with colocated owner specs and effects seams.
 - JS/TS hard gate: list owner spec paths before edits
 - Effects seams for IO/env/time/random; test pure resolvers first
 - Coverage>0 guard and owner coupling alignment
+- Embed Three Laws (nano), Red→Green→Refactor (micro), Specific→Generic (milli), and hourly boundary checks (primary)
 
 ## 3. Functional Requirements
 
@@ -26,6 +27,7 @@ Enforce Red → Green → Refactor with colocated owner specs and effects seams.
 - Hard gate rules documented and examples provided
 - Effects seam guidance included
 - Integration points with test-quality rules noted
+- References to authoritative sources included
 
 ## 5. Risks/Edge Cases
 
@@ -46,6 +48,11 @@ Enforce Red → Green → Refactor with colocated owner specs and effects seams.
 - Impact: The test could pass even if the validator script regressed (e.g., empty output or missing checks), violating the spirit of Red → Green and our Laws (Truth/Accuracy).
 - Correction: Strengthened the test to assert concrete outputs and failure reasons and to exercise the `--projects-dir` flag. Re-ran focused tests to green.
 - Policy reinforcement: Tests must fail meaningfully when the SUT behavior is incorrect; avoid assertion gaps that mask regressions. When stating what a test verifies, ensure assertions explicitly cover those claims.
+
+## 10. References
+
+- Robert C. Martin, “The Cycles of TDD” (`https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html`)
+- Robert C. Martin, “The Three Rules of TDD” (`http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd`)
 
 ## 8. Examples
 
@@ -76,4 +83,4 @@ it("formats year-month in UTC", () => {
 
 Owner: rules-maintainers
 
-Last updated: 2025-10-02
+Last updated: 2025-10-05
