@@ -31,7 +31,6 @@ A landing page for all projects, grouped by status.
 - [shell-scripts](./shell-scripts/erd.md) — Portable shell scripts replacing Node helpers; standardized CLI suite.
 - [spec-driven](./spec-driven/erd.md) — Phased workflow: Specify → Plan → Tasks with deterministic artifacts and rules.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
-- [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
 - [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
 - [pr-create-script](./pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
 - [skip-changeset-opt-in](./skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
@@ -42,7 +41,7 @@ A landing page for all projects, grouped by status.
 - [assistant-learning](./assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
 - [project-lifecycle](./project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
 - [pr-template-automation](./pr-template-automation/erd.md) — Default PR template injection in script + docs.
-- [tdd-first](./tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
+- [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
 
 ## Archived
 
