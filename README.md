@@ -24,7 +24,7 @@ This repository includes a suite of standalone shell scripts to assist with rule
 
 2. Ensure the Project Completion Checklist is satisfied (`docs/projects/project-lifecycle/completion-checklist.template.md`).
 3. Add a brief final summary using the template (`docs/projects/project-lifecycle/final-summary.template.md`).
-4. Update `docs/projects/README.md`: move the project from Active to Completed.
+4. Update `docs/projects/README.md`: move the project from Active to Completed. If archiving, move the project folder to `docs/projects/_archived/<YYYY>/<name>/` and update the Completed link.
 
 ## Scripts
 
@@ -89,13 +89,19 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
   - Role–Phase Mapping ERD: `docs/projects/role-phase-mapping/erd.md`
   - Git Usage ERD: `docs/projects/git-usage/erd.md`
   - Bash Script Standards ERD: `docs/projects/bash-scripts/erd.md`
+  - Rule — TDD‑First (Core): `.cursor/rules/tdd-first.mdc`
+  - Rule — TDD‑First (JS/TS Extension): `.cursor/rules/tdd-first-js.mdc`
+  - Rule — TDD‑First (Shell Extension): `.cursor/rules/tdd-first-sh.mdc`
+  - Rule — Test Quality (Core): `.cursor/rules/test-quality.mdc`
+  - Rule — Test Quality (JS/TS): `.cursor/rules/test-quality-js.mdc`
+  - Rule — Test Quality (Shell): `.cursor/rules/test-quality-sh.mdc`
 - Archived Source ERD (reference-only): `docs/projects/rules-grok-alignment/erd.md`
 - Portability ERD: `docs/projects/portability/erd.md`
 - MCP Synergy ERD: `docs/projects/mcp-synergy/erd.md`
   - Roles & Intent Routing ERD: `docs/projects/roles/erd.md`
   - Capabilities Discovery ERD: `docs/projects/capabilities-discovery/erd.md`
   - Spec‑Driven Workflow ERD: `docs/projects/spec-driven/erd.md`
-  - TDD‑First ERD: `docs/projects/tdd-first/erd.md`
+  - TDD‑First ERD: `docs/projects/_archived/2025/tdd-first/erd.md`
   - Core Values ERD: `docs/projects/core-values/erd.md`
   - Productivity & Automation ERD: `docs/projects/productivity/erd.md`
   - Rule Maintenance & Validator ERD: `docs/projects/rule-maintenance/erd.md`
