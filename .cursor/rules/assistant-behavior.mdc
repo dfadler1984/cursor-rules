@@ -1,7 +1,7 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-05
+lastReviewed: 2025-10-06
 healthScore:
   content: green # Accurate behavioral guidance, clear examples
   usability: green # Scannable format, practical checklists
@@ -21,6 +21,26 @@ healthScore:
 - When switching tool categories in the same turn (e.g., validator → git → web), request fresh one-shot consent for the first command in the new category.
 - In status updates, announce the tool-category switch and the exact command you’re about to run.
 - Presentation format (must): When asking consent for one or more shell commands, present them as a Markdown bulleted list with one command per bullet. Do not chain multiple commands with `&&` in consent prompts; list them separately and in execution order.
+
+#### Exception — obvious, safe, read-only commands
+
+- When the user issues an imperative request that exactly names a safe, read-only command, execute it without an additional confirmation prompt.
+- Requirements:
+  - Imperative phrasing (e.g., "run …", "show …").
+  - Command is in the safe allowlist (read-only, local, non-interactive).
+  - Announce the exact command in the status update before execution.
+- Initial safe allowlist (read-only git):
+- git status
+- git status --porcelain=v1
+- git branch --show-current
+- git log -1 --oneline
+- git diff --stat
+
+#### High-certainty allowlist suggestions
+
+- When intent strongly implies a read-only variant outside the allowlist, suggest adding the exact command to the allowlist with a one-line opt-in prompt.
+- Suggest only if the command is read-only, local, and non-interactive.
+- On approval, treat it as allowlisted for the session; otherwise fall back to the normal consent gate.
 
 ### Session-scoped standing consent (allowlist)
 

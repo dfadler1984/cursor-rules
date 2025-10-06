@@ -1,7 +1,7 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: false
-lastReviewed: 2025-09-14
+lastReviewed: 2025-10-06
 healthScore:
   content: green # Accurate capability descriptions
   usability: green # Clear list format, easy to scan
@@ -80,6 +80,9 @@ healthScore:
 - Apply one-shot consent when a new owner spec must be created (`tdd-first.mdc`).
 - Pause when ambiguity persists after one clarifying question (`intent-routing.mdc`).
 - Add or refine mitigations in `rule-maintenance.mdc` under “Looping/Deadlock Mitigations”.
+
+- Read-only consent exception: execute obvious, safe read-only commands without an extra prompt; announce the exact command before running.
+- High-certainty suggestions: propose adding similar read-only commands to the session allowlist with a one-line confirmation when intent is clear.
 
 ### Rules automation
 

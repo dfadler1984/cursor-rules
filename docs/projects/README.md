@@ -38,9 +38,9 @@ A landing page for all projects, grouped by status.
 
 ## Completed
 
-- [assistant-learning](./assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
-- [project-lifecycle](./project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
-- [pr-template-automation](./pr-template-automation/erd.md) — Default PR template injection in script + docs.
+- [assistant-learning](../_archived/2025/assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
+- [project-lifecycle](../_archived/2025/project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
+- [pr-template-automation](../_archived/2025/pr-template-automation/erd.md) — Default PR template injection in script + docs.
 - [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
 
 ## Archived

@@ -1,6 +1,6 @@
 ---
 description: Capabilities for assistant behavior (consent-first, status updates, minimal prompts)
-lastReviewed: 2025-10-03
+lastReviewed: 2025-10-06
 healthScore:
   content: green
   usability: green
@@ -30,6 +30,8 @@ references:
 
 - Secrets handling: redact tokens/headers; avoid echoing sensitive data
 - Prefer reversible steps when confidence is low; surface uncertainties
+
+- Safe read-only exception: execute obvious, read-only commands without extra confirmation; announce the exact command and suggest allowlist expansion when intent is high-certainty.
 
 ## Examples
 
