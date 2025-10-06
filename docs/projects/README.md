@@ -34,6 +34,7 @@ A landing page for all projects, grouped by status.
 - [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
 - [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
 - [pr-create-script](./pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
+- [skip-changeset-opt-in](./skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
 - [project-erd-front-matter](./project-erd-front-matter/erd.md) — Minimal ERD front matter standard and examples.
 
 ## Completed
