@@ -1,0 +1,46 @@
+---
+description: TDD‑First — JS/TS extension (focused runs, owner mapping, diff coverage)
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
+lastReviewed: 2025-10-06
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# TDD‑First (JS/TS Extension)
+
+> Canonical sources: JS/TS enforcement details live in `test-quality-js.mdc`. Core methodology lives in `tdd-first.mdc`.
+
+This extension operationalizes the language‑agnostic TDD‑First core for JS/TS projects.
+
+## Purpose
+
+- Provide concrete, ecosystem‑appropriate enforcement of the core invariant:
+  - Changed sources must have tests that execute >0 lines of the changed file(s).
+- Encourage focused runs, owner‑spec colocation, and effects seams for IO/env/time/random.
+
+## Coverage & focused runs
+
+- See `.cursor/rules/test-quality-js.mdc` for coverage options (coverage>0, diff-based gates) and focused run commands.
+
+## Owner mapping (colocation)
+
+`src/foo.ts` → `src/foo.spec.ts`. Red: add a failing assertion against `foo`’s public API that expresses the next sliver of behavior. Green: implement the minimal change in `foo.ts` to pass. Refactor: improve structure with tests green; keep effects at boundaries.
+
+## Effects seam (brief)
+
+- Inject time/env/fs/subprocess as parameters or dependency objects; test resolvers directly.
+- Keep adapters (CLI/HTTP/DB) thin; use contract checks for parsing/shape and observable effects.
+
+## Exceptions
+
+- Generated files and pure re‑export barrels may be excluded or covered by minimal surface tests; document any exclusion in the PR.
+
+## Related
+
+- Core: `.cursor/rules/tdd-first.mdc`
+- Testing overview: `.cursor/rules/testing.mdc`
+- Practical gates: `.cursor/rules/test-quality.mdc`
+- References: Robert C. Martin — Three Rules of TDD and Red → Green → Refactor (see core rule References)

@@ -1,0 +1,45 @@
+---
+description: TDD‑First — Shell extension (focused harness, owner coupling, behavior evidence)
+globs: .cursor/scripts/*.sh
+alwaysApply: false
+lastReviewed: 2025-10-06
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# TDD‑First (Shell Extension)
+
+> Canonical sources: Shell evidence details live in `test-quality-sh.mdc`. Core methodology lives in `tdd-first.mdc`.
+
+This extension operationalizes the language‑agnostic TDD‑First core for Bash/POSIX shell scripts in `.cursor/scripts/`.
+
+## Purpose
+
+- Provide practical enforcement where numeric coverage tooling is uncommon or brittle.
+- Encode behavior‑first evidence that satisfies the core invariant (tests execute changed code).
+
+## Evidence signals (must)
+
+- See `.cursor/rules/test-quality-sh.mdc` for focused harness usage, required assertions (exit codes, stdout/stderr, flags), owner coupling, and sabotage spot‑checks.
+
+## Effects seam
+
+- Extract decision logic into a pure resolver sourced by the CLI wrapper; inject env, time, and filesystem via parameters to enable unit tests without side effects.
+
+## Evidence in PRs
+
+- Include focused test output:
+  - Command: `bash .cursor/scripts/tests/run.sh -k <script-name-without-ext> -v`
+  - Paste the passing output or link to CI logs.
+
+## Exceptions
+
+- Trivial wrappers may be covered by minimal contract checks (argument parsing, exit codes) when core logic is tested via a resolver.
+
+## Related
+
+- Core: `.cursor/rules/tdd-first.mdc`
+- Testing overview: `.cursor/rules/testing.mdc`
+- References: Robert C. Martin — Three Rules of TDD and Red → Green → Refactor (see core rule References)

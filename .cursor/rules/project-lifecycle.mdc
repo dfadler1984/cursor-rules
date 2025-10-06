@@ -1,7 +1,7 @@
 ---
 description: Project lifecycle — completion policy and validation
 alwaysApply: false
-lastReviewed: 2025-10-03
+lastReviewed: 2025-10-06
 healthScore:
   content: green
   usability: green
@@ -30,7 +30,7 @@ owner: <github-handle-or-team>
 ```
 
 - Location: `docs/projects/<name>/erd.md` (and optionally mirrored in `tasks.md`).
-- Paths remain stable; avoid moving folders on completion (no link rot).
+- On archival, move the project folder under `docs/projects/_archived/<YYYY>/<name>/` using a simple move; update index links accordingly.
 
 ## Closure Checklist (Definition of Done)
 
@@ -52,7 +52,8 @@ Reference template: `.cursor/templates/project-lifecycle/completion-checklist.te
 ## Projects Index Update
 
 - Landing page: `docs/projects/README.md`
-- When a project completes, move its entry from Active to Completed and keep the name as a link to `./<name>/erd.md` with a short description.
+- When a project completes, move its entry from Active to Completed.
+- If archived, point the Completed link to `../_archived/<YYYY>/<name>/erd.md`.
 
 ## Validator and CLI
 
@@ -77,7 +78,7 @@ Reference template: `.cursor/templates/project-lifecycle/completion-checklist.te
 
 ## Notes
 
-- Archive is optional: only move to `docs/projects/_archived/<YYYY>/<name>` for legacy/large projects; leave a stub/redirect if moved.
+- Archiving uses a simple move: relocate the folder to `docs/projects/_archived/<YYYY>/<name>` and update links. No redirect stub is required.
 - Prefer manual, explicit updates first; automation may be added later.
 
 ## Rollout
@@ -88,7 +89,6 @@ Reference template: `.cursor/templates/project-lifecycle/completion-checklist.te
 ## Archival Move Procedure
 
 1. Confirm project is Completed and stable.
-2. Create `docs/projects/_archived/<YYYY>/<project>/` and move the folder.
-3. At the original path, leave a short redirect note using `.cursor/templates/project-lifecycle/archive-redirect.template.md`.
-4. Update `docs/projects/README.md` under Archived.
-5. Prefer a Conventional Commit title noting the archival (e.g., `docs(projects): archive <name>`).
+2. Move the folder to `docs/projects/_archived/<YYYY>/<project>/` (simple move).
+3. Update `docs/projects/README.md` Completed section to point to the archived path.
+4. Prefer a Conventional Commit title noting the archival (e.g., `docs(projects): archive <name>`).

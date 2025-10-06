@@ -35,7 +35,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
     - Verbs: create|generate|add|write
     - Test terms: test|tests|spec|specs|unit test|jest
   - Keywords (fallback): coverage|assert|assertion|assertions
-  - Attach: `testing.mdc`, `tdd-first.mdc`
+  - Attach: `testing.mdc`, `tdd-first.mdc`, `test-quality.mdc`
 - Refactoring
   - Triggers: <refactor-verb>
     - Verbs: refactor|extract|rename|reorganize
@@ -93,11 +93,13 @@ This lightweight router keeps context minimal by attaching specific rules only w
 
 ## File/context signals (supporting)
 
-- If any focused/open/edited path matches `**/*.(spec|test).[tj]s?(x)`, attach `testing.mdc`, `tdd-first.mdc`.
+- If any focused/open/edited path matches `**/*.(spec|test).[tj]s?(x)`, attach `testing.mdc`, `tdd-first.mdc`, `test-quality-js.mdc`.
 - If the user mentions "jest", "coverage", or "assert", attach testing rules.
 - On implementation verbs (implement/add/fix/refactor/update), attach testing + TDD by default (see `user-intent.mdc`).
 - JS/TS pre-edit gate: If the next step targets JS/TS files (`*.ts|*.tsx|*.js|*.mjs|*.cjs`), attach a minimal TDD checklist and enforce tests-first before edits. Load full `testing.mdc` progressively when test authoring or failures occur.
+  - Also attach `test-quality-js.mdc` for JS/TS specifics.
   - Enforcement: block edits until the TDD confirmation is present (see Assistant Behavior rule).
+- Shell script tests or edits under `.cursor/scripts/*.sh`: attach `test-quality-sh.mdc`.
 - If any focused/open/edited path matches `**/tasks/*.md`, attach `assistant-git-usage.mdc`, `task-list-process.mdc`.
 
 ## Decision policy (weights)
