@@ -1,8 +1,8 @@
 ---
 description: TDD-First — Three Laws, R/G/R, Specific→Generic; owner specs; effects seam; logging at Red/Green
-globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs,**/*.sh
+globs: **/*
 alwaysApply: true
-lastReviewed: 2025-10-05
+lastReviewed: 2025-10-06
 healthScore:
   content: green
   usability: green
@@ -10,6 +10,8 @@ healthScore:
 ---
 
 # Rule: TDD-First
+
+> Canonical sources: Core methodology lives here. Language specifics live in `tdd-first-js.mdc` and `tdd-first-sh.mdc`. Quality gates and coverage options live in `test-quality*.mdc`.
 
 ## Pre-edit Gate
 
@@ -38,21 +40,29 @@ If you don't understand what behavior to test, ask the engineer for clarificatio
 
 ## The Three Laws and Cycles of TDD
 
+Authoritative formulation per Robert C. Martin (Uncle Bob). These are mandatory gates for any implementation change. The following is a faithful paraphrase with attribution and source links.
+
 ### Three Laws (nano-cycle)
 
-1. Write a failing test before any production code.
-2. Do not write more test than necessary to fail (or fail to compile).
-3. Do not write more production code than necessary to make the failing test pass.
+1. You may not write any production code unless you have first written a failing test.
 
-Source: Uncle Bob, The Three Rules of TDD — see link in References.
+2. You may not write more of a test than is sufficient to fail (and not compiling counts as failing).
+
+3. You may not write more production code than is sufficient to pass the currently failing test.
+
+Attribution: Paraphrased from Robert C. Martin’s “The Three Rules of TDD” (see References).
 
 Granularity: Prefer line-by-line alternation between a failing test line and the minimal production line to make it pass, repeating rapidly. Smallest-possible steps reduce rework and keep feedback continuous.
 
 ### Red → Green → Refactor (micro-cycle)
 
-1. Red: Add a failing unit test expressing the next sliver of behavior.
-2. Green: Write the minimal production code to pass that test.
-3. Refactor: Improve structure with tests green.
+1. Red: Add a failing unit test that expresses the next small, observable behavior.
+
+2. Green: Add the minimal production code needed to make that test pass.
+
+3. Refactor: Improve the code’s design with all tests passing; keep behavior unchanged.
+
+Enforcement: Do not proceed to implementation without Red; do not proceed to refactor without Green.
 
 ### Specific ↔ Generic (milli-cycle)
 
@@ -111,28 +121,17 @@ async function main() {
 - Public API changes: added/changed exports in `f` must be reflected in `f.spec.*` (add or update the appropriate `describe`).
 - Unit focus: even during refactors that touch multiple files, each file’s owner spec must show Red → Green for its own behavior. Integration specs are optional extras, never substitutes.
 
-## Pre‑edit confirmation (agent behavior)
-
-- Before any code edit to `**/*.{ts,tsx,js,jsx}`, the assistant must:
-  - Infer and list exact owner spec path(s) to add/update (colocated), and
-  - Provide a one‑line failing assertion description for each owner spec (the "Red").
-- No skip path: if tests cannot be authored as initially framed, adjust the approach (use the FP effects seam) rather than skipping tests.
-- One-shot consent for new specs: If creating a new owner spec is required and file creation needs consent, ask once; if no reply, pause.
-
-### Execution protocol (assistant)
+## Execution protocol (assistant)
 
 - Enforce second-by-second adherence to the Three Laws: introduce only the minimal failing assertion change before writing the minimal production change.
 - Run focused tests for the current spec or test name before proceeding to the next step.
 - After Green, refactor in small steps while keeping tests green; then proceed to the next Red.
 
-## Shell scripts (Hard gate)
+## Language extensions
 
-- Hard gate: Any change to `.cursor/scripts/*.sh` (excluding `*.test.sh`) MUST be accompanied by changes to the corresponding `*.test.sh` in the same folder.
-- Tests-first flow (Red → Green → Refactor) applies exactly as for JS/TS: write or update a failing test, then implement the minimal change to pass.
-- Evidence required in PR:
-  - Command: `bash .cursor/scripts/tests/run.sh -k <script-name-without-ext> -v`
-  - Paste the focused passing output or link to CI output.
-- If direct testing is brittle, extract a pure resolver function and test that seam; do not skip tests.
+- This core is language-agnostic. See extensions for ecosystem specifics:
+  - JS/TS: `tdd-first-js.mdc` (pre-edit confirmation, focused runs, diff-aware coverage options)
+  - Shell: `tdd-first-sh.mdc` (focused harness, owner coupling, behavior evidence)
 
 ## Effects seam (functional style)
 
@@ -214,3 +213,5 @@ function validateGlobs(globs) {
 ## Related
 
 - See `testing.mdc` for test structure, naming, and meaningful assertion requirements
+- See `tdd-first-js.mdc` for JS/TS enforcement specifics
+- See `tdd-first-sh.mdc` for Shell enforcement specifics

@@ -1,0 +1,39 @@
+---
+description: Test Quality — Shell (behavior evidence, focused harness, owner coupling)
+globs: .cursor/scripts/*.sh
+alwaysApply: false
+lastReviewed: 2025-10-06
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Test Quality (Shell)
+
+> Canonical sources: Shell enforcement details live here. Core methodology lives in `tdd-first.mdc`.
+
+## Core signals (must)
+
+- Focused harness run with assertions:
+  - `bash .cursor/scripts/tests/run.sh -k <script-name-without-ext> -v`
+  - Assert exit codes, stdout/stderr lines, and flag handling.
+- Owner coupling:
+  - Tests invoke the target script or an extracted pure resolver sourced by tests.
+- Sabotage spot-check (review practice):
+  - Temporarily comment out or early-return in the SUT and re-run related tests; they should fail. Revert immediately.
+
+## Structure & effects seam
+
+- Extract decision logic into a pure resolver; inject env, time, and FS via parameters to enable unit tests without side effects.
+
+## Exceptions
+
+- Trivial wrappers may be covered by minimal contract checks (argument parsing, exit codes) when core logic is tested via a resolver.
+
+## Related
+
+- Core methodology: `tdd-first.mdc`
+- Shell extension: `tdd-first-sh.mdc`
+- Testing overview: `testing.mdc`
+- References: Robert C. Martin — Three Rules of TDD and Red → Green → Refactor (see core rule References)

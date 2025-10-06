@@ -37,10 +37,7 @@ healthScore:
 
 ## No placeholders (must)
 
-- Do not add placeholder specs or placeholder assertions.
-  - Not allowed: `expect(true).toBe(true)`, existence-only checks, empty `it()` blocks, or `.skip` used to satisfy gates.
-- Tests must assert real behavior of the owner module (see `testing-naming.mdc` for colocation) and fail meaningfully when behavior is incorrect.
-- Assertions should target observable outputs or effects of the SUT’s public API, not incidental internals. Prefer value/result checks over mocks, and when mocking, assert the resulting behavior, not just that a mock was called.
+- See `test-quality.mdc` for the canonical guidance on meaningful assertions, forbidden placeholders, and observable behavior requirements.
 
 ### Examples (good)
 
@@ -70,8 +67,11 @@ expect(validateGlobs).toBeDefined();
 ## References
 
 - See TDD cycles and Three Laws in `tdd-first.mdc` for the nano/micro/milli cycles and boundary checks.
+- Robert C. Martin — The Three Rules of TDD and Red → Green → Refactor (see `tdd-first.mdc` References)
 
 ## Related
 
 - See `jest.config.cjs` for `testMatch` alignment
 - See `tdd-first.mdc` for TDD methodology
+- See `tdd-first-js.mdc` for JS/TS enforcement specifics
+- See `tdd-first-sh.mdc` for Shell enforcement specifics

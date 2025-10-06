@@ -1,0 +1,40 @@
+---
+description: Test Quality — JS/TS (coverage>0 or diff gates, owner coupling, sabotage checks)
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
+lastReviewed: 2025-10-06
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Test Quality (JS/TS)
+
+> Canonical sources: JS/TS enforcement details live here. Core methodology lives in `tdd-first.mdc`.
+
+## Core signals (must)
+
+- Coverage>0 for changed sources, or diff coverage policy per repo:
+  - Local: `jest --findRelatedTests --coverage --coverageProvider=v8 --coverageReporters=json-summary <changed files>`; fail if any changed SUT file has 0 executed lines.
+  - CI: compute PR diff and enforce either "no new uncovered lines" or a configured threshold.
+- Owner coupling:
+  - Specs import their owner module (sibling path). Pure resolver tests import the resolver; boundary tests import the adapter.
+- Sabotage spot-check (review practice):
+  - Temporarily comment out or early-return in the SUT and re-run related tests; they should fail. Revert immediately.
+
+## Structure & effects seam
+
+- Prefer pure resolvers; inject env, FS, subprocess, and time as parameters. See `tdd-first-js.mdc` for examples.
+- Boundary tests: assert logging, exit codes, and argument parsing via spies/injected deps.
+
+## Exceptions
+
+- Re-export barrels and generated files may be excluded or covered with a minimal surface test; document exclusions in the PR.
+
+## Related
+
+- Core methodology: `tdd-first.mdc`
+- JS/TS extension: `tdd-first-js.mdc`
+- Testing overview: `testing.mdc`, `testing-structure.mdc`, `testing-naming.mdc`
+- References: Robert C. Martin — Three Rules of TDD and Red → Green → Refactor (see core rule References)
