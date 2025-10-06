@@ -1,0 +1,39 @@
+---
+description: Changelog & Versioning — Changesets workflow, CI behavior, and assistant usage
+alwaysApply: false
+lastReviewed: 2025-10-06
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Changelog & Versioning (Changesets)
+
+This repository uses Changesets to generate `CHANGELOG.md` entries and update the root `VERSION` file via a CI-managed "Version Packages" PR.
+
+## Author workflow (local)
+
+- Add a changeset for user-visible changes:
+  - Run: `npx changeset`
+  - Select bump type and write a concise summary
+  - Stage and commit the changeset: `git add . && git commit -m "chore(changeset): add"`
+  - Push your branch as usual
+
+## CI behavior
+
+- On push to `main` with pending changesets, CI opens/updates a bot PR ("Version Packages").
+- When that PR is merged:
+  - The root `CHANGELOG.md` is updated
+  - `package.json` version is bumped and synced to `VERSION`
+
+## Assistant usage
+
+- When a change impacts users (new flags, behavior, docs), propose adding a changeset.
+- Prefer mapping to Conventional Commits in the summary; keep it concise and descriptive.
+- Do not manually edit `CHANGELOG.md` or `VERSION` — rely on the Version Packages PR.
+
+## References
+
+- See README — Changelog & Versioning section for details.
+- Workflow and config live under `.github/workflows/changesets.yml` and `.changeset/config.json`.

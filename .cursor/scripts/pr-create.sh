@@ -9,7 +9,7 @@ IFS=$'\n\t'
 # shellcheck disable=SC1090
 source "$(dirname "$0")/.lib.sh"
 
-VERSION="0.3.0"
+VERSION="0.4.0"
 
 TITLE=""
 BODY=""
@@ -18,6 +18,7 @@ HEAD=""
 OWNER=""
 REPO=""
 DRY_RUN=0
+LABELS=()
 
 # Template injection controls
 USE_TEMPLATE=1
@@ -32,7 +33,7 @@ usage() {
 Usage: pr-create.sh --title <title> [--body <body>] [--base <branch>] [--head <branch>] \
                     [--owner <owner>] [--repo <repo>] [--no-template] \
                     [--template <path>] [--body-append <text>] [--replace-body] \
-                    [--dry-run] [--version] [-h|--help]
+                    [--label <name>] [--docs-only] [--dry-run] [--version] [-h|--help]
 
 Notes:
   - Requires GITHUB_TOKEN in env for actual API calls
@@ -43,6 +44,8 @@ Notes:
     extra context under a "## Context" section. When using --body without --no-template,
     the provided body is appended under "## Context" as well (backward-compatible).
   - Use --replace-body to bypass templates and context; BODY becomes the exact PR body.
+  - Use --label <name> to apply labels after PR creation (repeatable). Use --docs-only as a
+    convenience alias for --label skip-changeset. Labels require jq for PR number extraction.
 USAGE
 }
 
@@ -71,6 +74,8 @@ while [ $# -gt 0 ]; do
     --body-append) BODY_APPEND="${2:-}"; shift 2 ;;
     --dry-run) DRY_RUN=1; shift ;;
     --replace-body) REPLACE_BODY=1; shift ;;
+    --label) LABELS+=("${2:-}"); shift 2 ;;
+    --docs-only) LABELS+=("skip-changeset"); shift ;;
     --version) printf '%s\n' "$VERSION"; exit 0 ;;
     -h|--help) usage; exit 0 ;;
     *) die 2 "Unknown argument: $1" ;;
@@ -151,6 +156,17 @@ if [ $USE_TEMPLATE -eq 1 ]; then
   compose_body_with_template
 fi
 
+# Build labels JSON array for dry-run display and later API body if needed
+labels_json=""
+if [ ${#LABELS[@]} -gt 0 ]; then
+  labels_json="["
+  for i in "${!LABELS[@]}"; do
+    if [ "$i" -gt 0 ]; then labels_json+=","; fi
+    labels_json+="\"$(json_escape "${LABELS[$i]}")\""
+  done
+  labels_json+="]"
+fi
+
 PAYLOAD=$(cat <<JSON
 {
   "title": "$(json_escape "$TITLE")",
@@ -161,8 +177,23 @@ PAYLOAD=$(cat <<JSON
 JSON
 )
 
+# Compose a dry-run payload that includes labels (for testability) without affecting real API payload
 if [ $DRY_RUN -eq 1 ]; then
-  printf '%s\n' "$PAYLOAD"
+  if [ -n "$labels_json" ]; then
+    DRY_PAYLOAD=$(cat <<JSON
+{
+  "title": "$(json_escape "$TITLE")",
+  "body": "$(json_escape "$BODY")",
+  "base": "$(json_escape "$BASE")",
+  "head": "$(json_escape "$HEAD")",
+  "labels": $labels_json
+}
+JSON
+)
+  else
+    DRY_PAYLOAD="$PAYLOAD"
+  fi
+  printf '%s\n' "$DRY_PAYLOAD"
   exit 0
 fi
 
@@ -187,6 +218,28 @@ if [ "$status" != "201" ]; then
   # Fallback compare URL
   printf 'Compare URL: https://github.com/%s/%s/compare/%s...%s\n' "$OWNER" "$REPO" "$BASE" "$HEAD" >&2
   exit 1
+fi
+
+# If labels were requested, add them via Issues API
+if [ -n "$labels_json" ]; then
+  require_cmd jq
+  pr_number=$(jq -r '.number' "$resp_file" 2>/dev/null || true)
+  if [ -z "$pr_number" ] || [ "$pr_number" = "null" ]; then
+    die 1 "Failed to extract PR number for labeling"
+  fi
+  labels_api="https://api.github.com/repos/${OWNER}/${REPO}/issues/${pr_number}/labels"
+  labels_body=$(cat <<JSON
+{"labels": $labels_json}
+JSON
+)
+  label_status=$(curl -sS -w '%{http_code}' -o /dev/stderr \
+    -H "Authorization: token ${GITHUB_TOKEN}" \
+    -H "Accept: application/vnd.github+json" \
+    -X POST "$labels_api" -d "$labels_body")
+  case "$label_status" in
+    200|201) : ;; # ok
+    *) die 1 "Labeling failed (status $label_status)" ;;
+  esac
 fi
 
 if have_cmd jq; then

@@ -49,4 +49,19 @@ printf '%s' "$out_ctx" | grep -q '## Context' || { echo "missing Context section
 printf '%s' "$out_ctx" | grep -q 'A' || { echo "missing base body in Context"; exit 1; }
 printf '%s' "$out_ctx" | grep -q 'B' || { echo "missing appended body in Context"; exit 1; }
 
+# 5) Default dry-run should not include labels key
+printf '%s' "$out" | grep -q '"labels"' && { echo "unexpected labels in default dry-run"; exit 1; }
+
+# 6) --label skip-changeset includes labels array in dry-run
+out_lbl="$(bash "$SCRIPT" --title "Label" --owner o --repo r --base main --head feat --label skip-changeset --dry-run)"
+printf '%s' "$out_lbl" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["skip-changeset"\]' || { echo "expected labels field with skip-changeset"; exit 1; }
+
+# 7) Multiple --label flags include both labels in order
+out_multi="$(bash "$SCRIPT" --title "Multi" --owner o --repo r --base main --head feat --label a --label b --dry-run)"
+printf '%s' "$out_multi" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["a","b"\]' || { echo "expected labels [a,b] in order"; exit 1; }
+
+# 8) --docs-only acts as alias for skip-changeset
+out_docs="$(bash "$SCRIPT" --title "Docs" --owner o --repo r --base main --head feat --docs-only --dry-run)"
+printf '%s' "$out_docs" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["skip-changeset"\]' || { echo "expected labels with skip-changeset via --docs-only"; exit 1; }
+
 exit 0
