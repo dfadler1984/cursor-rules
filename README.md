@@ -45,6 +45,8 @@ This repository includes a suite of standalone shell scripts to assist with rule
   - Default behavior: prefill PR body from `.github/pull_request_template.md` (if present) or the first file in `.github/PULL_REQUEST_TEMPLATE/`
   - Flags: `--title`, `--body`, `--base`, `--head`, `--owner`, `--repo`, `--dry-run`
   - Template flags: `--no-template` (disable), `--template <path>` (select file), `--body-append <text>` (append under `## Context`)
+  - Labeling (opt-in): `--label <name>` (repeatable) to add labels after PR creation. Use `--docs-only` as a convenience alias for `--label skip-changeset`.
+  - Dry-run output includes a `labels` array when label flags are present.
   - Note: when template injection is active, `--body` is appended under `## Context` (preserves template headings)
 - `.cursor/scripts/security-scan.sh`
   - Best-effort `npm/yarn` audit if `package.json` exists; otherwise no-op
