@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0
+
+### Minor Changes
+
+- [#36](https://github.com/dfadler1984/cursor-rules/pull/36) [`08003e2`](https://github.com/dfadler1984/cursor-rules/commit/08003e2a7cefdc4ebbb2864afbd01dd32b318824) Thanks [@dfadler1984](https://github.com/dfadler1984)! - feat(pr-create): add --label and --docs-only flags
+
+  - Dry-run now includes a `labels` array when label flags are present
+  - After successful PR creation, labels are added via the Issues API
+  - Tests cover default/no labels, multiple labels, and `--docs-only` alias
+  - ERD/tasks updated under `docs/projects/skip-changeset-opt-in`
+
 ## 0.0.5
 
 ### Patch Changes
