@@ -15,11 +15,13 @@ healthScore:
 - Create new project rules (Always / Auto Attached / Agent Requested / Manual)
 - Update existing rules with proper metadata and globs
 - Validate rules (required front matter, healthScore, lastReviewed)
+- Validate rules (required front matter, healthScore, lastReviewed; stale/refs checks; autofix)
 - Suggest rule structure, scope, and examples
 
 ### Validation and automation
 
 - Run `.cursor/scripts/rules-validate.sh` to check metadata
+  - Flags: `--format json|text`, `--fail-on-missing-refs`, `--fail-on-stale`, `--autofix`, `--report`, `--report-out <path>`
 - List rules and their metadata via `.cursor/scripts/rules-list.sh`
 
 ### Engineering docs & planning

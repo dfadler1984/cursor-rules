@@ -11,12 +11,24 @@ LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RULES_DIR="$ROOT_DIR/.cursor/rules"
+OUTPUT_FORMAT="text" # text|json
+FAIL_ON_MISSING_REFS=0
+missing_refs_count=0
+AUTO_FIX=0
+FAIL_ON_STALE=0
+STALE_DAYS=90
+REPORT_FLAG=0
+REPORT_OUT=""
+declare -A invalid_date_files=()
+declare -A unresolved_ref_files=()
+count_invalid_dates=0
+count_unresolved_refs=0
 
 fail_count=0
 
 print_usage() {
   cat <<EOF
-Usage: $(basename "$0") [--list] [--dir <rules-dir>] [--help]
+Usage: $(basename "$0") [--list] [--dir <rules-dir>] [--format text|json] [--fail-on-missing-refs] [--fail-on-stale] [--autofix] [--report] [--report-out PATH] [--help]
 
 Validates rule files under .cursor/rules/*.mdc for:
   - Required front matter fields and formats
@@ -40,7 +52,9 @@ extract_front_matter() {
 
 report_line() {
   # Args: <file> <line> <message>
-  printf "%s:%s: %s\n" "$1" "$2" "$3"
+  if [ "$OUTPUT_FORMAT" != "json" ]; then
+    printf "%s:%s: %s\n" "$1" "$2" "$3"
+  fi
   fail_count=$((fail_count+1))
 }
 
@@ -50,7 +64,9 @@ report_block() {
   # Count lines and echo
   local out="$1"
   if [ -n "$out" ]; then
-    printf "%s\n" "$out"
+    if [ "$OUTPUT_FORMAT" != "json" ]; then
+      printf "%s\n" "$out"
+    fi
     # Count lines (portable)
     # Trim trailing newline to avoid off-by-one
     local n
@@ -75,6 +91,8 @@ check_required_fields() {
     ln="$(awk 'BEGIN{inside=0} /^---[ \t]*$/{ if(inside==0){inside=1; next}else{ exit } } inside==1 && $1=="lastReviewed:"{ print NR; exit }' "$f")"
     [ -z "$ln" ] && ln=1
     report_line "$f" "$ln" 'missing or invalid lastReviewed (YYYY-MM-DD)'
+    count_invalid_dates=$((count_invalid_dates+1))
+    invalid_date_files["$f"]=1
   fi
   # healthScore keys
   if ! printf "%s\n" "$fm" | grep -qE '^healthScore:'; then
@@ -123,6 +141,94 @@ check_deprecated_and_typos() {
     out="$(grep -nE 'ev[[:space:]]+ents' "$f" | sed -e "s|^|$f:|" -e 's/$/: fix typography: use "events"/')"
     report_block "$out"
   fi
+}
+
+check_staleness() {
+  # Args: <file>
+  local f="$1"
+  local fm last ln
+  fm="$(extract_front_matter "$f")"
+  last="$(printf '%s\n' "$fm" | awk '$1=="lastReviewed:"{sub(/^lastReviewed:[ \t]*/, ""); print; exit}')"
+  ln=$(awk 'BEGIN{inside=0} \
+    /^---[ \t]*$/{ if(inside==0){inside=1; next}else{ exit } } \
+    inside==1 && $1=="lastReviewed:"{ print NR; exit }' "$f")
+  [ -z "$last" ] && return 0
+  # Parse date; macOS BSD date
+  local now ts
+  now=$(date -u +%s)
+  ts=$(date -u -j -f "%Y-%m-%d" "$last" +%s 2>/dev/null || true)
+  [ -z "$ts" ] && return 0
+  local days
+  days=$(( (now - ts) / 86400 ))
+  if [ "$days" -gt "$STALE_DAYS" ]; then
+    if [ "$FAIL_ON_STALE" -eq 1 ]; then
+      report_line "$f" "${ln:-1}" "stale lastReviewed (> ${STALE_DAYS}d old)"
+    else
+      if [ "$OUTPUT_FORMAT" != "json" ]; then
+        printf "%s:%s: %s\n" "$f" "${ln:-1}" "stale lastReviewed (> ${STALE_DAYS}d old)"
+      fi
+    fi
+  fi
+}
+
+autofix_file() {
+  # Args: <file>
+  # Fix CSV spaces after commas and normalize alwaysApply casing in-place
+  local f="$1"
+  sed -E -i '' \
+    -e '/^(globs|overrides):/ s/,\s+/,/g' \
+    -e 's/^alwaysApply:[[:space:]]*"?True"?[[:space:]]*$/alwaysApply: true/' \
+    -e 's/^alwaysApply:[[:space:]]*"?False"?[[:space:]]*$/alwaysApply: false/' \
+    "$f"
+}
+
+check_missing_refs() {
+  # Args: <file>
+  # Detect unresolved references in backticks or markdown links; count, and optionally fail
+  local f="$1"
+  local base_dir
+  base_dir="$(cd "$(dirname "$f")" && pwd)"
+
+  # Collect candidates from backticks
+  local candidates_bq
+  candidates_bq=$(grep -oE '`[^`]+`' "$f" | tr -d '`' || true)
+
+  # Collect candidates from markdown links [text](path) excluding http/mailto
+  local candidates_md
+  candidates_md=$(sed -nE 's/.*\[[^]]*\]\(([^)#]+)\).*/\1/p' "$f" | sed -E '/^https?:\/\//d; /^mailto:/d; /^#/d' || true)
+
+  # Merge candidates (newline-delimited)
+  local all
+  all="$(printf '%s\n%s\n' "$candidates_bq" "$candidates_md" | sed '/^\s*$/d' | sort -u)"
+
+  local rel abs trimmed
+  while IFS= read -r rel; do
+    [ -n "$rel" ] || continue
+    # strip anchors
+    rel="${rel%%#*}"
+    # ignore obvious externals
+    case "$rel" in
+      http://*|https://*|mailto:*|#*) continue;;
+    esac
+    # trim surrounding spaces and trailing punctuation ) >
+    trimmed="$(printf '%s' "$rel" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//; s/[)>]+$//')"
+    [ -n "$trimmed" ] || continue
+    if [[ "$trimmed" = /* ]]; then
+      abs="$trimmed"
+    elif [[ "$trimmed" == ./* || "$trimmed" == ../* ]]; then
+      abs="$base_dir/$trimmed"
+    else
+      abs="$ROOT_DIR/$trimmed"
+    fi
+    if [ ! -e "$abs" ]; then
+      missing_refs_count=$((missing_refs_count+1))
+      count_unresolved_refs=$((count_unresolved_refs+1))
+      unresolved_ref_files["$f"]=1
+      if [ "$FAIL_ON_MISSING_REFS" -eq 1 ]; then
+        report_line "$f" 1 "unresolved reference: $trimmed"
+      fi
+    fi
+  done <<< "$all"
 }
 
 check_tdd_first_invariant() {
@@ -189,6 +295,38 @@ main() {
           exit 2
         fi
         ;;
+      --fail-on-missing-refs)
+        FAIL_ON_MISSING_REFS=1
+        ;;
+      --format)
+        shift
+        OUTPUT_FORMAT="${1:-}"
+        if [ -z "$OUTPUT_FORMAT" ]; then
+          echo "--format requires a value (text|json)" >&2
+          exit 2
+        fi
+        if [ "$OUTPUT_FORMAT" != "text" ] && [ "$OUTPUT_FORMAT" != "json" ]; then
+          echo "--format must be 'text' or 'json'" >&2
+          exit 2
+        fi
+        ;;
+      --autofix)
+        AUTO_FIX=1
+        ;;
+      --report)
+        REPORT_FLAG=1
+        ;;
+      --report-out)
+        shift
+        REPORT_OUT="${1:-}"
+        if [ -z "$REPORT_OUT" ]; then
+          echo "--report-out requires a file path" >&2
+          exit 2
+        fi
+        ;;
+      --fail-on-stale)
+        FAIL_ON_STALE=1
+        ;;
       --help|-h)
         print_usage
         exit 0
@@ -208,6 +346,10 @@ main() {
   fi
 
   while IFS= read -r f; do
+    # Pre-fix formatting-only issues when requested
+    if [ "$AUTO_FIX" -eq 1 ]; then
+      autofix_file "$f" || true
+    fi
     # Front matter
     check_required_fields "$f"
     # CSV + boolean
@@ -218,13 +360,54 @@ main() {
     check_tdd_first_invariant "$f"
     # Structure hygiene
     check_embedded_front_matter_and_duplicate_headers "$f"
+    # Missing references
+    check_missing_refs "$f"
+    # Staleness
+    check_staleness "$f"
   done < <(list_rule_files)
 
-  if [ "$fail_count" -gt 0 ]; then
-    printf "rules-validate: %d issue(s) found\n" "$fail_count" >&2
-    exit 1
+  # Generate review report if requested
+  if [ "$REPORT_FLAG" -eq 1 ] || [ -n "$REPORT_OUT" ]; then
+    local out
+    if [ -z "$REPORT_OUT" ]; then
+      local dir
+      dir="$ROOT_DIR/docs/reviews"
+      mkdir -p "$dir"
+      out="$dir/review-$(date -u +"%Y-%m-%d").md"
+    else
+      mkdir -p "$(dirname "$REPORT_OUT")"
+      out="$REPORT_OUT"
+    fi
+    {
+      printf '# Rules Review — %s\n\n' "$(date -u +"%Y-%m-%d")"
+      printf '## Counts\n\n'
+      printf '-- invalidDates: %d\n' "$count_invalid_dates"
+      printf '-- unresolvedReferences: %d\n\n' "$count_unresolved_refs"
+      printf '## Actions\n\n'
+      for f in "${!invalid_date_files[@]}"; do
+        printf '-- Fix invalid date in %s\n' "${f#"$ROOT_DIR/"}"
+      done
+      for f in "${!unresolved_ref_files[@]}"; do
+        printf '-- Resolve references in %s\n' "${f#"$ROOT_DIR/"}"
+      done
+      printf '\n'
+    } > "$out"
+  fi
+
+  if [ "$OUTPUT_FORMAT" = "json" ]; then
+    printf '{"totalIssues": %d}\n' "$fail_count"
+    if [ "$fail_count" -gt 0 ]; then
+      exit 1
+    else
+      exit 0
+    fi
   else
-    printf "rules-validate: OK\n"
+    if [ "$fail_count" -gt 0 ]; then
+      printf "rules-validate: %d issue(s) found\n" "$fail_count" >&2
+      exit 1
+    else
+      printf "rules-validate: OK\n"
+    fi
   fi
 }
 
