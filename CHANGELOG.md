@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- [#38](https://github.com/dfadler1984/cursor-rules/pull/38) [`6406de5`](https://github.com/dfadler1984/cursor-rules/commit/6406de5e819fe79c0d6b8f75c9bbe477cb85a76a) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Enhance rules validator: add JSON output, missing-references failure, 90-day staleness warnings/strict mode, autofix for formatting-only issues, and review report generation; update docs/capabilities; add CI; archive rule-maintenance project.
+
 ## 0.1.0
 
 ### Minor Changes
