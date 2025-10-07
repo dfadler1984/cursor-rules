@@ -32,8 +32,8 @@ A landing page for all projects, grouped by status.
 - [spec-driven](./spec-driven/erd.md) — Phased workflow: Specify → Plan → Tasks with deterministic artifacts and rules.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
 - [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
+- [script-test-hardening](./script-test-hardening/erd.md) — Harden script tests to avoid leaking environment variables; add token flags.
 - [pr-create-script](./pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
-- [skip-changeset-opt-in](./skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
 - [project-erd-front-matter](./project-erd-front-matter/erd.md) — Minimal ERD front matter standard and examples.
 
 ## Completed
@@ -42,6 +42,7 @@ A landing page for all projects, grouped by status.
 - [project-lifecycle](../_archived/2025/project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
 - [pr-template-automation](../_archived/2025/pr-template-automation/erd.md) — Default PR template injection in script + docs.
 - [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
+- [skip-changeset-opt-in](../_archived/2025/skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
 
 ## Archived
 

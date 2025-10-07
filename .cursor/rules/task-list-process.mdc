@@ -17,7 +17,7 @@ Guidelines for managing task lists in Markdown. Default location for per‑featu
 - One sub-task at a time: do not start the next sub-task until the user approves and the commit protocol for the previous sub-task has completed.
 - Respect dependencies and priorities when selecting the next task; if multiple are ready, choose the highest priority.
 - Completion protocol:
-  1. After finishing a sub-task, immediately mark it `[x]`.
+  1. After finishing a sub-task, immediately mark it `[x]` in the project task list and update any assistant-maintained todos to `completed`.
   2. If all sub-tasks under a parent are `[x]`, then:
      - Run the full test suite (root + web as applicable)
      - If green, stage intended changes only
