@@ -6,6 +6,7 @@ owner: rules-maintainers
 # Engineering Requirements Document — Script Test Hardening (Lite)
 
 Links: `.cursor/scripts/tests/run.sh` | `docs/projects/script-test-hardening/tasks.md`
+External Link: https://www.google.com/search?q=shell+script+tests+how+to+avoid+setting+environment+variables&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRhA0gEJMTc0NDFqMWo3qAIAsAIA&sourceid=chrome&ie=UTF-8&udm=50&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZud1z6kQpMfoEdCJxnpm_3YlUqOpj4OTU_HmqxOd8LCYAmZcz3xp4-s3ijYzIP40LlddfBAhJDuHsBzPcairVH6jEyLRYOBQgKx39vFebUA6gMRyOjUtKr2tAgLt8-riYCxo7cqYvgVIxY_03doEIFjWWiF6brNIzAObqF7XNPBoa6nWqDYwiLKQb2ooNcABsdF3WMg&ved=2ahUKEwitseqCrpKQAxUAhIkEHSLxN_AQ0NsOegQILBAA&aep=10&ntc=1&mstk=AUtExfBOS8M45kGkyVCoaP3OH2MLGxqx7gLeAiIuPe_Kt7wJ80S1xeeEY-WTejfjFM4qg_omA6J2t3rQ5yBwOZSq0fLF1PXnQV9MZmFd5pOCQIZIBSMJB6RC0DgNTp8k6OnEdGKYIjGfYehEL2bVbcWkjnvXZQw0aqL7MXk&csuir=1
 
 ## 1. Introduction/Overview
 
