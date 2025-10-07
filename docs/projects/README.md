@@ -25,7 +25,7 @@ A landing page for all projects, grouped by status.
 - [project-organization](./project-organization/erd.md) — Defaults/config for organizing project artifacts with presets and paths.
 - [role-phase-mapping](./role-phase-mapping/erd.md) — Align role guidance with phases; add phase‑readiness prompts.
 - [roles](./roles/erd.md) — Define roles and intent routing with per‑role posture and examples.
-- [rule-maintenance](./rule-maintenance/erd.md) — Cadence and validator to keep rules healthy with actionable reports.
+
 - [rules-grok-alignment](./rules-grok-alignment/erd.md) — Archived source ERD; improving rules using Grok insights (reference).
 - [rules-validate-script](./rules-validate-script/erd.md) — Add a rules validation shell script with checks and JSON/text outputs.
 - [shell-scripts](./shell-scripts/erd.md) — Portable shell scripts replacing Node helpers; standardized CLI suite.
@@ -43,6 +43,7 @@ A landing page for all projects, grouped by status.
 - [pr-template-automation](../_archived/2025/pr-template-automation/erd.md) — Default PR template injection in script + docs.
 - [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
 - [skip-changeset-opt-in](../_archived/2025/skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
+- [rule-maintenance](../_archived/2025/rule-maintenance/erd.md) — Cadence and validator to keep rules healthy with actionable reports.
 
 ## Archived
 

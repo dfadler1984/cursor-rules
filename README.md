@@ -32,8 +32,35 @@ This repository includes a suite of standalone shell scripts to assist with rule
   - List `.cursor/rules/*.mdc` with selected front matter fields
   - Flags: `--dir`, `--format table|json`, `--help`, `--version`
 - `.cursor/scripts/rules-validate.sh`
-  - Validate rule front matter and references
-  - Flags: `--dir`, `--fail-on-missing-refs`, `--help`, `--version`
+  - Validate rule front matter and references; optional autofix, json output, staleness checks, and report generation
+  - Flags: `--dir`, `--format json|text`, `--fail-on-missing-refs`, `--fail-on-stale`, `--autofix`, `--report`, `--report-out <path>`, `--help`
+  - Examples:
+    - Text (default):
+      ```bash
+      .cursor/scripts/rules-validate.sh
+      ```
+    - JSON summary:
+      ```bash
+      .cursor/scripts/rules-validate.sh --format json
+      ```
+    - Fail on missing refs:
+      ```bash
+      .cursor/scripts/rules-validate.sh --fail-on-missing-refs
+      ```
+    - Staleness strict mode (90 days):
+      ```bash
+      .cursor/scripts/rules-validate.sh --fail-on-stale
+      ```
+    - Autofix formatting-only issues:
+      ```bash
+      .cursor/scripts/rules-validate.sh --autofix
+      ```
+    - Generate review report:
+      ```bash
+      .cursor/scripts/rules-validate.sh --report
+      # or choose an output path
+      .cursor/scripts/rules-validate.sh --report-out docs/reviews/review-$(date +%F).md
+      ```
 - `.cursor/scripts/git-commit.sh`
   - Compose Conventional Commits; supports `--dry-run`
   - Flags: `--type`, `--scope`, `--description`, `--body`, `--footer`, `--breaking`, `--dry-run`

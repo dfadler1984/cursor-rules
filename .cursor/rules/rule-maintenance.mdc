@@ -2,7 +2,7 @@
 description: Rule maintenance cadence, validation, and conflict resolution for this repo
 globs: .cursor/rules/**
 alwaysApply: false
-lastReviewed: 2025-09-14
+lastReviewed: 2025-10-07
 healthScore:
   content: green # Accurate maintenance procedures
   usability: green # Clear checklist format, actionable steps
@@ -85,7 +85,7 @@ healthScore:
 - Keep `capabilities.mdc` in sync whenever rules, rule scripts, or referenced repo scripts/behaviors change.
 - Trigger points:
   - New/changed rule files under `.cursor/rules/*.mdc`
-  - New/changed rule scripts under `.cursor/rules/scripts/*`
+  - New/changed rule scripts under `.cursor/scripts/*`
   - New/changed repo scripts referenced by rules (e.g., `package.json` scripts)
   - Changes to assistant behavior/routing that affect what users can ask
 - Steps:
