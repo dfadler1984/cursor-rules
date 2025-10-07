@@ -75,7 +75,17 @@ if [ -z "$PR_NUMBER" ]; then
     pr_json=$(cat)
   else
     : "${GITHUB_TOKEN:?GITHUB_TOKEN is required for API calls}"
-    pr_json=$(curl -sS -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" "$list_api")
+    resp_file="$(mktemp 2>/dev/null || mktemp -t pr-list.json)"
+    code=$(curl -sS -w '%{http_code}' -o "$resp_file" \
+      -H "Authorization: token ${GITHUB_TOKEN}" \
+      -H "Accept: application/vnd.github+json" \
+      "$list_api")
+    if [ "$code" != "200" ]; then
+      log_error "GitHub PR list failed (status $code) for head=${OWNER}:${HEAD_BRANCH}"
+      if have_cmd jq; then jq '.' "$resp_file" >&2 || cat "$resp_file" >&2; else cat "$resp_file" >&2; fi
+      exit 1
+    fi
+    pr_json="$(cat "$resp_file")"
   fi
   PR_NUMBER=$(printf '%s' "$pr_json" | ${JQ_CMD-jq} -r '.[0].number')
   [ "$PR_NUMBER" != "null" ] && [ -n "$PR_NUMBER" ] || die 1 "Unable to resolve PR number for head=${HEAD_BRANCH}"
