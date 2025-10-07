@@ -32,6 +32,7 @@ A landing page for all projects, grouped by status.
 - [spec-driven](./spec-driven/erd.md) — Phased workflow: Specify → Plan → Tasks with deterministic artifacts and rules.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
 - [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
+- [script-test-hardening](./script-test-hardening/erd.md) — Harden script tests to avoid leaking environment variables; add token flags.
 - [pr-create-script](./pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
 - [project-erd-front-matter](./project-erd-front-matter/erd.md) — Minimal ERD front matter standard and examples.
 
