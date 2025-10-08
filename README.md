@@ -6,7 +6,7 @@ This repository includes a suite of standalone shell scripts to assist with rule
 
 - Slash‑commands recognized by default; phrase triggers remain supported
 - Tasks support `dependencies`, `priority`, and `[P]` markers
-- Assistant learning logs are always on via `logging-protocol.mdc` (with Operation and Dependency Impact)
+- Assistant learning logs are always on via `.cursor/rules/assistant-learning.mdc` (with Operation and Dependency Impact)
 - See commands overview: `.cursor/rules/commands.caps.mdc`
 - See per‑rule capabilities: `.cursor/rules/capabilities.mdc` (links to `<rule>.caps.mdc` files)
 
@@ -105,10 +105,11 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
 - Rule — Capabilities Discovery: `.cursor/rules/capabilities-discovery.mdc`
 - Rule — Spec-Driven Workflow: `.cursor/rules/spec-driven.mdc`
 - ERD creation rule (default: Full): `.cursor/rules/create-erd.mdc`
-- Unified Workflow (Spec → Plan → Tasks → Analyze → Implement): see `.cursor/rules/spec-driven.mdc`, `.cursor/rules/create-erd.mdc`, `.cursor/rules/generate-tasks-from-erd.mdc`, `.cursor/rules/task-list-process.mdc`, `.cursor/rules/logging-protocol.mdc`.
+- Unified Workflow (Spec → Plan → Tasks → Analyze → Implement): see `.cursor/rules/spec-driven.mdc`, `.cursor/rules/create-erd.mdc`, `.cursor/rules/generate-tasks-from-erd.mdc`, `.cursor/rules/task-list-process.mdc`, `.cursor/rules/assistant-learning.mdc`.
 - Artifacts/paths: `docs/projects/<feature>/erd.md`, `docs/plans/<feature>-plan.md`, `docs/projects/<feature>/tasks.md`.
 - Slash-commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`.
 - Logs and summaries: `docs/assistant-learning-logs/` (local fallback). Weekly summary via CI.
+  - Log destination: set `.cursor/config.json` `logDir` to control the primary logs directory (default `assistant-logs/`); falls back to `docs/assistant-learning-logs/` if primary is not writable.
 - ERD Split Progress: `docs/projects/split-progress/erd.md`
   - Glossary: `docs/glossary.md`
   - Owner Map: `docs/owner-map.md`
@@ -135,6 +136,7 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
   - Productivity & Automation ERD: `docs/projects/productivity/erd.md`
   - Rule Maintenance & Validator ERD: `docs/projects/rule-maintenance/erd.md`
   - Collaboration Options ERD: `docs/projects/collaboration-options/erd.md`
+  - Context Efficiency Gauge ERD: `docs/projects/context-efficiency-gauge/erd.md`
 
 ## Changelog & Versioning
 
@@ -168,7 +170,7 @@ git push
   - Validator: `.cursor/scripts/validate-artifacts.sh` (+ test)
   - Smoke test: `.cursor/scripts/validate-artifacts-smoke.sh`
   - Workflow (manual): `.github/workflows/deterministic-outputs-validate.yml`
-  - Sample trio: `docs/specs/sample-feature-spec.md`, `docs/plans/sample-feature-plan.md`, `tasks/tasks-sample-feature.md`
+  - Sample trio: `docs/specs/sample-feature-spec.md`, `docs/plans/sample-feature-plan.md`
 
 ## Validator (Deterministic Outputs)
 
@@ -176,7 +178,7 @@ Run locally:
 
 ```bash
 .cursor/scripts/validate-artifacts.sh --paths \
-  docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md,tasks/tasks-sample-feature.md
+  docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md
 ```
 
 Expected output: "Validation passed" (exit code 0). On missing sections/links, returns non‑zero with error messages.

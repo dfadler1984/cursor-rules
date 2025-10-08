@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — MCP Synergy (Lite)
 
-[Links: Glossary](../../docs/glossary.md)
+[Links: Glossary](../../glossary.md)
 
 Links: `.cursor/rules/mcp-synergy.mdc` | `docs/projects/mcp-synergy/tasks.md` | `docs/projects/split-progress/erd.md`
 

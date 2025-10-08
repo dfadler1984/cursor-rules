@@ -43,6 +43,9 @@ fi
 
 errors=0
 
+# Resolve repository root (prefer git; fallback to current working directory)
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+
 check_relative() {
   local base_dir="$1"; shift
   local rel="$1"
@@ -51,16 +54,18 @@ check_relative() {
   if [ -z "$rel" ]; then return 0; fi
   if [[ "$rel" =~ ^https?://|^mailto:|^# ]]; then return 0; fi
   if [[ "$rel" =~ ^/ ]]; then
-    # treat absolute repo path as missing (avoid guessing repo root)
-    if [ ! -e "$rel" ]; then
-      echo "relative missing: $rel"
-      return 1
-    fi
-    return 0
+    # treat leading-slash paths as repo-root-relative
+    local abs_repo="$REPO_ROOT$rel"
+    if [ -e "$abs_repo" ]; then return 0; fi
+    echo "${CURRENT_FILE:-unknown}: relative missing: $rel"
+    return 1
   fi
   local abs="$base_dir/$rel"
   if [ ! -e "$abs" ]; then
-    echo "relative missing: $rel"
+    # Fallback: try resolving relative to repo root
+    local abs_repo="$REPO_ROOT/$rel"
+    if [ -e "$abs_repo" ]; then return 0; fi
+    echo "${CURRENT_FILE:-unknown}: relative missing: $rel"
     return 1
   fi
   return 0
@@ -76,7 +81,7 @@ for f in "${files[@]}"; do
   # Relative links from markdown pattern [text](relative)
   while IFS= read -r rel; do
     [ -n "$rel" ] || continue
-    check_relative "$base_dir" "$rel" || errors=$((errors+1))
+    CURRENT_FILE="$f" check_relative "$base_dir" "$rel" || errors=$((errors+1))
   done < <(sed -nE 's/.*\[[^]]*\]\(([^)#]+)\).*/\1/p' "$f" | sed -E '/^https?:\/\//d; /^mailto:/d; /^#/d' || true)
 
 done

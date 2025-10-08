@@ -22,4 +22,4 @@ Demonstrates deterministic artifact templates and cross-links for validation.
 
 - None for sample
 
-[Links: Plan](../plans/sample-feature-plan.md) | [Links: Tasks](../../tasks/tasks-sample-feature.md)
+[Links: Plan](../plans/sample-feature-plan.md)

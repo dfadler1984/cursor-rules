@@ -9,7 +9,7 @@
 - `.cursor/rules/generate-tasks-from-erd.mdc` - Tasks generation rule
 - `.cursor/rules/spec-driven.mdc` - Spec‑Driven workflow
 - `.cursor/rules/task-list-process.mdc` - Task execution protocol
-- `.cursor/rules/logging-protocol.mdc` - Assistant learning logs (authoritative)
+- `.cursor/rules/assistant-learning.mdc` - Assistant learning logs (authoritative)
 
 ### Notes
 
@@ -55,7 +55,7 @@
   - [x] 5.3 Update `generate-tasks-from-erd.mdc` (deps/priority/[P] optional fields)
   - [x] 5.4 Update `task-list-process.mdc` (dependency/priority‑aware next step)
   - [x] 5.5 Update `spec-driven.mdc` (slash‑commands + `/analyze` gate + cross‑links)
-  - [x] 5.6 Update logging rule (now `logging-protocol.mdc`) with Operation block + Dependency Impact
+  - [x] 5.6 Update logging rule (`assistant-learning.mdc`) with Operation block + Dependency Impact
 
 - [ ] 6.0 Review, iterate, and finalize adoption plan (priority: medium) (depends on: 5.0)
   - [x] 6.1 Validate rule front‑matter and references (rules validation script)

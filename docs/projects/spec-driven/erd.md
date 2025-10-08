@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — Spec‑Driven Workflow (Lite)
 
-[Links: Glossary](../../docs/glossary.md)
+[Links: Glossary](../../glossary.md)
 
 Links: `.cursor/rules/spec-driven.mdc` | `docs/projects/spec-driven/tasks.md` | `docs/projects/split-progress/erd.md`
 

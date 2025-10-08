@@ -76,4 +76,14 @@ case "$cmd" in
   -h|--help|*) usage ;;
 esac
 
+# After emitting any entry, run threshold check (best-effort)
+ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+if [[ -x "$ROOT_DIR/.cursor/scripts/alp-threshold.sh" ]]; then
+  if [[ -n "${ALP_TEST_THRESHOLD-}" ]]; then
+    bash "$ROOT_DIR/.cursor/scripts/alp-threshold.sh" --threshold "$ALP_TEST_THRESHOLD" >/dev/null 2>&1 || true
+  else
+    bash "$ROOT_DIR/.cursor/scripts/alp-threshold.sh" >/dev/null 2>&1 || true
+  fi
+fi
+
 

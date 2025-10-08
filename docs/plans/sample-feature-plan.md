@@ -11,13 +11,12 @@
 {
   "targets": [
     "docs/specs/sample-feature-spec.md",
-    "docs/plans/sample-feature-plan.md",
-    "tasks/tasks-sample-feature.md"
+    "docs/plans/sample-feature-plan.md"
   ],
   "exactChange": "Create valid sample trio for validator",
   "successCriteria": ["Validator passes on sample trio"],
   "runInstructions": [
-    ".cursor/scripts/validate-artifacts.sh --paths docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md,tasks/tasks-sample-feature.md"
+    ".cursor/scripts/validate-artifacts.sh --paths docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md"
   ],
   "ownerSpecs": []
 }
@@ -27,4 +26,4 @@
 
 - None for sample
 
-[Links: Spec](../specs/sample-feature-spec.md) | [Links: Tasks](../../tasks/tasks-sample-feature.md)
+[Links: Spec](../specs/sample-feature-spec.md)

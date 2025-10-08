@@ -152,6 +152,14 @@ main() {
     write-with-fallback-file) write_with_fallback_file_cmd "$@" ;;
     *) usage ;;
   esac
+  # Run threshold check (best-effort, non-blocking)
+  if [[ -x ".cursor/scripts/alp-threshold.sh" ]]; then
+    if [[ -n "${ALP_TEST_THRESHOLD-}" ]]; then
+      .cursor/scripts/alp-threshold.sh --threshold "$ALP_TEST_THRESHOLD" >/dev/null 2>&1 || true
+    else
+      .cursor/scripts/alp-threshold.sh >/dev/null 2>&1 || true
+    fi
+  fi
 }
 
 main "$@"

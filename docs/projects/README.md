@@ -14,6 +14,7 @@ A landing page for all projects, grouped by status.
 - [completion-metadata](./completion-metadata/erd.md) — ERD completion metadata, lifecycle, gates, and validation rules.
 - [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
 - [deterministic-outputs](./deterministic-outputs/erd.md) — Standardize artifact templates and validation for predictable Specs/Plans/Tasks.
+- [context-efficiency-gauge](./context-efficiency-gauge/erd.md) — Text-only gauge and decision flow for chat context efficiency.
 - [drawing-board](./drawing-board/erd.md) — Sandboxed prototyping space with safe triggers and logged outcomes.
 - [framework-selection](./framework-selection/erd.md) — Select and configure Spec‑Driven framework (Spec Kit vs ai‑dev‑tasks).
 - [git-usage](./git-usage/erd.md) — Safe, consistent Git flows with MCP‑backed ops and pre‑commit/test gates.
@@ -37,13 +38,13 @@ A landing page for all projects, grouped by status.
 
 ## Completed
 
-- [assistant-learning](../_archived/2025/assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
-- [project-lifecycle](../_archived/2025/project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
-- [pr-template-automation](../_archived/2025/pr-template-automation/erd.md) — Default PR template injection in script + docs.
-- [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
-- [skip-changeset-opt-in](../_archived/2025/skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
-- [rule-maintenance](../_archived/2025/rule-maintenance/erd.md) — Cadence and validator to keep rules healthy with actionable reports.
-- [rules-validate-script](../_archived/2025/rules-validate-script/erd.md) — Completed.
+- [assistant-learning](_archived/2025/assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
+- [project-lifecycle](_archived/2025/project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
+- [pr-template-automation](_archived/2025/pr-template-automation/erd.md) — Default PR template injection in script + docs.
+- [tdd-first](_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
+- [skip-changeset-opt-in](_archived/2025/skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
+- [rule-maintenance](_archived/2025/rule-maintenance/erd.md) — Cadence and validator to keep rules healthy with actionable reports.
+- [rules-validate-script](_archived/2025/rules-validate-script/erd.md) — Completed.
 
 ## Archived
 

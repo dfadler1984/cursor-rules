@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — Capabilities Discovery (Lite)
 
-[Links: Glossary](../../docs/glossary.md)
+[Links: Glossary](../../glossary.md)
 
 Links: `.cursor/rules/capabilities-discovery.mdc` | `docs/projects/capabilities-discovery/tasks.md` | `docs/projects/split-progress/erd.md`
 

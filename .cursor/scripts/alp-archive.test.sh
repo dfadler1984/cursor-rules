@@ -39,8 +39,11 @@ grep -q '^Archived: ' "$archived_path" || { echo "missing Archived stamp"; exit 
 # Unreviewed file remains in place
 [ -f "$log_unreviewed" ] || { echo "unreviewed file moved unexpectedly"; exit 1; }
 
-# Summary file created under docs/assistant-learning-logs
+# Summary file created under docs/assistant-learning-logs (normal) or TEST_ARTIFACTS_DIR/alp (tests)
 summary_path=$(printf "%s" "$ARCHIVE_OUTS" | grep 'docs/assistant-learning-logs/summary-archived-' | tail -n1 || true)
+if [ -z "$summary_path" ] && [ -n "${TEST_ARTIFACTS_DIR-}" ]; then
+  summary_path=$(printf "%s" "$ARCHIVE_OUTS" | grep "$TEST_ARTIFACTS_DIR/alp/summary-archived-" | tail -n1 || true)
+fi
 [ -n "$summary_path" ] || { echo "summary path not printed"; echo "$ARCHIVE_OUTS"; exit 1; }
 [ -f "$summary_path" ] || { echo "summary file missing"; exit 1; }
 grep -q "# Archived Assistant Learning Logs" "$summary_path" || { echo "summary header missing"; exit 1; }

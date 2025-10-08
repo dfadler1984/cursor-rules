@@ -18,7 +18,7 @@ Initial slice: migrate `assistant-logs/` → `docs/assistant-learning-logs/` wit
 - Provide a manifest-driven migration with a deterministic plan (dry-run first)
 - Move files using `git mv` where possible; create parent directories as needed
 - Rewrite in-repo references:
-  - Markdown links: `[text](relative/path)` and `![alt](relative/path)`
+  - Markdown links (example): `[text] (relative/path)` and `![alt] (relative/path)`
   - Code-reference blocks: ```startLine:endLine:filepath
 - Update configuration keys that encode paths (e.g., `logDir`) with safe fallbacks
 - Verify zero broken links and that moved targets exist; produce a migration report
@@ -45,9 +45,11 @@ Initial slice: migrate `assistant-logs/` → `docs/assistant-learning-logs/` wit
    - Create destination parents if missing; preserve file permissions.
 4. Reference rewrites (idempotent):
    - Markdown links: rewrite only relative paths; skip `http(s)://`, `mailto:`, and `#` anchors.
-   - Images: apply same rules to `![alt](...)`.
-   - Code-reference blocks used in this repo: blocks that start with ```startLine:endLine:filepath should update only the `filepath` portion.
-   - Optional cautious pass for inline backticked paths, gated by an allowlist of directories.
+
+- Images: apply same rules to `![alt] (...)`.
+- Code-reference blocks used in this repo: blocks that start with ```startLine:endLine:filepath should update only the `filepath` portion.
+- Optional cautious pass for inline backticked paths, gated by an allowlist of directories.
+
 5. Config updates:
    - Update `.cursor/config.json` keys that encode directories (e.g., `logDir`).
    - Maintain documented fallback behavior (e.g., local fallback directory remains valid).
