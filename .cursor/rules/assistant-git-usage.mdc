@@ -60,6 +60,26 @@ Defines commit message standards, minimal branch naming guidance, changeset expe
 - Auth: set `GITHUB_TOKEN` or `GH_TOKEN` in your environment. Fine‑grained or classic tokens are supported; minimum scope to open PRs is repo access for the target repository.
 - Fallback: when no token is available, the script prints a compare URL you can open in the browser.
 
+### Multi-line PR bodies (required quoting)
+
+- Use ANSI-C quoting or a heredoc to pass multi-line bodies to `pr-create.sh` / `pr-update.sh`.
+- Do not pass plain double-quoted strings with literal `\n`; GitHub will store backslash-n instead of real newlines.
+- Examples:
+
+```bash
+BODY=$'## Summary\n…real newlines…'
+bash .cursor/scripts/pr-update.sh --head <branch> --body "$BODY"
+```
+
+```bash
+BODY="$(cat <<'EOF'
+## Summary
+…real newlines…
+EOF
+)"
+bash .cursor/scripts/pr-create.sh --title "…" --body "$BODY"
+```
+
 ### PR description policy (must)
 
 - Always submit a fully filled PR description. Replace placeholders with concrete, repo-specific details.

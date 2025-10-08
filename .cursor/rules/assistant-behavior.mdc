@@ -64,6 +64,8 @@ healthScore:
 - Shell-neutral default: Prefer commands that do not assume a specific shell. Use wrappers only when necessary (e.g., pipelines, globs, redirection, env expansion) and state why in the status update.
 - Transparency on deviation: If you must deviate (e.g., add `| cat` to avoid pagers), name the deviation and rationale before execution and include it in the consent prompt.
 
+Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or `pr-update.sh`, use ANSI-C quoting (`$'...'`) or a heredoc to ensure real newlines; see `assistant-git-usage.mdc` → “Multi-line PR bodies (required quoting)”.
+
 ## Clear triggers to proceed
 
 - Proceed without extra confirmation only when the user explicitly directs action, e.g., messages containing verbs like "implement", "edit", "refactor", "run", "create", "fix", or "codify this as a rule".
@@ -89,6 +91,13 @@ healthScore:
 - Prefer concise, meaningful anchors (e.g., `PR #40 — Archive rules-validate-script`).
 - When a bare URL is unavoidable, wrap it in backticks to avoid auto-linking noise.
 - Apply consistently in messages, consent prompts, and summaries.
+
+## Outbound message checklist
+
+- Convert all URLs (PRs, issues, docs) to Markdown links with descriptive anchors.
+- For PRs, use the pattern: `[PR #NN — title](url)`.
+- In PR announcements, self‑check: "Links converted to Markdown: yes."
+- Prefer concise, meaningful anchors; avoid bare URLs or raw IDs.
 
 ### Changesets (default behavior)
 
