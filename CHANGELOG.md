@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- [#40](https://github.com/dfadler1984/cursor-rules/pull/40) [`e745820`](https://github.com/dfadler1984/cursor-rules/commit/e7458208bf5eb12956f6f8789253d2f8e7a0bfbf) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Archive rules-validate-script; limit link checker to relative links; update tests; add URL formatting rule; default to including a Changeset for PRs.
+
 ## 0.2.0
 
 ### Minor Changes
