@@ -64,6 +64,8 @@ healthScore:
 - Shell-neutral default: Prefer commands that do not assume a specific shell. Use wrappers only when necessary (e.g., pipelines, globs, redirection, env expansion) and state why in the status update.
 - Transparency on deviation: If you must deviate (e.g., add `| cat` to avoid pagers), name the deviation and rationale before execution and include it in the consent prompt.
 
+Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or `pr-update.sh`, use ANSI-C quoting (`$'...'`) or a heredoc to ensure real newlines; see `assistant-git-usage.mdc` → “Multi-line PR bodies (required quoting)”.
+
 ## Clear triggers to proceed
 
 - Proceed without extra confirmation only when the user explicitly directs action, e.g., messages containing verbs like "implement", "edit", "refactor", "run", "create", "fix", or "codify this as a rule".
