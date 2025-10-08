@@ -90,6 +90,12 @@ healthScore:
 - When a bare URL is unavoidable, wrap it in backticks to avoid auto-linking noise.
 - Apply consistently in messages, consent prompts, and summaries.
 
+### Changesets (default behavior)
+
+- When preparing a PR that includes code/rules/docs edits, include a Changeset by default.
+- Preferred: prompt to run `npx changeset` interactively; otherwise, create `.changeset/<slug>.md` non‑interactively.
+- Only skip with explicit maintainer consent and a `skip-changeset` label.
+
 ## If you already started
 
 - If you inadvertently took action without consent, stop, summarize what changed, and ask whether to keep, adjust, or revert. Offer to revert immediately.

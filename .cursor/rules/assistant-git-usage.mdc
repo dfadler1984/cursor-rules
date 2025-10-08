@@ -1,7 +1,7 @@
 ---
 description: Assistant Git usage — commits, branch naming, changesets, and commit gates (tests/lint/types)
 alwaysApply: false
-lastReviewed: 2025-10-05
+lastReviewed: 2025-10-08
 healthScore:
   content: green
   usability: green
@@ -76,6 +76,9 @@ Defines commit message standards, minimal branch naming guidance, changeset expe
 
 - Always include a Changeset in PRs that modify repository behavior or published artifacts (rules, scripts, docs that affect workflows, or any code changes).
   - Default: add a changeset. Only skip with the `skip-changeset` label and explicit maintainer consent.
+  - Assistant default (must): When opening a PR with any code/rules/docs change, create a changeset before PR creation.
+    - Interactive: prompt to run `npx changeset`.
+    - Non-interactive: create `.changeset/<slug>.md` with the selected bump.
 - Author workflow:
 
   - Interactive (preferred locally): `npx changeset` → follow prompts → commit the generated file under `.changeset/`.
