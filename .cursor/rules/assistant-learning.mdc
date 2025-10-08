@@ -42,6 +42,17 @@ Note: This auto-logging is exempt from the per-event consent gate; see `.cursor/
 - Routing Corrected: misrouted intent fixed with a takeaway
 - Safety Near-Miss: unsafe path avoided or guard clarified
 
+### High‑signal triggers (expanded)
+
+- PR lifecycle: PR created/updated; branch created/pushed
+- Tests: TDD Red/Green; focused harness runs that gate behavior
+- Task lifecycle: TODO in_progress/completed/cancelled transitions
+- Rules/docs: rule added/updated; capabilities updated
+- Logging pipeline: archive/summary created; threshold reached
+- Consent/allowlist: session standing consent changed; exception applied
+- Routing corrections and Safety Near‑Miss (as above)
+- If unsure whether a trigger applies, log a minimal entry (prefer action over omission)
+
 Optional (team-dependent):
 
 - Major ERD/spec/plan decision with explicit learning
@@ -63,6 +74,15 @@ Optional (team-dependent):
 - Destination directory: `logDir` from `.cursor/config.json` (default `./assistant-logs/`)
 - Filename: `log-<ISO>-<short>.md` where `<short>` is 3–5 words
 
+### Logger‑only writes (must)
+
+- Do NOT write `assistant-logs/log-*.md` via direct file edits.
+- Always emit logs via the official tooling:
+  - `.cursor/scripts/alp-logger.sh write-with-fallback …`
+  - `.cursor/scripts/alp-template.sh …`
+  - `.cursor/scripts/alp-triggers.sh …`
+- Rationale: hooks (threshold, auto-aggregate) attach to the logger path.
+
 ### Threshold behavior (archival policy)
 
 - When unarchived logs at the top level reach the threshold (`ALP_ARCHIVE_THRESHOLD`, default 10), the system:
@@ -78,6 +98,16 @@ Optional (team-dependent):
   - `ALP_AUTO_ARCHIVE`: set to `0` to disable automatic aggregate/archive (default `1`)
 
 - All logs must be written via `.cursor/scripts/alp-logger.sh` (no manual file writes) to ensure hooks run.
+
+### Logging precedence (must)
+
+- ALP logging is essential and required unless otherwise specified; logging overrides non‑content rules that would prevent logging.
+- Content/formatting/conduct rules still apply to the log body.
+
+### Per‑turn pending‑log sweep (recommended)
+
+- Maintain a per‑turn queue of detected triggers; before send, flush the queue by emitting logs via the official tooling.
+- If environment blocks logging, ask once with the exact command; otherwise proceed silently (see assistant‑behavior.mdc send gate).
 
 Minimum body schema (Markdown):
 
