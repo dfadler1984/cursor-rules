@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — Shell Scripts Suite
 
-[Links: Glossary](../../docs/glossary.md)
+[Links: Glossary](../../glossary.md)
 
 Mode: Lite
 

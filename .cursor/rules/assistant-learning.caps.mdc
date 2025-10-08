@@ -1,0 +1,43 @@
+---
+description: Capabilities for the Assistant Learning Protocol (auto-logging with hard gates)
+lastReviewed: 2025-10-08
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+references:
+  - assistant-learning.mdc
+---
+
+## Capabilities
+
+- Always-on learning logs with redaction and safe fallbacks
+- Operation and Dependency Impact sections; improvement triggers supported
+
+## Triggers & Routing
+
+- High-signal events (TDD Red/Green, Analyze/Task Completed, Rule Added/Updated, Routing Corrected, Safety Near-Miss)
+- Consent-aware; auto-logging is a narrow exception per assistant behavior
+
+## Inputs → Outputs
+
+- Inputs: event context (owner, changes, links)
+- Outputs: `assistant-logs/` entries (or `docs/assistant-learning-logs/` fallback)
+- On threshold (default 10 unarchived):
+  - Aggregate summary at `docs/assistant-learning-logs/summary-<ISO>.md`
+  - Exactly N oldest archived under `assistant-logs/_archived/YYYY/MM/`, newest left unarchived
+  - Archive summary at `docs/assistant-learning-logs/summary-archived-<ISO>.md`
+
+## Constraints & Guards
+
+- Redact tokens/headers and secret-like values
+- Prefer primary `logDir`; note fallback reason when used
+- Logs must be written via `.cursor/scripts/alp-logger.sh` to trigger threshold hooks
+
+## Examples
+
+- "Log Analyze Completed for ai-workflow-integration with 1 gap found"
+
+## Related
+
+- spec-driven.caps.mdc, create-erd.caps.mdc

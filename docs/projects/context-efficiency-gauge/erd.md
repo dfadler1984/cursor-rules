@@ -1,0 +1,132 @@
+---
+status: active
+owner: rules-maintainers
+---
+
+# Engineering Requirements Document — Context Efficiency Gauge (Lite)
+
+## 1. Introduction/Overview
+
+Provide a lightweight, text-only gauge and decision aid that helps users judge whether their current chat context is efficient for getting work done, and when to start a new chat. Outputs are human-readable lines and ASCII banners; no graphics or external tooling required.
+
+## 2. Goals/Objectives
+
+- Offer a concise “Context Efficiency Gauge” line (1–5) per reply when enabled.
+- Provide an ASCII “dashboard” banner and a decision-flow banner.
+- Keep the solution zero-dependency and portable (plain Markdown/Text).
+
+## 3. User Stories
+
+- As a developer, I can quickly see if context is lean or bloated.
+- As a maintainer, I can advise teammates when to open a fresh chat.
+- As a user, I get a clear, text-only visual without special rendering.
+
+## 4. Functional Requirements
+
+1. Context Efficiency Gauge (heuristic)
+
+   - Scale: 1–5 (1 = bloated; 5 = lean)
+   - Consider signals: scope focus, number of rules attached, search breadth, clarification loops/contradictions, latency spikes.
+   - Output line example: "Context Efficiency Gauge: 4/5 (lean) — narrow scope, few rules, minimal searches"
+
+2. ASCII Dashboard (monospace-safe)
+   - Provide a compact banner suitable for code-fenced rendering.
+   - Example:
+
+```text
+┌───────────────────────────────┐
+│ CONTEXT EFFICIENCY — DASHBOARD │
+├───────────────────────────────┤
+│ Gauge: [####-] 4/5 (lean)     │
+└───────────────────────────────┘
+```
+
+3. Decision Flow (ASCII)
+   - Rule of thumb: start a new chat when ≥2 signals are true.
+   - Example (text-only):
+
+```text
+┌───────────────────────────────────────────────┐
+│ SHOULD I START A NEW CHAT?                    │
+├───────────────────────────────────────────────┤
+│ 1) Is the task scope narrow and concrete?     │
+│    - No → New chat (seed exact file + change) │
+│    - Yes → 2) ≥2 clarification loops?         │
+│             - Yes → New chat                  │
+│             - No → 3) Broad searches/many     │
+│                    rules attached?            │
+│                    - Yes → New chat           │
+│                    - No → 4) Latency spikes?  │
+│                           - Yes → New chat    │
+│                           - No → Stay here    │
+└───────────────────────────────────────────────┘
+```
+
+4. Optional Mermaid (for Markdown viewers that support it)
+   - Not required; provided here for completeness.
+
+```mermaid
+flowchart TD
+  S([This reply]) --> Q1{Is the task scope narrow and concrete?}
+  Q1 -- No --> NEW[Create a new chat\nSeed with exact file(s) + precise change]
+  Q1 -- Yes --> Q2{≥2 clarification loops or contradictions?}
+  Q2 -- Yes --> NEW
+  Q2 -- No --> Q3{Broad searches or many rules attached?}
+  Q3 -- Yes --> NEW
+  Q3 -- No --> Q4{Latency/timeouts spiking vs baseline?}
+  Q4 -- Yes --> NEW
+  Q4 -- No --> KEEP[Stay in this chat\nWork a minimal slice]
+  NEW --> DEC((Decision))
+  KEEP --> DEC
+```
+
+## 5. Non-Functional Requirements
+
+- Text-only; no external CLI/tools required.
+- Privacy-preserving; no token counts or sensitive telemetry surfaced.
+- Fast to scan; minimal cognitive load.
+
+## 6. Architecture/Design
+
+- Presentation-only: lines and ASCII blocks included in assistant replies or docs.
+- Heuristics are qualitative; avoid hard dependencies on runtime metrics.
+- Optional: a repository doc page may centralize examples for easy preview.
+
+## 7. Data Model and Storage
+
+- None. Content is generated text; examples live in Markdown.
+
+## 8. API/Contracts
+
+- None. Human-facing outputs only.
+
+## 9. Integrations/Dependencies
+
+- None. Mermaid snippet is optional and degrades to ASCII.
+
+## 10. Edge Cases and Constraints
+
+- Some views may not preserve box-drawing characters without a code fence.
+- Mermaid may not render in all contexts; ASCII remains the canonical fallback.
+
+## 11. Testing & Acceptance
+
+- Acceptance:
+  - Gauge line format is documented and example provided.
+  - ASCII dashboard and decision-flow examples render clearly in a Markdown preview.
+  - Decision rule (≥2 signals → new chat) is stated.
+
+## 12. Rollout & Ops
+
+- Phase 1: Add ERD and tasks; optionally link from README.
+- Phase 2 (optional): Add a `docs/` page consolidating examples.
+
+## 13. Success Metrics
+
+- Fewer clarification loops before choosing to start a new chat.
+- Increased self-service decisions using the decision-flow banner.
+
+## 14. Open Questions
+
+- Always-on gauge vs explicit opt-in per session?
+- Threshold tweak: should 1 strong signal (e.g., persistent latency spikes) suffice?

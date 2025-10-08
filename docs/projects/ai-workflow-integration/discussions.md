@@ -29,7 +29,7 @@ Tasks Model
 
 Logging & Progress
 
-- Reflective logs: `logging-protocol.mdc` (authoritative). Operation/Dependency Impact captured.
+- Reflective logs: `assistant-learning.mdc` (authoritative). Operation/Dependency Impact captured.
 
 Licensing & Reuse
 
@@ -136,7 +136,7 @@ Wording tweaks to apply (tracked and/or done)
 - `spec-driven.mdc`: note slash‑command precedence; Analyze must list discrepancies or “No discrepancies found”.
 - `generate-tasks-from-erd.mdc`: when dependencies exist, propose only ready tasks; prefer highest priority.
 - `task-list-process.mdc`: gate next sub‑task on commit protocol completion; explicit dependency/priority next‑selection.
-- `logging-protocol.mdc`: explicit Operation block even if values N/A; example usage of `alp-logger.sh`.
+- `assistant-learning.mdc`: explicit Operation block even if values N/A; example usage of `alp-logger.sh`.
 - `intent-routing.mdc`: soft‑phrase safeguard; scope confirmation for repo‑wide edits.
 - `assistant-behavior.mdc`: micro‑checks to announce tool and paste validator output before asserting status.
 - `favor-tooling.mdc`: add preflight checklist and example for logging via `alp-logger.sh`.

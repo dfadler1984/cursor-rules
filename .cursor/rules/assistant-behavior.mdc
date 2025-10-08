@@ -15,6 +15,13 @@ healthScore:
 - If you propose actions, present a short plan and end with a direct consent prompt like: "Proceed?"
 - One-shot consent for verification: If truth-checking or minimal verification requires tools but consent is not granted, ask one concise consent question once, then pause (do not retry).
 
+### Assistant Learning auto-logs (consent exception)
+
+- Assistant Learning entries are auto-written without per-event consent. This exception is narrow, local-only, and subject to strict safeguards.
+- Use `.cursor/scripts/alp-logger.sh write-with-fallback` with redaction via `.cursor/scripts/alp-redaction.sh`.
+- Destination is configurable via `.cursor/config.json` (`logDir`), defaulting to `assistant-logs/`; fallback to `docs/assistant-learning-logs/` when needed.
+- Safeguards: concise entries, size limits, and rate-limiting for duplicate events.
+
 ### Command/tool consent gate (mandatory)
 
 - Before the first local shell command in a turn, ask one-shot consent naming the exact command (e.g., `git status --porcelain=v1`). Do not execute without an explicit “Yes/Proceed” in the immediately preceding user turn.
@@ -95,9 +102,16 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 ## Outbound message checklist
 
 - Convert all URLs (PRs, issues, docs) to Markdown links with descriptive anchors.
-- For PRs, use the pattern: `[PR #NN — title](url)`.
+- For PRs, use the pattern: `[PR #NN — title] (url)`.
 - In PR announcements, self‑check: "Links converted to Markdown: yes."
 - Prefer concise, meaningful anchors; avoid bare URLs or raw IDs.
+
+### Assistant Learning trigger hook (must)
+
+- If a high‑signal ALP trigger occurs (Misunderstanding Resolved, Improvement Opportunity, Rule Confusion, TDD Red/Green, Rule Added/Updated, Task Completed, Routing Corrected, Safety Near‑Miss):
+  - Immediately write an ALP entry using `.cursor/scripts/alp-logger.sh write-with-fallback` or `.cursor/scripts/alp-triggers.sh`.
+  - Include: Timestamp, Event, Owner, What Changed, Next Step, Links, Learning. Add Operation/Dependency Impact if relevant.
+  - Proceed with the next step only after the log write succeeds (or fallback path is used).
 
 ### Changesets (default behavior)
 

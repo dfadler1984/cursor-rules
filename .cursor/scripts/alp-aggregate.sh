@@ -20,8 +20,9 @@ OUT_FILE="$FALLBACK_DIR/summary-$(date -u +"%Y-%m-%dT%H-%M-%SZ").md"
 mkdir -p "$PRIMARY_DIR" "$FALLBACK_DIR"
 
 count=0
-declare -A candidate_count
-declare -a themes
+# Portable accumulation file for rule candidates (avoids associative arrays for wider shell compatibility)
+CANDIDATES_FILE="$(mktemp)"
+trap 'rm -f "$CANDIDATES_FILE"' EXIT
 
 scan_dir() {
   local d="$1"
@@ -32,7 +33,7 @@ scan_dir() {
     while IFS= read -r line; do
       if echo "$line" | grep -q "\[rule-candidate\]"; then
         name="$(printf '%s' "$line" | sed -E 's/^Rule candidate: ([^[]+).*/\1/' | sed 's/[[:space:]]*$//')"
-        candidate_count["$name"]=$(( ${candidate_count["$name"]:-0} + 1 ))
+        printf '%s\n' "$name" >>"$CANDIDATES_FILE"
       fi
     done <"$f"
   done < <(find "$d" -type f -name 'log-*.md' -print0 2>/dev/null)
@@ -49,13 +50,11 @@ scan_dir "$FALLBACK_DIR"
   printf '\n'
   printf '%s\n' '## Rule Candidates'
   printf '\n'
-  if [ ${#candidate_count[@]} -eq 0 ]; then
+  if [ ! -s "$CANDIDATES_FILE" ]; then
     printf '%s\n' '(none)'
     printf '\n'
   else
-    for k in "${!candidate_count[@]}"; do
-      printf '%s\n' "- $k (${candidate_count[$k]:-0})"
-    done
+    sort "$CANDIDATES_FILE" | uniq -c | sed -E 's/^ *([0-9]+) +(.*)$/- \2 (\1)/'
     printf '\n'
   fi
 } >"$OUT_FILE"

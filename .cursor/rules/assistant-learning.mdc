@@ -1,18 +1,35 @@
 ---
-description: Assistant Learning Logs — always-on logging protocol with redaction, learning outcomes, and safe fallbacks
+description: Assistant Learning — always-on learning protocol with hard gates and safe auto-logging
 alwaysApply: true
-lastReviewed: 2025-10-03
+lastReviewed: 2025-10-08
 healthScore:
   content: green
   usability: green
   maintenance: green
 ---
 
-# Rule: Assistant Learning Logging Protocol
+# Rule: Assistant Learning Protocol
 
 ## Purpose
 
-Write concise, redacted learning logs automatically at key events to improve reflection and rule evolution while avoiding sensitive data leakage. Capture mistakes, bottlenecks, and concrete learnings to improve future interactions and drive rules/scripts updates.
+Make learning explicit and continuous. Automatically capture concise, redacted learning logs at high-signal moments to improve reflection and evolve rules/scripts/docs based on real interactions.
+
+## Scope
+
+- Entire repository is in scope. Triggers can originate from any file or workflow in this repo.
+
+## Hard Gates (local, automatic)
+
+- On any trigger (see Triggers), the assistant MUST write an Assistant Learning Protocol (ALP) entry automatically without per-event consent.
+- Destination directory is configurable (via `.cursor/config.json` → `logDir`), defaulting to `assistant-logs/` at repo root.
+- Fallback path: `docs/assistant-learning-logs/` is used when the primary destination is not writable, via `alp-logger.sh write-with-fallback`.
+- Safeguards:
+  - Redaction is mandatory (`.cursor/scripts/alp-redaction.sh`).
+  - Keep entries concise (≤ 200 lines); prefer ≤ 6 essential lines in the main body.
+  - Rate-limit identical Event+Owner within a 2-minute window to avoid spam.
+  - Include a concrete, actionable “Next Step”.
+
+Note: This auto-logging is exempt from the per-event consent gate; see `.cursor/rules/assistant-behavior.mdc` for the narrowly scoped exception.
 
 ## Triggers (high-signal only)
 
@@ -25,12 +42,19 @@ Write concise, redacted learning logs automatically at key events to improve ref
 - Routing Corrected: misrouted intent fixed with a takeaway
 - Safety Near-Miss: unsafe path avoided or guard clarified
 
-Optional (off by default; enable per team practice):
+Optional (team-dependent):
 
 - Major ERD/spec/plan decision with explicit learning
 - Repeated pattern detected across 3+ occurrences (from code reviews or commits)
 - New library/tool adoption pattern worth standardizing
 - Common error pattern that a rule could prevent
+
+### Improvement threshold
+
+- When the same issue/pattern is observed in ≥ 3 similar incidents (e.g., repeated fixes or feedback), propose a rule change:
+  - Add a new rule if no coverage exists, or
+  - Modify an existing rule with better examples/edge cases.
+  - Capture the proposal and evidence in an ALP entry (use `ImprovementTrigger` + `Signals`).
 
 ## Contract
 
@@ -38,6 +62,22 @@ Optional (off by default; enable per team practice):
 - Use `.cursor/scripts/alp-logger.sh write-with-fallback <destDir> <short-name> <<'BODY' ... BODY` to write
 - Destination directory: `logDir` from `.cursor/config.json` (default `./assistant-logs/`)
 - Filename: `log-<ISO>-<short>.md` where `<short>` is 3–5 words
+
+### Threshold behavior (archival policy)
+
+- When unarchived logs at the top level reach the threshold (`ALP_ARCHIVE_THRESHOLD`, default 10), the system:
+
+  - Produces an aggregate summary via `.cursor/scripts/alp-aggregate.sh`.
+  - Marks only the oldest N logs (N = threshold) as Reviewed.
+  - Archives only the Reviewed logs via `.cursor/scripts/alp-archive.sh archive`, leaving the newest log unarchived.
+  - Writes an archive summary to `docs/assistant-learning-logs/summary-archived-<ISO>.md`.
+
+- Environment variables:
+
+  - `ALP_ARCHIVE_THRESHOLD`: integer; default 10
+  - `ALP_AUTO_ARCHIVE`: set to `0` to disable automatic aggregate/archive (default `1`)
+
+- All logs must be written via `.cursor/scripts/alp-logger.sh` (no manual file writes) to ensure hooks run.
 
 Minimum body schema (Markdown):
 
@@ -105,14 +145,24 @@ Dependency Impact:
 
 Notes:
 
-- Keep entries concise (≤6 lines). If there is no concrete Learning, skip logging.
+- Keep entries concise. If there is no concrete Learning, skip logging.
+
+## Scripts
+
+- `.cursor/scripts/alp-logger.sh`: Helpers to write learning logs with primary/fallback destinations and optional redaction; builds filenames.
+- `.cursor/scripts/alp-redaction.sh`: Redacts secret-like values and auth headers from log content.
+- `.cursor/scripts/alp-aliases.sh`: Sourceable `alp_log` helper resolving `logDir` (env/config) and writing via the logger.
+- `.cursor/scripts/alp-smoke.sh`: Smoke test that writes a learning log and prints the resulting path.
+- `.cursor/scripts/alp-template.sh`: Formats a concise ALP entry from CLI flags; can tag rule candidates.
+- `.cursor/scripts/alp-triggers.sh`: Emits logs for common triggers (tdd-fix, intent-resolution, rule-fix, task-completion, mcp-recovery).
+- `.cursor/scripts/alp-archive.sh`: Marks logs as reviewed and archives reviewed logs under `_archived/YYYY/MM/`; writes a summary with extracted learnings.
+- `.cursor/scripts/alp-aggregate.sh`: Scans existing logs and produces a summary aggregating `[rule-candidate]` counts.
 
 ## Safety & Consent
 
 - Redact tokens/headers and secret-like values before writing
-- If `assistant-learning-protocol` is disabled, skip writes
-- Before writing, prefer the default destination (`assistant-logs/`). If it is not writable, use `docs/assistant-learning-logs/` (fallback) and include a one-line note in the entry indicating fallback reason.
-- Respect consent-first creation. Once consent is granted, write logs for all triggers automatically.
+- Auto-logging of Assistant Learning events is local-only and exempt from per-event consent
+- Prefer the default destination (`assistant-logs/`). If it is not writable, use `docs/assistant-learning-logs/` (fallback) and include a one-line note indicating the fallback reason.
 
 ## References
 

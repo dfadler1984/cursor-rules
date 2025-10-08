@@ -82,7 +82,7 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
   - `generate-tasks-from-erd.mdc` (optional dependencies/priority/[P])
   - `task-list-process.mdc` (dependency/priority selection note)
   - `spec-driven.mdc` (slash‑commands, `/analyze` gate, cross‑links)
-  - `logging-protocol.mdc` (Operation/Dependency Impact blocks)
+  - `assistant-learning.mdc` (Operation/Dependency Impact blocks)
 - Flow: User can choose phrase triggers or slash‑commands. Tasks remain two‑phase with pauses and TDD coupling.
 
 ## 7. Data Model and Storage

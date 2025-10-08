@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — Deterministic, Structured Outputs
 
-[Links: Glossary](../../docs/glossary.md)
+[Links: Glossary](../../glossary.md)
 
 Mode: Full
 
@@ -62,7 +62,7 @@ We need predictable, reusable artifacts for planning and execution: specificatio
   - Example:
 
     ```bash
-    node scripts/rules/validate-artifacts.ts --paths docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md,docs/projects/sample-feature/tasks/tasks-sample-feature.md --format json --fail-on any | jq
+    node scripts/rules/validate-artifacts.ts --paths docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md --format json --fail-on any | jq
     ```
 
 - Template contract: Required headings and link presence as specified in 3.1.
@@ -103,7 +103,7 @@ Specs live at `docs/specs/<feature>-spec.md`, Plans at `docs/plans/<feature>-pla
 Example links line (feature: `sample-feature`):
 
 ```markdown
-[Links: Plan](../plans/sample-feature-plan.md) | [Links: Tasks](../../docs/projects/sample-feature/tasks/tasks-sample-feature.md)
+[Links: Plan] (../plans/sample-feature-plan.md)
 ```
 
 ```markdown
@@ -121,7 +121,7 @@ Example links line (feature: `sample-feature`):
 Example links line (feature: `sample-feature`):
 
 ```markdown
-[Links: Spec](../specs/sample-feature-spec.md) | [Links: Tasks](../../docs/projects/sample-feature/tasks/tasks-sample-feature.md)
+[Links: Spec] (../specs/sample-feature-spec.md)
 ```
 
 ```markdown

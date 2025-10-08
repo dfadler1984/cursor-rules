@@ -141,7 +141,12 @@ cmd_archive() {
       echo "DRY: would write archive summary for $(printf "%s" "$archived_list" | wc -l | tr -d ' ') files"
     else
       local docs_dir
-      docs_dir="$(root)/docs/assistant-learning-logs"
+      # Under tests, route summaries to TEST_ARTIFACTS_DIR/alp to avoid leaking into repo docs
+      if [[ -n "${TEST_ARTIFACTS_DIR-}" ]]; then
+        docs_dir="$TEST_ARTIFACTS_DIR/alp"
+      else
+        docs_dir="$(root)/docs/assistant-learning-logs"
+      fi
       mkdir -p "$docs_dir"
       local ts out
       ts="$(timestamp_iso)"
