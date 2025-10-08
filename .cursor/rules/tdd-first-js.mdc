@@ -1,6 +1,6 @@
 ---
 description: TDD‑First — JS/TS extension (focused runs, owner mapping, diff coverage)
-globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs
 alwaysApply: false
 lastReviewed: 2025-10-06
 healthScore:

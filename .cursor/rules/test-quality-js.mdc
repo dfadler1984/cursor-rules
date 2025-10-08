@@ -1,6 +1,6 @@
 ---
 description: Test Quality — JS/TS (coverage>0 or diff gates, owner coupling, sabotage checks)
-globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs
 alwaysApply: false
 lastReviewed: 2025-10-06
 healthScore:

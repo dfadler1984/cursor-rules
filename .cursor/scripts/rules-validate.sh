@@ -36,7 +36,6 @@ Validates rule files under .cursor/rules/*.mdc for:
   - Boolean casing for alwaysApply
   - Deprecated references (assistant-learning-log.mdc)
   - Common typography typo (ev<space>ents)
-  - Invariants for tdd-first.mdc (globs includes **/*.cjs)
 EOF
 }
 
@@ -208,7 +207,7 @@ check_missing_refs() {
     rel="${rel%%#*}"
     # ignore obvious externals
     case "$rel" in
-      http://*|https://*|mailto:*|#*) continue;;
+      http://*|https://*|mailto:*|\#*) continue;;
     esac
     # trim surrounding spaces and trailing punctuation ) >
     trimmed="$(printf '%s' "$rel" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//; s/[)>]+$//')"
@@ -231,22 +230,6 @@ check_missing_refs() {
   done <<< "$all"
 }
 
-check_tdd_first_invariant() {
-  local f="$1"
-  local base
-  base="$(basename "$f")"
-  if [ "$base" = "tdd-first.mdc" ]; then
-    local fm
-    fm="$(extract_front_matter "$f")"
-    if ! printf "%s\n" "$fm" | grep -qE '^globs:.*\*\*/\*\.cjs'; then
-      # Try to locate the globs line number
-      local ln
-      ln="$(awk 'BEGIN{inside=0} /^---[ \t]*$/{ if(inside==0){inside=1; next}else{ exit } } inside==1 && $1=="globs:"{ print NR; exit }' "$f")"
-      [ -z "$ln" ] && ln=1
-      report_line "$f" "$ln" 'tdd-first.mdc: globs should include **/*.cjs'
-    fi
-  fi
-}
 
 check_embedded_front_matter_and_duplicate_headers() {
   local f="$1"
@@ -356,8 +339,7 @@ main() {
     check_csv_and_boolean "$f"
     # Deprecated refs and typos
     check_deprecated_and_typos "$f"
-    # Invariants
-    check_tdd_first_invariant "$f"
+    # Invariants (none specific at this time)
     # Structure hygiene
     check_embedded_front_matter_and_duplicate_headers "$f"
     # Missing references

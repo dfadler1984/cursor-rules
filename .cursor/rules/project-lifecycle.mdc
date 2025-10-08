@@ -1,7 +1,7 @@
 ---
 description: Project lifecycle — completion policy and validation
 alwaysApply: false
-lastReviewed: 2025-10-06
+lastReviewed: 2025-10-08
 healthScore:
   content: green
   usability: green
@@ -13,6 +13,7 @@ healthScore:
 ## Purpose
 
 Codify how projects transition to Completed without breaking links: status tagging over moves, a closure checklist, a final summary, and an index update. Provide a light validator and optional automation.
+Archiving is performed via a single full-folder move; per-file archiving is prohibited.
 
 ## Scope
 
@@ -30,7 +31,7 @@ owner: <github-handle-or-team>
 ```
 
 - Location: `docs/projects/<name>/erd.md` (and optionally mirrored in `tasks.md`).
-- On archival, move the project folder under `docs/projects/_archived/<YYYY>/<name>/` using a simple move; update index links accordingly.
+- On archival, move the entire project folder under `docs/projects/_archived/<YYYY>/<name>/` in a single operation; update index links accordingly.
 
 ## Closure Checklist (Definition of Done)
 
@@ -41,28 +42,49 @@ owner: <github-handle-or-team>
 - User-facing docs/examples updated (README/guides as applicable).
 - Ownership/handoff note present (owner, next review date).
 
-Reference template: `.cursor/templates/project-lifecycle/completion-checklist.template.md`.
+Reference templates:
+
+- Completion: `.cursor/templates/project-lifecycle/completion-checklist.template.md`
+- Archive (operational): `.cursor/templates/project-lifecycle/archive-checklist.template.md`
 
 ## Final Summary
 
-- File: `docs/projects/<name>/final-summary.md`
+- File: `final-summary.md` (location depends on timing; see below)
 - Link this file from the ERD near the top.
 - Template: `.cursor/templates/project-lifecycle/final-summary.template.md`.
+
+- You may generate the summary either pre-move or post-move:
+
+  - Pre-move: create `docs/projects/<name>/final-summary.md` using the generator's `--pre-move` flag; links will point to the archived path.
+  - Post-move: create `docs/projects/_archived/<YYYY>/<name>/final-summary.md` (default generator mode).
+
+- Required generator: use `.cursor/scripts/final-summary-generate.sh` to create/update the final summary; manual template copying/hand-edits are not allowed for initial creation.
+  - Usage:
+    - Pre-move: `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> --pre-move [--date YYYY-MM-DD] [--force]`
+    - Post-move: `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> [--date YYYY-MM-DD] [--force]`
+  - Behavior:
+    - Title from slug (dashes → spaces, capitalized)
+    - `last-updated` set to today or `--date`
+    - ERD/Tasks links point to `docs/projects/_archived/<YYYY>/<slug>/`
 
 ## Projects Index Update
 
 - Landing page: `docs/projects/README.md`
 - When a project completes, move its entry from Active to Completed.
-- If archived, point the Completed link to `../_archived/<YYYY>/<name>/erd.md`.
 
 ## Validator and CLI
 
 - Script: `.cursor/scripts/project-lifecycle-validate.sh`
+
   - Dry-run by default. Exits non-zero when Completed projects are missing required pieces.
   - Checks (minimum):
     - ERD contains `status: completed`, `completed:`, `owner:` in front matter
     - `final-summary.md` exists
     - `docs/projects/README.md` contains a Completed link for the project
+
+- Final summary generator (required): `.cursor/scripts/final-summary-generate.sh`
+  - Creates/updates `final-summary.md` in the archived folder using the template and fills title/date/links.
+  - Safe by default: refuses to overwrite unless `--force` is provided.
 
 ## PR Title Guidance
 
@@ -75,10 +97,12 @@ Reference template: `.cursor/templates/project-lifecycle/completion-checklist.te
 - Any project flipped to Completed includes required ERD fields and a final summary, and appears under Completed in `docs/projects/README.md`.
 - The checklist template and summary template are referenced from the ERD.
 - The validator script reports failures clearly and exits non-zero when requirements are unmet.
+- Final summary is generated via `.cursor/scripts/final-summary-generate.sh` (not manually copied/edited for initial creation).
 
 ## Notes
 
-- Archiving uses a simple move: relocate the folder to `docs/projects/_archived/<YYYY>/<name>` and update links. No redirect stub is required.
+- Policy Ping (preflight): Archiving uses a single full-folder move. Do not move files individually. Destination: `docs/projects/_archived/<YYYY>/<name>`. Update links/index accordingly.
+- External links are out of scope; only internal links must remain valid. Use the validator to detect/fix internal link issues post-move.
 - Prefer manual, explicit updates first; automation may be added later.
 
 ## Rollout
@@ -86,9 +110,14 @@ Reference template: `.cursor/templates/project-lifecycle/completion-checklist.te
 - Owner: rules-maintainers
 - Start manual; optionally add a CI job to run the validator in dry-run mode on PRs that change project docs.
 
-## Archival Move Procedure
+## Archival Move Procedure (Move Last)
 
 1. Confirm project is Completed and stable.
-2. Move the folder to `docs/projects/_archived/<YYYY>/<project>/` (simple move).
-3. Update `docs/projects/README.md` Completed section to point to the archived path.
-4. Prefer a Conventional Commit title noting the archival (e.g., `docs(projects): archive <name>`).
+2. Ensure a final summary exists using one of:
+   - Pre-move: `.cursor/scripts/final-summary-generate.sh --project <project> --year <YYYY> --pre-move` (writes to `docs/projects/<project>/final-summary.md`)
+   - Post-move: after step 3, run `.cursor/scripts/final-summary-generate.sh --project <project> --year <YYYY>` (writes to archived folder)
+     In both cases, add a link near the top of the ERD.
+3. Move the entire folder to `docs/projects/_archived/<YYYY>/<project>/` using a single operation (e.g., `git mv docs/projects/<project> docs/projects/_archived/<YYYY>/<project>`).
+4. Run `.cursor/scripts/rules-validate.sh` and fix any internal link errors it reports.
+5. Update `docs/projects/README.md` Completed section to point to the archived path.
+6. Prefer a Conventional Commit title noting the archival (e.g., `docs(projects): archive <name>`).

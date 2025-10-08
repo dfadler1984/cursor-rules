@@ -95,22 +95,22 @@ healthScore:
   - Ask ≤3 precise questions or propose a minimal slice (+ 1–2 follow-ups).
   - State the exact next edit/command and expected effect; ask consent.
 
-## JS/TS TDD pre-edit gate
+## TDD pre-edit gate (all maintained sources)
 
-- If the next action includes editing JavaScript/TypeScript files (`**/*.{ts,tsx,js,jsx,mjs,cjs}` excluding `node_modules/**`, `dist/**`, `build/**`, `web/dist/**`), you must first provide a TDD confirmation with:
+- Before editing any maintained source (see scope in `.cursor/rules/tdd-first.mdc`), provide a TDD confirmation with:
 
-  - The exact owner spec path(s) to add/update (colocated next to each changed source), and
-  - A one-line failing assertion description for each owner spec.
+  - The owner spec/test path(s) to add/update (colocated next to each changed source)
+  - A one-line failing assertion/expectation for each owner spec
 
   Then proceed in order:
 
-  1. Add or update a failing/meaningful spec that expresses the desired behavior (Red).
-  2. Implement the minimal change to pass (Green).
-  3. Run tests and report results before further edits.
-  4. Refactor while keeping tests green.
+  1. Red: add or update the failing spec and run the focused test
+  2. Green: implement the minimal change to pass
+  3. Re-run focused tests and report results before further edits
+  4. Refactor while keeping tests green
 
-- If a test file does not exist, create one.
-- No skip path: if direct integration is brittle (e.g., ESM‑only libs), restructure using the functional effects seam in `tdd-first.mdc` and test the pure resolver instead of skipping tests.
+- If a test file does not exist, create it before any implementation edits.
+- No skip path: if direct integration is brittle, extract a pure resolver (effects seam per `tdd-first.mdc`) and test the resolver first.
 - If tests cannot be run or consent is required, pause and ask one targeted unblocker question.
 
 ## Status transparency
@@ -130,6 +130,15 @@ healthScore:
 - Tooling-first: consult `favor-tooling.mdc` and the target rule’s Contract; use official scripts (e.g., `alp-logger.sh`).
 - Scope & consent: confirm project vs repo-wide target; get explicit consent for global edits.
 - Verification before assertion: run the relevant validator/CLI and paste exact output before claiming status.
+
+## Habit Bias Controls (general)
+
+- Local-first hard gate (must): If a task can be completed with local read/edit, do not use other tool categories.
+- Acceptance-bundle filter (must): When targets, exact edits, and success criteria are present, lock tools to local read/edit only.
+- Approved-tools-only (must): Use only repo-approved tools and already-configured MCP servers; never introduce new categories without explicit consent in the prior turn.
+- Consent-before-complexity (must): Any escalation above local read/edit requires naming the exact command(s) and receiving one-shot consent.
+- Category switch protocol (must): First non-local tool in a turn requires a consent checkpoint; default to “no” if a local path exists.
+- No automatic exploratory steps (must): Do not perform broad searches unless the acceptance bundle is incomplete and a single focused question failed to resolve it.
 
 ## Scope
 
