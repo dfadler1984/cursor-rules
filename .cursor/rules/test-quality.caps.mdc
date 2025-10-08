@@ -1,6 +1,6 @@
 ---
-description: Capabilities for practical test quality (coverage>0 guards, owner coupling)
-lastReviewed: 2025-10-03
+description: Capabilities for proactive attachment of test-quality guidance
+lastReviewed: 2025-10-08
 healthScore:
   content: green
   usability: green
@@ -11,26 +11,22 @@ references:
 
 ## Capabilities
 
-- Promote useful, non-brittle tests with measurable coverage (>0 minimum)
-- Couple tests to owners and behaviors rather than internals
+- Proactively attach `test-quality.mdc` before writing/modifying tests.
 
 ## Triggers & Routing
 
-- When assessing test usefulness or refactoring brittle suites
+- Starting new tests where `globs` won’t match yet.
+- Adding an owner spec mandated by TDD pre-edit gate.
 
 ## Inputs → Outputs
 
-- Inputs: target specs/modules and coverage signals (if available)
-- Outputs: improved tests and a clearer quality bar
+- Inputs: imminent test creation/modification.
+- Outputs: attached `test-quality.mdc` with quality safeguards.
 
 ## Constraints & Guards
 
-- Avoid excessive mocks; prefer seams and real behavior
-
-## Examples
-
-- "Raise quality of parse.spec.ts by asserting outcomes and edge cases"
+- Do not attach outside testing contexts; defer to smallest useful set.
 
 ## Related
 
-- testing.caps.mdc, tdd-first.caps.mdc
+- testing.caps.mdc, test-quality-sh.mdc, test-quality-js.mdc

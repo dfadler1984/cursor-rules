@@ -1,52 +1,10 @@
-name: Rules Validate
-
-on:
-  pull_request:
-    paths:
-      - '.cursor/rules/**'
-      - '.cursor/scripts/rules-validate.sh'
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Validate rules (text)
-        run: ./.cursor/scripts/rules-validate.sh
-
-      - name: Generate review report
-        run: ./.cursor/scripts/rules-validate.sh --report-out docs/reviews/review-${{ github.run_id }}.md || true
-
-      - name: Upload review report
-        uses: actions/upload-artifact@v4
-        with:
-          name: rules-review-${{ github.run_id }}
-          path: docs/reviews/review-${{ github.run_id }}.md
-name: Rules Validate
+name: Rules Validation
 
 on:
   push:
     branches: ["**"]
   pull_request:
     branches: ["**"]
-
-jobs:
-  rules-validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run rules validator
-        shell: bash
-        run: |
-          bash ./.cursor/scripts/rules-validate.sh | cat
-name: Rules Validation
-
-on:
-  pull_request:
     paths:
       - ".cursor/rules/**"
       - ".cursor/scripts/**"
@@ -59,12 +17,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up shell
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y bash
-
       - name: Run rules validator
         run: |
           chmod +x ./.cursor/scripts/rules-validate.sh
           ./.cursor/scripts/rules-validate.sh
+
+      - name: Generate review report
+        if: always()
+        run: ./.cursor/scripts/rules-validate.sh --report-out docs/reviews/review-${{ github.run_id }}.md || true
+
+      - name: Upload review report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rules-review-${{ github.run_id }}
+          path: docs/reviews/review-${{ github.run_id }}.md

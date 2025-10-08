@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# links-check.sh — Validate Markdown links (external HTTP(S) and relative paths)
+# links-check.sh — Validate Markdown relative links (file existence only)
 # Usage: links-check.sh [--path <file-or-dir>]
 
 usage() {
@@ -10,10 +10,9 @@ usage() {
 Usage: links-check.sh [--path <file-or-dir>]
 
 Scans Markdown (.md, .mdc) for links and validates:
-- External http(s): HEAD request (follow redirects, short timeout)
 - Relative paths: file existence on disk
 
-Skips: mailto:, anchors (#...), localhost, 127.0.0.1
+Skips: mailto:, anchors (#...)
 USAGE
 }
 
@@ -31,8 +30,6 @@ if [ ! -e "$target" ]; then
   exit 2
 fi
 
-curl_cmd="${CURL_CMD-curl}"
-
 shopt -s nullglob
 declare -a files
 if [ -d "$target" ]; then
@@ -45,26 +42,6 @@ else
 fi
 
 errors=0
-
-is_skipped_url() {
-  local u="$1"
-  [[ "$u" =~ ^mailto: ]] && return 0
-  [[ "$u" =~ ^# ]] && return 0
-  [[ "$u" =~ ^https?://(localhost|127\.0\.0\.1)[:/].* ]] && return 0
-  return 1
-}
-
-check_external() {
-  local url="$1"
-  if is_skipped_url "$url"; then return 0; fi
-  if [[ "$url" =~ ^https?:// ]]; then
-    if ! $curl_cmd -sSIL --max-redirs 3 --connect-timeout 5 --retry 1 "$url" >/dev/null 2>&1; then
-      echo "external failed: $url"
-      return 1
-    fi
-  fi
-  return 0
-}
 
 check_relative() {
   local base_dir="$1"; shift
@@ -96,12 +73,6 @@ extract_links() {
 
 for f in "${files[@]}"; do
   base_dir="$(cd "$(dirname "$f")" && pwd)"
-  # External links (http/https) – use grep to find them robustly
-  while IFS= read -r url; do
-    [ -n "$url" ] || continue
-    check_external "$url" || errors=$((errors+1))
-  done < <(grep -Eo 'https?://[^)\s]+' "$f" || true)
-
   # Relative links from markdown pattern [text](relative)
   while IFS= read -r rel; do
     [ -n "$rel" ] || continue

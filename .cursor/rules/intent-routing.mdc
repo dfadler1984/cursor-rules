@@ -1,7 +1,7 @@
 ---
 description: Always-on intent router attaching rules via phrases, keywords, and signals
 alwaysApply: true
-lastReviewed: 2025-09-14
+lastReviewed: 2025-10-08
 healthScore:
   content: green
   usability: green
@@ -46,7 +46,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
     - Change terms: feature|bug|logic|behavior
   - Consent-after-plan (composite): If the previous assistant turn proposed concrete code edits and the user replies with a consent phrase within one turn (e.g., "proceed", "go ahead", "sounds good", "do it", "ship it"), route to implementation.
   - Attach: `tdd-first.mdc`, `code-style.mdc`
-  - Hard gate: before any JS/TS edits, require a TDD confirmation (spec path(s) + failing assertion). If absent, ask and do not proceed with edits.
+- Hard gate: before any implementation edits, require the universal TDD pre-edit confirmation per `assistant-behavior.mdc` (applies repo-wide).
   - Note: Per `user-intent.mdc` policy, testing + TDD attach by default for implementation intents
 - Rules authoring/maintenance
   - Triggers: <verb> + <rules-term>
@@ -62,6 +62,16 @@ This lightweight router keeps context minimal by attaching specific rules only w
   - Triggers: <git-term>
     - Terms: commit|commit message|commits|branch|branch name|branch naming|pre-commit|pre-push|conventional commits|git hooks
   - Attach: `assistant-git-usage.mdc`
+- Projects lifecycle (simple)
+  - Trigger: message contains <projectsDir> (default: docs/projects)
+  - Attach: `project-lifecycle.mdc`
+- Project lifecycle (actions)
+  - Triggers: <verb> + <lifecycle-term> with project target
+    - Verbs: archive|archiving|finalize|complete|close
+    - Targets:
+      - Path: docs/projects/<slug>
+      - Or bare slug: <slug> (ask a one-line confirmation for path if ambiguous)
+  - Attach: `project-lifecycle.mdc`
 - PR triggers: pr|pull request|open pr|create pr → prefer repo script `.cursor/scripts/pr-create.sh` (curl/GitHub API) instead of GH CLI
 - ERD creation
 
@@ -96,10 +106,8 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - If any focused/open/edited path matches `**/*.(spec|test).[tj]s?(x)`, attach `testing.mdc`, `tdd-first.mdc`, `test-quality-js.mdc`.
 - If the user mentions "jest", "coverage", or "assert", attach testing rules.
 - On implementation verbs (implement/add/fix/refactor/update), attach testing + TDD by default (see `user-intent.mdc`).
-- JS/TS pre-edit gate: If the next step targets JS/TS files (`*.ts|*.tsx|*.js|*.mjs|*.cjs`), attach a minimal TDD checklist and enforce tests-first before edits. Load full `testing.mdc` progressively when test authoring or failures occur.
-  - Also attach `test-quality-js.mdc` for JS/TS specifics.
-  - Enforcement: block edits until the TDD confirmation is present (see Assistant Behavior rule).
-- Shell script tests or edits under `.cursor/scripts/*.sh`: attach `test-quality-sh.mdc`.
+- JS/TS files (`*.ts|*.tsx|*.js|*.mjs|*.cjs`): attach `test-quality-js.mdc` for language-specific guidance.
+- Shell scripts under `.cursor/scripts/*.sh`: attach `test-quality-sh.mdc` for shell-specific guidance.
 - If any focused/open/edited path matches `**/tasks/*.md`, attach `assistant-git-usage.mdc`, `task-list-process.mdc`.
 
 ## Decision policy (weights)
@@ -152,6 +160,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - "Create ERD" → ask for feature name and full vs lite; then attach: create-erd, guidance-first
 - "Review the ERD for checkout flow" → do not attach create-erd; ask a clarifying question
 - "Update front matter across rules" → attach: front-matter, rule-maintenance, rule-creation
+- "Archive docs/projects/rules-validate-script" → attach: project-lifecycle; propose dry-run of the archive workflow
 
 ## Notes
 

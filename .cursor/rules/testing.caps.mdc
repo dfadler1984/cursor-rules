@@ -1,6 +1,6 @@
 ---
-description: Capabilities for testing conventions and workflow
-lastReviewed: 2025-10-03
+description: Capabilities for proactive attachment of testing guidance
+lastReviewed: 2025-10-08
 healthScore:
   content: green
   usability: green
@@ -11,29 +11,22 @@ references:
 
 ## Capabilities
 
-- Establish testing conventions (unit/integration/e2e focus, patterns)
-- Encourage focused runs and meaningful assertions
-- Pair with TDD-first for JS/TS edits
+- Proactively attach `testing.mdc` when starting test work (create/modify).
 
 ## Triggers & Routing
 
-- When tests are authored/updated or failures occur
-- Attach alongside tdd-first for implementation work
+- When creating tests/specs (no files may exist yet).
+- When modifying tests or adding an owner spec per TDD pre-edit gate.
 
 ## Inputs → Outputs
 
-- Inputs: target modules/specs
-- Outputs: consistent, behavior-focused tests per repo standards
+- Inputs: intent to write/modify tests, owner module path.
+- Outputs: attached `testing.mdc` guidance before edits begin.
 
 ## Constraints & Guards
 
-- Avoid brittle tests; prefer behavior over implementation details
-- Keep tests readable and isolated
-
-## Examples
-
-- "Add unit tests for utils/date.ts with edge cases"
+- Prefer smallest rule set; attach only when testing is imminent.
 
 ## Related
 
-- tdd-first.caps.mdc, testing-structure.caps.mdc, testing-naming.caps.mdc, test-quality.caps.mdc
+- test-quality.caps.mdc, testing-naming.caps.mdc, tdd-first.mdc

@@ -19,6 +19,7 @@ healthScore:
 - Examples are still accurate; `globs` target intended files.
 - Cross-references resolve; no contradictory guidance.
 - Update `lastReviewed` on any substantive edit.
+  \- Off-scope content: Rules must not embed unrelated workflows/policies. Reference the authoritative rule instead (e.g., archival policy lives in `project-lifecycle.mdc`).
 
 ## Date verification
 
@@ -73,6 +74,7 @@ healthScore:
 - **Automated validation**: Run `.cursor/scripts/rules-validate.sh` to check all cross-references
 - **Update broken links**: If a referenced file is renamed or deleted, update all references immediately
 - **Use consistent naming**: Reference files by their exact filename (including `.mdc` extension)
+  \- For project archival policy, see `project-lifecycle.mdc`.
 
 ## Validation
 
