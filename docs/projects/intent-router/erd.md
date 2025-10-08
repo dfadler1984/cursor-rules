@@ -1,7 +1,7 @@
 ---
 status: active
 owner: rules-maintainers
-lastUpdated: 2025-10-05
+lastUpdated: 2025-10-08
 ---
 
 # Engineering Requirements Document — Intent Router (Lite)
@@ -16,14 +16,13 @@ Define a central intent router that parses user inputs and routes to the correct
 
 - Parse phrases/commands into normalized intents (specify, plan, tasks, implement, investigate)
 - Enforce consent-first and TDD gates before code-changing actions
-- Respect role–phase mapping and split-progress status
+- Prefer role–phase mapping and split-progress status (advisory until enforcement lands)
 - Provide a single clarifying question when intent/targets are ambiguous
 
 ## 3. Functional Requirements
 
 - Triggers: implicit (natural language) and explicit (slash commands)
 - Parsing: extract verb, targets, and scope; default to clarify when uncertain
-- Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, drawing-board)
 - Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, drawing-board, task-list-process)
 - Gates: enforce phase checks and TDD owner spec paths before JS/TS edits
 - Status: emit brief status updates per step
@@ -33,7 +32,7 @@ Define a central intent router that parses user inputs and routes to the correct
 
 - Examples of parsed inputs → routed rule + gates applied
 - Clarifying-question policy documented; exactly one targeted question on ambiguity
-- Integration points listed for spec-driven, tdd-first, git-usage, capabilities, drawing-board
+- Integration points listed for spec-driven, tdd-first, git-usage, capabilities; drawing-board (pending)
 
 ## 5. Risks/Edge Cases
 
@@ -48,7 +47,7 @@ Define a central intent router that parses user inputs and routes to the correct
 ## 7. Testing
 
 - Dry-run parse: “Implement rounding” → gate on TDD with owner spec path required
-- Dry-run parse: “Could you add X to the drawing board?” → `/draw X`
+- Dry-run parse: “Could you add X to the drawing board?” → `/draw X` (pending; drawing-board rule not yet implemented)
 
 - Conflicting intents: “Refactor parse.ts and open a PR” → choose one; PR waits for green
 - Missing details: “Add tests” (no target) → ask once for file/module; then proceed
@@ -90,8 +89,16 @@ DRY RUN:
 - tdd-first: For implement/refactor/fix in JS/TS; pre‑edit hard gate requires owner spec path + failing assertion; block edits until Red is established.
 - assistant-git-usage: For branch/commit/PR; request explicit command consent and use repo scripts non‑interactively.
 - capabilities: For platform knowledge; docs-backed responses; no edits/commands.
-- drawing-board: For ideation; create/update entries; no code/TDD gates.
+- direct-answers: For direct questions; respond with cause, evidence, next step.
+- drawing-board: For ideation; create/update entries; no code/TDD gates. (pending)
 - Handoff contract: Router supplies {intent, targets, rule, gates, consentState}; callee rule executes and reports status back for consistent updates.
+
+## 11. Slash Commands
+
+- `/plan <topic>` → route to `spec-driven` (plan/specify); consent-first; produce plan scaffold
+- `/tasks` → route to `task-list-process`; manage/update tasks when safe
+- `/pr` → route to `assistant-git-usage`; prefer `.cursor/scripts/pr-create.sh` with explicit consent and non-interactive flags
+- `/draw <item>` → route to drawing-board (pending; blocked until drawing-board rule exists)
 
 ---
 
