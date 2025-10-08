@@ -2,7 +2,7 @@
 description: Test Quality — Shell (behavior evidence, focused harness, owner coupling)
 globs: .cursor/scripts/*.sh
 alwaysApply: false
-lastReviewed: 2025-10-06
+lastReviewed: 2025-10-08
 healthScore:
   content: green
   usability: green
@@ -22,6 +22,24 @@ healthScore:
   - Tests invoke the target script or an extracted pure resolver sourced by tests.
 - Sabotage spot-check (review practice):
   - Temporarily comment out or early-return in the SUT and re-run related tests; they should fail. Revert immediately.
+
+## Runner usage (how to run individual tests)
+
+- Keyword filter (case-insensitive) with verbose output:
+
+```bash
+bash .cursor/scripts/tests/run.sh -k <keyword> -v
+```
+
+- Single test file (explicit path):
+
+```bash
+bash .cursor/scripts/tests/run.sh -v .cursor/scripts/<script-name>.test.sh
+```
+
+- Notes:
+  - The runner discovers tests matching `*.test.sh` under `.cursor/scripts`.
+  - `-k` matches any part of the test path (e.g., `final-summary-generate`).
 
 ## Structure & effects seam
 

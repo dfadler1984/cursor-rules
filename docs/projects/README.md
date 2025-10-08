@@ -27,7 +27,6 @@ A landing page for all projects, grouped by status.
 - [roles](./roles/erd.md) — Define roles and intent routing with per‑role posture and examples.
 
 - [rules-grok-alignment](./rules-grok-alignment/erd.md) — Archived source ERD; improving rules using Grok insights (reference).
-- [rules-validate-script](./rules-validate-script/erd.md) — Add a rules validation shell script with checks and JSON/text outputs.
 - [shell-scripts](./shell-scripts/erd.md) — Portable shell scripts replacing Node helpers; standardized CLI suite.
 - [spec-driven](./spec-driven/erd.md) — Phased workflow: Specify → Plan → Tasks with deterministic artifacts and rules.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
@@ -44,6 +43,7 @@ A landing page for all projects, grouped by status.
 - [tdd-first](../_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
 - [skip-changeset-opt-in](../_archived/2025/skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
 - [rule-maintenance](../_archived/2025/rule-maintenance/erd.md) — Cadence and validator to keep rules healthy with actionable reports.
+- [rules-validate-script](../_archived/2025/rules-validate-script/erd.md) — Completed.
 
 ## Archived
 
