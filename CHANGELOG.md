@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+
+### Patch Changes
+
+- [#42](https://github.com/dfadler1984/cursor-rules/pull/42) [`362ab23`](https://github.com/dfadler1984/cursor-rules/commit/362ab23b706880c15302c86508e43d7faf80e311) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Sync ERD/tasks with router rules; add outbound message checklist; require ANSI-C quoting/heredoc for multi-line PR bodies in PR scripts.
+
 ## 0.2.1
 
 ### Patch Changes
