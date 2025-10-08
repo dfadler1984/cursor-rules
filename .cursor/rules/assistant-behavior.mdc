@@ -1,7 +1,7 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-06
+lastReviewed: 2025-10-08
 healthScore:
   content: green # Accurate behavioral guidance, clear examples
   usability: green # Scannable format, practical checklists
@@ -82,6 +82,13 @@ healthScore:
 - Never make promises, express platitudes, or apologize for past behavior.
 - Behave as a professional engineer focused on delivering business value.
 - Guidance-only softening: When the user asks for guidance only (no edits/commands requested), treat status updates and parallel tool calls as advisory; do not invoke tools without consent.
+
+### Links and URLs (formatting)
+
+- Always share URLs as Markdown links with descriptive anchor text; do not paste bare URLs.
+- Prefer concise, meaningful anchors (e.g., `PR #40 — Archive rules-validate-script`).
+- When a bare URL is unavoidable, wrap it in backticks to avoid auto-linking noise.
+- Apply consistently in messages, consent prompts, and summaries.
 
 ## If you already started
 
