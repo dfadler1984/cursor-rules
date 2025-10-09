@@ -48,9 +48,11 @@ jobs:
       - name: Enable auto-merge on resolved PR
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.AUTO_MERGE_TOKEN }}
+          token: ${{ github.token }}
           pull-request-number: ${{ steps.find.outputs.pr }}
           merge-method: squash
+        env:
+          GH_TOKEN: ${{ github.token }}
 
   enable_on_workflow_run:
     if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
@@ -77,6 +79,8 @@ jobs:
       - name: Enable auto-merge on PR
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.AUTO_MERGE_TOKEN }}
+          token: ${{ github.token }}
           pull-request-number: ${{ steps.find.outputs.pr }}
           merge-method: squash
+        env:
+          GH_TOKEN: ${{ github.token }}
