@@ -10,7 +10,7 @@
 
 - A machine‑checkable block in a Plan describing: targets, exactChange, successCriteria, constraints, runInstructions, and ownerSpecs.
 - Used to connect planning → execution deterministically.
-- See: `docs/projects/spec-driven/erd.md`, `docs/projects/deterministic-outputs/erd.md`.
+- See: `docs/projects/ai-workflow-integration/erd.md`, `docs/projects/deterministic-outputs/erd.md`.
 
 ## Projects layout
 

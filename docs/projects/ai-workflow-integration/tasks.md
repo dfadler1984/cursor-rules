@@ -58,8 +58,16 @@
   - [x] 5.6 Update logging rule (`assistant-learning.mdc`) with Operation block + Dependency Impact
 
 - [ ] 6.0 Review, iterate, and finalize adoption plan (priority: medium) (depends on: 5.0)
+
   - [x] 6.1 Validate rule front‑matter and references (rules validation script)
   - [x] 6.2 Stakeholder review and wording adjustments
   - [ ] 6.3 Remove feature flags concept (unified defaults: commands, deps/priority/[P], always-on logging)
   - [ ] 6.4 Update README/docs to state unified defaults (no toggles)
   - [x] 6.5 Publish adoption plan in `discussions.md`
+
+- [ ] 7.0 Fold spec-driven project docs (priority: low)
+
+  - [x] 7.1 Integrate Spec‑Driven ERD content and fix cross‑links
+  - [ ] 7.2 Merge Spec‑Driven tasks (carry over items 2.0 and 3.0)
+  - [ ] 7.3 Scan repo for references and update links
+  - [ ] 7.4 Remove `docs/projects/spec-driven/` after reference updates

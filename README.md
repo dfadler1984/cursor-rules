@@ -130,7 +130,7 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
 - MCP Synergy ERD: `docs/projects/mcp-synergy/erd.md`
   - Roles & Intent Routing ERD: `docs/projects/roles/erd.md`
   - Capabilities Discovery ERD: `docs/projects/capabilities-discovery/erd.md`
-  - Spec‑Driven Workflow ERD: `docs/projects/spec-driven/erd.md`
+  - Spec‑Driven Workflow (integrated): `docs/projects/ai-workflow-integration/erd.md`
   - TDD‑First ERD: `docs/projects/_archived/2025/tdd-first/erd.md`
   - Core Values ERD: `docs/projects/core-values/erd.md`
   - Productivity & Automation ERD: `docs/projects/productivity/erd.md`
