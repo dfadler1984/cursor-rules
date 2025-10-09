@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.5
+
+### Patch Changes
+
+- [#55](https://github.com/dfadler1984/cursor-rules/pull/55) [`aa095a2`](https://github.com/dfadler1984/cursor-rules/commit/aa095a2c13c0bc1b027c17c7d4938ecd5762590a) Thanks [@dfadler1984](https://github.com/dfadler1984)! - docs(cursor-modes): add ERD and tasks for Cursor modes integration
+
+  Includes `docs/projects/cursor-modes/erd.md` and `docs/projects/cursor-modes/tasks.md` with citations to:
+
+  - Plan Mode announcement (product blog)
+  - Agent/Ask/Manual docs hub
+  - Changelog entry for Custom Modes
+
 ## 0.3.4
 
 ### Patch Changes
