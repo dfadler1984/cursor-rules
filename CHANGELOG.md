@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.8
+
+### Patch Changes
+
+- [#61](https://github.com/dfadler1984/cursor-rules/pull/61) [`5c90593`](https://github.com/dfadler1984/cursor-rules/commit/5c9059311609ebe4e7d5b2d111f9e10c22d24382) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Improve Changesets auto-merge reliability by reacting to the release workflow completion.
+
+  - Add `workflow_run` trigger for the `Changesets` workflow (types: completed)
+  - On success, find the open “Version Packages” PR and enable Auto-merge
+  - Keep manual `workflow_dispatch` for backfill
+
 ## 0.3.7
 
 ### Patch Changes
