@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.16
+
+### Patch Changes
+
+- [#77](https://github.com/dfadler1984/cursor-rules/pull/77) [`c2efdd9`](https://github.com/dfadler1984/cursor-rules/commit/c2efdd932455d85656efaf572f65e9ae6c21dc5b) Thanks [@dfadler1984](https://github.com/dfadler1984)! - ci: fix Changesets auto-merge by exporting GH_TOKEN and using github.token
+
+  This ensures the `enable-pull-request-automerge` action's gh CLI has the
+  required token and reliably enables auto-merge on Changesets release PRs.
+
 ## 0.3.15
 
 ### Patch Changes
