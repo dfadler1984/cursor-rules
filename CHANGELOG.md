@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.15
+
+### Patch Changes
+
+- [#75](https://github.com/dfadler1984/cursor-rules/pull/75) [`10f43cb`](https://github.com/dfadler1984/cursor-rules/commit/10f43cb1f2b23576a535c35aaf7b406fabc33953) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Use a PAT-backed secret for enabling PR auto-merge.
+
+  - Update `.github/workflows/changesets-auto-merge.yml` to use `secrets.AUTO_MERGE_TOKEN` instead of `secrets.GITHUB_TOKEN` to avoid GraphQL permission errors when enabling auto-merge.
+
 ## 0.3.14
 
 ### Patch Changes
