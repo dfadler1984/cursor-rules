@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.12
+
+### Patch Changes
+
+- [#69](https://github.com/dfadler1984/cursor-rules/pull/69) [`1f0646f`](https://github.com/dfadler1984/cursor-rules/commit/1f0646f689dcf64784bac93a624d97ee87c69b20) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add helper script to manually dispatch the Changesets auto-merge workflow.
+
+  - `.cursor/scripts/changesets-automerge-dispatch.sh` — triggers `changesets-auto-merge.yml` with `pr=<number>`
+
 ## 0.3.11
 
 ### Patch Changes
