@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+### Patch Changes
+
+- [#46](https://github.com/dfadler1984/cursor-rules/pull/46) [`0a4436e`](https://github.com/dfadler1984/cursor-rules/commit/0a4436ebefe9dbe1c5ed3a9bf9e8f312cfa3d277) Thanks [@dfadler1984](https://github.com/dfadler1984)! - docs: fold spec-driven into ai-workflow-integration; update references; remove old docs
+
 ## 0.3.0
 
 ### Minor Changes
