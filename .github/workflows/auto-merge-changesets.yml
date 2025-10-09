@@ -39,7 +39,7 @@ jobs:
             if (inputPr) {
               core.setOutput('pr', inputPr);
             } else {
-              const { data: prs } = await github.pulls.list({
+              const { data: prs } = await github.rest.pulls.list({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 state: 'open',
