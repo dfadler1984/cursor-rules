@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.6
+
+### Patch Changes
+
+- [#57](https://github.com/dfadler1984/cursor-rules/pull/57) [`f1e535b`](https://github.com/dfadler1984/cursor-rules/commit/f1e535b507614c3815cba67be7a6b5710004ba0d) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix manual dispatch for enabling auto-merge on Changesets release PRs.
+
+  - Use `github.rest.pulls.list` in `actions/github-script@v7`
+  - Add guard to fail fast when no release PR is found
+
 ## 0.3.5
 
 ### Patch Changes
