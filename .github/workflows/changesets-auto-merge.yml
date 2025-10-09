@@ -1,52 +1,31 @@
-name: Changesets auto-merge
+name: Automerge bot PRs
 
 on:
-  workflow_run:
-    workflows: ["Changesets"]
-    types: [completed]
-  workflow_dispatch:
-    inputs:
-      pr:
-        description: PR number (optional; defaults to latest Changesets PR)
-        required: false
-        type: string
+  pull_request:
+    types: [opened, labeled]
 
+# Grant the workflow necessary permissions
 permissions:
-  contents: read
   pull-requests: write
+  contents: write
 
 jobs:
-  enable:
+  automerge:
+    # Only run this job for specific bot users
+    # For Dependabot, use `github.actor == 'dependabot[bot]'`
+    # For other bots, replace with the correct bot username
+    if: |
+      github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: Resolve target PR
-        id: find
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const input = core.getInput('pr');
-            if (input) { core.setOutput('pr', String(Number(input))); return; }
-            if (context.eventName === 'workflow_run' && context.payload.workflow_run?.conclusion !== 'success') {
-              core.setFailed('Changesets workflow did not succeed');
-              return;
-            }
-            const { data: prs } = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              per_page: 30,
-            });
-            const match = prs.find(pr => (
-              (pr.title?.startsWith('Version Packages') || pr.head?.ref?.startsWith('changeset-release/')) &&
-              pr.user?.login === 'github-actions[bot]'
-            ));
-            if (!match) { core.setFailed('No open Changesets release PR found'); return; }
-            core.setOutput('pr', String(match.number));
+      - name: Approve bot PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr review "$PR_URL" --approve
 
-      - name: Enable auto-merge
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.find.outputs.pr }}
-          merge-method: squash
+      - name: Enable auto-merge for the bot PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge "$PR_URL" --auto --squash
