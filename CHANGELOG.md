@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.7
+
+### Patch Changes
+
+- [#59](https://github.com/dfadler1984/cursor-rules/pull/59) [`28212e1`](https://github.com/dfadler1984/cursor-rules/commit/28212e1557126fb466404e7d440fdd3705ab56cc) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add a reliable workflow to auto‑enable GitHub Auto‑merge for Changesets “Version Packages” PRs.
+
+  - Dual triggers (`pull_request`, `pull_request_target`) with strict scope (title/head + author)
+  - Manual `workflow_dispatch` to backfill enabling auto‑merge on an existing release PR
+  - Permissions: `pull-requests: write`, `contents: read`
+  - Logs targeted PR details for observability (title/head/author)
+
 ## 0.3.6
 
 ### Patch Changes
