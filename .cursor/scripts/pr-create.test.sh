@@ -64,4 +64,17 @@ printf '%s' "$out_multi" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["a","b
 out_docs="$(bash "$SCRIPT" --title "Docs" --owner o --repo r --base main --head feat --docs-only --dry-run)"
 printf '%s' "$out_docs" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["skip-changeset"\]' || { echo "expected labels with skip-changeset via --docs-only"; exit 1; }
 
+# 9) When a full body is provided (starts with '## Summary'), script auto-replaces template (no Context)
+full_body=$'## Summary\nThis PR updates behavior.\n\n## Changes\n- Bullet\n\n## Why\nReason.'
+out_full="$(bash "$SCRIPT" --title "Full Body" --owner o --repo r --base main --head feat --body "$full_body" --dry-run)"
+printf '%s' "$out_full" | grep -q '## Summary' || { echo "expected provided full body to be used"; echo "$out_full"; exit 1; }
+printf '%s' "$out_full" | grep -q '## Context' && { echo "did not expect Context section for full body"; echo "$out_full"; exit 1; }
+# Ensure template boilerplate line not present (indicates replacement, not append)
+printf '%s' "$out_full" | grep -q 'Briefly describe what this PR changes and why.' && { echo "template boilerplate leaked into body"; echo "$out_full"; exit 1; }
+
+# 10) --replace-body forces replacement regardless of content
+out_force="$(bash "$SCRIPT" --title "Force Replace" --owner o --repo r --base main --head feat --replace-body --body "Only this" --dry-run)"
+printf '%s' "$out_force" | grep -q 'Only this' || { echo "expected exact body when --replace-body"; echo "$out_force"; exit 1; }
+printf '%s' "$out_force" | grep -q '## Context' && { echo "did not expect Context when --replace-body"; echo "$out_force"; exit 1; }
+
 exit 0

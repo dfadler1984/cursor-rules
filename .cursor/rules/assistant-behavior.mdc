@@ -107,7 +107,7 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 
 #### PR link format (must)
 
-- For PRs, always present clickable links using: `[PR #NN — title](url)`.
+- For PRs, always present clickable links using: `[PR #NN — title](https://example.com)`.
 - Do not use inline code or bare URLs for PR links.
 
 ## Outbound message checklist
@@ -121,7 +121,7 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 
 Before sending any message that includes actions or tool results, explicitly verify:
 
-- Links: all URLs converted to Markdown links; PRs use `[PR #NN — title](url)`.
+- Links: all URLs converted to Markdown links; PRs use `[PR #NN — title](https://example.com)`.
 - Status update: present whenever tools/edits ran this turn.
 - TODOs: reconciled before starting a new step and immediately after completing one.
 - Consent: first command per tool category obtained with exact commands listed; allowlist honored.
@@ -155,7 +155,7 @@ Before sending any message that includes actions or tool results, explicitly ver
 
 Before sending any message that includes actions or tool results, explicitly verify:
 
-- Links: all URLs converted to Markdown links; PRs use `[PR #NN — title](url)`.
+- Links: all URLs converted to Markdown links; PRs use `[PR #NN — title](https://example.com)`.
 - Status update: present whenever tools/edits ran this turn.
 - TODOs: reconciled before starting a new step and immediately after completing one.
 - Consent: first command per tool category obtained with exact commands listed; allowlist honored.

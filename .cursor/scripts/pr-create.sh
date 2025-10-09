@@ -152,6 +152,16 @@ compose_body_with_template() {
   BODY="$composed"
 }
 
+# Auto-replace heuristic: if BODY appears to be a full PR body (starts with a heading like '## Summary'),
+# prefer exact replacement to avoid duplicating the template. This keeps CLI simple without new flags.
+if [ $REPLACE_BODY -eq 0 ] && [ -n "${BODY:-}" ]; then
+  if printf '%s' "$BODY" | grep -qE '^##[[:space:]]+Summary'; then
+    REPLACE_BODY=1
+    USE_TEMPLATE=0
+    SKIP_CONTEXT=1
+  fi
+fi
+
 if [ $USE_TEMPLATE -eq 1 ]; then
   compose_body_with_template
 fi
