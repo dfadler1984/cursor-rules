@@ -16,7 +16,8 @@ mkdir -p "$ALP_LOG_DIR"
 
 destDir="$ASSISTANT_LOG_DIR"
 
-# Write 11 logs via the logger to trigger threshold behavior
+# Write 11 logs via the logger to trigger threshold behavior, capture last path
+last_path=""
 for i in $(seq -w 01 11); do
   ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   short="alp-smoke-$i"
@@ -27,15 +28,13 @@ What Changed: Smoke test write $i to verify logging pipeline.
 Next Step: Verify archive + summaries
 Links: .cursor/scripts/alp-smoke.sh
 Learning: Smoke $i"
-  printf "%s" "$body" | .cursor/scripts/alp-logger.sh write-with-fallback "$destDir" "$short" >/dev/null 2>&1 || true
+  path_out=$(printf "%s" "$body" | .cursor/scripts/alp-logger.sh write-with-fallback "$destDir" "$short" 2>/dev/null || true)
+  last_path="$path_out"
   # Small delay to ensure monotonic filenames
   sleep 0.05
 done
 
-# Emit a concise summary constrained to .test-artifacts
-top_count=$(find "$ALP_LOG_DIR" -maxdepth 1 -type f -name 'log-*.md' 2>/dev/null | wc -l | tr -d ' ')
-archived_count=$(find "$ALP_LOG_DIR/_archived" -type f -name 'log-*.md' 2>/dev/null | wc -l | tr -d ' ')
-summaries=$(find "$ALP_LOG_DIR" -maxdepth 1 -type f -name 'summary-*.md' 2>/dev/null | wc -l | tr -d ' ')
-echo "SMOKE: top-level logs=$top_count archived=$archived_count summaries=$summaries dir=$ALP_LOG_DIR"
+# Print a markdown path for the workflow to assert
+printf '%s\n' "$last_path"
 
 
