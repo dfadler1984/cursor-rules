@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.14
+
+### Patch Changes
+
+- [#73](https://github.com/dfadler1984/cursor-rules/pull/73) [`51861ea`](https://github.com/dfadler1984/cursor-rules/commit/51861eac456b4bcb63e2fcc8a4734dcd9b89d313) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Remove legacy auto-merge workflow.
+
+  - Delete `.github/workflows/auto-merge-changesets.yml` to avoid duplicate runs and the deprecated `gh pr merge` path. Keep a single source of truth in `changesets-auto-merge.yml`.
+
 ## 0.3.13
 
 ### Patch Changes
