@@ -50,7 +50,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ steps.find.outputs.pr }}
-          merge-method: squash
+          merge-method: merge
 
   enable_on_workflow_run:
     if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
@@ -79,4 +79,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ steps.find.outputs.pr }}
-          merge-method: squash
+          merge-method: merge
