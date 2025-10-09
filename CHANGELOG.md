@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.3
+
+### Patch Changes
+
+- [#51](https://github.com/dfadler1984/cursor-rules/pull/51) [`c4579f5`](https://github.com/dfadler1984/cursor-rules/commit/c4579f5101e3d3bc57bd1a5081400040bf73fbab) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Enable auto-merge for Changesets release PRs via GitHub Actions.
+
+  - Add `.github/workflows/auto-merge-changesets.yml` using `peter-evans/enable-pull-request-automerge@v3`
+  - Auto-enables PR auto-merge for titles starting with "Version Packages" after required checks pass
+  - Requires repo setting "Allow auto-merge" and branch protection checks
+
 ## 0.3.2
 
 ### Patch Changes
