@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.2
+
+### Patch Changes
+
+- [#49](https://github.com/dfadler1984/cursor-rules/pull/49) [`cbdca41`](https://github.com/dfadler1984/cursor-rules/commit/cbdca41f068bda0c13ddc4808d6ba1b94b0e39cf) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Finalize project-erd-front-matter (archive + final summary) and strengthen ERD validation.
+
+  - ERD set to completed; final summary generated; archived folder + index updated
+  - Validator enforces status|owner|lastUpdated for project ERDs; tests added
+  - pr-create auto-replace for full bodies (## Summary) with tests
+  - Assistant behavior rule: fix PR link example formatting
+
 ## 0.3.1
 
 ### Patch Changes
