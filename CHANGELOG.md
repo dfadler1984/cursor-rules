@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- [#44](https://github.com/dfadler1984/cursor-rules/pull/44) [`64b5871`](https://github.com/dfadler1984/cursor-rules/commit/64b5871248b338683457de872be61d5010997304) Thanks [@dfadler1984](https://github.com/dfadler1984)! - ALP: add auto summary→mark→archive hook, portability fix in aggregator, tests for threshold/logger/triggers, and docs updates (mandatory trigger logging + ≥3‑incidents improvement threshold).
+
 ## 0.2.2
 
 ### Patch Changes
