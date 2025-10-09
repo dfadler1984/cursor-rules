@@ -29,12 +29,10 @@ A landing page for all projects, grouped by status.
 
 - [rules-grok-alignment](./rules-grok-alignment/erd.md) — Archived source ERD; improving rules using Grok insights (reference).
 - [shell-scripts](./shell-scripts/erd.md) — Portable shell scripts replacing Node helpers; standardized CLI suite.
-- [spec-driven](./spec-driven/erd.md) — Phased workflow: Specify → Plan → Tasks with deterministic artifacts and rules.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
 - [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
 - [script-test-hardening](./script-test-hardening/erd.md) — Harden script tests to avoid leaking environment variables; add token flags.
 - [pr-create-script](./pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
-- [project-erd-front-matter](./project-erd-front-matter/erd.md) — Minimal ERD front matter standard and examples.
 
 ## Completed
 
@@ -45,6 +43,7 @@ A landing page for all projects, grouped by status.
 - [skip-changeset-opt-in](_archived/2025/skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
 - [rule-maintenance](_archived/2025/rule-maintenance/erd.md) — Cadence and validator to keep rules healthy with actionable reports.
 - [rules-validate-script](_archived/2025/rules-validate-script/erd.md) — Completed.
+- [project-erd-front-matter](_archived/2025/project-erd-front-matter/erd.md) — Minimal ERD front matter standard and examples.
 
 ## Archived
 

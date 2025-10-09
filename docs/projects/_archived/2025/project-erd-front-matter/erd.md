@@ -1,10 +1,15 @@
 ---
-status: active
+status: completed
+completed: 2025-10-09
 owner: rules-maintainers
-lastUpdated: 2025-10-05
+lastUpdated: 2025-10-09
 ---
 
 # Engineering Requirements Document — Project ERD Front Matter (Lite)
+
+Mode: Lite
+
+Final summary: [final-summary.md](./final-summary.md)
 
 ## Purpose
 
@@ -27,7 +32,7 @@ Active:
 ---
 status: active
 owner: rules-maintainers
-lastUpdated: 2025-10-05
+lastUpdated: 2025-10-09
 ---
 ```
 
@@ -36,8 +41,8 @@ Completed:
 ```yaml
 ---
 status: completed
-completed: 2025-10-31
+completed: 2025-10-09
 owner: rules-maintainers
-lastUpdated: 2025-10-31
+lastUpdated: 2025-10-09
 ---
 ```
