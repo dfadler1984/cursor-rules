@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.4
+
+### Patch Changes
+
+- [#53](https://github.com/dfadler1984/cursor-rules/pull/53) [`ac9a8dc`](https://github.com/dfadler1984/cursor-rules/commit/ac9a8dcd620d21137444945ae11ff5995f3fec1d) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Harden Changesets auto-merge enablement for release PRs.
+
+  - Switch workflow to `pull_request_target` to ensure sufficient permissions
+  - Add `workflow_dispatch` to enable auto-merge on an existing release PR (e.g., PR #52)
+  - Keeps scope limited to titles starting with "Version Packages" or `changeset-release/*`
+
 ## 0.3.3
 
 ### Patch Changes
