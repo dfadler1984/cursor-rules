@@ -1,0 +1,79 @@
+name: Auto-enable auto-merge for Changesets PRs
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: PR number (optional; defaults to latest Changesets PR)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  auto_enable_on_pr_events:
+    if: >-
+      startsWith(github.event.pull_request.title, 'Version Packages') ||
+      startsWith(github.event.pull_request.head.ref, 'changeset-release/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log target PR and match conditions
+        run: |
+          echo "Target PR: ${PR_NUMBER}"
+          echo "Title: ${PR_TITLE}"
+          echo "Head: ${PR_HEAD}"
+          echo "Author: ${PR_AUTHOR}"
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+      - name: Ensure author is the Changesets bot
+        if: github.event.pull_request.user.login == 'github-actions[bot]'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: squash
+
+  manual_enable_via_dispatch:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve PR number
+        id: find
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const inputPr = core.getInput('pr');
+            if (inputPr) {
+              const prNum = Number(inputPr);
+              if (!Number.isInteger(prNum) || prNum <= 0) core.setFailed('Invalid pr input');
+              core.setOutput('pr', String(prNum));
+            } else {
+              const { data: prs } = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                per_page: 50,
+              });
+              const match = prs.find(pr => (
+                (pr.title?.startsWith('Version Packages') || pr.head?.ref?.startsWith('changeset-release/')) &&
+                pr.user?.login === 'github-actions[bot]'
+              ));
+              if (!match) core.setFailed('No open Changesets release PR found');
+              else core.setOutput('pr', String(match.number));
+            }
+      - name: Enable auto-merge on resolved PR
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.find.outputs.pr }}
+          merge-method: squash
