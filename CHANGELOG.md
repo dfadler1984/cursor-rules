@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.9
+
+### Patch Changes
+
+- [#63](https://github.com/dfadler1984/cursor-rules/pull/63) [`c4ab8d7`](https://github.com/dfadler1984/cursor-rules/commit/c4ab8d75347317c0e9bc43bba48196fc5d9b5be7) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Simplify Changesets auto-merge to a minimal, reliable workflow.
+
+  - Use `workflow_run` on `Changesets` (types: completed) to enable Auto-merge
+  - Keep optional `workflow_dispatch pr=<number>` for backfill on existing PRs
+  - Single job: resolve target PR (title/head + bot) and enable Auto-merge (squash)
+
 ## 0.3.8
 
 ### Patch Changes

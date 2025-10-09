@@ -1,7 +1,7 @@
 {
   "name": "cursor-rules",
   "private": true,
-  "version": "0.3.8",
+  "version": "0.3.9",
   "scripts": {
     "changeset": "changeset",
     "version:changesets": "npx -y changeset version && node -e \"const fs=require('fs');const v=require('./package.json').version;fs.writeFileSync('VERSION', v+'\\n');require('child_process').execSync('git add VERSION',{stdio:'inherit'})\""
