@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.17
+
+### Patch Changes
+
+- [#79](https://github.com/dfadler1984/cursor-rules/pull/79) [`01440be`](https://github.com/dfadler1984/cursor-rules/commit/01440be23cfca1346a8cb5b25c4fbe88a09b2cc1) Thanks [@dfadler1984](https://github.com/dfadler1984)! - ci: use AUTO_MERGE_TOKEN for enable-pull-request-automerge
+
+  Switch the auto-merge workflow to a PAT-backed secret so the gh CLI
+  and action have permission to enable auto-merge on Changesets PRs.
+
 ## 0.3.16
 
 ### Patch Changes
