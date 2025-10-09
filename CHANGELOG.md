@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.13
+
+### Patch Changes
+
+- [#71](https://github.com/dfadler1984/cursor-rules/pull/71) [`b2d7558`](https://github.com/dfadler1984/cursor-rules/commit/b2d75582ad9a24da6655b5a84865a177297b616f) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Switch Changesets auto-merge to use squash method.
+
+  - Update `.github/workflows/changesets-auto-merge.yml` to `merge-method: squash` in both jobs so Version Packages PRs produce a single clean commit when merged.
+
 ## 0.3.12
 
 ### Patch Changes
