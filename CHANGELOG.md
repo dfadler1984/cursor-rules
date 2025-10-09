@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.11
+
+### Patch Changes
+
+- [#67](https://github.com/dfadler1984/cursor-rules/pull/67) [`2d9e110`](https://github.com/dfadler1984/cursor-rules/commit/2d9e110c4a4cba2c3f9b7d09b1c364f4a6874f38) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Reintroduce Changesets auto-merge MVP using `workflow_run` + optional `workflow_dispatch`.
+
+  - Enable Auto-merge when the `Changesets` workflow completes successfully
+  - Keep manual `workflow_dispatch pr=<number>` for backfill on existing release PRs
+
 ## 0.3.10
 
 ### Patch Changes
