@@ -1,0 +1,201 @@
+---
+description: Assistant Learning — always-on learning protocol with hard gates and safe auto-logging
+alwaysApply: true
+lastReviewed: 2025-10-08
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Rule: Assistant Learning Protocol
+
+## Purpose
+
+Make learning explicit and continuous. Automatically capture concise, redacted learning logs at high-signal moments to improve reflection and evolve rules/scripts/docs based on real interactions.
+
+## Scope
+
+- Entire repository is in scope. Triggers can originate from any file or workflow in this repo.
+
+## Hard Gates (local, automatic)
+
+- On any trigger (see Triggers), the assistant MUST write an Assistant Learning Protocol (ALP) entry automatically without per-event consent.
+- Destination directory is configurable (via `.cursor/config.json` → `logDir`), defaulting to `assistant-logs/` at repo root.
+- Fallback path: `docs/assistant-learning-logs/` is used when the primary destination is not writable, via `alp-logger.sh write-with-fallback`.
+- Safeguards:
+  - Redaction is mandatory (`.cursor/scripts/alp-redaction.sh`).
+  - Keep entries concise (≤ 200 lines); prefer ≤ 6 essential lines in the main body.
+  - Rate-limit identical Event+Owner within a 2-minute window to avoid spam.
+  - Include a concrete, actionable “Next Step”.
+
+Note: This auto-logging is exempt from the per-event consent gate; see `.cursor/rules/assistant-behavior.mdc` for the narrowly scoped exception.
+
+## Triggers (high-signal only)
+
+- Misunderstanding Resolved: assistant and user reconciled an incorrect assumption
+- Improvement Opportunity: assistant identifies a clearly better approach or process
+- Rule Confusion/Performance Issue: guidance/routing caused confusion or inefficiency
+- TDD: Red (owner spec failing) and Green (passing)
+- Rules: Rule Added or Rule Updated with meaningful impact
+- Task Completed with a concrete learning (not just status)
+- Routing Corrected: misrouted intent fixed with a takeaway
+- Safety Near-Miss: unsafe path avoided or guard clarified
+
+### High‑signal triggers (expanded)
+
+- PR lifecycle: PR created/updated; branch created/pushed
+- Tests: TDD Red/Green; focused harness runs that gate behavior
+- Task lifecycle: TODO in_progress/completed/cancelled transitions
+- Rules/docs: rule added/updated; capabilities updated
+- Logging pipeline: archive/summary created; threshold reached
+- Consent/allowlist: session standing consent changed; exception applied
+- Routing corrections and Safety Near‑Miss (as above)
+- If unsure whether a trigger applies, log a minimal entry (prefer action over omission)
+
+Optional (team-dependent):
+
+- Major ERD/spec/plan decision with explicit learning
+- Repeated pattern detected across 3+ occurrences (from code reviews or commits)
+- New library/tool adoption pattern worth standardizing
+- Common error pattern that a rule could prevent
+
+### Improvement threshold
+
+- When the same issue/pattern is observed in ≥ 3 similar incidents (e.g., repeated fixes or feedback), propose a rule change:
+  - Add a new rule if no coverage exists, or
+  - Modify an existing rule with better examples/edge cases.
+  - Capture the proposal and evidence in an ALP entry (use `ImprovementTrigger` + `Signals`).
+
+## Contract
+
+- Use `.cursor/scripts/alp-redaction.sh` to sanitize content
+- Use `.cursor/scripts/alp-logger.sh write-with-fallback <destDir> <short-name> <<'BODY' ... BODY` to write
+- Destination directory: `logDir` from `.cursor/config.json` (default `./assistant-logs/`)
+- Filename: `log-<ISO>-<short>.md` where `<short>` is 3–5 words
+
+### Logger‑only writes (must)
+
+- Do NOT write `assistant-logs/log-*.md` via direct file edits.
+- Always emit logs via the official tooling:
+  - `.cursor/scripts/alp-logger.sh write-with-fallback …`
+  - `.cursor/scripts/alp-template.sh …`
+  - `.cursor/scripts/alp-triggers.sh …`
+- Rationale: hooks (threshold, auto-aggregate) attach to the logger path.
+
+### Threshold behavior (archival policy)
+
+- When unarchived logs at the top level reach the threshold (`ALP_ARCHIVE_THRESHOLD`, default 10), the system:
+
+  - Produces an aggregate summary via `.cursor/scripts/alp-aggregate.sh`.
+  - Marks only the oldest N logs (N = threshold) as Reviewed.
+  - Archives only the Reviewed logs via `.cursor/scripts/alp-archive.sh archive`, leaving the newest log unarchived.
+  - Writes an archive summary to `docs/assistant-learning-logs/summary-archived-<ISO>.md`.
+
+- Environment variables:
+
+  - `ALP_ARCHIVE_THRESHOLD`: integer; default 10
+  - `ALP_AUTO_ARCHIVE`: set to `0` to disable automatic aggregate/archive (default `1`)
+
+- All logs must be written via `.cursor/scripts/alp-logger.sh` (no manual file writes) to ensure hooks run.
+
+### Logging precedence (must)
+
+- ALP logging is essential and required unless otherwise specified; logging overrides non‑content rules that would prevent logging.
+- Content/formatting/conduct rules still apply to the log body.
+
+### Per‑turn pending‑log sweep (recommended)
+
+- Maintain a per‑turn queue of detected triggers; before send, flush the queue by emitting logs via the official tooling.
+- If environment blocks logging, ask once with the exact command; otherwise proceed silently (see assistant‑behavior.mdc send gate).
+
+Minimum body schema (Markdown):
+
+```
+Timestamp: <ISO8601>
+Event: <Misunderstanding Resolved | Improvement Opportunity | Rule Confusion | TDD Red | TDD Green | Rule Added | Rule Updated | Task Completed | Routing Corrected | Safety Near-Miss>
+Owner: <feature or rule>
+What Changed: <one line, concrete>
+Next Step: <one line, actionable>
+Links: <paths or PR/issues>
+Learning: <one line summary of what to do differently next time>
+```
+
+### Extensions (recommended)
+
+- ImprovementTrigger: NewPattern≥3 | RepeatedFeedback | CommonBug | NewLibrary | EmergingPractice | CoverageSignal
+- Signals: Evidence that surfaced the need (file paths, review links, examples)
+- PatternSummary: 1–2 lines describing the recognized pattern or gap
+- Scope: files=n, modules=n (approximate impact size)
+- Decision: AddRule | ModifyRule | DeprecateRule
+- QualityCheck: quick pass/fail against actionable/specific, current refs, consistent enforcement
+- References: upstream docs/links used to inform the change
+- ReviewAfter: YYYY-MM-DD (schedule a short follow-up check)
+
+- Operation: Elapsed, TokenIn, TokenOut, Units; optional SamplesReviewed, CoverageDelta
+- Dependency Impact: RulesAffected, DocsAffected, AffectedTasks, Unblocked, Added/Removed
+
+### Example (with Extensions)
+
+```
+Timestamp: 2025-10-03T14:12:01Z
+Event: Analyze Completed
+Owner: ai-workflow-integration
+What Changed: Verified ERD→Spec coverage; flagged 1 gap and 2 [P] tasks
+Next Step: Fill spec for FR-3 and reprioritize tasks by effort
+Links: docs/projects/ai-workflow-integration/erd.md
+Learning: Coverage map up-front avoids rework later
+
+ImprovementTrigger: EmergingPractice
+Signals:
+- docs/projects/.../discussions.md (3 mentions)
+- PR reviews citing task selection issues
+PatternSummary: Prefer ready + high-priority tasks; mark [P] when coupling is low
+Scope: files=2, modules=1
+Decision: ModifyRule
+QualityCheck: actionable ✅ current refs ✅ consistent ✅
+References: spec-kit/spec-driven.md, ai-dev-tasks/generate-tasks.md
+ReviewAfter: 2025-10-17
+
+Operation:
+- Elapsed: 3m12s
+- TokenIn: N/A
+- TokenOut: N/A
+- Units: 2 rules updated
+- SamplesReviewed: 5
+- CoverageDelta: N/A
+
+Dependency Impact:
+- RulesAffected: .cursor/rules/generate-tasks-from-erd.mdc, .cursor/rules/task-list-process.mdc
+- DocsAffected: docs/projects/ai-workflow-integration/tasks.md
+- AffectedTasks: 2.0, 5.0
+- Unblocked: 3.0
+- Added/Removed: N/A
+```
+
+Notes:
+
+- Keep entries concise. If there is no concrete Learning, skip logging.
+
+## Scripts
+
+- `.cursor/scripts/alp-logger.sh`: Helpers to write learning logs with primary/fallback destinations and optional redaction; builds filenames.
+- `.cursor/scripts/alp-redaction.sh`: Redacts secret-like values and auth headers from log content.
+- `.cursor/scripts/alp-aliases.sh`: Sourceable `alp_log` helper resolving `logDir` (env/config) and writing via the logger.
+- `.cursor/scripts/alp-smoke.sh`: Smoke test that writes a learning log and prints the resulting path.
+- `.cursor/scripts/alp-template.sh`: Formats a concise ALP entry from CLI flags; can tag rule candidates.
+- `.cursor/scripts/alp-triggers.sh`: Emits logs for common triggers (tdd-fix, intent-resolution, rule-fix, task-completion, mcp-recovery).
+- `.cursor/scripts/alp-archive.sh`: Marks logs as reviewed and archives reviewed logs under `_archived/YYYY/MM/`; writes a summary with extracted learnings.
+- `.cursor/scripts/alp-aggregate.sh`: Scans existing logs and produces a summary aggregating `[rule-candidate]` counts.
+
+## Safety & Consent
+
+- Redact tokens/headers and secret-like values before writing
+- Auto-logging of Assistant Learning events is local-only and exempt from per-event consent
+- Prefer the default destination (`assistant-logs/`). If it is not writable, use `docs/assistant-learning-logs/` (fallback) and include a one-line note indicating the fallback reason.
+
+## References
+
+- `alp-logger.sh`, `alp-redaction.sh`
+- `deterministic-outputs.mdc`
+- `spec-driven.mdc`, `create-erd.mdc`, `tdd-first.mdc`

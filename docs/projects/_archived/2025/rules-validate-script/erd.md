@@ -7,7 +7,7 @@ Mode: Lite
 
 ## Introduction/Overview
 
-Add a repository-local validator (.cursor/scripts/rules-validate.sh) that scans .cursor/rules/*.mdc for common correctness and consistency issues. The goal is to automate detection of front matter problems, CSV/boolean format violations, deprecated references, and specific typos or regressions found during recent maintenance.
+Add a repository-local validator (.cursor/scripts/rules-validate.sh) that scans .cursor/rules/\*.mdc for common correctness and consistency issues. The goal is to automate detection of front matter problems, CSV/boolean format violations, deprecated references, and specific typos or regressions found during recent maintenance.
 
 ## Goals/Objectives
 
@@ -27,11 +27,11 @@ Add a repository-local validator (.cursor/scripts/rules-validate.sh) that scans 
 3. Boolean fields:
    - alwaysApply must be lowercase, unquoted true|false
 4. Deprecated references:
-   - Flag assistant-learning-log.mdc references; recommend logging-protocol.mdc
+   - Flag assistant-learning-log.mdc references; recommend assistant-learning.mdc
 5. Common content issues:
    - Flag ev\s+ents (typo across "events")
 6. Rule-specific invariants:
-   - In tdd-first.mdc, globs must include **/*.cjs
+   - In tdd-first.mdc, globs must include \*_/_.cjs
 7. Output formatting:
    - Print path:line: message for each violation
    - Summarize counts and exit with non-zero status if any issues
@@ -47,7 +47,7 @@ Add a repository-local validator (.cursor/scripts/rules-validate.sh) that scans 
 
 - BSD vs GNU regex differences; prefer portable grep -E and awk
 - False positives on backticked examples; restrict scans to front matter where applicable
-- Performance regressions if scanning non-rules paths; constrain to .cursor/rules/*.mdc
+- Performance regressions if scanning non-rules paths; constrain to .cursor/rules/\*.mdc
 
 ## Rollout Note
 

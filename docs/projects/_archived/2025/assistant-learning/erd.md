@@ -10,7 +10,7 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Assistant Learning Protocol (ALP)
 
-[Links: Glossary](../../docs/glossary.md) | `docs/projects/assistant-learning/final-summary.md`
+[Links: Glossary](../../../../glossary.md) | `docs/projects/assistant-learning/final-summary.md`
 
 Mode: Full
 

@@ -15,6 +15,13 @@ healthScore:
 - If you propose actions, present a short plan and end with a direct consent prompt like: "Proceed?"
 - One-shot consent for verification: If truth-checking or minimal verification requires tools but consent is not granted, ask one concise consent question once, then pause (do not retry).
 
+### Assistant Learning auto-logs (consent exception)
+
+- Assistant Learning entries are auto-written without per-event consent. This exception is narrow, local-only, and subject to strict safeguards.
+- Use `.cursor/scripts/alp-logger.sh write-with-fallback` with redaction via `.cursor/scripts/alp-redaction.sh`.
+- Destination is configurable via `.cursor/config.json` (`logDir`), defaulting to `assistant-logs/`; fallback to `docs/assistant-learning-logs/` when needed.
+- Safeguards: concise entries, size limits, and rate-limiting for duplicate events.
+
 ### Command/tool consent gate (mandatory)
 
 - Before the first local shell command in a turn, ask one-shot consent naming the exact command (e.g., `git status --porcelain=v1`). Do not execute without an explicit “Yes/Proceed” in the immediately preceding user turn.
@@ -85,6 +92,12 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 - Behave as a professional engineer focused on delivering business value.
 - Guidance-only softening: When the user asks for guidance only (no edits/commands requested), treat status updates and parallel tool calls as advisory; do not invoke tools without consent.
 
+## Rules-first precedence (must)
+
+- Default to following repository rules over speed or habitual shortcuts.
+- Only relax a rule when you are stuck in a loop or blocked by concrete errors; state the loop/error and the smallest safe deviation.
+- When asked "why" about behavior, explicitly name any habitual shortcut and the specific rule it bypassed, then state the corrective path per rule.
+
 ### Links and URLs (formatting)
 
 - Always share URLs as Markdown links with descriptive anchor text; do not paste bare URLs.
@@ -92,12 +105,70 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 - When a bare URL is unavoidable, wrap it in backticks to avoid auto-linking noise.
 - Apply consistently in messages, consent prompts, and summaries.
 
+#### PR link format (must)
+
+- For PRs, always present clickable links using: `[PR #NN — title](url)`.
+- Do not use inline code or bare URLs for PR links.
+
 ## Outbound message checklist
 
 - Convert all URLs (PRs, issues, docs) to Markdown links with descriptive anchors.
-- For PRs, use the pattern: `[PR #NN — title](url)`.
+- For PRs, use the pattern: `[PR #NN — title] (url)`.
 - In PR announcements, self‑check: "Links converted to Markdown: yes."
 - Prefer concise, meaningful anchors; avoid bare URLs or raw IDs.
+
+## Compliance-first send gate (must)
+
+Before sending any message that includes actions or tool results, explicitly verify:
+
+- Links: all URLs converted to Markdown links; PRs use `[PR #NN — title](url)`.
+- Status update: present whenever tools/edits ran this turn.
+- TODOs: reconciled before starting a new step and immediately after completing one.
+- Consent: first command per tool category obtained with exact commands listed; allowlist honored.
+- TDD gate: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
+- ALP logging: run the "ALP-needed?" check (below) and act accordingly before send.
+- Messaging: bullets and short sections; code citations follow repo rules.
+- If any item fails, revise the message; do not send.
+
+### ALP logging exception (hard gate)
+
+- Logging is consent‑exempt in this repo for local, non‑interactive, redacted writes via approved scripts:
+  - `.cursor/scripts/alp-logger.sh write-with-fallback …`
+  - `.cursor/scripts/alp-template.sh …`
+  - `.cursor/scripts/alp-triggers.sh …`
+- This exception overrides rules that would prevent logging; content/formatting rules still apply.
+- Only ask once if the environment blocks execution (e.g., script missing or FS denied). Otherwise, log silently.
+
+### Per‑turn "ALP‑needed?" check (must)
+
+- Before send, decide: "Did any high‑signal trigger occur this turn?"
+  - If yes and no ALP was emitted: emit ALP now via the logger (exception applies).
+  - If blocked by environment: ask one concise consent question listing the exact command; then proceed.
+  - If no: proceed.
+- Failure condition: If ALP was needed and not emitted (and no explicit blocked reason), block send and revise.
+
+### Habit guard (must)
+
+- At turn start and pre‑send, re-scan attached and optional-but-impactful rules (e.g., Assistant Learning) and apply their gates/checklists before sending.
+
+## Compliance-first send gate (must)
+
+Before sending any message that includes actions or tool results, explicitly verify:
+
+- Links: all URLs converted to Markdown links; PRs use `[PR #NN — title](url)`.
+- Status update: present whenever tools/edits ran this turn.
+- TODOs: reconciled before starting a new step and immediately after completing one.
+- Consent: first command per tool category obtained with exact commands listed; allowlist honored.
+- TDD gate: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
+- Messaging: bullets and short sections; code citations follow repo rules.
+- If any item fails, revise the message; do not send.
+
+### Assistant Learning trigger hook (must)
+
+- If a high‑signal ALP trigger occurs (Misunderstanding Resolved, Improvement Opportunity, Rule Confusion, TDD Red/Green, Rule Added/Updated, Task Completed, Routing Corrected, Safety Near‑Miss):
+  - Immediately write an ALP entry using `.cursor/scripts/alp-logger.sh write-with-fallback` or `.cursor/scripts/alp-triggers.sh`.
+  - Include: Timestamp, Event, Owner, What Changed, Next Step, Links, Learning. Add Operation/Dependency Impact if relevant.
+  - Proceed with the next step only after the log write succeeds (or fallback path is used).
 
 ### Changesets (default behavior)
 
