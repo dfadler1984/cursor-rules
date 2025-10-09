@@ -4,6 +4,7 @@ A landing page for all projects, grouped by status.
 
 ## Active
 
+- [auto-merge-bot-changeset-version](./auto-merge-bot-changeset-version/erd.md) — Auto‑enable GitHub Auto‑merge on Changesets “Version Packages” PRs; dual triggers + manual dispatch.
 - [project-lifecycle-hardening](./project-lifecycle-hardening/erd.md) — Harden lifecycle: centralized templates, rule‑encoded usage, validator, discoverability, archival.
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
 - [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
