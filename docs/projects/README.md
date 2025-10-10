@@ -5,7 +5,6 @@ A landing page for all projects, grouped by status.
 ## Active
 
 - [readme-structure](./readme-structure/erd.md) — Determine root README structure and content destinations; produce outline and content map.
-- [project-lifecycle-hardening](./project-lifecycle-hardening/erd.md) — Harden lifecycle: centralized templates, rule‑encoded usage, validator, discoverability, archival.
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
 - [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
 - [artifact-migration](./artifact-migration/erd.md) — Safe, repeatable artifact moves with reference rewrites and verification.
@@ -62,6 +61,7 @@ A landing page for all projects, grouped by status.
 - [pr-create-script](_archived/2025/pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
 - [changelog-automation](_archived/2025/changelog-automation/final-summary.md) — Automated changelog via Changesets; version sync; bot PR flow.
 - [alp-logging](_archived/2025/alp-logging/final-summary.md) — ALP logging consistency: triggers, status formats, aggregation/archival, redaction.
+- [project-lifecycle-hardening](_archived/2025/project-lifecycle-hardening/final-summary.md) — Completed.
 
 ## Archived
 
