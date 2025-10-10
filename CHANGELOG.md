@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- [#97](https://github.com/dfadler1984/cursor-rules/pull/97) [`c5c1841`](https://github.com/dfadler1984/cursor-rules/commit/c5c184106d6b463e7fc5caf7d09c4c6ae4bd14ed) Thanks [@dfadler1984](https://github.com/dfadler1984)! - feat: align lifecycle validators, tests, docs; add wrappers
+
+  - Validators: add scoped/sweep wrappers; polish messages; BSD awk compatibility
+  - Tests: archive workflow post-move default; generator minimal assertions; scoped validator env/grep fix
+  - Docs: make lifecycle rule canonical; update ERD/tasks; post-move default
+  - Templates: keep final-summary minimal (generator fills title/date/links)
+  - Misc: ALP entries and related project scaffolds added
+
 ## 0.3.24
 
 ### Patch Changes
