@@ -1,9 +1,8 @@
-## Tasks — ERD: Framework Selection
+## Tasks — ERD: Framework Selection (Archived)
 
 ## Relevant Files
 
-- `docs/projects/framework-selection/erd.md`
-- `.cursor/rules/spec-driven.mdc`
+- `docs/projects/_archived/2025/framework-selection/erd.md`
 
 ## Todo
 

@@ -13,10 +13,8 @@ A landing page for all projects, grouped by status.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
 - [completion-metadata](./completion-metadata/erd.md) — ERD completion metadata, lifecycle, gates, and validation rules.
 - [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
-- [deterministic-outputs](./deterministic-outputs/erd.md) — Standardize artifact templates and validation for predictable Specs/Plans/Tasks.
 - [context-efficiency-gauge](./context-efficiency-gauge/erd.md) — Text-only gauge and decision flow for chat context efficiency.
 - [drawing-board](./drawing-board/erd.md) — Sandboxed prototyping space with safe triggers and logged outcomes.
-- [framework-selection](./framework-selection/erd.md) — Select and configure Spec‑Driven framework (Spec Kit vs ai‑dev‑tasks).
 - [git-usage](./git-usage/erd.md) — Safe, consistent Git flows with MCP‑backed ops and pre‑commit/test gates.
 - [intent-router](./intent-router/erd.md) — Central intent router with consent/TDD gates and clear routing.
 - [logging-destinations](./logging-destinations/erd.md) — Logging destination policy, redaction, config override, and safe fallbacks.
@@ -37,6 +35,8 @@ A landing page for all projects, grouped by status.
 
 - [assistant-learning](_archived/2025/assistant-learning/erd.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
 - [project-lifecycle](_archived/2025/project-lifecycle/erd.md) — Completion via status tagging/indexing; optional archive policy and templates.
+- [framework-selection](_archived/2025/framework-selection/erd.md) — Superseded; content integrated into AI Workflow Integration.
+- [deterministic-outputs](_archived/2025/deterministic-outputs/erd.md) — Superseded; content integrated into AI Workflow Integration.
 - [pr-template-automation](_archived/2025/pr-template-automation/erd.md) — Default PR template injection in script + docs.
 - [tdd-first](_archived/2025/tdd-first/erd.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
 - [skip-changeset-opt-in](_archived/2025/skip-changeset-opt-in/erd.md) — Make skip-changeset labeling opt-in via explicit flag.
