@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.20
+
+### Patch Changes
+
+- [#87](https://github.com/dfadler1984/cursor-rules/pull/87) [`168eb41`](https://github.com/dfadler1984/cursor-rules/commit/168eb419df6d80abed9692a121162ed85dc67919) Thanks [@dfadler1984](https://github.com/dfadler1984)! - docs(projects): archive auto-merge-bot-changeset-version via git mv; add final summary
+
 ## 0.3.19
 
 ### Patch Changes
