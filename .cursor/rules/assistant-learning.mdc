@@ -1,7 +1,7 @@
 ---
 description: Assistant Learning — always-on learning protocol with hard gates and safe auto-logging
 alwaysApply: true
-lastReviewed: 2025-10-08
+lastReviewed: 2025-10-10
 healthScore:
   content: green
   usability: green
@@ -36,9 +36,11 @@ Note: This auto-logging is exempt from the per-event consent gate; see `.cursor/
 - Misunderstanding Resolved: assistant and user reconciled an incorrect assumption
 - Improvement Opportunity: assistant identifies a clearly better approach or process
 - Rule Confusion/Performance Issue: guidance/routing caused confusion or inefficiency
-- TDD: Red (owner spec failing) and Green (passing)
-- Rules: Rule Added or Rule Updated with meaningful impact
-- Task Completed with a concrete learning (not just status)
+- TDD Red: owner spec failing
+- TDD Green: owner spec passing
+- Rule Added: a new rule was added with meaningful impact
+- Rule Updated: an existing rule was updated with meaningful impact
+- Task Completed: a task was completed with a concrete learning
 - Routing Corrected: misrouted intent fixed with a takeaway
 - Safety Near-Miss: unsafe path avoided or guard clarified
 
@@ -103,6 +105,26 @@ Optional (team-dependent):
 
 - ALP logging is essential and required unless otherwise specified; logging overrides non‑content rules that would prevent logging.
 - Content/formatting/conduct rules still apply to the log body.
+- Status coupling: When a log is written, status must show `ALP: <Event> — <path>`; when not written, status must show `ALP: none — <reason>` using one of: `no-trigger`, `duplicate-suppressed`, `batched-under:<event>`.
+
+### Event Glossary (canonical capitalization)
+
+- Misunderstanding Resolved
+- Improvement Opportunity
+- Rule Confusion
+- TDD Red
+- TDD Green
+- Rule Added
+- Rule Updated
+- Task Completed
+- Routing Corrected
+- Safety Near-Miss
+
+### Noise Control
+
+- Duplicate guard: suppress identical Event+Owner within 2 minutes.
+- Combine adjacent small triggers when they occur in the same turn.
+- Choose one primary Owner; list additional paths under Links.
 
 ### Per‑turn pending‑log sweep (recommended)
 

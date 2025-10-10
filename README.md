@@ -215,3 +215,23 @@ Smoke test (default + overridden dirs):
 ```bash
 .cursor/scripts/validate-artifacts-smoke.sh
 ```
+
+## Logs — Quickstart (ALP)
+
+- Write a minimal ALP entry (heredoc):
+
+```bash
+.cursor/scripts/alp-logger.sh write-with-fallback assistant-logs 'alp-quickstart' <<'BODY'
+Timestamp: 2025-10-10T00:00:00Z
+Event: Task Completed
+Owner: alp-logging
+What Changed: Created a minimal ALP entry via quickstart.
+Next Step: Review aggregation/archival scripts.
+Links: docs/assistant-learning-logs/README.md
+Learning: Use standard status formats and fallback reasons.
+BODY
+```
+
+- Status line format (examples):
+  - Success: `ALP: Task Completed — assistant-logs/log-<ISO>-alp-quickstart.md`
+  - None: `ALP: none — no-trigger`
