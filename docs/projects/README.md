@@ -4,7 +4,6 @@ A landing page for all projects, grouped by status.
 
 ## Active
 
-- [auto-merge-bot-changeset-version](./auto-merge-bot-changeset-version/erd.md) — Auto‑enable GitHub Auto‑merge on Changesets “Version Packages” PRs; dual triggers + manual dispatch.
 - [project-lifecycle-hardening](./project-lifecycle-hardening/erd.md) — Harden lifecycle: centralized templates, rule‑encoded usage, validator, discoverability, archival.
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
 - [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
@@ -33,7 +32,6 @@ A landing page for all projects, grouped by status.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
 - [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
 - [script-test-hardening](./script-test-hardening/erd.md) — Harden script tests to avoid leaking environment variables; add token flags.
-- [pr-create-script](./pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
 
 ## Completed
 
@@ -45,6 +43,9 @@ A landing page for all projects, grouped by status.
 - [rule-maintenance](_archived/2025/rule-maintenance/erd.md) — Cadence and validator to keep rules healthy with actionable reports.
 - [rules-validate-script](_archived/2025/rules-validate-script/erd.md) — Completed.
 - [project-erd-front-matter](_archived/2025/project-erd-front-matter/erd.md) — Minimal ERD front matter standard and examples.
+- [auto-merge-bot-changeset-version](_archived/2025/auto-merge-bot-changeset-version/erd.md) — Auto‑enable GitHub Auto‑merge on Changesets “Version Packages” PRs; dual triggers + manual dispatch.
+- [pr-create-script](_archived/2025/pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
+- [changelog-automation](_archived/2025/changelog-automation/erd.md) — Automated changelog via Changesets; version sync; bot PR flow.
 
 ## Archived
 
