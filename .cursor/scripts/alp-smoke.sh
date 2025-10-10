@@ -28,13 +28,22 @@ What Changed: Smoke test write $i to verify logging pipeline.
 Next Step: Verify archive + summaries
 Links: .cursor/scripts/alp-smoke.sh
 Learning: Smoke $i"
-  path_out=$(printf "%s" "$body" | .cursor/scripts/alp-logger.sh write-with-fallback "$destDir" "$short" 2>/dev/null || true)
+  path_out=$(printf "%s" "$body" | .cursor/scripts/alp-logger.sh --log-dir "$destDir" write-with-fallback "$destDir" "$short" 2>/dev/null || true)
   last_path="$path_out"
   # Small delay to ensure monotonic filenames
   sleep 0.05
 done
 
-# Print a markdown path for the workflow to assert
+# Trigger threshold behavior (the logger already attempts it, but run explicitly to be sure)
+.cursor/scripts/alp-threshold.sh >/dev/null 2>&1 || true
+
+# Compute counts within the test artifacts dir
+top_count=$(find "$ALP_LOG_DIR" -maxdepth 1 -type f -name 'log-*.md' 2>/dev/null | wc -l | tr -d ' ')
+arch_count=$(find "$ALP_LOG_DIR/_archived" -type f -name 'log-*.md' 2>/dev/null | wc -l | tr -d ' ')
+sum_count=$(find "$ALP_LOG_DIR" -maxdepth 1 -type f -name 'summary-*.md' 2>/dev/null | wc -l | tr -d ' ')
+
+# Emit a summary line that tests can parse, then the last path for debugging
+printf 'top-level logs=%s archived=%s summaries=%s\n' "$top_count" "$arch_count" "$sum_count"
 printf '%s\n' "$last_path"
 
 

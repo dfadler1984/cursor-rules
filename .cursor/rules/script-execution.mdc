@@ -1,0 +1,49 @@
+---
+description: Local script execution policy — prefer direct exec; ask before chmod
+alwaysApply: true
+lastReviewed: 2025-10-10
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+## Purpose
+
+Standardize how local scripts are executed: avoid unnecessary shell wrapping, respect shebangs, and request consent before changing file permissions.
+
+## Policy (must)
+
+- Prefer direct execution of local scripts by absolute path when the file is executable (`test -x` succeeds). Do not wrap with `"/bin/zsh -lc ..."` in this case.
+- Respect the script's shebang. Direct execution preserves the intended interpreter (e.g., `#!/usr/bin/env bash`).
+- If a target script is not executable:
+  - Ask once for consent to run `chmod +x <absolute-path>`.
+  - On approval, make it executable and then invoke it directly (no wrapper).
+  - If consent is denied, pause and ask how to proceed (e.g., invoke via explicit interpreter).
+- Only use a shell wrapper (e.g., `bash <script>`, `zsh -c '...'`) when strictly necessary, such as:
+  - Pipelining, glob expansion, redirection, or compound commands require a shell context.
+  - The script lacks a shebang and is not executable, and explicit interpreter invocation is requested.
+  - In all such cases, name the reason and get consent before wrapping.
+
+## Examples
+
+- Good (direct, executable):
+
+  - Command: `/abs/path/.cursor/scripts/alp-triggers.sh task-completion ...`
+
+- Ask before permission change (non-exec):
+
+  - Prompt: "May I run `chmod +x /abs/path/.cursor/scripts/alp-triggers.sh` and then execute it?"
+
+- Wrapper only when required:
+  - Reason: needs pipeline; Command after consent: `bash -c '"/abs/path/script.sh" | tee out.txt'`
+
+## Relationship to existing rules
+
+- Complements `assistant-behavior.mdc` → Command invocation policy (verbatim execution and shell-neutral default).
+- This rule narrows behavior for local repo scripts to: direct exec when possible, wrapper only by necessity, and explicit consent for `chmod +x`.
+
+## Notes
+
+- Always use absolute paths in commands for clarity and to avoid CWD ambiguity.
+- Keep status updates explicit: announce direct exec vs wrapper and the exact command.

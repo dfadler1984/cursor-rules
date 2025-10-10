@@ -109,3 +109,25 @@ Harden the project lifecycle process for consistency, portability, and light enf
 
 - Should the validator enforce strict mode (fail) vs advisory mode (warn) for PR title semantics?
 - Do we auto‑generate the Active/Completed index or keep it manual for simplicity?
+
+## 11. Findings: Gaps, Errors, and Improvements
+
+### High Impact
+
+- Validator naming/scope confusion: two similarly named scripts with different scopes. Document explicit roles (scoped-per-project vs repository sweep), add cross-links in the rule and script help, and adopt clearer names: `project-lifecycle-validate-scoped.sh` (per-PR changed projects) and `project-lifecycle-validate-sweep.sh` (repository sweep).
+- README link policy mismatch: the sweep validator checks for `./<name>/erd.md` while the Completed policy links to `_archived/<YYYY>/<name>/final-summary.md`. Update the check to accept pre-move (Active → `./<name>/erd.md`) and post-move (Completed → archived `final-summary.md`) states, preferring verification post-archive.
+- Generator ↔ template placeholders: simplify generator substitutions to guaranteed fields only (title/date/links) and keep the template minimal. Avoid ERD-derived content in generator output.
+- Workflow default drift: use post-move as the default. Ensure `project-archive-workflow.sh` prints a Completed index line pointing to `final-summary.md` (done).
+
+### Medium Impact
+
+- Migration vs generator policy: `project-lifecycle-migrate.sh` uses `template-fill.sh` for backfills, which bypasses the “generator required” policy. Either document the exception for migrations or prefer calling `final-summary-generate.sh --pre-move` when possible.
+- Scoped validator strictness: strengthen `validate-project-lifecycle.sh` to verify a proper front-matter block (top fence and fields within) and optionally accept a PR title via a flag/env for advisory semantics; document usage in the rule.
+- Archive workflow verification: after the move, optionally verify that `docs/projects/README.md` includes a Completed link to `_archived/<YYYY>/<name>/final-summary.md`.
+- Unused template: `archive-redirect.template.md` exists but isn’t documented. Either document its usage (e.g., redirect stub when pre-move summary is used) or remove it.
+- Tests depth: add behavior tests for `validate-project-lifecycle.sh` (missing Impact section, carryovers check, retrospective as section).
+
+### Low Impact
+
+- Front-matter regex robustness: allow leading whitespace in `template:`/`version:` matches; optionally check `last-updated` format.
+- Diagnostics polish: include file paths and suggested fixes in error messages for faster triage.

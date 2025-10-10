@@ -1,28 +1,39 @@
 ---
 template: project-lifecycle/final-summary
 version: 1.0.0
-last-updated: 2025-10-04
+last-updated: 2025-10-10
 ---
 
 # Final Summary — <Project Name>
 
-## Outcome
+## Summary
 
-<What shipped and why it matters>
+<One-paragraph summary of the project, scope, and outcome.>
 
-## Impact (Metrics)
+## Impact
 
-- Baseline → After: <metric>
-- Quality/Reliability: <signal>
-- Developer Experience: <signal>
+- Baseline → Outcome: <metric name> — <before> → <after>
+- Notes: <brief context for metrics and effects>
 
 ## Retrospective
 
-- What worked
-- What to improve
-- Follow-ups (owners, dates)
+### What worked
+
+- <list>
+
+### What to improve
+
+- <list>
+
+### Follow-ups
+
+- <actionable next steps, if any>
 
 ## Links
 
 - ERD: `docs/projects/<project>/erd.md`
 - Tasks: `docs/projects/<project>/tasks.md`
+
+## Credits
+
+- Owner: <owner or team>

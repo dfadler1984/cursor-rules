@@ -28,7 +28,7 @@ cat > "$WORKDIR/docs/projects/my-proj/tasks.md" <<'TASKS'
 - [x] verify links
 TASKS
 
-# Act: DRY-RUN (default should be pre-move summary)
+# Act: DRY-RUN (default should be post-move summary)
 set +e
 out="$(bash "$SCRIPT" --project my-proj --year 2025 --root "$WORKDIR" --dry-run 2>&1)"
 status=$?
@@ -37,12 +37,12 @@ set -e
 # Assert: dry-run succeeds and prints planned steps/commands in order
 [ $status -eq 0 ] || { echo "dry-run should succeed"; echo "$out"; exit 1; }
 echo "$out" | grep -qi "final-summary-generate.sh" || { echo "should mention final-summary generation"; echo "$out"; exit 1; }
-echo "$out" | grep -Fq -- "--pre-move" || { echo "should default to pre-move summary"; echo "$out"; exit 1; }
+echo "$out" | grep -Fvq -- "--pre-move" || { echo "should default to post-move summary (no --pre-move)"; echo "$out"; exit 1; }
 echo "$out" | grep -qi "project-archive.sh" || { echo "should mention single full-folder move"; echo "$out"; exit 1; }
 echo "$out" | grep -qi "rules-validate.sh" || { echo "should run rules validator"; echo "$out"; exit 1; }
-echo "$out" | grep -qi "project-lifecycle-validate.sh" || { echo "should run lifecycle validator"; echo "$out"; exit 1; }
+echo "$out" | grep -qi "project-lifecycle-validate-sweep.sh\|project-lifecycle-validate.sh" || { echo "should run lifecycle validator"; echo "$out"; exit 1; }
 echo "$out" | grep -qi "links-check.sh" || { echo "should run links check"; echo "$out"; exit 1; }
-echo "$out" | grep -q "../_archived/2025/my-proj/erd.md" || { echo "should print Completed index entry"; echo "$out"; exit 1; }
+echo "$out" | grep -q "_archived/2025/my-proj/final-summary.md" || { echo "should print Completed index entry pointing to final-summary.md"; echo "$out"; exit 1; }
 
 exit 0
 

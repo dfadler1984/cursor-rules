@@ -3,14 +3,17 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # alp-threshold.sh — Summarize + archive when unarchived logs reach a threshold
-# Usage: alp-threshold.sh [--threshold N]
+#
+# Example:
+#   .cursor/scripts/alp-threshold.sh --log-dir .test-artifacts/alp --threshold 5
+# Usage: alp-threshold.sh [--threshold N] [--log-dir DIR]
 # Env:
 #   ALP_ARCHIVE_THRESHOLD — default 10
 #   ALP_AUTO_ARCHIVE     — set to 0 to disable automatic aggregate/archive (default 1)
 
 usage() {
   cat <<'USAGE'
-Usage: alp-threshold.sh [--threshold N]
+Usage: alp-threshold.sh [--threshold N] [--log-dir DIR]
 
 Checks the current logDir for unarchived logs. If count >= threshold,
 runs the aggregator to produce a summary and archives reviewed logs.
@@ -26,11 +29,14 @@ cd "$ROOT_DIR"
 
 threshold="${ALP_ARCHIVE_THRESHOLD:-10}"
 auto="${ALP_AUTO_ARCHIVE:-1}"
+LOG_DIR_CLI=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --threshold)
       threshold="${2:-}"; shift 2 || true ;;
+    --log-dir)
+      LOG_DIR_CLI="${2:-}"; shift 2 || true ;;
     -h|--help)
       usage; exit 0 ;;
     *)
@@ -50,7 +56,11 @@ resolve_log_dir() {
   printf "%s" "assistant-logs"
 }
 
-LOG_DIR="$(resolve_log_dir)"
+if [[ -n "$LOG_DIR_CLI" ]]; then
+  LOG_DIR="$LOG_DIR_CLI"
+else
+  LOG_DIR="$(resolve_log_dir)"
+fi
 if [[ "$LOG_DIR" != /* ]]; then LOG_DIR="$ROOT_DIR/$LOG_DIR"; fi
 
 mkdir -p "$LOG_DIR"

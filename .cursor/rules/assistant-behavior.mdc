@@ -78,6 +78,12 @@ healthScore:
   - Checks status: `.cursor/scripts/checks-status.sh --pr <number>` (read-only; token required unless `--dry-run`)
   - Script tests: `bash .cursor/scripts/tests/run.sh -k <keyword> -v` (local only)
   - Rules validation/listing: `.cursor/scripts/rules-validate.sh …`, `.cursor/scripts/rules-list.sh …` (local only)
+  - Project lifecycle (read-only/dry-run recommended first):
+    - `.cursor/scripts/project-archive-workflow.sh --project <slug> --year <YYYY> --dry-run`
+    - `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> [--pre-move]`
+    - `.cursor/scripts/project-lifecycle-validate-scoped.sh <slug>`
+    - `.cursor/scripts/project-lifecycle-validate.sh`
+    - `.cursor/scripts/links-check.sh --path docs/projects/_archived/<YYYY>/<slug>`
 - Category switches: standing consent covers the listed commands regardless of category switches; unrelated tools still require consent.
 
 ### Command invocation policy
@@ -244,6 +250,7 @@ Before sending any message that includes actions or tool results, explicitly ver
 - Tooling-first: consult `favor-tooling.mdc` and the target rule’s Contract; use official scripts (e.g., `alp-logger.sh`).
 - Scope & consent: confirm project vs repo-wide target; get explicit consent for global edits.
 - Verification before assertion: run the relevant validator/CLI and paste exact output before claiming status.
+- Project lifecycle tasks: When marking a project task complete, update `docs/projects/<slug>/tasks.md` to check the item (or add it under `## Carryovers`) before reporting completion; then run `.cursor/scripts/project-lifecycle-validate-scoped.sh <slug>`.
 
 ## Habit Bias Controls (general)
 

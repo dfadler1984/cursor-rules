@@ -7,7 +7,10 @@ IFS=$'\n\t'
 # Subcommands:
 #   mark <file> [--date YYYY-MM-DD]
 #     - Idempotently appends a Reviewed: <date> line to the log file
-#   archive [--source <dir>] [--dest <dir>] [--dry-run]
+#   archive [--source <dir>] [--dest <dir>] [--dry-run] [--log-dir <dir>]
+#
+# Example:
+#   .cursor/scripts/alp-archive.sh archive --log-dir .test-artifacts/alp --dry-run
 #     - Moves files containing a line starting with "Reviewed:" to an archive folder
 #       under <dest> (defaults to <source>/_archived/YYYY/MM/)
 #
@@ -43,7 +46,7 @@ usage() {
   cat <<'USAGE'
 Usage:
   .cursor/scripts/alp-archive.sh mark <file> [--date YYYY-MM-DD]
-  .cursor/scripts/alp-archive.sh archive [--source <dir>] [--dest <dir>] [--dry-run]
+  .cursor/scripts/alp-archive.sh archive [--source <dir>] [--dest <dir>] [--dry-run] [--log-dir <dir>]
 
 Marks logs as reviewed and archives reviewed logs to <source>/_archived/YYYY/MM/.
 USAGE
@@ -80,6 +83,7 @@ cmd_mark() {
 cmd_archive() {
   # Parse flags
   local dry_run=0
+  local log_dir_cli=""
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --source)
@@ -87,13 +91,18 @@ cmd_archive() {
       --dest)
         DEST_DIR="${2:-}"; shift 2 || true ;;
       --dry-run)
-        dry_run=1; shift ;; 
+        dry_run=1; shift ;;
+      --log-dir)
+        log_dir_cli="${2:-}"; shift 2 || true ;;
       *)
         echo "Unknown arg: $1" >&2; exit 2 ;;
     esac
   done
 
   local source_dir dest_dir
+  if [[ -n "$log_dir_cli" ]]; then
+    SOURCE_DIR="$log_dir_cli"
+  fi
   source_dir="$(resolve_source_dir)"
   if [[ -n "${DEST_DIR:-}" ]]; then
     dest_dir="$DEST_DIR"

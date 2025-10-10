@@ -72,6 +72,11 @@ This lightweight router keeps context minimal by attaching specific rules only w
       - Path: docs/projects/<slug>
       - Or bare slug: <slug> (ask a one-line confirmation for path if ambiguous)
   - Attach: `project-lifecycle.mdc`
+  - On attach, propose the appropriate helper:
+    - End-to-end archival: suggest `.cursor/scripts/project-archive-workflow.sh --project <slug> --year <YYYY> --dry-run` first, then the non-dry-run on approval
+    - Generate final summary: suggest `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> [--pre-move]`
+    - Validate changed project(s): suggest `.cursor/scripts/project-lifecycle-validate-scoped.sh <slug>`
+    - Backfill legacy artifacts: suggest `.cursor/scripts/project-lifecycle-migrate.sh --project <slug>`
 - PR triggers: pr|pull request|open pr|create pr → prefer repo script `.cursor/scripts/pr-create.sh` (curl/GitHub API) instead of GH CLI
 - ERD creation
 

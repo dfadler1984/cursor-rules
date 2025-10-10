@@ -96,40 +96,13 @@ else
   erd_source="$ARCHIVED_DIR/erd.md"
 fi
 
-# Build Outcome text from ERD (prefer Introduction/Overview, else Goals bullets), fallback if missing
-outcome_text="Shipped improvements per ERD objectives; see Links for details."
-if [ -f "$erd_source" ]; then
-  overview_block=$(awk '/^## +Introduction\/Overview/{flag=1;next} /^## +/{flag=0} flag{print}' "$erd_source" | sed '/^\s*$/d' || true)
-  if [ -n "${overview_block:-}" ]; then
-    outcome_text=$(printf '%s' "$overview_block" | paste -sd ' ' -)
-  else
-    goals_block=$(awk '/^## +Goals\//{flag=1;next} /^## +/{flag=0} flag && /^- /{print}' "$erd_source" || true)
-    if [ -n "${goals_block:-}" ]; then
-      # Convert bullet list to a compact sentence
-      outcome_text="Delivered: $(printf '%s' "$goals_block" | sed 's/^-/•/g' | paste -sd ' ' -)"
-    fi
-  fi
-fi
-
-# Impact defaults (lightweight, generic)
-impact_baseline="rules validator exits 0 on current rules set"
-impact_quality="CI gating via non-zero exit on violations"
-impact_dx="Automated checks and clearer diagnostics for maintainers"
-
-# Generate content by transforming the template and filling sections
+# Generate content by transforming the template and filling minimal, guaranteed substitutions
 content=$(cat "$TEMPLATE" \
   | sed "s#<project>#$PROJECT#g" \
   | sed "s/^# Final Summary — .*/# Final Summary — $display_name/" \
   | sed "s/^last-updated: .*/last-updated: $DATE/" \
   | sed "s#ERD: .*#ERD: \`$erd_link\`#" \
-  | sed "s#Tasks: .*#Tasks: \`$tasks_link\`#" \
-  | sed "s#<What shipped and why it matters>#$(printf '%s' "$outcome_text" | sed 's/[&/]/\\&/g')#" \
-  | sed "s#- Baseline → After: <metric>#- Baseline → After: $impact_baseline#" \
-  | sed "s#- Quality/Reliability: <signal>#- Quality/Reliability: $impact_quality#" \
-  | sed "s#- Developer Experience: <signal>#- Developer Experience: $impact_dx#" \
-  | sed 's|^- What worked$|- What worked: POSIX-only approach; focused checks; CI gating|' \
-  | sed 's|^- What to improve$|- What to improve: add timing metric; reduce link-check noise; harden lifecycle validator|' \
-  | sed 's|^- Follow-ups (owners, dates)$|- Follow-ups (owners, dates): add Completed index; fix lifecycle validator; add timing flag|')
+  | sed "s#Tasks: .*#Tasks: \`$tasks_link\`#")
 
 printf "%s\n" "$content" > "$FSUM"
 echo "Final summary generated at $FSUM"

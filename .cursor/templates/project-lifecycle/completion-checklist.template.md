@@ -1,15 +1,15 @@
 ---
 template: project-lifecycle/completion-checklist
 version: 1.0.0
-last-updated: 2025-10-04
+last-updated: 2025-10-10
 ---
 
 # Completion Checklist — <Project Name>
 
-- [ ] ERD front matter: `status: completed`, `completed: YYYY-MM-DD`, `owner: ...`
-- [ ] All tasks checked OR `Carryovers` section lists remaining items
-- [ ] Final summary written and linked from ERD
-- [ ] Retrospective included (section or standalone file)
-- [ ] Tests/lint/types passing; coverage > 0% for changed modules
-- [ ] ADRs/Docs updated as needed
-- [ ] Projects index updated (moved to Completed)
+- [ ] ERD updated and linked
+- [ ] Tasks list up to date (carryovers captured if any)
+- [ ] Final Summary created from template with Impact metrics
+- [ ] Retrospective completed (or section in Final Summary)
+- [ ] README projects index updated (Active/Completed)
+- [ ] Archival path considered (if stable): `docs/projects/_archived/<YYYY>/<project>/`
+- [ ] Closing PR title uses `feat:` or scoped equivalent for changelog visibility
