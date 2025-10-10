@@ -1,7 +1,7 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-08
+lastReviewed: 2025-10-10
 healthScore:
   content: green # Accurate behavioral guidance, clear examples
   usability: green # Scannable format, practical checklists
@@ -21,6 +21,7 @@ healthScore:
 - Use `.cursor/scripts/alp-logger.sh write-with-fallback` with redaction via `.cursor/scripts/alp-redaction.sh`.
 - Destination is configurable via `.cursor/config.json` (`logDir`), defaulting to `assistant-logs/`; fallback to `docs/assistant-learning-logs/` when needed.
 - Safeguards: concise entries, size limits, and rate-limiting for duplicate events.
+- Precedence: This exception overrides the command/tool consent gate for ALP log writes only; it does not extend to any other tools or effects.
 
 ### Command/tool consent gate (mandatory)
 
@@ -28,6 +29,20 @@ healthScore:
 - When switching tool categories in the same turn (e.g., validator → git → web), request fresh one-shot consent for the first command in the new category.
 - In status updates, announce the tool-category switch and the exact command you’re about to run.
 - Presentation format (must): When asking consent for one or more shell commands, present them as a Markdown bulleted list with one command per bullet. Do not chain multiple commands with `&&` in consent prompts; list them separately and in execution order.
+
+#### Tool categories and switches
+
+- Categories (for consent and status clarity):
+  - Local read/edit (editor/file tools): reading files, applying edits
+  - Git (local repository): status, log, diff, branch, commit, push
+  - Shell/CLI (local scripts): `.cursor/scripts/*.sh`, `bash <script>`
+  - Lint/Test/Build: linters, type-checkers, test runners, builds
+  - Search/Analysis: semantic code search and grep
+  - Web/Network: web research, API calls
+- A category switch occurs when the next action uses a different category than the last executed tool/command in the same turn.
+- Status examples:
+  - Pre-tool: `Switch: git — pending consent for "git status --porcelain=v1"; ALP check pending`
+  - Post-tool: `ALP: none — no-trigger` (when no log is needed)
 
 #### Exception — obvious, safe, read-only commands
 
@@ -138,6 +153,12 @@ Before sending any message that includes actions or tool results, explicitly ver
   - `.cursor/scripts/alp-triggers.sh …`
 - This exception overrides rules that would prevent logging; content/formatting rules still apply.
 - Only ask once if the environment blocks execution (e.g., script missing or FS denied). Otherwise, log silently.
+
+#### Status coupling for ALP (must)
+
+- Status format: `ALP: <Event> — <path>` when a log is written; `ALP: none — <reason>` when not. Canonical reasons: `no-trigger`, `duplicate-suppressed`, `batched-under:<event>`.
+- Pre-tool: announce tool-category switch and note the pending ALP check. Post-tool: include the ALP outcome and created path when applicable.
+- Failure handling: If an ALP logger invocation fails, surface the exact script call and exit code in status, attempt the fallback destination once, and include the fallback reason inside the log body when fallback is used.
 
 ### Per‑turn "ALP‑needed?" check (must)
 

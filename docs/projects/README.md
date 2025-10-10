@@ -46,6 +46,7 @@ A landing page for all projects, grouped by status.
 - [auto-merge-bot-changeset-version](_archived/2025/auto-merge-bot-changeset-version/erd.md) — Auto‑enable GitHub Auto‑merge on Changesets “Version Packages” PRs; dual triggers + manual dispatch.
 - [pr-create-script](_archived/2025/pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
 - [changelog-automation](_archived/2025/changelog-automation/erd.md) — Automated changelog via Changesets; version sync; bot PR flow.
+- [alp-logging](_archived/2025/alp-logging/erd.md) — ALP logging consistency: triggers, status formats, aggregation/archival, redaction.
 
 ## Archived
 
