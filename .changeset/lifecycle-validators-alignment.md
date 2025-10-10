@@ -9,5 +9,3 @@ feat: align lifecycle validators, tests, docs; add wrappers
 - Docs: make lifecycle rule canonical; update ERD/tasks; post-move default
 - Templates: keep final-summary minimal (generator fills title/date/links)
 - Misc: ALP entries and related project scaffolds added
-
-

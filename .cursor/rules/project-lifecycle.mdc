@@ -1,3 +1,13 @@
+---
+description: Project lifecycle — completion policy and validation (canonical; ERDs link here)
+alwaysApply: false
+lastReviewed: 2025-10-10
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
 # Project Lifecycle — Templates, Usage, Validator, and Completion Policy
 
 ## Purpose
@@ -74,19 +84,7 @@ See also: repository sweep validator — `.cursor/scripts/project-lifecycle-vali
 - Keep friction low; the validator should point directly to missing artifacts.
 - Migration policy: Prefer `.cursor/scripts/project-lifecycle-migrate.sh` to backfill lifecycle artifacts (adds required front matter/sections and retrospective when missing). For creating a new final summary, prefer the generator (`final-summary-generate.sh`, use `--pre-move` when needed). `template-fill.sh` is acceptable only as a last-resort fallback when structure is missing and must be followed by adding required front matter/sections.
 
----
-
-description: Project lifecycle — completion policy and validation (canonical; ERDs link here)
-alwaysApply: false
-lastReviewed: 2025-10-10
-healthScore:
-content: green
-usability: green
-maintenance: green
-
----
-
-# Rule: Project Lifecycle — Completion Policy
+## Rule: Project Lifecycle — Completion Policy
 
 ## Purpose
 
