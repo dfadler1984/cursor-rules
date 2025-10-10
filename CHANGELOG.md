@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.23
+
+### Patch Changes
+
+- [#93](https://github.com/dfadler1984/cursor-rules/pull/93) [`89fb625`](https://github.com/dfadler1984/cursor-rules/commit/89fb625b0489fef05d658eccca329e0604e8d1c0) Thanks [@dfadler1984](https://github.com/dfadler1984)! - docs(ai-workflow): consolidate framework-selection and deterministic-outputs into ai-workflow-integration; archive originals
+
 ## 0.3.22
 
 ### Patch Changes
