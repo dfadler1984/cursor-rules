@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.24
+
+### Patch Changes
+
+- [#95](https://github.com/dfadler1984/cursor-rules/pull/95) [`a9ed433`](https://github.com/dfadler1984/cursor-rules/commit/a9ed433dbc0055bb0d079cd8d67f5a51970702bd) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Archive ALP Logging project via full-folder move and add a generated final summary. Update ALP behavior/learning rules and docs with status formats, event glossary, noise control, fallback handling, aggregation/archival steps, and a Logs Quickstart.
+
 ## 0.3.23
 
 ### Patch Changes
