@@ -188,3 +188,4 @@ Smoke test (default + overridden dirs):
 ```bash
 .cursor/scripts/validate-artifacts-smoke.sh
 ```
+
