@@ -67,6 +67,67 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 - Tasks may include optional `dependencies`, `priority`, and `[P]` markers.
 - Self‑improvement logging retains current behavior; optional Operation/Dependency Impact can be enabled.
 
+7. DEPRECATED - Framework Selection & Scaffolding (Integrated)
+
+   - Configuration: allow choosing Spec‑Driven planning framework via repo config.
+     - Example (in `.cursor/config.json`):
+       ```json
+       {
+         "specDriven": {
+           "framework": "spec-kit|ai-dev-tasks",
+           "projectBaseDir": "docs"
+         }
+       }
+       ```
+   - Scaffolding command (docs-level): `/start-project` prompts for project name and framework; supports a temporary `--framework` flag.
+   - Monorepo support: nearest `.cursor/config.json` wins for subprojects (no name auto-suggest).
+   - Guidance only; no external installs or network required.
+
+8. Deterministic Artifact Templates & Validation (Integrated)
+
+   - Canonical minimal templates for Spec, Plan, and Tasks with sibling cross-links and a machine-checkable Acceptance Bundle.
+   - Required headings (minimum):
+
+     ```markdown
+     # <feature> Spec
+
+     ## Overview
+
+     ## Goals
+
+     ## Functional Requirements
+
+     ## Acceptance Criteria
+
+     ## Risks/Edge Cases
+
+     [Links: Plan | Tasks]
+     ```
+
+     ```markdown
+     # <feature> Plan
+
+     ## Steps
+
+     ## Acceptance Bundle
+
+     ## Risks
+
+     [Links: Spec | Tasks]
+     ```
+
+     ```markdown
+     # Tasks — <feature>
+
+     ## Relevant Files
+
+     ## Todo
+     ```
+
+   - Acceptance Bundle keys (Plan): `targets`, `exactChange`, `successCriteria`, optional `constraints`, `runInstructions`; include `ownerSpecs` when JS/TS edits are planned.
+   - Default locations (configurable): Specs under `docs/specs/`, Plans under `docs/plans/`, Tasks under `tasks/` (see Project Organization for structure presets and overrides).
+   - Validation (optional, local-only): check required headings, sibling links, kebab-case `<feature>` consistency, and presence of `ownerSpecs` for JS/TS.
+
 ## 5. Non-Functional Requirements
 
 - Performance: Rule resolution remains fast; no external network calls required.

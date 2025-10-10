@@ -129,12 +129,7 @@ Example links line (feature: `sample-feature`):
 
 ## Relevant Files
 
-- `docs/specs/<feature>-spec.md`
-- `docs/plans/<feature>-plan.md`
-
 ## Todo
-
-- [ ] First actionable sub-task (only one active)
 ```
 
 Single active sub-task progression example:
@@ -221,7 +216,7 @@ Example:
 - Create a sample trio (`<feature>=sample-feature`) and verify:
   - Required headings exist and cross-links resolve
   - Filenames align on `<feature>` and kebab-case
-  - Acceptance bundle includes required keys and runnable commands
+  - Acceptance bundle includes required keys; JS/TS tasks include `ownerSpecs`
 - If a validator exists, run it to confirm it flags missing sections or link/name mismatches
 
 ## 8. Open Questions
