@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.22
+
+### Patch Changes
+
+- [#91](https://github.com/dfadler1984/cursor-rules/pull/91) [`17804a7`](https://github.com/dfadler1984/cursor-rules/commit/17804a73314f20f7b9a06775afce4e6c2a952438) Thanks [@dfadler1984](https://github.com/dfadler1984)! - docs(projects): archive changelog-automation; update Completed index
+
 ## 0.3.21
 
 ### Patch Changes
