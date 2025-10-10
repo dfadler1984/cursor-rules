@@ -22,9 +22,9 @@
 
 ## Post merge
 
-- [ ] 6.0 Validate on a live Version Packages PR (auto‑merge banner; merges after checks)
-- [ ] 6.1 Backfill: run manual dispatch with `pr=<current release PR>`
-- [ ] 6.2 Confirm merge occurs automatically after required checks pass
-- [ ] 7.0 Document runbook and link from README/rules
-- [ ] 8.0 Delete obsolete auto‑merge workflows after validation
-- [ ] 10.0 Update ERD section(s) with final workflow path/name and screenshots/links
+- [x] 6.0 Validate on a live Version Packages PR (auto‑merge banner; merges after checks)
+- [x] 6.1 Backfill: run manual dispatch with `pr=<current release PR>`
+- [x] 6.2 Confirm merge occurs automatically after required checks pass
+- [x] 7.0 Document runbook and link from README/rules
+- [x] 8.0 Delete obsolete auto‑merge workflows after validation
+- [x] 10.0 Update ERD section(s) with final workflow path/name and screenshots/links
