@@ -19,6 +19,7 @@ jobs:
   manual_enable_via_dispatch:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    environment: AUTO_MERGE_TOKEN
     steps:
       - name: Resolve PR number
         id: find
@@ -57,6 +58,7 @@ jobs:
   enable_on_workflow_run:
     if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    environment: AUTO_MERGE_TOKEN
     steps:
       - name: Find open Changesets PR
         id: find
