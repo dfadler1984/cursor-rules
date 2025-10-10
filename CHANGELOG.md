@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.21
+
+### Patch Changes
+
+- [#89](https://github.com/dfadler1984/cursor-rules/pull/89) [`3859c6a`](https://github.com/dfadler1984/cursor-rules/commit/3859c6a84ae4bbcfbe0ae28f2f424a2149ad21f9) Thanks [@dfadler1984](https://github.com/dfadler1984)! - docs: add ALP logging project (erd, tasks, discussion); update pr-create usage guidance; dedupe PR template; archive pr-create-script project
+
 ## 0.3.20
 
 ### Patch Changes
