@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.18
+
+### Patch Changes
+
+- [#84](https://github.com/dfadler1984/cursor-rules/pull/84) [`12bb8fd`](https://github.com/dfadler1984/cursor-rules/commit/12bb8fd83a4af34b0c9a3c65e1546f7a227ffdcd) Thanks [@dfadler1984](https://github.com/dfadler1984)! - ci: attach jobs to AUTO_MERGE_TOKEN environment so env-scoped PAT is available
+
+- [#82](https://github.com/dfadler1984/cursor-rules/pull/82) [`150b168`](https://github.com/dfadler1984/cursor-rules/commit/150b1688d92f93a8c9a5b3ea62b1330e87918456) Thanks [@dfadler1984](https://github.com/dfadler1984)! - ci: add test changeset to trigger Changesets release PR and validate auto-merge
+
 ## 0.3.17
 
 ### Patch Changes
