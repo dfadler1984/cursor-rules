@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.19
+
+### Patch Changes
+
+- [#85](https://github.com/dfadler1984/cursor-rules/pull/85) [`c478ab0`](https://github.com/dfadler1984/cursor-rules/commit/c478ab036e955150a90ad3a48b064d4a3f5bc5e3) Thanks [@dfadler1984](https://github.com/dfadler1984)! - ci: changeset to re-trigger release flow and validate auto-merge permissions
+
 ## 0.3.18
 
 ### Patch Changes
