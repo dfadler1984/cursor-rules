@@ -2,6 +2,10 @@
 set -euo pipefail
 
 # alp-logger.sh — learning logs helpers
+#
+# Examples (with explicit log dir):
+#   .cursor/scripts/alp-logger.sh --log-dir .test-artifacts/alp write-with-fallback assistant-logs "smoke" <<<'body'
+#   .cursor/scripts/alp-logger.sh --log-dir ./assistant-logs build-filename example
 # Commands:
 #   build-filename <short> [--at <ISO>]
 #   write-local <path> <content>
@@ -9,9 +13,11 @@ set -euo pipefail
 #   write-with-fallback <primaryPath> <content> <fallbackDir>
 #   write-with-fallback-file <primaryPath> <tmpFile> <fallbackDir>
 
+CLI_LOG_DIR=""
+
 usage() {
   cat >&2 <<USAGE
-Usage: $0 <command> [args]
+Usage: $0 [--log-dir <dir>] <command> [args]
 
 Commands:
   build-filename <short> [--at <ISO>]
@@ -76,7 +82,7 @@ write_with_fallback_cmd() {
   # Back-compat form: write-with-fallback <destDir> <short>, body from stdin
   if [[ $# -eq 2 ]]; then
     local destDir="$1"; local short="$2"
-    local primaryDir="${ALP_LOG_DIR-}"
+    local primaryDir="${CLI_LOG_DIR:-${ALP_LOG_DIR-}}"
     if [[ -z "${primaryDir:-}" ]]; then
       primaryDir="$destDir"
     fi
@@ -101,7 +107,7 @@ write_with_fallback_cmd() {
 
   # Modern form: write-with-fallback <primaryPath> <content> <fallbackDir>
   local primaryPath="$1"; local content="$2"; local fallbackDir="${3-}"
-  local primaryDir="${ALP_LOG_DIR-}"
+  local primaryDir="${CLI_LOG_DIR:-${ALP_LOG_DIR-}}"
   if [[ -z "${primaryDir:-}" ]]; then
     primaryDir="$(dirname "$primaryPath")"
   fi
@@ -123,7 +129,7 @@ write_with_fallback_cmd() {
 
 write_with_fallback_file_cmd() {
   local primaryPath="$1"; local tmpFile="$2"; local fallbackDir="${3-}"
-  local primaryDir="${ALP_LOG_DIR-}"
+  local primaryDir="${CLI_LOG_DIR:-${ALP_LOG_DIR-}}"
   if [[ -z "${primaryDir:-}" ]]; then
     primaryDir="$(dirname "$primaryPath")"
   fi
@@ -142,7 +148,26 @@ write_with_fallback_file_cmd() {
   printf '%s\n' "$target"
 }
 
+parse_global_flags() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --log-dir)
+        CLI_LOG_DIR="$2"; shift 2 ;;
+      build-filename|write-local|is-writable|write-with-fallback|write-with-fallback-file|-h|--help)
+        # push back for main dispatch
+        break ;;
+      *)
+        break ;;
+    esac
+  done
+  # return remaining args via echo
+  printf '%s\n' "$@"
+}
+
 main() {
+  # Parse optional global flags
+  readarray -t REM_ARGS < <(parse_global_flags "$@")
+  set -- "${REM_ARGS[@]}"
   local cmd="${1-}"; shift || true
   case "$cmd" in
     build-filename) build_filename "$@" ;;

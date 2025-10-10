@@ -1,19 +1,19 @@
 ---
 template: project-lifecycle/retrospective
 version: 1.0.0
-last-updated: 2025-10-04
+last-updated: 2025-10-10
 ---
 
 # Retrospective — <Project Name>
 
 ## What worked
 
-<Wins and strengths>
+- <list>
 
 ## What to improve
 
-<Gaps and risks>
+- <list>
 
 ## Follow-ups
 
-- <Action> — <Owner> — <Date>
+- <actionable next steps>

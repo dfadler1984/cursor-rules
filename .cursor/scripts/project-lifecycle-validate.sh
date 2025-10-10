@@ -35,9 +35,18 @@ for erd in "$PROJECTS_DIR"/*/erd.md; do
       missing+=("final-summary.md missing")
     fi
     # Check presence in projects README (best-effort)
+    # Accept either pre-move (Active: ./<name>/erd.md) or post-move (Completed: _archived/<YYYY>/<name>/final-summary.md)
     if [[ -f "$PROJECTS_DIR/README.md" ]]; then
-      if ! grep -q "\[$name\](\./$name/erd.md)" "$PROJECTS_DIR/README.md"; then
-        missing+=("projects/README.md entry missing or not linkified")
+      if grep -q "^##[[:space:]]*Completed" "$PROJECTS_DIR/README.md"; then
+        # Completed section should point to archived final-summary.md
+        if ! grep -q "\[$name\](_archived/.*/$name/final-summary.md)" "$PROJECTS_DIR/README.md"; then
+          missing+=("projects/README.md Completed link missing (expected archived final-summary.md)")
+        fi
+      else
+        # Fallback (pre-move): ensure Active entry exists
+        if ! grep -q "\[$name\](\./$name/erd.md)" "$PROJECTS_DIR/README.md"; then
+          missing+=("projects/README.md entry missing or not linkified (Active)")
+        fi
       fi
     fi
 

@@ -19,6 +19,7 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 - Enhance assistant learning logs with operational context (elapsed time, token I/O, dependency impact).
 - Keep configuration opt‑in via `.cursor/config.json`; default behavior unchanged.
 - Maintain repo portability (no external services; docs-first artifacts).
+- A changelog per project would be nice.
 
 ## 3. User Stories
 
@@ -47,6 +48,7 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
    - Enforce one sub‑task at a time with approval pauses.
    - Respect dependencies and priorities when selecting next work.
    - Maintain commit protocol and “Relevant Files” accuracy.
+   - Note: running "process tasks" does not result in the assistant checking off completed tasks; completion remains an explicit, separate step.
 
 4. Spec‑Driven Workflow Integration
 
@@ -197,6 +199,23 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 - Learning logs include concise operational context improving iteration quality.
 
 ## 14. Open Questions
+
+- Do these align well with ai-workflow-integration?
+
+```
+.cursor/rules/create-erd.mdc
+.cursor/rules/erd-full.md
+.cursor/rules/erd-lite.mdx
+.cursor/rules/generate-tasks-from-erd.mdc
+.cursor/rules/logging-protocol.mdc
+.cursor/rules/project-lifecycle.mdc
+.cursor/rules/spec-driven.mdc
+.cursor/rules/task-list-process.mdc
+.cursor/scripts/erd-validate.sh
+.cursor/scripts/project-lifecycle-validate.sh
+docs/plans/sample-feature-plan.md
+docs/projects/README.md
+```
 
 - Should we adopt a lightweight “constitution.md” for project principles (Spec Kit‑style)?
 - Do we want optional complexity analysis before expanding tasks (Taskmaster‑style)?

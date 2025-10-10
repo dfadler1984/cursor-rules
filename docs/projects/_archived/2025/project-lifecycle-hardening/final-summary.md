@@ -4,7 +4,7 @@ version: 1.0.0
 last-updated: 2025-10-10
 ---
 
-# Final Summary — <Project Name>
+# Final Summary — Project Lifecycle Hardening
 
 ## Summary
 
@@ -31,8 +31,8 @@ last-updated: 2025-10-10
 
 ## Links
 
-- ERD: `docs/projects/<project>/erd.md`
-- Tasks: `docs/projects/<project>/tasks.md`
+- ERD: `./erd.md`
+- Tasks: `./tasks.md`
 
 ## Credits
 

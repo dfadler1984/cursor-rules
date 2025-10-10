@@ -7,6 +7,12 @@ source "$(dirname "$0")/.lib.sh"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 
+# Optional CLI override; falls back to env ALP_LOG_DIR or default
+#
+# Example:
+#   .cursor/scripts/alp-triggers.sh --log-dir .test-artifacts/alp \
+#     tdd-fix "dev" "red on threshold" "added explicit run" "respect env/cli overrides"
+CLI_LOG_DIR=""
 LOG_DIR_CONFIG="${ALP_LOG_DIR:-./assistant-logs/}"
 ALP_FLAG=1
 
@@ -48,14 +54,14 @@ emit_entry() {
 
   local target
   target="$(build_filename "$short")"
-  bash "$ROOT_DIR/.cursor/scripts/alp-logger.sh" write-with-fallback-file "$target" "$tmp" "$ROOT_DIR/docs/assistant-learning-logs" >/dev/null
+  bash "$ROOT_DIR/.cursor/scripts/alp-logger.sh" ${CLI_LOG_DIR:+--log-dir "$LOG_DIR_CONFIG"} write-with-fallback-file "$target" "$tmp" "$ROOT_DIR/docs/assistant-learning-logs" >/dev/null
   rm -f "$tmp"
   printf '%s\n' "$target"
 }
 
 usage() {
   cat <<'USAGE'
-Usage: alp-triggers.sh <command> [args]
+Usage: alp-triggers.sh [--log-dir <dir>] <command> [args]
 
 Commands (all require 5-7 args):
   tdd-fix <persona> <problem> <solution> <lesson> [rule] [context]
@@ -65,6 +71,22 @@ Commands (all require 5-7 args):
   mcp-recovery <persona> <problem> <solution> <lesson> [rule] [context]
 USAGE
 }
+
+# Parse optional global flags
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --log-dir)
+      CLI_LOG_DIR="${2:-}"; shift 2 || true ;;
+    tdd-fix|intent-resolution|rule-fix|task-completion|mcp-recovery|-h|--help)
+      break ;;
+    *)
+      break ;;
+  esac
+done
+
+if [[ -n "$CLI_LOG_DIR" ]]; then
+  LOG_DIR_CONFIG="$CLI_LOG_DIR"
+fi
 
 cmd="${1:-}"; shift || true
 case "$cmd" in
