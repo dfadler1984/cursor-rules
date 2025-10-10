@@ -68,13 +68,40 @@ This repository includes a suite of standalone shell scripts to assist with rule
   - Suggest/validate branch names; `--apply` to rename current branch
   - Flags: `--task`, `--type`, `--feature`, `--apply`
 - `.cursor/scripts/pr-create.sh`
+
   - Create GitHub PR via API (`curl`); requires `GITHUB_TOKEN` (non-dry-run)
   - Default behavior: prefill PR body from `.github/pull_request_template.md` (if present) or the first file in `.github/PULL_REQUEST_TEMPLATE/`
   - Flags: `--title`, `--body`, `--base`, `--head`, `--owner`, `--repo`, `--dry-run`
-  - Template flags: `--no-template` (disable), `--template <path>` (select file), `--body-append <text>` (append under `## Context`)
+  - Template flags: `--no-template` (disable), `--template <path>` (select file), `--body-append <text>` (append under `## Context`), `--replace-body` (bypass template; set body exactly)
+  - Heuristic: if `--body` begins with `## Summary`, the script auto-switches to replace mode to avoid duplication
   - Labeling (opt-in): `--label <name>` (repeatable) to add labels after PR creation. Use `--docs-only` as a convenience alias for `--label skip-changeset`.
   - Dry-run output includes a `labels` array when label flags are present.
-  - Note: when template injection is active, `--body` is appended under `## Context` (preserves template headings)
+  - Note: when template injection is active, `--body`/`--body-append` are appended under `## Context` (preserves template headings)
+
+  - Examples:
+    - Append under template (Context section):
+      ```bash
+      bash .cursor/scripts/pr-create.sh \
+        --title "feat: add auto-merge workflow" \
+        --body-append $'Summary: Enable auto-merge for bot PRs\n\nChanges:\n- Add workflow...\n' \
+        --dry-run
+      ```
+    - Replace entire body (no template):
+      ```bash
+      bash .cursor/scripts/pr-create.sh \
+        --title "feat: add auto-merge workflow" \
+        --replace-body \
+        --body $'## Summary\nOne-line summary\n\n## Changes\n- ...' \
+        --dry-run
+      ```
+    - Heuristic replace (body starts with `## Summary`):
+      ```bash
+      bash .cursor/scripts/pr-create.sh \
+        --title "feat: add auto-merge workflow" \
+        --body $'## Summary\nOne-line summary' \
+        --dry-run
+      ```
+
 - `.cursor/scripts/security-scan.sh`
   - Best-effort `npm/yarn` audit if `package.json` exists; otherwise no-op
 - `.cursor/scripts/lint-workflows.sh`
@@ -188,4 +215,3 @@ Smoke test (default + overridden dirs):
 ```bash
 .cursor/scripts/validate-artifacts-smoke.sh
 ```
-
