@@ -4,7 +4,7 @@ Mode: Lite
 
 ## 1. Introduction/Overview
 
-This project is a reference-only aggregator for Git/GitHub operational guidance and automation in this repository. It groups the active `git-usage` project with several archived, related automation efforts to provide a single entry point for discovery.
+This project is a reference-only aggregator for Git/GitHub operational guidance and automation in this repository. It groups active git-related projects to provide a single entry point for discovery.
 
 ## 2. Scope & Non‑Goals
 
@@ -16,19 +16,13 @@ This project is a reference-only aggregator for Git/GitHub operational guidance 
 ### Active
 
 - `docs/projects/git-usage/erd.md`
-
-### Archived (2025)
-
-- `docs/projects/_archived/2025/changelog-automation/erd.md`
-- `docs/projects/_archived/2025/pr-create-script/erd.md`
-- `docs/projects/_archived/2025/pr-template-automation/erd.md`
-- `docs/projects/_archived/2025/skip-changeset-opt-in/erd.md`
-- `docs/projects/_archived/2025/rules-validate-script/erd.md`
+- `docs/projects/github-workflows-utility/erd.md`
+- `docs/projects/tests-github-deletion/erd.md`
 
 ## 4. Acceptance
 
 - `docs/projects/git-usage-suite/erd.md` and `docs/projects/git-usage-suite/tasks.md` exist.
-- References above resolve to existing docs.
+- References above resolve to existing, non-archived docs.
 
 ## 5. Ownership
 

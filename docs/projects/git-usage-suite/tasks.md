@@ -2,11 +2,8 @@
 
 - `docs/projects/git-usage-suite/erd.md`
 - `docs/projects/git-usage/`
-- `docs/projects/_archived/2025/changelog-automation/`
-- `docs/projects/_archived/2025/pr-create-script/`
-- `docs/projects/_archived/2025/pr-template-automation/`
-- `docs/projects/_archived/2025/skip-changeset-opt-in/`
-- `docs/projects/_archived/2025/rules-validate-script/`
+- `docs/projects/github-workflows-utility/`
+- `docs/projects/tests-github-deletion/`
 
 ### Notes
 
@@ -15,3 +12,4 @@
 ## Tasks
 
 - [ ] Confirm references remain accurate if project slugs/paths change.
+- [ ] Periodically re-scan `docs/projects/*git*/` for additional active projects to include.
