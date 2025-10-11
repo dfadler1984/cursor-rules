@@ -153,7 +153,7 @@ Evidence: Derived from prior conversation requirements (internal).
       - Input: "Why is the build failing on CI?"
       - Output posture: Summarize failure, cite evidence path(s), propose smallest next diagnostic step
 
-2. capabilities-discovery.mdc (listing-only; distinct from roles)
+2. capabilities.mdc §Discovery (listing-only; distinct from roles)
 
 - Trigger: "@capabilities", "What can you do?"; purpose is onboarding/awareness, not execution.
 - Clarify: Ask scope first (planning, coding, MCP?) and current role if unknown.
@@ -324,7 +324,7 @@ Evidence: Derived from prior conversation requirements (internal).
   - Colocation is default; allow explicit overrides for frameworks while preserving owner mapping
 
 - Integration with testing quality:
-  - Reference `testing.mdc` and `test-quality.mdc` for structure, naming, and coverage guidance
+  - Reference `testing.mdc` (consolidated structure, naming, and quality) for guidance
   - Property-based tests (QuickCheck-style) are optional for edge-case exploration where valuable
 
 7. logging protocol reinforcement
@@ -402,7 +402,7 @@ Evidence: Derived from prior conversation requirements (internal).
 
 - Triggers: Define when to invoke MCP-backed tools (e.g., data fetch during Specify/Plan, repo ops) with explicit consent.
 - Safety: Redact secrets; never echo headers like Authorization; warn and degrade gracefully if auth/config is missing.
-- Execution boundary: Keep MCP calls at effect boundaries; link to `capabilities-discovery.mdc` for listing, while this rule governs execution.
+- Execution boundary: Keep MCP calls at effect boundaries; link to Capabilities rule §Discovery for listing, while this rule governs execution.
 - Portability: Endpoints and servers configured in `.cursor/config.json`; no hard-coded URLs.
 
 - Networking and execution policy:
@@ -476,12 +476,14 @@ Evidence: Derived from prior conversation requirements (internal).
 ## 4. Acceptance Criteria
 
 - New rule files drafted with front matter and references:
+
   - `.cursor/rules/roles.mdc`
-  - `.cursor/rules/capabilities-discovery.mdc`
+
   - `.cursor/rules/deterministic-outputs.mdc` (or integrated updates to front‑matter/spec‑driven)
   - `.cursor/rules/collaboration-options.mdc` (optional)
   - `.cursor/rules/mcp-synergy.mdc`
   - `.cursor/rules/portability.mdc`
+
 - Guidance/intent rules reference the above and remove external naming.
 - Deterministic artifact contracts documented; example paths validated.
 - Validation passes (no missing references); repository conventions unchanged.

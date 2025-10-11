@@ -60,7 +60,7 @@ healthScore:
   maintenance: green
 ---
 
-See `docs/nonexistent.md`.
+See [missing file](docs/nonexistent.md).
 YAML
 
 # Warning mode (default) should not fail

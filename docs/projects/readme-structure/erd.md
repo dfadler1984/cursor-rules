@@ -87,7 +87,7 @@ Define a clear, concise structure for the root `README.md` and determine where e
 
 ## 9. Integrations/Dependencies
 
-- References to existing docs: `docs/glossary.md`, `docs/projects/README.md`, `.cursor/rules/*`.
+- References to existing docs: `docs/projects/README.md`, `.cursor/rules/*`.
 
 ## 10. Edge Cases and Constraints
 

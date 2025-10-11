@@ -1,0 +1,37 @@
+---
+description: Global defaults — consent-first, status updates, TDD pre-edit gate, source-of-truth citations
+alwaysApply: true
+lastReviewed: 2025-10-10
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Global Defaults (link instead of duplicating)
+
+## Consent-first behavior (must)
+
+- Ask once before running local commands, web research, or script executions.
+- Respect session allowlists for safe, read-only commands; announce each execution.
+- Default to pause on missing consent.
+
+## Status updates (must)
+
+- Brief, 1–3 sentences: what changed, what’s next, blockers/risks.
+- Include tool-category switches and exact commands pending consent.
+
+## TDD pre-edit gate (must for maintained sources)
+
+- Red → add/update failing owner spec colocated with the source file.
+- Green → implement minimal change to pass.
+- Refactor → improve with tests green.
+
+## Source-of-truth citations (must)
+
+- When stating Cursor capabilities, cite the official docs page or defer if uncertain.
+- Prefer quoting/paraphrasing with links; reconcile conflicts to the docs.
+
+## Link here
+
+- Other rules should link to this file instead of repeating these defaults.

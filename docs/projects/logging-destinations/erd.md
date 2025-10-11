@@ -2,17 +2,20 @@
 ---
 
 ---
+
 title: ERD — Logging Destinations and Publication Strategy
-status: Draft
+status: skipped
 owners:
-  - assistant-learning
-last_updated: 2025-10-02
-related:
-  - docs/projects/deterministic-outputs/erd.md
-  - docs/projects/assistant-learning/erd.md
-  - .cursor/scripts/alp-logger.sh
-  - .cursor/scripts/alp-redaction.sh
-  - .cursor/config.json
+
+- assistant-learning
+  last_updated: 2025-10-02
+  related:
+- docs/projects/deterministic-outputs/erd.md
+- docs/projects/assistant-learning/erd.md
+- .cursor/scripts/alp-logger.sh
+- .cursor/scripts/alp-redaction.sh
+- .cursor/config.json
+
 ---
 
 Mode: Full

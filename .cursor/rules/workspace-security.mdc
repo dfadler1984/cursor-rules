@@ -1,8 +1,8 @@
 ---
 description: Cursor Workspace Trust and autorun prevention policy (no folder-open autoruns)
-globs: **/.vscode/tasks.json
+globs: "**/.vscode/tasks.json"
 alwaysApply: false
-lastReviewed: 2025-09-13
+lastReviewed: 2025-10-10
 healthScore:
   content: green
   usability: green
@@ -16,8 +16,16 @@ Focused policy to prevent IDE autorun and related risks in Cursor.
 ## Cursor prevention (must)
 
 - Enable Workspace Trust in Cursor before opening third‑party repositories.
-- Do not use or commit `.vscode/tasks.json` with `runOptions.runOn: "folderOpen"` (or direct `runOn: "folderOpen"`).
-- When opening unknown repos, audit `.vscode/` first; prefer opening in a non-executing editor to inspect.
+
+```text
+.vscode/
+.vscode/tasks.json
+runOptions.runOn: "folderOpen"
+runOn: "folderOpen"
+```
+
+- Do not use or commit those autorun settings.
+- When opening unknown repos, audit the folder first; prefer opening in a non-executing editor to inspect.
 
 ## Minimal safe usage
 

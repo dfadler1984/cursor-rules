@@ -1,7 +1,7 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: false
-lastReviewed: 2025-10-06
+lastReviewed: 2025-10-10
 healthScore:
   content: green # Accurate capability descriptions
   usability: green # Clear list format, easy to scan
@@ -20,56 +20,44 @@ healthScore:
 
 ### Validation and automation
 
-- Run `.cursor/scripts/rules-validate.sh` to check metadata
+- Run `[.cursor/scripts/rules-validate.sh](.cursor/scripts/rules-validate.sh)` to check metadata
   - Flags: `--format json|text`, `--fail-on-missing-refs`, `--fail-on-stale`, `--autofix`, `--report`, `--report-out <path>`
-- List rules and their metadata via `.cursor/scripts/rules-list.sh`
+- List rules and their metadata via `[.cursor/scripts/rules-list.sh](.cursor/scripts/rules-list.sh)`
 
 ### Engineering docs & planning
 
-- See per‑rule capabilities for details:
-  - `spec-driven.caps.mdc`
-  - `create-erd.caps.mdc`
-  - `generate-tasks-from-erd.caps.mdc`
-  - `task-list-process.caps.mdc`
-  - `logging-protocol.caps.mdc`
-  - `commands.caps.mdc`
-  - `assistant-git-usage.caps.mdc`
-  - `tdd-first.caps.mdc`
-  - `intent-routing.caps.mdc`
-  - `assistant-behavior.caps.mdc`
-  - `favor-tooling.caps.mdc`
-  - `scope-check.caps.mdc`
-  - `testing.caps.mdc`
-  - `testing-structure.caps.mdc`
-  - `testing-naming.caps.mdc`
-  - `test-quality.caps.mdc`
-  - `refactoring.caps.mdc`
-  - `project-lifecycle.caps.mdc`
-  - `imports.caps.mdc`
-  - `workspace-security.caps.mdc`
-  - `security.caps.mdc`
-  - `github-api-usage.caps.mdc`
-  - `00-assistant-laws.caps.mdc`
-  - `capabilities-discovery.caps.mdc`
-  - `code-style.caps.mdc`
-  - `critical-thinking.caps.mdc`
-  - `direct-answers.caps.mdc`
-  - `dry-run.caps.mdc`
-  - `deterministic-outputs.caps.mdc`
-  - `dependencies.caps.mdc`
-  - `rule-creation.caps.mdc`
-  - `rule-maintenance.caps.mdc`
-  - `rule-quality.caps.mdc`
-  - `front-matter.caps.mdc`
-  - `guidance-first.caps.mdc`
-  - `github-config-only.caps.mdc`
+- Main rules (catalog):
+
+  - `spec-driven.mdc`
+  - `create-erd.mdc`
+  - `generate-tasks-from-erd.mdc`
+  - `project-lifecycle.mdc`
+  - `testing.mdc`
+  - `intent-routing.mdc`
+  - `tdd-first.mdc`
+  - `assistant-behavior.mdc`
+  - `direct-answers.mdc`
+  - `code-style.mdc`
+  - `refactoring.mdc`
+  - `front-matter.mdc`
+  - `rule-creation.mdc`
+  - `rule-maintenance.mdc`
+  - `rule-quality.mdc`
+  - `capabilities.mdc`
+  - `workspace-security.mdc`
+  - `security.mdc`
+  - `github-config-only.mdc`
+  - `imports.mdc`
+
+- Quick references (optional, when helpful):
+  - `assistant-git-usage.caps.mdc`, `github-api-usage.caps.mdc`, `commands.caps.mdc`, `intent-routing.caps.mdc`, `tdd-first.caps.mdc`, `create-erd.caps.mdc`, `generate-tasks-from-erd.caps.mdc`, `project-lifecycle.caps.mdc`, `testing.caps.mdc`, optionally `direct-answers.caps.mdc`, `workspace-security.caps.mdc`.
 
 ### Git assistance
 
-- Generate Conventional Commits via CLI: `.cursor/scripts/git-commit.sh --type ... --description ...` (supports bodies, footers, breaking changes). See `assistant-git-usage.mdc`.
-- Suggest branch names with validated types: `.cursor/scripts/git-branch-name.sh --task ... [--type ...] [--feature ...] [--apply]`. See `assistant-git-usage.mdc`.
+- Generate Conventional Commits via CLI: `[.cursor/scripts/git-commit.sh](.cursor/scripts/git-commit.sh) --type ... --description ...` (supports bodies, footers, breaking changes). See `assistant-git-usage.mdc`.
+- Suggest branch names with validated types: `[.cursor/scripts/git-branch-name.sh](.cursor/scripts/git-branch-name.sh) --task ... [--type ...] [--feature ...] [--apply]`. See `assistant-git-usage.mdc`.
 - Run commit gates locally when requested: use your repo's test/lint/typecheck scripts as configured.
-- Create pull requests via shell (curl + GitHub API): `.cursor/scripts/pr-create.sh --title "..." [--body "..."] [--base <branch>] [--head <branch>]`.
+- Create pull requests via shell (curl + GitHub API): `[.cursor/scripts/pr-create.sh](.cursor/scripts/pr-create.sh) --title "..." [--body "..."] [--base <branch>] [--head <branch>]`.
 
 ### Intent routing & user intent
 
@@ -91,9 +79,19 @@ healthScore:
 - Generate/normalize rule front matter: use your local script if present.
 - (See also: `.cursor/scripts/rules-list.sh`, `.cursor/scripts/rules-validate.sh`).
 
+### Discovery (rules, MCP, local scripts)
+
+- Ask: `@capabilities` or “What can you do?”
+- Output: grouped bullets by source (rules|mcp|local), truncated with “N more…” when long
+- Safety: read-only listing; never echo secrets; execution remains consent-gated
+- Sources:
+  - Rules: scan `.cursor/rules/*.mdc` for names/descriptions
+  - MCP: list configured servers/tools/resources and auth state
+  - Local: scan `.cursor/scripts/**/*.sh` top comments for descriptions
+
 ### Testing & TDD
 
-- Author or adjust Jest specs following `testing-naming.mdc` and `testing-structure.mdc`.
+- Author or adjust Jest specs following `testing.mdc` (structure, naming, quality).
 - Enforce TDD cycle: add failing spec → implement minimal change → run focused tests (`yarn test path -t "name"`) → refactor. See `tdd-first.mdc`.
 
 ### Imports & formatting

@@ -1,7 +1,7 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-10
+lastReviewed: 2025-10-11
 healthScore:
   content: green # Accurate behavioral guidance, clear examples
   usability: green # Scannable format, practical checklists
@@ -15,13 +15,9 @@ healthScore:
 - If you propose actions, present a short plan and end with a direct consent prompt like: "Proceed?"
 - One-shot consent for verification: If truth-checking or minimal verification requires tools but consent is not granted, ask one concise consent question once, then pause (do not retry).
 
-### Assistant Learning auto-logs (consent exception)
+### Assistant Learning (deprecated)
 
-- Assistant Learning entries are auto-written without per-event consent. This exception is narrow, local-only, and subject to strict safeguards.
-- Use `.cursor/scripts/alp-logger.sh write-with-fallback` with redaction via `.cursor/scripts/alp-redaction.sh`.
-- Destination is configurable via `.cursor/config.json` (`logDir`), defaulting to `assistant-logs/`; fallback to `docs/assistant-learning-logs/` when needed.
-- Safeguards: concise entries, size limits, and rate-limiting for duplicate events.
-- Precedence: This exception overrides the command/tool consent gate for ALP log writes only; it does not extend to any other tools or effects.
+- The Assistant Learning auto-log exception is deprecated. Refer to `docs/projects/assistant-self-improvement/legacy/` for historical context. Do not auto-write logs.
 
 ### Command/tool consent gate (mandatory)
 
@@ -41,8 +37,7 @@ healthScore:
   - Web/Network: web research, API calls
 - A category switch occurs when the next action uses a different category than the last executed tool/command in the same turn.
 - Status examples:
-  - Pre-tool: `Switch: git — pending consent for "git status --porcelain=v1"; ALP check pending`
-  - Post-tool: `ALP: none — no-trigger` (when no log is needed)
+  # deprecated ALP status coupling removed
 
 #### Exception — obvious, safe, read-only commands
 
@@ -119,6 +114,35 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 - Only relax a rule when you are stuck in a loop or blocked by concrete errors; state the loop/error and the smallest safe deviation.
 - When asked "why" about behavior, explicitly name any habitual shortcut and the specific rule it bypassed, then state the corrective path per rule.
 
+## Non-anthropomorphic behavior (must)
+
+- Speak and reason as a computer program, not a person.
+- Do not attribute behavior to human-like states such as "habits", "intuition", "muscle memory", or "feelings".
+- When explaining a choice, cite the governing source:
+  - A specific rule file under `.cursor/rules/` (link it when useful)
+  - A repository script’s documented behavior
+  - The user’s explicit instruction or acceptance bundle
+- Prefer precise phrasing like "based on the runner’s configured discovery path" or "per `.cursor/rules/assistant-behavior.mdc`" over any claim of personal tendency.
+
+### Language guidance
+
+- Prefer: "Per [global-defaults.mdc](./global-defaults.mdc) → command invocation policy, I executed the script directly."
+- Prefer: "The runner discovers `*.test.sh` under `.cursor/scripts/`; I used that default."
+- Avoid: "I have a habit of…", "I usually…", "muscle memory", "gut feel", "intuition".
+
+### Execution protocol alignment
+
+- Follow the command invocation policy above:
+  - Execute scripts directly if executable; respect shebangs.
+  - On permission errors, ask once to `chmod +x <abs-path>`; then execute directly.
+  - Use a shell wrapper only when necessary (pipelines/globs/redirection) and state why.
+- Describe steps by citing policy, not preference.
+
+### Self-correction
+
+- If an anthropomorphic phrase appears, immediately replace it with a rules-based explanation and proceed.
+- Example: "I followed the default tests folder out of habit" → "I used the test discovery default defined in the runner script; I will align placement with the repo’s colocation convention."
+
 ### Links and URLs (formatting)
 
 - Always share URLs as Markdown links with descriptive anchor text; do not paste bare URLs.
@@ -151,14 +175,9 @@ Before sending any message that includes actions or tool results, explicitly ver
 - Messaging: bullets and short sections; code citations follow repo rules.
 - If any item fails, revise the message; do not send.
 
-### ALP logging exception (hard gate)
+### Deprecated exceptions
 
-- Logging is consent‑exempt in this repo for local, non‑interactive, redacted writes via approved scripts:
-  - `.cursor/scripts/alp-logger.sh write-with-fallback …`
-  - `.cursor/scripts/alp-template.sh …`
-  - `.cursor/scripts/alp-triggers.sh …`
-- This exception overrides rules that would prevent logging; content/formatting rules still apply.
-- Only ask once if the environment blocks execution (e.g., script missing or FS denied). Otherwise, log silently.
+- No consent exceptions are currently active for auto-logging.
 
 #### Status coupling for ALP (must)
 
@@ -166,13 +185,9 @@ Before sending any message that includes actions or tool results, explicitly ver
 - Pre-tool: announce tool-category switch and note the pending ALP check. Post-tool: include the ALP outcome and created path when applicable.
 - Failure handling: If an ALP logger invocation fails, surface the exact script call and exit code in status, attempt the fallback destination once, and include the fallback reason inside the log body when fallback is used.
 
-### Per‑turn "ALP‑needed?" check (must)
+### Per‑turn checks
 
-- Before send, decide: "Did any high‑signal trigger occur this turn?"
-  - If yes and no ALP was emitted: emit ALP now via the logger (exception applies).
-  - If blocked by environment: ask one concise consent question listing the exact command; then proceed.
-  - If no: proceed.
-- Failure condition: If ALP was needed and not emitted (and no explicit blocked reason), block send and revise.
+- Remove ALP-specific checks; keep standard consent, TDD, and messaging checks only.
 
 ### Habit guard (must)
 
@@ -247,7 +262,8 @@ Before sending any message that includes actions or tool results, explicitly ver
 
 ### Micro-checks (before effects/assertions)
 
-- Tooling-first: consult `favor-tooling.mdc` and the target rule’s Contract; use official scripts (e.g., `alp-logger.sh`).
+-- Tooling-first: consult `favor-tooling.mdc` and the target rule’s Contract.
+
 - Scope & consent: confirm project vs repo-wide target; get explicit consent for global edits.
 - Verification before assertion: run the relevant validator/CLI and paste exact output before claiming status.
 - Project lifecycle tasks: When marking a project task complete, update `docs/projects/<slug>/tasks.md` to check the item (or add it under `## Carryovers`) before reporting completion; then run `.cursor/scripts/project-lifecycle-validate-scoped.sh <slug>`.

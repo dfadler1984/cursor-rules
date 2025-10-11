@@ -2,7 +2,7 @@
 description: Rule maintenance cadence, validation, and conflict resolution for this repo
 globs: .cursor/rules/**
 alwaysApply: false
-lastReviewed: 2025-10-07
+lastReviewed: 2025-10-10
 healthScore:
   content: green # Accurate maintenance procedures
   usability: green # Clear checklist format, actionable steps
@@ -15,11 +15,11 @@ healthScore:
 
 ## Checks per file
 
-- See `front-matter.mdc` for complete front matter standards.
+- See [front-matter.mdc](./front-matter.mdc) for complete front matter standards.
 - Examples are still accurate; `globs` target intended files.
 - Cross-references resolve; no contradictory guidance.
 - Update `lastReviewed` on any substantive edit.
-  \- Off-scope content: Rules must not embed unrelated workflows/policies. Reference the authoritative rule instead (e.g., archival policy lives in `project-lifecycle.mdc`).
+  \- Off-scope content: Rules must not embed unrelated workflows/policies. Reference the authoritative rule instead (e.g., archival policy lives in [project-lifecycle.mdc](./project-lifecycle.mdc)).
 
 ## Date verification
 
@@ -71,31 +71,31 @@ healthScore:
 
 ## Reference validation
 
-- **Automated validation**: Run `.cursor/scripts/rules-validate.sh` to check all cross-references
+- **Automated validation**: Run [.cursor/scripts/rules-validate.sh](.cursor/scripts/rules-validate.sh) to check all cross-references
 - **Update broken links**: If a referenced file is renamed or deleted, update all references immediately
 - **Use consistent naming**: Reference files by their exact filename (including `.mdc` extension)
   \- For project archival policy, see `project-lifecycle.mdc`.
 
 ## Validation
 
-- **Always run the validation script** before committing rule edits: `.cursor/scripts/rules-validate.sh`
+- **Always run the validation script** before committing rule edits: [.cursor/scripts/rules-validate.sh](.cursor/scripts/rules-validate.sh)
 - The script automatically validates front matter, cross-references, and format requirements
 - Manual content review is still needed for relevance and quality (see Content relevance review section)
 
 ## Capabilities synchronization
 
-- Keep `capabilities.mdc` in sync whenever rules, rule scripts, or referenced repo scripts/behaviors change.
+- Keep [capabilities.mdc](./capabilities.mdc) in sync whenever rules, rule scripts, or referenced repo scripts/behaviors change.
 - Trigger points:
   - New/changed rule files under `.cursor/rules/*.mdc`
   - New/changed rule scripts under `.cursor/scripts/*`
   - New/changed repo scripts referenced by rules (e.g., `package.json` scripts)
   - Changes to assistant behavior/routing that affect what users can ask
 - Steps:
-  1. Inventory current rules and metadata: `.cursor/scripts/rules-list.sh`
+  1. Inventory current rules and metadata: [.cursor/scripts/rules-list.sh](.cursor/scripts/rules-list.sh)
   2. Update `capabilities.mdc`:
      - Add/remove items under “What you can ask the assistant to do”
      - Reflect new validation/automation commands (e.g., `.cursor/scripts/rules-validate.sh`, `.cursor/scripts/rules-list.sh`)
      - Keep platform features in `cursor-platform-capabilities.mdc` (don’t duplicate)
-  3. Update dates: set `lastReviewed` (YYYY-MM-DD) on edited rule(s) and `capabilities.mdc`
+  3. Update dates: set `lastReviewed` (YYYY-MM-DD) on edited rule(s) and [capabilities.mdc](./capabilities.mdc)
   4. Validate: `.cursor/scripts/rules-validate.sh` and fix issues before merging
   5. PR hygiene: include a checklist item “Updated `@capabilities`” in the PR description

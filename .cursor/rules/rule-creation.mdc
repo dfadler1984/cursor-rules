@@ -2,7 +2,7 @@
 description: How to create and update project rules for this repo
 globs: .cursor/rules/**
 alwaysApply: false
-lastReviewed: 2025-09-10
+lastReviewed: 2025-10-10
 healthScore:
   content: green # Clear creation guidelines, good examples
   usability: green # Concise workflow, actionable steps
@@ -20,7 +20,7 @@ healthScore:
 - Keep it focused (50–150 lines, 2–4 sections).
 - Use precise `globs` so auto-attachment only triggers where intended.
 - Include 1–2 repo-relevant examples; link related rules instead of duplicating.
-- See `front-matter.mdc` for complete front matter standards.
+- See [front-matter.mdc](./front-matter.mdc) for complete front matter standards.
 
 ## Avoid
 
@@ -32,5 +32,5 @@ healthScore:
 
 1. Make targeted edits; keep filenames stable.
 2. Update `lastReviewed` and adjust `healthScore` if scope/quality changes.
-3. See `rule-maintenance.mdc` for validation procedures.
+3. See [rule-maintenance.mdc](./rule-maintenance.mdc) for validation procedures.
 4. Test in Cursor by referencing affected files to confirm the rule attaches appropriately.

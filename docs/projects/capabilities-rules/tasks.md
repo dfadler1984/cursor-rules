@@ -1,8 +1,13 @@
 ## Relevant Files
 
-- .cursor/rules/capabilities-discovery.mdc
 - .cursor/rules/capabilities.mdc
 - docs/projects/capabilities-rules/erd.md
+
+## Todo
+
+- [ ] 1.0 Merge schema and examples from Capabilities Discovery ERD into this ERD
+- [ ] 2.0 Update split-progress and README links (done)
+- [ ] 3.0 Remove `docs/projects/capabilities-discovery/` folder
 
 ### Notes
 

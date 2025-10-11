@@ -23,7 +23,7 @@ Define a central intent router that parses user inputs and routes to the correct
 
 - Triggers: implicit (natural language) and explicit (slash commands)
 - Parsing: extract verb, targets, and scope; default to clarify when uncertain
-- Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, drawing-board, task-list-process)
+- Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, drawing-board, project-lifecycle)
 - Gates: enforce phase checks and TDD owner spec paths before JS/TS edits
 - Status: emit brief status updates per step
 - Signals: use file/context signals as supporting triggers (e.g., focused test files)
@@ -96,7 +96,7 @@ DRY RUN:
 ## 11. Slash Commands
 
 - `/plan <topic>` → route to `spec-driven` (plan/specify); consent-first; produce plan scaffold
-- `/tasks` → route to `task-list-process`; manage/update tasks when safe
+- `/tasks` → route to `project-lifecycle` (Task List Process subsection); manage/update tasks when safe
 - `/pr` → route to `assistant-git-usage`; prefer `.cursor/scripts/pr-create.sh` with explicit consent and non-interactive flags
 - `/draw <item>` → route to drawing-board (pending; blocked until drawing-board rule exists)
 

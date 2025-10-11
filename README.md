@@ -6,9 +6,9 @@ This repository includes a suite of standalone shell scripts to assist with rule
 
 - Slash‑commands recognized by default; phrase triggers remain supported
 - Tasks support `dependencies`, `priority`, and `[P]` markers
-- Assistant learning logs are always on via `.cursor/rules/assistant-learning.mdc` (with Operation and Dependency Impact)
+- Assistant learning logs are deprecated; legacy content moved under `docs/projects/assistant-self-improvement/legacy/`
 - See commands overview: `.cursor/rules/commands.caps.mdc`
-- See per‑rule capabilities: `.cursor/rules/capabilities.mdc` (links to `<rule>.caps.mdc` files)
+- Capabilities catalog: `.cursor/rules/capabilities.mdc` (links to main rules; optional quick refs noted where helpful)
 
 ## How to mark a project completed
 
@@ -129,16 +129,15 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
 - Assistant Learning Protocol (ALP): `docs/projects/assistant-learning/erd.md`
 - Deterministic, Structured Outputs ERD: `docs/projects/deterministic-outputs/erd.md`
 - Rule — Deterministic Outputs: `.cursor/rules/deterministic-outputs.mdc`
-- Rule — Capabilities Discovery: `.cursor/rules/capabilities-discovery.mdc`
+- Rule — Capabilities (Discovery included): `.cursor/rules/capabilities.mdc`
 - Rule — Spec-Driven Workflow: `.cursor/rules/spec-driven.mdc`
 - ERD creation rule (default: Full): `.cursor/rules/create-erd.mdc`
-- Unified Workflow (Spec → Plan → Tasks → Analyze → Implement): see `.cursor/rules/spec-driven.mdc`, `.cursor/rules/create-erd.mdc`, `.cursor/rules/generate-tasks-from-erd.mdc`, `.cursor/rules/task-list-process.mdc`, `.cursor/rules/assistant-learning.mdc`.
+- Unified Workflow (Spec → Plan → Tasks → Analyze → Implement): see `.cursor/rules/spec-driven.mdc`, `.cursor/rules/create-erd.mdc`, `.cursor/rules/generate-tasks-from-erd.mdc`, `.cursor/rules/project-lifecycle.mdc` (Task List Process subsection), `.cursor/rules/assistant-learning.mdc`.
 - Artifacts/paths: `docs/projects/<feature>/erd.md`, `docs/plans/<feature>-plan.md`, `docs/projects/<feature>/tasks.md`.
 - Slash-commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`.
 - Logs and summaries: `docs/assistant-learning-logs/` (local fallback). Weekly summary via CI.
   - Log destination: set `.cursor/config.json` `logDir` to control the primary logs directory (default `assistant-logs/`); falls back to `docs/assistant-learning-logs/` if primary is not writable.
 - ERD Split Progress: `docs/projects/split-progress/erd.md`
-  - Glossary: `docs/glossary.md`
   - Owner Map: `docs/owner-map.md`
   - Drawing Board ERD: `docs/projects/drawing-board/erd.md`
   - Intent Router ERD: `docs/projects/intent-router/erd.md`
@@ -149,14 +148,12 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
   - Rule — TDD‑First (Core): `.cursor/rules/tdd-first.mdc`
   - Rule — TDD‑First (JS/TS Extension): `.cursor/rules/tdd-first-js.mdc`
   - Rule — TDD‑First (Shell Extension): `.cursor/rules/tdd-first-sh.mdc`
-  - Rule — Test Quality (Core): `.cursor/rules/test-quality.mdc`
-  - Rule — Test Quality (JS/TS): `.cursor/rules/test-quality-js.mdc`
-  - Rule — Test Quality (Shell): `.cursor/rules/test-quality-sh.mdc`
+  - Rule — Testing (structure, naming, quality consolidated): `.cursor/rules/testing.mdc`
 - Archived Source ERD (reference-only): `docs/projects/rules-grok-alignment/erd.md`
 - Portability ERD: `docs/projects/portability/erd.md`
 - MCP Synergy ERD: `docs/projects/mcp-synergy/erd.md`
   - Roles & Intent Routing ERD: `docs/projects/roles/erd.md`
-  - Capabilities Discovery ERD: `docs/projects/capabilities-discovery/erd.md`
+  - Capabilities Catalog: see `.cursor/rules/capabilities.mdc`; project docs deprecated
   - Spec‑Driven Workflow (integrated): `docs/projects/ai-workflow-integration/erd.md`
   - TDD‑First ERD: `docs/projects/_archived/2025/tdd-first/erd.md`
   - Core Values ERD: `docs/projects/core-values/erd.md`
@@ -216,22 +213,6 @@ Smoke test (default + overridden dirs):
 .cursor/scripts/validate-artifacts-smoke.sh
 ```
 
-## Logs — Quickstart (ALP)
+## Logs — ALP (deprecated)
 
-- Write a minimal ALP entry (heredoc):
-
-```bash
-.cursor/scripts/alp-logger.sh write-with-fallback assistant-logs 'alp-quickstart' <<'BODY'
-Timestamp: 2025-10-10T00:00:00Z
-Event: Task Completed
-Owner: alp-logging
-What Changed: Created a minimal ALP entry via quickstart.
-Next Step: Review aggregation/archival scripts.
-Links: docs/assistant-learning-logs/README.md
-Learning: Use standard status formats and fallback reasons.
-BODY
-```
-
-- Status line format (examples):
-  - Success: `ALP: Task Completed — assistant-logs/log-<ISO>-alp-quickstart.md`
-  - None: `ALP: none — no-trigger`
+Legacy ALP scripts and docs are archived under `docs/projects/assistant-self-improvement/legacy/`.

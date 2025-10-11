@@ -3,8 +3,8 @@
 ## Relevant Files
 
 - `docs/projects/test-coverage/erd.md`
+- `.cursor/rules/testing.mdc`
 - `.cursor/rules/test-quality-js.mdc`
-- `.cursor/rules/test-quality.mdc`
 
 ## Todo
 

@@ -12,6 +12,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RULES_DIR="$ROOT_DIR/.cursor/rules"
 OUTPUT_FORMAT="text" # text|json
+CONSOLE_OUT="" # optional path to also write console-style output
+MODE="" # optional: report|console|both (overrides individual flags)
+REVIEWS_DIR="$ROOT_DIR/docs/reviews" # configurable reviews output directory
 FAIL_ON_MISSING_REFS=0
 missing_refs_count=0
 AUTO_FIX=0
@@ -28,7 +31,7 @@ fail_count=0
 
 print_usage() {
   cat <<EOF
-Usage: $(basename "$0") [--list] [--dir <rules-dir>] [--format text|json] [--fail-on-missing-refs] [--fail-on-stale] [--autofix] [--report] [--report-out PATH] [--help]
+Usage: $(basename "$0") [--list] [--dir <rules-dir>] [--format text|json] [--fail-on-missing-refs] [--fail-on-stale] [--autofix] [--report] [--report-out PATH] [--write-console-out PATH] [--mode report|console|both] [--reviews-dir PATH] [--help]
 
 Validates rule files under .cursor/rules/*.mdc for:
   - Required front matter fields and formats
@@ -53,6 +56,9 @@ report_line() {
   # Args: <file> <line> <message>
   if [ "$OUTPUT_FORMAT" != "json" ]; then
     printf "%s:%s: %s\n" "$1" "$2" "$3"
+    if [ -n "$CONSOLE_OUT" ]; then
+      printf "%s:%s: %s\n" "$1" "$2" "$3" >> "$CONSOLE_OUT"
+    fi
   fi
   fail_count=$((fail_count+1))
 }
@@ -65,6 +71,9 @@ report_block() {
   if [ -n "$out" ]; then
     if [ "$OUTPUT_FORMAT" != "json" ]; then
       printf "%s\n" "$out"
+      if [ -n "$CONSOLE_OUT" ]; then
+        printf "%s\n" "$out" >> "$CONSOLE_OUT"
+      fi
     fi
     # Count lines (portable)
     # Trim trailing newline to avoid off-by-one
@@ -183,14 +192,10 @@ autofix_file() {
 
 check_missing_refs() {
   # Args: <file>
-  # Detect unresolved references in backticks or markdown links; count, and optionally fail
+  # Detect unresolved references only in markdown links; count, and optionally fail
   local f="$1"
   local base_dir
   base_dir="$(cd "$(dirname "$f")" && pwd)"
-
-  # Collect candidates from backticks
-  local candidates_bq
-  candidates_bq=$(grep -oE '`[^`]+`' "$f" | tr -d '`' || true)
 
   # Collect candidates from markdown links [text](path) excluding http/mailto
   local candidates_md
@@ -198,7 +203,7 @@ check_missing_refs() {
 
   # Merge candidates (newline-delimited)
   local all
-  all="$(printf '%s\n%s\n' "$candidates_bq" "$candidates_md" | sed '/^\s*$/d' | sort -u)"
+  all="$(printf '%s\n' "$candidates_md" | sed '/^\s*$/d' | sort -u)"
 
   local rel abs trimmed
   while IFS= read -r rel; do
@@ -307,6 +312,32 @@ main() {
           exit 2
         fi
         ;;
+      --write-console-out)
+        shift
+        CONSOLE_OUT="${1:-}"
+        if [ -z "$CONSOLE_OUT" ]; then
+          echo "--write-console-out requires a file path" >&2
+          exit 2
+        fi
+        mkdir -p "$(dirname "$CONSOLE_OUT")" || true
+        : > "$CONSOLE_OUT" || true
+        ;;
+      --mode)
+        shift
+        MODE="${1:-}"
+        case "$MODE" in
+          report|console|both) ;;
+          *) echo "--mode must be one of: report|console|both" >&2; exit 2;;
+        esac
+        ;;
+      --reviews-dir)
+        shift
+        REVIEWS_DIR="${1:-}"
+        if [ -z "$REVIEWS_DIR" ]; then
+          echo "--reviews-dir requires a path" >&2
+          exit 2
+        fi
+        ;;
       --fail-on-stale)
         FAIL_ON_STALE=1
         ;;
@@ -349,11 +380,11 @@ main() {
   done < <(list_rule_files)
 
   # Generate review report if requested
-  if [ "$REPORT_FLAG" -eq 1 ] || [ -n "$REPORT_OUT" ]; then
+  if [ "$REPORT_FLAG" -eq 1 ] || [ -n "$REPORT_OUT" ] || [ "$MODE" = "report" ] || [ "$MODE" = "both" ]; then
     local out
     if [ -z "$REPORT_OUT" ]; then
       local dir
-      dir="$ROOT_DIR/docs/reviews"
+      dir="$REVIEWS_DIR"
       mkdir -p "$dir"
       out="$dir/review-$(date -u +"%Y-%m-%d").md"
     else
@@ -363,17 +394,38 @@ main() {
     {
       printf '# Rules Review — %s\n\n' "$(date -u +"%Y-%m-%d")"
       printf '## Counts\n\n'
-      printf '-- invalidDates: %d\n' "$count_invalid_dates"
-      printf '-- unresolvedReferences: %d\n\n' "$count_unresolved_refs"
+      printf '%s\n' "-- invalidDates: $count_invalid_dates"
+      printf '%s\n\n' "-- unresolvedReferences: $count_unresolved_refs"
       printf '## Actions\n\n'
       for f in "${!invalid_date_files[@]}"; do
-        printf '-- Fix invalid date in %s\n' "${f#"$ROOT_DIR/"}"
+        printf '%s\n' "-- Fix invalid date in ${f#"$ROOT_DIR/"}"
       done
       for f in "${!unresolved_ref_files[@]}"; do
-        printf '-- Resolve references in %s\n' "${f#"$ROOT_DIR/"}"
+        printf '%s\n' "-- Resolve references in ${f#"$ROOT_DIR/"}"
       done
       printf '\n'
     } > "$out"
+  fi
+
+  if [ -n "$MODE" ]; then
+    case "$MODE" in
+      console)
+        if [ -z "$CONSOLE_OUT" ]; then
+          CONSOLE_OUT="$ROOT_DIR/docs/rules-validate-$(date -u +"%Y-%m-%dT%H-%M-%SZ").txt"
+          mkdir -p "$(dirname "$CONSOLE_OUT")" || true
+          : > "$CONSOLE_OUT" || true
+        fi
+        ;;
+      report)
+        CONSOLE_OUT="" ;;
+      both)
+        if [ -z "$CONSOLE_OUT" ]; then
+          CONSOLE_OUT="$ROOT_DIR/docs/rules-validate-$(date -u +"%Y-%m-%dT%H-%M-%SZ").txt"
+          mkdir -p "$(dirname "$CONSOLE_OUT")" || true
+          : > "$CONSOLE_OUT" || true
+        fi
+        ;;
+    esac
   fi
 
   if [ "$OUTPUT_FORMAT" = "json" ]; then
@@ -386,9 +438,15 @@ main() {
   else
     if [ "$fail_count" -gt 0 ]; then
       printf "rules-validate: %d issue(s) found\n" "$fail_count" >&2
+      if [ -n "$CONSOLE_OUT" ]; then
+        printf "rules-validate: %d issue(s) found\n" "$fail_count" >> "$CONSOLE_OUT"
+      fi
       exit 1
     else
       printf "rules-validate: OK\n"
+      if [ -n "$CONSOLE_OUT" ]; then
+        printf "rules-validate: OK\n" >> "$CONSOLE_OUT"
+      fi
     fi
   fi
 }

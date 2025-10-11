@@ -143,7 +143,7 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
   - `create-erd.mdc` (uncertainty markers, optional slash‑command note)
   - `erd-full.md`, `erd-lite.md` (add short Uncertainty/Assumptions subsection)
   - `generate-tasks-from-erd.mdc` (optional dependencies/priority/[P])
-  - `task-list-process.mdc` (dependency/priority selection note)
+  - `project-lifecycle.mdc` (Task List Process subsection: dependency/priority selection note)
   - `spec-driven.mdc` (slash‑commands, `/analyze` gate, cross‑links)
   - `assistant-learning.mdc` (Operation/Dependency Impact blocks)
 - Flow: User can choose phrase triggers or slash‑commands. Tasks remain two‑phase with pauses and TDD coupling.
@@ -210,7 +210,6 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 .cursor/rules/logging-protocol.mdc
 .cursor/rules/project-lifecycle.mdc
 .cursor/rules/spec-driven.mdc
-.cursor/rules/task-list-process.mdc
 .cursor/scripts/erd-validate.sh
 .cursor/scripts/project-lifecycle-validate.sh
 docs/plans/sample-feature-plan.md
@@ -224,8 +223,6 @@ docs/projects/README.md
 ---
 
 # Engineering Requirements Document — Spec‑Driven Workflow (Lite) — Integrated
-
-[Links: Glossary](../../glossary.md)
 
 Links: `.cursor/rules/spec-driven.mdc` | `docs/projects/ai-workflow-integration/tasks.md` | `docs/projects/split-progress/erd.md`
 

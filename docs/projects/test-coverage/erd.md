@@ -5,7 +5,7 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Test Coverage (Lite)
 
-Links: `.cursor/rules/test-quality-js.mdc` | `.cursor/rules/test-quality.mdc` | `docs/projects/test-coverage/tasks.md`
+Links: `.cursor/rules/testing.mdc` | `.cursor/rules/test-quality-js.mdc` | `docs/projects/test-coverage/tasks.md`
 
 ## 1. Introduction/Overview
 
