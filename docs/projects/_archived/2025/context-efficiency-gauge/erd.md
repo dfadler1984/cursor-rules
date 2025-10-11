@@ -1,11 +1,21 @@
 ---
-status: active
+status: merged
 owner: rules-maintainers
+merged_into: docs/projects/chat-performance-and-quality-tools/erd.md#15-context-efficiency-gauge-presentation-layer
+archive_date: 2025-10-11
 ---
 
-# Engineering Requirements Document — Context Efficiency Gauge (Lite)
+# Engineering Requirements Document — Context Efficiency Gauge (Lite) — Merged
 
 ## 1. Introduction/Overview
+
+This project has been folded into `docs/projects/chat-performance-and-quality-tools`.
+
+Authoritative content now lives in:
+
+- `docs/projects/chat-performance-and-quality-tools/erd.md` → section "15. Context Efficiency Gauge (Presentation Layer)"
+
+The original overview is preserved below for reference:
 
 Provide a lightweight, text-only gauge and decision aid that helps users judge whether their current chat context is efficient for getting work done, and when to start a new chat. Outputs are human-readable lines and ASCII banners; no graphics or external tooling required.
 
@@ -60,24 +70,6 @@ Provide a lightweight, text-only gauge and decision aid that helps users judge w
 │                           - Yes → New chat    │
 │                           - No → Stay here    │
 └───────────────────────────────────────────────┘
-```
-
-4. Optional Mermaid (for Markdown viewers that support it)
-   - Not required; provided here for completeness.
-
-```mermaid
-flowchart TD
-  S([This reply]) --> Q1{Is the task scope narrow and concrete?}
-  Q1 -- No --> NEW[Create a new chat\nSeed with exact file(s) + precise change]
-  Q1 -- Yes --> Q2{≥2 clarification loops or contradictions?}
-  Q2 -- Yes --> NEW
-  Q2 -- No --> Q3{Broad searches or many rules attached?}
-  Q3 -- Yes --> NEW
-  Q3 -- No --> Q4{Latency/timeouts spiking vs baseline?}
-  Q4 -- Yes --> NEW
-  Q4 -- No --> KEEP[Stay in this chat\nWork a minimal slice]
-  NEW --> DEC((Decision))
-  KEEP --> DEC
 ```
 
 ## 5. Non-Functional Requirements

@@ -11,7 +11,7 @@ A landing page for all projects, grouped by status.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
 - [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
-- [context-efficiency-gauge](./context-efficiency-gauge/erd.md) — Text-only gauge and decision flow for chat context efficiency.
+
 - [intent-router](./intent-router/erd.md) — Central intent router with consent/TDD gates and clear routing.
 - [productivity](./productivity/erd.md) — Automate repetitive ops with scripts while preserving safety and TDD‑first.
 - [github-workflows-utility](./github-workflows-utility/erd.md) — Audit current GitHub Actions, assess utility, and propose/add helpful workflows.
@@ -80,6 +80,7 @@ A landing page for all projects, grouped by status.
 - [changelog-automation](_archived/2025/changelog-automation/final-summary.md) — Automated changelog via Changesets; version sync; bot PR flow.
 - [alp-logging](_archived/2025/alp-logging/final-summary.md) — ALP logging consistency: triggers, status formats, aggregation/archival, redaction.
 - [project-lifecycle-hardening](_archived/2025/project-lifecycle-hardening/final-summary.md) — Completed.
+- [context-efficiency-gauge](_archived/2025/context-efficiency-gauge/erd.md) — Merged into Chat Performance and Quality Tools.
 
 ## Archived
 
