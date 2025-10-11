@@ -6,13 +6,12 @@ A landing page for all projects, grouped by status.
 
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
 - [chat-performance-and-quality-tools](./chat-performance-and-quality-tools/erd.md) — Tools to estimate token usage/headroom and maintain effective chats.
-- [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
 - [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
 
-- [intent-router](./intent-router/erd.md) — Central intent router with consent/TDD gates and clear routing.
+- [slash-commands-runtime](./slash-commands-runtime/erd.md) — Runtime execution semantics for slash commands (`/plan`, `/tasks`, `/pr`) with consent gates.
 - [productivity](./productivity/erd.md) — Automate repetitive ops with scripts while preserving safety and TDD‑first.
 - [github-workflows-utility](./github-workflows-utility/erd.md) — Audit current GitHub Actions, assess utility, and propose/add helpful workflows.
 - [role-phase-mapping](./role-phase-mapping/erd.md) — Align role guidance with phases; add phase‑readiness prompts.
@@ -35,7 +34,6 @@ A landing page for all projects, grouped by status.
 - [shell-and-script-tooling](./shell-and-script-tooling/erd.md)
 
   - [bash-scripts](./bash-scripts/erd.md)
-  - [shell-scripts](./shell-scripts/erd.md)
   - [scripts-unix-philosophy](./scripts-unix-philosophy/erd.md)
   - [script-rules](./script-rules/erd.md)
   - [script-help-generation](./script-help-generation/erd.md)
@@ -65,6 +63,9 @@ A landing page for all projects, grouped by status.
 
 ## Completed
 
+- [intent-router](_archived/2025/intent-router/final-summary.md) — Central intent router with consent/TDD gates and clear routing.
+- [rule-quality](_archived/2025/rule-quality/final-summary.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
+- [shell-scripts](_archived/2025/shell-scripts/final-summary.md) — Shell scripts suite with portable CLI tooling.
 - [assistant-learning](_archived/2025/assistant-learning/final-summary.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
 - [project-lifecycle](_archived/2025/project-lifecycle/final-summary.md) — Completion via status tagging/indexing; optional archive policy and templates.
 - [framework-selection](_archived/2025/framework-selection/erd.md) — Superseded; content integrated into AI Workflow Integration.
