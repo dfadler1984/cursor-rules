@@ -37,18 +37,18 @@ Identify gaps, fragility, and duplication in our developer tooling across the re
 
 ### 4.1 Inventory Matrix (Starter)
 
-| Category          | Present | Config File(s)                                  | Enforcement | Owner     |
-| ----------------- | ------- | ----------------------------------------------- | ----------- | --------- |
-| ESLint/Prettier   | TBD     | `.eslintrc*`, `.prettierrc*`                    | TBD         | TBD       |
-| Jest (JS/TS)      | TBD     | `jest.*`, `package.json` scripts                | TBD         | TBD       |
-| Shell tests       | Yes     | `.cursor/scripts/tests/run.sh`                  | Partial     | eng-tools |
-| Changesets        | Yes     | `.changeset/`, `package.json`                   | CI gated    | eng-tools |
-| CI Workflows      | Yes     | `.github/workflows/*.yml`                       | Mixed       | eng-tools |
-| Security scans    | TBD     | `scripts/security*`                             | TBD         | TBD       |
-| Git hooks         | TBD     | `.husky/`, scripts                              | TBD         | TBD       |
-| Project lifecycle | Yes     | `.cursor/scripts/validate-project-lifecycle.sh` | Optional    | eng-tools |
-| Docs checks       | Yes     | `.cursor/scripts/links-check.sh`                | Optional    | eng-tools |
-| Logging (ALP)     | Yes     | `.cursor/scripts/alp-*.sh`                      | Local-only  | eng-tools |
+| Category          | Present | Config File(s)                                                     | Enforcement | Owner     |
+| ----------------- | ------- | ------------------------------------------------------------------ | ----------- | --------- |
+| ESLint/Prettier   | TBD     | `.eslintrc*`, `.prettierrc*`                                       | TBD         | TBD       |
+| Jest (JS/TS)      | TBD     | `jest.*`, `package.json` scripts                                   | TBD         | TBD       |
+| Shell tests       | Yes     | `.cursor/scripts/tests/run.sh`                                     | Partial     | eng-tools |
+| Changesets        | Yes     | `.changeset/`, `package.json`                                      | CI gated    | eng-tools |
+| CI Workflows      | Yes     | `.github/workflows/*.yml`                                          | Mixed       | eng-tools |
+| Security scans    | TBD     | `scripts/security*`                                                | TBD         | TBD       |
+| Git hooks         | TBD     | `.husky/`, scripts                                                 | TBD         | TBD       |
+| Project lifecycle | Yes     | `.cursor/scripts/validate-project-lifecycle.sh`                    | Optional    | eng-tools |
+| Docs checks       | Yes     | `.cursor/scripts/links-check.sh`                                   | Optional    | eng-tools |
+| Logging (legacy)  | Yes     | `docs/projects/assistant-self-improvement/legacy/scripts/alp-*.sh` | Local-only  | eng-tools |
 
 ## 5. Risks/Edge Cases
 

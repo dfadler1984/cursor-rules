@@ -1,5 +1,10 @@
 # Tasks — Test Run Deletes `.github/` and adds `tmp-scan/`
 
+## Relevant Files
+
+- `docs/projects/tests-github-deletion/erd.md`
+- `docs/projects/testing-coordination/erd.md`
+
 ## Investigation Checklist
 
 - [ ] Reproduce locally using `npm run test:scripts`

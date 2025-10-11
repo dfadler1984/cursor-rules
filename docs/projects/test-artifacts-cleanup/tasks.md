@@ -3,6 +3,8 @@
 - `.cursor/scripts/tests/run.sh` — entry point for script tests (reference for wiring)
 - `.gitignore` — ensure temp root and artifacts are ignored
 
+- `docs/projects/testing-coordination/erd.md`
+
 ## Tasks
 
 - [ ] 1.0 Establish temp root and ignore rules (priority: high)

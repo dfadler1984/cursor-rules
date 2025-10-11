@@ -71,8 +71,8 @@ Optional (team-dependent):
 
 ## Contract
 
-- Use `[.cursor/scripts/alp-redaction.sh](.cursor/scripts/alp-redaction.sh)` to sanitize content
-- Use `[.cursor/scripts/alp-logger.sh](.cursor/scripts/alp-logger.sh) write-with-fallback <destDir> <short-name> <<'BODY' ... BODY` to write
+- Use `[../scripts/alp-redaction.sh](../scripts/alp-redaction.sh)` to sanitize content
+- Use `[../scripts/alp-logger.sh](../scripts/alp-logger.sh) write-with-fallback <destDir> <short-name> <<'BODY' ... BODY` to write
 - Destination directory: `logDir` from `.cursor/config.json` (default `./assistant-logs/`)
 - Filename: `log-<ISO>-<short>.md` where `<short>` is 3–5 words
 
@@ -80,18 +80,18 @@ Optional (team-dependent):
 
 - Do NOT write `assistant-logs/log-*.md` via direct file edits.
 - Always emit logs via the official tooling:
-  - `[.cursor/scripts/alp-logger.sh](.cursor/scripts/alp-logger.sh) write-with-fallback …`
-  - `[.cursor/scripts/alp-template.sh](.cursor/scripts/alp-template.sh)` …
-  - `[.cursor/scripts/alp-triggers.sh](.cursor/scripts/alp-triggers.sh)` …
+  - `[../scripts/alp-logger.sh](../scripts/alp-logger.sh) write-with-fallback …`
+  - `[../scripts/alp-template.sh](../scripts/alp-template.sh)` …
+  - `[../scripts/alp-triggers.sh](../scripts/alp-triggers.sh)` …
 - Rationale: hooks (threshold, auto-aggregate) attach to the logger path.
 
 ### Threshold behavior (archival policy)
 
 - When unarchived logs at the top level reach the threshold (`ALP_ARCHIVE_THRESHOLD`, default 10), the system:
 
-  - Produces an aggregate summary via `[.cursor/scripts/alp-aggregate.sh](.cursor/scripts/alp-aggregate.sh)`.
+  - Produces an aggregate summary via `[../scripts/alp-aggregate.sh](../scripts/alp-aggregate.sh)`.
   - Marks only the oldest N logs (N = threshold) as Reviewed.
-  - Archives only the Reviewed logs via `[.cursor/scripts/alp-archive.sh](.cursor/scripts/alp-archive.sh) archive`, leaving the newest log unarchived.
+  - Archives only the Reviewed logs via `[../scripts/alp-archive.sh](../scripts/alp-archive.sh) archive`, leaving the newest log unarchived.
   - Writes an archive summary to `docs/assistant-learning-logs/summary-archived-<ISO>.md`.
 
 - Environment variables:
@@ -201,14 +201,14 @@ Notes:
 
 ## Scripts
 
-- `[.cursor/scripts/alp-logger.sh](.cursor/scripts/alp-logger.sh)`: Helpers to write learning logs with primary/fallback destinations and optional redaction; builds filenames.
-- `[.cursor/scripts/alp-redaction.sh](.cursor/scripts/alp-redaction.sh)`: Redacts secret-like values and auth headers from log content.
-- `[.cursor/scripts/alp-aliases.sh](.cursor/scripts/alp-aliases.sh)`: Sourceable `alp_log` helper resolving `logDir` (env/config) and writing via the logger.
-- `[.cursor/scripts/alp-smoke.sh](.cursor/scripts/alp-smoke.sh)`: Smoke test that writes a learning log and prints the resulting path.
-- `[.cursor/scripts/alp-template.sh](.cursor/scripts/alp-template.sh)`: Formats a concise ALP entry from CLI flags; can tag rule candidates.
-- `[.cursor/scripts/alp-triggers.sh](.cursor/scripts/alp-triggers.sh)`: Emits logs for common triggers (tdd-fix, intent-resolution, rule-fix, task-completion, mcp-recovery).
-- `[.cursor/scripts/alp-archive.sh](.cursor/scripts/alp-archive.sh)`: Marks logs as reviewed and archives reviewed logs under `_archived/YYYY/MM/`; writes a summary with extracted learnings.
-- `[.cursor/scripts/alp-aggregate.sh](.cursor/scripts/alp-aggregate.sh)`: Scans existing logs and produces a summary aggregating `[rule-candidate]` counts.
+- `[../scripts/alp-logger.sh](../scripts/alp-logger.sh)`: Helpers to write learning logs with primary/fallback destinations and optional redaction; builds filenames.
+- `[../scripts/alp-redaction.sh](../scripts/alp-redaction.sh)`: Redacts secret-like values and auth headers from log content.
+- `[../scripts/alp-aliases.sh](../scripts/alp-aliases.sh)`: Sourceable `alp_log` helper resolving `logDir` (env/config) and writing via the logger.
+- `[../scripts/alp-smoke.sh](../scripts/alp-smoke.sh)`: Smoke test that writes a learning log and prints the resulting path.
+- `[../scripts/alp-template.sh](../scripts/alp-template.sh)`: Formats a concise ALP entry from CLI flags; can tag rule candidates.
+- `[../scripts/alp-triggers.sh](../scripts/alp-triggers.sh)`: Emits logs for common triggers (tdd-fix, intent-resolution, rule-fix, task-completion, mcp-recovery).
+- `[../scripts/alp-archive.sh](../scripts/alp-archive.sh)`: Marks logs as reviewed and archives reviewed logs under `_archived/YYYY/MM/`; writes a summary with extracted learnings.
+- `[../scripts/alp-aggregate.sh](../scripts/alp-aggregate.sh)`: Scans existing logs and produces a summary aggregating `[rule-candidate]` counts.
 
 ## Safety & Consent
 

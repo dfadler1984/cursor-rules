@@ -13,6 +13,8 @@
 - Tests and local usage must never hit the network.
 - Override network clients in tests via env: `CURL_BIN=false`, `HTTP_BIN=false` to ensure calls would fail if invoked.
 
+- Unified coordination: `docs/projects/shell-and-script-tooling/erd.md`
+
 ## Tasks
 
 - [ ] 1.0 Add network effects seam library (priority: high)
@@ -44,3 +46,17 @@
 - [ ] 6.0 Validation and metrics (priority: medium)
   - [ ] 6.1 Ensure test suite config enforces no-network and blocks clients by default
   - [ ] 6.2 Verify 0 network calls via guard test
+
+### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
+
+- [ ] D1 Help/Version: adopt minimum flags and section schema
+- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [ ] D3 Error Semantics: align exit codes and `die` usage
+- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+
+#### Adoption status
+
+- D1: Not started —
+- D2: Not started —
+- D3: Not started —
+- D4: Not started —

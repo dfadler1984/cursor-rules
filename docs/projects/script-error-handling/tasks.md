@@ -4,7 +4,7 @@
 
 - `.cursor/scripts/.lib.sh`
 - `.cursor/scripts/error-validate.sh`
-- `.cursor/scripts/alp-logger.sh`
+- `docs/projects/assistant-self-improvement/legacy/scripts/alp-logger.sh` (legacy; for reference only)
 - `.cursor/scripts/pr-create.sh`
 - `.cursor/scripts/pr-update.sh`
 - `docs/projects/script-error-handling/erd.md`
@@ -14,6 +14,8 @@
 - Prefer centralized helpers: enable strict mode, traps, retries, tempdir cleanup.
 - Keep validator simple and fast; allow explicit bypass comments for rare cases.
 - Do not print secrets in error messages; redact where needed.
+
+- Unified coordination: `docs/projects/shell-and-script-tooling/erd.md`
 
 ## Todo
 
@@ -32,7 +34,7 @@
 
 - [ ] 3.0 Migrate representative scripts
 
-  - [ ] 3.1 Migrate `.cursor/scripts/alp-logger.sh` to helpers and strict mode
+  - [ ] 3.1 Migrate `.cursor/scripts/alp-logger.sh` to helpers and strict mode (legacy reference lives under `docs/projects/assistant-self-improvement/legacy/scripts/`)
   - [ ] 3.2 Migrate `.cursor/scripts/pr-create.sh` and `pr-update.sh`
   - [ ] 3.3 Confirm cleanup of temp artifacts and consistent exit codes
 
@@ -45,3 +47,17 @@
 
   - [ ] 5.1 Add a CI step to run `error-validate.sh` on PRs
   - [ ] 5.2 Fail PRs when violations are detected; provide guidance to fix
+
+### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
+
+- [ ] D1 Help/Version: adopt minimum flags and section schema
+- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [ ] D3 Error Semantics: align exit codes and `die` usage
+- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+
+#### Adoption status
+
+- D1: Not started —
+- D2: Not started —
+- D3: Not started —
+- D4: Not started —

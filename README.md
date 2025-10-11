@@ -139,7 +139,7 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
   - Log destination: set `.cursor/config.json` `logDir` to control the primary logs directory (default `assistant-logs/`); falls back to `docs/assistant-learning-logs/` if primary is not writable.
 - ERD Split Progress: `docs/projects/split-progress/erd.md`
   - Owner Map: `docs/owner-map.md`
-  - Drawing Board ERD: `docs/projects/drawing-board/erd.md`
+  - Drawing Board ERD: `docs/projects/_archived/2025/drawing-board/erd.md`
   - Intent Router ERD: `docs/projects/intent-router/erd.md`
   - Framework Selection ERD: `docs/projects/framework-selection/erd.md`
   - Role–Phase Mapping ERD: `docs/projects/role-phase-mapping/erd.md`

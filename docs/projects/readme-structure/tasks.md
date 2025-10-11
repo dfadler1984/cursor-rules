@@ -35,3 +35,4 @@
 
 - [ ] 5.0 Add project to projects index (priority: low)
   - [ ] 5.1 Update `docs/projects/README.md` with a one-line description and link
+- [ ] Add backlink: umbrella — `docs/projects/project-lifecycle-docs-hygiene/erd.md`

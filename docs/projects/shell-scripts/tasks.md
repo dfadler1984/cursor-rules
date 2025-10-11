@@ -19,6 +19,8 @@
 - Auth: `GITHUB_TOKEN` for PR creation.
 - Tests live under `.cursor/scripts/`.
 
+- Unified coordination: `docs/projects/shell-and-script-tooling/erd.md`
+
 ## Tasks
 
 - [x] 1.0 Establish shell scripts baseline (strict modes, help/version, logging)
@@ -89,3 +91,17 @@
 - [x] 10.0 Documentation
   - [x] 10.1 Update `README.md` with usage examples and install notes for jq/actionlint
   - [x] 10.2 Add a quickstart section and troubleshooting
+
+### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
+
+- [ ] D1 Help/Version: adopt minimum flags and section schema
+- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [ ] D3 Error Semantics: align exit codes and `die` usage
+- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+
+#### Adoption status
+
+- D1: Not started —
+- D2: Not started —
+- D3: Not started —
+- D4: Not started —
