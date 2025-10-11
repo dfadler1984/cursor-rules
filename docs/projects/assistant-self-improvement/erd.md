@@ -43,5 +43,3 @@ We are deactivating legacy Assistant Learning (ALP) rules and scripts and rethin
 
 - What minimal subset of signals should the new system capture?
 - Where should integration points live to keep effects isolated?
-
-
