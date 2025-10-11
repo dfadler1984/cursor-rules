@@ -24,7 +24,6 @@
 | `docs/projects/project-organization/erd.md`                        | rules-maintainers  | Proposed      | —                                                                  | core-values              |
 | `docs/projects/portability/erd.md`                                 | rules-maintainers  | In progress   | `docs/projects/portability/tasks.md`                               | project-organization     |
 | `docs/projects/collaboration-options/erd.md`                       | rules-maintainers  | New (drafted) | `docs/projects/collaboration-options/tasks.md`                     | core-values              |
-| `docs/projects/_archived/2025/drawing-board/erd.md`                | rules-maintainers  | Archived      | `docs/projects/_archived/2025/drawing-board/tasks.md`              | core-values              |
 | `docs/projects/framework-selection/erd.md`                         | rules-maintainers  | New (drafted) | `docs/projects/framework-selection/tasks.md`                       | —                        |
 | `docs/projects/role-phase-mapping/erd.md`                          | rules-maintainers  | New (drafted) | `docs/projects/role-phase-mapping/tasks.md`                        | roles                    |
 | `docs/projects/git-usage/erd.md`                                   | rules-maintainers  | New (drafted) | `docs/projects/git-usage/tasks.md`                                 | core-values              |
@@ -98,11 +97,6 @@
 
   - **Tasks**: `docs/projects/collaboration-options/tasks.md`
   - **Status**: New (drafted)
-
-- **Drawing Board (Ideation/Prototyping)**: `docs/projects/_archived/2025/drawing-board/erd.md`
-
-  - **Tasks**: `docs/projects/_archived/2025/drawing-board/tasks.md`
-  - **Status**: Archived (skipped)
 
 - **Intent Router**: `docs/projects/intent-router/erd.md`
 

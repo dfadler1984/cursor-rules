@@ -199,6 +199,9 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 ## 14. Open Questions
 
+- Should we adopt a lightweight “constitution.md” for project principles (Spec Kit‑style)?
+- Do we want optional complexity analysis before expanding tasks (Taskmaster‑style)?
+- Where should per‑agent slash‑command docs live (repo vs user‑level notes)?
 - Do these align well with ai-workflow-integration?
 
 ```

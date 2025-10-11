@@ -13,7 +13,7 @@ Define standards for repository shell scripts (`scripts/*.sh`): style, safety, l
 
 - Establish minimal style and safety baselines (set -euo pipefail)
 - Require a top comment with description and usage
-- Explore linting (ShellCheck) on the Drawing Board before enforcing
+- Explore linting (ShellCheck) before enforcing
 - Declare standards ownership for all repo scripts; the scripts suite adopts these standards
 
 ## 3. Functional Requirements
@@ -31,7 +31,7 @@ Define standards for repository shell scripts (`scripts/*.sh`): style, safety, l
 ## 4. Acceptance Criteria
 
 - Example header snippet and safe patterns included
-- Documented linting command (optional) and deferral note to Drawing Board
+- Documented linting command (optional)
 
 ## 5. Risks/Edge Cases
 

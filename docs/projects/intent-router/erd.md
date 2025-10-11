@@ -23,7 +23,7 @@ Define a central intent router that parses user inputs and routes to the correct
 
 - Triggers: implicit (natural language) and explicit (slash commands)
 - Parsing: extract verb, targets, and scope; default to clarify when uncertain
-- Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, drawing-board, project-lifecycle)
+- Routing: map to rules (spec-driven, tdd-first, git-usage, capabilities, project-lifecycle)
 - Gates: enforce phase checks and TDD owner spec paths before JS/TS edits
 - Status: emit brief status updates per step
 - Signals: use file/context signals as supporting triggers (e.g., focused test files)
@@ -32,7 +32,7 @@ Define a central intent router that parses user inputs and routes to the correct
 
 - Examples of parsed inputs → routed rule + gates applied
 - Clarifying-question policy documented; exactly one targeted question on ambiguity
-- Integration points listed for spec-driven, tdd-first, git-usage, capabilities; drawing-board (pending)
+- Integration points listed for spec-driven, tdd-first, git-usage, capabilities
 
 ## 5. Risks/Edge Cases
 
@@ -47,7 +47,6 @@ Define a central intent router that parses user inputs and routes to the correct
 ## 7. Testing
 
 - Dry-run parse: “Implement rounding” → gate on TDD with owner spec path required
-- Dry-run parse: “Could you add X to the drawing board?” → `/draw X` (pending; drawing-board rule not yet implemented)
 
 - Conflicting intents: “Refactor parse.ts and open a PR” → choose one; PR waits for green
 - Missing details: “Add tests” (no target) → ask once for file/module; then proceed
@@ -74,14 +73,13 @@ DRY RUN:
 
 ## 9. Example Parses
 
-| Input                                 | Intent    | Route                 | Gates                                                       |
-| ------------------------------------- | --------- | --------------------- | ----------------------------------------------------------- |
-| Implement user login                  | implement | tdd-first, code-style | TDD: owner spec path + failing assertion; consent for edits |
-| /plan checkout flow                   | plan      | spec-driven           | consent; produce plan scaffold                              |
-| Open a PR from feat/foo               | git-usage | assistant-git-usage   | consent + non-interactive                                   |
-| Add “test flakiness” to drawing board | ideate    | drawing-board         | no code/TDD gates                                           |
-| What are Cursor’s limits?             | guidance  | capabilities          | docs-backed answer; no edits                                |
-| Refactor src/parse.ts                 | refactor  | tdd-first             | TDD gate enforced                                           |
+| Input                     | Intent    | Route                 | Gates                                                       |
+| ------------------------- | --------- | --------------------- | ----------------------------------------------------------- |
+| Implement user login      | implement | tdd-first, code-style | TDD: owner spec path + failing assertion; consent for edits |
+| /plan checkout flow       | plan      | spec-driven           | consent; produce plan scaffold                              |
+| Open a PR from feat/foo   | git-usage | assistant-git-usage   | consent + non-interactive                                   |
+| What are Cursor’s limits? | guidance  | capabilities          | docs-backed answer; no edits                                |
+| Refactor src/parse.ts     | refactor  | tdd-first             | TDD gate enforced                                           |
 
 ## 10. Integration Points and Handoff
 
@@ -90,7 +88,6 @@ DRY RUN:
 - assistant-git-usage: For branch/commit/PR; request explicit command consent and use repo scripts non‑interactively.
 - capabilities: For platform knowledge; docs-backed responses; no edits/commands.
 - direct-answers: For direct questions; respond with cause, evidence, next step.
-- drawing-board: For ideation; create/update entries; no code/TDD gates. (pending)
 - Handoff contract: Router supplies {intent, targets, rule, gates, consentState}; callee rule executes and reports status back for consistent updates.
 
 ## 11. Slash Commands
@@ -98,7 +95,6 @@ DRY RUN:
 - `/plan <topic>` → route to `spec-driven` (plan/specify); consent-first; produce plan scaffold
 - `/tasks` → route to `project-lifecycle` (Task List Process subsection); manage/update tasks when safe
 - `/pr` → route to `assistant-git-usage`; prefer `.cursor/scripts/pr-create.sh` with explicit consent and non-interactive flags
-- `/draw <item>` → route to drawing-board (pending; blocked until drawing-board rule exists)
 
 ---
 
