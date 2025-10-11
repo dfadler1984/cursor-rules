@@ -1,7 +1,7 @@
 ---
 description: Always-on intent router attaching rules via phrases, keywords, and signals
 alwaysApply: true
-lastReviewed: 2025-10-08
+lastReviewed: 2025-10-10
 healthScore:
   content: green
   usability: green
@@ -98,12 +98,12 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - Task lists
   - Triggers: task list phrases
     - Terms: task list|update tasks|mark sub-task|mark subtask|check off|relevant files section
-  - Attach: `task-list-process.mdc`
+  - Attach: `project-lifecycle.mdc` (Task List Process subsection)
 
 ## Slash commands
 
 - `/plan <topic>` → route to `spec-driven.mdc` (plan/specify); consent-first; produce plan scaffold
-- `/tasks` → route to `task-list-process.mdc`; manage/update tasks non-interactively when safe
+- `/tasks` → route to `project-lifecycle.mdc` (Task List Process subsection); manage/update tasks non-interactively when safe
 - `/pr` → route to `assistant-git-usage.mdc`; prefer `.cursor/scripts/pr-create.sh` with explicit consent and non-interactive flags
 
 ## File/context signals (supporting)
@@ -113,7 +113,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - On implementation verbs (implement/add/fix/refactor/update), attach testing + TDD by default (see `user-intent.mdc`).
 - JS/TS files (`*.ts|*.tsx|*.js|*.mjs|*.cjs`): attach `test-quality-js.mdc` for language-specific guidance.
 - Shell scripts under `.cursor/scripts/*.sh`: attach `test-quality-sh.mdc` for shell-specific guidance.
-- If any focused/open/edited path matches `**/tasks/*.md`, attach `assistant-git-usage.mdc`, `task-list-process.mdc`.
+- If any focused/open/edited path matches `**/tasks/*.md`, attach `assistant-git-usage.mdc`, `project-lifecycle.mdc`.
 
 ## Decision policy (weights)
 
@@ -167,13 +167,20 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - "Update front matter across rules" → attach: front-matter, rule-maintenance, rule-creation
 - "Archive docs/projects/rules-validate-script" → attach: project-lifecycle; propose dry-run of the archive workflow
 
+## Routing Sanity Prompts (for validation)
+
+- "Add tests for X" → expect: attach `testing`, `tdd-first` only
+- "Refactor Y" → expect: attach `refactoring` (+ `testing` if JS/TS target), not `tdd-first` unless edits planned
+- "Create an ERD for Z" → expect: attach `create-erd`, `guidance-first`
+- Guidance-only questions → exclude execution/tooling rules
+
 ## Notes
 
 - Keep this file small; do not restate target rule content.
 - Prefer the smallest matching set of rules to minimize context.
 - If multiple triggers match, attach the union (deduplicated).
 - Status transparency: In status updates, include which signal triggered routing (e.g., explicit verb, consent-after-plan, file signal) for traceability.
-- Logging: For routing corrections or guard triggers, write a brief Assistant Learning Log via `.cursor/scripts/alp-logger.sh write-with-fallback assistant-logs "routing-correction" <<'BODY' … BODY`.
+- Logging: The historical Assistant Learning log guidance has been deprecated. Do not auto-log; capture decisions in project docs as needed.
 
 ## Handoff contract
 
@@ -183,7 +190,7 @@ Router outputs a normalized context object for downstream rules:
 {
   "intent": "implement|plan|refactor|guidance|git|tasks|erd",
   "targets": ["file paths or feature names"],
-  "rule": "tdd-first|spec-driven|assistant-git-usage|task-list-process|cursor-platform-capabilities",
+  "rule": "tdd-first|spec-driven|assistant-git-usage|project-lifecycle|cursor-platform-capabilities",
   "gates": ["consent", "tdd-owner-spec"],
   "consentState": "required|granted|not-applicable"
 }

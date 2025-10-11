@@ -1,31 +1,10 @@
-name: ALP Aggregate
+name: DEPRECATED — ALP Aggregate (disabled)
 
 on:
-  schedule:
-    - cron: "0 12 * * 1" # Mondays 12:00 UTC weekly
   workflow_dispatch: {}
 
 jobs:
-  aggregate:
+  disabled:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run aggregator
-        run: |
-          chmod +x ./.cursor/scripts/alp-aggregate.sh
-          OUT=$(./.cursor/scripts/alp-aggregate.sh)
-          echo "Summary: $OUT"
-
-      - name: Commit summary (if changed)
-        run: |
-          git config user.name "automation"
-          git config user.email "automation@users.noreply.github.com"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add docs/assistant-learning-logs/*.md
-            git commit -m "chore(alp): add weekly assistant learning summary"
-            git push || true
-          else
-            echo "No changes to commit"
-          fi
+      - run: echo "ALP workflows are deprecated."

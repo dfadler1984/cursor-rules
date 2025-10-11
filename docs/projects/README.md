@@ -8,8 +8,8 @@ A landing page for all projects, grouped by status.
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
 - [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
 - [artifact-migration](./artifact-migration/erd.md) — Safe, repeatable artifact moves with reference rewrites and verification.
-- [capabilities-discovery](./capabilities-discovery/erd.md) — Deterministic index of abilities from rules, MCP servers, and local scripts.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
+- [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
 - [completion-metadata](./completion-metadata/erd.md) — ERD completion metadata, lifecycle, gates, and validation rules.
 - [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
@@ -18,19 +18,21 @@ A landing page for all projects, grouped by status.
 - [git-usage](./git-usage/erd.md) — Safe, consistent Git flows with MCP‑backed ops and pre‑commit/test gates.
 - [intent-router](./intent-router/erd.md) — Central intent router with consent/TDD gates and clear routing.
 - [logging-destinations](./logging-destinations/erd.md) — Logging destination policy, redaction, config override, and safe fallbacks.
-- [mcp-synergy](./mcp-synergy/erd.md) — Consent‑first MCP usage: discovery vs execution, effects boundaries, failures.
 - [portability](./portability/erd.md) — Portable paths/config for artifacts and logs; relative paths and env expansion.
 - [productivity](./productivity/erd.md) — Automate repetitive ops with scripts while preserving safety and TDD‑first.
 - [workflows](./workflows/erd.md) — Investigate encoded, repeatable workflows for reliable assistant results.
+- [github-workflows-utility](./github-workflows-utility/erd.md) — Audit current GitHub Actions, assess utility, and propose/add helpful workflows.
 - [project-organization](./project-organization/erd.md) — Defaults/config for organizing project artifacts with presets and paths.
 - [role-phase-mapping](./role-phase-mapping/erd.md) — Align role guidance with phases; add phase‑readiness prompts.
 - [roles](./roles/erd.md) — Define roles and intent routing with per‑role posture and examples.
+- [rules-folder-structure-options](./rules-folder-structure-options/erd.md) — Determine structure options for `.cursor/rules/` and a low‑risk migration plan.
 
 - [projects-readme-generator](./projects-readme-generator/erd.md) — Automate generation of the projects index README; consistent, idempotent output.
 
 - [script-rules](./script-rules/erd.md) — Best practices for scripts: robust help, predictable errors, parameterized config (no direct env reads).
 
 - [shell-scripts](./shell-scripts/erd.md) — Portable shell scripts replacing Node helpers; standardized CLI suite.
+- [shellcheck](./shellcheck/erd.md) — Adopt ShellCheck with a local runner, config, and optional CI.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
 - [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
 - [script-test-hardening](./script-test-hardening/erd.md) — Harden script tests to avoid leaking environment variables; add token flags.
@@ -44,6 +46,10 @@ A landing page for all projects, grouped by status.
 - [test-artifacts-cleanup](./test-artifacts-cleanup/erd.md) — Ensure every test run cleans temp artifacts via a safe, portable cleanup routine.
 
 - [tdd-rules-refinement](./tdd-rules-refinement/erd.md) — Refine TDD triggers and gates to reduce misses and friction.
+
+- [document-templates](./document-templates/erd.md) — Determine recurring docs and add minimal templates where beneficial.
+
+- [long-term-solutions](./long-term-solutions/erd.md) — Replace manual workarounds with durable, test‑backed fixes (e.g., fix `.cursor/scripts/final-summary-generate.sh` instead of manual final summaries).
 
 ## Completed
 
@@ -66,3 +72,7 @@ A landing page for all projects, grouped by status.
 ## Archived
 
 - See `docs/projects/_archived/README.md`
+
+## Skipped
+
+- [mcp-synergy](_archived/2025/mcp-synergy/erd.md) — Archived without completion; scope deferred.

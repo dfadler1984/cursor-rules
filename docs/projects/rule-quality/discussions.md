@@ -90,3 +90,11 @@ Outputs:
 
 Complexity rubric: I was proposing rule edits (add rubric notes to /analyze in spec-driven.mdc and a brief note in generate-tasks-from-erd.mdc). We can also document it in discussions.md for now if you prefer to defer rule changes.
 Rule renames: not yet tracked as tasks; if you want, I can add a todo to plan and execute renames with validator support.
+
+## Decisions (2025-10-10)
+
+- Stub policy: Remove `task-list-process.mdc` after folds and link hygiene; no persistent stub. Rely on `.cursor/scripts/links-check.sh` to catch broken internal links.
+- Index order: Place `global-defaults.mdc` under Foundations.
+- Complexity rubric scope: Track rubric notes in `docs/projects/ai-workflow-integration/erd.md`; do not modify `spec-driven` or `generate-tasks-from-erd` in this project.
+- Rule renames: Skip a manual rename matrix. Enforce via `.cursor/scripts/links-check.sh` and `.cursor/scripts/rules-validate.sh`; fix any legacy references in the same PR. Optional mapping can live in the PR body if needed.
+- Rollout order: testing merge → folds → link sweep → validator run → capabilities sync → announce.

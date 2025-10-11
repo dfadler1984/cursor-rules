@@ -1,3 +1,8 @@
+---
+status: skipped
+owner: rules-maintainers
+---
+
 # Engineering Requirements Document — ALP Smoke
 
 Mode: Lite

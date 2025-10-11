@@ -38,6 +38,7 @@ proj_dir="$projects_root/$project"
 
 final="$proj_dir/final-summary.md"
 retro="$proj_dir/retrospective.md"
+tasks="$proj_dir/tasks.md"
 
 # Ensure final-summary.md exists
 if [[ ! -f "$final" ]]; then
@@ -73,11 +74,17 @@ else
   fi
 fi
 
-# Ensure retrospective exists (file or section)
-if [[ -f "$final" ]] && grep -q '^##\s\+Retrospective' "$final"; then
-  :
-elif [[ ! -f "$retro" ]]; then
+# Ensure retrospective file exists (always create file if missing)
+if [[ ! -f "$retro" ]]; then
   .cursor/scripts/template-fill.sh --template retrospective --project "$project" --out "$retro" --vars projectName="$project"
+fi
+
+# Ensure tasks.md exists (create minimal stub)
+if [[ ! -f "$tasks" ]]; then
+  {
+    printf '%s\n' '# Tasks'
+    printf '%s\n' ''
+  } > "$tasks"
 fi
 
 echo "Migrated: $project"

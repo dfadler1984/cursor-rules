@@ -161,6 +161,18 @@ Reference templates:
 - Single archive move only: `.cursor/scripts/project-archive.sh --project <slug> --year <YYYY> [--dry-run]`
 - Backfill legacy projects: `.cursor/scripts/project-lifecycle-migrate.sh --project <slug>`
 
+## Task List Process (subsection)
+
+- One sub-task at a time: do not start the next until the current sub-task is completed and recorded.
+- Selection policy: pick from tasks whose dependencies are satisfied; among ready tasks, choose the highest priority.
+- Completion protocol:
+  1. Mark the sub-task `[x]` in the project `tasks.md` immediately after completion.
+  2. If a parent task's children are all `[x]`, run tests/lint/types as applicable; stage intended changes only; commit with a Conventional Commit message referencing the task.
+- Maintenance:
+  - Keep a `Relevant Files` section current with one-line purposes for created/modified files.
+  - Add newly discovered tasks as they arise.
+  - Provide concise status updates (what changed, what’s next, blockers) while executing.
+
 ## Validator and CLI (repository sweep)
 
 - Script: `.cursor/scripts/project-lifecycle-validate-sweep.sh`

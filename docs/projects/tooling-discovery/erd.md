@@ -1,7 +1,5 @@
 # Engineering Requirements Document — Tooling Discovery
 
-[Links: Glossary](../../glossary.md)
-
 Mode: Lite
 
 ## 1. Introduction/Overview

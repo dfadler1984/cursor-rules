@@ -1,7 +1,7 @@
 ---
 description: User intent classification and handling strategies
 alwaysApply: true
-lastReviewed: 2025-09-11
+lastReviewed: 2025-10-10
 healthScore:
   content: green # Clear intent classification, good examples
   usability: green # Well-organized patterns, actionable guidance
@@ -59,7 +59,7 @@ healthScore:
 2. **Verify requirements** - confirm target files, exact changes, success criteria
 3. **Seek consent** - get explicit approval before proceeding
 4. **Execute systematically** - follow TDD principles when applicable
-5. **Testing/TDD by default** - For any implementation-like intent (implement/add/fix/refactor/update or composite consent-after-plan), attach `testing.mdc` and `tdd-first.mdc` by default. See routing mechanics in `intent-routing.mdc`.
+5. **Testing/TDD by default** - For any implementation-like intent (implement/add/fix/refactor/update or composite consent-after-plan), attach [testing.mdc](./testing.mdc) and [tdd-first.mdc](./tdd-first.mdc) by default. See routing mechanics in [intent-routing.mdc](./intent-routing.mdc).
 
 ## Ambiguous Requests
 
@@ -108,6 +108,6 @@ healthScore:
 
 ## Related
 
-- See `assistant-behavior.mdc` for consent requirements
-- See `scope-check.mdc` for implementation request handling
-- See `guidance-first.mdc` for guidance request handling
+- See [assistant-behavior.mdc](./assistant-behavior.mdc) for consent requirements
+- See [scope-check.mdc](./scope-check.mdc) for implementation request handling
+- See [guidance-first.mdc](./guidance-first.mdc) for guidance request handling

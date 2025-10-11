@@ -3,8 +3,6 @@
 
 # Engineering Requirements Document — Shell Scripts Suite
 
-[Links: Glossary](../../glossary.md)
-
 Mode: Lite
 
 ## 1. Introduction/Overview

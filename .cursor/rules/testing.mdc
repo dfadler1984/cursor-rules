@@ -2,7 +2,7 @@
 description: Testing conventions — meaningful assertions against owner modules; pointers to TDD cycles
 globs: **/*.spec*,**/*.test*
 alwaysApply: false
-lastReviewed: 2025-10-05
+lastReviewed: 2025-10-10
 healthScore:
   content: green     # Accurate testing conventions
   usability: green   # Clear structure, good examples
@@ -13,13 +13,49 @@ healthScore:
 
 - This overview anchors testing conventions and links to focused rules.
 
-## Naming Conventions
+## Naming & Colocation
 
-- See `testing-naming.mdc` for file naming and test API preferences.
+- Prefer file names ending in `.spec.*` over `.test.*`.
+- Examples (Do):
+
+```text
+src/foo/foo.spec.ts
+web/src/components/Button/Button.spec.tsx
+```
+
+- Examples (Not that):
+
+```text
+src/foo/foo.test.ts
+web/src/components/Button/Button.test.tsx
+```
+
+- Colocate tests next to the file under test.
+- For scripts and libraries under `scripts/**`, place specs alongside sources (e.g., `scripts/git/lib/branch-validate.spec.ts`).
+- Test API: prefer `it()` over `test()` with behavior-focused, present-tense titles.
 
 ## Structure & Style
 
-- See `testing-structure.mdc` for behavior-focused titles and test layout.
+- Keep one primary behavior per `it()`; split variants into separate `it()` blocks.
+- Prefer clear Arrange-Act-Assert phases; keep setup minimal and explicit.
+
+### Example (Do)
+
+```ts
+it("returns the user when present", () => {
+  // arrange
+  // act
+  // assert
+});
+```
+
+### Example (Avoid)
+
+```ts
+test("returns the user when present", () => {
+  // large implicit setup, multiple asserts for different behaviors
+});
+```
 
 ## Notes
 
@@ -37,7 +73,7 @@ healthScore:
 
 ## No placeholders (must)
 
-- See `test-quality.mdc` for the canonical guidance on meaningful assertions, forbidden placeholders, and observable behavior requirements.
+- Tests must assert observable behavior of the SUT’s public API (values, outputs, effects), not incidental internals or placeholders.
 
 ### Examples (good)
 
@@ -75,3 +111,30 @@ expect(validateGlobs).toBeDefined();
 - See `tdd-first.mdc` for TDD methodology
 - See `tdd-first-js.mdc` for JS/TS enforcement specifics
 - See `tdd-first-sh.mdc` for Shell enforcement specifics
+
+## Quality (Core)
+
+### Purpose
+
+Keep tests meaningful and resistant to false positives with minimal friction. Pair objective execution signals with good structure.
+
+### Core signals (must)
+
+- Owner coupling: a spec should import/invoke its owner module (sibling path) or an extracted pure resolver.
+- Meaningful failure: assertions must exercise observable behavior; avoid existence-only checks and placeholders.
+- Sabotage spot-check (review practice): temporarily comment out or early-return in the SUT and re-run related tests; they should fail. Revert immediately.
+
+### Structure & effects seam
+
+- Prefer pure resolvers; inject effects (env, filesystem, subprocess, time) as parameters. See `tdd-first.mdc` for methodology.
+- Boundary tests: assert parsing/shape, exit codes, and user-visible outputs through seams/spies.
+
+### Linting aids (should)
+
+- Enable test lint rules where available (e.g., expect-expect, no-disabled-tests, no-identical-title).
+- Optional denylist in CI to catch obvious placeholders: `expect(true).toBe(true)`, `.skip(`, or "placeholder" in titles.
+
+### Language extensions
+
+- JS/TS specifics (coverage options, commands): `test-quality-js.mdc`, `tdd-first-js.mdc`
+- Shell specifics (harness, behavior evidence): `test-quality-sh.mdc`, `tdd-first-sh.mdc`

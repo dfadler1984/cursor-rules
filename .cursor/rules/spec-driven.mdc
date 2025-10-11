@@ -9,7 +9,7 @@ healthScore:
 references:
   - create-erd.mdc
   - generate-tasks-from-erd.mdc
-  - task-list-process.mdc
+  - project-lifecycle.mdc
   - assistant-behavior.mdc
   - tdd-first.mdc
   - logging-protocol.mdc
@@ -94,11 +94,11 @@ Cross-links: Each artifact links siblings at the top with the `[Links: …]` lin
 
 3. **Tasks**: Execute with monitoring and AI assistance.
 
-   - Delegate execution to task-list-process.mdc (sequential handling, checkbox updates).
-   - Integration: If MCP detected, suggest links (e.g., "Create Jira ticket?") or auto-PR.
-   - AI Synergy: Feed spec/plan to agents (e.g., Copilot).
-   - Logging: Trigger logging.mdc on completion/issues.
-   - Halt on issues: Pause and correct per Third Law; support regen to reduce debt.
+- Delegate execution to project-lifecycle.mdc (Task List Process subsection: sequential handling, checkbox updates).
+- Integration: If MCP detected, suggest links (e.g., "Create Jira ticket?") or auto-PR.
+- AI Synergy: Feed spec/plan to agents (e.g., Copilot).
+- Logging: Trigger logging.mdc on completion/issues.
+- Halt on issues: Pause and correct per Third Law; support regen to reduce debt.
 
 4. **Analyze**: Cross-artifact check prior to implementation.
    - Ensure coverage/consistency across ERD/plan/tasks; surface `[NEEDS CLARIFICATION]` items or state “No discrepancies found”.

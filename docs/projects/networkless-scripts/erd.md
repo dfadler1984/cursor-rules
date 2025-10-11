@@ -6,8 +6,6 @@ lastUpdated: 2025-10-05
 
 # Engineering Requirements Document — Networkless Scripts Refactor
 
-[Links: Glossary](../../glossary.md)
-
 Mode: Lite
 
 ## 1. Introduction/Overview

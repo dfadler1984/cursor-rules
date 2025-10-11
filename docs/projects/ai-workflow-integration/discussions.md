@@ -21,7 +21,7 @@ Setup & Integration
 Artifacts & Templates
 
 - ERD: `create-erd.mdc` + templates (`erd-full.md`, `erd-lite.md`).
-- Tasks: `generate-tasks-from-erd.mdc` (two-phase) + `task-list-process.mdc`.
+- Tasks: `generate-tasks-from-erd.mdc` (two-phase) + `project-lifecycle.mdc` (Task List Process subsection).
 
 Tasks Model
 
@@ -135,7 +135,7 @@ Wording tweaks to apply (tracked and/or done)
 - `create-erd.mdc`: consolidate `[NEEDS CLARIFICATION]` list before generation; ensure writes stay under `docs/projects/<feature>/`.
 - `spec-driven.mdc`: note slash‑command precedence; Analyze must list discrepancies or “No discrepancies found”.
 - `generate-tasks-from-erd.mdc`: when dependencies exist, propose only ready tasks; prefer highest priority.
-- `task-list-process.mdc`: gate next sub‑task on commit protocol completion; explicit dependency/priority next‑selection.
+- `project-lifecycle.mdc` (Task List Process): gate next sub‑task on commit protocol completion; explicit dependency/priority next‑selection.
 - `assistant-learning.mdc`: explicit Operation block even if values N/A; example usage of `alp-logger.sh`.
 - `intent-routing.mdc`: soft‑phrase safeguard; scope confirmation for repo‑wide edits.
 - `assistant-behavior.mdc`: micro‑checks to announce tool and paste validator output before asserting status.

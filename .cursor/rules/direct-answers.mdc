@@ -40,3 +40,10 @@ Keep to ≤3 lines total unless asked to elaborate. No rule recaps unless explic
 
 - If the direct question implies an edit, propose the minimal fix and ask “Proceed?” once.
 - If safety/compliance is at risk, add one short caveat; otherwise keep to the 3-line format.
+
+## Root-Cause Checklist (from Critical Thinking)
+
+- Separate event vs. cause.
+- Name the rule/config/hook that enforced the behavior (module + exact check).
+- Note enforcement timing (pre-/post- action) and any missing earlier guard.
+- Offer the smallest corrective next step; prefer tooling/automation.

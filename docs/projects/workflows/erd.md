@@ -52,7 +52,7 @@ Investigate and define “workflows” as encoded, repeatable ways of doing task
 
 ## 9. Integrations/Dependencies
 
-- Reuse existing rules: `spec-driven`, `task-list-process`, `assistant-learning`, `project-lifecycle`.
+- Reuse existing rules: `spec-driven`, `project-lifecycle` (Task List Process subsection), `assistant-learning`.
 
 ## 10. Edge Cases and Constraints
 

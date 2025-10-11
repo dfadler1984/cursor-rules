@@ -17,7 +17,7 @@
 | `docs/projects/tdd-first/erd.md`               | rules-maintainers  | New (drafted) | `docs/projects/tdd-first/tasks.md`               | core-values              |
 | `docs/projects/assistant-learning/erd.md`      | rules-maintainers  | Complete      | `docs/projects/assistant-learning/tasks.md`      | core-values              |
 | `docs/projects/logging-destinations/erd.md`    | assistant-learning | Draft         | —                                                | assistant-learning       |
-| `docs/projects/capabilities-discovery/erd.md`  | rules-maintainers  | New (drafted) | `docs/projects/capabilities-discovery/tasks.md`  | core-values              |
+| `docs/projects/capabilities-rules/erd.md`      | rules-maintainers  | Active        | `docs/projects/capabilities-rules/tasks.md`      | core-values              |
 | `docs/projects/mcp-synergy/erd.md`             | rules-maintainers  | In progress   | `docs/projects/mcp-synergy/tasks.md`             | capabilities-discovery   |
 | `docs/projects/bash-scripts/erd.md`            | rules-maintainers  | New (drafted) | `docs/projects/bash-scripts/tasks.md`            | core-values              |
 | `docs/projects/shell-scripts/erd.md`           | eng-tools          | Complete      | `docs/projects/shell-scripts/tasks.md`           | bash-scripts             |
@@ -65,9 +65,9 @@
   - **Tasks**: `docs/projects/roles/tasks.md`
   - **Status**: In progress (examples and links added)
 
-- **Capabilities Discovery**: `docs/projects/capabilities-discovery/erd.md`
+- **Capabilities Rules**: `docs/projects/capabilities-rules/erd.md`
 
-  - **Tasks**: `docs/projects/capabilities-discovery/tasks.md`
+  - **Tasks**: `docs/projects/capabilities-rules/tasks.md`
   - **Status**: New (drafted)
 
 - **Spec‑Driven Workflow (integrated)**: `docs/projects/ai-workflow-integration/erd.md`

@@ -8,7 +8,7 @@
 - `.cursor/rules/erd-lite.md` - Lite ERD template
 - `.cursor/rules/generate-tasks-from-erd.mdc` - Tasks generation rule
 - `.cursor/rules/spec-driven.mdc` - Spec‑Driven workflow
-- `.cursor/rules/task-list-process.mdc` - Task execution protocol
+- `.cursor/rules/project-lifecycle.mdc` - Task List Process subsection
 - `.cursor/rules/assistant-learning.mdc` - Assistant learning logs (authoritative)
 
 ### Notes
@@ -31,7 +31,7 @@
 
   - [x] 2.1 Review `create-prd.md`; capture strengths/gaps vs `create-erd.mdc`
   - [x] 2.2 Review `generate-tasks.md`; compare with `generate-tasks-from-erd.mdc`
-  - [x] 2.3 Review `process-task-list.md`; compare with `task-list-process.mdc`
+  - [x] 2.3 Review `process-task-list.md`; compare with `project-lifecycle.mdc` (Task List Process)
   - [x] 2.4 Propose importable snippets/citations and minimal diffs
 
 - [x] 3.0 Evaluate spec-kit SDD slash-commands for our workflow [P] (priority: medium) (depends on: 1.0)
@@ -53,7 +53,7 @@
   - [x] 5.1 Update `create-erd.mdc` (uncertainty markers, optional slash‑command note)
   - [x] 5.2 Update `erd-full.md` and `erd-lite.md` (add Uncertainty/Assumptions subsection)
   - [x] 5.3 Update `generate-tasks-from-erd.mdc` (deps/priority/[P] optional fields)
-  - [x] 5.4 Update `task-list-process.mdc` (dependency/priority‑aware next step)
+  - [x] 5.4 Update `project-lifecycle.mdc` (Task List Process: dependency/priority‑aware next step)
   - [x] 5.5 Update `spec-driven.mdc` (slash‑commands + `/analyze` gate + cross‑links)
   - [x] 5.6 Update logging rule (`assistant-learning.mdc`) with Operation block + Dependency Impact
 

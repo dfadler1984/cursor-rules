@@ -1,18 +1,17 @@
 ---
-description: Capabilities for the Assistant Learning Logging Protocol
-lastReviewed: 2025-10-03
+description: DEPRECATED — Assistant Learning Logging Protocol (migrated under assistant-self-improvement/legacy)
+lastReviewed: 2025-10-11
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
+  content: red
+  usability: yellow
+  maintenance: red
 references:
   - logging-protocol.mdc
 ---
 
-## Capabilities
+## Deprecated
 
-- Always-on learning logs with redaction and safe fallbacks
-- Operation and Dependency Impact sections; improvement triggers supported
+- Content moved to project `docs/projects/assistant-self-improvement/legacy/`.
 
 ## Triggers & Routing
 

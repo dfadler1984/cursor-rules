@@ -3,8 +3,6 @@
 
 # Engineering Requirements Document — Deterministic, Structured Outputs
 
-[Links: Glossary](../../glossary.md)
-
 Mode: Full
 
 Scope note: This Full ERD covers artifact contracts plus architecture, non-functional requirements, data, APIs, rollout/ops, testing/acceptance, and success metrics. Implementation/scaffolding remains out of scope unless explicitly requested with consent.
