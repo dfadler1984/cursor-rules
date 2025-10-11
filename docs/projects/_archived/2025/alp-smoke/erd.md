@@ -1,6 +1,16 @@
 ---
+archived: true
+archivedOn: 2025-10-11
+source: docs/projects/alp-smoke/erd.md
+---
+
+# Engineering Requirements Document — ALP Smoke (Archived)
+
+---
+
 status: skipped
 owner: rules-maintainers
+
 ---
 
 # Engineering Requirements Document — ALP Smoke

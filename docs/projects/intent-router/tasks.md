@@ -22,8 +22,6 @@
 
 ## Gaps — Blocked
 
-- [ ] Add drawing-board triggers and integration notes in `.cursor/rules/intent-routing.mdc` (pending)
-  - Blocked by: complete `docs/projects/drawing-board/erd.md` and its corresponding rule
 - [ ] Implement automated enforcement for role–phase mapping and split-progress within routing decisions
   - Blocked by: complete `docs/projects/role-phase-mapping/erd.md` and `docs/projects/split-progress/erd.md`
 - [ ] Support slash command runtime handling (execution semantics beyond documentation)

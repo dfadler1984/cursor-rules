@@ -14,6 +14,8 @@
 - Generating docs should run `--help` only and must not perform external effects.
 - Prefer simple, robust parsing by enforcing a consistent help format in emitters.
 
+- Unified coordination: `docs/projects/shell-and-script-tooling/erd.md`
+
 ## Todo
 
 - [ ] 1.0 Create `help-validate.sh` (required sections check)
@@ -48,3 +50,17 @@
 
   - [ ] 6.1 Add a lightweight CI step to run `help-validate.sh`
   - [ ] 6.2 Fail PRs when required help sections are missing
+
+### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
+
+- [ ] D1 Help/Version: adopt minimum flags and section schema
+- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [ ] D3 Error Semantics: align exit codes and `die` usage
+- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+
+#### Adoption status
+
+- D1: Not started —
+- D2: Not started —
+- D3: Not started —
+- D4: Not started —

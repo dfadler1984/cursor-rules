@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — Drawing Board (Lite)
 
-Links: `.cursor/rules/drawing-board.mdc` | `docs/projects/drawing-board/tasks.md` | `docs/projects/split-progress/erd.md`
+Links: `.cursor/rules/drawing-board.mdc` | `docs/projects/_archived/2025/drawing-board/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

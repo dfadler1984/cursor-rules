@@ -12,6 +12,8 @@
 - Parameterize configuration at the boundary: resolve env once, pass as args.
 - Help must be side-effect free and fast; exit early on invalid input.
 
+- Unified coordination: `docs/projects/shell-and-script-tooling/erd.md`
+
 ## Todo
 
 - [ ] 1.0 Create `.cursor/scripts/script-rules-validate.sh`
@@ -40,3 +42,17 @@
 
   - [ ] 5.1 Add "Script Rules" section to repository `README.md` with quickstart
   - [ ] 5.2 Cross-link from `docs/projects/README.md` and `docs/scripts/README.md`
+
+### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
+
+- [ ] D1 Help/Version: adopt minimum flags and section schema
+- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [ ] D3 Error Semantics: align exit codes and `die` usage
+- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+
+#### Adoption status
+
+- D1: Not started —
+- D2: Not started —
+- D3: Not started —
+- D4: Not started —

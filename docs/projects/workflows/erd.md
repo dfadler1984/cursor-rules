@@ -28,7 +28,7 @@ Investigate and define “workflows” as encoded, repeatable ways of doing task
 
 1. Define a small set of core workflows with clear triggers and outcomes.
 2. Provide templates/checklists for each workflow (acceptance bundle friendly).
-3. Integrate with existing rules: consent-first, TDD-first, task-list process, ALP logs.
+3. Integrate with existing rules: consent-first, TDD-first, task-list process, self-improvement logs (see `docs/projects/assistant-self-improvement/`).
 4. Document minimal, reversible steps; prefer local read/edit and validation scripts.
 
 ## 5. Non-Functional Requirements
@@ -52,7 +52,7 @@ Investigate and define “workflows” as encoded, repeatable ways of doing task
 
 ## 9. Integrations/Dependencies
 
-- Reuse existing rules: `spec-driven`, `project-lifecycle` (Task List Process subsection), `assistant-learning`.
+- Reuse existing rules: `spec-driven`, `project-lifecycle` (Task List Process subsection)
 
 ## 10. Edge Cases and Constraints
 
@@ -79,5 +79,5 @@ Investigate and define “workflows” as encoded, repeatable ways of doing task
 
 ## 14. Open Questions
 
-- Which core workflows first? Candidate set: ERD→Tasks, Small Fix via TDD, PR with Changesets, ALP logging.
+- Which core workflows first? Candidate set: ERD→Tasks, Small Fix via TDD, PR with Changesets, Self-Improvement logging.
 - Where to place runnable helpers (if any) and how to test them?

@@ -4,52 +4,64 @@ A landing page for all projects, grouped by status.
 
 ## Active
 
-- [readme-structure](./readme-structure/erd.md) — Determine root README structure and content destinations; produce outline and content map.
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
+- [chat-performance-and-quality-tools](./chat-performance-and-quality-tools/erd.md) — Tools to estimate token usage/headroom and maintain effective chats.
 - [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
-- [artifact-migration](./artifact-migration/erd.md) — Safe, repeatable artifact moves with reference rewrites and verification.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
-- [completion-metadata](./completion-metadata/erd.md) — ERD completion metadata, lifecycle, gates, and validation rules.
 - [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
-- [context-efficiency-gauge](./context-efficiency-gauge/erd.md) — Text-only gauge and decision flow for chat context efficiency.
-- [drawing-board](./drawing-board/erd.md) — Sandboxed prototyping space with safe triggers and logged outcomes.
-- [git-usage](./git-usage/erd.md) — Safe, consistent Git flows with MCP‑backed ops and pre‑commit/test gates.
+
 - [intent-router](./intent-router/erd.md) — Central intent router with consent/TDD gates and clear routing.
-- [logging-destinations](./logging-destinations/erd.md) — Logging destination policy, redaction, config override, and safe fallbacks.
-- [portability](./portability/erd.md) — Portable paths/config for artifacts and logs; relative paths and env expansion.
 - [productivity](./productivity/erd.md) — Automate repetitive ops with scripts while preserving safety and TDD‑first.
-- [workflows](./workflows/erd.md) — Investigate encoded, repeatable workflows for reliable assistant results.
 - [github-workflows-utility](./github-workflows-utility/erd.md) — Audit current GitHub Actions, assess utility, and propose/add helpful workflows.
-- [project-organization](./project-organization/erd.md) — Defaults/config for organizing project artifacts with presets and paths.
 - [role-phase-mapping](./role-phase-mapping/erd.md) — Align role guidance with phases; add phase‑readiness prompts.
 - [roles](./roles/erd.md) — Define roles and intent routing with per‑role posture and examples.
 - [rules-folder-structure-options](./rules-folder-structure-options/erd.md) — Determine structure options for `.cursor/rules/` and a low‑risk migration plan.
-
 - [projects-readme-generator](./projects-readme-generator/erd.md) — Automate generation of the projects index README; consistent, idempotent output.
-
-- [script-rules](./script-rules/erd.md) — Best practices for scripts: robust help, predictable errors, parameterized config (no direct env reads).
-
-- [shell-scripts](./shell-scripts/erd.md) — Portable shell scripts replacing Node helpers; standardized CLI suite.
-- [shellcheck](./shellcheck/erd.md) — Adopt ShellCheck with a local runner, config, and optional CI.
 - [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
-- [test-coverage](./test-coverage/erd.md) — Pragmatic coverage policy (diff-aware gates or thresholds) complementing TDD.
-- [script-test-hardening](./script-test-hardening/erd.md) — Harden script tests to avoid leaking environment variables; add token flags.
-
-- [script-error-handling](./script-error-handling/erd.md) — Standardize strict mode, traps, exit codes, and shared helpers; add a validator and migrate core scripts.
-
-- [script-help-generation](./script-help-generation/erd.md) — Standardize `--help`/`--version` across scripts and generate a docs catalog from help output.
-
-- [tests-github-deletion](./tests-github-deletion/erd.md) — Investigate full test run deleting `.github/` and creating `tmp-scan/`; add safeguards and regression tests.
-
-- [test-artifacts-cleanup](./test-artifacts-cleanup/erd.md) — Ensure every test run cleans temp artifacts via a safe, portable cleanup routine.
-
-- [tdd-rules-refinement](./tdd-rules-refinement/erd.md) — Refine TDD triggers and gates to reduce misses and friction.
-
 - [document-templates](./document-templates/erd.md) — Determine recurring docs and add minimal templates where beneficial.
-
 - [long-term-solutions](./long-term-solutions/erd.md) — Replace manual workarounds with durable, test‑backed fixes (e.g., fix `.cursor/scripts/final-summary-generate.sh` instead of manual final summaries).
+
+## Grouped projects
+
+- [project-lifecycle-docs-hygiene](./project-lifecycle-docs-hygiene/erd.md)
+
+  - [project-organization](./project-organization/erd.md)
+  - [workflows](./workflows/erd.md)
+  - [readme-structure](./readme-structure/erd.md)
+  - [completion-metadata](./completion-metadata/erd.md)
+
+- [shell-and-script-tooling](./shell-and-script-tooling/erd.md)
+
+  - [bash-scripts](./bash-scripts/erd.md)
+  - [shell-scripts](./shell-scripts/erd.md)
+  - [scripts-unix-philosophy](./scripts-unix-philosophy/erd.md)
+  - [script-rules](./script-rules/erd.md)
+  - [script-help-generation](./script-help-generation/erd.md)
+  - [script-error-handling](./script-error-handling/erd.md)
+  - [script-test-hardening](./script-test-hardening/erd.md)
+  - [shellcheck](./shellcheck/erd.md)
+  - [networkless-scripts](./networkless-scripts/erd.md)
+
+- [testing-coordination](./testing-coordination/erd.md)
+
+  - [tdd-rules-refinement](./tdd-rules-refinement/erd.md)
+  - [test-coverage](./test-coverage/erd.md)
+  - [test-artifacts-cleanup](./test-artifacts-cleanup/erd.md)
+  - [tests-github-deletion](./tests-github-deletion/erd.md)
+  - [script-test-hardening](./script-test-hardening/erd.md) — related/overlap
+
+- [git-usage-suite](./git-usage-suite/erd.md)
+
+  - [git-usage](./git-usage/erd.md)
+  - [github-workflows-utility](./github-workflows-utility/erd.md)
+  - [tests-github-deletion](./tests-github-deletion/erd.md)
+
+- [tooling-portability-migration](./tooling-portability-migration/erd.md)
+  - [tooling-discovery](./tooling-discovery/erd.md)
+  - [portability](./portability/erd.md)
+  - [artifact-migration](./artifact-migration/erd.md)
 
 ## Completed
 
@@ -68,6 +80,7 @@ A landing page for all projects, grouped by status.
 - [changelog-automation](_archived/2025/changelog-automation/final-summary.md) — Automated changelog via Changesets; version sync; bot PR flow.
 - [alp-logging](_archived/2025/alp-logging/final-summary.md) — ALP logging consistency: triggers, status formats, aggregation/archival, redaction.
 - [project-lifecycle-hardening](_archived/2025/project-lifecycle-hardening/final-summary.md) — Completed.
+- [context-efficiency-gauge](_archived/2025/context-efficiency-gauge/erd.md) — Merged into Chat Performance and Quality Tools.
 
 ## Archived
 

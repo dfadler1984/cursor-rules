@@ -1,6 +1,16 @@
 ---
+archived: true
+archivedOn: 2025-10-11
+source: docs/projects/assistant-learning-hard-gate/erd.md
+---
+
+# Engineering Requirements Document — Assistant Learning: Automatic Local Logging (Archived)
+
+---
+
 status: skipped
 owner: rules-maintainers
+
 ---
 
 # Engineering Requirements Document — Assistant Learning: Automatic Local Logging

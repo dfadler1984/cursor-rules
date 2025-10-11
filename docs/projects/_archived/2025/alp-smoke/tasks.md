@@ -1,3 +1,9 @@
+---
+archived: true
+archivedOn: 2025-10-11
+source: docs/projects/alp-smoke/tasks.md
+---
+
 ## Relevant Files
 
 - `.cursor/scripts/alp-smoke.sh` — Smoke runner writing under `.test-artifacts/alp/`

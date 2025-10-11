@@ -1,4 +1,13 @@
 ---
+archived: true
+archivedOn: 2025-10-11
+source: docs/projects/logging-destinations/erd.md
+---
+
+# ERD — Logging Destinations and Publication Strategy (Archived)
+
+---
+
 ---
 
 ---
@@ -70,22 +79,28 @@ We need a predictable, configurable logging destination policy that balances dev
    - If the selected destination is not writable, the system falls back to `docs/assistant-learning-logs/`.
    - Fallback writes must succeed without requiring additional configuration.
 
-4. File Naming & Format
+4. Safe Fallback
+
+   - If the selected destination is not writable, the system falls back to `docs/assistant-learning-logs/`.
+   - Fallback writes must succeed without requiring additional configuration.
+
+5. File Naming & Format
 
    - Files must be named `log-<ISO8601>-<short>.md`, where `<short>` is 3–5 words, lowercase, hyphenated.
    - Minimal front matter or a header section includes timestamp and event type (e.g., TDD Red/Green, Completed Task, Rule Added).
 
-5. Redaction & Privacy
+6. Redaction & Privacy
 
    - All writes pass through a redaction step to remove secret‑like values.
    - Redaction script: `.cursor/scripts/alp-redaction.sh`.
 
-6. Logging Script
+7. Logging Script
 
    - Primary interface: `.cursor/scripts/alp-logger.sh write-with-fallback <dest> <body>`.
    - The script resolves `logDir` → attempts write → falls back on failure → exits non‑zero if both destinations fail.
 
-7. Promotion Path
+8. Promotion Path
+
    - Curated summaries can be promoted to `docs/assistant-learning-logs/` for visibility (e.g., weekly summaries).
    - Promotion should use redaction and a concise format suitable for docs.
 
@@ -148,6 +163,7 @@ Links: scripts/assistant-learning/triggers.spec.ts
    - Run logger; expect write under `docs/assistant-learning-logs/`.
 
 4. Redaction
+
    - Include a fake token pattern in the body; verify it is removed in the output.
 
 ### Risks & Mitigations

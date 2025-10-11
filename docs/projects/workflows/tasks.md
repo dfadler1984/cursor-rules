@@ -12,7 +12,7 @@
 
 - [ ] 1.0 Define candidate workflows and scope (priority: high)
 
-  - [ ] 1.1 List top 3–4 workflows (ERD→Tasks, Small Fix via TDD, PR with Changesets, ALP logging)
+  - [ ] 1.1 List top 3–4 workflows (ERD→Tasks, Small Fix via TDD, PR with Changesets, Self-Improvement Logs)
   - [ ] 1.2 Write short entry/exit criteria for each
   - [ ] 1.3 Identify overlaps/conflicts with existing rules
 
@@ -21,7 +21,7 @@
   - [ ] 2.1 Create concise checklist for ERD→Tasks
   - [ ] 2.2 Create concise checklist for Small Fix via TDD
   - [ ] 2.3 Create concise checklist for PR with Changesets
-  - [ ] 2.4 Create concise checklist for ALP logging
+  - [ ] 2.4 Create concise checklist for Self-Improvement Logs (see `docs/projects/assistant-self-improvement/`)
 
 - [ ] 3.0 Integrate with rules and templates (priority: medium) (depends on: 2.0)
 
@@ -33,3 +33,4 @@
   - [ ] 4.1 Apply one workflow to a small change; record outcomes
   - [ ] 4.2 Adjust wording and gates based on results
   - [ ] 4.3 Propose adoption guidance in README
+- [ ] Add backlink: umbrella — `docs/projects/project-lifecycle-docs-hygiene/erd.md`

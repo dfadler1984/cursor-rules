@@ -2,7 +2,7 @@
 
 ## Relevant Files
 
-- `docs/projects/drawing-board/erd.md`
+- `docs/projects/_archived/2025/drawing-board/erd.md`
 - `.cursor/rules/drawing-board.mdc`
 
 ## Todo

@@ -7,6 +7,8 @@
 - `.cursor/rules/intent-routing.mdc` - Intent detection and gates
 - `.cursor/rules/assistant-behavior.mdc` - Consent/status protocols
 
+- `docs/projects/testing-coordination/erd.md` - Unified testing coordination hub
+
 ### Notes
 
 - Goal: strengthen detection and reduce misses without adding friction.

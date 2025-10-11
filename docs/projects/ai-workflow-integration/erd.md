@@ -16,7 +16,7 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 - Align ERD/spec → plan → tasks flow with Spec‑Driven patterns (optional slash‑commands).
 - Preserve our two‑phase tasks generation and task‑list process; add optional dependencies/priority and parallelizable markers.
-- Enhance assistant learning logs with operational context (elapsed time, token I/O, dependency impact).
+- Enhance self‑improvement logs with operational context (elapsed time, token I/O, dependency impact).
 - Keep configuration opt‑in via `.cursor/config.json`; default behavior unchanged.
 - Maintain repo portability (no external services; docs-first artifacts).
 - A changelog per project would be nice.
@@ -56,9 +56,9 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
    - Add an analysis gate before implementation (Spec Kit `/analyze`).
    - Cross‑link artifacts (spec/plan/tasks) at file tops.
 
-5. Assistant Learning Logs
+5. Self‑Improvement Logs
 
-   - Keep current logging protocol; add optional “Operation” block: elapsed time, token I/O (if available), units processed.
+   - Keep current logging approach; add optional “Operation” block: elapsed time, token I/O (if available), units processed.
    - Add “Dependency Impact” notes: which tasks/sections were affected.
    - Respect redaction and fallback directories.
 
@@ -142,10 +142,9 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 - Impacted rules:
   - `create-erd.mdc` (uncertainty markers, optional slash‑command note)
   - `erd-full.md`, `erd-lite.md` (add short Uncertainty/Assumptions subsection)
-  - `generate-tasks-from-erd.mdc` (optional dependencies/priority/[P])
-  - `project-lifecycle.mdc` (Task List Process subsection: dependency/priority selection note)
+  - `generate-tasks-from-erd.mdc` (optional fields)
+  - `project-lifecycle.mdc` (Task List Process subsection: dependency/priority‑aware next step)
   - `spec-driven.mdc` (slash‑commands, `/analyze` gate, cross‑links)
-  - `assistant-learning.mdc` (Operation/Dependency Impact blocks)
 - Flow: User can choose phrase triggers or slash‑commands. Tasks remain two‑phase with pauses and TDD coupling.
 
 ## 7. Data Model and Storage
@@ -200,6 +199,9 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 ## 14. Open Questions
 
+- Should we adopt a lightweight “constitution.md” for project principles (Spec Kit‑style)?
+- Do we want optional complexity analysis before expanding tasks (Taskmaster‑style)?
+- Where should per‑agent slash‑command docs live (repo vs user‑level notes)?
 - Do these align well with ai-workflow-integration?
 
 ```
@@ -207,7 +209,6 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 .cursor/rules/erd-full.md
 .cursor/rules/erd-lite.mdx
 .cursor/rules/generate-tasks-from-erd.mdc
-.cursor/rules/logging-protocol.mdc
 .cursor/rules/project-lifecycle.mdc
 .cursor/rules/spec-driven.mdc
 .cursor/scripts/erd-validate.sh
@@ -215,12 +216,6 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 docs/plans/sample-feature-plan.md
 docs/projects/README.md
 ```
-
-- Should we adopt a lightweight “constitution.md” for project principles (Spec Kit‑style)?
-- Do we want optional complexity analysis before expanding tasks (Taskmaster‑style)?
-- Where should per‑agent slash‑command docs live (repo vs user‑level notes)?
-
----
 
 # Engineering Requirements Document — Spec‑Driven Workflow (Lite) — Integrated
 
@@ -260,59 +255,3 @@ Specify the phased workflow: Specify (ERD/spec) → Plan → Tasks, with determi
 ## 7. Testing
 
 - Create sample trio and validate required sections and cross-links
-
-## 8. Minimal Templates (filled)
-
-### Spec (docs/specs/<feature>-spec.md)
-
-- Overview: One-sentence purpose
-- Goals: 2–3 bullets
-- Functional Requirements: 3–5 bullets
-- Acceptance Criteria: 2–3 measurable checks
-- Risks/Edge Cases: 1–2 bullets
-
-### Plan (docs/plans/<feature>-plan.md)
-
-- Steps:
-  - Step 1: short imperative
-  - Step 2: short imperative
-- Acceptance Bundle:
-  - targets: ["src/foo.ts", "src/foo.spec.ts"]
-  - exactChange: "Implement X in foo.ts"
-  - successCriteria: ["Spec 'does X' passes"]
-  - constraints: ["No new deps"]
-  - runInstructions: ["yarn test src/foo.spec.ts -t 'does X'"]
-
-### Tasks (projects/<feature>/tasks/tasks-<feature>.md)
-
-- Relevant Files listed
-- Todo:
-  - [x] First step done
-  - [ ] Second step (active)
-
-## 9. Acceptance Bundle Example
-
-```json
-{
-  "targets": ["web/src/cart.ts", "web/src/cart.spec.ts"],
-  "exactChange": "Round totals to 2 decimals in cart.ts",
-  "successCriteria": ["Spec 'rounds to 2 decimals' passes"],
-  "constraints": ["No new dependencies"],
-  "runInstructions": [
-    "yarn test web/src/cart.spec.ts -t 'rounds to 2 decimals'"
-  ],
-  "ownerSpecs": ["web/src/cart.spec.ts"]
-}
-```
-
-## 10. Single Active Sub-task Progression
-
-- [x] Add rounding helper
-- [ ] Wire rounding in totals (active)
-- [ ] Update UI display
-
----
-
-Owner: rules-maintainers
-
-Last updated: 2025-10-02

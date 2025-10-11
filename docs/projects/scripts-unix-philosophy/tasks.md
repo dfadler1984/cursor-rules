@@ -10,6 +10,8 @@
 - Follow Unix Philosophy tenets: do one thing well; compose via text streams; clarity; separation of policy/mechanism; robustness via simplicity.
 - Reference: [Basics of the Unix Philosophy](https://cscie2x.dce.harvard.edu/hw/ch01s06.html)
 
+- Unified coordination: `docs/projects/shell-and-script-tooling/erd.md`
+
 ## Tasks
 
 - [ ] 1.0 Establish CLI and IO standards (priority: high)
@@ -42,3 +44,17 @@
 - [ ] 6.0 Testing alignment (priority: medium)
   - [ ] 6.1 Add tests to assert stdout/stderr separation, exit codes, and composition
   - [ ] 6.2 Add doctest-style verification for README examples where feasible
+
+### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
+
+- [ ] D1 Help/Version: adopt minimum flags and section schema
+- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [ ] D3 Error Semantics: align exit codes and `die` usage
+- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+
+#### Adoption status
+
+- D1: Not started —
+- D2: Not started —
+- D3: Not started —
+- D4: Not started —

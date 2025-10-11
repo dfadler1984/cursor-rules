@@ -6,6 +6,8 @@
 - `.cursor/rules/testing.mdc`
 - `.cursor/rules/test-quality-js.mdc`
 
+- `docs/projects/testing-coordination/erd.md`
+
 ## Todo
 
 - [ ] 1.0 Decide default policy (no-new-uncovered vs minimal diff threshold)

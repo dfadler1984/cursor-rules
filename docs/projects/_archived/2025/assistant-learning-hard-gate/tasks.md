@@ -1,3 +1,9 @@
+---
+archived: true
+archivedOn: 2025-10-11
+source: docs/projects/assistant-learning-hard-gate/tasks.md
+---
+
 ## Relevant Files
 
 - `.cursor/rules/assistant-learning.mdc` — Assistant Learning rule (authoritative)
