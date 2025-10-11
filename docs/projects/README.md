@@ -5,6 +5,7 @@ A landing page for all projects, grouped by status.
 ## Active
 
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
+- [chat-performance-and-quality-tools](./chat-performance-and-quality-tools/erd.md) — Tools to estimate token usage/headroom and maintain effective chats.
 - [rule-quality](./rule-quality/erd.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
@@ -54,12 +55,8 @@ A landing page for all projects, grouped by status.
 - [git-usage-suite](./git-usage-suite/erd.md)
 
   - [git-usage](./git-usage/erd.md)
-  - Archived (2025)
-    - [\_archived/2025/changelog-automation](_archived/2025/changelog-automation/erd.md)
-    - [\_archived/2025/pr-create-script](_archived/2025/pr-create-script/erd.md)
-    - [\_archived/2025/pr-template-automation](_archived/2025/pr-template-automation/final-summary.md)
-    - [\_archived/2025/skip-changeset-opt-in](_archived/2025/skip-changeset-opt-in/final-summary.md)
-    - [\_archived/2025/rules-validate-script](_archived/2025/rules-validate-script/final-summary.md)
+  - [github-workflows-utility](./github-workflows-utility/erd.md)
+  - [tests-github-deletion](./tests-github-deletion/erd.md)
 
 - [tooling-portability-migration](./tooling-portability-migration/erd.md)
   - [tooling-discovery](./tooling-discovery/erd.md)

@@ -144,6 +144,7 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
   - Framework Selection ERD: `docs/projects/framework-selection/erd.md`
   - Role–Phase Mapping ERD: `docs/projects/role-phase-mapping/erd.md`
   - Git Usage ERD: `docs/projects/git-usage/erd.md`
+  - Git Usage Suite: `docs/projects/git-usage-suite/erd.md`
   - Bash Script Standards ERD: `docs/projects/bash-scripts/erd.md`
   - Rule — TDD‑First (Core): `.cursor/rules/tdd-first.mdc`
   - Rule — TDD‑First (JS/TS Extension): `.cursor/rules/tdd-first-js.mdc`
