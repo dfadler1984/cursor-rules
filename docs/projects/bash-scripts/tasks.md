@@ -8,9 +8,14 @@
 
 ## Todo
 
-- [x] 1.0 Draft ERD skeleton with safety and header
-- [ ] 2.0 Add example header and safe patterns
-- [ ] 3.0 Link ERD from README and progress doc
+- [x] 1.0 Draft ERD skeleton with safety and header — ✅ COMPLETE
+- [x] 2.0 Add example header and safe patterns — ✅ COMPLETE (Embedded in D1-D6)
+  - Decision: Example headers and safe patterns documented in `shell-and-script-tooling/MIGRATION-GUIDE.md` instead of separate ERD sections
+  - All 37 scripts demonstrate standardized patterns (strict mode, exit codes, help template functions)
+  - See: Section 1 (Shebang and Strict Mode), Section 3 (Exit Code Constants) in MIGRATION-GUIDE.md
+- [x] 3.0 Link ERD from README and progress doc — ✅ COMPLETE
+  - ERD linked from `docs/projects/README.md` under unified `shell-and-script-tooling` project
+  - Cross-references exist in all related project ERDs and tasks files
 
 ### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
 

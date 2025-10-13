@@ -123,32 +123,41 @@
 
 ### Phase 7: Future Work (Deferred)
 
-- [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11)
+- [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11) — **DEFERRED (Decision threshold: 50+ scripts)**
 
+  - Current: 38 scripts; flat structure manageable
+  - Threshold: Reorganize when count reaches **50+ scripts** OR clear pain points emerge
   - [ ] 18.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
   - [ ] 18.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
-  - [ ] 18.3 Update all path references in `.cursor/rules/*.mdc`
+  - [ ] 18.3 Update all path references in `.cursor/rules/*.mdc` (~30-40 references)
   - [ ] 18.4 Update CI workflow paths (`.github/workflows/*.yml`)
   - [ ] 18.5 Update `.gitignore` patterns if needed
   - [ ] 18.6 Validate with `project-lifecycle-validate.sh` and manual smoke tests
   - [ ] 18.7 Document directory structure and rationale in README or rules
-  - Status: Deferred until usage patterns stabilize (see ERD Section 11 for detailed proposal)
+  - [ ] 18.8 Update `docs/scripts/README.md` with new categories
+  - Status: Deferred; reassess when approaching 45-50 scripts (see ERD Section 11 for detailed proposal and decision criteria)
 
-- [ ] 19.0 Source project task reconciliation
-  - [ ] 19.1 Audit networkless-scripts tasks — mark completed or superseded
-  - [ ] 19.2 Audit script-test-hardening tasks — mark completed or superseded
-  - [ ] 19.3 Audit shellcheck tasks — document .shellcheckrc decision (optional/inline config sufficient)
-  - [ ] 19.4 Audit scripts-unix-philosophy tasks — note philosophy embedded in D1-D6
-  - [ ] 19.5 Audit script-rules tasks — note validators cover these needs
-  - [ ] 19.6 Audit script-help-generation tasks — document template functions approach vs. doc generation
-  - [ ] 19.7 Audit script-error-handling tasks — mark completed infrastructure tasks
-  - [ ] 19.8 Complete and archive tests-github-deletion project (resolved)
-  - Status: Low priority; source projects reference unified project for standards
+- [ ] 19.0 Source project task reconciliation (HIGH PRIORITY)
+  - [ ] 19.1 networkless-scripts tasks — Document: Guidance-based approach chosen over seam approach for GitHub scripts; mark tasks 1.0-6.0 as "superseded by guidance approach"
+  - [ ] 19.2 script-test-hardening tasks — Document: D6 subshell isolation solved core issue; token override flags (1.0-5.0) not needed; mark as "superseded by D6"
+  - [ ] 19.3 shellcheck tasks — Document: Inline config decision; mark 2.0 (.shellcheckrc creation) as "not needed"; update 1.0 subtasks to reflect completion
+  - [ ] 19.4 scripts-unix-philosophy tasks — Mark 1.0-6.0 as "embedded in D1-D6"; add note linking to cross-cutting decisions
+  - [ ] 19.5 script-rules tasks — Document: Validators merged into help-validate.sh and error-validate.sh; mark 1.0 as "superseded by unified validators"
+  - [ ] 19.6 script-help-generation tasks — Document: Template functions approach chosen; mark 2.0 (help-generate.sh) as "not implemented—template approach used"; mark 5.0 (docs/scripts/) as "not needed"
+  - [ ] 19.7 script-error-handling tasks — Mark 1.0-3.0 infrastructure tasks as complete; update adoption status
+  - [ ] 19.8 bash-scripts tasks — Complete 2.0 and 3.0 or mark as optional
+  - [x] 19.9 tests-github-deletion — Archive project (resolved and complete) — **READY FOR ARCHIVAL**
+    - Issue resolved: `.github/` deletion and `tmp-scan/` creation fixed via D6 test isolation
+    - Verification complete: 46/46 tests passing, `.github/` intact, no `tmp-scan/`
+    - ERD marked as completed: 2025-10-13
+    - Archival target: `docs/projects/_archived/2025/tests-github-deletion/`
+    - Action needed: Run `project-archive-workflow.sh --project tests-github-deletion --year 2025`
+  - Status: HIGH priority; needed for accurate completion reporting
 
 ### Known Issues & Documentation Notes
 
-- **Script count**: 37 scripts total (36 core + setup-remote.sh)
+- **Script count**: 38 production scripts (37 validated + 1 spec helper: `rules-validate.spec.sh`)
 - **Network usage**: 5 scripts use network legitimately (4 GitHub API + 1 setup utility)
 - **Test count**: 46 tests (all passing)
-- **.shellcheckrc**: Not created; shellcheck-run.sh uses inline config successfully
-- **docs/scripts/**: Not created; .lib.sh template functions provide help standardization without separate doc generation
+- **.shellcheckrc**: Not created; shellcheck-run.sh uses inline config successfully (decision: inline config sufficient)
+- **docs/scripts/**: Not created; .lib.sh template functions provide help standardization without separate doc generation (decision: template approach over doc generation)

@@ -9,7 +9,7 @@ Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) |
 
 Unify and coordinate shell/script-related initiatives across the repository by referencing existing projects without moving files. This project provides a single place to align goals, reduce duplication, and track cross-cutting decisions while each source project remains authoritative for its own scope.
 
-**Source projects:** 10 (9 original + tests-github-deletion added 2025-10-13)
+**Source projects:** 10 (9 active + tests-github-deletion completed 2025-10-13, ready for archival)
 
 ## 2. Scope & Approach
 
@@ -28,7 +28,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - Script Test Hardening — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
 - ShellCheck Adoption — `docs/projects/shellcheck/erd.md` | tasks: `docs/projects/shellcheck/tasks.md`
 - Networkless Scripts — `docs/projects/networkless-scripts/erd.md` | tasks: `docs/projects/networkless-scripts/tasks.md`
-- Tests GitHub Deletion — `docs/projects/tests-github-deletion/erd.md` | tasks: `docs/projects/tests-github-deletion/tasks.md` | **Note: Actively experiencing this issue (tmp-scan/ appeared during session)**
+- Tests GitHub Deletion — `docs/projects/tests-github-deletion/erd.md` | tasks: `docs/projects/tests-github-deletion/tasks.md` | **Status: RESOLVED (2025-10-13) — Ready for archival**
 
 ## 4. Goals/Objectives
 
@@ -72,6 +72,12 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - [x] Network guard validator: 100% compliant (informational mode; 5 scripts legitimately use network).
 - [x] Error validation: 100% compliant (strict mode).
 - [x] Test coverage: 46 tests, 100% passing.
+
+**Script Inventory:**
+
+- 38 production scripts total (excluding `.test.sh` files)
+- 37 scripts validated by help-validate.sh and error-validate.sh
+- 1 spec helper: `rules-validate.spec.sh` (excluded from validation; used by rules-validate.sh for schema checks)
 
 **Phase 4 (Complete ✅):**
 
@@ -179,9 +185,13 @@ Adoption workflow:
 
 ### Script Directory Organization
 
-As the script collection grows (64+ scripts currently), a flat `.cursor/scripts/` directory becomes difficult to navigate. After Phase 3 migrations stabilize, organize scripts into logical subdirectories based on functional groupings.
+**Current state:** 38 production scripts in flat `.cursor/scripts/` directory
 
-Proposed structure:
+**Decision threshold:** Organize into subdirectories when script count reaches **50+ scripts** OR when clear functional pain points emerge (e.g., frequent difficulty finding scripts, naming conflicts, or maintenance burden).
+
+**Current assessment (38 scripts):** Flat structure is manageable; defer reorganization to allow usage patterns to inform final groupings.
+
+Proposed structure (for future reference):
 
 - `.cursor/scripts/git/` — Git workflow helpers (commits, branches, PRs, checks)
 - `.cursor/scripts/project/` — Project lifecycle, archival, validation
@@ -189,14 +199,16 @@ Proposed structure:
 - `.cursor/scripts/tests/` — Test runners, harnesses, and `fixtures/`
 - `.cursor/scripts/lib/` or `.cursor/scripts/_lib/` — Shared libraries (`.lib.sh`, `.lib-net.sh`)
 
-Migration requirements:
+Migration requirements (when threshold is reached):
 
-- Update all script path references in `.cursor/rules/*.mdc`
-- Update CI workflow paths and `.gitignore` patterns
-- Add compatibility shims for public entrypoints if needed
+- Update all script path references in `.cursor/rules/*.mdc` (~30-40 references expected)
+- Update CI workflow paths (`.github/workflows/shell-validators.yml`)
+- Update `.gitignore` patterns if needed
+- Add compatibility shims for public entrypoints if needed (or update documentation)
 - Validate with smoke tests and lifecycle validators
+- Document in migration guide and update script inventory
 
-Timing: Defer until Phase 3 migrations complete to avoid churn and allow real usage patterns to inform final groupings.
+**Reassess:** When script count approaches 45-50, evaluate whether reorganization would improve maintainability.
 
 ---
 
@@ -223,7 +235,9 @@ Timing: Defer until Phase 3 migrations complete to avoid churn and allow real us
 
 **Repository Impact:**
 
+- 38 production scripts total (37 validated + 1 spec helper)
 - 37 scripts validated for all standards (D1-D6)
+- 1 spec helper: `rules-validate.spec.sh` (used by rules-validate.sh; excluded from general validation)
 - 5 scripts legitimately use network (per D4 policy):
   - 4 GitHub automation: pr-create.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh
   - 1 Setup utility: setup-remote.sh (dependency checking)
