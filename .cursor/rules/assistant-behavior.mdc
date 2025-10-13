@@ -202,6 +202,7 @@ Before sending any message that includes actions or tool results, explicitly ver
 - TODOs: reconciled before starting a new step and immediately after completing one.
 - Consent: first command per tool category obtained with exact commands listed; allowlist honored.
 - TDD gate: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
+- Scripts: before git/terminal commands, checked capabilities.mdc for repo scripts; used script if available.
 - Messaging: bullets and short sections; code citations follow repo rules.
 - If any item fails, revise the message; do not send.
 

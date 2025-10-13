@@ -1,7 +1,7 @@
 ---
 description: Assistant Git usage — commits, branch naming, changesets, and commit gates (tests/lint/types)
 alwaysApply: false
-lastReviewed: 2025-10-08
+lastReviewed: 2025-10-11
 healthScore:
   content: green
   usability: green
@@ -11,6 +11,20 @@ healthScore:
 # Assistant Git Usage
 
 Defines commit message standards, minimal branch naming guidance, changeset expectations, and when/how to run checks before committing. Optimized for assistant automation and human ergonomics.
+
+## Script-First Default (must)
+
+Before ANY git operation (commit, branch, PR), explicitly check `capabilities.mdc` for available repo scripts:
+
+1. **Query**: "Is there a script in capabilities.mdc for this git operation?"
+2. **Use script if exists**:
+   - Commits: use `git-commit.sh` (especially with bodies/footers)
+   - Branch names: use `git-branch-name.sh --task <slug> [--type <type>] [--apply]`
+   - PR creation: use `pr-create.sh --title "..." [--body "..."]`
+   - PR updates: use `pr-update.sh --pr <number> [--title "..."] [--body "..."]`
+3. **Raw git only if no script exists** for that operation
+
+**Rationale**: Repo scripts enforce conventions, format validation, and consistent behavior. This must be verified at pre-send gate per `assistant-behavior.mdc`.
 
 ## Commit Messages
 
