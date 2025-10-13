@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.1
+
+### Patch Changes
+
+- [#103](https://github.com/dfadler1984/cursor-rules/pull/103) [`4196ff9`](https://github.com/dfadler1984/cursor-rules/commit/4196ff970e0fbecb7c0beedf91b59166c720d1f6) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add four new projects: routing-optimization, consent-gates-refinement, tdd-scope-boundaries, and project-lifecycle-coordination
+
 ## 0.5.0
 
 ### Minor Changes
