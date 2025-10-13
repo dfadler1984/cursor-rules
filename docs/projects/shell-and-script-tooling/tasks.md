@@ -81,17 +81,23 @@
 
 ### Phase 5: Test Isolation Fix (D6 Implementation) — HIGH PRIORITY
 
-- [ ] 13.0 Fix test runner environment leakage ⚠️ BLOCKING ISSUE
-  - [ ] 13.1 Update `.cursor/scripts/tests/run.sh` to run each test in subshell: `( export TEST_ARTIFACTS_DIR=...; bash "$t" ) >"$out"`
-  - [ ] 13.2 Move exports (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) into subshell scope (lines 88-99)
-  - [ ] 13.3 Add regression test: verify GITHUB_TOKEN isn't mutated after test runs
-  - [ ] 13.4 Validate fix: run test suite, then `validate:ghtoken` should still return correct value
-  - [ ] 13.5 Document: which test(s) mutate GITHUB_TOKEN (likely checks-status.test.sh line 45)
-- [ ] 14.0 Investigate and fix tmp-scan creation
-  - [ ] 14.1 Identify which test creates tmp-scan/ directory
-  - [ ] 14.2 Replace with proper temp directory using with_tempdir or mktemp
-  - [ ] 14.3 Add cleanup trap to prevent orphaned temp dirs
-  - [ ] 14.4 Add regression test: verify no tmp-scan/ after test runs
+- [x] 13.0 Fix test runner environment leakage ⚠️ RESOLVED
+  - [x] 13.1 Update `.cursor/scripts/tests/run.sh` to run each test in subshell ✅
+  - [x] 13.2 Move exports (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) into subshell scope ✅
+  - [x] 13.3 Add regression test: `run.env-isolation.test.sh` ✅
+  - [x] 13.4 Validate: GH_TOKEN preserved after test suite ✅
+  - [x] 13.5 Document: security-scan.test.sh creates tmp-scan (fixed) ✅
+- [x] 14.0 Fix tmp-scan creation
+  - [x] 14.1 Identified: security-scan.test.sh created tmp-scan/ in repo root ✅
+  - [x] 14.2 Fixed: use .test-artifacts/<name>-$$ for test temps ✅
+  - [x] 14.3 Added cleanup trap ✅
+  - [x] 14.4 Verified: no tmp-scan/ after test runs ✅
+- [ ] 13.6 Simplify tests via subshell isolation (D6 Refactoring)
+  - [ ] 13.6.1 Remove snapshot/restore boilerplate from pr-create.test.sh
+  - [ ] 13.6.2 Audit all tests for env snapshot/restore patterns
+  - [ ] 13.6.3 Simplify: tests directly export vars, rely on runner's subshell cleanup
+  - [ ] 13.6.4 Document pattern: scripts keep seams, tests use subshell isolation
+  - [ ] 13.6.5 Verify all tests pass after simplification
 - [ ] 15.0 Investigate .github/ deletion
   - [ ] 15.1 Identify which test or script removes .github/
   - [ ] 15.2 Add safeguard: deny-list critical paths in cleanup routines

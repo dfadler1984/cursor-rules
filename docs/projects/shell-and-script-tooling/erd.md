@@ -142,13 +142,22 @@ These proposals centralize defaults; adoptions occur in source projects with exp
 
 ### D6 — Test Isolation and Environment Hygiene
 
-- **Problem:** Test runner exports vars (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) in parent shell, causing leakage across tests. Tests can mutate GITHUB_TOKEN and break subsequent runs.
-- **Solution:** Test runner must isolate each test in a subshell to prevent environment variable leakage.
-- **Evidence:** Running test suite breaks GITHUB_TOKEN validation (returns 200 instead of expected value).
-- Scripts should accept critical paths/config via arguments with environment variable fallbacks.
-- Tests must not mutate parent shell environment (exports persist across test runs).
-- Pattern: `( export VAR=value; bash "$test" ) >"$output"` ensures VAR is scoped to subshell.
-- Temporary directories must use unique prefixes and be cleaned up (leverage `with_tempdir` from `.lib.sh`).
+- **Problem:** Test runner exports vars (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) in parent shell, causing leakage across tests. Tests can mutate GH_TOKEN and break subsequent runs.
+- **Solution:** Test runner isolates each test in a subshell; tests can directly export vars without snapshot/restore boilerplate.
+- **Evidence:** tmp-scan/ directory created in repo root; GH_TOKEN corruption observed.
+
+**Implementation Pattern:**
+- Test runner: `( export TEST_ARTIFACTS_DIR=...; bash "$test" ) >"$output"` — subshell isolates all env changes
+- Scripts: Keep seams (`${CURL_CMD-curl}`, `${JQ_CMD-jq}`) for test flexibility
+- Tests: Directly `export VAR=value` without snapshot/restore — runner's subshell handles cleanup
+- Temp directories: Use `.test-artifacts/<name>-$$` for test temps (not repo root or system temp)
+- Cleanup: `trap "rm -rf '$tmpdir'" EXIT` in each test file
+
+**Refactoring:**
+- Remove snapshot/restore patterns from tests (e.g., pr-create.test.sh ORIGINAL_GH_TOKEN logic)
+- Rely on runner's subshell for isolation (single point of control)
+- Tests become simpler: set vars, run script, assert — no cleanup needed
+
 - Reference: `docs/projects/tests-github-deletion/erd.md` (environment leakage investigation).
 
 Adoption workflow:

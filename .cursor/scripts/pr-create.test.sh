@@ -6,17 +6,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 SCRIPT="$ROOT_DIR/.cursor/scripts/pr-create.sh"
 TEMPLATE_FILE="$ROOT_DIR/.github/pull_request_template.md"
 
-# Snapshot and auto-restore GH_TOKEN for test isolation
-ORIGINAL_GH_TOKEN="${GH_TOKEN-}"
-restore_gh_token() {
-  if [ -n "${ORIGINAL_GH_TOKEN+x}" ]; then
-    export GH_TOKEN="$ORIGINAL_GH_TOKEN"
-  else
-    unset GH_TOKEN || true
-  fi
-}
-trap restore_gh_token EXIT
-
+# Test isolation via runner's subshell (D6) - no snapshot/restore needed
 # 1) Dry-run prints JSON with required keys
 export GH_TOKEN="dummy"
 # Fake git environment by running outside a git repo? We rely on origin; skip derivation by setting owner/repo/head.
