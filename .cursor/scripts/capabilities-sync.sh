@@ -107,6 +107,14 @@ Options:
   --update  List suggested additions for undocumented scripts
   -h, --help Show this help
 
+Examples:
+  # Check if all scripts are documented
+  capabilities-sync.sh
+  capabilities-sync.sh --check
+  
+  # Show suggested additions for undocumented scripts
+  capabilities-sync.sh --update
+
 Exit codes:
   0 - All scripts documented
   1 - Missing documentation found

@@ -2,7 +2,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 usage() {
   cat <<'USAGE'
@@ -16,13 +20,27 @@ Performs the policy-compliant archive workflow with guardrails:
   5) Print Completed index entry
   6) Optionally verify README Completed entry
 
-Defaults:
-  - Summary generation is post-move (generator default; no --pre-move)
-  - Year defaults to current year if omitted
+Options:
+  --project <slug>    Project slug (required)
+  --year <YYYY>       Archive year (required)
+  --root <path>       Repository root (default: detected)
+  --date <YYYY-MM-DD> Date for final summary (default: today)
+  --verify-index      Verify README index entry
+  --dry-run           Preview actions without executing
+  -h, --help          Show this help and exit
 
 Examples:
-  ./.cursor/scripts/project-archive-workflow.sh --project my-proj --year 2025 --dry-run
+  # Dry-run archive workflow
+  project-archive-workflow.sh --project my-proj --year 2025 --dry-run
+  
+  # Execute archive
+  project-archive-workflow.sh --project my-proj --year 2025
+  
+  # Archive with index verification
+  project-archive-workflow.sh --project my-proj --year 2025 --verify-index
 USAGE
+  
+  print_exit_codes
 }
 
 PROJECT=""

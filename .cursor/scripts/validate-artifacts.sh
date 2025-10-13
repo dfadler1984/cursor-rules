@@ -2,17 +2,36 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Minimal validator for deterministic artifacts
-# Usage: .cursor/scripts/validate-artifacts.sh --paths <csv>
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 
-script_name="$(basename "$0")"
+# Minimal validator for deterministic artifacts
+
+VERSION="0.1.0"
 
 usage(){
   cat <<USAGE
-Usage: ${script_name} --paths <csv>
+Usage: validate-artifacts.sh --paths <csv> [--version] [-h|--help]
 
-Validates required headings and presence of cross-links.
+Validates required headings and presence of cross-links in artifacts.
+
+Options:
+  --paths <csv>   Comma-separated file paths to validate (required)
+  --version       Print version and exit
+  -h, --help      Show this help and exit
+
+Validates:
+  - Required headings present
+  - Links line exists
+  - Cross-references between artifacts
+
+Examples:
+  # Validate spec, plan, and tasks
+  validate-artifacts.sh --paths docs/specs/feature.md,docs/plans/feature.md,tasks/feature.md
 USAGE
+  
+  print_exit_codes
 }
 
 PATHS=""

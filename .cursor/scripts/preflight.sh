@@ -5,7 +5,42 @@ IFS=$'\n\t'
 # Preflight: check presence/absence of common configs and print guidance
 
 # shellcheck disable=SC1090
-source "$(dirname "$0")/.lib.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
+VERSION="0.1.0"
+
+usage() {
+  cat <<'USAGE'
+Usage: preflight.sh [--version] [-h|--help]
+
+Run preflight checks for repository configuration.
+
+Checks:
+  - .cursor/scripts directory exists
+  - .cursor/rules directory exists
+  - Common config files present
+
+Options:
+  --version   Print version and exit
+  -h, --help  Show this help and exit
+
+Examples:
+  # Run all preflight checks
+  preflight.sh
+USAGE
+  
+  print_exit_codes
+}
+
+# Parse arguments
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --version) printf '%s\n' "$VERSION"; exit 0 ;;
+    -h|--help) usage; exit 0 ;;
+    *) die "$EXIT_USAGE" "Unknown argument: $1" ;;
+  esac
+done
 
 ROOT_DIR="$(repo_root)"
 

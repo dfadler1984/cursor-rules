@@ -16,21 +16,38 @@ fi
 
 usage() {
   cat <<'USAGE'
-Usage: .cursor/scripts/tests/run.sh [-k keyword] [-v] [test_path ...]
+Usage: .cursor/scripts/tests/run.sh [-k keyword] [-v] [-h|--help] [test_path ...]
 
 Options:
   -k keyword   Only run tests whose path contains this keyword (case-insensitive)
   -v           Verbose output (print test stdout/stderr)
-  -h           Show help
+  -h, --help   Show help
 
 Conventions:
   - Discovers tests under ./.cursor/scripts matching pattern: *.test.sh
   - Runs each test in a fresh bash process; exit code 0 = pass, non-zero = fail
+
+Examples:
+  # Run all tests
+  run.sh
+  
+  # Run tests with keyword filter (verbose)
+  run.sh -k pr-create -v
+  
+  # Run specific test file
+  run.sh /path/to/test.sh
 USAGE
+  
+  print_exit_codes
 }
 
 KEYWORD=""
 VERBOSE=0
+
+# Handle --help before getopts (getopts only handles short options)
+case "${1:-}" in
+  --help) usage; exit 0 ;;
+esac
 
 while getopts ":k:vh" opt; do
   case "$opt" in

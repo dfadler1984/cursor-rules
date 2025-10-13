@@ -2,9 +2,36 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Smoke test deterministic outputs with default and overridden dirs
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
+VERSION="0.1.0"
+
+usage() {
+  cat <<'USAGE'
+Usage: validate-artifacts-smoke.sh [--version] [-h|--help]
+
+Smoke test for validate-artifacts.sh using sample artifacts.
+
+Options:
+  --version   Print version and exit
+  -h, --help  Show this help and exit
+
+Examples:
+  # Run smoke tests
+  validate-artifacts-smoke.sh
+USAGE
+  
+  print_exit_codes
+}
+
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+  --version) printf '%s\n' "$VERSION"; exit 0 ;;
+esac
+
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 VALIDATE="$ROOT_DIR/.cursor/scripts/validate-artifacts.sh"
 
 # Default trio
@@ -26,5 +53,3 @@ echo "[override] validating copied trio in temp dirs"
 bash "$VALIDATE" --paths "$TMP_DIR/specs/sample-feature-spec.md,$TMP_DIR/plans/sample-feature-plan.md,$TMP_DIR/tasks/tasks-sample-feature.md"
 
 echo "Smoke tests passed"
-
-

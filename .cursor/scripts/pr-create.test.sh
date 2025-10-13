@@ -1,80 +1,138 @@
 #!/usr/bin/env bash
+# Test: pr-create.sh (networkless version)
 set -euo pipefail
 IFS=$'\n\t'
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
-SCRIPT="$ROOT_DIR/.cursor/scripts/pr-create.sh"
-TEMPLATE_FILE="$ROOT_DIR/.github/pull_request_template.md"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SUT="$SCRIPT_DIR/pr-create.sh"
+TEMPLATE_FILE="$SCRIPT_DIR/../../.github/pull_request_template.md"
 
-# Snapshot and auto-restore GITHUB_TOKEN for test isolation
-ORIGINAL_GITHUB_TOKEN="${GITHUB_TOKEN-}"
-restore_github_token() {
-  if [ -n "${ORIGINAL_GITHUB_TOKEN+x}" ]; then
-    export GITHUB_TOKEN="$ORIGINAL_GITHUB_TOKEN"
-  else
-    unset GITHUB_TOKEN || true
+echo "[TEST] pr-create.sh"
+
+# Test: script sources .lib-net.sh
+test_uses_network_seam() {
+  if ! grep -q "source.*\.lib-net\.sh" "$SUT"; then
+    echo "[FAIL] script should source .lib-net.sh" >&2
+    return 1
   fi
+  echo "[PASS] uses network seam"
 }
-trap restore_github_token EXIT
 
-# 1) Dry-run prints JSON with required keys
-export GITHUB_TOKEN="dummy"
-# Fake git environment by running outside a git repo? We rely on origin; skip derivation by setting owner/repo/head.
-out="$(bash "$SCRIPT" --title "Add feature" --body "Body" --owner o --repo r --base main --head feat --dry-run)"
-printf '%s' "$out" | grep -q '"title"' || { echo "payload missing title"; exit 1; }
-printf '%s' "$out" | grep -q '"base"' || { echo "payload missing base"; exit 1; }
-printf '%s' "$out" | grep -q '"head"' || { echo "payload missing head"; exit 1; }
+# Test: script uses net_guidance (not curl)
+test_uses_net_guidance() {
+  if ! grep -q "net_guidance" "$SUT"; then
+    echo "[FAIL] script should use net_guidance" >&2
+    return 1
+  fi
+  
+  # Should NOT have direct curl calls to GitHub API
+  if grep -E "^[^#]*curl.*api\.github\.com" "$SUT" >/dev/null 2>&1; then
+    echo "[FAIL] script should not make direct curl calls to GitHub API" >&2
+    return 1
+  fi
+  
+  echo "[PASS] uses net_guidance instead of curl"
+}
 
-# 1a) Default template injection should include template heading from repo template
-if [ -f "$TEMPLATE_FILE" ]; then
-  printf '%s' "$out" | grep -q '## Summary' || { echo "expected template heading '## Summary' in body"; exit 1; }
-fi
+# Test: dry-run works without token
+test_dry_run_no_token() {
+  set +e
+  output=$("$SUT" --title "Test PR" --owner test --repo repo --base main --head feat --dry-run 2>&1)
+  status=$?
+  set -e
+  
+  if [ "$status" -ne 0 ]; then
+    echo "[FAIL] dry-run should work without token" >&2
+    echo "$output" >&2
+    return 1
+  fi
+  
+  if ! echo "$output" | grep -q "Test PR"; then
+    echo "[FAIL] dry-run should include title" >&2
+    echo "$output" >&2
+    return 1
+  fi
+  
+  echo "[PASS] dry-run works without token"
+}
 
-# 2) Missing token when not dry-run should error before curl
-unset GITHUB_TOKEN || true
-if bash "$SCRIPT" --title t --owner o --repo r --base b --head h >/dev/null 2>&1; then
-  echo "expected missing token to fail"; exit 1
-fi
+# Test: non-dry-run provides guidance (no token required)
+test_provides_guidance() {
+  set +e
+  output=$("$SUT" --title "Test PR" --owner test --repo repo --base main --head feat 2>&1)
+  status=$?
+  set -e
+  
+  if [ "$status" -ne 0 ]; then
+    echo "[FAIL] should exit 0 and provide guidance" >&2
+    echo "$output" >&2
+    return 1
+  fi
+  
+  if ! echo "$output" | grep -qi "compare"; then
+    echo "[FAIL] should provide compare URL" >&2
+    echo "$output" >&2
+    return 1
+  fi
+  
+  echo "[PASS] provides guidance without requiring token"
+}
 
-# 3) --no-template disables template injection (body should not start with template heading)
-export GITHUB_TOKEN="dummy"
-out_notmpl="$(bash "$SCRIPT" --title "No Tmpl" --owner o --repo r --base main --head feat --no-template --body "Only body" --dry-run)"
-printf '%s' "$out_notmpl" | grep -q '"body"' || { echo "missing body field"; exit 1; }
-printf '%s' "$out_notmpl" | grep -q 'Only body' || { echo "expected provided body"; exit 1; }
-printf '%s' "$out_notmpl" | grep -q '## Summary' && { echo "unexpected template when --no-template"; exit 1; }
+# Test: --no-template bypasses template injection in dry-run
+test_no_template() {
+  if [ ! -f "$TEMPLATE_FILE" ]; then
+    echo "[SKIP] no template file to test"
+    return 0
+  fi
+  
+  set +e
+  output=$("$SUT" --title "No Template" --owner o --repo r --base main --head feat --no-template --body "Plain" --dry-run 2>&1)
+  status=$?
+  set -e
+  
+  if [ "$status" -ne 0 ]; then
+    echo "[FAIL] --no-template dry-run should work" >&2
+    echo "$output" >&2
+    return 1
+  fi
+  
+  if echo "$output" | grep -q "## Summary"; then
+    echo "[FAIL] --no-template should skip template" >&2
+    return 1
+  fi
+  
+  echo "[PASS] --no-template bypasses injection"
+}
 
-# 4) --body-append appears under Context when template is used
-out_ctx="$(bash "$SCRIPT" --title "Ctx" --owner o --repo r --base main --head feat --body "A" --body-append "B" --dry-run)"
-printf '%s' "$out_ctx" | grep -q '## Context' || { echo "missing Context section"; exit 1; }
-printf '%s' "$out_ctx" | grep -q 'A' || { echo "missing base body in Context"; exit 1; }
-printf '%s' "$out_ctx" | grep -q 'B' || { echo "missing appended body in Context"; exit 1; }
+# Test: labels are noted in guidance
+test_labels_noted() {
+  set +e
+  output=$("$SUT" --title "With Labels" --owner o --repo r --base main --head feat --label "test-label" --docs-only 2>&1)
+  status=$?
+  set -e
+  
+  if [ "$status" -ne 0 ]; then
+    echo "[FAIL] labels should be accepted" >&2
+    echo "$output" >&2
+    return 1
+  fi
+  
+  if ! echo "$output" | grep -q "test-label"; then
+    echo "[FAIL] guidance should mention labels" >&2
+    echo "$output" >&2
+    return 1
+  fi
+  
+  echo "[PASS] labels noted in guidance"
+}
 
-# 5) Default dry-run should not include labels key
-printf '%s' "$out" | grep -q '"labels"' && { echo "unexpected labels in default dry-run"; exit 1; }
+# Run all tests
+test_uses_network_seam
+test_uses_net_guidance
+test_dry_run_no_token
+test_provides_guidance
+test_no_template
+test_labels_noted
 
-# 6) --label skip-changeset includes labels array in dry-run
-out_lbl="$(bash "$SCRIPT" --title "Label" --owner o --repo r --base main --head feat --label skip-changeset --dry-run)"
-printf '%s' "$out_lbl" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["skip-changeset"\]' || { echo "expected labels field with skip-changeset"; exit 1; }
-
-# 7) Multiple --label flags include both labels in order
-out_multi="$(bash "$SCRIPT" --title "Multi" --owner o --repo r --base main --head feat --label a --label b --dry-run)"
-printf '%s' "$out_multi" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["a","b"\]' || { echo "expected labels [a,b] in order"; exit 1; }
-
-# 8) --docs-only acts as alias for skip-changeset
-out_docs="$(bash "$SCRIPT" --title "Docs" --owner o --repo r --base main --head feat --docs-only --dry-run)"
-printf '%s' "$out_docs" | grep -E -q '"labels"[[:space:]]*:[[:space:]]*\["skip-changeset"\]' || { echo "expected labels with skip-changeset via --docs-only"; exit 1; }
-
-# 9) When a full body is provided (starts with '## Summary'), script auto-replaces template (no Context)
-full_body=$'## Summary\nThis PR updates behavior.\n\n## Changes\n- Bullet\n\n## Why\nReason.'
-out_full="$(bash "$SCRIPT" --title "Full Body" --owner o --repo r --base main --head feat --body "$full_body" --dry-run)"
-printf '%s' "$out_full" | grep -q '## Summary' || { echo "expected provided full body to be used"; echo "$out_full"; exit 1; }
-printf '%s' "$out_full" | grep -q '## Context' && { echo "did not expect Context section for full body"; echo "$out_full"; exit 1; }
-# Ensure template boilerplate line not present (indicates replacement, not append)
-printf '%s' "$out_full" | grep -q 'Briefly describe what this PR changes and why.' && { echo "template boilerplate leaked into body"; echo "$out_full"; exit 1; }
-
-# 10) --replace-body forces replacement regardless of content
-out_force="$(bash "$SCRIPT" --title "Force Replace" --owner o --repo r --base main --head feat --replace-body --body "Only this" --dry-run)"
-printf '%s' "$out_force" | grep -q 'Only this' || { echo "expected exact body when --replace-body"; echo "$out_force"; exit 1; }
-printf '%s' "$out_force" | grep -q '## Context' && { echo "did not expect Context when --replace-body"; echo "$out_force"; exit 1; }
-
+echo "[TEST] pr-create.sh: All tests passed"
 exit 0

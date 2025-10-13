@@ -2,6 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
 # Validate that maintained shell scripts under .cursor/scripts have colocated owner tests
 # and that tests targeting maintained scripts are not centralized under .cursor/scripts/tests/.
 
@@ -17,10 +21,22 @@ Options:
   --root <path>   Repository root (defaults to repo root resolved from this script)
   --warn-only     Do not fail; print warnings and exit 0
 
+Examples:
+  # Validate test colocation in default location
+  test-colocation-validate.sh
+  
+  # Validate with custom root
+  test-colocation-validate.sh --root /path/to/repo
+  
+  # Check without failing (warnings only)
+  test-colocation-validate.sh --warn-only
+
 Notes:
   - Excludes files under .cursor/scripts/tests/** from owner set
   - Excludes files already matching *.test.sh from owner set
 USAGE
+  
+  print_exit_codes
 }
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"

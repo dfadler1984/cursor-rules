@@ -2,7 +2,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 usage() {
   cat <<'USAGE'
@@ -23,7 +27,22 @@ Options:
   --force     Overwrite existing final-summary.md if present
   --pre-move  Write summary into source directory (pre-archive); links still target archived path
   -h, --help  Show this help
+
+Examples:
+  # Generate final summary for archived project
+  final-summary-generate.sh --project my-project --year 2025
+  
+  # Generate before archiving (pre-move mode)
+  final-summary-generate.sh --project my-project --year 2025 --pre-move
+  
+  # Force overwrite existing summary
+  final-summary-generate.sh --project my-project --year 2025 --force
+  
+  # Custom date
+  final-summary-generate.sh --project my-project --year 2025 --date 2025-10-01
 USAGE
+  
+  print_exit_codes
 }
 
 PROJECT=""

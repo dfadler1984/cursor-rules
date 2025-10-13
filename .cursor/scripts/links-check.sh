@@ -2,18 +2,42 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
 # links-check.sh — Validate Markdown relative links (file existence only)
-# Usage: links-check.sh [--path <file-or-dir>]
 
 usage() {
   cat <<'USAGE'
 Usage: links-check.sh [--path <file-or-dir>]
 
-Scans Markdown (.md, .mdc) for links and validates:
-- Relative paths: file existence on disk
+Scans Markdown (.md, .mdc) for links and validates relative paths exist.
 
-Skips: mailto:, anchors (#...)
+Options:
+  --path <path>   File or directory to scan (default: current directory)
+  -h, --help      Show this help and exit
+
+Validates:
+  - Relative paths: file existence on disk
+
+Skips:
+  - HTTP/HTTPS URLs
+  - mailto: links
+  - Anchors (#...)
+
+Examples:
+  # Check all markdown in current directory
+  links-check.sh
+  
+  # Check specific directory
+  links-check.sh --path docs/projects
+  
+  # Check single file
+  links-check.sh --path README.md
 USAGE
+  
+  print_exit_codes
 }
 
 target="${PWD}"

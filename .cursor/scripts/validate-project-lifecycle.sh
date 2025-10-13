@@ -1,21 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
 usage() {
   cat <<'EOF'
 Usage: validate-project-lifecycle.sh [--pr-title "..."] <project-dir> [<project-dir> ...]
 
 Checks for required closeout artifacts in each project directory under docs/projects/.
 
-Required:
+Options:
+  --pr-title <title>  PR title for advisory checks
+  -h, --help          Show this help and exit
+
+Required artifacts:
   - final-summary.md exists, has front matter with template+version, and includes an "## Impact" section
   - tasks.md exists and either has all tasks checked or a "Carryovers" section
   - retrospective.md exists OR Final Summary has a "## Retrospective" section
   - No *.template.md files live in the project directory
 
+Examples:
+  # Validate single project
+  validate-project-lifecycle.sh docs/projects/my-project
+  
+  # Validate multiple projects
+  validate-project-lifecycle.sh docs/projects/proj1 docs/projects/proj2
+  
+  # Validate with PR title check
+  validate-project-lifecycle.sh --pr-title "feat: complete project" docs/projects/my-project
+
 Advisory:
   - Warn if closing PR title does not start with "feat:" (pass via --pr-title or env PR_TITLE)
 EOF
+  
+  print_exit_codes
 }
 
 PR_TITLE_FLAG=""

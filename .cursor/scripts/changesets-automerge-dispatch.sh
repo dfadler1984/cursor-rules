@@ -1,21 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+source "$SCRIPT_DIR/.lib-net.sh"
+
 usage() {
   cat <<'USAGE'
-Usage: changesets-automerge-dispatch.sh --repo <owner/repo> --pr <number> --token <token> [--ref main] [--dry-run]
+Usage: changesets-automerge-dispatch.sh --repo <owner/repo> --pr <number> [--ref main] [--dry-run]
 
-Dispatches the Changesets auto-merge workflow with the given PR number.
+Provides guidance to manually trigger the Changesets auto-merge workflow.
 
-Required:
-  --repo    owner/repo
-  --pr      PR number (integer)
-  --token   GitHub token string (dispatch requires Actions: write)
+Note: This script does not perform network requests (networkless per D4/D5).
+      Use the GitHub Actions UI to manually trigger the workflow.
 
-Optional:
-  --ref     git ref/branch to run on (default: main)
-  --dry-run print the curl command instead of executing it
+Options:
+  --repo <owner/repo> Repository (required)
+  --pr <number>       PR number (required)
+  --ref <branch>      git ref/branch to run on (default: main)
+  --dry-run           show what workflow would be triggered
+  -h, --help          Show this help
+
+Examples:
+  # Show workflow trigger info (dry-run)
+  changesets-automerge-dispatch.sh --repo owner/repo --pr 123 --dry-run
+  
+  # Provide guidance to trigger workflow
+  changesets-automerge-dispatch.sh --repo owner/repo --pr 123
+  
+  # Trigger on specific ref
+  changesets-automerge-dispatch.sh --repo owner/repo --pr 456 --ref develop
+
+Note: --token is no longer required (kept for backward compatibility, ignored)
 USAGE
+  
+  print_exit_codes
 }
 
 repo=""; pr=""; ref="main"; token=""; dry_run=0
@@ -31,23 +51,32 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-[[ -n "$repo" && -n "$pr" && -n "$token" ]] || { echo "--repo, --pr and --token are required" >&2; usage; exit 2; }
+[[ -n "$repo" && -n "$pr" ]] || { echo "--repo and --pr are required" >&2; usage; exit 2; }
 
 api="https://api.github.com/repos/${repo}/actions/workflows/changesets-auto-merge.yml/dispatches"
-# Build minimal JSON body without external deps
-body=$(printf '{"ref":"%s","inputs":{"pr":"%s"}}' "$ref" "$pr")
+actions_ui="https://github.com/${repo}/actions/workflows/changesets-auto-merge.yml"
 
 if [[ $dry_run -eq 1 ]]; then
-  printf 'curl -sS -X POST -H "Authorization: token ***" -H "Accept: application/vnd.github+json" -d %q %q\n' "$body" "$api"
+  # Dry-run: show what would be sent (networkless)
+  body=$(printf '{"ref":"%s","inputs":{"pr":"%s"}}' "$ref" "$pr")
+  printf 'Would dispatch workflow with:\n'
+  printf '  Workflow: changesets-auto-merge.yml\n'
+  printf '  Repository: %s\n' "$repo"
+  printf '  PR: %s\n' "$pr"
+  printf '  Ref: %s\n' "$ref"
+  printf '\n'
+  printf 'API endpoint: %s\n' "$api"
+  printf 'Payload: %s\n' "$body"
   exit 0
 fi
 
-curl -sS -X POST \
-  -H "Authorization: token ${token}" \
-  -H "Accept: application/vnd.github+json" \
-  -d "$body" \
-  "$api"
+# Non-dry-run: provide guidance to use GitHub UI (networkless per D4/D5)
+net_guidance \
+  "Manually trigger the changesets-auto-merge workflow for PR #$pr" \
+  "$actions_ui"
 
-echo "Dispatched changesets-auto-merge for PR #$pr on $ref"
+log_info "Navigate to Actions → changesets-auto-merge → Run workflow"
+log_info "Select branch: $ref"
+log_info "Set pr input: $pr"
 
 

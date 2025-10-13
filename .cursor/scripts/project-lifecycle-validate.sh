@@ -2,9 +2,37 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
 # project-lifecycle-validate.sh — dry-run validator for completed projects
-# Usage: .cursor/scripts/project-lifecycle-validate.sh [--projects-dir docs/projects]
-# Exits non-zero if any completed project is missing required artifacts.
+
+usage() {
+  cat <<'USAGE'
+Usage: project-lifecycle-validate.sh [--projects-dir <path>] [-h|--help]
+
+Validate completed projects have required lifecycle artifacts.
+
+Options:
+  --projects-dir <path>  Projects directory (default: docs/projects)
+  -h, --help             Show this help and exit
+
+Examples:
+  # Validate all projects in default location
+  project-lifecycle-validate.sh
+  
+  # Validate with custom directory
+  project-lifecycle-validate.sh --projects-dir /path/to/projects
+USAGE
+  
+  print_exit_codes
+}
+
+# Handle help before processing
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+esac
 
 PROJECTS_DIR=${1:-docs/projects}
 if [[ "$1" == "--projects-dir" ]]; then

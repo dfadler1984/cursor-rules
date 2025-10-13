@@ -26,7 +26,22 @@ Options:
   --apply          Rename current branch to suggested name
   --version        Print version and exit
   -h, --help       Show this help and exit
+
+Examples:
+  # Suggest branch name for a task
+  git-branch-name.sh --task fix-parser-bug
+  
+  # Suggest with explicit type
+  git-branch-name.sh --task add-auth --type feat
+  
+  # Suggest with feature context
+  git-branch-name.sh --task update-api --type refactor --feature checkout
+  
+  # Apply suggested name to current branch
+  git-branch-name.sh --task fix-typo --apply
 USAGE
+  
+  print_exit_codes
 }
 
 TYPE="feat"
