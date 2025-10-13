@@ -1,0 +1,150 @@
+---
+description: Context Efficiency Gauge — qualitative heuristics and decision aid for chat context health
+alwaysApply: false
+lastReviewed: 2025-10-13
+healthScore:
+  content: green # Clear specification, accurate rubric, actionable outputs
+  usability: green # Scannable format, minimal sections, good examples
+  maintenance: green # New rule, current references
+---
+
+# Context Efficiency Gauge
+
+## Purpose
+
+Provide a lightweight, text-only gauge and decision aid that communicates context efficiency at-a-glance and recommends when to start a new chat. This complements quantitative headroom tools with qualitative, zero-dependency heuristics.
+
+## When to Surface the Gauge
+
+Automatically include gauge output in status updates when:
+
+- Gauge score ≤ 3/5, OR
+- ≥ 2 efficiency signals are true (vague scope, high rules count, multiple clarification loops, user-reported issues)
+
+Manual invocation: User can request gauge explicitly with `@context-efficiency` or by asking "How efficient is this chat?"
+
+## Scoring Rubric (1-5 scale)
+
+| Score | Label   | Characteristics                                                                 |
+| ----- | ------- | ------------------------------------------------------------------------------- |
+| 5     | lean    | Narrow scope, 0-2 rules, 0-1 clarification loops, no reported issues            |
+| 4     | ok      | Focused scope, 3-5 rules, 1-2 clarification loops, minor issues                 |
+| 3     | ok      | Moderate scope, 6-8 rules, 2-3 clarification loops, some latency/quality notes  |
+| 2     | bloated | Vague scope, 9-12 rules, 4+ clarification loops, multiple issues                |
+| 1     | bloated | Unclear scope, 13+ rules, 5+ clarification loops, severe latency/quality issues |
+
+### Input Signals
+
+**Scope Concreteness**: A scope is **concrete** if target files/paths are named, the exact change is stated (imperative), and success criteria are measurable. It is **vague** if targets are ambiguous, changes are open-ended, or criteria are absent.
+
+**Rules Count**: Count all rules attached to the current chat: always-applied workspace rules, agent-requested rules (via routing or `@rule-name`), and manually attached rules.
+
+**Clarification Loops**: Count instances where the assistant asks for clarification on scope/target/criteria, or the user provides additional context after the initial request. Do NOT count TDD-mandated confirmations, consent gates for commands, or progress updates.
+
+**User-Reported Issues**: Track user mentions of "latency", "slow", "quality", "incorrect", "truncated", "cut off", etc.
+
+## Recommendation Logic
+
+- **Score 4-5**: Continue in current chat
+- **Score 3 + ≥2 signals true**: Suggest new chat or summarization
+- **Score 1-2**: Strongly recommend new chat
+
+## Output Formats
+
+### Gauge Line (minimal)
+
+```text
+Context Efficiency Gauge: 4/5 (lean) — narrow scope, minimal rules
+```
+
+Use this format in status updates when score ≤ 3 or ≥ 2 signals true.
+
+### ASCII Dashboard (detailed, on request)
+
+```text
+┌───────────────────────────────┐
+│ CONTEXT EFFICIENCY — DASHBOARD │
+├───────────────────────────────┤
+│ Gauge: [####-] 4/5 (lean)     │
+│ Scope: narrow                 │
+│ Rules: 3                      │
+│ Loops: 1                      │
+│ Issues: none                  │
+└───────────────────────────────┘
+```
+
+### ASCII Decision Flow (on request or when score ≤ 2)
+
+```text
+┌───────────────────────────────────────────────┐
+│ SHOULD I START A NEW CHAT?                    │
+├───────────────────────────────────────────────┤
+│ 1) Is the task scope narrow and concrete?     │
+│    - No → New chat (seed exact file + change) │
+│    - Yes → 2) ≥2 clarification loops?         │
+│             - Yes → New chat                  │
+│             - No → 3) Broad searches/many     │
+│                    rules attached?            │
+│                    - Yes → New chat           │
+│                    - No → 4) Latency spikes?  │
+│                           - Yes → New chat    │
+│                           - No → Stay here    │
+└───────────────────────────────────────────────┘
+```
+
+## Consent-First Prompts
+
+When recommending a new chat:
+
+**Score 1-2 (strong recommendation)**:
+
+```text
+Context Efficiency Gauge: 2/5 (bloated) — vague scope, 11 rules, 5 clarification loops, latency reported
+
+Recommendation: Start a new chat with a narrow, concrete scope.
+
+Shall I help you formulate a focused request for the new chat?
+```
+
+**Score 3 with ≥2 signals (suggestion)**:
+
+```text
+Context Efficiency Gauge: 3/5 (ok) — moderate scope, 7 rules, 3 clarification loops
+
+Recommendation: Consider starting a new chat or summarizing progress so far.
+
+Would you like me to summarize the conversation for a fresh start?
+```
+
+## Integration Points
+
+### Status Updates
+
+In `assistant-behavior.mdc` status updates, include the gauge line when:
+
+- Score ≤ 3, OR
+- ≥ 2 signals are true
+
+Example status update:
+
+```text
+Status: Completed task 1.2; proceeding to 1.3. Context Efficiency Gauge: 3/5 (ok) — 7 rules, 2 clarification loops.
+```
+
+### CLI Output
+
+When the `chat-analyze` CLI tool is available (Tier 2), emit the gauge dashboard as part of the analysis output.
+
+## Implementation Notes
+
+- This is a **heuristic tool**, not a precise measurement. Scores guide decisions but do not dictate them rigidly.
+- Keep scoring simple and transparent; avoid complex ML or opaque algorithms.
+- Combine with quantitative headroom (when token estimation is available) for comprehensive assessment.
+- Defer to user consent before suggesting new chat or summarization.
+
+## Related
+
+- See `assistant-behavior.mdc` for status update requirements
+- See `scope-check.mdc` for clarifying vague requests
+- See `guidance-first.mdc` for handling guidance-only questions
+- See `docs/projects/chat-performance-and-quality-tools/` for full project documentation
