@@ -46,7 +46,6 @@ A landing page for all projects, grouped by status.
   - [script-test-hardening](./script-test-hardening/erd.md)
   - [shellcheck](./shellcheck/erd.md)
   - [networkless-scripts](./networkless-scripts/erd.md)
-  - [tests-github-deletion](./tests-github-deletion/erd.md)
 
 - [testing-coordination](./testing-coordination/erd.md)
 
@@ -59,7 +58,6 @@ A landing page for all projects, grouped by status.
 
   - [git-usage](./git-usage/erd.md)
   - [github-workflows-utility](./github-workflows-utility/erd.md)
-  - [tests-github-deletion](./tests-github-deletion/erd.md)
 
 - [tooling-portability-migration](./tooling-portability-migration/erd.md)
   - [tooling-discovery](./tooling-discovery/erd.md)
@@ -87,6 +85,7 @@ A landing page for all projects, grouped by status.
 - [alp-logging](_archived/2025/alp-logging/final-summary.md) — ALP logging consistency: triggers, status formats, aggregation/archival, redaction.
 - [project-lifecycle-hardening](_archived/2025/project-lifecycle-hardening/final-summary.md) — Completed.
 - [context-efficiency-gauge](_archived/2025/context-efficiency-gauge/erd.md) — Merged into Chat Performance and Quality Tools.
+- [tests-github-deletion](_archived/2025/tests-github-deletion/final-summary.md) — Test environment isolation investigation; resolved via D6 subshell isolation.
 
 ## Archived
 

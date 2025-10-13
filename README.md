@@ -28,6 +28,10 @@ This repository includes a suite of standalone shell scripts to assist with rule
 
 ## Scripts
 
+**📚 Complete Script Inventory:** See [`docs/scripts/README.md`](./docs/scripts/README.md) for a comprehensive, categorized list of all 38 scripts with usage patterns, standards compliance (D1-D6), and examples.
+
+### Core Scripts
+
 - `.cursor/scripts/rules-list.sh`
   - List `.cursor/rules/*.mdc` with selected front matter fields
   - Flags: `--dir`, `--format table|json`, `--help`, `--version`
