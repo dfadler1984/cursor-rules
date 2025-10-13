@@ -11,6 +11,10 @@ A landing page for all projects, grouped by status.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
 - [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
 - [rules-enforcement-investigation](./rules-enforcement-investigation/erd.md) — Investigate how rules are processed and enforced; test slash commands vs intent routing for compliance.
+- [routing-optimization](./routing-optimization/erd.md) — Deep dive on intent routing behavior and optimization opportunities.
+- [consent-gates-refinement](./consent-gates-refinement/erd.md) — Fix consent gating and exception issues for smoother UX without compromising safety.
+- [tdd-scope-boundaries](./tdd-scope-boundaries/erd.md) — Define clear TDD applicability boundaries to prevent overapplication to docs/configs.
+- [project-lifecycle-coordination](./project-lifecycle-coordination/erd.md) — Improve project lifecycle adherence with simple tooling for automatic coordination.
 
 - [slash-commands-runtime](./slash-commands-runtime/erd.md) — Runtime execution semantics for slash commands (`/plan`, `/tasks`, `/pr`) with consent gates.
 - [productivity](./productivity/erd.md) — Automate repetitive ops with scripts while preserving safety and TDD‑first.
