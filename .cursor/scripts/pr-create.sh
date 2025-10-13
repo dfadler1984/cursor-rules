@@ -29,42 +29,47 @@ REPLACE_BODY=0
 SKIP_CONTEXT=0
 
 usage() {
-  cat <<'USAGE'
-Usage: pr-create.sh --title <title> [--body <body>] [--base <branch>] [--head <branch>] \
-                    [--owner <owner>] [--repo <repo>] [--no-template] \
-                    [--template <path>] [--body-append <text>] [--replace-body] \
-                    [--label <name>] [--docs-only] [--dry-run] [--version] [-h|--help]
+  print_usage "pr-create.sh --title <title> [OPTIONS]"
+  
+  print_options
+  print_option "--title TITLE" "PR title (required)"
+  print_option "--body BODY" "PR body (appended to template unless --replace-body)"
+  print_option "--base BRANCH" "Base branch" "auto-detected or main"
+  print_option "--head BRANCH" "Head branch" "current branch"
+  print_option "--owner OWNER" "Repository owner" "auto-detected from origin"
+  print_option "--repo REPO" "Repository name" "auto-detected from origin"
+  print_option "--template PATH" "Use specific PR template" "auto-detected"
+  print_option "--body-append TEXT" "Append text under Context section"
+  print_option "--no-template" "Disable template injection"
+  print_option "--replace-body" "Use exact body (bypass template and context)"
+  print_option "--label NAME" "Apply label after creation (repeatable)"
+  print_option "--docs-only" "Shortcut for --label skip-changeset"
+  print_option "--dry-run" "Print payload without creating PR"
+  print_option "--version" "Print version and exit"
+  print_option "-h, --help" "Show this help and exit"
+  
+  cat <<'NOTES'
 
 Notes:
   - Requires GH_TOKEN in env for actual API calls
   - Owner/repo and head/base are auto-derived when omitted
   - By default, the PR body is prefilled from .github/pull_request_template.md (if present)
     or the first file under .github/PULL_REQUEST_TEMPLATE/. Use --no-template to opt-out.
-    Use --template <path> to select a specific template. Use --body-append to add
-    extra context under a "## Context" section. When using --body without --no-template,
-    the provided body is appended under "## Context" as well (backward-compatible).
-  - Use --replace-body to bypass templates and context; BODY becomes the exact PR body.
-  - Use --label <name> to apply labels after PR creation (repeatable). Use --docs-only as a
-    convenience alias for --label skip-changeset. Labels require jq for PR number extraction.
+  - Use --template <path> to select a specific template.
+  - Use --body-append to add extra context under a "## Context" section.
+  - When using --body without --no-template, provided body is appended under "## Context".
+  - Use --replace-body to bypass templates; BODY becomes the exact PR body.
+  - Labels require jq for PR number extraction.
 
-Examples:
-  # Create PR with title and body
-  pr-create.sh --title "Add feature X" --body "Implements feature X"
+NOTES
   
-  # Dry-run to see payload
-  pr-create.sh --title "Fix bug" --dry-run
+  print_examples
+  print_example "Create PR with title and body" "pr-create.sh --title \"Add feature X\" --body \"Implements feature X\""
+  print_example "Dry-run to see payload" "pr-create.sh --title \"Fix bug\" --dry-run"
+  print_example "Create PR with labels" "pr-create.sh --title \"Update docs\" --docs-only"
+  print_example "Create PR without template" "pr-create.sh --title \"Quick fix\" --no-template --body \"Simple change\""
   
-  # Create PR with labels
-  pr-create.sh --title "Update docs" --docs-only
-  
-  # Create PR without template
-  pr-create.sh --title "Quick fix" --no-template --body "Simple change"
-
-Exit Codes:
-  0   Success
-  1   API error or validation failure
-  2   Usage error (missing required arguments)
-USAGE
+  print_exit_codes
 }
 
 # derive owner/repo/head/base

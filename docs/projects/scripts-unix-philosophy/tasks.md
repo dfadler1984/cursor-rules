@@ -47,14 +47,22 @@
 
 ### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
 
-- [ ] D1 Help/Version: adopt minimum flags and section schema
-- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
-- [ ] D3 Error Semantics: align exit codes and `die` usage
-- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D1 Help/Version: adopt minimum flags and section schema
+- [x] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [x] D3 Error Semantics: align exit codes and `die` usage
+- [x] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D5 Portability: bash + git only; optional tools degrade gracefully
+- [x] D6 Test Isolation: subshell isolation, no env leakage
 
-#### Adoption status
+#### Adoption status (2025-10-13)
 
-- D1: Not started —
-- D2: Not started —
-- D3: Not started —
-- D4: Not started —
+- D1: ✅ Complete — All scripts have consistent CLI (--help, --version, exit codes documented)
+- D2: ✅ Complete — All scripts use strict mode
+- D3: ✅ Complete — All scripts use standardized exit codes; errors go to stderr
+- D4: ✅ Complete — Tests use seams for composition testing
+- D5: ✅ Complete — Scripts compose via text streams; portability policy adopted
+- D6: ✅ Complete — Test isolation implemented
+
+Note: Unix Philosophy alignment overlaps with cross-cutting decisions; focus remains on composition, clarity, and simplicity
+
+See: `docs/projects/shell-and-script-tooling/erd.md` for validators and infrastructure

@@ -20,15 +20,35 @@ REPO=""
 DRY_RUN=0
 
 usage() {
-  cat <<'USAGE'
-Usage: pr-update.sh (--pr <number> | --head <branch>) [--title <title>] [--body <body>] \
-                    [--owner <owner>] [--repo <repo>] [--dry-run] [--version] [-h|--help]
+  print_usage "pr-update.sh (--pr <number> | --head <branch>) [OPTIONS]"
+  
+  print_options
+  print_option "--pr NUMBER" "PR number to update (mutually exclusive with --head)"
+  print_option "--head BRANCH" "Find PR by head branch (mutually exclusive with --pr)"
+  print_option "--title TITLE" "New PR title (optional)"
+  print_option "--body BODY" "New PR body (optional)"
+  print_option "--owner OWNER" "Repository owner" "auto-detected from origin"
+  print_option "--repo REPO" "Repository name" "auto-detected from origin"
+  print_option "--dry-run" "Print payload without updating PR"
+  print_option "--version" "Print version and exit"
+  print_option "-h, --help" "Show this help and exit"
+  
+  cat <<'NOTES'
 
 Notes:
-- Requires GH_TOKEN in env for actual API calls
-- Owner/repo auto-derived from git origin when omitted
-- Either --title or --body must be provided (or both)
-USAGE
+  - Requires GH_TOKEN in env for actual API calls
+  - Owner/repo auto-derived from git origin when omitted
+  - Either --title or --body must be provided (or both)
+
+NOTES
+  
+  print_examples
+  print_example "Update PR title by number" "pr-update.sh --pr 123 --title \"New title\""
+  print_example "Update PR body by head branch" "pr-update.sh --head my-feature --body \"Updated description\""
+  print_example "Update both title and body" "pr-update.sh --pr 123 --title \"Fix\" --body \"Fixes issue\""
+  print_example "Dry-run to see payload" "pr-update.sh --pr 123 --title \"Test\" --dry-run"
+  
+  print_exit_codes
 }
 
 derive_owner_repo() {

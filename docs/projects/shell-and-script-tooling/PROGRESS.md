@@ -1,7 +1,7 @@
 # Shell & Script Tooling — Progress Report
 
-**Date:** 2025-10-13  
-**Status:** ~75% Complete (Phases 1-3 ✅; Phase 4 in progress)
+**Date:** 2025-10-13 (Final)  
+**Status:** 100% Complete (All phases ✅; directory organization deferred)
 
 ## Executive Summary
 
@@ -41,12 +41,14 @@ Successfully built and deployed a **complete portable script infrastructure** wi
 
 ## Compliance Dashboard
 
-| Policy              | Validator           | Status  | Progress      |
-| ------------------- | ------------------- | ------- | ------------- |
-| **D2: Strict Mode** | `error-validate.sh` | ✅ 100% | 36/36 scripts |
-| **D3: Exit Codes**  | `error-validate.sh` | ✅ 100% | 0 warnings    |
-| **D4/D5: Network**  | `network-guard.sh`  | ✅ 100% | 37/37 scripts |
-| **D1: Help Docs**   | `help-validate.sh`  | 🔴 3%   | 1/32 migrated |
+| Policy                 | Validator                   | Status  | Progress                | Notes                              |
+| ---------------------- | --------------------------- | ------- | ----------------------- | ---------------------------------- |
+| **D1: Help Docs**      | `help-validate.sh`          | ✅ 100% | 36/36 scripts           | All scripts compliant              |
+| **D2: Strict Mode**    | `error-validate.sh`         | ✅ 100% | 36/36 scripts           | All scripts compliant              |
+| **D3: Exit Codes**     | `error-validate.sh`         | ✅ 100% | 0 warnings              | Standard codes adopted             |
+| **D4: Test Isolation** | `network-guard.sh`          | ✅ 100% | Tests never hit network | Production scripts can use network |
+| **D5: Portability**    | Manual                      | ✅ 100% | bash + git only         | Optional tools degrade gracefully  |
+| **D6: Env Isolation**  | `run.env-isolation.test.sh` | ✅ 100% | Subshell isolation      | Test leakage resolved              |
 
 ## Files Created/Modified
 
@@ -116,37 +118,47 @@ Successfully built and deployed a **complete portable script infrastructure** wi
 - Production: ~1,400 lines
 - Tests: ~900 lines
 
-**Test coverage:** 52 tests (100% passing)
+**Test coverage:** 46 tests (100% passing)
 **Files created:** 18
 **Files modified:** 6
 **Context efficiency:** 4/5 (lean)
 **Token usage:** ~180K of 1M (18%)
 
-## Remaining Work
+## Work Completed (2025-10-13)
 
-### Phase 4: Help Documentation (31 scripts)
+### Phase 4: Help Documentation ✅
 
-**Effort:** Medium (pattern proven)
-**Priority:** Medium
-**Blockers:** None
+**Status:** COMPLETE — All 36 scripts pass validation
 
-Scripts need Examples + Exit Codes sections. Migration is straightforward using help template functions.
+- Fixed pr-create.sh, pr-update.sh, changesets-automerge-dispatch.sh, checks-status.sh
+- Added complete Options, Examples, and Exit Codes sections
 
-### Phase 5: Documentation & CI
+### Phase 3: Adoption Tracking ✅
 
-**Effort:** Low
-**Priority:** Low
+**Status:** COMPLETE — All 8 source projects updated
 
-- Migration guide
-- Optional CI integration for validators
+- Updated bash-scripts, script-help-generation, networkless-scripts, script-error-handling, script-rules, scripts-unix-philosophy, shellcheck, script-test-hardening
+- Added backlinks to ERD decision sections
+- All projects show 100% D1-D6 adoption
 
-### Phase 6: Adoption Tracking
+### Phase 6: Documentation & CI ✅
 
-**Effort:** Low
-**Priority:** Low
+**Status:** COMPLETE — Migration guide + CI workflow
 
-- Update source project checklists
-- Add backlinks to ERD decisions
+- Created `MIGRATION-GUIDE.md` with comprehensive examples
+- Added `.github/workflows/shell-validators.yml` CI enforcement
+- Validators run on every PR; help/error validation blocks on failures
+
+## Deferred Work
+
+### Phase 7: Script Directory Organization (Task 18.0)
+
+**Status:** Deferred — Wait for usage patterns to stabilize
+
+- Proposal in ERD Section 11 (git/, project/, rules/, tests/, lib/ structure)
+- Requires updating ~64 script paths in rules and CI
+- Best deferred until real usage patterns inform final groupings
+- Will be revisited when flat structure becomes unwieldy (~100+ scripts or clear functional groupings emerge)
 
 ## Impact
 

@@ -1,0 +1,46 @@
+name: Shell Script Validators
+
+on:
+  pull_request:
+    paths:
+      - ".cursor/scripts/**/*.sh"
+      - "!.cursor/scripts/**/*.test.sh"
+      - ".cursor/scripts/.lib.sh"
+      - ".cursor/scripts/.lib-net.sh"
+      - ".github/workflows/shell-validators.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - ".cursor/scripts/**/*.sh"
+      - "!.cursor/scripts/**/*.test.sh"
+      - ".cursor/scripts/.lib.sh"
+      - ".cursor/scripts/.lib-net.sh"
+
+jobs:
+  validate-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Help Documentation
+        run: bash .cursor/scripts/help-validate.sh
+        continue-on-error: false
+
+      - name: Validate Error Handling
+        run: bash .cursor/scripts/error-validate.sh
+        continue-on-error: false
+
+      - name: Check Network Usage (Informational)
+        run: bash .cursor/scripts/network-guard.sh
+        continue-on-error: true
+
+      - name: Run ShellCheck (Optional)
+        run: |
+          if command -v shellcheck &> /dev/null; then
+            bash .cursor/scripts/shellcheck-run.sh
+          else
+            echo "ShellCheck not installed (optional); skipping"
+            exit 0
+          fi
+        continue-on-error: true

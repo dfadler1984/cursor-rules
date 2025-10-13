@@ -67,17 +67,21 @@
   - [x] 8.4 Update `changesets-automerge-dispatch.sh` to use `.lib-net.sh` seam ✅ COMPLETE
   - [x] 8.5 Add suppression mechanism to network-guard for false positives
   - [x] 8.6 All migration tests passing (10 test suites, 40+ tests total)
-- [ ] 10.0 Record adoption status in source projects
-  - [ ] 10.1 Update adoption checklist in each source project's tasks.md
-  - [ ] 10.2 Add backlinks from adoptions to this ERD's decision sections
-  - [ ] 10.3 Track migration progress (scripts migrated vs total)
+- [x] 10.0 Record adoption status in source projects (COMPLETE ✅)
+  - [x] 10.1 Update adoption checklist in each source project's tasks.md (bash-scripts, script-help-generation, networkless-scripts, script-error-handling, script-rules, scripts-unix-philosophy, shellcheck, script-test-hardening) ✅
+  - [x] 10.2 Add backlinks from adoptions to this ERD's decision sections ✅
+  - [x] 10.3 Track migration progress (scripts migrated vs total) ✅
+  - Status: All 8 source projects updated with D1-D6 adoption status (all complete); backlinks to ERD sections included
 
 ### Phase 4: Help Documentation Migration (COMPLETE ✅)
 
-- [x] 8.5 Migrate all scripts to use help template functions (32/32 = **100% complete**)
-  - [x] All 36 maintained scripts now have complete help documentation
-  - [x] All scripts pass `help-validate.sh` (36/36 = 100%) ✅
-  - [x] Migrated in 6 batches: 16 scripts with new help, 16 scripts enhanced with Examples/Exit Codes
+- [x] 8.5 Migrate all scripts to use help template functions (36/36 = **100% complete**)
+  - [x] All 36 scripts pass `help-validate.sh` ✅
+  - [x] 8.5.1 Fix pr-create.sh: add missing Options section ✅
+  - [x] 8.5.2 Fix pr-update.sh: add missing Options, Examples, Exit Codes sections ✅
+  - [x] 8.5.3 Fix changesets-automerge-dispatch.sh: add missing Options, Examples, Exit Codes sections ✅
+  - [x] 8.5.4 Fix checks-status.sh: add missing Examples, Exit Codes sections ✅
+  - [x] Migrated in batches: all scripts enhanced with complete help
 
 ### Phase 5: Test Isolation Fix (D6 Implementation) — HIGH PRIORITY
 
@@ -104,21 +108,26 @@
   - [x] 15.3 Verified: full test suite preserves .github (10 workflows before and after) ✅
   - [x] 15.4 Safeguard: D6 subshell isolation + proper temp directory usage ✅
 
-### Phase 6: Documentation and CI (Future)
+### Phase 6: Documentation and CI (COMPLETE ✅)
 
-- [ ] 16.0 Documentation updates
-  - [ ] 16.1 Create migration guide for existing scripts
-  - [ ] 16.2 Add usage examples for new library functions
-  - [ ] 16.3 Document portability guarantees and graceful degradation patterns
-- [ ] 17.0 Optional CI integration
-  - [ ] 17.1 Add ShellCheck CI job (non-blocking initially)
-  - [ ] 17.2 Add help validation to CI
-  - [ ] 17.3 Add network guard tests to CI
-- [ ] 13.0 Organize scripts into subdirectories
-  - [ ] 13.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
-  - [ ] 13.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
-  - [ ] 13.3 Update all path references in `.cursor/rules/*.mdc`
-  - [ ] 13.4 Update CI workflow paths (`.github/workflows/*.yml`)
-  - [ ] 13.5 Update `.gitignore` patterns if needed
-  - [ ] 13.6 Validate with `project-lifecycle-validate.sh` and manual smoke tests
-  - [ ] 13.7 Document directory structure and rationale in README or rules
+- [x] 16.0 Documentation updates
+  - [x] 16.2 Add usage examples for new library functions (README.md complete) ✅
+  - [x] 16.1 Create migration guide for existing scripts (`MIGRATION-GUIDE.md` created) ✅
+  - [x] 16.3 Document portability guarantees (exists in ERD D5 + migration guide) ✅
+- [x] 17.0 CI integration
+  - [x] 17.1 Add ShellCheck CI job (optional/non-blocking) ✅
+  - [x] 17.2 Add help validation to CI (help-validate.sh runs on PRs, blocks on failure) ✅
+  - [x] 17.3 Add error/network validators to CI (error-validate.sh blocks, network-guard.sh informational) ✅
+  - Created: `.github/workflows/shell-validators.yml` workflow
+
+### Phase 7: Script Directory Organization (Future/Optional)
+
+- [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11)
+  - [ ] 18.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
+  - [ ] 18.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
+  - [ ] 18.3 Update all path references in `.cursor/rules/*.mdc`
+  - [ ] 18.4 Update CI workflow paths (`.github/workflows/*.yml`)
+  - [ ] 18.5 Update `.gitignore` patterns if needed
+  - [ ] 18.6 Validate with `project-lifecycle-validate.sh` and manual smoke tests
+  - [ ] 18.7 Document directory structure and rationale in README or rules
+  - Status: Deferred until usage patterns stabilize (see ERD Section 11 for detailed proposal)
