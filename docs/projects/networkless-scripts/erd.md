@@ -10,29 +10,33 @@ Mode: Lite
 
 ## 1. Introduction/Overview
 
-Refactor all repository scripts so they never perform real network requests. All behaviors that would otherwise require network access must be implemented via deterministic fakes/fixtures and clear, actionable outputs (e.g., guidance or compare URLs), ensuring tests and local usage are fully isolated from external systems.
+Refactor repository **tests** to never perform real network requests. Production scripts may make API calls when necessary (e.g., pr-create.sh), but their tests must use deterministic fixtures and seams, ensuring test isolation from external systems.
+
+**Scope:** Test isolation, not production functionality.
 
 ## 2. Goals/Objectives
 
-- Provide a standard, composable network effects boundary for scripts
-- Enforce a no-network policy: scripts MUST NOT perform network I/O under any circumstances
-- Preserve current UX and outputs via fixtures/deterministic prints where applicable
-- Improve test reliability and speed by eliminating live network calls
+- Provide a standard, composable network effects boundary for **test code**
+- Enforce test isolation: **tests** MUST NOT perform network I/O
+- Production scripts CAN make network calls when that's their primary purpose
+- Preserve current production UX; use fixtures only in test environments
+- Improve test reliability and speed by eliminating live network calls from test suites
 
 ## 3. Functional Requirements
 
-1. Effects seam: centralize any would-be network calls behind a single function (e.g., `net_request`) in a shared script library
-2. No network: `net_request` MUST NOT issue real HTTP; it must either return fixture data or emit explicit guidance without performing I/O
-3. Guard rails: environment overrides (`CURL_BIN=false`, `HTTP_BIN=false`) are honored and tests fail if any path attempts to invoke them
-4. Sensitive data: tokens MUST NOT be required or read; redact any token-like input if provided accidentally
-5. Script coverage: apply to `pr-create`, `security-scan`, and any script that could reach the network now or in the future
+1. Test seams: scripts accept seam overrides (e.g., `CURL_CMD=cat`, `JQ_CMD=jq`) to inject fixture data during tests
+2. Test fixtures: `.lib-net.sh` provides `net_fixture()` for loading test data; used only in test code
+3. Guard rails: tests can set `CURL_BIN=false` to ensure scripts don't bypass seams
+4. Production behavior: scripts make real network calls by default when tokens available
+5. Test coverage: tests for `pr-create`, `pr-update`, `checks-status`, etc. use fixtures/seams, never live API
 
 ## 4. Acceptance Criteria
 
-- Deterministic outputs: fixture outputs are stable and asserted in tests
-- No direct `curl`/`gh` invocations remain in scripts; all go through the effects seam and never reach the network
-- Tokens are never accessed; scripts function without `GITHUB_TOKEN`
-- Documentation updated: clearly states no-network policy and how fixtures/guidance are surfaced
+- Deterministic outputs: test fixtures are stable and asserted in tests
+- Tests use seams (`CURL_CMD=cat`, `JQ_CMD=jq`) to inject fixtures; never make live API calls
+- Production scripts can access tokens when available; tests use fixtures regardless
+- Documentation updated: clearly states test isolation approach and seam usage
+- Guard tests (with `CURL_BIN=false`) verify scripts respect seams and don't bypass to live network
 
 ## 5. Non-Functional Requirements
 

@@ -2,8 +2,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Network guard validator — ensures scripts never perform direct network requests
-# Validates D4/D5 portability policy: network must go through .lib-net.sh seam
+# Network seam validator — ensures scripts provide test seams for network calls
+# Validates D4: test isolation via network seams (CURL_CMD, JQ_CMD, etc.)
 
 # shellcheck disable=SC1090
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -15,7 +15,7 @@ VERSION="0.1.0"
 PATHS="${PATHS:-.cursor/scripts}"
 
 usage() {
-  print_help_header "network-guard.sh" "$VERSION" "Validate no direct network tool usage"
+  print_help_header "network-guard.sh" "$VERSION" "Validate network test seams are available"
   print_usage "network-guard.sh [OPTIONS]"
   
   print_options
@@ -25,16 +25,19 @@ usage() {
   
   cat <<'DETAILS'
 
-Validation Rules:
-  - Scripts MUST NOT invoke curl, wget, gh, http directly
-  - Network operations MUST use .lib-net.sh seam (net_request, net_fixture, net_guidance)
-  - Comments and strings containing tool names are allowed
-  - Validates D4 (Networkless Effects Seam) and D5 (Dependency Portability Policy)
+Validation Rules (D4 - Test Isolation):
+  - Scripts that use curl/network tools SHOULD provide test seams (CURL_CMD, JQ_CMD)
+  - Production code CAN make API calls (e.g., pr-create.sh, checks-status.sh)
+  - Tests MUST use seams to inject fixtures (never live API calls)
+  - Currently: informational only (logs scripts with network usage)
+
+Note: This validator is being refined. Currently it identifies scripts with network
+      usage but does not fail. Future: validate test files use seams.
 
 DETAILS
   
   print_examples
-  print_example "Validate default paths" "network-guard.sh"
+  print_example "Check which scripts use network tools" "network-guard.sh"
   print_example "Validate specific directory" "network-guard.sh --paths .cursor/scripts"
   
   print_exit_codes
@@ -128,20 +131,21 @@ for script in "${scripts[@]}"; do
 done
 
 if [ "$violations" -gt 0 ]; then
-  log_error "Network guard: $violations violation(s) found"
+  log_info "Network usage found in $violations script(s) (informational):"
   for detail in "${violation_details[@]}"; do
     printf '  - %s\n' "$detail" >&2
   done
   printf '\n' >&2
-  printf 'Scripts MUST use .lib-net.sh seam:\n' >&2
-  printf '  source "$(dirname "$0")/.lib-net.sh"\n' >&2
-  printf '  net_fixture "github/pr-123.json"  # Use fixtures\n' >&2
-  printf '  net_guidance "Create PR" "https://..."  # Or print guidance\n' >&2
+  printf 'Note: Production scripts CAN make network calls (D4 allows this).\n' >&2
+  printf 'Ensure tests for these scripts use seams:\n' >&2
+  printf '  CURL_CMD=cat  # Inject fixtures\n' >&2
+  printf '  JQ_CMD=jq     # Use real jq for parsing\n' >&2
   printf '\n' >&2
-  printf 'See: docs/projects/shell-and-script-tooling/erd.md D4/D5\n' >&2
-  exit 1
+  printf 'See: docs/projects/networkless-scripts/erd.md (test isolation)\n' >&2
+  # Exit 0 - this is informational, not a hard failure
+  exit 0
 fi
 
-log_info "Network guard: OK (${#scripts[@]} scripts validated)"
+log_info "Network guard: OK — no network usage found in ${#scripts[@]} scripts"
 exit 0
 

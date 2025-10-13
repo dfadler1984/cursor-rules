@@ -27,10 +27,6 @@ Unify and coordinate testing/TDD-related initiatives across the repository by re
 
 - Script Test Hardening (overlaps with shell/script testing concerns) — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
 
-### Moved to Other Projects
-
-- Tests GitHub Deletion Investigation — **Moved to `shell-and-script-tooling` (2025-10-13)** — Shell test infrastructure issue, not testing coordination. See: `docs/projects/shell-and-script-tooling/erd.md`
-
 ## 4. Goals/Objectives
 
 - Provide a cohesive vision spanning TDD rules, coverage policy, artifact hygiene, and regression safeguards.

@@ -30,7 +30,8 @@
   - [x] 4.2 D2: Strict-mode baseline and traps
   - [x] 4.3 D3: Error semantics and exit code catalog
   - [x] 4.4 D4: Networkless effects seam defaults
-  - [x] 4.5 D5: Dependency portability policy (NEW)
+  - [x] 4.5 D5: Dependency portability policy
+  - [x] 4.6 D6: Test isolation and environment hygiene (added 2025-10-13)
 
 ### Phase 2: Core Library Implementation (Completed)
 
@@ -78,16 +79,34 @@
   - [x] All scripts pass `help-validate.sh` (36/36 = 100%) ✅
   - [x] Migrated in 6 batches: 16 scripts with new help, 16 scripts enhanced with Examples/Exit Codes
 
-### Phase 5: Documentation and CI (Future)
+### Phase 5: Test Isolation Fix (D6 Implementation)
 
-- [ ] 11.0 Documentation updates
-  - [ ] 11.1 Create migration guide for existing scripts
-  - [ ] 11.2 Add usage examples for new library functions
-  - [ ] 11.3 Document portability guarantees and graceful degradation patterns
-- [ ] 12.0 Optional CI integration
-  - [ ] 12.1 Add ShellCheck CI job (non-blocking initially)
-  - [ ] 12.2 Add help validation to CI
-  - [ ] 12.3 Add network guard tests to CI
+- [ ] 13.0 Fix test runner environment leakage
+  - [ ] 13.1 Update `.cursor/scripts/tests/run.sh` to run each test in subshell
+  - [ ] 13.2 Move exports (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) into subshell scope
+  - [ ] 13.3 Add regression test: verify env vars don't leak between tests
+  - [ ] 13.4 Validate fix resolves GITHUB_TOKEN leakage issue
+- [ ] 14.0 Investigate and fix tmp-scan creation
+  - [ ] 14.1 Identify which test creates tmp-scan/ directory
+  - [ ] 14.2 Replace with proper temp directory using with_tempdir or mktemp
+  - [ ] 14.3 Add cleanup trap to prevent orphaned temp dirs
+  - [ ] 14.4 Add regression test: verify no tmp-scan/ after test runs
+- [ ] 15.0 Investigate .github/ deletion
+  - [ ] 15.1 Identify which test or script removes .github/
+  - [ ] 15.2 Add safeguard: deny-list critical paths in cleanup routines
+  - [ ] 15.3 Add regression test: verify .github/ exists after test suite
+  - [ ] 15.4 Document findings in tests-github-deletion ERD
+
+### Phase 6: Documentation and CI (Future)
+
+- [ ] 16.0 Documentation updates
+  - [ ] 16.1 Create migration guide for existing scripts
+  - [ ] 16.2 Add usage examples for new library functions
+  - [ ] 16.3 Document portability guarantees and graceful degradation patterns
+- [ ] 17.0 Optional CI integration
+  - [ ] 17.1 Add ShellCheck CI job (non-blocking initially)
+  - [ ] 17.2 Add help validation to CI
+  - [ ] 17.3 Add network guard tests to CI
 - [ ] 13.0 Organize scripts into subdirectories
   - [ ] 13.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
   - [ ] 13.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)

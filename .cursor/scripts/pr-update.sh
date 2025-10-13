@@ -2,15 +2,12 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Update an existing GitHub Pull Request title/body
-# Provides guidance for manual updates (networkless per D4/D5)
+# Update an existing GitHub Pull Request title/body via API
 # Usage:
 #   .cursor/scripts/pr-update.sh (--pr <number> | --head <branch>) [--title <t>] [--body <b>] [--owner <o>] [--repo <r>] [--dry-run]
 
 # shellcheck disable=SC1090
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/.lib.sh"
-source "$SCRIPT_DIR/.lib-net.sh"
+source "$(dirname "$0")/.lib.sh"
 
 VERSION="0.1.0"
 
@@ -27,35 +24,11 @@ usage() {
 Usage: pr-update.sh (--pr <number> | --head <branch>) [--title <title>] [--body <body>] \
                     [--owner <owner>] [--repo <repo>] [--dry-run] [--version] [-h|--help]
 
-Provides guidance to update a GitHub Pull Request title/body.
-
-Note: This script does not perform network requests (networkless per D4/D5).
-      Use the GitHub UI or `gh pr edit` to update PRs.
-
-Options:
-  --pr <number>       PR number (required, OR use --head)
-  --head <branch>     Find PR by head branch (requires manual lookup)
-  --title <title>     New PR title (required, OR use --body)
-  --body <body>       New PR body
-  --owner <owner>     Repository owner (auto-derived from git origin)
-  --repo <repo>       Repository name (auto-derived from git origin)
-  --dry-run           Show what would be updated
-  --version           Print version
-  -h, --help          Show this help
-
-Examples:
-  # Update PR title (dry-run first)
-  pr-update.sh --pr 123 --title "New Title" --dry-run
-  pr-update.sh --pr 123 --title "New Title"
-  
-  # Update PR body
-  pr-update.sh --pr 123 --body "Updated description"
-  
-  # Update both title and body
-  pr-update.sh --pr 123 --title "Fix" --body "Resolves #456"
+Notes:
+- Requires GITHUB_TOKEN in env for actual API calls
+- Owner/repo auto-derived from git origin when omitted
+- Either --title or --body must be provided (or both)
 USAGE
-  
-  print_exit_codes
 }
 
 derive_owner_repo() {
@@ -94,47 +67,67 @@ if [ -z "$TITLE" ] && [ -z "$BODY" ]; then
   die 2 "Provide --title and/or --body"
 fi
 
-# Note PR resolution requirement when using --head
+# Resolve PR number via head branch when needed
 if [ -z "$PR_NUMBER" ]; then
-  log_warn "PR number not specified; --head requires manual PR lookup"
-  log_info "To find PR number for branch '$HEAD_BRANCH', use:"
-  log_info "  gh pr list --head '$HEAD_BRANCH'"
-  log_info "  Or visit: https://github.com/${OWNER}/${REPO}/pulls?q=is:pr+head:${HEAD_BRANCH}"
-  die "$EXIT_USAGE" "Provide --pr <number> after looking up the PR"
+  # seam for tests: when PR_LIST is set, read JSON from stdin
+  list_api="https://api.github.com/repos/${OWNER}/${REPO}/pulls?head=${OWNER}:${HEAD_BRANCH}"
+  if [ "${CURL_CMD-curl}" = "cat" ] || [ -n "${PR_LIST-}" ]; then
+    pr_json=$(cat)
+  else
+    : "${GITHUB_TOKEN:?GITHUB_TOKEN is required for API calls}"
+    resp_file="$(mktemp 2>/dev/null || mktemp -t pr-list.json)"
+    code=$(curl -sS -w '%{http_code}' -o "$resp_file" \
+      -H "Authorization: token ${GITHUB_TOKEN}" \
+      -H "Accept: application/vnd.github+json" \
+      "$list_api")
+    if [ "$code" != "200" ]; then
+      log_error "GitHub PR list failed (status $code) for head=${OWNER}:${HEAD_BRANCH}"
+      if have_cmd jq; then jq '.' "$resp_file" >&2 || cat "$resp_file" >&2; else cat "$resp_file" >&2; fi
+      exit 1
+    fi
+    pr_json="$(cat "$resp_file")"
+  fi
+  PR_NUMBER=$(printf '%s' "$pr_json" | ${JQ_CMD-jq} -r '.[0].number')
+  [ "$PR_NUMBER" != "null" ] && [ -n "$PR_NUMBER" ] || die 1 "Unable to resolve PR number for head=${HEAD_BRANCH}"
 fi
 
-# Build PR URL
-pr_url="https://github.com/${OWNER}/${REPO}/pull/${PR_NUMBER}"
+json_string_or_null() {
+  # prints a JSON string when non-empty, otherwise JSON null
+  jq -Rn --arg s "$1" 'if ($s|length)>0 then $s else null end'
+}
+
+TITLE_JSON=$(json_string_or_null "$TITLE")
+BODY_JSON=$(json_string_or_null "$BODY")
+
+payload=$(cat <<JSON
+{
+  "title": ${TITLE_JSON},
+  "body": ${BODY_JSON}
+}
+JSON
+)
+
+url="https://api.github.com/repos/${OWNER}/${REPO}/pulls/${PR_NUMBER}"
 
 if [ $DRY_RUN -eq 1 ]; then
-  # Dry-run: show what would be updated (networkless)
-  printf 'Would update PR #%s:\n' "$PR_NUMBER"
-  printf '  Repository: %s/%s\n' "$OWNER" "$REPO"
-  [ -n "$TITLE" ] && printf '  New title: %s\n' "$TITLE"
-  [ -n "$BODY" ] && printf '  New body: %s\n' "$BODY"
-  printf '\n'
-  printf 'PR URL: %s\n' "$pr_url"
+  printf '{"method":"PATCH","url":"%s","payload":%s}\n' "$url" "$payload"
   exit 0
 fi
 
-# Non-dry-run: provide guidance (networkless per D4/D5)
-net_guidance \
-  "Manually update PR #$PR_NUMBER" \
-  "$pr_url"
+: "${GITHUB_TOKEN:?GITHUB_TOKEN is required for API calls}"
 
-log_info ""
-log_info "To update this PR, use one of:"
-log_info ""
-log_info "  GitHub UI:"
-log_info "    1. Visit: $pr_url"
-log_info "    2. Click 'Edit' next to the title or description"
-[ -n "$TITLE" ] && log_info "    3. Set title to: $TITLE"
-[ -n "$BODY" ] && log_info "    4. Set body to: $BODY"
-log_info ""
-log_info "  GitHub CLI:"
-gh_cmd="gh pr edit $PR_NUMBER --repo ${OWNER}/${REPO}"
-[ -n "$TITLE" ] && gh_cmd+=" --title '$TITLE'"
-[ -n "$BODY" ] && gh_cmd+=" --body '$BODY'"
-log_info "    $gh_cmd"
+resp_file="$(mktemp 2>/dev/null || mktemp -t pr-update.json)"
+code=$(curl -sS -w '%{http_code}' -o "$resp_file" \
+  -H "Authorization: token ${GITHUB_TOKEN}" \
+  -H "Accept: application/vnd.github+json" \
+  -X PATCH "$url" -d "$payload")
+
+if [ "$code" != "200" ]; then
+  log_error "GitHub PR update failed (status $code)"
+  if have_cmd jq; then jq '.' "$resp_file" >&2 || cat "$resp_file" >&2; else cat "$resp_file" >&2; fi
+  exit 1
+fi
+
+if have_cmd jq; then jq '.' "$resp_file"; else cat "$resp_file"; fi
 
 

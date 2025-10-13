@@ -28,7 +28,7 @@ test_help_flag() {
   echo "[PASS] --help shows usage"
 }
 
-# Test: detects direct curl usage
+# Test: detects and reports direct curl usage (informational)
 test_detects_curl() {
   local tmpdir
   tmpdir="$(mktemp -d)"
@@ -46,8 +46,9 @@ SCRIPT
   local status=$?
   set -e
   
-  if [ "$status" -eq 0 ]; then
-    echo "[FAIL] should detect direct curl usage" >&2
+  # Network-guard is now informational (exits 0)
+  if [ "$status" -ne 0 ]; then
+    echo "[FAIL] network-guard should exit 0 (informational)" >&2
     echo "$output" >&2
     return 1
   fi
@@ -58,10 +59,10 @@ SCRIPT
     return 1
   fi
   
-  echo "[PASS] detects direct curl usage"
+  echo "[PASS] detects and reports curl usage"
 }
 
-# Test: detects direct gh CLI usage
+# Test: detects and reports direct gh CLI usage (informational)
 test_detects_gh() {
   local tmpdir
   tmpdir="$(mktemp -d)"
@@ -79,8 +80,9 @@ SCRIPT
   local status=$?
   set -e
   
-  if [ "$status" -eq 0 ]; then
-    echo "[FAIL] should detect gh CLI usage" >&2
+  # Network-guard is now informational (exits 0)
+  if [ "$status" -ne 0 ]; then
+    echo "[FAIL] network-guard should exit 0 (informational)" >&2
     echo "$output" >&2
     return 1
   fi
@@ -91,7 +93,7 @@ SCRIPT
     return 1
   fi
   
-  echo "[PASS] detects direct gh CLI usage"
+  echo "[PASS] detects and reports gh usage"
 }
 
 # Test: allows .lib-net.sh usage

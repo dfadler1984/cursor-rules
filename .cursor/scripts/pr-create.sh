@@ -2,15 +2,12 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Create a GitHub Pull Request - Provides guidance for manual creation
-# Networkless per D4/D5
+# Create a GitHub Pull Request via curl using GITHUB_TOKEN
 # Usage: .cursor/scripts/pr-create.sh --title <t> [--body <b>] [--base <branch>] [--head <branch>] \
 #        [--owner <o>] [--repo <r>] [--dry-run] [-h|--help] [--version]
 
 # shellcheck disable=SC1090
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/.lib.sh"
-source "$SCRIPT_DIR/.lib-net.sh"
+source "$(dirname "$0")/.lib.sh"
 
 VERSION="0.4.0"
 
@@ -38,43 +35,36 @@ Usage: pr-create.sh --title <title> [--body <body>] [--base <branch>] [--head <b
                     [--template <path>] [--body-append <text>] [--replace-body] \
                     [--label <name>] [--docs-only] [--dry-run] [--version] [-h|--help]
 
-Provides guidance to create a GitHub Pull Request with templates.
-
-Note: This script does not perform network requests (networkless per D4/D5).
-      Use the GitHub compare URL or `gh pr create` to open PRs.
-
-Options:
-  --title <title>     PR title (required)
-  --body <body>       PR body content
-  --base <branch>     Base branch (default: auto-derived from origin)
-  --head <branch>     Head branch (default: current branch)
-  --owner <owner>     Repository owner (default: auto-derived)
-  --repo <repo>       Repository name (default: auto-derived)
-  --no-template       Skip PR template injection
-  --template <path>   Use specific template file
-  --body-append <txt> Add context under ## Context section
-  --replace-body      Use body exactly (bypass templates)
-  --label <name>      Note labels to apply (informational only)
-  --docs-only         Alias for --label skip-changeset
-  --dry-run           Show PR details without guidance
-  --version           Print version
-  -h, --help          Show this help
+Notes:
+  - Requires GITHUB_TOKEN in env for actual API calls
+  - Owner/repo and head/base are auto-derived when omitted
+  - By default, the PR body is prefilled from .github/pull_request_template.md (if present)
+    or the first file under .github/PULL_REQUEST_TEMPLATE/. Use --no-template to opt-out.
+    Use --template <path> to select a specific template. Use --body-append to add
+    extra context under a "## Context" section. When using --body without --no-template,
+    the provided body is appended under "## Context" as well (backward-compatible).
+  - Use --replace-body to bypass templates and context; BODY becomes the exact PR body.
+  - Use --label <name> to apply labels after PR creation (repeatable). Use --docs-only as a
+    convenience alias for --label skip-changeset. Labels require jq for PR number extraction.
 
 Examples:
-  # Show PR creation guidance (dry-run)
-  pr-create.sh --title "Add new feature" --dry-run
+  # Create PR with title and body
+  pr-create.sh --title "Add feature X" --body "Implements feature X"
   
-  # Create PR with body
-  pr-create.sh --title "Fix bug" --body "Resolves issue with parser"
+  # Dry-run to see payload
+  pr-create.sh --title "Fix bug" --dry-run
+  
+  # Create PR with labels
+  pr-create.sh --title "Update docs" --docs-only
   
   # Create PR without template
-  pr-create.sh --title "Update docs" --no-template --docs-only
-  
-  # Create PR with labels noted
-  pr-create.sh --title "Feature X" --label "enhancement" --label "v2"
+  pr-create.sh --title "Quick fix" --no-template --body "Simple change"
+
+Exit Codes:
+  0   Success
+  1   API error or validation failure
+  2   Usage error (missing required arguments)
 USAGE
-  
-  print_exit_codes
 }
 
 # derive owner/repo/head/base
@@ -235,52 +225,53 @@ JSON
   exit 0
 fi
 
-# Build compare URL for manual PR creation
-compare_url="https://github.com/${OWNER}/${REPO}/compare/${BASE}...${HEAD}"
+: "${GITHUB_TOKEN:?GITHUB_TOKEN is required for API calls}"
+require_cmd curl
 
-# Provide guidance for manual PR creation (networkless per D4/D5)
-net_guidance \
-  "Manually create PR: $TITLE" \
-  "$compare_url"
+API="https://api.github.com/repos/${OWNER}/${REPO}/pulls"
 
-log_info ""
-log_info "To create this PR, use one of:"
-log_info ""
-log_info "  GitHub UI:"
-log_info "    1. Visit: $compare_url"
-log_info "    2. Click 'Create pull request'"
-log_info "    3. Title: $TITLE"
-if [ -n "$BODY" ]; then
-  log_info "    4. Body (copy below):"
-  log_info ""
-  log_info "--- BEGIN PR BODY ---"
-  printf '%s\n' "$BODY" | sed 's/^/       /'
-  log_info "--- END PR BODY ---"
-  log_info ""
+resp_file="$(mktemp 2>/dev/null || mktemp -t pr.json)"
+status=$(curl -sS -w '%{http_code}' -o "$resp_file" \
+  -H "Authorization: token ${GITHUB_TOKEN}" \
+  -H "Accept: application/vnd.github+json" \
+  -X POST "$API" -d "$PAYLOAD")
+
+if [ "$status" != "201" ]; then
+  log_error "GitHub PR create failed (status $status)"
+  if have_cmd jq; then
+    jq '.' "$resp_file" >&2 || cat "$resp_file" >&2
+  else
+    cat "$resp_file" >&2
+  fi
+  # Fallback compare URL
+  printf 'Compare URL: https://github.com/%s/%s/compare/%s...%s\n' "$OWNER" "$REPO" "$BASE" "$HEAD" >&2
+  exit 1
 fi
 
-if [ "${#LABELS[@]}" -gt 0 ]; then
-  log_info "    5. Add labels: ${LABELS[*]}"
+# If labels were requested, add them via Issues API
+if [ -n "$labels_json" ]; then
+  require_cmd jq
+  pr_number=$(jq -r '.number' "$resp_file" 2>/dev/null || true)
+  if [ -z "$pr_number" ] || [ "$pr_number" = "null" ]; then
+    die 1 "Failed to extract PR number for labeling"
+  fi
+  labels_api="https://api.github.com/repos/${OWNER}/${REPO}/issues/${pr_number}/labels"
+  labels_body=$(cat <<JSON
+{"labels": $labels_json}
+JSON
+)
+  label_status=$(curl -sS -w '%{http_code}' -o /dev/stderr \
+    -H "Authorization: token ${GITHUB_TOKEN}" \
+    -H "Accept: application/vnd.github+json" \
+    -X POST "$labels_api" -d "$labels_body")
+  case "$label_status" in
+    200|201) : ;; # ok
+    *) die 1 "Labeling failed (status $label_status)" ;;
+  esac
 fi
 
-log_info ""
-log_info "  GitHub CLI:"
-gh_cmd="gh pr create --repo ${OWNER}/${REPO} --base ${BASE} --head ${HEAD} --title '$TITLE'"
-if [ -n "$BODY" ]; then
-  # For gh CLI, save body to temp file for easier handling
-  body_file="$(mktemp 2>/dev/null || mktemp -t pr-body)"
-  printf '%s' "$BODY" > "$body_file"
-  gh_cmd+=" --body-file '$body_file'"
-  log_info "    $gh_cmd"
-  log_info "    (Body saved to: $body_file)"
+if have_cmd jq; then
+  jq '.' "$resp_file"
 else
-  gh_cmd+=" --body ''"
-  log_info "    $gh_cmd"
-fi
-
-if [ "${#LABELS[@]}" -gt 0 ]; then
-  for label in "${LABELS[@]}"; do
-    log_info "    # Then add labels:"
-    log_info "    gh pr edit <number> --add-label '$label'"
-  done
+  cat "$resp_file"
 fi

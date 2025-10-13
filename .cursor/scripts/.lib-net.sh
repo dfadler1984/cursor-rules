@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Network effects seam for repository scripts
-# This library ensures NO network requests are ever performed.
-# All network-requiring behaviors must use fixtures or guidance.
+# Test helper library for network isolation
+# Provides fixtures and guards for testing scripts that make network calls.
+# 
+# Usage: Source this in TEST files only (not production scripts).
+# Production scripts make real API calls; tests use net_fixture() for deterministic data.
 
 # Source the main library for helpers
 # shellcheck disable=SC1090
@@ -11,13 +13,12 @@ source "$SCRIPT_DIR/.lib.sh"
 # Fixtures directory
 readonly FIXTURES_DIR="$SCRIPT_DIR/tests/fixtures"
 
-# Guard pattern: Set CURL_BIN=false or HTTP_BIN=false in test environments
-# to catch scripts that try to invoke network tools directly.
-# This library never performs network requests; net_request() always fails.
+# Guard pattern: Set CURL_BIN=false in test environments to catch scripts
+# that bypass test seams. Tests should use CURL_CMD=cat to inject fixtures.
 
-# Network request stub - NEVER performs actual HTTP
-# Usage: net_request <method> <url> [curl_args...]
-# Returns: prints fixture data or guidance; never makes real requests
+# Network request stub for test mocking - NEVER performs actual HTTP
+# Usage in tests: Call this to simulate network errors or fixture responses
+# Production scripts: DO NOT call this; use real curl with CURL_CMD seam
 net_request() {
   local method="${1:-GET}"
   local url="${2:-}"
@@ -27,9 +28,9 @@ net_request() {
     die "$EXIT_USAGE" "net_request requires method and URL"
   fi
   
-  log_error "Network requests are not supported"
+  log_error "Test-only function: net_request called in non-test context"
   log_error "Attempted: $method $url"
-  die "$EXIT_NETWORK" "This script requires offline fixtures or --dry-run mode"
+  die "$EXIT_NETWORK" "Use real curl in production; net_request is for test mocking only"
 }
 
 # Load fixture data for testing
