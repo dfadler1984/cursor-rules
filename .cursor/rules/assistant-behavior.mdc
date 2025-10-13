@@ -253,6 +253,7 @@ Before sending any message that includes actions or tool results, explicitly ver
 
 - In status updates, briefly note which signal triggered the route (explicit verb, consent-after-plan, file signal) when starting an implementation step.
 - When crossing tool boundaries, include the consent checkpoint and the exact command pending approval.
+- Include Context Efficiency Gauge when score ≤ 3 or ≥ 2 efficiency signals are true (see `context-efficiency.mdc` for scoring rubric and signals).
 
 ## Operational checklist
 

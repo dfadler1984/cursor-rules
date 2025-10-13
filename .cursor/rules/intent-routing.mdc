@@ -30,6 +30,11 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - DRY RUN (plan-only)
   - Triggers: Message begins with the exact phrase `DRY RUN:` (highest priority exact phrase trigger)
   - Attach: `dry-run.mdc`, `guidance-first.mdc`
+- Context Efficiency Gauge
+  - Triggers: <gauge-phrase>
+    - Phrases: show gauge|context efficiency|how's our context|context health|efficiency gauge|show efficiency|context score
+  - Attach: `context-efficiency.mdc`
+  - Behavior: Run `.cursor/scripts/context-efficiency-gauge.sh` with estimated inputs (scope, rules count, clarification loops, issues) and display the result in the requested format (default: dashboard)
 - Create tests
   - Triggers: <verb> + <test-term>
     - Verbs: create|generate|add|write
@@ -156,6 +161,9 @@ This lightweight router keeps context minimal by attaching specific rules only w
 
 ## Few-shot routing examples
 
+- "Show gauge" → attach: context-efficiency; run gauge script with current context
+- "How's our context?" → attach: context-efficiency; display dashboard
+- "Context efficiency" → attach: context-efficiency; show gauge line
 - "Add tests for the API client" → attach: testing, tdd-first
 - "Can you add a spec for rules-list?" → attach: testing, tdd-first
 - "Refactor parse.ts to be pure" → attach: refactoring, testing
