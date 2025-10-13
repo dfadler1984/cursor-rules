@@ -15,9 +15,86 @@ All maintained scripts in `.cursor/scripts/` follow these standards:
 
 ## Prerequisites
 
+**Required (all machines):**
 - Bash 4.0+
 - Git (when in repo context)
-- Optional: `jq`, `column`, `shellcheck`
+
+**Required for GitHub automation scripts only:**
+- `curl` (for pr-create.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh)
+- `GH_TOKEN` environment variable
+
+**Optional (enhanced UX):**
+- `jq` — Better JSON formatting
+- `column` — Table formatting
+- `shellcheck` — Static analysis
+
+## Remote Machine Setup
+
+### Quick Start (Minimal)
+
+Most scripts work immediately after cloning:
+
+```bash
+# On your remote machine
+git clone <repo-url>
+cd cursor-rules
+
+# These work with zero setup (bash + git only)
+bash .cursor/scripts/help-validate.sh      # ✅ Works
+bash .cursor/scripts/error-validate.sh     # ✅ Works
+bash .cursor/scripts/tests/run.sh          # ✅ Works
+bash .cursor/scripts/shellcheck-run.sh     # ✅ Works (degrades gracefully)
+```
+
+### Full Setup (For GitHub Automation)
+
+To use GitHub automation scripts (pr-create, pr-update, checks-status):
+
+```bash
+# 1. Check if curl is present (usually is)
+which curl || {
+  # Install if missing
+  sudo apt-get install curl      # Debian/Ubuntu
+  # OR
+  sudo yum install curl          # RHEL/CentOS
+  # OR
+  brew install curl              # macOS (rarely needed)
+}
+
+# 2. Set up GitHub token
+# Create token at: https://github.com/settings/tokens
+# Requires: repo scope (classic) or Contents: Read/Write + Pull requests: Read/Write (fine-grained)
+
+# Add to your shell profile (~/.bashrc or ~/.zshrc)
+export GH_TOKEN="ghp_your_token_here"
+
+# Reload profile
+source ~/.bashrc  # or source ~/.zshrc
+
+# 3. Verify setup
+bash .cursor/scripts/pr-create.sh --help  # ✅ Should work
+```
+
+### Quick Setup Script
+
+Run this one-liner on new machines:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/<your-repo>/main/.cursor/scripts/setup-remote.sh | bash
+```
+
+Or manually:
+
+```bash
+bash .cursor/scripts/setup-remote.sh
+```
+
+This script will:
+- Check bash/git versions
+- Verify curl availability
+- Check for GH_TOKEN (optional, prompts if missing)
+- Test validators work
+- Report what's ready vs needs setup
 
 ## Migration Checklist
 

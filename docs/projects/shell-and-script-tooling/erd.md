@@ -141,7 +141,9 @@ These proposals centralize defaults; adoptions occur in source projects with exp
 - Optional dependencies with graceful degradation: `jq`, `column`, `shellcheck`.
   - Pattern: `have_cmd <tool> || { log_warn "...; skipping/degrading"; exit 0; }`
   - Scripts must function (possibly with reduced UX) when optional deps are absent.
-- Forbidden direct usage: network clients (`curl`, `wget`, `gh`, `http`) — must use `.lib-net.sh` seam.
+- Network clients (`curl`, `wget`, `gh`, `http`):
+  - **Production scripts**: May use curl directly when network is their primary purpose (e.g., GitHub automation per D4)
+  - **Tests**: Must use `.lib-net.sh` seam and fixtures; forbidden from making live network calls
 - CI/validation tools: may require additional deps but must document and handle absence gracefully.
 - Portability targets: macOS (Darwin) primary; prefer POSIX-sh compatible patterns where feasible.
 - Reference: this ERD (authoritative for cross-project dependency policy).
