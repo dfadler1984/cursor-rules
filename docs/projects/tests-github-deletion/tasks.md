@@ -3,7 +3,13 @@
 ## Relevant Files
 
 - `docs/projects/tests-github-deletion/erd.md`
-- `docs/projects/testing-coordination/erd.md`
+- `docs/projects/shell-and-script-tooling/erd.md` — **Moved from testing-coordination (2025-10-13)**
+
+### Notes
+
+- This project was moved from `testing-coordination` to `shell-and-script-tooling` as it's specifically about shell test infrastructure issues.
+- Actively observed during shell-and-script-tooling session (2025-10-13): `tmp-scan/` appeared, `.github/` workflows deleted.
+- Related to `.cursor/scripts/tests/run.sh` and shell test harness behavior.
 
 ## Investigation Checklist
 

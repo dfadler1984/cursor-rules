@@ -26,6 +26,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - Script Test Hardening — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
 - ShellCheck Adoption — `docs/projects/shellcheck/erd.md` | tasks: `docs/projects/shellcheck/tasks.md`
 - Networkless Scripts — `docs/projects/networkless-scripts/erd.md` | tasks: `docs/projects/networkless-scripts/tasks.md`
+- Tests GitHub Deletion — `docs/projects/tests-github-deletion/erd.md` | tasks: `docs/projects/tests-github-deletion/tasks.md` | **Note: Actively experiencing this issue (tmp-scan/ appeared during session)**
 
 ## 4. Goals/Objectives
 

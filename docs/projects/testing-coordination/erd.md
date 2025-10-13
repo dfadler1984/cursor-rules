@@ -22,11 +22,14 @@ Unify and coordinate testing/TDD-related initiatives across the repository by re
 - TDD Rules Refinement — `docs/projects/tdd-rules-refinement/erd.md` | tasks: `docs/projects/tdd-rules-refinement/tasks.md`
 - Test Coverage — `docs/projects/test-coverage/erd.md` | tasks: `docs/projects/test-coverage/tasks.md`
 - Test Artifacts Cleanup — `docs/projects/test-artifacts-cleanup/erd.md` | tasks: `docs/projects/test-artifacts-cleanup/tasks.md`
-- Tests GitHub Deletion Investigation — `docs/projects/tests-github-deletion/erd.md` | tasks: `docs/projects/tests-github-deletion/tasks.md`
 
 ### Related/Overlap
 
 - Script Test Hardening (overlaps with shell/script testing concerns) — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
+
+### Moved to Other Projects
+
+- Tests GitHub Deletion Investigation — **Moved to `shell-and-script-tooling` (2025-10-13)** — Shell test infrastructure issue, not testing coordination. See: `docs/projects/shell-and-script-tooling/erd.md`
 
 ## 4. Goals/Objectives
 
