@@ -51,6 +51,8 @@ RECOMMENDATIONS:
   Score 3 + ≥2 signals:      Consider new chat or summarization
   Score 1-2:                 Strongly recommend new chat
 EOF
+  
+  print_exit_codes
 }
 
 # Parse arguments

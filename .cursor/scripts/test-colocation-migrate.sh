@@ -2,6 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
 # Migrates centralized tests under .cursor/scripts/tests/*.test.sh
 # to be colocated next to their owners in .cursor/scripts/<name>.test.sh
 
@@ -15,7 +19,19 @@ Moves:
 Options:
   --root <path>   Repository root (defaults to repo root)
   --dry-run       Print planned moves without changing files
+
+Examples:
+  # Preview migrations (dry-run first)
+  test-colocation-migrate.sh --dry-run
+  
+  # Execute migrations
+  test-colocation-migrate.sh
+  
+  # Migrate with custom root
+  test-colocation-migrate.sh --root /path/to/repo --dry-run
 USAGE
+  
+  print_exit_codes
 }
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"

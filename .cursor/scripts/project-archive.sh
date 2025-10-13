@@ -2,7 +2,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 usage() {
   cat <<'USAGE'
@@ -16,7 +20,20 @@ Options:
   --root      Repository root override (defaults to repo root inferred from script location)
   --dry-run   Print the planned move without changing files
   -h, --help  Show this help
+
+Examples:
+  # Archive project for current year (dry-run first)
+  project-archive.sh --project my-project --dry-run
+  project-archive.sh --project my-project
+  
+  # Archive for specific year
+  project-archive.sh --project old-project --year 2024
+  
+  # Archive with custom root
+  project-archive.sh --project test-project --root /path/to/repo
 USAGE
+  
+  print_exit_codes
 }
 
 PROJECT=""

@@ -1,13 +1,54 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Simple ERD validator
-# Usage: .cursor/scripts/erd-validate.sh docs/projects/<feature>/erd.md
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 
-file="${1:-}"
+VERSION="0.1.0"
+
+usage() {
+  cat <<'USAGE'
+Usage: erd-validate.sh <erd-file> [--version] [-h|--help]
+
+Validate ERD (Engineering Requirements Document) structure.
+
+Checks:
+  - Front matter placement (must be first non-empty content)
+  - No extra front matter separators
+  - Required sections present
+
+Arguments:
+  <erd-file>      Path to ERD markdown file (e.g., docs/projects/feature/erd.md)
+
+Options:
+  --version       Print version and exit
+  -h, --help      Show this help and exit
+
+Examples:
+  # Validate a project ERD
+  erd-validate.sh docs/projects/my-feature/erd.md
+  
+  # Validate all ERDs in a directory
+  find docs/projects -name "erd.md" -exec erd-validate.sh {} \;
+USAGE
+  
+  print_exit_codes
+}
+
+# Parse arguments
+file=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --version) printf '%s\n' "$VERSION"; exit 0 ;;
+    -h|--help) usage; exit 0 ;;
+    -*) die "$EXIT_USAGE" "Unknown option: $1" ;;
+    *) file="$1"; shift ;;
+  esac
+done
+
 if [ -z "$file" ] || [ ! -f "$file" ]; then
-  echo "usage: $0 path/to/docs/projects/<feature>/erd.md" >&2
-  exit 2
+  die "$EXIT_USAGE" "ERD file required: provide path to docs/projects/<feature>/erd.md"
 fi
 
 fail=0

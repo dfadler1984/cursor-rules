@@ -1,10 +1,38 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Wrapper alias: sweep validator for all completed projects
-# Delegates to the repo-scan script for backward compatibility
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"
+VERSION="0.1.0"
+
+usage() {
+  cat <<'USAGE'
+Usage: project-lifecycle-validate-sweep.sh [args...] [--version] [-h|--help]
+
+Validate lifecycle artifacts for all completed projects.
+
+Wrapper for: project-lifecycle-validate.sh
+
+Options:
+  --version   Print version and exit
+  -h, --help  Show this help and exit
+
+Examples:
+  # Validate all completed projects
+  project-lifecycle-validate-sweep.sh
+USAGE
+  
+  print_exit_codes
+}
+
+# Parse help/version before delegating
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+  --version) printf '%s\n' "$VERSION"; exit 0 ;;
+esac
+
+# Delegate to main validator
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 exec "$ROOT_DIR/.cursor/scripts/project-lifecycle-validate.sh" "$@"
-
-

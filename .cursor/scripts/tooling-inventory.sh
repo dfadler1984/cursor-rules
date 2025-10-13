@@ -2,7 +2,35 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
+VERSION="0.1.0"
+
+usage() {
+  cat <<'USAGE'
+Usage: tooling-inventory.sh [--detect] [--version] [-h|--help]
+
+Display tooling inventory table for the repository.
+
+Options:
+  --detect    Auto-detect tool presence (enhanced table)
+  --version   Print version and exit
+  -h, --help  Show this help and exit
+
+Examples:
+  # Show static inventory table
+  tooling-inventory.sh
+  
+  # Show inventory with auto-detection
+  tooling-inventory.sh --detect
+USAGE
+  
+  print_exit_codes
+}
+
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 print_table() {
   cat <<'TABLE'
@@ -43,8 +71,15 @@ Logging (ALP) | Yes | .cursor/scripts/alp-*.sh | Local-only | eng-tools
 TABLE
 }
 
-case "${1-}" in
-  --detect) detect ;;
-  *) print_table ;;
-esac
+# Parse arguments
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --detect) detect; exit 0 ;;
+    --version) printf '%s\n' "$VERSION"; exit 0 ;;
+    -h|--help) usage; exit 0 ;;
+    *) die "$EXIT_USAGE" "Unknown argument: $1" ;;
+  esac
+done
 
+# Default: print static table
+print_table

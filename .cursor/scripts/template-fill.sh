@@ -1,24 +1,48 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
+VERSION="0.1.0"
+
 usage() {
   cat <<'EOF'
-Usage: template-fill.sh --template <name> --project <slug> --out <path> [--vars k=v ...]
+Usage: template-fill.sh --template <name> --project <slug> --out <path> [--vars k=v ...] [--version] [-h|--help]
+
+Fill project lifecycle templates with variables.
 
 Templates live under .cursor/templates/project-lifecycle/ and are markdown files with placeholders like <Project Name>.
 
-Supported template names:
-  - final-summary
-  - completion-checklist
-  - retrospective
+Options:
+  --template <name>  Template name: final-summary, completion-checklist, retrospective (required)
+  --project <slug>   Project slug (required)
+  --out <path>       Output file path (required)
+  --vars k=v         Additional variable substitutions (repeatable)
+  --version          Print version and exit
+  -h, --help         Show this help and exit
 
 Placeholders replaced:
   - <Project Name>  (from --vars projectName="...")
   - <project>       (from --project)
 
-Additional --vars k=v pairs can be used for custom tokens; tokens must appear as <k> in the template.
+Examples:
+  # Fill final-summary template
+  template-fill.sh --template final-summary --project my-proj --out /tmp/summary.md --vars projectName="My Project"
+  
+  # Fill retrospective template
+  template-fill.sh --template retrospective --project my-proj --out /tmp/retro.md
 EOF
+  
+  print_exit_codes
 }
+
+# Parse arguments
+case "${1:-}" in
+  --version) printf '%s\n' "$VERSION"; exit 0 ;;
+  -h|--help) usage; exit 0 ;;
+esac
 
 template=""
 project=""

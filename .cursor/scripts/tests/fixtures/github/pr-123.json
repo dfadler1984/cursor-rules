@@ -1,0 +1,19 @@
+{
+  "number": 123,
+  "state": "open",
+  "title": "Example PR Title",
+  "html_url": "https://github.com/example-user/example-repo/pull/123",
+  "user": {
+    "login": "example-user"
+  },
+  "head": {
+    "ref": "feature-branch",
+    "sha": "abc123def456"
+  },
+  "base": {
+    "ref": "main",
+    "sha": "def456abc789"
+  },
+  "created_at": "2025-01-01T00:00:00Z",
+  "updated_at": "2025-01-01T00:00:00Z"
+}

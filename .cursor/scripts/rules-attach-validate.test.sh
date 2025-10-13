@@ -10,8 +10,8 @@ out="$("$SCRIPT" 2>&1)"
 status=$?
 set -e
 
-[ $status -eq 0 ] || { echo "expected OK"; echo "$out"; exit 1; }
-echo "$out" | grep -q "OK" || { echo "missing OK line"; echo "$out"; exit 1; }
+[ $status -eq 0 ] || { echo "expected success"; echo "$out"; exit 1; }
+echo "$out" | grep -qi "proactive attachment" || { echo "missing success message"; echo "$out"; exit 1; }
 
 exit 0
 

@@ -33,7 +33,22 @@ Options:
   --dry-run             Print message to stdout; do not run git
   --version             Print version and exit
   -h, --help            Show help and exit
+
+Examples:
+  # Feature commit
+  git-commit.sh --type feat --description "add user authentication"
+  
+  # Fix with scope
+  git-commit.sh --type fix --scope api --description "handle null response"
+  
+  # Breaking change with body
+  git-commit.sh --type feat --breaking "remove legacy API" --description "migrate to v2 API" --body "All endpoints now use /v2/"
+  
+  # Commit with footer
+  git-commit.sh --type docs --description "update README" --footer "Closes #123"
 USAGE
+  
+  print_exit_codes
 }
 
 TYPE=""

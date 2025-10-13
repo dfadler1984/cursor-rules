@@ -39,6 +39,48 @@ Validates rule files under .cursor/rules/*.mdc for:
   - Boolean casing for alwaysApply
   - Deprecated references (assistant-learning-log.mdc)
   - Common typography typo (ev<space>ents)
+
+Options:
+  --list                    List all rule files and exit
+  --dir <path>              Rules directory (default: .cursor/rules)
+  --format text|json        Output format (default: text)
+  --fail-on-missing-refs    Fail on unresolved references
+  --fail-on-stale           Fail on stale rules
+  --autofix                 Auto-fix issues where possible
+  --report                  Generate report file
+  --report-out <path>       Report output path
+  --write-console-out <path> Console output path
+  --mode report|console|both Output mode
+  --reviews-dir <path>      Reviews directory path
+  -h, --help                Show this help
+
+Examples:
+  # Validate all rules
+  rules-validate.sh
+  
+  # List all rule files
+  rules-validate.sh --list
+  
+  # Validate with JSON output
+  rules-validate.sh --format json
+  
+  # Autofix issues
+  rules-validate.sh --autofix
+  
+  # Strict validation
+  rules-validate.sh --fail-on-missing-refs --fail-on-stale
+
+Exit Codes:
+  0   Success
+  1   General error
+  2   Usage error (invalid arguments)
+  3   Configuration error
+  4   Dependency missing
+  5   Network error
+  6   Timeout
+  20  Internal error
+
+For more details, see docs/projects/shell-and-script-tooling/erd.md
 EOF
 }
 
@@ -197,6 +239,7 @@ check_missing_refs() {
   local base_dir
   base_dir="$(cd "$(dirname "$f")" && pwd)"
 
+  # network-guard: disable=http -- comment mentions protocol, not invocation
   # Collect candidates from markdown links [text](path) excluding http/mailto
   local candidates_md
   candidates_md=$(sed -nE 's/.*\[[^]]*\]\(([^)#]+)\).*/\1/p' "$f" | sed -E '/^https?:\/\//d; /^mailto:/d; /^#/d' || true)

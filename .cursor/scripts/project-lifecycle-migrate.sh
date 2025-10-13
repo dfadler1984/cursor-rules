@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1090
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
 usage() {
   cat <<'USAGE'
 Usage: project-lifecycle-migrate.sh --project <slug> [--root <projectsRoot>]
@@ -10,10 +14,20 @@ Backfills lifecycle artifacts for a project:
  - Adds a Retrospective file if missing (when not present in final summary)
  - Leaves existing content intact; only adds missing structure
 
+Options:
+  --project <slug>  Project slug (required)
+  --root <path>     Projects root directory (default: docs/projects)
+  -h, --help        Show this help and exit
+
 Examples:
-  .cursor/scripts/project-lifecycle-migrate.sh --project rules-validate-script
-  .cursor/scripts/project-lifecycle-migrate.sh --project my-proj --root /tmp/docs/projects
+  # Backfill artifacts for a project
+  project-lifecycle-migrate.sh --project rules-validate-script
+  
+  # Backfill with custom projects root
+  project-lifecycle-migrate.sh --project my-proj --root /tmp/docs/projects
 USAGE
+  
+  print_exit_codes
 }
 
 project=""

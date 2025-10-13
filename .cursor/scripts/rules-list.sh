@@ -23,7 +23,19 @@ Options:
   --format FORMAT    Output format: table (default) or json
   --version          Print version and exit
   -h, --help         Show this help and exit
+
+Examples:
+  # List all rules as table
+  rules-list.sh
+  
+  # List rules as JSON
+  rules-list.sh --format json
+  
+  # List rules from custom directory
+  rules-list.sh --dir /path/to/rules
 USAGE
+  
+  print_exit_codes
 }
 
 # parse args
