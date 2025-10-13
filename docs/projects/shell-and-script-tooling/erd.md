@@ -147,6 +147,7 @@ These proposals centralize defaults; adoptions occur in source projects with exp
 - **Evidence:** tmp-scan/ directory created in repo root; GH_TOKEN corruption observed.
 
 **Implementation Pattern:**
+
 - Test runner: `( export TEST_ARTIFACTS_DIR=...; bash "$test" ) >"$output"` — subshell isolates all env changes
 - Scripts: Keep seams (`${CURL_CMD-curl}`, `${JQ_CMD-jq}`) for test flexibility
 - Tests: Directly `export VAR=value` without snapshot/restore — runner's subshell handles cleanup
@@ -154,6 +155,7 @@ These proposals centralize defaults; adoptions occur in source projects with exp
 - Cleanup: `trap "rm -rf '$tmpdir'" EXIT` in each test file
 
 **Refactoring:**
+
 - Remove snapshot/restore patterns from tests (e.g., pr-create.test.sh ORIGINAL_GH_TOKEN logic)
 - Rely on runner's subshell for isolation (single point of control)
 - Tests become simpler: set vars, run script, assert — no cleanup needed
