@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Create a GitHub Pull Request via curl using GITHUB_TOKEN
+# Create a GitHub Pull Request via curl using GH_TOKEN
 # Usage: .cursor/scripts/pr-create.sh --title <t> [--body <b>] [--base <branch>] [--head <branch>] \
 #        [--owner <o>] [--repo <r>] [--dry-run] [-h|--help] [--version]
 
@@ -36,7 +36,7 @@ Usage: pr-create.sh --title <title> [--body <body>] [--base <branch>] [--head <b
                     [--label <name>] [--docs-only] [--dry-run] [--version] [-h|--help]
 
 Notes:
-  - Requires GITHUB_TOKEN in env for actual API calls
+  - Requires GH_TOKEN in env for actual API calls
   - Owner/repo and head/base are auto-derived when omitted
   - By default, the PR body is prefilled from .github/pull_request_template.md (if present)
     or the first file under .github/PULL_REQUEST_TEMPLATE/. Use --no-template to opt-out.
@@ -225,14 +225,14 @@ JSON
   exit 0
 fi
 
-: "${GITHUB_TOKEN:?GITHUB_TOKEN is required for API calls}"
+: "${GH_TOKEN:?GH_TOKEN is required for API calls}"
 require_cmd curl
 
 API="https://api.github.com/repos/${OWNER}/${REPO}/pulls"
 
 resp_file="$(mktemp 2>/dev/null || mktemp -t pr.json)"
 status=$(curl -sS -w '%{http_code}' -o "$resp_file" \
-  -H "Authorization: token ${GITHUB_TOKEN}" \
+  -H "Authorization: token ${GH_TOKEN}" \
   -H "Accept: application/vnd.github+json" \
   -X POST "$API" -d "$PAYLOAD")
 
@@ -261,7 +261,7 @@ if [ -n "$labels_json" ]; then
 JSON
 )
   label_status=$(curl -sS -w '%{http_code}' -o /dev/stderr \
-    -H "Authorization: token ${GITHUB_TOKEN}" \
+    -H "Authorization: token ${GH_TOKEN}" \
     -H "Accept: application/vnd.github+json" \
     -X POST "$labels_api" -d "$labels_body")
   case "$label_status" in

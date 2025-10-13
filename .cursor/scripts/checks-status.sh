@@ -11,7 +11,7 @@ IFS=$'\n\t'
 # Defaults:
 #   - owner/repo derived from git origin
 #   - sha defaults to HEAD when --pr not provided
-#   - token: $GITHUB_TOKEN or $GH_TOKEN (required)
+#   - token: $GH_TOKEN (required)
 #
 # Exit codes:
 #   0 = success (or non-strict)
@@ -32,7 +32,7 @@ Options:
   -h, --help          Show help
 
 Env:
-  GITHUB_TOKEN or GH_TOKEN must be set (repo:read)
+  GH_TOKEN must be set (repo:read)
 USAGE
 }
 
@@ -86,7 +86,7 @@ if [ -n "$pr" ]; then
       pr_resp="$(cat)"
     else
       # token may be required; defer token check until after dry-run branch below
-      pr_resp=$($curl_cmd -sS -H "Authorization: token ${GITHUB_TOKEN-${GH_TOKEN-}}" -H "Accept: application/vnd.github+json" "$api")
+      pr_resp=$($curl_cmd -sS -H "Authorization: token ${GH_TOKEN}" -H "Accept: application/vnd.github+json" "$api")
     fi
     sha=$(printf '%s' "$pr_resp" | "$jq_cmd" -r '.head.sha')
     [ "$sha" != "null" ] && [ -n "$sha" ] || die "Unable to resolve head.sha for PR #$pr"
@@ -104,13 +104,12 @@ if [ $dry_run -eq 1 ]; then
 fi
 
 # Token requirement (skip for --dry-run handled above)
-token="${GITHUB_TOKEN-${GH_TOKEN-}}"
-[ -n "${token}" ] || die "GITHUB_TOKEN (or GH_TOKEN) is required"
+: "${GH_TOKEN:?GH_TOKEN is required}"
 
 if [ "$curl_cmd" = "cat" ]; then
   resp="$(cat)"
 else
-  resp=$($curl_cmd -sS -H "Authorization: token ${token}" -H "Accept: application/vnd.github+json" "$api_checks")
+  resp=$($curl_cmd -sS -H "Authorization: token ${GH_TOKEN}" -H "Accept: application/vnd.github+json" "$api_checks")
 fi
 
 # jq availability check
@@ -155,7 +154,7 @@ IFS=$'\n\t'
 #   .cursor/scripts/checks-status.sh [--sha <sha>] [--branch <branch>] [--owner <o>] [--repo <r>]
 #
 # Notes:
-#   - Requires GITHUB_TOKEN or GH_TOKEN in the environment (metadata + checks:read)
+#   - Requires GH_TOKEN in the environment (metadata + checks:read)
 #   - Derives owner/repo from git remote when not provided
 #   - If both --sha and --branch are omitted, uses `git rev-parse HEAD`
 
@@ -166,7 +165,7 @@ Usage: checks-status.sh [--sha <sha>] [--branch <branch>] [--owner <o>] [--repo 
 Print GitHub check runs for the target commit. Defaults to HEAD.
 
 Environment:
-  GITHUB_TOKEN or GH_TOKEN   Token with repo read permissions
+  GH_TOKEN   Token with repo read permissions
 USAGE
 }
 
@@ -188,12 +187,9 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-# Prefer token from either var
-TOKEN="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
-if [ -z "$TOKEN" ]; then
-  echo "GITHUB_TOKEN (or GH_TOKEN) is required" >&2
-  exit 2
-fi
+# Require GH_TOKEN
+: "${GH_TOKEN:?GH_TOKEN is required}"
+TOKEN="$GH_TOKEN"
 
 # Derive owner/repo when missing
 if [ -z "$OWNER" ] || [ -z "$REPO" ]; then

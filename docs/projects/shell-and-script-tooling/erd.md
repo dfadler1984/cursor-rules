@@ -142,7 +142,9 @@ These proposals centralize defaults; adoptions occur in source projects with exp
 
 ### D6 — Test Isolation and Environment Hygiene
 
-- Test runner must isolate each test in a subshell to prevent environment variable leakage.
+- **Problem:** Test runner exports vars (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) in parent shell, causing leakage across tests. Tests can mutate GITHUB_TOKEN and break subsequent runs.
+- **Solution:** Test runner must isolate each test in a subshell to prevent environment variable leakage.
+- **Evidence:** Running test suite breaks GITHUB_TOKEN validation (returns 200 instead of expected value).
 - Scripts should accept critical paths/config via arguments with environment variable fallbacks.
 - Tests must not mutate parent shell environment (exports persist across test runs).
 - Pattern: `( export VAR=value; bash "$test" ) >"$output"` ensures VAR is scoped to subshell.

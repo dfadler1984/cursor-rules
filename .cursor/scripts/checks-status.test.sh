@@ -16,14 +16,14 @@ MOCK_OK='{"check_runs":[{"name":"links","status":"completed","conclusion":"succe
 
 # 2) --json returns a JSON array (mocked via CURL_CMD seam)
 if command -v jq >/dev/null 2>&1; then
-  out_json=$(GITHUB_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --json 2>/dev/null)
+  out_json=$(GH_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --json 2>/dev/null)
   echo "$out_json" | jq -e . >/dev/null 2>&1 || { echo "--json not valid JSON"; exit 1; }
 fi
 
 # 3) --strict should pass on success JSON (mocked via CURL_CMD seam)
 MOCK_STRICT='{"check_runs":[{"name":"links","status":"completed","conclusion":"success"}]}'
 set +e
-GITHUB_TOKEN=dummy echo "$MOCK_STRICT" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --strict >/dev/null 2>&1
+GH_TOKEN=dummy echo "$MOCK_STRICT" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --strict >/dev/null 2>&1
 rc=$?
 set -e
 [ $rc -eq 0 ] || { echo "strict mode failed on success JSON"; exit 1; }
@@ -31,7 +31,7 @@ set -e
 # 4) Failing path: feed a mocked JSON with a failing conclusion and expect exit 1
 MOCK='{"check_runs":[{"name":"links","status":"completed","conclusion":"failure"}]}'
 set +e
-GITHUB_TOKEN=dummy echo "$MOCK" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --strict >/dev/null 2>&1
+GH_TOKEN=dummy echo "$MOCK" | CURL_CMD=cat JQ_CMD=jq $SCRIPT --strict >/dev/null 2>&1
 rc=$?
 set -e
 [ $rc -ne 0 ] || { echo "expected strict to fail on failure conclusion"; exit 1; }
@@ -42,14 +42,14 @@ echo "$out_url" | grep -q '/commits/' || { echo "dry-run missing commit URL"; ex
 
 # 6) token missing should error for non-dry-run
 set +e
-GITHUB_TOKEN= GH_TOKEN= $SCRIPT --sha "$(git rev-parse HEAD)" >/dev/null 2>&1
+GH_TOKEN= $SCRIPT --sha "$(git rev-parse HEAD)" >/dev/null 2>&1
 rc=$?
 set -e
 [ $rc -ne 0 ] || { echo "expected error without token"; exit 1; }
 
 # 7) no-jq path should print raw JSON and exit 0
 set +e
-out_nojq=$(GITHUB_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=/nonexistent $SCRIPT 2>/dev/null)
+out_nojq=$(GH_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=/nonexistent $SCRIPT 2>/dev/null)
 rc=$?
 set -e
 [ $rc -eq 0 ] || { echo "expected no-jq path to succeed"; exit 1; }
@@ -57,7 +57,7 @@ echo "$out_nojq" | grep -q 'check_runs' || { echo "expected raw JSON output with
 
 # 8) header row present with jq available
 if command -v jq >/dev/null 2>&1; then
-  table=$(GITHUB_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=jq $SCRIPT 2>/dev/null)
+  table=$(GH_TOKEN=dummy echo "$MOCK_OK" | CURL_CMD=cat JQ_CMD=jq $SCRIPT 2>/dev/null)
   header_line=$(echo "$table" | sed -n '2p')
   echo "$header_line" | grep -q 'name\s\+status\s\+conclusion' || { echo "missing table header"; echo "$table"; exit 1; }
 fi

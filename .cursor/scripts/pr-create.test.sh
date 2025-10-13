@@ -6,19 +6,19 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 SCRIPT="$ROOT_DIR/.cursor/scripts/pr-create.sh"
 TEMPLATE_FILE="$ROOT_DIR/.github/pull_request_template.md"
 
-# Snapshot and auto-restore GITHUB_TOKEN for test isolation
-ORIGINAL_GITHUB_TOKEN="${GITHUB_TOKEN-}"
-restore_github_token() {
-  if [ -n "${ORIGINAL_GITHUB_TOKEN+x}" ]; then
-    export GITHUB_TOKEN="$ORIGINAL_GITHUB_TOKEN"
+# Snapshot and auto-restore GH_TOKEN for test isolation
+ORIGINAL_GH_TOKEN="${GH_TOKEN-}"
+restore_gh_token() {
+  if [ -n "${ORIGINAL_GH_TOKEN+x}" ]; then
+    export GH_TOKEN="$ORIGINAL_GH_TOKEN"
   else
-    unset GITHUB_TOKEN || true
+    unset GH_TOKEN || true
   fi
 }
-trap restore_github_token EXIT
+trap restore_gh_token EXIT
 
 # 1) Dry-run prints JSON with required keys
-export GITHUB_TOKEN="dummy"
+export GH_TOKEN="dummy"
 # Fake git environment by running outside a git repo? We rely on origin; skip derivation by setting owner/repo/head.
 out="$(bash "$SCRIPT" --title "Add feature" --body "Body" --owner o --repo r --base main --head feat --dry-run)"
 printf '%s' "$out" | grep -q '"title"' || { echo "payload missing title"; exit 1; }
@@ -31,13 +31,13 @@ if [ -f "$TEMPLATE_FILE" ]; then
 fi
 
 # 2) Missing token when not dry-run should error before curl
-unset GITHUB_TOKEN || true
+unset GH_TOKEN || true
 if bash "$SCRIPT" --title t --owner o --repo r --base b --head h >/dev/null 2>&1; then
   echo "expected missing token to fail"; exit 1
 fi
 
 # 3) --no-template disables template injection (body should not start with template heading)
-export GITHUB_TOKEN="dummy"
+export GH_TOKEN="dummy"
 out_notmpl="$(bash "$SCRIPT" --title "No Tmpl" --owner o --repo r --base main --head feat --no-template --body "Only body" --dry-run)"
 printf '%s' "$out_notmpl" | grep -q '"body"' || { echo "missing body field"; exit 1; }
 printf '%s' "$out_notmpl" | grep -q 'Only body' || { echo "expected provided body"; exit 1; }

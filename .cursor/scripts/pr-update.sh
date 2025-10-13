@@ -25,7 +25,7 @@ Usage: pr-update.sh (--pr <number> | --head <branch>) [--title <title>] [--body 
                     [--owner <owner>] [--repo <repo>] [--dry-run] [--version] [-h|--help]
 
 Notes:
-- Requires GITHUB_TOKEN in env for actual API calls
+- Requires GH_TOKEN in env for actual API calls
 - Owner/repo auto-derived from git origin when omitted
 - Either --title or --body must be provided (or both)
 USAGE
@@ -74,10 +74,10 @@ if [ -z "$PR_NUMBER" ]; then
   if [ "${CURL_CMD-curl}" = "cat" ] || [ -n "${PR_LIST-}" ]; then
     pr_json=$(cat)
   else
-    : "${GITHUB_TOKEN:?GITHUB_TOKEN is required for API calls}"
+    : "${GH_TOKEN:?GH_TOKEN is required for API calls}"
     resp_file="$(mktemp 2>/dev/null || mktemp -t pr-list.json)"
     code=$(curl -sS -w '%{http_code}' -o "$resp_file" \
-      -H "Authorization: token ${GITHUB_TOKEN}" \
+      -H "Authorization: token ${GH_TOKEN}" \
       -H "Accept: application/vnd.github+json" \
       "$list_api")
     if [ "$code" != "200" ]; then
@@ -114,11 +114,11 @@ if [ $DRY_RUN -eq 1 ]; then
   exit 0
 fi
 
-: "${GITHUB_TOKEN:?GITHUB_TOKEN is required for API calls}"
+: "${GH_TOKEN:?GH_TOKEN is required for API calls}"
 
 resp_file="$(mktemp 2>/dev/null || mktemp -t pr-update.json)"
 code=$(curl -sS -w '%{http_code}' -o "$resp_file" \
-  -H "Authorization: token ${GITHUB_TOKEN}" \
+  -H "Authorization: token ${GH_TOKEN}" \
   -H "Accept: application/vnd.github+json" \
   -X PATCH "$url" -d "$payload")
 

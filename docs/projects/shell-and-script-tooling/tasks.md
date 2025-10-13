@@ -79,13 +79,14 @@
   - [x] All scripts pass `help-validate.sh` (36/36 = 100%) ✅
   - [x] Migrated in 6 batches: 16 scripts with new help, 16 scripts enhanced with Examples/Exit Codes
 
-### Phase 5: Test Isolation Fix (D6 Implementation)
+### Phase 5: Test Isolation Fix (D6 Implementation) — HIGH PRIORITY
 
-- [ ] 13.0 Fix test runner environment leakage
-  - [ ] 13.1 Update `.cursor/scripts/tests/run.sh` to run each test in subshell
-  - [ ] 13.2 Move exports (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) into subshell scope
-  - [ ] 13.3 Add regression test: verify env vars don't leak between tests
-  - [ ] 13.4 Validate fix resolves GITHUB_TOKEN leakage issue
+- [ ] 13.0 Fix test runner environment leakage ⚠️ BLOCKING ISSUE
+  - [ ] 13.1 Update `.cursor/scripts/tests/run.sh` to run each test in subshell: `( export TEST_ARTIFACTS_DIR=...; bash "$t" ) >"$out"`
+  - [ ] 13.2 Move exports (TEST_ARTIFACTS_DIR, ALP_LOG_DIR) into subshell scope (lines 88-99)
+  - [ ] 13.3 Add regression test: verify GITHUB_TOKEN isn't mutated after test runs
+  - [ ] 13.4 Validate fix: run test suite, then `validate:ghtoken` should still return correct value
+  - [ ] 13.5 Document: which test(s) mutate GITHUB_TOKEN (likely checks-status.test.sh line 45)
 - [ ] 14.0 Investigate and fix tmp-scan creation
   - [ ] 14.1 Identify which test creates tmp-scan/ directory
   - [ ] 14.2 Replace with proper temp directory using with_tempdir or mktemp
