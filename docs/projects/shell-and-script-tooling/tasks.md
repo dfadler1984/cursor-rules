@@ -92,17 +92,17 @@
   - [x] 14.2 Fixed: use .test-artifacts/<name>-$$ for test temps ✅
   - [x] 14.3 Added cleanup trap ✅
   - [x] 14.4 Verified: no tmp-scan/ after test runs ✅
-- [ ] 13.6 Simplify tests via subshell isolation (D6 Refactoring)
-  - [ ] 13.6.1 Remove snapshot/restore boilerplate from pr-create.test.sh
-  - [ ] 13.6.2 Audit all tests for env snapshot/restore patterns
-  - [ ] 13.6.3 Simplify: tests directly export vars, rely on runner's subshell cleanup
-  - [ ] 13.6.4 Document pattern: scripts keep seams, tests use subshell isolation
-  - [ ] 13.6.5 Verify all tests pass after simplification
-- [x] 15.0 Investigate .github/ deletion ✅ RESOLVED
+- [x] 13.6 Simplify tests via subshell isolation (D6 Refactoring) ✅
+  - [x] 13.6.1 Removed snapshot/restore boilerplate from pr-create.test.sh ✅
+  - [x] 13.6.2 Audited all tests: no other snapshot/restore patterns found ✅
+  - [x] 13.6.3 Pattern established: tests directly export vars, runner provides cleanup ✅
+  - [x] 13.6.4 Documented in ERD D6: scripts keep seams, tests use subshell isolation ✅
+  - [x] 13.6.5 All 46 tests passing after simplification ✅
+- [x] 15.0 Investigate .github/ deletion ✅ IDENTIFIED
   - [x] 15.1 Identified: accidental staging with git add -A (not test behavior) ✅
-  - [x] 15.2 Safeguard: test runner subshell isolation prevents mutations (D6) ✅
-  - [x] 15.3 Added regression test: run.github-safety.test.sh ✅
-  - [x] 15.4 Restored 12 deleted .github files from origin/main ✅
+  - [x] 15.2 Safeguard: test runner subshell isolation prevents future mutations (D6) ✅
+  - [ ] 15.3 Restore .github files (deferred - merge conflict resolution will handle this)
+  - [ ] 15.4 Add regression test after files restored
 
 ### Phase 6: Documentation and CI (Future)
 
