@@ -57,9 +57,9 @@
 ### Phase 3: Validators and Network Migration (COMPLETE ✅)
 
 - [x] 9.0 Create validators for cross-cutting decisions
-  - [x] 9.1 Create `help-validate.sh` (validates help sections per D1) — Found 32 violations
-  - [x] 9.2 Create `error-validate.sh` (validates strict mode and exit codes per D2/D3) — ✅ 100% compliant
-  - [x] 9.3 Create `network-guard.sh` (validates no direct curl/gh usage per D4/D5) — ✅ 100% compliant (all violations resolved)
+  - [x] 9.1 Create `help-validate.sh` (validates help sections per D1) — ✅ 100% compliant (37 scripts)
+  - [x] 9.2 Create `error-validate.sh` (validates strict mode and exit codes per D2/D3) — ✅ 100% compliant (37 scripts)
+  - [x] 9.3 Create `network-guard.sh` (validates network usage per D4/D5) — ✅ Informational (5 scripts legitimately use network)
 - [x] 8.0 Migrate all network-using scripts to networkless standard
   - [x] 8.1 Update `pr-create.sh` to use `.lib-net.sh` seam ✅ COMPLETE
   - [x] 8.2 Update `pr-update.sh` to use `.lib-net.sh` seam ✅ COMPLETE
@@ -75,12 +75,13 @@
 
 ### Phase 4: Help Documentation Migration (COMPLETE ✅)
 
-- [x] 8.5 Migrate all scripts to use help template functions (36/36 = **100% complete**)
-  - [x] All 36 scripts pass `help-validate.sh` ✅
+- [x] 8.5 Migrate all scripts to use help template functions (37/37 = **100% complete**)
+  - [x] All 37 scripts pass `help-validate.sh` ✅
   - [x] 8.5.1 Fix pr-create.sh: add missing Options section ✅
   - [x] 8.5.2 Fix pr-update.sh: add missing Options, Examples, Exit Codes sections ✅
   - [x] 8.5.3 Fix changesets-automerge-dispatch.sh: add missing Options, Examples, Exit Codes sections ✅
   - [x] 8.5.4 Fix checks-status.sh: add missing Examples, Exit Codes sections ✅
+  - [x] 8.5.5 setup-remote.sh: included in validation (dependency checking script) ✅
   - [x] Migrated in batches: all scripts enhanced with complete help
 
 ### Phase 5: Test Isolation Fix (D6 Implementation) — HIGH PRIORITY
@@ -120,9 +121,10 @@
   - [x] 17.3 Add error/network validators to CI (error-validate.sh blocks, network-guard.sh informational) ✅
   - Created: `.github/workflows/shell-validators.yml` workflow
 
-### Phase 7: Script Directory Organization (Future/Optional)
+### Phase 7: Future Work (Deferred)
 
 - [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11)
+
   - [ ] 18.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
   - [ ] 18.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
   - [ ] 18.3 Update all path references in `.cursor/rules/*.mdc`
@@ -131,3 +133,22 @@
   - [ ] 18.6 Validate with `project-lifecycle-validate.sh` and manual smoke tests
   - [ ] 18.7 Document directory structure and rationale in README or rules
   - Status: Deferred until usage patterns stabilize (see ERD Section 11 for detailed proposal)
+
+- [ ] 19.0 Source project task reconciliation
+  - [ ] 19.1 Audit networkless-scripts tasks — mark completed or superseded
+  - [ ] 19.2 Audit script-test-hardening tasks — mark completed or superseded
+  - [ ] 19.3 Audit shellcheck tasks — document .shellcheckrc decision (optional/inline config sufficient)
+  - [ ] 19.4 Audit scripts-unix-philosophy tasks — note philosophy embedded in D1-D6
+  - [ ] 19.5 Audit script-rules tasks — note validators cover these needs
+  - [ ] 19.6 Audit script-help-generation tasks — document template functions approach vs. doc generation
+  - [ ] 19.7 Audit script-error-handling tasks — mark completed infrastructure tasks
+  - [ ] 19.8 Complete and archive tests-github-deletion project (resolved)
+  - Status: Low priority; source projects reference unified project for standards
+
+### Known Issues & Documentation Notes
+
+- **Script count**: 37 scripts total (36 core + setup-remote.sh)
+- **Network usage**: 5 scripts use network legitimately (4 GitHub API + 1 setup utility)
+- **Test count**: 46 tests (all passing)
+- **.shellcheckrc**: Not created; shellcheck-run.sh uses inline config successfully
+- **docs/scripts/**: Not created; .lib.sh template functions provide help standardization without separate doc generation
