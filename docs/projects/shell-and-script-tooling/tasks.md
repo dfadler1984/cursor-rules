@@ -98,11 +98,11 @@
   - [ ] 13.6.3 Simplify: tests directly export vars, rely on runner's subshell cleanup
   - [ ] 13.6.4 Document pattern: scripts keep seams, tests use subshell isolation
   - [ ] 13.6.5 Verify all tests pass after simplification
-- [ ] 15.0 Investigate .github/ deletion
-  - [ ] 15.1 Identify which test or script removes .github/
-  - [ ] 15.2 Add safeguard: deny-list critical paths in cleanup routines
-  - [ ] 15.3 Add regression test: verify .github/ exists after test suite
-  - [ ] 15.4 Document findings in tests-github-deletion ERD
+- [x] 15.0 Investigate .github/ deletion ✅ RESOLVED
+  - [x] 15.1 Identified: accidental staging with git add -A (not test behavior) ✅
+  - [x] 15.2 Safeguard: test runner subshell isolation prevents mutations (D6) ✅
+  - [x] 15.3 Added regression test: run.github-safety.test.sh ✅
+  - [x] 15.4 Restored 12 deleted .github files from origin/main ✅
 
 ### Phase 6: Documentation and CI (Future)
 
