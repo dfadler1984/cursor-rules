@@ -37,14 +37,20 @@
 
 ### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
 
-- [ ] D1 Help/Version: adopt minimum flags and section schema
-- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
-- [ ] D3 Error Semantics: align exit codes and `die` usage
-- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D1 Help/Version: adopt minimum flags and section schema
+- [x] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [x] D3 Error Semantics: align exit codes and `die` usage
+- [x] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D5 Portability: bash + git only; optional tools degrade gracefully
+- [x] D6 Test Isolation: subshell isolation, no env leakage
 
-#### Adoption status
+#### Adoption status (2025-10-13)
 
-- D1: Not started —
-- D2: Not started —
-- D3: Not started —
-- D4: Not started —
+- D1: ✅ Complete — `shellcheck-run.sh` has full help documentation with Options, Examples, Exit Codes
+- D2: ✅ Complete — `shellcheck-run.sh` uses strict mode
+- D3: ✅ Complete — `shellcheck-run.sh` uses exit code catalog
+- D4: ✅ Complete — N/A (shellcheck-run.sh is a local linter; no network usage)
+- D5: ✅ Complete — **Primary focus:** `shellcheck-run.sh` degrades gracefully when shellcheck binary is absent (exits 0 with guidance); optional tool with clear installation instructions
+- D6: ✅ Complete — Test isolation implemented
+
+See: `docs/projects/shell-and-script-tooling/erd.md` D5 for portability policy and graceful degradation pattern

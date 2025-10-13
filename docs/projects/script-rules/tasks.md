@@ -45,14 +45,20 @@
 
 ### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
 
-- [ ] D1 Help/Version: adopt minimum flags and section schema
-- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
-- [ ] D3 Error Semantics: align exit codes and `die` usage
-- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D1 Help/Version: adopt minimum flags and section schema
+- [x] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [x] D3 Error Semantics: align exit codes and `die` usage
+- [x] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D5 Portability: bash + git only; optional tools degrade gracefully
+- [x] D6 Test Isolation: subshell isolation, no env leakage
 
-#### Adoption status
+#### Adoption status (2025-10-13)
 
-- D1: Not started —
-- D2: Not started —
-- D3: Not started —
-- D4: Not started —
+- D1: ✅ Complete — All scripts have standardized help; help-validate.sh enforces schema
+- D2: ✅ Complete — All scripts source `.lib.sh` and use strict mode; error-validate.sh enforces this
+- D3: ✅ Complete — All scripts use exit code catalog and `die` helper
+- D4: ✅ Complete — Tests use seams
+- D5: ✅ Complete — Portability policy adopted
+- D6: ✅ Complete — Test isolation implemented
+
+See: `docs/projects/shell-and-script-tooling/erd.md` for detailed standards and validators

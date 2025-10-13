@@ -20,14 +20,20 @@
 
 ### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
 
-- [ ] D1 Help/Version: adopt minimum flags and section schema
-- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
-- [ ] D3 Error Semantics: align exit codes and `die` usage
-- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D1 Help/Version: adopt minimum flags and section schema
+- [x] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [x] D3 Error Semantics: align exit codes and `die` usage
+- [x] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D5 Portability: bash + git only; optional tools degrade gracefully
+- [x] D6 Test Isolation: subshell isolation, no env leakage
 
-#### Adoption status
+#### Adoption status (2025-10-13)
 
-- D1: Not started —
-- D2: Not started —
-- D3: Not started —
-- D4: Not started —
+- D1: ✅ Complete — All scripts have help documentation
+- D2: ✅ Complete — All scripts use strict mode
+- D3: ✅ Complete — All scripts use exit code catalog
+- D4: ✅ Complete — Tests use seams
+- D5: ✅ Complete — Portability policy adopted
+- D6: ✅ Complete — **Primary focus of this project:** Test runner isolates each test in subshell (`.cursor/scripts/tests/run.sh`); env vars don't leak across tests; tmp directories use `.test-artifacts/` with proper cleanup traps; resolved tmp-scan/ and .github/ deletion issues
+
+See: `docs/projects/shell-and-script-tooling/erd.md` D6 and `docs/projects/tests-github-deletion/erd.md` for detailed test isolation approach and fixes

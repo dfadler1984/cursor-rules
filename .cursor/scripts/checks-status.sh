@@ -3,40 +3,42 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # checks-status.sh — Print GitHub Checks status for a commit or PR
-#
-# Usage:
-#   .cursor/scripts/checks-status.sh [--sha <commit>] [--pr <number>] \
-#     [--owner <o>] [--repo <r>] [--json] [--strict] [--dry-run]
-#
-# Defaults:
-#   - owner/repo derived from git origin
-#   - sha defaults to HEAD when --pr not provided
-#   - token: $GH_TOKEN (required)
-#
-# Exit codes:
-#   0 = success (or non-strict)
-#   1 = any check failed/timed_out/cancelled/action_required (strict mode)
+
+# shellcheck disable=SC1090
+source "$(dirname "$0")/.lib.sh"
+
+VERSION="0.1.0"
 
 usage() {
-  cat <<'USAGE'
-Usage: checks-status.sh [options]
+  print_usage "checks-status.sh [OPTIONS]"
+  
+  print_options
+  print_option "--sha COMMIT" "Commit SHA to inspect" "HEAD"
+  print_option "--pr NUMBER" "PR number; resolves head SHA via API"
+  print_option "--owner OWNER" "Repository owner" "derived from git origin"
+  print_option "--repo REPO" "Repository name" "derived from git origin"
+  print_option "--json" "Print raw JSON array of check runs"
+  print_option "--dry-run" "Print resolved API URL and exit"
+  print_option "--strict" "Exit non-zero if any check fails"
+  print_option "--version" "Print version and exit"
+  print_option "-h, --help" "Show this help and exit"
+  
+  cat <<'ENV'
 
-Options:
-  --sha <commit>      Commit SHA to inspect (default: HEAD)
-  --pr <number>       Pull Request number; resolves head SHA via API
-  --owner <o>         Repo owner (default: derived from git origin)
-  --repo <r>          Repo name  (default: derived from git origin)
-  --json              Print raw JSON array of check runs
-  --dry-run           Print the resolved API URL and exit (no network call)
-  --strict            Exit non-zero if any check has a failing conclusion
-  -h, --help          Show help
+Environment:
+  GH_TOKEN must be set (repo:read scope required)
 
-Env:
-  GH_TOKEN must be set (repo:read)
-USAGE
+ENV
+  
+  print_examples
+  print_example "Check status for current commit" "checks-status.sh"
+  print_example "Check status for specific PR" "checks-status.sh --pr 123"
+  print_example "Check status in strict mode (fail on any failing check)" "checks-status.sh --pr 123 --strict"
+  print_example "Get raw JSON output" "checks-status.sh --sha abc123 --json"
+  print_example "Dry-run to see API URL" "checks-status.sh --pr 123 --dry-run"
+  
+  print_exit_codes
 }
-
-die() { echo "ERROR: $*" >&2; exit 2; }
 
 owner=""
 repo=""
@@ -55,8 +57,9 @@ while [ $# -gt 0 ]; do
     --json) print_json=1; shift;;
     --dry-run) dry_run=1; shift;;
     --strict) strict=1; shift;;
+    --version) printf '%s\n' "$VERSION"; exit 0;;
     -h|--help) usage; exit 0;;
-    *) die "Unknown arg: $1";;
+    *) die "$EXIT_USAGE" "Unknown arg: $1";;
   esac
 done
 
@@ -64,11 +67,11 @@ done
 if [ -z "$owner" ] || [ -z "$repo" ]; then
   if git rev-parse --git-dir >/dev/null 2>&1; then
     url=$(git remote get-url origin 2>/dev/null || true)
-    [ -n "$url" ] || die "Unable to derive owner/repo; pass --owner/--repo"
+    [ -n "$url" ] || die "$EXIT_CONFIG" "Unable to derive owner/repo; pass --owner/--repo"
     owner=$(printf '%s' "$url" | sed -E 's#.*github.com[:/]+([^/]+)/(.*)#\1#' | sed 's/.git$//')
     repo=$(printf '%s' "$url" | sed -E 's#.*github.com[:/]+([^/]+)/([^./]+)(\.git)?#\2#')
   else
-    die "Not a git repo; pass --owner and --repo"
+    die "$EXIT_CONFIG" "Not a git repo; pass --owner and --repo"
   fi
 fi
 
@@ -89,7 +92,7 @@ if [ -n "$pr" ]; then
       pr_resp=$($curl_cmd -sS -H "Authorization: token ${GH_TOKEN}" -H "Accept: application/vnd.github+json" "$api")
     fi
     sha=$(printf '%s' "$pr_resp" | "$jq_cmd" -r '.head.sha')
-    [ "$sha" != "null" ] && [ -n "$sha" ] || die "Unable to resolve head.sha for PR #$pr"
+    [ "$sha" != "null" ] && [ -n "$sha" ] || die "$EXIT_CONFIG" "Unable to resolve head.sha for PR #$pr"
   fi
 elif [ -z "$sha" ]; then
   sha=$(git rev-parse HEAD)

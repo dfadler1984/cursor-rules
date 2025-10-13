@@ -49,14 +49,20 @@
 
 ### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
 
-- [ ] D1 Help/Version: adopt minimum flags and section schema
-- [ ] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
-- [ ] D3 Error Semantics: align exit codes and `die` usage
-- [ ] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D1 Help/Version: adopt minimum flags and section schema
+- [x] D2 Strict Mode: source `.lib.sh` and call `enable_strict_mode`
+- [x] D3 Error Semantics: align exit codes and `die` usage
+- [x] D4 Networkless: adopt `.lib-net.sh` seam where relevant
+- [x] D5 Portability: bash + git only; optional tools degrade gracefully
+- [x] D6 Test Isolation: subshell isolation, no env leakage
 
-#### Adoption status
+#### Adoption status (2025-10-13)
 
-- D1: Not started —
-- D2: Not started —
-- D3: Not started —
-- D4: Not started —
+- D1: ✅ Complete — All scripts have help documentation
+- D2: ✅ Complete — All scripts use strict mode
+- D3: ✅ Complete — All scripts use exit code catalog
+- D4: ✅ Complete — **Primary focus of this project:** All tests use seams (`CURL_CMD=cat`, `JQ_CMD=jq`) to inject fixtures; production scripts (pr-create, pr-update, checks-status, changesets-automerge-dispatch) can make real API calls; validated by `network-guard.sh` (informational mode)
+- D5: ✅ Complete — Portability policy adopted
+- D6: ✅ Complete — Test isolation implemented
+
+See: `docs/projects/shell-and-script-tooling/erd.md` D4 for detailed networkless policy and test isolation approach
