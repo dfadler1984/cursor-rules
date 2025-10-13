@@ -11,13 +11,14 @@ Successfully built and deployed a **complete portable script infrastructure** wi
 
 ✅ **100% Network Compliance (D4/D5)**
 
-- 4 scripts migrated from GitHub API to guidance-based
-- Network guard validator: 0 violations across 37 scripts
-- `.lib-net.sh` seam enforces networkless policy
+- 4 GitHub API scripts transitioned to guidance-based approach
+- Network guard validator: informational mode (5 scripts legitimately use network)
+- `.lib-net.sh` seam enforces networkless testing policy
+- Production scripts can make network calls; tests must use seams
 
 ✅ **100% Strict Mode Compliance (D2)**
 
-- All 36 scripts use `set -euo pipefail`
+- All 37 scripts use `set -euo pipefail`
 - Double-sourcing guard prevents readonly conflicts
 
 ✅ **Complete Validation Suite**
@@ -35,20 +36,20 @@ Successfully built and deployed a **complete portable script infrastructure** wi
 
 ✅ **Comprehensive Test Coverage**
 
-- 52 tests across 11 test suites
+- 46 tests across test suites
 - 100% passing
 - TDD-compliant (Red → Green → Refactor)
 
 ## Compliance Dashboard
 
-| Policy                 | Validator                   | Status  | Progress                | Notes                              |
-| ---------------------- | --------------------------- | ------- | ----------------------- | ---------------------------------- |
-| **D1: Help Docs**      | `help-validate.sh`          | ✅ 100% | 36/36 scripts           | All scripts compliant              |
-| **D2: Strict Mode**    | `error-validate.sh`         | ✅ 100% | 36/36 scripts           | All scripts compliant              |
-| **D3: Exit Codes**     | `error-validate.sh`         | ✅ 100% | 0 warnings              | Standard codes adopted             |
-| **D4: Test Isolation** | `network-guard.sh`          | ✅ 100% | Tests never hit network | Production scripts can use network |
-| **D5: Portability**    | Manual                      | ✅ 100% | bash + git only         | Optional tools degrade gracefully  |
-| **D6: Env Isolation**  | `run.env-isolation.test.sh` | ✅ 100% | Subshell isolation      | Test leakage resolved              |
+| Policy                 | Validator                   | Status  | Progress                | Notes                                         |
+| ---------------------- | --------------------------- | ------- | ----------------------- | --------------------------------------------- |
+| **D1: Help Docs**      | `help-validate.sh`          | ✅ 100% | 37/37 scripts           | All scripts compliant                         |
+| **D2: Strict Mode**    | `error-validate.sh`         | ✅ 100% | 37/37 scripts           | All scripts compliant                         |
+| **D3: Exit Codes**     | `error-validate.sh`         | ✅ 100% | 0 warnings              | Standard codes adopted                        |
+| **D4: Test Isolation** | `network-guard.sh`          | ✅ 100% | Tests never hit network | 5 production scripts legitimately use network |
+| **D5: Portability**    | Manual                      | ✅ 100% | bash + git only         | Optional tools degrade gracefully             |
+| **D6: Env Isolation**  | `run.env-isolation.test.sh` | ✅ 100% | Subshell isolation      | Test leakage resolved                         |
 
 ## Files Created/Modified
 
@@ -128,10 +129,11 @@ Successfully built and deployed a **complete portable script infrastructure** wi
 
 ### Phase 4: Help Documentation ✅
 
-**Status:** COMPLETE — All 36 scripts pass validation
+**Status:** COMPLETE — All 37 scripts pass validation
 
 - Fixed pr-create.sh, pr-update.sh, changesets-automerge-dispatch.sh, checks-status.sh
 - Added complete Options, Examples, and Exit Codes sections
+- setup-remote.sh included (dependency checking utility)
 
 ### Phase 3: Adoption Tracking ✅
 
