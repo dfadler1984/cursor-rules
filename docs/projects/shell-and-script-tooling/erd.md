@@ -9,6 +9,8 @@ Links: `docs/projects/shell-and-script-tooling/tasks.md`
 
 Unify and coordinate shell/script-related initiatives across the repository by referencing existing projects without moving files. This project provides a single place to align goals, reduce duplication, and track cross-cutting decisions while each source project remains authoritative for its own scope.
 
+**Source projects:** 10 (9 original + tests-github-deletion added 2025-10-13)
+
 ## 2. Scope & Approach
 
 - Reference, do not move: Source projects remain as-is and authoritative.
@@ -56,7 +58,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 
 **Phase 1-2 (Complete ✅):**
 
-- [x] This ERD exists with links to all nine source projects and their tasks.
+- [x] This ERD exists with links to all ten source projects and their tasks.
 - [x] A unified tasks file exists, describing migration/derivation workflow and dual-tracking policy.
 - [x] Projects index updated to include this unified project.
 - [x] Cross-cutting decisions D1-D5 documented.

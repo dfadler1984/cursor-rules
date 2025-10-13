@@ -24,6 +24,7 @@
   - [x] 3.7 `script-test-hardening/tasks.md` → add link to unified project
   - [x] 3.8 `shellcheck/tasks.md` → add link to unified project
   - [x] 3.9 `networkless-scripts/tasks.md` → add link to unified project
+  - [x] 3.10 `tests-github-deletion/tasks.md` → add link to unified project (added 2025-10-13)
 - [x] 4.0 Derive cross-cutting decisions and portability policy
   - [x] 4.1 D1: Help/version flags minimums and section schema
   - [x] 4.2 D2: Strict-mode baseline and traps
