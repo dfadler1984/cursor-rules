@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.6.0
+
+### Minor Changes
+
+- [#105](https://github.com/dfadler1984/cursor-rules/pull/105) [`4d8664d`](https://github.com/dfadler1984/cursor-rules/commit/4d8664de430055d895f81cb5c22f27175c327cb2) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add Context Efficiency Gauge for chat context health monitoring
+
+  Implements task 1.0 from chat-performance-and-quality-tools project:
+
+  - New rule: `context-efficiency.mdc` with 1-5 scoring rubric
+  - New script: `context-efficiency-gauge.sh` (zero-dependency bash)
+  - Test suite: 22 tests, all passing
+  - Intent routing: "show gauge" and other natural phrases
+  - Integration: Automatic display in status updates when score ≤3
+
+  Provides qualitative heuristics to assess context health using observable signals (scope clarity, rules count, clarification loops, user issues) without requiring token counts.
+
+## 0.5.1
+
+### Patch Changes
+
+- [#103](https://github.com/dfadler1984/cursor-rules/pull/103) [`4196ff9`](https://github.com/dfadler1984/cursor-rules/commit/4196ff970e0fbecb7c0beedf91b59166c720d1f6) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add four new projects: routing-optimization, consent-gates-refinement, tdd-scope-boundaries, and project-lifecycle-coordination
+
 ## 0.5.0
 
 ### Minor Changes
