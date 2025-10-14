@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.8.0
+
+### Minor Changes
+
+- [#114](https://github.com/dfadler1984/cursor-rules/pull/114) [`7782a84`](https://github.com/dfadler1984/cursor-rules/commit/7782a8488396b5b4d0760c7fd0fa469181748d47) Thanks [@dfadler1984](https://github.com/dfadler1984)! - feat: Unix Philosophy extraction - 9 focused scripts + enforcement rule
+
+  Complete Unix Philosophy compliance infrastructure for shell scripts:
+
+  - **9 new focused scripts** (all TDD-tested, D1-D6 compliant):
+
+    - Rules validation: `rules-validate-frontmatter.sh`, `rules-validate-refs.sh`, `rules-validate-staleness.sh`, `rules-validate-format.sh`, `rules-autofix.sh`
+    - GitHub automation: `git-context.sh`, `pr-create-simple.sh`, `pr-label.sh`
+    - Context efficiency: `context-efficiency-score.sh`
+
+  - **Enforcement rule**: `.cursor/rules/shell-unix-philosophy.mdc` prevents future violations
+
+  - **ShellCheck integration**: Complete with `.shellcheckrc`, zero errors/warnings across 104 scripts
+
+  - **Documentation updates**: Corrected script counts (44 production, 55 tests) and status across all project docs
+
+  - **Infrastructure complete**: All validators passing (help, error, network, ShellCheck, tests)
+
+  This provides focused, single-responsibility alternatives to monolithic scripts while maintaining backward compatibility. Originals remain functional; orchestration updates are optional future work.
+
 ## 0.7.2
 
 ### Patch Changes
