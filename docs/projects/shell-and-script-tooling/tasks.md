@@ -125,7 +125,7 @@
 
 - [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11) — **DEFERRED (Decision threshold: 50+ scripts)**
 
-  - Current: 38 scripts; flat structure manageable
+  - Current: 44 scripts; flat structure manageable
   - Threshold: Reorganize when count reaches **50+ scripts** OR clear pain points emerge
   - [ ] 18.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
   - [ ] 18.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)

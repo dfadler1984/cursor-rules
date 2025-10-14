@@ -199,11 +199,11 @@ Adoption workflow:
 
 ### Script Directory Organization
 
-**Current state:** 38 production scripts in flat `.cursor/scripts/` directory
+**Current state:** 44 production scripts in flat `.cursor/scripts/` directory
 
 **Decision threshold:** Organize into subdirectories when script count reaches **50+ scripts** OR when clear functional pain points emerge (e.g., frequent difficulty finding scripts, naming conflicts, or maintenance burden).
 
-**Current assessment (38 scripts):** Flat structure is manageable; defer reorganization to allow usage patterns to inform final groupings.
+**Current assessment (44 scripts):** Flat structure is manageable; defer reorganization to allow usage patterns to inform final groupings.
 
 Proposed structure (for future reference):
 
