@@ -2,6 +2,17 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# ⚠️  DEPRECATION NOTICE ⚠️
+# This script is feature-complete but complex (282 lines, 14 flags).
+#
+# For simpler use cases, consider focused alternatives:
+#   - pr-create-simple.sh: Create PRs without template complexity
+#   - pr-label.sh: Add labels to existing PRs
+#   - git-context.sh: Derive git context (reusable utility)
+#
+# This script remains available for advanced template/label workflows.
+# See: docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md
+#
 # Create a GitHub Pull Request via curl using GH_TOKEN
 # Usage: .cursor/scripts/pr-create.sh --title <t> [--body <b>] [--base <branch>] [--head <branch>] \
 #        [--owner <o>] [--repo <r>] [--dry-run] [-h|--help] [--version]
@@ -29,6 +40,18 @@ REPLACE_BODY=0
 SKIP_CONTEXT=0
 
 usage() {
+  cat <<'EOF'
+⚠️  DEPRECATION NOTICE ⚠️
+
+This script remains functional but is complex (282 lines, 14 flags).
+For most use cases, consider simpler focused alternatives:
+  • pr-create-simple.sh - Create PRs without templates
+  • pr-label.sh - Add labels to existing PRs  
+  • git-context.sh - Derive git context
+
+This script is retained for advanced template/label workflows only.
+
+EOF
   print_usage "pr-create.sh --title <title> [OPTIONS]"
   
   print_options
