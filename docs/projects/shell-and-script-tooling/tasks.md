@@ -121,21 +121,14 @@
   - [x] 17.3 Add error/network validators to CI (error-validate.sh blocks, network-guard.sh informational) ✅
   - Created: `.github/workflows/shell-validators.yml` workflow
 
-### Phase 7: Future Work (Deferred/Optional)
+### Phase 7: Future Work (Migrated to script-refinement)
 
-- [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11) — **DEFERRED (Decision threshold: 50+ scripts)**
-
-  - Current: 45 scripts; flat structure manageable
-  - Threshold: Reorganize when count reaches **50+ scripts** OR clear pain points emerge
-  - [ ] 18.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
-  - [ ] 18.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
-  - [ ] 18.3 Update all path references in `.cursor/rules/*.mdc` (~30-40 references)
-  - [ ] 18.4 Update CI workflow paths (`.github/workflows/*.yml`)
-  - [ ] 18.5 Update `.gitignore` patterns if needed
-  - [ ] 18.6 Validate with `project-lifecycle-validate.sh` and manual smoke tests
-  - [ ] 18.7 Document directory structure and rationale in README or rules
-  - [ ] 18.8 Update `docs/scripts/README.md` with new categories
-  - Status: Deferred; reassess when approaching 45-50 scripts (see ERD Section 11 for detailed proposal and decision criteria)
+- [x] 18.0 Organize scripts into subdirectories — **MIGRATED to script-refinement Task 3.0**
+  - **Status:** Moved to [script-refinement](../script-refinement/tasks.md) Task 3.0 for threshold-triggered execution
+  - **Trigger:** When script count reaches **50+ scripts** OR clear pain points emerge
+  - **Current:** 45 scripts (90% of threshold); flat structure still manageable
+  - **Rationale:** Threshold-based task belongs in active project, not archived one
+  - See: [script-refinement/erd.md](../script-refinement/erd.md) Section 4.3 for full requirements
 
 - [x] 20.0 Refactor existing Unix Philosophy violators — **✅ MAJOR WORK COMPLETE (2025-10-14)**
 

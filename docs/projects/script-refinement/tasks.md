@@ -70,16 +70,32 @@ This work was deferred from shell-and-script-tooling (Task 20.4, 20.5) as option
   - [ ] 2.6 Verify all rules-validate tests still pass
   - [ ] 2.7 Backup original as rules-validate-format-legacy.sh
 
-### Phase 3: Documentation & Cleanup
+### Phase 3: Script Directory Organization (Threshold-Triggered)
 
-- [ ] 3.0 Update documentation
-  - [ ] 3.1 Update docs/scripts/README.md with new scripts
-  - [ ] 3.2 Update shell-and-script-tooling/MIGRATION-GUIDE.md
-  - [ ] 3.3 Document composition patterns
-- [ ] 4.0 Final validation
-  - [ ] 4.1 All tests passing
-  - [ ] 4.2 All validators passing
-  - [ ] 4.3 No Unix Philosophy violations > 200 lines
+- [ ] 3.0 Organize scripts into subdirectories (MIGRATED from shell-and-script-tooling Task 18.0)
+  - **Trigger:** When script count reaches **50+ scripts** OR clear pain points emerge
+  - **Current:** 45 scripts; threshold not yet reached
+  - [ ] 3.1 Reassess when approaching 50 scripts (currently 45/50 = 90%)
+  - [ ] 3.2 Define final directory structure (git/, project/, rules/, tests/, lib/)
+  - [ ] 3.3 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
+  - [ ] 3.4 Update all path references in `.cursor/rules/*.mdc` (~30-40 references)
+  - [ ] 3.5 Update CI workflow paths (`.github/workflows/*.yml`)
+  - [ ] 3.6 Update `.gitignore` patterns if needed
+  - [ ] 3.7 Validate with `project-lifecycle-validate.sh` and manual smoke tests
+  - [ ] 3.8 Document directory structure and rationale in README or rules
+  - [ ] 3.9 Update `docs/scripts/README.md` with new categories
+  - **Status:** Waiting for threshold; can be permanently deferred if flat structure remains workable
+
+### Phase 4: Documentation & Cleanup
+
+- [ ] 4.0 Update documentation
+  - [ ] 4.1 Update docs/scripts/README.md with new scripts
+  - [ ] 4.2 Update shell-and-script-tooling/MIGRATION-GUIDE.md
+  - [ ] 4.3 Document composition patterns
+- [ ] 5.0 Final validation
+  - [ ] 5.1 All tests passing
+  - [ ] 5.2 All validators passing
+  - [ ] 5.3 No Unix Philosophy violations > 200 lines
 
 ## Success Metrics
 

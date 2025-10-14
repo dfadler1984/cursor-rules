@@ -93,7 +93,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 
 **Phase 7 (Unix Philosophy Refactoring) — SUBSTANTIALLY COMPLETE ✅:**
 
-- [x] Script directory organization (see Section 11) — DEFERRED until 50+ scripts
+- [x] Script directory organization (see Section 11) — MIGRATED to script-refinement Task 3.0
 - [x] Unix Philosophy refactoring — **MAJOR WORK COMPLETE (2025-10-14)**
   - **Status:** Infrastructure + 3 major orchestrators complete; optional polish moved to script-refinement project
   - [x] Created focused alternatives (9 scripts, all D1-D6 compliant, TDD-tested) ✅
@@ -197,32 +197,17 @@ Adoption workflow:
 
 ## 11. Future Considerations
 
-### Script Directory Organization
+### Script Directory Organization (MIGRATED)
 
-**Current state:** 45 production scripts in flat `.cursor/scripts/` directory
+**Status:** This work has been moved to [script-refinement](../script-refinement/erd.md) Section 4.3, Task 3.0.
 
-**Decision threshold:** Organize into subdirectories when script count reaches **50+ scripts** OR when clear functional pain points emerge (e.g., frequent difficulty finding scripts, naming conflicts, or maintenance burden).
+**Current state:** 45 production scripts in flat `.cursor/scripts/` directory (90% of threshold)
 
-**Current assessment (45 scripts):** Flat structure is manageable; defer reorganization to allow usage patterns to inform final groupings.
+**Trigger:** Organization will be triggered when script count reaches 50+ OR clear pain points emerge.
 
-Proposed structure (for future reference):
+**Why migrated:** Threshold-based tasks belong in active projects, not archived ones. This ensures the work is tracked and executed when conditions are met.
 
-- `.cursor/scripts/git/` — Git workflow helpers (commits, branches, PRs, checks)
-- `.cursor/scripts/project/` — Project lifecycle, archival, validation
-- `.cursor/scripts/rules/` — Rules validation, listing, attachment, capabilities sync
-- `.cursor/scripts/tests/` — Test runners, harnesses, and `fixtures/`
-- `.cursor/scripts/lib/` or `.cursor/scripts/_lib/` — Shared libraries (`.lib.sh`, `.lib-net.sh`)
-
-Migration requirements (when threshold is reached):
-
-- Update all script path references in `.cursor/rules/*.mdc` (~30-40 references expected)
-- Update CI workflow paths (`.github/workflows/shell-validators.yml`)
-- Update `.gitignore` patterns if needed
-- Add compatibility shims for public entrypoints if needed (or update documentation)
-- Validate with smoke tests and lifecycle validators
-- Document in migration guide and update script inventory
-
-**Reassess:** When script count approaches 45-50, evaluate whether reorganization would improve maintainability.
+**For complete details, see:** [script-refinement/erd.md](../script-refinement/erd.md) Section 4.3
 
 ---
 
@@ -265,10 +250,12 @@ Migration requirements (when threshold is reached):
 - Test suite isolated (uses fixtures/seams, never live network)
 - CI enforcement via `shell-validators.yml` workflow
 
-**Follow-up Work:**
+**Follow-up Work (All Migrated to script-refinement):**
 
-- Script directory organization (Task 18.0, see Section 11) — deferred until 50+ scripts threshold
-- Optional refinements (Tasks 20.4, 20.5) — moved to [script-refinement](../script-refinement/erd.md) project (P3 priority)
+- Script directory organization (Task 18.0) — migrated to [script-refinement](../script-refinement/erd.md) Task 3.0 (threshold: 50+ scripts)
+- Optional extractions (Tasks 20.4, 20.5) — migrated to [script-refinement](../script-refinement/erd.md) Tasks 1.0, 2.0 (P3 priority)
+
+**All deferred work is accounted for in active project.**
 
 ---
 
