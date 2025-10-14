@@ -13,7 +13,7 @@ bash .cursor/scripts/<script-name>.sh --version
 
 ## Standards Compliance
 
-All 37 production scripts (38 total including 1 spec helper) comply with:
+All 44 production scripts (plus 1 spec helper and 2 libraries) comply with:
 
 - **D1 (Help/Version)**: Standardized help with Options, Examples, Exit Codes sections
 - **D2 (Strict Mode)**: `set -euo pipefail`, proper error traps
@@ -26,11 +26,14 @@ See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/shell-and-scrip
 
 ## Script Categories
 
-### Git & GitHub Automation (5 scripts)
+### Git & GitHub Automation (9 scripts)
 
 - **`git-commit.sh`** — Generate Conventional Commits with validation
 - **`git-branch-name.sh`** — Validate and generate branch names with prefixes
-- **`pr-create.sh`** — Create GitHub pull requests via API
+- **`git-context.sh`** — Derive owner, repo, head, base from git remote (reusable utility)
+- **`pr-create.sh`** — Create GitHub pull requests via API (comprehensive, includes templates/labels)
+- **`pr-create-simple.sh`** — Create GitHub pull requests (simplified: title/body only)
+- **`pr-label.sh`** — Add labels to existing pull requests via GitHub API
 - **`pr-update.sh`** — Update existing pull requests via API
 - **`checks-status.sh`** — Check GitHub Actions status for PRs
 - **`changesets-automerge-dispatch.sh`** — Dispatch changesets auto-merge workflow
@@ -45,9 +48,14 @@ See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/shell-and-scrip
 - **`project-lifecycle-validate-sweep.sh`** — Validate all completed projects
 - **`final-summary-generate.sh`** — Generate final project summaries
 
-### Rules & Validation (7 scripts)
+### Rules & Validation (12 scripts)
 
-- **`rules-validate.sh`** — Validate rule files (front matter, refs, staleness)
+- **`rules-validate.sh`** — Validate rule files (front matter, refs, staleness) — comprehensive validator
+- **`rules-validate-frontmatter.sh`** — Validate front matter only (description, lastReviewed, healthScore)
+- **`rules-validate-refs.sh`** — Validate markdown link references
+- **`rules-validate-staleness.sh`** — Validate lastReviewed age (configurable threshold)
+- **`rules-validate-format.sh`** — Validate CSV format, booleans, deprecated refs, structure
+- **`rules-autofix.sh`** — Auto-fix CSV spacing and boolean casing
 - **`rules-validate.spec.sh`** — Spec helper for rules validation (not validated itself)
 - **`rules-list.sh`** — List rules with metadata and filters
 - **`rules-attach-validate.sh`** — Validate rule attachment configuration
@@ -77,10 +85,11 @@ See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/shell-and-scrip
 - **`tooling-inventory.sh`** — Inventory of all tooling and scripts
 - **`links-check.sh`** — Check for broken links in documentation
 
-### Templates & Utilities (7 scripts)
+### Templates & Utilities (4 scripts)
 
 - **`template-fill.sh`** — Fill templates with variables
-- **`context-efficiency-gauge.sh`** — Measure chat context efficiency
+- **`context-efficiency-gauge.sh`** — Measure chat context efficiency (comprehensive: compute + format)
+- **`context-efficiency-score.sh`** — Compute context efficiency score only (1-5 scale)
 - **`setup-remote.sh`** — Setup script for remote machines (dependency checking)
 
 ### Libraries (2 files)
@@ -90,10 +99,11 @@ See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/shell-and-scrip
 
 ## Script Count
 
-- **38 production scripts** (37 validated + 1 spec helper)
-- **5 scripts use network** (legitimately, per D4 policy):
-  - pr-create.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh, setup-remote.sh
-- **46 tests** (all passing, 100% use fixtures/seams)
+- **44 production scripts** (plus 1 spec helper: `rules-validate.spec.sh`)
+- **46 scripts validated** by help-validate.sh and error-validate.sh (includes 2 libraries: `.lib.sh`, `.lib-net.sh`)
+- **7 scripts use network** (legitimately, per D4 policy):
+  - pr-create.sh, pr-create-simple.sh, pr-label.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh, setup-remote.sh
+- **52 test files with 55 tests** (all passing, 100% use fixtures/seams)
 
 ## Usage Patterns
 
@@ -163,4 +173,4 @@ Scripts are validated on every PR via `.github/workflows/shell-validators.yml`:
 
 ---
 
-Last updated: 2025-10-13
+Last updated: 2025-10-14
