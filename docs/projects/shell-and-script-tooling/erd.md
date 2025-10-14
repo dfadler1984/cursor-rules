@@ -9,7 +9,7 @@ Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) |
 
 Unify and coordinate shell/script-related initiatives across the repository by referencing existing projects without moving files. This project provides a single place to align goals, reduce duplication, and track cross-cutting decisions while each source project remains authoritative for its own scope.
 
-**Source projects:** 10 (9 active + tests-github-deletion completed 2025-10-13, ready for archival)
+**Source projects:** 10 (8 active + 2 archived: shell-scripts 2025-10-11, tests-github-deletion 2025-10-13)
 
 ## 2. Scope & Approach
 
@@ -28,7 +28,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - Script Test Hardening — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
 - ShellCheck Adoption — `docs/projects/shellcheck/erd.md` | tasks: `docs/projects/shellcheck/tasks.md`
 - Networkless Scripts — `docs/projects/networkless-scripts/erd.md` | tasks: `docs/projects/networkless-scripts/tasks.md`
-- Tests GitHub Deletion — `docs/projects/tests-github-deletion/erd.md` | tasks: `docs/projects/tests-github-deletion/tasks.md` | **Status: RESOLVED (2025-10-13) — Ready for archival**
+- Tests GitHub Deletion — `docs/projects/_archived/2025/tests-github-deletion/final-summary.md` | **Status: ARCHIVED (2025-10-13)**
 
 ## 4. Goals/Objectives
 
