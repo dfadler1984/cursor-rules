@@ -124,6 +124,7 @@
 ### Phase 7: Future Work (Migrated to script-refinement)
 
 - [x] 18.0 Organize scripts into subdirectories — **MIGRATED to script-refinement Task 3.0**
+
   - **Status:** Moved to [script-refinement](../script-refinement/tasks.md) Task 3.0 for threshold-triggered execution
   - **Trigger:** When script count reaches **50+ scripts** OR clear pain points emerge
   - **Current:** 45 scripts (90% of threshold); flat structure still manageable
