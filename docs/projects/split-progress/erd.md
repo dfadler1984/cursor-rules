@@ -19,8 +19,8 @@
 | `docs/projects/_archived/2025/logging-destinations/erd.md`         | assistant-learning | Archived      | —                                                                  | —                        |
 | `docs/projects/capabilities-rules/erd.md`                          | rules-maintainers  | Active        | `docs/projects/capabilities-rules/tasks.md`                        | core-values              |
 | `docs/projects/mcp-synergy/erd.md`                                 | rules-maintainers  | In progress   | `docs/projects/mcp-synergy/tasks.md`                               | capabilities-discovery   |
-| `docs/projects/bash-scripts/erd.md`                                | rules-maintainers  | New (drafted) | `docs/projects/bash-scripts/tasks.md`                              | core-values              |
-| `docs/projects/shell-scripts/erd.md`                               | eng-tools          | Complete      | `docs/projects/shell-scripts/tasks.md`                             | bash-scripts             |
+| `docs/projects/_archived/2025/bash-scripts/final-summary.md`       | rules-maintainers  | Archived      | `docs/projects/_archived/2025/bash-scripts/tasks.md`               | core-values              |
+| `docs/projects/_archived/2025/shell-scripts/final-summary.md`      | eng-tools          | Archived      | `docs/projects/_archived/2025/shell-scripts/tasks.md`              | bash-scripts             |
 | `docs/projects/project-organization/erd.md`                        | rules-maintainers  | Proposed      | —                                                                  | core-values              |
 | `docs/projects/portability/erd.md`                                 | rules-maintainers  | In progress   | `docs/projects/portability/tasks.md`                               | project-organization     |
 | `docs/projects/collaboration-options/erd.md`                       | rules-maintainers  | New (drafted) | `docs/projects/collaboration-options/tasks.md`                     | core-values              |

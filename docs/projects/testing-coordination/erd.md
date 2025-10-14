@@ -25,7 +25,7 @@ Unify and coordinate testing/TDD-related initiatives across the repository by re
 
 ### Related/Overlap
 
-- Script Test Hardening (overlaps with shell/script testing concerns) — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
+- Script Test Hardening (overlaps with shell/script testing concerns) — `docs/projects/_archived/2025/script-test-hardening/final-summary.md` (archived 2025-10-14)
 
 ## 4. Goals/Objectives
 

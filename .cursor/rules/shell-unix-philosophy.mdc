@@ -15,7 +15,7 @@ lastReviewed: 2025-10-13
 
 ## Purpose
 
-Enforce Unix Philosophy principles for all shell scripts to prevent complexity creep and maintain composability. Based on audit findings in [`docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md`](../../docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md).
+Enforce Unix Philosophy principles for all shell scripts to prevent complexity creep and maintain composability. Based on audit findings in [`docs/projects/_archived/2025/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md`](../../docs/projects/_archived/2025/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md).
 
 ## Core Principles (must)
 
@@ -307,10 +307,10 @@ Consider adding to `shell-validators.yml`:
 
 ## References
 
-- **Audit:** [`docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md`](../../docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md)
+- **Audit:** [`docs/projects/_archived/2025/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md`](../../docs/projects/_archived/2025/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md)
 - **Unix Philosophy:** [Basics of the Unix Philosophy](https://cscie2x.dce.harvard.edu/hw/ch01s06.html)
-- **Project status:** [`docs/projects/scripts-unix-philosophy/tasks.md`](../../docs/projects/scripts-unix-philosophy/tasks.md)
-- **Migration guide:** [`docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md`](../../docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md)
+- **Project status:** [`docs/projects/_archived/2025/scripts-unix-philosophy/final-summary.md`](../../docs/projects/_archived/2025/scripts-unix-philosophy/final-summary.md)
+- **Migration guide:** [`docs/projects/_archived/2025/shell-and-script-tooling/MIGRATION-GUIDE.md`](../../docs/projects/_archived/2025/shell-and-script-tooling/MIGRATION-GUIDE.md)
 
 ## Scope
 

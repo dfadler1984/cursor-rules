@@ -37,4 +37,4 @@ Prevent committing non-executable shell scripts. A pre-commit hook blocks commit
 ## 7. Links
 
 - Tasks: docs/projects/pre-commit-shell-executable/tasks.md
-- Related: docs/projects/shell-and-script-tooling/erd.md
+- Related: docs/projects/_archived/2025/shell-and-script-tooling/final-summary.md

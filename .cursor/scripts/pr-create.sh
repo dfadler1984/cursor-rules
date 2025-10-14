@@ -11,7 +11,7 @@ IFS=$'\n\t'
 #   - git-context.sh: Derive git context (reusable utility)
 #
 # This script remains available for advanced template/label workflows.
-# See: docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md
+# See: docs/projects/_archived/2025/shell-and-script-tooling/MIGRATION-GUIDE.md
 #
 # Create a GitHub Pull Request via curl using GH_TOKEN
 # Usage: .cursor/scripts/pr-create.sh --title <t> [--body <b>] [--base <branch>] [--head <branch>] \

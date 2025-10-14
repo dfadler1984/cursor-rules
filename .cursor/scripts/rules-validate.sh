@@ -86,7 +86,7 @@ Exit Codes:
   2   Usage error
   20  Internal error
 
-For more details, see docs/projects/shell-and-script-tooling/erd.md
+For more details, see docs/projects/_archived/2025/shell-and-script-tooling/erd.md
 EOF
 }
 

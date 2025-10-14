@@ -141,7 +141,7 @@ if [ "$violations" -gt 0 ]; then
   printf '  CURL_CMD=cat  # Inject fixtures\n' >&2
   printf '  JQ_CMD=jq     # Use real jq for parsing\n' >&2
   printf '\n' >&2
-  printf 'See: docs/projects/networkless-scripts/erd.md (test isolation)\n' >&2
+  printf 'See: docs/projects/_archived/2025/networkless-scripts/final-summary.md (test isolation)\n' >&2
   # Exit 0 - this is informational, not a hard failure
   exit 0
 fi
