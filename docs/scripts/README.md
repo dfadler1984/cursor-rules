@@ -1,6 +1,6 @@
 # Shell Scripts Reference
 
-This directory provides a reference for all shell scripts in `.cursor/scripts/`. All scripts follow the standardized patterns defined in [`docs/projects/shell-and-script-tooling/`](../projects/shell-and-script-tooling/).
+This directory provides a reference for all shell scripts in `.cursor/scripts/`. All scripts follow the standardized patterns defined in [`docs/projects/_archived/2025/shell-and-script-tooling/`](../projects/_archived/2025/shell-and-script-tooling/).
 
 ## Quick Start
 
@@ -22,7 +22,7 @@ All 44 production scripts (plus 1 spec helper and 2 libraries) comply with:
 - **D5 (Portability)**: bash + git only; optional tools degrade gracefully
 - **D6 (Test Isolation)**: Subshell isolation prevents env leakage
 
-See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/shell-and-script-tooling/MIGRATION-GUIDE.md)
+See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/_archived/2025/shell-and-script-tooling/MIGRATION-GUIDE.md)
 
 ## Script Categories
 
@@ -155,7 +155,7 @@ When creating new scripts:
 5. Add owner tests (colocated `*.test.sh`)
 6. Run validators: `help-validate.sh`, `error-validate.sh`
 
-See: [`MIGRATION-GUIDE.md`](../projects/shell-and-script-tooling/MIGRATION-GUIDE.md) for detailed patterns
+See: [`MIGRATION-GUIDE.md`](../projects/_archived/2025/shell-and-script-tooling/MIGRATION-GUIDE.md) for detailed patterns
 
 ## CI Integration
 
@@ -168,9 +168,9 @@ Scripts are validated on every PR via `.github/workflows/shell-validators.yml`:
 
 ## Related Documentation
 
-- [Shell & Script Tooling ERD](../projects/shell-and-script-tooling/erd.md) — Project overview
-- [Migration Guide](../projects/shell-and-script-tooling/MIGRATION-GUIDE.md) — Detailed patterns
-- [Progress Report](../projects/shell-and-script-tooling/PROGRESS.md) — Implementation status
+- [Shell & Script Tooling Final Summary](../projects/_archived/2025/shell-and-script-tooling/final-summary.md) — Project overview (archived)
+- [Migration Guide](../projects/_archived/2025/shell-and-script-tooling/MIGRATION-GUIDE.md) — Detailed patterns
+- [ERD](../projects/_archived/2025/shell-and-script-tooling/erd.md) — Complete requirements document
 
 ---
 

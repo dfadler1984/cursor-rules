@@ -36,17 +36,6 @@ A landing page for all projects, grouped by status.
   - [readme-structure](./readme-structure/erd.md)
   - [completion-metadata](./completion-metadata/erd.md)
 
-- [shell-and-script-tooling](./shell-and-script-tooling/erd.md) — Infrastructure & standards complete (D1-D6, orchestrators, enforcement)
-
-  - [bash-scripts](./bash-scripts/erd.md)
-  - [scripts-unix-philosophy](./scripts-unix-philosophy/erd.md)
-  - [script-rules](./script-rules/erd.md)
-  - [script-help-generation](./script-help-generation/erd.md)
-  - [script-error-handling](./script-error-handling/erd.md)
-  - [script-test-hardening](./script-test-hardening/erd.md)
-  - [shellcheck](./shellcheck/erd.md)
-  - [networkless-scripts](./networkless-scripts/erd.md)
-
 - [script-refinement](./script-refinement/erd.md) — Optional Unix Philosophy polish (P3 priority, deferred from shell-and-script-tooling)
 
 - [testing-coordination](./testing-coordination/erd.md)
@@ -88,6 +77,7 @@ A landing page for all projects, grouped by status.
 - [project-lifecycle-hardening](_archived/2025/project-lifecycle-hardening/final-summary.md) — Completed.
 - [context-efficiency-gauge](_archived/2025/context-efficiency-gauge/erd.md) — Merged into Chat Performance and Quality Tools.
 - [tests-github-deletion](_archived/2025/tests-github-deletion/final-summary.md) — Test environment isolation investigation; resolved via D6 subshell isolation.
+- [shell-and-script-tooling](_archived/2025/shell-and-script-tooling/final-summary.md) — Shell script infrastructure with D1-D6 standards, validators, Unix Philosophy orchestrators. Child projects: bash-scripts, script-rules, script-help-generation, script-error-handling, script-test-hardening, shellcheck, networkless-scripts, scripts-unix-philosophy (all archived 2025-10-14).
 
 ## Archived
 
