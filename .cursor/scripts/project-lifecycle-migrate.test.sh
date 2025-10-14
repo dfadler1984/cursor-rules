@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
+
 root_dir="$(cd "$(dirname "$0")/../.." && pwd)"
 migrate="$root_dir/.cursor/scripts/project-lifecycle-migrate.sh"
 validate="$root_dir/.cursor/scripts/validate-project-lifecycle.sh"

@@ -3,6 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 SUT="$SCRIPT_DIR/network-guard.sh"
 
 echo "[TEST] network-guard.sh"
@@ -32,7 +33,7 @@ test_help_flag() {
 test_detects_curl() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script with direct curl
   cat > "$tmpdir/bad-script.sh" <<'SCRIPT'
@@ -66,7 +67,7 @@ SCRIPT
 test_detects_gh() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script with gh CLI
   cat > "$tmpdir/bad-script.sh" <<'SCRIPT'
@@ -100,7 +101,7 @@ SCRIPT
 test_allows_lib_net() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script using approved seam
   cat > "$tmpdir/good-script.sh" <<'SCRIPT'
@@ -128,7 +129,7 @@ SCRIPT
 test_allows_comments() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script with curl in comment
   cat > "$tmpdir/good-script.sh" <<'SCRIPT'

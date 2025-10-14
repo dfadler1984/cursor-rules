@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — Shell & Script Tooling (Unified)
 
-Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) | [`PROGRESS.md`](./PROGRESS.md)
+Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) | [`PROGRESS.md`](./PROGRESS.md) | [`UNIX-PHILOSOPHY-AUDIT.md`](./UNIX-PHILOSOPHY-AUDIT.md) | [`UNIX-PHILOSOPHY-AUDIT-UPDATED.md`](./UNIX-PHILOSOPHY-AUDIT-UPDATED.md) | [`REVIEW-FINDINGS.md`](./REVIEW-FINDINGS.md) | [`FINAL-REVIEW-SUMMARY.md`](./FINAL-REVIEW-SUMMARY.md)
 
 ## 1. Introduction/Overview
 
@@ -71,19 +71,19 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - [x] All network-using scripts migrated to networkless (4 GitHub API scripts transitioned to guidance-based).
 - [x] Network guard validator: 100% compliant (informational mode; 5 scripts legitimately use network).
 - [x] Error validation: 100% compliant (strict mode).
-- [x] Test coverage: 46 tests, 100% passing.
+- [x] Test coverage: 55 tests (52 test files), 100% passing.
 
 **Script Inventory:**
 
-- 38 production scripts total (excluding `.test.sh` files)
-- 37 scripts validated by help-validate.sh and error-validate.sh
+- 44 production scripts total (excluding `.test.sh` and `.spec.sh` files)
+- 46 scripts validated by help-validate.sh and error-validate.sh (includes 2 library files: `.lib.sh`, `.lib-net.sh`)
 - 1 spec helper: `rules-validate.spec.sh` (excluded from validation; used by rules-validate.sh for schema checks)
 
 **Phase 4 (Complete ✅):**
 
-- [x] Help documentation migration (37 of 37 scripts complete = 100%).
+- [x] Help documentation migration (46 of 46 validated scripts = 100%).
 - [x] Migration pattern established (context-efficiency-gauge.sh example).
-- [x] All scripts now pass help-validate.sh validation.
+- [x] All validated scripts now pass help-validate.sh validation.
 
 **Phase 5-6 (Complete):**
 
@@ -91,9 +91,17 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - [x] Documentation and CI integration.
 - [x] Source project adoption tracking.
 
-**Phase 7 (Future/Optional):**
+**Phase 7 (Unix Philosophy Refactoring):**
 
-- [ ] Script directory organization (see Section 11).
+- [x] Script directory organization (see Section 11) — DEFERRED
+- [ ] Unix Philosophy refactoring — **⏸️ PARTIAL, DEFERRED (2025-10-14)**
+  - **Decision:** Accept partial completion. Enforcement rule prevents new violations; orchestration updates optional.
+  - [x] Created focused alternatives (9 scripts, all D1-D6 compliant, TDD-tested) ✅
+  - [x] Enforcement rule active (shell-unix-philosophy.mdc) ✅
+  - [ ] Update originals to orchestrators — **DEFERRED (Optional)** ⏸️
+  - **Current state:** 5 violators exist (4 originals + 1 large extraction), but focused alternatives available
+  - **Rationale:** Primary goal achieved (enforcement prevents future violations); orchestration is mechanical work with diminishing returns
+  - See: `UNIX-PHILOSOPHY-AUDIT-UPDATED.md`, `REVIEW-FINDINGS.md`, `scripts-unix-philosophy/tasks.md` Phase 4
 
 ## 7. Risks/Edge Cases
 
@@ -214,36 +222,36 @@ Migration requirements (when threshold is reached):
 
 ---
 
-## Status Summary (2025-10-13 — COMPLETE)
+## Status Summary (2025-10-14 — Infrastructure Complete, Orchestration Deferred)
 
-**Completion:** 100% (All phases complete; directory organization deferred)
+**Completion:** Infrastructure 100% complete; Unix Philosophy orchestration deferred (see Phase 7)
 
 **Key Achievements:**
 
-- ✅ 100% help documentation (D1) — All 37 scripts pass `help-validate.sh`
-- ✅ 100% strict mode compliance (D2) — All 37 scripts validated by `error-validate.sh`
+- ✅ 100% help documentation (D1) — All 46 validated scripts pass `help-validate.sh`
+- ✅ 100% strict mode compliance (D2) — All 46 validated scripts pass `error-validate.sh`
 - ✅ 100% exit code standardization (D3) — 0 warnings, all scripts use catalog
 - ✅ 100% test isolation (D4) — Tests use fixtures/seams, never live API
 - ✅ 100% portability (D5) — bash + git only; optional tools degrade gracefully
 - ✅ 100% env isolation (D6) — Subshell isolation implemented, env leakage resolved
 - ✅ Complete infrastructure with validators and test helpers
-- ✅ 46 tests covering all critical paths (100% passing)
+- ✅ 55 tests (52 test files) covering all critical paths (100% passing)
 - ✅ All cross-cutting decisions (D1-D6) fully implemented and adopted
 - ✅ CI integration — Validators run on every PR
 - ✅ Migration guide published — `MIGRATION-GUIDE.md`
 - ✅ Adoption tracking — All 8 source projects updated with status
+- ✅ ShellCheck integration complete — Zero errors, zero warnings, CI enforced
 
 **Repository Impact:**
 
-- 38 production scripts total (37 validated + 1 spec helper)
-- 37 scripts validated for all standards (D1-D6)
+- 44 production scripts total (includes 9 extracted via Unix Philosophy refactoring)
+- 46 scripts validated for D1-D6 standards (44 production + 2 libraries)
+- 52 test files with 55 tests total (100% passing)
 - 1 spec helper: `rules-validate.spec.sh` (used by rules-validate.sh; excluded from general validation)
 - 5 scripts legitimately use network (per D4 policy):
   - 4 GitHub automation: pr-create.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh
   - 1 Setup utility: setup-remote.sh (dependency checking)
 - Test suite isolated (uses fixtures/seams, never live network)
-- 7,520 total lines of shell code
-- ~2,200 lines of new infrastructure added
 - CI enforcement via `shell-validators.yml` workflow
 
 **Phase 7 (Deferred):**
@@ -255,4 +263,4 @@ Migration requirements (when threshold is reached):
 
 Owner: rules-maintainers
 
-Last updated: 2025-10-13
+Last updated: 2025-10-14

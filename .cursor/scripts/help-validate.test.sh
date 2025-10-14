@@ -3,6 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 SUT="$SCRIPT_DIR/help-validate.sh"
 
 echo "[TEST] help-validate.sh"
@@ -32,7 +33,7 @@ test_help_flag() {
 test_detects_missing_help() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script without --help
   cat > "$tmpdir/bad-script.sh" <<'SCRIPT'
@@ -66,7 +67,7 @@ SCRIPT
 test_detects_missing_exit_codes() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script with help but no exit codes
   cat > "$tmpdir/bad-script.sh" <<'SCRIPT'
@@ -112,7 +113,7 @@ SCRIPT
 test_complete_help_passes() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script with complete help
   cat > "$tmpdir/good-script.sh" <<'SCRIPT'
@@ -163,7 +164,7 @@ SCRIPT
 test_excludes_test_files() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create test file without help (should be ignored)
   cat > "$tmpdir/script.test.sh" <<'SCRIPT'

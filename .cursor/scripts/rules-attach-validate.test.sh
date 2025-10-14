@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-ROOT="$(cd "$(dirname "$BASH_SOURCE[0]")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SCRIPT="$ROOT/.cursor/scripts/rules-attach-validate.sh"
 
 set +e

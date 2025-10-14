@@ -52,8 +52,6 @@ if [ -z "$file" ] || [ ! -f "$file" ]; then
 fi
 
 fail=0
-dir=$(dirname "$file")
-base=$(basename "$dir")
 
 # Detect code fences and count front matter separators outside fences
 awk_out=$(awk -v file="$file" '

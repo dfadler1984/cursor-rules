@@ -3,6 +3,8 @@ set -euo pipefail
 IFS=$'\n\t'
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 SCRIPT="$ROOT_DIR/.cursor/scripts/lint-workflows.sh"
 
 # CRITICAL FIX (D6): DO NOT delete .github from repo!
@@ -16,7 +18,7 @@ printf '%s' "$out" | grep -qi "usage" || { echo "expected usage in help"; exit 1
 # Test: script handles missing .github/workflows gracefully
 # Use a temp directory instead of destroying repo .github
 tmpdir="$(mktemp -d 2>/dev/null || mktemp -d -t lint-wf-test)"
-trap "rm -rf '$tmpdir'" EXIT
+trap_cleanup "$tmpdir"
 
 pushd "$tmpdir" >/dev/null
 out="$(bash "$SCRIPT" 2>&1)"

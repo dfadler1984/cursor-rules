@@ -1,0 +1,327 @@
+---
+description: Unix Philosophy enforcement for shell scripts — single responsibility, small & focused, composition-ready
+globs:
+  - .cursor/scripts/**/*.sh
+  - "!.cursor/scripts/**/*.test.sh"
+alwaysApply: false
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+lastReviewed: 2025-10-13
+---
+
+# Shell Scripts — Unix Philosophy Enforcement
+
+## Purpose
+
+Enforce Unix Philosophy principles for all shell scripts to prevent complexity creep and maintain composability. Based on audit findings in [`docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md`](../../docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md).
+
+## Core Principles (must)
+
+### 1. Do One Thing Well
+
+**Rule:** Each script has a single, clearly-defined responsibility.
+
+**Enforcement:**
+
+- Script name describes one action (verb-noun pattern preferred)
+- `--help` documentation states one primary purpose
+- If you find yourself writing "and" in the purpose statement, consider splitting
+
+**Red flags:**
+
+- Script has 10+ flags
+- Multiple unrelated `case` branches handling different domains
+- Script length > 200 lines
+- Functions handling multiple concerns
+
+**Examples:**
+
+- ✅ Good: `pr-create` (one job: create PRs)
+- ❌ Bad: `pr-create` that also manages labels, handles templates, formats output
+
+### 2. Small & Focused
+
+**Size targets:**
+
+- **Target:** < 150 lines for most scripts
+- **Warning threshold:** 200 lines — justify or split
+- **Hard limit:** 300 lines — must split
+
+**Enforcement:**
+
+- Run `wc -l <script>` before submitting
+- If over target, extract functions to separate utilities
+- Large case statements → separate scripts per case
+
+**Exceptions:**
+
+- Generated code (must be marked as such)
+- Scripts with extensive help documentation (but consider `--help` flag calling separate doc)
+
+### 3. Composition via Text Streams
+
+**Input/Output separation (must):**
+
+- **Results** → `stdout` (parseable, pipe-friendly)
+- **Logs/progress** → `stderr` (via `log_*` helpers from `.lib.sh`)
+- **Errors** → `stderr` (via `die` helper)
+
+**Pattern:**
+
+```bash
+# Good: composable output
+find . -name "*.sh" | grep -v test | xargs shellcheck
+
+# Bad: mixed logs and results to stdout
+echo "Checking 10 files..." # This should go to stderr
+find . -name "*.sh"
+```
+
+**Enforcement:**
+
+- Use `.lib.sh` helpers: `log_info`, `log_warn`, `log_error` → all go to stderr
+- Never `echo` logs to stdout
+- Keep stdout clean for piping
+
+### 4. Minimal, Orthogonal Flags
+
+**Flag guidelines:**
+
+- **Limit:** 6-8 flags per script; 10+ is a smell
+- **Orthogonal:** Flags should be independent; avoid complex interactions
+- **Required vs optional:** Minimize required flags; prefer smart defaults
+
+**Red flags:**
+
+- Flag behavior changes based on other flags
+- Example: `--body` behaves differently if `--no-template` or `--replace-body` is set
+- Multiple flags for the same concept (consolidate)
+
+**Patterns:**
+
+```bash
+# Good: orthogonal flags
+script.sh --input file.txt --format json --verbose
+
+# Bad: interdependent flags
+script.sh --body "text" --no-template --replace-body
+# (--body behavior changes based on other flags)
+```
+
+### 5. Clear Separation of Policy and Mechanism
+
+**Policy (configuration) vs Mechanism (execution):**
+
+- Defaults and config at top as constants
+- Env vars resolved once at boundaries
+- Execution logic doesn't embed policy decisions
+
+**Pattern:**
+
+```bash
+#!/usr/bin/env bash
+# Policy at top
+DEFAULT_FORMAT="text"
+DEFAULT_TIMEOUT=30
+
+# Derive from env or use defaults
+FORMAT="${FORMAT:-$DEFAULT_FORMAT}"
+TIMEOUT="${TIMEOUT:-$DEFAULT_TIMEOUT}"
+
+# Mechanism below (doesn't reference DEFAULT_* directly)
+do_work() {
+  local format="$1"
+  local timeout="$2"
+  # Pure logic here
+}
+
+do_work "$FORMAT" "$TIMEOUT"
+```
+
+## Pre-Submission Checklist
+
+Before marking a shell script PR ready for review:
+
+- [ ] Script length ≤ 200 lines (or justified)
+- [ ] Single responsibility stated in `--help`
+- [ ] Flags ≤ 10 (preferably ≤ 6)
+- [ ] Results go to stdout, logs to stderr (via `log_*`)
+- [ ] No complex flag interdependencies
+- [ ] Policy (defaults) separated from mechanism (logic)
+- [ ] Owner tests exercise the single responsibility
+
+## Split Decision Tree
+
+When a script grows beyond targets, use this decision tree:
+
+1. **Is it > 200 lines?**
+
+   - Yes → Extract functions to separate utilities
+   - Multiple responsibilities → Split by responsibility
+
+2. **Does it have 10+ flags?**
+
+   - Group related flags → separate scripts
+   - Example: `--wait`, `--timeout` → `script-wait` wrapper
+
+3. **Does it output multiple formats?**
+
+   - Split: `script` (simple output) + `script-format` (formatting)
+   - Pipe: `script | script-format --dashboard`
+
+4. **Does it do multiple jobs?**
+   - Identify each job → create focused script per job
+   - Example: PR creation + labeling → `pr-create` + `pr-label`
+
+## Refactoring Examples
+
+### Example 1: Split by Responsibility
+
+**Before:** `rules-validate.sh` (497 lines, 6+ jobs)
+
+```bash
+# One script doing everything
+rules-validate.sh --check-frontmatter --check-refs --autofix --format json
+```
+
+**After:** Focused utilities
+
+```bash
+# Separate concerns, composable
+rules-validate-frontmatter.sh --format json
+rules-validate-refs.sh --fail-on-missing
+rules-autofix.sh --dry-run
+```
+
+### Example 2: Split by I/O Concern
+
+**Before:** `context-efficiency-gauge.sh` (342 lines, compute + 4 formats)
+
+```bash
+# One script, internal branching
+context-efficiency-gauge.sh --format dashboard
+```
+
+**After:** Compute + format separation
+
+```bash
+# Compose via pipes
+context-efficiency-score --rules 5 --loops 2 | \
+  context-efficiency-format --dashboard
+```
+
+### Example 3: Extract Complex Flags
+
+**Before:** `pr-create.sh` with template, label, body logic
+
+**After:**
+
+```bash
+# Focused tools
+pr-create.sh --title "..." --body "..."
+pr-label.sh --pr 123 --label skip-changeset
+pr-template-fill.sh < template.md
+```
+
+## Integration with Existing Standards
+
+This rule works with:
+
+- **D1-D6 (shell-and-script-tooling):** Technical foundation
+
+  - D1: Help documentation
+  - D2: Strict mode
+  - D3: Exit codes
+  - D4: Networkless tests
+  - D5: Portability
+  - D6: Test isolation
+
+- **TDD-First (Shell):** Owner tests couple to single responsibility
+  - Each focused script → one focused test file
+  - Easier to test small, pure utilities
+
+## Assistant Behavior
+
+### When creating new shell scripts
+
+1. **Check size target:** Aim for < 150 lines
+2. **State single purpose:** What is the one thing this does?
+3. **Design for composition:** Clean stdout, logs to stderr
+4. **Limit flags:** Start with ≤ 6; justify each addition
+5. **Separate policy:** Defaults at top, logic below
+
+### When modifying existing scripts
+
+1. **Check current size:** If approaching 200 lines, propose split
+2. **Review flags:** If > 10, propose consolidation or split
+3. **Assess responsibility:** If multiple jobs, propose split
+4. **Verify I/O separation:** Results to stdout, logs to stderr
+
+### When script exceeds thresholds
+
+**Propose split with:**
+
+- Current script analysis (lines, flags, responsibilities)
+- Suggested split (focused scripts with names)
+- Composition example (how to use together)
+- Migration path (backward compatibility if needed)
+
+**Example proposal:**
+
+> "The current script is 282 lines with 14 flags handling PR creation, labeling, and template management. I recommend splitting into:
+>
+> - `pr-create` (core: title, body, base, head)
+> - `pr-label` (apply labels to existing PRs)
+> - `pr-template-fill` (template handling)
+>
+> Composition: `pr-create ... | tee pr-url.txt && pr-label --pr $(cat pr-url.txt) --label skip-changeset`
+>
+> Proceed with split?"
+
+## Validation
+
+### Manual checks
+
+```bash
+# Check script sizes
+wc -l .cursor/scripts/*.sh | awk '$1 > 200 {print}'
+
+# Count flags per script
+for s in .cursor/scripts/*.sh; do
+  echo "$s: $(grep -c '^\s*--.*) ' "$s") flags"
+done | awk -F: '$2 > 10'
+
+# Verify stdout/stderr separation
+grep -n 'echo\|printf' script.sh # Should mostly be in usage()
+```
+
+### Automated checks (future)
+
+Consider adding to `shell-validators.yml`:
+
+- Script size validator (warn > 200, fail > 300)
+- Flag count validator (warn > 8)
+- Stdout pollution detector (non-result output to stdout)
+
+## References
+
+- **Audit:** [`docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md`](../../docs/projects/shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT.md)
+- **Unix Philosophy:** [Basics of the Unix Philosophy](https://cscie2x.dce.harvard.edu/hw/ch01s06.html)
+- **Project status:** [`docs/projects/scripts-unix-philosophy/tasks.md`](../../docs/projects/scripts-unix-philosophy/tasks.md)
+- **Migration guide:** [`docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md`](../../docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md)
+
+## Scope
+
+- Applies to all shell scripts in `.cursor/scripts/` (excluding tests)
+- Enforced during creation and modification
+- Existing scripts: aspirational; refactor when touched or when blocking
+
+## Exceptions
+
+Request explicit exception approval when:
+
+- Script legitimately requires > 200 lines (state why)
+- Domain naturally requires 10+ flags (rare; consider wrapper scripts)
+- Backward compatibility prevents splitting (document migration path)

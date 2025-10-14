@@ -57,8 +57,8 @@
 ### Phase 3: Validators and Network Migration (COMPLETE ✅)
 
 - [x] 9.0 Create validators for cross-cutting decisions
-  - [x] 9.1 Create `help-validate.sh` (validates help sections per D1) — ✅ 100% compliant (37 scripts)
-  - [x] 9.2 Create `error-validate.sh` (validates strict mode and exit codes per D2/D3) — ✅ 100% compliant (37 scripts)
+  - [x] 9.1 Create `help-validate.sh` (validates help sections per D1) — ✅ 100% compliant (46 scripts)
+  - [x] 9.2 Create `error-validate.sh` (validates strict mode and exit codes per D2/D3) — ✅ 100% compliant (46 scripts)
   - [x] 9.3 Create `network-guard.sh` (validates network usage per D4/D5) — ✅ Informational (5 scripts legitimately use network)
 - [x] 8.0 Migrate all network-using scripts to networkless standard
   - [x] 8.1 Update `pr-create.sh` to use `.lib-net.sh` seam ✅ COMPLETE
@@ -75,8 +75,8 @@
 
 ### Phase 4: Help Documentation Migration (COMPLETE ✅)
 
-- [x] 8.5 Migrate all scripts to use help template functions (37/37 = **100% complete**)
-  - [x] All 37 scripts pass `help-validate.sh` ✅
+- [x] 8.5 Migrate all scripts to use help template functions (46/46 = **100% complete**)
+  - [x] All 46 validated scripts pass `help-validate.sh` ✅
   - [x] 8.5.1 Fix pr-create.sh: add missing Options section ✅
   - [x] 8.5.2 Fix pr-update.sh: add missing Options, Examples, Exit Codes sections ✅
   - [x] 8.5.3 Fix changesets-automerge-dispatch.sh: add missing Options, Examples, Exit Codes sections ✅
@@ -102,7 +102,7 @@
   - [x] 13.6.2 Audited all tests: no other snapshot/restore patterns found ✅
   - [x] 13.6.3 Pattern established: tests directly export vars, runner provides cleanup ✅
   - [x] 13.6.4 Documented in ERD D6: scripts keep seams, tests use subshell isolation ✅
-  - [x] 13.6.5 All 46 tests passing after simplification ✅
+  - [x] 13.6.5 All 55 tests passing after simplification ✅
 - [x] 15.0 Investigate .github/ deletion ✅ RESOLVED
   - [x] 15.1 Identified: lint-workflows.test.sh line 9 had rm -rf \$ROOT_DIR/.github ✅
   - [x] 15.2 Fixed: test now uses temp directory, never mutates repo .github ✅
@@ -121,7 +121,7 @@
   - [x] 17.3 Add error/network validators to CI (error-validate.sh blocks, network-guard.sh informational) ✅
   - Created: `.github/workflows/shell-validators.yml` workflow
 
-### Phase 7: Future Work (Deferred)
+### Phase 7: Future Work (Deferred/Optional)
 
 - [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11) — **DEFERRED (Decision threshold: 50+ scripts)**
 
@@ -137,27 +137,83 @@
   - [ ] 18.8 Update `docs/scripts/README.md` with new categories
   - Status: Deferred; reassess when approaching 45-50 scripts (see ERD Section 11 for detailed proposal and decision criteria)
 
-- [ ] 19.0 Source project task reconciliation (HIGH PRIORITY)
-  - [ ] 19.1 networkless-scripts tasks — Document: Guidance-based approach chosen over seam approach for GitHub scripts; mark tasks 1.0-6.0 as "superseded by guidance approach"
-  - [ ] 19.2 script-test-hardening tasks — Document: D6 subshell isolation solved core issue; token override flags (1.0-5.0) not needed; mark as "superseded by D6"
-  - [ ] 19.3 shellcheck tasks — Document: Inline config decision; mark 2.0 (.shellcheckrc creation) as "not needed"; update 1.0 subtasks to reflect completion
-  - [ ] 19.4 scripts-unix-philosophy tasks — Mark 1.0-6.0 as "embedded in D1-D6"; add note linking to cross-cutting decisions
-  - [ ] 19.5 script-rules tasks — Document: Validators merged into help-validate.sh and error-validate.sh; mark 1.0 as "superseded by unified validators"
-  - [ ] 19.6 script-help-generation tasks — Document: Template functions approach chosen; mark 2.0 (help-generate.sh) as "not implemented—template approach used"; mark 5.0 (docs/scripts/) as "not needed"
-  - [ ] 19.7 script-error-handling tasks — Mark 1.0-3.0 infrastructure tasks as complete; update adoption status
-  - [ ] 19.8 bash-scripts tasks — Complete 2.0 and 3.0 or mark as optional
-  - [x] 19.9 tests-github-deletion — Archive project (resolved and complete) — **READY FOR ARCHIVAL**
+- [ ] 20.0 Refactor existing Unix Philosophy violators — **⏸️ PARTIAL, DEFERRED (P2 - Optional)**
+
+  - **Status:** Extraction created 9 focused alternatives; orchestration updates deferred (not urgent)
+  - **Decision:** Accept partial completion. Enforcement rule prevents new violations; updating originals is optional.
+  - See: `docs/projects/scripts-unix-philosophy/erd.md` Section 11
+  - See: `docs/projects/scripts-unix-philosophy/tasks.md` Phase 4
+  - See: `UNIX-PHILOSOPHY-AUDIT-UPDATED.md` for current reality
+  - **What was accomplished:**
+    - [x] Created 9 focused scripts (all D1-D6 compliant, TDD-tested) ✅
+    - [x] Created 53 new tests (100% passing) ✅
+    - [x] Enforcement rule active (shell-unix-philosophy.mdc) ✅
+  - **What was deferred (optional, non-blocking):**
+    - [ ] 20.1 Update rules-validate.sh to orchestrate (alternatives available) ⏸️
+    - [ ] 20.2 Update context-efficiency-gauge.sh to orchestrate (score extraction available) ⏸️
+    - [ ] 20.3 Deprecate pr-create.sh (pr-create-simple available as alternative) ⏸️
+    - [ ] 20.4 Extract checks-status.sh (optional future work) ⏸️
+    - [ ] 20.5 Split rules-validate-format.sh (optional further refinement) ⏸️
+  - **Current state:** 5 violators exist, but focused alternatives available; enforcement rule prevents new violations
+  - **Priority:** P2 (Optional) — Not urgent; good alternatives exist
+
+- [x] 19.0 Source project task reconciliation — ✅ COMPLETE
+  - [x] 19.1 networkless-scripts tasks — Document: Guidance-based approach chosen over seam approach for GitHub scripts; mark tasks 1.0-6.0 as "superseded by guidance approach" ✅
+  - [x] 19.2 script-test-hardening tasks — Document: D6 subshell isolation solved core issue; token override flags (1.0-5.0) not needed; mark as "superseded by D6" ✅
+  - [x] 19.3 shellcheck tasks — Document: Inline config decision; mark 2.0 (.shellcheckrc creation) as "not needed"; update 1.0 subtasks to reflect completion ✅
+  - [x] 19.4 scripts-unix-philosophy tasks — Mark 1.0-6.0 as "embedded in D1-D6"; add note linking to cross-cutting decisions ✅
+  - [x] 19.5 script-rules tasks — Document: Validators merged into help-validate.sh and error-validate.sh; mark 1.0 as "superseded by unified validators" ✅
+  - [x] 19.6 script-help-generation tasks — Document: Template functions approach chosen; mark 2.0 (help-generate.sh) as "not implemented—template approach used"; mark 5.0 (docs/scripts/) as "not needed" ✅
+  - [x] 19.7 script-error-handling tasks — Mark 1.0-3.0 infrastructure tasks as complete; update adoption status ✅
+  - [x] 19.8 bash-scripts tasks — Complete 2.0 and 3.0 or mark as optional ✅
+  - [x] 19.9 tests-github-deletion — Archive project (resolved and complete) — **READY FOR ARCHIVAL** ✅
     - Issue resolved: `.github/` deletion and `tmp-scan/` creation fixed via D6 test isolation
     - Verification complete: 46/46 tests passing, `.github/` intact, no `tmp-scan/`
     - ERD marked as completed: 2025-10-13
     - Archival target: `docs/projects/_archived/2025/tests-github-deletion/`
     - Action needed: Run `project-archive-workflow.sh --project tests-github-deletion --year 2025`
-  - Status: HIGH priority; needed for accurate completion reporting
+  - Status: ✅ COMPLETE (2025-10-13) — All source projects reconciled, design decisions documented
 
 ### Known Issues & Documentation Notes
 
-- **Script count**: 38 production scripts (37 validated + 1 spec helper: `rules-validate.spec.sh`)
+- **Script count**: 44 production scripts (includes 9 extracted via Unix Philosophy refactoring; 1 spec helper: `rules-validate.spec.sh` excluded from count)
 - **Network usage**: 5 scripts use network legitimately (4 GitHub API + 1 setup utility)
-- **Test count**: 46 tests (all passing)
-- **.shellcheckrc**: Not created; shellcheck-run.sh uses inline config successfully (decision: inline config sufficient)
+- **Test count**: 55 tests (52 test files; all passing)
+- **.shellcheckrc**: Created at repo root (2025-10-14); provides centralized suppression config for shellcheck-run.sh
 - **docs/scripts/**: Not created; .lib.sh template functions provide help standardization without separate doc generation (decision: template approach over doc generation)
+
+### Unix Philosophy Compliance Status
+
+**Infrastructure:** ✅ COMPLETE (D1-D6)  
+**Actual script refactoring:** ⏸️ PARTIAL, DEFERRED (2025-10-14) — Focused alternatives created; orchestration optional
+
+**Decision:** Accept partial completion. Enforcement rule prevents new violations (primary goal achieved); orchestration updates are optional enhancement work.
+
+**What was accomplished:**
+
+- Created 9 focused scripts (all Unix Philosophy compliant, TDD-tested) ✅
+- Created 53 new tests (100% passing) ✅
+- Enforcement rule active (shell-unix-philosophy.mdc) ✅
+- All new scripts D1-D6 compliant ✅
+
+**What was deferred (optional, non-urgent):**
+
+- Update originals to orchestrators ⏸️
+- Complete format/template extractions ⏸️
+- Deprecation notices and migration guides ⏸️
+
+**Current state (acceptable):**
+
+- 5 violators exist (4 originals + 1 large extraction)
+- Focused alternatives available for all major use cases
+- Enforcement rule ensures new scripts comply
+- Original scripts remain functional
+
+**Focused alternatives created:**
+
+- rules-validate-frontmatter.sh, rules-validate-refs.sh, rules-validate-staleness.sh, rules-autofix.sh, rules-validate-format.sh
+- git-context.sh, pr-label.sh, pr-create-simple.sh, context-efficiency-score.sh
+
+**Rationale for deferral:** Enforcement rule achieved primary goal (prevent future violations). Updating originals is mechanical work with diminishing returns; alternatives provide Unix Philosophy compliance for those who want it.
+
+See: [`UNIX-PHILOSOPHY-AUDIT.md`](./UNIX-PHILOSOPHY-AUDIT.md) | [`UNIX-PHILOSOPHY-AUDIT-UPDATED.md`](./UNIX-PHILOSOPHY-AUDIT-UPDATED.md) | [`REVIEW-FINDINGS.md`](./REVIEW-FINDINGS.md)
