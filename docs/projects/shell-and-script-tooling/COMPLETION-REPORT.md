@@ -178,7 +178,7 @@ bash .cursor/scripts/links-check.sh --path docs/projects/README.md
 
 - 44 production scripts (9 new focused alternatives created)
 - 52 test files with 55 tests (all passing)
-- 9 validators (help, error, network, shellcheck, rules-validate-*, git-context, etc.)
+- 9 validators (help, error, network, shellcheck, rules-validate-\*, git-context, etc.)
 - 2 core libraries (`.lib.sh`, `.lib-net.sh`)
 - 1 enforcement rule (shell-unix-philosophy.mdc)
 
