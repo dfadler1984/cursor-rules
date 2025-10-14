@@ -159,7 +159,6 @@ if [ "$violations" -gt 0 ]; then
   printf '  source "$(dirname "$0")/.lib.sh"\n' >&2
   printf '  enable_strict_mode\n' >&2
   printf '\n' >&2
-  printf 'See: docs/projects/_archived/2025/shell-and-script-tooling/erd.md D2\n' >&2
   exit 1
 fi
 
