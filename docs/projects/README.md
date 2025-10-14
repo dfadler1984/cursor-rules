@@ -36,7 +36,7 @@ A landing page for all projects, grouped by status.
   - [readme-structure](./readme-structure/erd.md)
   - [completion-metadata](./completion-metadata/erd.md)
 
-- [shell-and-script-tooling](./shell-and-script-tooling/erd.md)
+- [shell-and-script-tooling](./shell-and-script-tooling/erd.md) — Infrastructure & standards complete (D1-D6, orchestrators, enforcement)
 
   - [bash-scripts](./bash-scripts/erd.md)
   - [scripts-unix-philosophy](./scripts-unix-philosophy/erd.md)
@@ -46,6 +46,8 @@ A landing page for all projects, grouped by status.
   - [script-test-hardening](./script-test-hardening/erd.md)
   - [shellcheck](./shellcheck/erd.md)
   - [networkless-scripts](./networkless-scripts/erd.md)
+
+- [script-refinement](./script-refinement/erd.md) — Optional Unix Philosophy polish (P3 priority, deferred from shell-and-script-tooling)
 
 - [testing-coordination](./testing-coordination/erd.md)
 

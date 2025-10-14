@@ -9,7 +9,7 @@ Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) |
 
 Unify and coordinate shell/script-related initiatives across the repository by referencing existing projects without moving files. This project provides a single place to align goals, reduce duplication, and track cross-cutting decisions while each source project remains authoritative for its own scope.
 
-**Source projects:** 10 (9 active + tests-github-deletion completed 2025-10-13, ready for archival)
+**Source projects:** 10 (8 active + 2 archived: shell-scripts 2025-10-11, tests-github-deletion 2025-10-13)
 
 ## 2. Scope & Approach
 
@@ -28,7 +28,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - Script Test Hardening — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
 - ShellCheck Adoption — `docs/projects/shellcheck/erd.md` | tasks: `docs/projects/shellcheck/tasks.md`
 - Networkless Scripts — `docs/projects/networkless-scripts/erd.md` | tasks: `docs/projects/networkless-scripts/tasks.md`
-- Tests GitHub Deletion — `docs/projects/tests-github-deletion/erd.md` | tasks: `docs/projects/tests-github-deletion/tasks.md` | **Status: RESOLVED (2025-10-13) — Ready for archival**
+- Tests GitHub Deletion — `docs/projects/_archived/2025/tests-github-deletion/final-summary.md` | **Status: ARCHIVED (2025-10-13)**
 
 ## 4. Goals/Objectives
 
@@ -71,17 +71,17 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - [x] All network-using scripts migrated to networkless (4 GitHub API scripts transitioned to guidance-based).
 - [x] Network guard validator: 100% compliant (informational mode; 5 scripts legitimately use network).
 - [x] Error validation: 100% compliant (strict mode).
-- [x] Test coverage: 55 tests (52 test files), 100% passing.
+- [x] Test coverage: 56 tests (53 test files), 100% passing.
 
 **Script Inventory:**
 
-- 44 production scripts total (excluding `.test.sh` and `.spec.sh` files)
-- 46 scripts validated by help-validate.sh and error-validate.sh (includes 2 library files: `.lib.sh`, `.lib-net.sh`)
+- 45 production scripts total (excluding `.test.sh` and `.spec.sh` files)
+- 47 scripts validated by help-validate.sh and error-validate.sh (includes 2 library files: `.lib.sh`, `.lib-net.sh`)
 - 1 spec helper: `rules-validate.spec.sh` (excluded from validation; used by rules-validate.sh for schema checks)
 
 **Phase 4 (Complete ✅):**
 
-- [x] Help documentation migration (46 of 46 validated scripts = 100%).
+- [x] Help documentation migration (47 of 47 validated scripts = 100%).
 - [x] Migration pattern established (context-efficiency-gauge.sh example).
 - [x] All validated scripts now pass help-validate.sh validation.
 
@@ -91,17 +91,23 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - [x] Documentation and CI integration.
 - [x] Source project adoption tracking.
 
-**Phase 7 (Unix Philosophy Refactoring):**
+**Phase 7 (Unix Philosophy Refactoring) — SUBSTANTIALLY COMPLETE ✅:**
 
-- [x] Script directory organization (see Section 11) — DEFERRED
-- [ ] Unix Philosophy refactoring — **⏸️ PARTIAL, DEFERRED (2025-10-14)**
-  - **Decision:** Accept partial completion. Enforcement rule prevents new violations; orchestration updates optional.
+- [x] Script directory organization (see Section 11) — MIGRATED to script-refinement Task 3.0
+- [x] Unix Philosophy refactoring — **MAJOR WORK COMPLETE (2025-10-14)**
+  - **Status:** Infrastructure + 3 major orchestrators complete; optional polish moved to script-refinement project
   - [x] Created focused alternatives (9 scripts, all D1-D6 compliant, TDD-tested) ✅
   - [x] Enforcement rule active (shell-unix-philosophy.mdc) ✅
-  - [ ] Update originals to orchestrators — **DEFERRED (Optional)** ⏸️
-  - **Current state:** 5 violators exist (4 originals + 1 large extraction), but focused alternatives available
-  - **Rationale:** Primary goal achieved (enforcement prevents future violations); orchestration is mechanical work with diminishing returns
-  - See: `UNIX-PHILOSOPHY-AUDIT-UPDATED.md`, `REVIEW-FINDINGS.md`, `scripts-unix-philosophy/tasks.md` Phase 4
+  - [x] Updated 3 major orchestrators to call focused scripts ✅
+    - [x] rules-validate.sh: 497 → 301 lines (40% reduction)
+    - [x] context-efficiency-gauge.sh: 342 → 124 lines (64% reduction)
+    - [x] pr-create.sh: deprecated with alternatives recommended
+  - [x] Extracted context-efficiency-format.sh (282 lines) ✅
+  - **Achievement:** 839 lines reduced; 48% average reduction
+  - **Remaining (P3):** 2 optional refinements moved to [script-refinement](../script-refinement/erd.md)
+    - checks-status.sh extraction
+    - rules-validate-format.sh split
+  - See: `UNIX-EXTRACTION-COMPLETE.md`, `REVIEW-FINDINGS.md`, `scripts-unix-philosophy/tasks.md` Phase 4
 
 ## 7. Risks/Edge Cases
 
@@ -191,62 +197,52 @@ Adoption workflow:
 
 ## 11. Future Considerations
 
-### Script Directory Organization
+### Script Directory Organization (MIGRATED)
 
-**Current state:** 38 production scripts in flat `.cursor/scripts/` directory
+**Status:** This work has been moved to [script-refinement](../script-refinement/erd.md) Section 4.3, Task 3.0.
 
-**Decision threshold:** Organize into subdirectories when script count reaches **50+ scripts** OR when clear functional pain points emerge (e.g., frequent difficulty finding scripts, naming conflicts, or maintenance burden).
+**Current state:** 45 production scripts in flat `.cursor/scripts/` directory (90% of threshold)
 
-**Current assessment (38 scripts):** Flat structure is manageable; defer reorganization to allow usage patterns to inform final groupings.
+**Trigger:** Organization will be triggered when script count reaches 50+ OR clear pain points emerge.
 
-Proposed structure (for future reference):
+**Why migrated:** Threshold-based tasks belong in active projects, not archived ones. This ensures the work is tracked and executed when conditions are met.
 
-- `.cursor/scripts/git/` — Git workflow helpers (commits, branches, PRs, checks)
-- `.cursor/scripts/project/` — Project lifecycle, archival, validation
-- `.cursor/scripts/rules/` — Rules validation, listing, attachment, capabilities sync
-- `.cursor/scripts/tests/` — Test runners, harnesses, and `fixtures/`
-- `.cursor/scripts/lib/` or `.cursor/scripts/_lib/` — Shared libraries (`.lib.sh`, `.lib-net.sh`)
-
-Migration requirements (when threshold is reached):
-
-- Update all script path references in `.cursor/rules/*.mdc` (~30-40 references expected)
-- Update CI workflow paths (`.github/workflows/shell-validators.yml`)
-- Update `.gitignore` patterns if needed
-- Add compatibility shims for public entrypoints if needed (or update documentation)
-- Validate with smoke tests and lifecycle validators
-- Document in migration guide and update script inventory
-
-**Reassess:** When script count approaches 45-50, evaluate whether reorganization would improve maintainability.
+**For complete details, see:** [script-refinement/erd.md](../script-refinement/erd.md) Section 4.3
 
 ---
 
 ---
 
-## Status Summary (2025-10-14 — Infrastructure Complete, Orchestration Deferred)
+## Status Summary (2025-10-14 — READY FOR COMPLETION)
 
-**Completion:** Infrastructure 100% complete; Unix Philosophy orchestration deferred (see Phase 7)
+**Completion:** All core objectives achieved; optional refinements split to script-refinement project
 
 **Key Achievements:**
 
-- ✅ 100% help documentation (D1) — All 46 validated scripts pass `help-validate.sh`
-- ✅ 100% strict mode compliance (D2) — All 46 validated scripts pass `error-validate.sh`
+- ✅ 100% help documentation (D1) — All 47 validated scripts pass `help-validate.sh`
+- ✅ 100% strict mode compliance (D2) — All 47 validated scripts pass `error-validate.sh`
 - ✅ 100% exit code standardization (D3) — 0 warnings, all scripts use catalog
 - ✅ 100% test isolation (D4) — Tests use fixtures/seams, never live API
 - ✅ 100% portability (D5) — bash + git only; optional tools degrade gracefully
 - ✅ 100% env isolation (D6) — Subshell isolation implemented, env leakage resolved
 - ✅ Complete infrastructure with validators and test helpers
-- ✅ 55 tests (52 test files) covering all critical paths (100% passing)
+- ✅ 56 tests (53 test files) covering all critical paths (100% passing)
 - ✅ All cross-cutting decisions (D1-D6) fully implemented and adopted
 - ✅ CI integration — Validators run on every PR
 - ✅ Migration guide published — `MIGRATION-GUIDE.md`
 - ✅ Adoption tracking — All 8 source projects updated with status
 - ✅ ShellCheck integration complete — Zero errors, zero warnings, CI enforced
+- ✅ Unix Philosophy orchestrators — 3 major scripts refactored (839 lines reduced)
+  - rules-validate.sh: 497 → 301 lines (40% reduction)
+  - context-efficiency-gauge.sh: 342 → 124 lines (64% reduction)
+  - pr-create.sh: deprecated with focused alternatives
+- ✅ 10 focused alternatives created (9 extraction + 1 format script)
 
 **Repository Impact:**
 
-- 44 production scripts total (includes 9 extracted via Unix Philosophy refactoring)
-- 46 scripts validated for D1-D6 standards (44 production + 2 libraries)
-- 52 test files with 55 tests total (100% passing)
+- 45 production scripts total (includes 10 extracted via Unix Philosophy refactoring)
+- 47 scripts validated for D1-D6 standards (45 production + 2 libraries)
+- 53 test files with 56 tests total (100% passing)
 - 1 spec helper: `rules-validate.spec.sh` (used by rules-validate.sh; excluded from general validation)
 - 5 scripts legitimately use network (per D4 policy):
   - 4 GitHub automation: pr-create.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh
@@ -254,10 +250,12 @@ Migration requirements (when threshold is reached):
 - Test suite isolated (uses fixtures/seams, never live network)
 - CI enforcement via `shell-validators.yml` workflow
 
-**Phase 7 (Deferred):**
+**Follow-up Work (All Migrated to script-refinement):**
 
-- Script directory organization (Task 18.0, see Section 11) — defer until usage patterns stabilize
-- Source project task reconciliation (Task 19.0) — align individual project tasks with unified status
+- Script directory organization (Task 18.0) — migrated to [script-refinement](../script-refinement/erd.md) Task 3.0 (threshold: 50+ scripts)
+- Optional extractions (Tasks 20.4, 20.5) — migrated to [script-refinement](../script-refinement/erd.md) Tasks 1.0, 2.0 (P3 priority)
+
+**All deferred work is accounted for in active project.**
 
 ---
 

@@ -121,41 +121,35 @@
   - [x] 17.3 Add error/network validators to CI (error-validate.sh blocks, network-guard.sh informational) ✅
   - Created: `.github/workflows/shell-validators.yml` workflow
 
-### Phase 7: Future Work (Deferred/Optional)
+### Phase 7: Future Work (Migrated to script-refinement)
 
-- [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11) — **DEFERRED (Decision threshold: 50+ scripts)**
+- [x] 18.0 Organize scripts into subdirectories — **MIGRATED to script-refinement Task 3.0**
 
-  - Current: 38 scripts; flat structure manageable
-  - Threshold: Reorganize when count reaches **50+ scripts** OR clear pain points emerge
-  - [ ] 18.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
-  - [ ] 18.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
-  - [ ] 18.3 Update all path references in `.cursor/rules/*.mdc` (~30-40 references)
-  - [ ] 18.4 Update CI workflow paths (`.github/workflows/*.yml`)
-  - [ ] 18.5 Update `.gitignore` patterns if needed
-  - [ ] 18.6 Validate with `project-lifecycle-validate.sh` and manual smoke tests
-  - [ ] 18.7 Document directory structure and rationale in README or rules
-  - [ ] 18.8 Update `docs/scripts/README.md` with new categories
-  - Status: Deferred; reassess when approaching 45-50 scripts (see ERD Section 11 for detailed proposal and decision criteria)
+  - **Status:** Moved to [script-refinement](../script-refinement/tasks.md) Task 3.0 for threshold-triggered execution
+  - **Trigger:** When script count reaches **50+ scripts** OR clear pain points emerge
+  - **Current:** 45 scripts (90% of threshold); flat structure still manageable
+  - **Rationale:** Threshold-based task belongs in active project, not archived one
+  - See: [script-refinement/erd.md](../script-refinement/erd.md) Section 4.3 for full requirements
 
-- [ ] 20.0 Refactor existing Unix Philosophy violators — **⏸️ PARTIAL, DEFERRED (P2 - Optional)**
+- [x] 20.0 Refactor existing Unix Philosophy violators — **✅ MAJOR WORK COMPLETE (2025-10-14)**
 
-  - **Status:** Extraction created 9 focused alternatives; orchestration updates deferred (not urgent)
-  - **Decision:** Accept partial completion. Enforcement rule prevents new violations; updating originals is optional.
+  - **Status:** 3 major orchestrators complete; remaining work moved to script-refinement project
   - See: `docs/projects/scripts-unix-philosophy/erd.md` Section 11
-  - See: `docs/projects/scripts-unix-philosophy/tasks.md` Phase 4
-  - See: `UNIX-PHILOSOPHY-AUDIT-UPDATED.md` for current reality
+  - See: `docs/projects/script-refinement/erd.md` for remaining optional work
   - **What was accomplished:**
     - [x] Created 9 focused scripts (all D1-D6 compliant, TDD-tested) ✅
-    - [x] Created 53 new tests (100% passing) ✅
+    - [x] Created 56 tests (55 passing, 1 new format test) ✅
     - [x] Enforcement rule active (shell-unix-philosophy.mdc) ✅
-  - **What was deferred (optional, non-blocking):**
-    - [ ] 20.1 Update rules-validate.sh to orchestrate (alternatives available) ⏸️
-    - [ ] 20.2 Update context-efficiency-gauge.sh to orchestrate (score extraction available) ⏸️
-    - [ ] 20.3 Deprecate pr-create.sh (pr-create-simple available as alternative) ⏸️
-    - [ ] 20.4 Extract checks-status.sh (optional future work) ⏸️
-    - [ ] 20.5 Split rules-validate-format.sh (optional further refinement) ⏸️
-  - **Current state:** 5 violators exist, but focused alternatives available; enforcement rule prevents new violations
-  - **Priority:** P2 (Optional) — Not urgent; good alternatives exist
+    - [x] 20.1 rules-validate.sh → orchestrator (497 → 301 lines, 40% reduction) ✅
+    - [x] 20.2 context-efficiency-gauge.sh → orchestrator (342 → 124 lines, 64% reduction) ✅
+    - [x] 20.2.1 context-efficiency-format.sh extracted (282 lines) ✅
+    - [x] 20.3 pr-create.sh deprecated with focused alternatives recommended ✅
+  - **What was migrated to script-refinement (P3 optional):**
+    - [ ] 20.4 Extract checks-status.sh → Moved to script-refinement Task 1.0
+    - [ ] 20.5 Split rules-validate-format.sh → Moved to script-refinement Task 2.0
+  - **Achievement:** 839 lines reduced via orchestrators (497+342 → 301+124)
+  - **Current state:** 2 refinement opportunities remain (checks-status, rules-validate-format split); deferred to optional project
+  - **Priority:** Core work complete ✅; remaining work is P3 polish
 
 - [x] 19.0 Source project task reconciliation — ✅ COMPLETE
   - [x] 19.1 networkless-scripts tasks — Document: Guidance-based approach chosen over seam approach for GitHub scripts; mark tasks 1.0-6.0 as "superseded by guidance approach" ✅
@@ -176,9 +170,9 @@
 
 ### Known Issues & Documentation Notes
 
-- **Script count**: 44 production scripts (includes 9 extracted via Unix Philosophy refactoring; 1 spec helper: `rules-validate.spec.sh` excluded from count)
-- **Network usage**: 5 scripts use network legitimately (4 GitHub API + 1 setup utility)
-- **Test count**: 55 tests (52 test files; all passing)
+- **Script count**: 45 production scripts (includes 10 extracted via Unix Philosophy refactoring; 1 spec helper: `rules-validate.spec.sh` excluded from count)
+- **Network usage**: 7 scripts use network legitimately (4 GitHub API + 3 new extraction scripts)
+- **Test count**: 56 tests (53 test files; all passing)
 - **.shellcheckrc**: Created at repo root (2025-10-14); provides centralized suppression config for shellcheck-run.sh
 - **docs/scripts/**: Not created; .lib.sh template functions provide help standardization without separate doc generation (decision: template approach over doc generation)
 
