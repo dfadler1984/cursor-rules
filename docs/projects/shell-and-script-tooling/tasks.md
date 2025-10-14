@@ -125,7 +125,7 @@
 
 - [ ] 18.0 Organize scripts into subdirectories (see ERD Section 11) — **DEFERRED (Decision threshold: 50+ scripts)**
 
-  - Current: 44 scripts; flat structure manageable
+  - Current: 45 scripts; flat structure manageable
   - Threshold: Reorganize when count reaches **50+ scripts** OR clear pain points emerge
   - [ ] 18.1 Define final directory structure (git/, project/, rules/, tests/, lib/)
   - [ ] 18.2 Create subdirectories and move scripts (keep top-level entrypoints or add shims)
@@ -176,9 +176,9 @@
 
 ### Known Issues & Documentation Notes
 
-- **Script count**: 44 production scripts (includes 9 extracted via Unix Philosophy refactoring; 1 spec helper: `rules-validate.spec.sh` excluded from count)
-- **Network usage**: 5 scripts use network legitimately (4 GitHub API + 1 setup utility)
-- **Test count**: 55 tests (52 test files; all passing)
+- **Script count**: 45 production scripts (includes 10 extracted via Unix Philosophy refactoring; 1 spec helper: `rules-validate.spec.sh` excluded from count)
+- **Network usage**: 7 scripts use network legitimately (4 GitHub API + 3 new extraction scripts)
+- **Test count**: 56 tests (53 test files; all passing)
 - **.shellcheckrc**: Created at repo root (2025-10-14); provides centralized suppression config for shellcheck-run.sh
 - **docs/scripts/**: Not created; .lib.sh template functions provide help standardization without separate doc generation (decision: template approach over doc generation)
 

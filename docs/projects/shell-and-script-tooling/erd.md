@@ -71,17 +71,17 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 - [x] All network-using scripts migrated to networkless (4 GitHub API scripts transitioned to guidance-based).
 - [x] Network guard validator: 100% compliant (informational mode; 5 scripts legitimately use network).
 - [x] Error validation: 100% compliant (strict mode).
-- [x] Test coverage: 55 tests (52 test files), 100% passing.
+- [x] Test coverage: 56 tests (53 test files), 100% passing.
 
 **Script Inventory:**
 
-- 44 production scripts total (excluding `.test.sh` and `.spec.sh` files)
-- 46 scripts validated by help-validate.sh and error-validate.sh (includes 2 library files: `.lib.sh`, `.lib-net.sh`)
+- 45 production scripts total (excluding `.test.sh` and `.spec.sh` files)
+- 47 scripts validated by help-validate.sh and error-validate.sh (includes 2 library files: `.lib.sh`, `.lib-net.sh`)
 - 1 spec helper: `rules-validate.spec.sh` (excluded from validation; used by rules-validate.sh for schema checks)
 
 **Phase 4 (Complete ✅):**
 
-- [x] Help documentation migration (46 of 46 validated scripts = 100%).
+- [x] Help documentation migration (47 of 47 validated scripts = 100%).
 - [x] Migration pattern established (context-efficiency-gauge.sh example).
 - [x] All validated scripts now pass help-validate.sh validation.
 
@@ -199,11 +199,11 @@ Adoption workflow:
 
 ### Script Directory Organization
 
-**Current state:** 44 production scripts in flat `.cursor/scripts/` directory
+**Current state:** 45 production scripts in flat `.cursor/scripts/` directory
 
 **Decision threshold:** Organize into subdirectories when script count reaches **50+ scripts** OR when clear functional pain points emerge (e.g., frequent difficulty finding scripts, naming conflicts, or maintenance burden).
 
-**Current assessment (44 scripts):** Flat structure is manageable; defer reorganization to allow usage patterns to inform final groupings.
+**Current assessment (45 scripts):** Flat structure is manageable; defer reorganization to allow usage patterns to inform final groupings.
 
 Proposed structure (for future reference):
 
@@ -234,14 +234,14 @@ Migration requirements (when threshold is reached):
 
 **Key Achievements:**
 
-- ✅ 100% help documentation (D1) — All 46 validated scripts pass `help-validate.sh`
-- ✅ 100% strict mode compliance (D2) — All 46 validated scripts pass `error-validate.sh`
+- ✅ 100% help documentation (D1) — All 47 validated scripts pass `help-validate.sh`
+- ✅ 100% strict mode compliance (D2) — All 47 validated scripts pass `error-validate.sh`
 - ✅ 100% exit code standardization (D3) — 0 warnings, all scripts use catalog
 - ✅ 100% test isolation (D4) — Tests use fixtures/seams, never live API
 - ✅ 100% portability (D5) — bash + git only; optional tools degrade gracefully
 - ✅ 100% env isolation (D6) — Subshell isolation implemented, env leakage resolved
 - ✅ Complete infrastructure with validators and test helpers
-- ✅ 55 tests (52 test files) covering all critical paths (100% passing)
+- ✅ 56 tests (53 test files) covering all critical paths (100% passing)
 - ✅ All cross-cutting decisions (D1-D6) fully implemented and adopted
 - ✅ CI integration — Validators run on every PR
 - ✅ Migration guide published — `MIGRATION-GUIDE.md`
@@ -255,9 +255,9 @@ Migration requirements (when threshold is reached):
 
 **Repository Impact:**
 
-- 44 production scripts total (includes 9 extracted via Unix Philosophy refactoring)
-- 46 scripts validated for D1-D6 standards (44 production + 2 libraries)
-- 52 test files with 55 tests total (100% passing)
+- 45 production scripts total (includes 10 extracted via Unix Philosophy refactoring)
+- 47 scripts validated for D1-D6 standards (45 production + 2 libraries)
+- 53 test files with 56 tests total (100% passing)
 - 1 spec helper: `rules-validate.spec.sh` (used by rules-validate.sh; excluded from general validation)
 - 5 scripts legitimately use network (per D4 policy):
   - 4 GitHub automation: pr-create.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh

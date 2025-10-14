@@ -85,11 +85,12 @@ See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/shell-and-scrip
 - **`tooling-inventory.sh`** — Inventory of all tooling and scripts
 - **`links-check.sh`** — Check for broken links in documentation
 
-### Templates & Utilities (4 scripts)
+### Templates & Utilities (5 scripts)
 
 - **`template-fill.sh`** — Fill templates with variables
-- **`context-efficiency-gauge.sh`** — Measure chat context efficiency (comprehensive: compute + format)
+- **`context-efficiency-gauge.sh`** — Measure chat context efficiency (orchestrator: score + format)
 - **`context-efficiency-score.sh`** — Compute context efficiency score only (1-5 scale)
+- **`context-efficiency-format.sh`** — Format efficiency scores (4 modes: line, dashboard, decision-flow, json)
 - **`setup-remote.sh`** — Setup script for remote machines (dependency checking)
 
 ### Libraries (2 files)
@@ -99,11 +100,11 @@ See: [`shell-and-script-tooling/MIGRATION-GUIDE.md`](../projects/shell-and-scrip
 
 ## Script Count
 
-- **44 production scripts** (plus 1 spec helper: `rules-validate.spec.sh`)
-- **46 scripts validated** by help-validate.sh and error-validate.sh (includes 2 libraries: `.lib.sh`, `.lib-net.sh`)
+- **45 production scripts** (plus 1 spec helper: `rules-validate.spec.sh`)
+- **47 scripts validated** by help-validate.sh and error-validate.sh (includes 2 libraries: `.lib.sh`, `.lib-net.sh`)
 - **7 scripts use network** (legitimately, per D4 policy):
   - pr-create.sh, pr-create-simple.sh, pr-label.sh, pr-update.sh, checks-status.sh, changesets-automerge-dispatch.sh, setup-remote.sh
-- **52 test files with 55 tests** (all passing, 100% use fixtures/seams)
+- **53 test files with 56 tests** (all passing, 100% use fixtures/seams)
 
 ## Usage Patterns
 
