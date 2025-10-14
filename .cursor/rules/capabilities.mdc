@@ -1,7 +1,7 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: true
-lastReviewed: 2025-10-11
+lastReviewed: 2025-10-13
 healthScore:
   content: green # Accurate capability descriptions
   usability: green # Clear list format, easy to scan
@@ -41,6 +41,7 @@ healthScore:
   - `assistant-behavior.mdc`
   - `direct-answers.mdc`
   - `code-style.mdc`
+  - `shell-unix-philosophy.mdc`
   - `refactoring.mdc`
   - `front-matter.mdc`
   - `rule-creation.mdc`
@@ -101,6 +102,18 @@ healthScore:
 - Enforce TDD cycle: add failing spec → implement minimal change → run focused tests (`yarn test path -t "name"`) → refactor. See `tdd-first.mdc`.
 - Migrate tests to colocation: `[.cursor/scripts/test-colocation-migrate.sh](.cursor/scripts/test-colocation-migrate.sh)`.
 - Validate test colocation: `[.cursor/scripts/test-colocation-validate.sh](.cursor/scripts/test-colocation-validate.sh)`.
+
+### Shell Scripts & Unix Philosophy
+
+- Enforce Unix Philosophy principles for shell scripts (see `shell-unix-philosophy.mdc`):
+  - Single responsibility (do one thing well)
+  - Size targets: < 150 lines (warn at 200, fail at 300)
+  - Flag limits: ≤ 6-8 flags (warn at 10+)
+  - Composition: results → stdout, logs → stderr
+  - Policy/mechanism separation
+- Validate shell scripts: `[.cursor/scripts/help-validate.sh](.cursor/scripts/help-validate.sh)`, `[.cursor/scripts/error-validate.sh](.cursor/scripts/error-validate.sh)`, `[.cursor/scripts/network-guard.sh](.cursor/scripts/network-guard.sh)`
+- Run ShellCheck: `[.cursor/scripts/shellcheck-run.sh](.cursor/scripts/shellcheck-run.sh)`
+- Propose splits when scripts exceed thresholds (e.g., > 200 lines, 10+ flags, multiple responsibilities)
 
 ### Imports & formatting
 

@@ -3,6 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 SUT="$SCRIPT_DIR/shellcheck-run.sh"
 
 echo "[TEST] shellcheck-run.sh"
@@ -99,7 +100,7 @@ test_missing_shellcheck_exits_zero() {
 test_no_scripts_found() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   local safe_path="/usr/bin:/bin"
   local output

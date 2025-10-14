@@ -5,7 +5,6 @@ IFS=$'\n\t'
 # List rule files and selected front matter fields as table (default) or JSON.
 # Usage: .cursor/scripts/rules-list.sh [--dir PATH] [--format table|json] [-h|--help] [--version]
 
-# shellcheck disable=SC1090
 source "$(dirname "$0")/.lib.sh"
 
 VERSION="0.1.0"
@@ -16,7 +15,7 @@ FORMAT="table"
 
 usage() {
   cat <<USAGE
-Usage: ${script_name} [--dir PATH] [--format table|json] [--version] [-h|--help]
+Usage: rules-list.sh [--dir PATH] [--format table|json] [--version] [-h|--help]
 
 Options:
   --dir PATH         Directory containing rule files (default: .cursor/rules)

@@ -3,6 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.lib.sh"
 SUT="$SCRIPT_DIR/error-validate.sh"
 
 echo "[TEST] error-validate.sh"
@@ -32,7 +33,7 @@ test_help_flag() {
 test_detects_missing_strict_mode() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script without strict mode
   cat > "$tmpdir/bad-script.sh" <<'SCRIPT'
@@ -65,7 +66,7 @@ SCRIPT
 test_allows_strict_mode() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script with strict mode
   cat > "$tmpdir/good-script.sh" <<'SCRIPT'
@@ -94,7 +95,7 @@ SCRIPT
 test_allows_lib_sh() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script that sources .lib.sh
   cat > "$tmpdir/good-script.sh" <<'SCRIPT'
@@ -123,7 +124,7 @@ SCRIPT
 test_detects_nonstandard_exit() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create script with non-standard exit code
   cat > "$tmpdir/bad-script.sh" <<'SCRIPT'
@@ -160,7 +161,7 @@ SCRIPT
 test_excludes_test_files() {
   local tmpdir
   tmpdir="$(mktemp -d)"
-  trap "rm -rf '$tmpdir'" EXIT
+  trap_cleanup "$tmpdir"
   
   # Create test file without strict mode (should be ignored)
   cat > "$tmpdir/script.test.sh" <<'SCRIPT'

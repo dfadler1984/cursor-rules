@@ -1,0 +1,33 @@
+# ShellCheck configuration for cursor-rules repository
+
+# https://www.shellcheck.net/wiki/Directive
+
+# SC1090: Dynamic sourcing via .lib.sh pattern is intentional and verified
+
+# SC2155: Declare/assign separation is a style preference; we accept combined declarations
+
+# SC2034: Unused variables in test scaffolding and library declarations are intentional
+
+# SC1007: Empty assignments for env isolation in tests are intentional
+
+# SC2076: Regex quoting in validation logic is intentional (literal match desired)
+
+disable=SC1090,SC2155,SC2034,SC1007,SC2076
+
+# Target Bash 4+ (macOS default, Linux standard)
+
+shell=bash
+
+# Minimum severity to report (error|warning|info|style)
+
+# Keep at 'warning' to catch potential issues while allowing intentional patterns
+
+severity=warning
+
+# Note: SC2064 (trap expansion timing) is NOT globally disabled.
+
+# Our cleanup traps intentionally use early expansion (trap "rm -rf '$tmpdir'"),
+
+# which is correct for our use case (temp paths set once, never change).
+
+# Individual # shellcheck disable=SC2064 directives document this choice.

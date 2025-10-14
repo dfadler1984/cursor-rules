@@ -5,7 +5,6 @@ IFS=$'\n\t'
 # ShellCheck runner with graceful degradation
 # Lints shell scripts with consistent defaults
 
-# shellcheck disable=SC1090
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/.lib.sh"
 

@@ -14,11 +14,17 @@ readonly _LIB_SH_LOADED=1
 script_name="${0##*/}"
 
 # Exit code catalog (see docs/projects/shell-and-script-tooling/erd.md D3)
+# shellcheck disable=SC2034
 readonly EXIT_USAGE=2
+# shellcheck disable=SC2034
 readonly EXIT_CONFIG=3
+# shellcheck disable=SC2034
 readonly EXIT_DEPENDENCY=4
+# shellcheck disable=SC2034
 readonly EXIT_NETWORK=5
+# shellcheck disable=SC2034
 readonly EXIT_TIMEOUT=6
+# shellcheck disable=SC2034
 readonly EXIT_INTERNAL=20
 
 # Enable strict mode with error traps for better debugging
@@ -106,12 +112,24 @@ with_tempdir() {
   local tmpdir
   tmpdir="$(mktemp -d 2>/dev/null || mktemp -d -t "${script_name%.sh}")"
   
-  # Set up cleanup trap
-  # shellcheck disable=SC2064 -- we want tmpdir expanded now
-  trap "rm -rf '$tmpdir'" EXIT ERR INT TERM
+  trap_cleanup "$tmpdir" "EXIT ERR INT TERM"
   
   # Call the function with all args plus tmpdir as last arg
   "$@" "$tmpdir"
+}
+
+# Set up cleanup trap for a path (intentionally uses early expansion)
+# Usage: trap_cleanup "/path/to/cleanup" [signals]
+# Default signals: EXIT only (safe for tests that may exit non-zero)
+# Optional signals: "EXIT ERR INT TERM" for more robust cleanup
+# Note: The path is expanded at trap definition time, which is correct for
+# temp directories that are created once and don't change. This pattern
+# triggers SC2064, which we intentionally suppress here.
+trap_cleanup() {
+  local path="$1"
+  local signals="${2:-EXIT}"
+  # shellcheck disable=SC2064
+  trap "rm -rf '$path'" $signals
 }
 
 # Print standardized help header
