@@ -16,6 +16,7 @@
 This work was deferred from shell-and-script-tooling (Task 20.4, 20.5) as optional polish. Infrastructure is complete; these are refinement opportunities with diminishing returns.
 
 **What's already done in parent:**
+
 - ✅ D1-D6 infrastructure complete
 - ✅ 3 major orchestrators complete (839 lines reduced)
 - ✅ 9 focused alternatives created
@@ -94,4 +95,3 @@ This work was deferred from shell-and-script-tooling (Task 20.4, 20.5) as option
 **Can be deferred indefinitely** - parent project complete, enforcement rule prevents new violations, focused alternatives already available for most use cases.
 
 **Priority:** P3 - Optional polish work
-

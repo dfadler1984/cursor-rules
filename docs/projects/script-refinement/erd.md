@@ -29,10 +29,12 @@ Optional Unix Philosophy refinements for remaining script opportunities deferred
 ## 3. Scope
 
 **In scope:**
+
 - Extract checks-status.sh into 3 focused scripts (fetch, format, wait)
 - Split rules-validate-format.sh into 2 focused scripts (CSV validator, structure validator)
 
 **Out of scope:**
+
 - New infrastructure or standards (D1-D6 complete)
 - Scripts already refactored (rules-validate, context-efficiency-gauge)
 - New enforcement rules (shell-unix-philosophy.mdc active)
@@ -44,11 +46,13 @@ Optional Unix Philosophy refinements for remaining script opportunities deferred
 **Current:** 257 lines, 3 responsibilities (fetch, format, wait)
 
 **Target:** 3 focused scripts
+
 - `checks-fetch.sh` (~100 lines) - Fetch GitHub check runs, output JSON
 - `checks-format.sh` (~80 lines) - Format check run JSON for display
 - `checks-wait.sh` (~80 lines) - Polling wrapper with timeout
 
 **Success criteria:**
+
 - Each script < 150 lines
 - Single responsibility per script
 - Composable via pipes
@@ -59,10 +63,12 @@ Optional Unix Philosophy refinements for remaining script opportunities deferred
 **Current:** 226 lines, 4 validations (CSV, booleans, deprecated refs, structure)
 
 **Target:** 2 focused scripts
+
 - CSV & boolean validator (~100 lines) - CSV spacing, boolean casing
 - Structure validator (~120 lines) - Embedded FM, duplicate headers, deprecated refs
 
 **Success criteria:**
+
 - Each script < 150 lines
 - Clear separation of concerns
 - Update rules-validate.sh orchestrator to call new scripts
@@ -93,6 +99,7 @@ Optional Unix Philosophy refinements for remaining script opportunities deferred
 **Estimated effort:** 5-6 hours total
 
 **Success metrics:**
+
 - 2 additional Unix Philosophy violations eliminated
 - ~400 additional lines reduced
 - All scripts < 200 lines (target achieved)
@@ -102,6 +109,7 @@ Optional Unix Philosophy refinements for remaining script opportunities deferred
 This is **optional enhancement work** deferred from shell-and-script-tooling. Can be paused or abandoned without impact to core infrastructure.
 
 **Parent achievements:**
+
 - Infrastructure 100% complete (D1-D6)
 - 3 major orchestrators done (839 lines reduced)
 - Enforcement rule active
@@ -112,4 +120,3 @@ This is **optional enhancement work** deferred from shell-and-script-tooling. Ca
 Owner: rules-maintainers  
 Status: Active (P3 priority)  
 Last updated: 2025-10-14
-
