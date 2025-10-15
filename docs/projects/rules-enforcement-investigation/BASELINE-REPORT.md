@@ -16,6 +16,39 @@
 
 ---
 
+## How to Reproduce
+
+To generate this report yourself or measure current compliance:
+
+```bash
+# Run the comprehensive dashboard
+bash .cursor/scripts/compliance-dashboard.sh --limit 100
+
+# Or run individual checkers
+bash .cursor/scripts/check-script-usage.sh --limit 100
+bash .cursor/scripts/check-tdd-compliance.sh --limit 100
+bash .cursor/scripts/check-branch-names.sh
+```
+
+### Tools Used
+
+**Script Locations** (all TDD-tested with `.test.sh` companions):
+
+- [`check-script-usage.sh`](../../.cursor/scripts/check-script-usage.sh) — Analyzes commit messages for Conventional Commits format
+- [`check-tdd-compliance.sh`](../../.cursor/scripts/check-tdd-compliance.sh) — Checks if implementation changes include spec changes
+- [`check-branch-names.sh`](../../.cursor/scripts/check-branch-names.sh) — Validates branch naming convention
+- [`compliance-dashboard.sh`](../../.cursor/scripts/compliance-dashboard.sh) — Aggregates all metrics with formatted output
+
+**Test Coverage**: Each script has a corresponding `.test.sh` file (all passing ✅)
+
+**Data Sources**:
+
+- Git history: `git log` for commits
+- Git branches: `git branch -a` for branch names
+- File patterns: matches `*.ts`, `*.js`, `*.sh` implementation files to `*.spec.*` or `*.test.*` test files
+
+---
+
 ## Detailed Metrics
 
 ### 📊 Script Usage (Commit Messages)

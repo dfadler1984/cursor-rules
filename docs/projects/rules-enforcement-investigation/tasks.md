@@ -142,11 +142,61 @@
 
 - [ ] 12.0 Monitor git-usage improvement
 
-  - [ ] 12.1 Measure script usage after 20-30 commits
+  - [ ] 12.1 Measure script usage after 20-30 commits (target: approach 100% from 71% baseline)
   - [ ] 12.2 Validate fix effectiveness
+  - [ ] 12.3 Run: `bash .cursor/scripts/compliance-dashboard.sh --limit 25` after 25 new commits
+  - [ ] 12.4 Expected result: Script usage rate >90%, ideally approaching 100%
+  - [ ] 12.5 Timeline: Check at 25 commits, then quarterly
 
 - [ ] 13.0 Audit other conditional rules
   - [ ] 13.1 List all alwaysApply: false rules
   - [ ] 13.2 Categorize by risk
   - [ ] 13.3 Change high-risk to always-apply
   - [ ] 13.4 Document changes
+
+---
+
+## Carryovers — Rule Improvements from Investigation Meta-Findings
+
+**Source**: [`findings.md`](findings.md) lines 96-155
+
+These rule gaps were discovered during the investigation and should be addressed in follow-up work:
+
+- [ ] 14.0 Fix project-lifecycle.mdc completion state ambiguity
+
+  - [ ] 14.1 Add "Complete (Active)" state definition (complete but not archived, with follow-ups)
+  - [ ] 14.2 Clarify when to archive vs keep active
+  - [ ] 14.3 Update completion checklist in rule
+  - [ ] 14.4 Evidence: This project is complete but has open follow-ups
+
+- [ ] 15.0 Update task document structure guidance
+
+  - [ ] 15.1 Update project-lifecycle.mdc: tasks.md = phase sections with checklists only
+  - [ ] 15.2 Update generate-tasks-from-erd.mdc: clarify no findings/questions in tasks.md
+  - [ ] 15.3 Evidence: tasks.md accumulated 152 lines of non-task content
+
+- [ ] 16.0 Clarify ERD vs tasks separation for acceptance criteria
+
+  - [ ] 16.1 Update project-lifecycle.mdc: ERD describes criteria as narrative, tasks.md contains checklists
+  - [ ] 16.2 Update create-erd.mdc: acceptance criteria are requirements, not execution checklists
+  - [ ] 16.3 Update generate-tasks-from-erd.mdc: convert ERD acceptance criteria to task checklists
+  - [ ] 16.4 Evidence: ERD section 5 had checklists (should be in tasks.md)
+
+- [ ] 17.0 Define ERD scope clearly
+
+  - [ ] 17.1 Update create-erd.mdc: ERD = requirements/approach only
+  - [ ] 17.2 Add guidance: findings/retrospective go in separate findings.md
+  - [ ] 17.3 Add guidance: detailed timeline belongs in tasks.md, not ERD section 10
+  - [ ] 17.4 Evidence: ERD section 11 (73 lines) contained findings, not requirements
+
+- [ ] 18.0 Add guidance on summary document proliferation
+
+  - [ ] 18.1 Update project-lifecycle.mdc: README.md = single entry point
+  - [ ] 18.2 Add guidance: avoid multiple summary documents unless distinct audiences require it
+  - [ ] 18.3 Add guidance: specialized summaries need clear justification
+  - [ ] 18.4 Evidence: Created 3 summary docs with 70-80% overlap
+
+- [ ] 19.0 Strengthen self-improvement pattern detection
+  - [ ] 19.1 Update assistant-behavior.mdc: during rule investigations, treat observed issues as first-class data
+  - [ ] 19.2 Add guidance: flag rule gaps proactively during active investigations
+  - [ ] 19.3 Evidence: Project-lifecycle gap noticed but not added to scope until user prompted

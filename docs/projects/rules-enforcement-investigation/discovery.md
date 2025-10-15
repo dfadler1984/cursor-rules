@@ -5,7 +5,25 @@
 
 ---
 
-## Executive Summary
+## Quick Summary (2 minutes)
+
+**Problem**: Assistant violated script-first rules despite proper configuration
+
+**Investigation Approach**: Analyzed 15+ rules, designed test plans, then executed meta-test
+
+**Breakthrough**: Meta-test using self-improve rule (5 minutes) proved rules CAN work when `alwaysApply: true`
+
+**Root Cause**: `assistant-git-usage.mdc` had `alwaysApply: false` → conditional attachment missed violations
+
+**Fix**: Changed to `alwaysApply: true` → violations expected to stop
+
+**Time Saved**: ~4 weeks (planned) → <1 day (actual)
+
+**Key Insight**: Compare working rule (self-improve) to broken rule (git-usage) → isolated root cause immediately
+
+---
+
+## Executive Summary (5 minutes)
 
 After analyzing 15+ core rules, clear patterns emerge:
 
