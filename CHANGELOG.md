@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.2
+
+### Patch Changes
+
+- [#122](https://github.com/dfadler1984/cursor-rules/pull/122) [`0415dbb`](https://github.com/dfadler1984/cursor-rules/commit/0415dbb97a9b1514f6918846b2704d977a9e950b) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Consolidate rules-enforcement-investigation docs and document 6 rule gaps. Fix assistant-git-usage.mdc conditional attachment issue and add compliance measurement framework.
+
 ## 0.9.1
 
 ### Patch Changes
