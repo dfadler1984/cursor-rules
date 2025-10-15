@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.9.3
+
+### Patch Changes
+
+- [#125](https://github.com/dfadler1984/cursor-rules/pull/125) [`79284ee`](https://github.com/dfadler1984/cursor-rules/commit/79284eeacead24e5b24a0ef25fd39638ffb6c522) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Comprehensive rule maintenance and cleanup
+
+  - Remove duplicate and deprecated ALP content from assistant-behavior.mdc (320→282 lines)
+  - Fix date in 00-assistant-laws.mdc
+  - Remove deprecated logging-protocol.caps reference from create-erd.caps.mdc
+  - Consolidate duplicate content in create-erd.mdc (242→127 lines)
+  - Delete deprecated logging-protocol.caps.mdc
+
+  All 57 rules now pass validation with green health scores.
+
 ## 0.9.2
 
 ### Patch Changes
