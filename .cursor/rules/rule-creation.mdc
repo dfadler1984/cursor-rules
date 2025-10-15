@@ -2,7 +2,7 @@
 description: How to create and update project rules for this repo
 globs: .cursor/rules/**
 alwaysApply: false
-lastReviewed: 2025-10-10
+lastReviewed: 2025-10-15
 healthScore:
   content: green # Clear creation guidelines, good examples
   usability: green # Concise workflow, actionable steps
@@ -27,6 +27,24 @@ healthScore:
 - Duplicating generic guidance (testing basics, SOLID, generic Git).
 - Over-broad `globs` (e.g., `**/*`) that cause noisy attachments.
 - Project names/paths from other repos.
+
+## Evidence-based rule creation
+
+When proposing a new rule based on observed patterns:
+
+- **Minimum evidence**: 3 files or 3 occurrences
+- **Required fields**:
+  - Pattern description (one line)
+  - Evidence (file paths or commits)
+  - Proposed rule content (examples from real code)
+  - Impact statement (who benefits, what improves)
+
+Example proposal:
+
+> Pattern: All CLI tools use `yargs` for arg parsing
+> Evidence: `cli/summary.js`, `cli/validate.js`, `scripts/pr-create.sh` wrapper
+> Proposed: Add to `dependencies.mdc` → "Prefer yargs for CLI argument parsing"
+> Impact: Standardizes CLI UX, reduces boilerplate
 
 ## Update workflow
 

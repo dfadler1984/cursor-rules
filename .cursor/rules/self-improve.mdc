@@ -1,0 +1,124 @@
+---
+description: Pattern-based rule improvement with consent-gated proposals
+alwaysApply: true
+lastReviewed: 2025-10-15
+healthScore:
+  content: green # Adapted from taskmaster with consent modifications
+  usability: green # Clear observation vs action separation
+  maintenance: green # New rule, aligned with repository standards
+---
+
+## Rule Improvement Triggers
+
+- New code patterns not covered by existing rules
+- Repeated similar implementations across files (3+ instances)
+- Common error patterns that could be prevented
+- New libraries or tools being used consistently (3+ modules)
+- Emerging best practices in the codebase
+- Recurring feedback in clarifications or code reviews
+
+## Analysis Process
+
+- Compare new code with existing rules
+- Identify patterns that should be standardized
+- Look for references to external documentation
+- Check for consistent error handling patterns
+- Monitor test patterns and coverage
+
+## Observation (always-on, passive)
+
+- During normal work, silently note patterns meeting trigger thresholds
+- No tool calls, logs, or file writes during observation
+- Session-scoped state only; observations reset at session boundary
+- Queue proposals until natural checkpoints (never interrupt mid-task)
+
+## Proposals (consent-gated, checkpointed)
+
+Surface proposals only at natural boundaries:
+
+- After Green in TDD cycle (tests passing)
+- After PR created (via `.cursor/scripts/pr-create.sh`)
+- After task marked complete (via `todo_write` with status: completed)
+- When user asks "anything else?" or similar wrap-up phrase
+
+Proposal format:
+
+- Pattern: <one-line description>
+- Evidence: <file paths or commit refs>
+- Proposed change: <add/modify/deprecate rule X>
+- Impact: <who benefits, what improves>
+
+User responses:
+
+- "Yes"/"Proceed"/"Go ahead" → create rule update with evidence
+- "No"/"Skip"/"Not now" → suppress for session; do not re-ask
+- Silence → drop and continue
+
+## Rule Updates
+
+**Add New Rules When:**
+
+- A new technology/pattern is used in 3+ files
+- Common bugs could be prevented by a rule
+- Code reviews repeatedly mention the same feedback
+- New security or performance patterns emerge
+
+**Modify Existing Rules When:**
+
+- Better examples exist in the codebase
+- Additional edge cases are discovered
+- Related rules have been updated
+- Implementation details have changed
+
+## Example Pattern Recognition
+
+```typescript
+// If you see repeated patterns like:
+const data = await prisma.user.findMany({
+  select: { id: true, email: true },
+  where: { status: "ACTIVE" },
+});
+
+// Consider proposing update to relevant rule:
+// - Standard select fields
+// - Common where conditions
+// - Performance optimization patterns
+```
+
+## Rule Quality Checks
+
+- Rules should be actionable and specific
+- Examples should come from actual code
+- References should be up to date
+- Patterns should be consistently enforced
+
+## Continuous Improvement
+
+- Observe code patterns during normal work
+- Track common development questions
+- Note patterns after major refactors
+- Identify links to relevant documentation
+- Cross-reference related rules
+
+## Rule Deprecation
+
+When patterns become outdated:
+
+- Mark outdated patterns as deprecated in rules
+- Remove rules that no longer apply
+- Update references to deprecated rules
+- Document migration paths for old patterns
+
+## Documentation Updates
+
+- Keep examples synchronized with code
+- Update references to external docs
+- Maintain links between related rules
+- Document breaking changes
+
+## Related
+
+- See [assistant-behavior.mdc](./assistant-behavior.mdc) for consent-first behavior and checkpoints
+- See [rule-creation.mdc](./rule-creation.mdc) for rule writing guidelines
+- See [rule-maintenance.mdc](./rule-maintenance.mdc) for pattern-driven update workflow
+- See [rule-quality.mdc](./rule-quality.mdc) for validation standards

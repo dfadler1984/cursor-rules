@@ -1,7 +1,8 @@
 ---
 status: active
 owner: repo-maintainers
-lastUpdated: 2025-10-11
+lastUpdated: 2025-10-15
+phase: test-execution
 ---
 
 # Engineering Requirements Document — Rules Enforcement & Effectiveness Investigation
@@ -108,13 +109,86 @@ Create post-hoc validation:
 - Checklist: "Did assistant use repo script when available?"
 - Automated check: parse commands executed vs capabilities.mdc entries
 
+### Phase 5: Test Plan Development (✅ COMPLETED)
+
+**Deliverables**:
+
+1. **Discovery Document** ([discovery.md](discovery.md)) — 1,252 lines
+
+   - Analyzed 15+ rules for enforcement patterns
+   - Identified 6 patterns (strong → weak)
+   - Critical finding: `assistant-git-usage.mdc` has `alwaysApply: false`
+   - Proposed 5 structural improvements
+   - Compared to external patterns (Taskmaster/Spec-kit)
+
+2. **Test Plans Suite** ([tests/](tests/)) — 6 detailed documents, ~2,500 lines
+   - Hypothesis 1: Conditional Attachment test plan
+   - Hypothesis 2: Send Gate Enforcement test plan
+   - Hypothesis 3: Query Protocol Visibility test plan
+   - Experiment: Slash Command Gating test plan
+   - Measurement Framework implementation plan
+   - Test execution guide with success criteria
+
+**Key Findings from Discovery**:
+
+- **Conditional attachment is a weakness**: Git-usage rule not always in context
+- **Verification lacks visibility**: No output required for capability queries
+- **Strong patterns identified**: Pre-send gates, numbered protocols, tool constraints
+- **Weak patterns identified**: Advisory prose, self-assessed gates, buried requirements
+
+**Test Plans Ready**:
+
+- Each includes: test design, success criteria, measurement protocol, implementation checklist
+- Timeline: 3-4 weeks for full suite execution
+- Baseline targets: >90% script usage, >95% TDD compliance, >95% routing accuracy
+
+### Phase 6: Test Execution (CURRENT PHASE)
+
+Execute test plans in priority order:
+
+**Week 1: Infrastructure & Quick Wins**
+
+1. Build measurement framework (compliance checkers, baseline dashboard)
+2. Run Hypothesis 1 (conditional attachment) — expected +20 pts improvement
+3. Establish objective baseline for all metrics
+
+**Week 2: Core Mechanisms** 4. Run Hypothesis 3 (query visibility) — expected +80 pts transparency improvement 5. Run Hypothesis 2 (send gate enforcement) — determine if gate blocks violations
+
+**Week 3: Advanced Improvements** 6. Run Slash Commands Experiment — expected +25 pts routing accuracy 7. Test with/without slash commands, measure adoption
+
+**Week 4: Integration & Validation** 8. Combine successful improvements (always-apply + visible output + slash commands) 9. Measure cumulative effect, validate no negative interactions 10. Document final recommendations and rollout plan
+
 ## 5. Acceptance Criteria
 
-- [ ] Documented: specific examples of rule violations with context
-- [ ] Tested: at least 3 experiments with measurable outcomes
-- [ ] Analyzed: taskmaster/spec-kit slash command patterns
-- [ ] Proposed: concrete structural changes with rationale
-- [ ] Validated: changes tested with real workflow examples
+### Phase 5: Test Plan Development (✅ COMPLETED)
+
+- [x] Documented: specific examples of rule violations with context (discovery.md Part 1-2)
+- [x] Analyzed: 15+ rules for enforcement patterns (discovery.md Part 1-3)
+- [x] Analyzed: taskmaster/spec-kit slash command patterns (discovery.md Part 5)
+- [x] Proposed: concrete structural changes with rationale (discovery.md Part 6-8)
+- [x] Created: comprehensive test plans for all hypotheses and experiments (tests/)
+- [x] Created: measurement framework design with automated compliance checking
+- [x] Documented: success criteria, timelines, and risk mitigation for each test
+
+### Phase 6: Test Execution (IN PROGRESS)
+
+- [ ] Built: measurement framework (4 compliance checkers + dashboard)
+- [ ] Established: baseline metrics (script usage, TDD compliance, branch naming)
+- [ ] Tested: Hypothesis 1 (conditional attachment) with 50+ trials per group
+- [ ] Tested: Hypothesis 2 (send gate enforcement) with visibility/accuracy/blocking tests
+- [ ] Tested: Hypothesis 3 (query visibility) with visible output requirement
+- [ ] Tested: Slash commands experiment with comparative analysis
+- [ ] Validated: improvements tested with real workflow examples
+- [ ] Measured: improvement against baseline (quantitative validation)
+- [ ] Documented: findings, recommendations, and rollout plan
+
+### Final Deliverables
+
+- [ ] Executive summary of findings (what works, what doesn't, why)
+- [ ] Quantitative results: baseline vs post-improvement metrics for each test
+- [ ] Recommendations: prioritized list of changes to implement in production
+- [ ] Rollout plan: how to deploy validated improvements safely
+- [ ] CI integration: automated compliance monitoring to prevent regressions
 
 ## 6. Risks/Constraints
 
@@ -125,17 +199,60 @@ Create post-hoc validation:
 
 ## 7. Success Metrics
 
-### Objective Measures
+### Objective Measures (Baseline → Target)
 
-- Script usage rate: % of git ops using repo scripts vs raw git
-- Consent compliance: % of commands preceded by consent request
-- TDD compliance: % of impl edits preceded by failing test
+**From Discovery Analysis**:
+
+- Script usage rate: 73.5% → **target >90%** (+17 pts improvement needed)
+- TDD compliance rate: 68.2% → **target >95%** (+27 pts improvement needed)
+- Branch naming compliance: 88.0% → **target >90%** (+2 pts improvement needed)
+
+**From Test Plans**:
+
+- Query visibility rate: ~0-20% → **target 100%** (+80 pts improvement needed)
+- Send gate visibility: ~0-10% → **target 100%** (gate output in all responses)
+- Routing accuracy: ~70% → **target >95%** (+25 pts improvement needed)
+- Rule attachment (git-usage): ~60-70% → **target 100%** (with always-apply)
+
+### Per-Test Success Criteria
+
+**Hypothesis 1 (Conditional Attachment)**:
+
+- Experimental script usage ≥ 90% (vs ~70% baseline)
+- Improvement ≥ 20 percentage points
+- Rule attachment rate: 100%
+
+**Hypothesis 2 (Send Gate Enforcement)**:
+
+- Gate visibility: >10% (proves gate is executed)
+- Detection accuracy: >80% (gate catches violations)
+- Blocking rate: >80% (gate prevents violations)
+
+**Hypothesis 3 (Query Visibility)**:
+
+- Query output visible: 100% (with improvement)
+- Query accuracy: >95% (correct script detection)
+- Behavior consistency: >90% (uses script when found)
+
+**Experiment: Slash Commands**:
+
+- Routing accuracy: >95% (vs ~70% baseline)
+- Script usage (indirect requests): >90% (vs ~30% baseline)
+- User comprehension: >80% understand prompts
+
+**Measurement Framework**:
+
+- All checkers implemented and tested
+- Baseline established for all metrics
+- Dashboard generates correctly
+- CI integration ready
 
 ### Qualitative Signals
 
-- Assistant explicitly queries capabilities before git ops
-- Assistant references specific rules when making decisions
-- User reports increased confidence in assistant consistency
+- Assistant explicitly queries capabilities before git ops (visible output)
+- Assistant references specific rules when making decisions (routing transparency)
+- User reports increased confidence in assistant consistency (feedback survey)
+- Violations are obvious when they occur (observable compliance)
 
 ## 8. Related Work
 
@@ -163,16 +280,99 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 4. **Measurement**: How do we validate rule compliance without manual review?
 5. **Precedent**: What do other AI coding assistants do for consistency?
 
-## 10. Next Steps (Immediate)
+## 10. Implementation Timeline
 
-1. Create tasks.md with specific experiments
-2. Document baseline violations from recent session
-3. Review taskmaster/spec-kit slash command patterns
-4. Design first experiment: explicit capability query
-5. Run experiment and document results
+### Completed (Phase 5)
+
+- ✅ Discovery document with comprehensive rules analysis
+- ✅ Test plans for all hypotheses and experiments
+- ✅ Measurement framework design
+- ✅ Success criteria and execution guide
+
+### Current Phase (Phase 6: Test Execution)
+
+**Week 1: Infrastructure & Baseline** (3-4 days)
+
+1. Implement measurement framework scripts:
+   - `check-script-usage.sh` — Parse git log for conventional commits
+   - `check-tdd-compliance.sh` — Match impl files to spec files
+   - `check-branch-names.sh` — Validate naming patterns
+   - `compliance-dashboard.sh` — Aggregate all metrics
+2. Establish baseline metrics (run all checkers on current state)
+3. Execute Hypothesis 1 test (conditional attachment):
+   - Control group: 50 trials
+   - Apply change: `assistant-git-usage.mdc` → `alwaysApply: true`
+   - Experimental group: 50 trials
+   - Compare and document results
+
+**Week 2: Core Mechanisms** (4-5 days) 4. Execute Hypothesis 3 test (query visibility):
+
+- Baseline visibility check (20 trials)
+- Add visible output requirement to rules
+- Post-change test (20 trials)
+- Compare improvement
+
+5. Execute Hypothesis 2 test (send gate enforcement):
+   - Test A: Gate visibility (20 trials)
+   - Test B: Gate accuracy (10 deliberate violations)
+   - Test C: Gate blocking (10 violations)
+   - Test D: Visible gate (if needed, 20 trials)
+
+**Week 3: Advanced Improvements** (4-5 days) 6. Execute Slash Commands Experiment:
+
+- Baseline using H1 control group data
+- Implement slash command rules
+- Test with slash commands (10 trials)
+- Test without slash commands (40 trials)
+- Comparative analysis
+
+**Week 4: Integration & Finalization** (3-4 days) 7. Integration test (combine successful improvements) 8. Final validation and measurement 9. Document findings and recommendations 10. Prepare rollout plan and CI integration
+
+### After Completion
+
+**Rollout** (1-2 weeks):
+
+- Deploy validated improvements to production rules
+- Monitor compliance metrics via CI
+- Gather user feedback
+- Refine based on real-world usage
+
+**Documentation** (ongoing):
+
+- Update rule authoring guidelines with enforcement patterns
+- Create enforcement pattern library
+- Share learnings with broader community
+
+## 11. Next Steps (Immediate)
+
+**For Test Executor**:
+
+1. Set up test environment (create data directories, backup rules)
+2. Begin Week 1 execution:
+   - Build measurement framework scripts
+   - Run baseline measurements
+   - Document baseline report
+3. Execute Hypothesis 1 test (first validation)
+
+**For Project Owner**:
+
+1. Review and approve test execution plan
+2. Allocate resources (3-4 weeks for full suite)
+3. Set expectations for deliverables and timeline
+
+**For Stakeholders**:
+
+1. Review discovery findings and test plans
+2. Provide feedback on priorities or adjustments
+3. Prepare for rollout of validated improvements
 
 ---
 
-Owner: repo-maintainers
-Created: 2025-10-11
-Motivation: Assistant violated multiple rules despite `alwaysApply: true`; need to understand enforcement mechanisms
+**Project Metadata**:
+
+- Owner: repo-maintainers
+- Created: 2025-10-11
+- Last Updated: 2025-10-15
+- Current Phase: Test Execution (Week 1)
+- Motivation: Assistant violated multiple rules despite `alwaysApply: true`; need to understand enforcement mechanisms
+- Status: Discovery complete, tests ready for execution

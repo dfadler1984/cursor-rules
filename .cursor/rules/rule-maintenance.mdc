@@ -2,7 +2,7 @@
 description: Rule maintenance cadence, validation, and conflict resolution for this repo
 globs: .cursor/rules/**
 alwaysApply: false
-lastReviewed: 2025-10-10
+lastReviewed: 2025-10-15
 healthScore:
   content: green # Accurate maintenance procedures
   usability: green # Clear checklist format, actionable steps
@@ -54,6 +54,22 @@ healthScore:
 
 - Prefer consolidate/clarify over adding more rules.
 - Deprecate with a header and pointer; remove only after replacement lands.
+
+## Pattern-driven updates
+
+Trigger conditions for proposing rule changes:
+
+- Same implementation pattern in 3+ files across 2+ features
+- Same error/bug type addressed in 3+ separate fixes
+- New library used in 3+ modules without guidance
+- Code review feedback repeated 3+ times on same topic
+
+Proposal workflow:
+
+1. Collect evidence at task boundaries
+2. Surface single-line proposal at checkpoint
+3. On approval: create rule update with file citations
+4. Link to original pattern examples in rule body
 
 ## Looping/Deadlock Mitigations
 

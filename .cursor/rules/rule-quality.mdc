@@ -2,7 +2,7 @@
 description: Rule validation checklist and detail balance for this repo
 globs: .cursor/rules/**
 alwaysApply: false
-lastReviewed: 2025-09-10
+lastReviewed: 2025-10-15
 healthScore:
   content: green # Clear quality criteria and validation steps
   usability: green # Concise checklist, easy to apply
@@ -15,6 +15,9 @@ healthScore:
 - Globs target intended paths; avoid accidental global attachment.
 - No contradictions or duplication with other rules.
 - See `front-matter.mdc` for complete front matter standards.
+- Examples cite real file paths from the codebase (when pattern-based).
+- Rule triggered by ≥3 instances of pattern (if pattern-based).
+- Deprecation path documented if replacing old pattern.
 
 ## Detail balance
 
