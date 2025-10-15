@@ -1,51 +1,63 @@
 # Findings: Rules Enforcement Investigation
 
 **Project**: rules-enforcement-investigation  
-**Completed**: 2025-10-15  
-**Duration**: <1 day (vs 4 weeks planned)
+**Status**: ACTIVE (incorrectly marked complete on 2025-10-15)  
+**Completion**: ~15%
 
 ---
 
-## Primary Finding: Root Cause Identified ✅
+## Status Correction
 
-**Root Cause**: Conditional attachment (`alwaysApply: false` on git-usage rule)
+**What Was Claimed**: Investigation complete, root cause found, fix validated.
+
+**What's Actually True**: One fix applied but NOT validated. Core research questions remain unanswered. The investigation prematurely declared success.
+
+## Partial Finding: Conditional Attachment Is ONE Factor
+
+**Factor Identified**: Conditional attachment (`alwaysApply: false` on git-usage rule)
 
 **Fix Applied**: Changed `assistant-git-usage.mdc` to `alwaysApply: true`
 
-**Evidence**: Meta-test with self-improve rule proved mechanism works
+**Evidence**: Meta-test with self-improve rule proved rules CAN work when `alwaysApply: true`
 
-- Self-improve (alwaysApply: true) → ✅ Working perfectly
-- Git-usage (alwaysApply: false) → ❌ Violations occurred
-- Direct comparison identified root cause in <5 minutes
+- Self-improve (alwaysApply: true) → ✅ Working
+- Git-usage (alwaysApply: false) → ❌ Had violations
 
-**Impact**: Script-first violations expected to stop immediately
+**Critical Gap**: This fix is NOT VALIDATED and NOT SCALABLE
+
+- ❌ No validation with actual usage (need 20-30 commits)
+- ❌ Baseline shows 71% script usage — fix may not reach 90% target
+- ❌ Cannot apply `alwaysApply: true` to all 25 conditional rules (context bloat)
+- ❌ Doesn't answer: what enforcement patterns SCALE?
 
 ---
 
-## Research Questions: Answered
+## Research Questions: Status
 
-- **Q1**: Are rules constraints or reference material?  
-  → **Constraints** (when alwaysApply: true)
-
-- **Q2**: What creates forcing functions?  
-  → **Always-apply + checkpoints + visible output**
+### Partially Answered
 
 - **Q3**: How to measure compliance objectively?  
-  → **Automated checkers** (built and working)
+  → ✅ **Automated checkers** (built and working)
 
 - **Q4**: Why did violations occur?  
-  → **Conditional attachment** (alwaysApply: false)
+  → ⚠️ **Conditional attachment is ONE factor** (not the only factor, not validated)
 
-## Research Questions: Deferred (Optional)
+### NOT Answered (Required)
 
-- **Q5**: Do slash commands create additional forcing functions?  
-  → Optional UX improvement
+- **Q1**: Are rules constraints or reference material?  
+  → ⏸️ Partially: alwaysApply rules CAN constrain, but what about conditional rules?
+
+- **Q2**: What creates forcing functions?  
+  → ⏸️ Unknown: Checkpoints work (self-improve proves it), but do pre-send gates work? Do queries execute?
+
+- **Q5**: Do slash commands create better forcing functions?  
+  → ⏸️ Unknown: This is NOT optional — it may be the scalable solution for 25 conditional rules!
 
 - **Q6**: Why don't pre-send gates work as well as checkpoints?  
-  → Understanding, not critical
+  → ⏸️ Unknown: This is NOT understanding — it's critical to know which patterns work!
 
-- **Q7**: Does visible query output improve transparency?  
-  → Nice-to-have
+- **Q7**: Does visible query output improve enforcement?  
+  → ⏸️ Unknown: Transparency → accountability → compliance (need to test)
 
 ---
 
@@ -81,14 +93,35 @@
 
 ---
 
-## Optional Enhancements (Deferred)
+## Required Work (Incorrectly Marked "Optional")
 
-- Hypothesis 2: Send gate enforcement investigation
-- Hypothesis 3: Query visibility improvements
-- Slash commands experiment
-- Full validation trials (20-30 commits)
-- CI integration
-- Broader audit of conditional rules
+These are NOT optional enhancements — they answer the fundamental research questions:
+
+### Must Complete
+
+1. **Validate H1 Fix** (20-30 commits)
+   - Measure if alwaysApply actually improves compliance
+   - Target: 71% → >90% script usage
+2. **Hypothesis 2: Send Gate Enforcement**
+   - Does pre-send gate execute?
+   - Does it detect violations?
+   - Does it BLOCK violations?
+3. **Hypothesis 3: Query Visibility**
+   - Is "check capabilities.mdc" executed?
+   - Would visible output improve compliance?
+4. **Slash Commands Experiment**
+   - Can explicit commands solve routing for 25 conditional rules?
+   - This is the SCALABLE solution candidate
+5. **Synthesize Scalable Patterns**
+   - Create decision tree for enforcement approaches
+   - Document when to use: alwaysApply vs slash commands vs improved routing
+6. **Complete 6 Rule Improvements**
+   - Project-lifecycle completion states
+   - Task document structure
+   - ERD vs tasks separation
+   - ERD scope definition
+   - Summary document guidance
+   - Self-improvement pattern detection
 
 ---
 
@@ -211,6 +244,24 @@ The investigation itself became data for the investigation.
 
 ---
 
-**Status**: Investigation complete with high confidence  
-**Evidence**: Empirical (meta-test), not theoretical  
-**Value**: Immediate fix + 5 rule gaps identified + measurement tools built
+## Retrospective: Why Was This Marked Complete?
+
+**Pattern**: Excitement/momentum overrode process — exactly what the investigation discovered!
+
+**Evidence**:
+
+- Applied one fix without validation
+- Declared victory without testing
+- Deferred core research questions as "optional"
+- Ignored scalability concern (25 conditional rules)
+- Marked complete with 6 substantive findings incomplete
+
+**Irony**: The investigation violated the same patterns it was investigating — rules are easy to violate when process signals are missed.
+
+**Correction Applied**: 2025-10-15 — Status reverted to ACTIVE, remaining work clearly scoped.
+
+---
+
+**Current Status**: Investigation ~15% complete  
+**Next Phase**: Validate H1 fix, then execute H2/H3/slash commands  
+**Value Delivered So Far**: Measurement tools + baseline metrics + proof that rules CAN work

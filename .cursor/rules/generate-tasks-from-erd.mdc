@@ -28,11 +28,12 @@ Guide the assistant to create a clear, junior-friendly, step-by-step task list i
 4. Phase 1: Generate Parent Tasks
    - Create `docs/projects/<feature>/tasks.md` next to the ERD.
    - Draft 4–8 high-level parent tasks required to implement the feature end to end.
-   - Inform the user: Present only the parent tasks in chat. Say: “I have generated the high-level tasks based on the ERD. Ready to generate the sub-tasks? Respond with ‘Go’ to proceed.”
-5. Wait for Confirmation: Pause until the user replies “Go”.
+   - Inform the user: Present only the parent tasks in chat. Say: "I have generated the high-level tasks based on the ERD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
+5. Wait for Confirmation: Pause until the user replies "Go".
 6. Phase 2: Generate Sub-Tasks
    - For each parent task, add smaller, actionable sub-tasks necessary to complete the parent task.
    - Keep TDD-first: add or adjust a failing spec before implementation; then implement; then refactor while tests stay green.
+   - **All tasks are mandatory by default** — do not mark any tasks as "optional" or "deferred" unless the engineer explicitly requests it.
 7. Identify Relevant Files
    - List potential files to create or modify, including corresponding test files.
 8. Generate Final Output
@@ -58,6 +59,35 @@ Guide the assistant to create a clear, junior-friendly, step-by-step task list i
 
 - Tests run with `yarn test [optional/path/to/spec]`. Running without a path executes all tests configured in Jest.
 - TDD-first: start by writing/adjusting a failing spec, then implement to pass, then refactor.
+
+## Task Optionality Policy (must)
+
+**Default**: All generated tasks are mandatory and must be completed before marking the project complete.
+
+**Only the engineer may mark tasks as optional**:
+
+- Explicit labels: "optional", "deferred", "nice-to-have", or "carryover"
+- Only after the engineer reviews and approves moving work to future phases
+
+**Assistant behavior**:
+
+- Do NOT independently decide tasks are optional
+- Do NOT defer core deliverables to declare a project complete
+- Before marking complete: ask engineer which unchecked tasks can become carryovers
+- Carryovers = follow-up work for new projects, NOT shortcuts to completion
+
+**Completion Blocking Rule (must)**:
+
+**A project CANNOT be marked complete if `tasks.md` contains unchecked tasks** unless:
+
+1. The engineer explicitly approves moving those specific tasks to Carryovers
+2. The approval is documented (e.g., "Approved by [engineer] on [date]")
+
+If the assistant attempts to mark a project complete with unchecked tasks, it must:
+
+1. Stop and list all unchecked tasks
+2. Ask: "These tasks remain unchecked. Complete them now, or approve moving to Carryovers?"
+3. Wait for explicit approval before proceeding
 
 ## Tasks
 

@@ -4,124 +4,11 @@ alwaysApply: false
 lastReviewed: 2025-10-15
 healthScore:
   content: green
-  usability: green
+  usability: yellow
   maintenance: green
 ---
 
-# Project Lifecycle — Templates, Usage, Validator, and Completion Policy
-
-## Purpose
-
-Standardize how projects are finalized: canonical templates, clear completion criteria, and a lightweight validator scoped to changed projects. Improves portability and keeps completion signals consistent (impact metrics, retrospective, index, archival).
-
-## Templates (canonical)
-
-Location: `.cursor/templates/project-lifecycle/`
-
-- `final-summary.template.md`
-- `completion-checklist.template.md`
-- `retrospective.template.md`
-
-Each template carries front matter:
-
-```
----
-template: project-lifecycle/<name>
-version: 1.0.0
-last-updated: YYYY-MM-DD
----
-```
-
-## Usage (canonical policy — details live here; ERDs should link to this section)
-
-Project artifacts live under `docs/projects/<project>/`.
-
-- Instantiate the Final Summary from the template and fill the Impact section with a brief before/after or outcome metrics.
-- Provide a Retrospective (either as a dedicated `retrospective.md` or as a section within the Final Summary).
-- Keep `tasks.md` current: all items checked or include a `Carryovers` section naming follow-up work.
-- Update `docs/projects/README.md` to move the project to Completed and link its Final Summary.
-- Consider archival when stable: `docs/projects/_archived/<YYYY>/<project>/`.
-
-## Completion States
-
-Projects can be in one of three states:
-
-### Active
-
-- Work is ongoing
-- ERD has `status: active` (or no status field)
-- Located in `docs/projects/<name>/`
-
-### Complete (Active)
-
-- Primary objective achieved
-- May have open follow-ups or carryovers documented in `tasks.md`
-- ERD has `status: completed` and `completed: YYYY-MM-DD`
-- Still located in `docs/projects/<name>/` (not yet archived)
-- Use this state when:
-  - Project delivered its core value
-  - Follow-up work identified but not blocking
-  - May need monitoring or validation before archiving
-
-### Complete (Archived)
-
-- Project fully wrapped up with no pending work
-- Moved to `docs/projects/_archived/<YYYY>/<name>/`
-- All carryovers either completed or moved to new projects
-- Ready for long-term reference only
-
-**Transition Path**: Active → Complete (Active) → Complete (Archived)
-
-## Completion Criteria
-
-A project reaches "Complete (Active)" when:
-
-1. `final-summary.md` exists, non-empty, and contains:
-   - Front matter with `template` and `version`
-   - An `## Impact` section
-2. `tasks.md` exists and either:
-   - All items are checked, or
-   - A `Carryovers` section documents follow-up work
-3. Retrospective is present (standalone file or section in Final Summary)
-4. `docs/projects/README.md` lists the project under Completed with a link to `final-summary.md`
-5. ERD front matter has `status: completed` and `completed: YYYY-MM-DD`
-
-**Archival Criteria** (transition to Complete (Archived)):
-
-- All carryovers completed or moved to separate projects
-- No active monitoring or validation needed
-- Ready for long-term storage
-
-## Validator (scoped)
-
-Script: `.cursor/scripts/project-lifecycle-validate-scoped.sh` (alias for `.cursor/scripts/validate-project-lifecycle.sh`)
-
-- Scope: only projects explicitly passed as args (CI should determine the set of changed projects and pass them).
-- Checks per project folder:
-  - `final-summary.md` exists, is non-empty, has `template` + `version` in front matter, and includes an `## Impact` section
-  - `tasks.md` exists and either no unchecked boxes remain or a `Carryovers` section exists
-  - `retrospective.md` exists OR Final Summary has a `## Retrospective` section
-  - No `*.template.md` files live under the project folder (templates are centralized)
-- Optional advisory: warn (do not fail) if the closing PR title does not start with `feat:` or a scoped equivalent.
-  - Pass PR title via `--pr-title` flag or env `PR_TITLE`; remains advisory.
-
-See also: repository sweep validator — `.cursor/scripts/project-lifecycle-validate-sweep.sh` (alias for `.cursor/scripts/project-lifecycle-validate.sh`) which validates all projects marked `status: completed` and verifies index/link presence. Use the scoped validator for per-PR changed projects; use the sweep validator for periodic repository health checks.
-
-## Decisions
-
-- PR title semantics: Advisory (warn), not strict fail.
-- Projects index: Manual updates (simple and explicit) rather than auto-generation.
-
-## Examples
-
-- See `docs/projects/_archived/2025/project-lifecycle/final-summary.md` for a reference Final Summary.
-
-## Notes
-
-- Keep friction low; the validator should point directly to missing artifacts.
-- Migration policy: Prefer `.cursor/scripts/project-lifecycle-migrate.sh` to backfill lifecycle artifacts (adds required front matter/sections and retrospective when missing). For creating a new final summary, prefer the generator (`final-summary-generate.sh`, use `--pre-move` when needed). `template-fill.sh` is acceptable only as a last-resort fallback when structure is missing and must be followed by adding required front matter/sections.
-
-## Rule: Project Lifecycle — Completion Policy
+# Project Lifecycle — Completion Policy and Validation
 
 ## Purpose
 
@@ -130,62 +17,49 @@ Archiving is performed via a single full-folder move; per-file archiving is proh
 
 ## Scope
 
-- Applies to all projects under `docs/projects/<name>/`.
-- Completion flows are documentation-first; optional automation is additive and opt-in.
+Applies to all projects under `docs/projects/<name>/`. Documentation-first; automation is opt-in.
 
-## Status Tagging Schema (ERD front matter)
+## Status Tagging (ERD front matter)
 
 ```yaml
 ---
 status: active|completed
-completed: YYYY-MM-DD # required when status: completed
+completed: YYYY-MM-DD # required when completed
 owner: <github-handle-or-team>
 ---
 ```
 
-- Location: `docs/projects/<name>/erd.md` (and optionally mirrored in `tasks.md`).
-- On archival, move the entire project folder under `docs/projects/_archived/<YYYY>/<name>/` in a single operation; update index links accordingly.
+Location: `docs/projects/<name>/erd.md`. On archival, move entire folder to `docs/projects/_archived/<YYYY>/<name>/` in a single operation.
 
-## Closure Checklist (Definition of Done)
+## Completion States & Criteria
 
-- ERD front matter has `status: completed`, `completed: <date>`, and `owner`.
-- All items in `docs/projects/<name>/tasks.md` are checked off OR a `Carryovers` section is present.
-- Tests/lint/types pass; coverage > 0% for new/changed modules (policy-level check).
-- ADRs updated/added for consequential decisions (if any).
-- User-facing docs/examples updated (README/guides as applicable).
-- Ownership/handoff note present (owner, next review date).
+**Active** → **Complete (Active)** → **Complete (Archived)**
 
-Reference templates:
+**Complete (Active)** requires:
 
-- Completion: `.cursor/templates/project-lifecycle/completion-checklist.template.md`
-- Archive (operational): `.cursor/templates/project-lifecycle/archive-checklist.template.md`
-- Optional redirect: `.cursor/templates/project-lifecycle/archive-redirect.template.md` (use only when leaving a stub file behind is required by downstream tools; otherwise avoid extra files).
+1. ERD front matter: `status: completed`, `completed: YYYY-MM-DD`, `owner`
+2. All `tasks.md` items checked OR engineer-approved `Carryovers` section
+3. `final-summary.md` with template front matter + `## Impact` section
+4. Retrospective (standalone file or section in Final Summary)
+5. `docs/projects/README.md` lists project under Completed with link
+6. Tests/lint/types pass; coverage > 0% for new/changed modules
+
+**Complete (Archived)**: All carryovers resolved, no active monitoring needed, moved to `_archived/<YYYY>/`.
 
 ## Final Summary
 
-- File: `final-summary.md` (location depends on timing; see below)
-- Link this file from the ERD near the top.
-- Template: `.cursor/templates/project-lifecycle/final-summary.template.md`.
+**Required generator**: `.cursor/scripts/final-summary-generate.sh` (no manual template copying for initial creation).
 
-- You may generate the summary either pre-move or post-move:
+**Timing options**:
 
-  - Pre-move: create `docs/projects/<name>/final-summary.md` using the generator's `--pre-move` flag; links will point to the archived path.
-  - Post-move: create `docs/projects/_archived/<YYYY>/<name>/final-summary.md` (default generator mode).
+- Pre-move: `--pre-move` flag → writes to `docs/projects/<name>/final-summary.md`
+- Post-move: default → writes to `docs/projects/_archived/<YYYY>/<name>/final-summary.md`
 
-- Required generator: use `.cursor/scripts/final-summary-generate.sh` to create/update the final summary; manual template copying/hand-edits are not allowed for initial creation.
-  - Usage:
-    - Pre-move: `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> --pre-move [--date YYYY-MM-DD] [--force]`
-    - Post-move: `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> [--date YYYY-MM-DD] [--force]`
-  - Behavior:
-    - Title from slug (dashes → spaces, capitalized)
-    - `last-updated` set to today or `--date`
-    - ERD/Tasks links point to `docs/projects/_archived/<YYYY>/<slug>/`
+Link from ERD near the top. Template: `.cursor/templates/project-lifecycle/final-summary.template.md`.
 
-## Projects Index Update
+## Projects Index
 
-- Landing page: `docs/projects/README.md`
-- When a project completes, move its entry from Active to Completed.
-- Optional: use `project-archive-workflow.sh --verify-index` to check the Completed entry points to `_archived/<YYYY>/<name>/final-summary.md`.
+Update `docs/projects/README.md`: move entry from Active to Completed, point to archived path.
 
 ## Which Script to Use (at a glance)
 
@@ -198,163 +72,55 @@ Reference templates:
 - Single archive move only: `.cursor/scripts/project-archive.sh --project <slug> --year <YYYY> [--dry-run]`
 - Backfill legacy projects: `.cursor/scripts/project-lifecycle-migrate.sh --project <slug>`
 
-## Document Structure Guidance
+## Document Structure (at a glance)
 
-**Purpose**: Define clear separation between ERD, tasks.md, and findings.md to prevent scope creep and content duplication.
+| Document        | Purpose                  | Size Target   | Must Include                                                    | Must Exclude                                       |
+| --------------- | ------------------------ | ------------- | --------------------------------------------------------------- | -------------------------------------------------- |
+| **ERD**         | Requirements & approach  | 200-400 lines | Goals, acceptance criteria (narrative), risks, approach         | Execution checklists, findings, status updates     |
+| **tasks.md**    | Execution checklists     | <200 lines    | Phase headers, sub-task checkboxes, Carryovers (if approved)    | Findings, requirements, retrospective              |
+| **findings.md** | Outcomes & retrospective | 150-300 lines | Root cause, deliverables, recommendations                       | Requirements, active checklists                    |
+| **README.md**   | Navigation & overview    | <200 lines    | Brief overview (3-4 sentences), navigation links, quick actions | Detailed findings, metrics, implementation details |
 
-### ERD (Engineering Requirements Document)
+**Task completion gate (blocking)**: All tasks in `tasks.md` must be checked OR engineer explicitly approves moving unchecked items to Carryovers. Assistant cannot independently defer tasks.
 
-**Scope**: Requirements and approach only
+## Validators
 
-**Include**:
+**Scoped** (per-PR changed projects): `.cursor/scripts/project-lifecycle-validate-scoped.sh <slug>`
 
-- Introduction/Overview
-- Goals/Objectives
-- Research questions (if investigative project)
-- Acceptance criteria (as narrative requirements, not checklists)
-- Success metrics and targets
-- Risks/Constraints
-- Investigation approach or implementation strategy
-- Timeline estimates
+- Checks: `final-summary.md` exists with template front matter + `## Impact`, `tasks.md` all checked or has `Carryovers`, retrospective present, no `*.template.md` files in project folder
+- Advisory: warns if PR title doesn't start with `feat:` (pass via `--pr-title` or `PR_TITLE` env)
 
-**Exclude**:
+**Sweep** (all completed projects): `.cursor/scripts/project-lifecycle-validate-sweep.sh`
 
-- Execution checklists (→ tasks.md)
-- Findings or retrospective (→ findings.md)
-- Detailed week-by-week execution plans (→ tasks.md phases)
-- Status updates or progress notes (→ tasks.md or findings.md)
+- Checks: ERD has `status: completed` + `completed:` + `owner:`, `final-summary.md` exists, index link present
+- Dry-run by default; exits non-zero on failures
 
-**Size Target**: 200-400 lines
+## Task List Process
 
-### tasks.md
+- Execute one sub-task at a time; mark `[x]` immediately after completion.
+- When parent task's children all checked: run tests/lint/types, stage changes, commit with Conventional Commit referencing task.
+- Keep `Relevant Files` section current; add discovered tasks as they arise.
 
-**Scope**: Phase sections with execution checklists only
+## Templates
 
-**Include**:
+Location: `.cursor/templates/project-lifecycle/`
 
-- Phase headers with checkboxes
-- Sub-task checklists under each phase
-- `## Carryovers` section for follow-up work
-- Brief inline status notes (e.g., "✅ COMPLETE" after phase header)
-
-**Exclude**:
-
-- Detailed findings or analysis (→ findings.md)
-- Requirements or acceptance criteria (→ ERD)
-- Research questions or hypothesis details (→ ERD)
-- Retrospective content (→ findings.md)
-
-**Size Target**: <200 lines for typical projects
-
-**Pattern**: ERD acceptance criteria → tasks.md execution checklists
-
-### findings.md
-
-**Scope**: Outcomes and retrospective (created at completion)
-
-**Include**:
-
-- Root cause or primary finding
-- Research questions answered/deferred
-- Deliverables created
-- Rule gaps or meta-findings discovered
-- Investigation meta-lessons
-- Recommendations and next steps
-
-**Exclude**:
-
-- Requirements (→ ERD)
-- Active execution checklists (→ tasks.md)
-
-**Size Target**: 150-300 lines
-
-**Timing**: Create findings.md when project reaches "Complete (Active)" state
-
-### README.md
-
-**Scope**: High-level navigation and project overview only
-
-**Include**:
-
-- Brief project overview (problem, objective, result in 3-4 sentences)
-- Navigation structure pointing to other documents
-- Quick actions (commands to run, links to key sections)
-- Project status summary
-
-**Exclude**:
-
-- Detailed findings (→ findings.md)
-- Metrics and measurements (→ BASELINE-REPORT.md or similar)
-- Implementation details (→ ERD or dedicated analysis docs)
-- Test procedures (→ tests/ directory)
-
-**Anti-pattern**: Creating multiple summary documents (EXECUTIVE-SUMMARY.md, BREAKTHROUGH.md, README.md) with 70-80% content overlap
-
-**Best Practice**: README.md is the single entry point; specialized summaries only when distinct audiences require different formats (e.g., technical vs executive)
-
-**Size Target**: <200 lines (lean navigation guide)
-
-## Task List Process (subsection)
-
-- One sub-task at a time: do not start the next until the current sub-task is completed and recorded.
-- Selection policy: pick from tasks whose dependencies are satisfied; among ready tasks, choose the highest priority.
-- Completion protocol:
-  1. Mark the sub-task `[x]` in the project `tasks.md` immediately after completion.
-  2. If a parent task's children are all `[x]`, run tests/lint/types as applicable; stage intended changes only; commit with a Conventional Commit message referencing the task.
-- Maintenance:
-  - Keep a `Relevant Files` section current with one-line purposes for created/modified files.
-  - Add newly discovered tasks as they arise.
-  - Provide concise status updates (what changed, what's next, blockers) while executing.
-
-## Validator and CLI (repository sweep)
-
-- Script: `.cursor/scripts/project-lifecycle-validate-sweep.sh`
-
-  - Dry-run by default. Exits non-zero when Completed projects are missing required pieces.
-  - Checks (minimum):
-    - ERD contains `status: completed`, `completed:`, `owner:` in front matter
-    - `final-summary.md` exists
-    - `docs/projects/README.md` contains a Completed link for the project
-
-- Final summary generator (required): `.cursor/scripts/final-summary-generate.sh`
-
-See also: scoped closeout validator — `.cursor/scripts/project-lifecycle-validate-scoped.sh` (alias for `.cursor/scripts/validate-project-lifecycle.sh`) which checks a specific set of projects changed in a PR for closeout artifacts.
-
-- Creates/updates `final-summary.md` in the archived folder using the template and fills title/date/links.
-- Safe by default: refuses to overwrite unless `--force` is provided.
+- `final-summary.template.md`, `completion-checklist.template.md`, `retrospective.template.md`, `archive-checklist.template.md`
 
 ## PR Title Guidance
 
-- Prefer Conventional Commit when closing a project so it lands in `CHANGELOG.md`:
-  - `feat: Finalize <Project Name>` (or `feat(projects): finalize <name>`)
-  - If the closing PR is purely docs, `docs: finalize <Project Name>` is acceptable.
-
-## Acceptance Criteria
-
-- Any project flipped to Completed includes required ERD fields and a final summary, and appears under Completed in `docs/projects/README.md`.
-- The checklist template and summary template are referenced from the ERD.
-- The validator script reports failures clearly and exits non-zero when requirements are unmet.
-- Final summary is generated via `.cursor/scripts/final-summary-generate.sh` (not manually copied/edited for initial creation).
+Prefer `feat: Finalize <Project Name>` or `feat(projects): finalize <name>` for changelog inclusion. Docs-only closures may use `docs: finalize <Project Name>`.
 
 ## Notes
 
-- Policy Ping (preflight): Archiving uses a single full-folder move. Do not move files individually. Destination: `docs/projects/_archived/<YYYY>/<name>`. Update links/index accordingly.
-- External links are out of scope; only internal links must remain valid. Use the validator to detect/fix internal link issues post-move.
-- Prefer manual, explicit updates first; automation may be added later.
+- Archiving: single full-folder move to `docs/projects/_archived/<YYYY>/<name>` only.
+- Migration: use `project-lifecycle-migrate.sh` to backfill artifacts; `final-summary-generate.sh` for new summaries (use `--pre-move` when needed); `template-fill.sh` is last-resort fallback.
 
-## Rollout
+## Archival Move Procedure
 
-- Owner: rules-maintainers
-- Start manual; optionally add a CI job to run the validator in dry-run mode on PRs that change project docs.
-
-## Archival Move Procedure (Move Last)
-
-1. Confirm project is Completed and stable.
-2. Ensure a final summary exists using one of:
-   - Pre-move: `.cursor/scripts/final-summary-generate.sh --project <project> --year <YYYY> --pre-move` (writes to `docs/projects/<project>/final-summary.md`)
-   - Post-move: after step 3, run `.cursor/scripts/final-summary-generate.sh --project <project> --year <YYYY>` (writes to archived folder)
-     In both cases, add a link near the top of the ERD.
-3. Archive using the helper (preferred): `.cursor/scripts/project-archive.sh --project <project> --year <YYYY> [--dry-run]` — or perform a single full‑folder move with `git mv docs/projects/<project> docs/projects/_archived/<YYYY>/<project>` (policy: single operation only).
-4. Run `.cursor/scripts/rules-validate.sh` and `.cursor/scripts/links-check.sh --path docs/projects/_archived/<YYYY>/<project>`; fix any reported issues.
-5. Update `docs/projects/README.md` Completed section to point to the archived path.
-6. Prefer a Conventional Commit title noting the archival (e.g., `docs(projects): archive <name>`).
+1. Confirm project Completed and stable.
+2. Generate final summary (pre-move with `--pre-move` or post-move default); link from ERD.
+3. Archive: `.cursor/scripts/project-archive.sh --project <slug> --year <YYYY> [--dry-run]` OR `git mv docs/projects/<slug> docs/projects/_archived/<YYYY>/<slug>` (single operation).
+4. Validate: run `rules-validate.sh` and `links-check.sh --path docs/projects/_archived/<YYYY>/<slug>`; fix issues.
+5. Update `docs/projects/README.md` Completed section to point to archived path.
+6. Commit: `docs(projects): archive <name>`.
