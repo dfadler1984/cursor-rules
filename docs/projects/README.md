@@ -43,7 +43,6 @@ A landing page for all projects, grouped by status.
   - [tdd-rules-refinement](./tdd-rules-refinement/erd.md)
   - [test-coverage](./test-coverage/erd.md)
   - [test-artifacts-cleanup](./test-artifacts-cleanup/erd.md)
-  - [script-test-hardening](./script-test-hardening/erd.md) — related/overlap
 
 - [git-usage-suite](./git-usage-suite/erd.md)
 

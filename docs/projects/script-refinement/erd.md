@@ -12,7 +12,7 @@ Links: [`tasks.md`](./tasks.md)
 
 ## 1. Introduction/Overview
 
-Optional Unix Philosophy refinements for remaining script opportunities deferred from [shell-and-script-tooling](../shell-and-script-tooling/erd.md).
+Optional Unix Philosophy refinements for remaining script opportunities deferred from [shell-and-script-tooling](../_archived/2025/shell-and-script-tooling/erd.md).
 
 **Parent project:** shell-and-script-tooling (infrastructure complete)
 

@@ -8,7 +8,7 @@ lastUpdated: 2025-10-13
 
 Reference: [Basics of the Unix Philosophy](https://cscie2x.dce.harvard.edu/hw/ch01s06.html)
 
-**Enforcement:** See [`.cursor/rules/shell-unix-philosophy.mdc`](../../../.cursor/rules/shell-unix-philosophy.mdc) for active rule enforcement.
+**Enforcement:** See [`.cursor/rules/shell-unix-philosophy.mdc`](../../../../../.cursor/rules/shell-unix-philosophy.mdc) for active rule enforcement.
 
 Mode: Lite
 

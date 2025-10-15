@@ -10,7 +10,7 @@
 - Follow Unix Philosophy tenets: do one thing well; compose via text streams; clarity; separation of policy/mechanism; robustness via simplicity.
 - Reference: [Basics of the Unix Philosophy](https://cscie2x.dce.harvard.edu/hw/ch01s06.html)
 
-- Unified coordination: `docs/projects/shell-and-script-tooling/erd.md`
+- Unified coordination: `../shell-and-script-tooling/erd.md`
 
 ## Tasks
 
@@ -107,9 +107,9 @@
   - **Status:** Complete ✅ (orchestrator created, all tests passing)
 
 - [x] 10.0 Refactor `checks-status.sh` — **MIGRATED to script-refinement Task 1.0**
-  - **Status:** Moved to [script-refinement](../script-refinement/tasks.md) Task 1.0 for optional future work
+  - **Status:** Moved to [script-refinement](../../../script-refinement/tasks.md) Task 1.0 for optional future work
   - **Priority:** P3 (Optional polish, not urgent)
-  - See: [script-refinement/erd.md](../script-refinement/erd.md) Section 4.1 for full requirements
+  - See: [script-refinement/erd.md](../../../script-refinement/erd.md) Section 4.1 for full requirements
 
 ### Unified adoption checklist (from `docs/projects/shell-and-script-tooling/erd.md`)
 

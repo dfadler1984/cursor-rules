@@ -3,7 +3,7 @@
 
 # Engineering Requirements Document — Shell & Script Tooling (Unified)
 
-Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) | [`PROGRESS.md`](./PROGRESS.md) | [`UNIX-PHILOSOPHY-AUDIT.md`](./UNIX-PHILOSOPHY-AUDIT.md) | [`UNIX-PHILOSOPHY-AUDIT-UPDATED.md`](./UNIX-PHILOSOPHY-AUDIT-UPDATED.md) | [`REVIEW-FINDINGS.md`](./REVIEW-FINDINGS.md) | [`FINAL-REVIEW-SUMMARY.md`](./FINAL-REVIEW-SUMMARY.md)
+Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) | [`PROGRESS.md`](./PROGRESS.md) | [`UNIX-PHILOSOPHY-AUDIT.md`](./UNIX-PHILOSOPHY-AUDIT.md) | [`UNIX-PHILOSOPHY-AUDIT-UPDATED.md`](./UNIX-PHILOSOPHY-AUDIT-UPDATED.md) | [`REVIEW-FINDINGS.md`](./REVIEW-FINDINGS.md) | [`final-summary.md`](./final-summary.md)
 
 ## 1. Introduction/Overview
 
@@ -95,7 +95,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 
 - [x] Script directory organization (see Section 11) — MIGRATED to script-refinement Task 3.0
 - [x] Unix Philosophy refactoring — **MAJOR WORK COMPLETE (2025-10-14)**
-  - **Status:** Infrastructure + 3 major orchestrators complete; optional polish moved to script-refinement project
+  - **Status:** Infrastructure + 3 major orchestrators complete; optional polish moved to [script-refinement](../../../script-refinement/erd.md) project
   - [x] Created focused alternatives (9 scripts, all D1-D6 compliant, TDD-tested) ✅
   - [x] Enforcement rule active (shell-unix-philosophy.mdc) ✅
   - [x] Updated 3 major orchestrators to call focused scripts ✅
@@ -104,7 +104,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
     - [x] pr-create.sh: deprecated with alternatives recommended
   - [x] Extracted context-efficiency-format.sh (282 lines) ✅
   - **Achievement:** 839 lines reduced; 48% average reduction
-  - **Remaining (P3):** 2 optional refinements moved to [script-refinement](../script-refinement/erd.md)
+  - **Remaining (P3):** 2 optional refinements moved to [script-refinement](../../../script-refinement/erd.md)
     - checks-status.sh extraction
     - rules-validate-format.sh split
   - See: `UNIX-EXTRACTION-COMPLETE.md`, `REVIEW-FINDINGS.md`, `scripts-unix-philosophy/tasks.md` Phase 4
@@ -199,7 +199,7 @@ Adoption workflow:
 
 ### Script Directory Organization (MIGRATED)
 
-**Status:** This work has been moved to [script-refinement](../script-refinement/erd.md) Section 4.3, Task 3.0.
+**Status:** This work has been moved to [script-refinement](../../../script-refinement/erd.md) Section 4.3, Task 3.0.
 
 **Current state:** 45 production scripts in flat `.cursor/scripts/` directory (90% of threshold)
 
@@ -207,7 +207,7 @@ Adoption workflow:
 
 **Why migrated:** Threshold-based tasks belong in active projects, not archived ones. This ensures the work is tracked and executed when conditions are met.
 
-**For complete details, see:** [script-refinement/erd.md](../script-refinement/erd.md) Section 4.3
+**For complete details, see:** [script-refinement/erd.md](../../../script-refinement/erd.md) Section 4.3
 
 ---
 
@@ -215,7 +215,7 @@ Adoption workflow:
 
 ## Status Summary (2025-10-14 — READY FOR COMPLETION)
 
-**Completion:** All core objectives achieved; optional refinements split to script-refinement project
+**Completion:** All core objectives achieved; optional refinements split to [script-refinement](../../../script-refinement/erd.md) project
 
 **Key Achievements:**
 
@@ -252,8 +252,8 @@ Adoption workflow:
 
 **Follow-up Work (All Migrated to script-refinement):**
 
-- Script directory organization (Task 18.0) — migrated to [script-refinement](../script-refinement/erd.md) Task 3.0 (threshold: 50+ scripts)
-- Optional extractions (Tasks 20.4, 20.5) — migrated to [script-refinement](../script-refinement/erd.md) Tasks 1.0, 2.0 (P3 priority)
+- Script directory organization (Task 18.0) — migrated to [script-refinement](../../../script-refinement/erd.md) Task 3.0 (threshold: 50+ scripts)
+- Optional extractions (Tasks 20.4, 20.5) — migrated to [script-refinement](../../../script-refinement/erd.md) Tasks 1.0, 2.0 (P3 priority)
 
 **All deferred work is accounted for in active project.**
 
