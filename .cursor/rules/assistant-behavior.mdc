@@ -1,7 +1,7 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-11
+lastReviewed: 2025-10-15
 healthScore:
   content: green # Accurate behavioral guidance, clear examples
   usability: green # Scannable format, practical checklists
@@ -203,6 +203,7 @@ Before sending any message that includes actions or tool results, explicitly ver
 - Consent: first command per tool category obtained with exact commands listed; allowlist honored.
 - TDD gate: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
 - Scripts: before git/terminal commands, checked capabilities.mdc for repo scripts; used script if available.
+- Pattern observation: if 3+ instances of new pattern detected, queue improvement proposal for next checkpoint.
 - Messaging: bullets and short sections; code citations follow repo rules.
 - If any item fails, revise the message; do not send.
 
@@ -254,6 +255,41 @@ Before sending any message that includes actions or tool results, explicitly ver
 - In status updates, briefly note which signal triggered the route (explicit verb, consent-after-plan, file signal) when starting an implementation step.
 - When crossing tool boundaries, include the consent checkpoint and the exact command pending approval.
 - Include Context Efficiency Gauge when score ≤ 3 or ≥ 2 efficiency signals are true (see `context-efficiency.mdc` for scoring rubric and signals).
+
+## Pattern observation (always-on)
+
+- While executing any task, note patterns that suggest rule improvements:
+
+  - New code pattern appearing in 3+ files
+  - Repeated similar implementations across features
+  - Common error patterns that rules could prevent
+  - Consistent use of new libraries/tools
+  - Recurring feedback in code reviews or clarifications
+
+- Observation is passive: no logs, no files, no interruption to workflow.
+- Session-scoped state only; observations reset at session boundary.
+
+## Rule improvement proposals (consent-gated)
+
+- At natural checkpoints (task completion, test passing, PR ready), if high-signal patterns were observed:
+
+  - Surface a single-line proposal: "Pattern detected: <X> in N files. Propose rule update?"
+  - On "Yes": create rule update proposal with evidence (file paths, pattern examples)
+  - On "No" or silence: drop and continue; do not re-ask same pattern this session
+
+- Proposal format (lightweight):
+
+  - Pattern: <one-line description>
+  - Evidence: <file paths or commit refs>
+  - Proposed change: <add/modify/deprecate rule X>
+  - Impact: <who benefits, what improves>
+
+- Never interrupt mid-task; queue proposals until natural pause.
+- Natural checkpoints:
+  - After Green in TDD cycle (tests passing)
+  - After PR created (via `.cursor/scripts/pr-create.sh`)
+  - After task marked complete (via `todo_write` with status: completed)
+  - When user asks "anything else?" or similar wrap-up phrase
 
 ## Operational checklist
 

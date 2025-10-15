@@ -3,6 +3,14 @@
 ## Relevant Files
 
 - `docs/projects/rules-enforcement-investigation/erd.md` — Canonical ERD
+- `docs/projects/rules-enforcement-investigation/discovery.md` — Comprehensive rules analysis
+- `docs/projects/rules-enforcement-investigation/tests/` — Detailed test plans directory (NEW)
+  - `README.md` — Test plans index and execution guide
+  - `hypothesis-1-conditional-attachment.md` — Always-apply test
+  - `hypothesis-2-send-gate-enforcement.md` — Gate visibility/blocking test
+  - `hypothesis-3-query-protocol-visibility.md` — Query output test
+  - `experiment-slash-commands.md` — Slash command forcing function test
+  - `measurement-framework.md` — Automated compliance monitoring
 - `docs/projects/ai-workflow-integration/erd.md` — Taskmaster/spec-kit analysis
 - `.cursor/rules/capabilities.mdc` — Script inventory (alwaysApply: true)
 - `.cursor/rules/assistant-behavior.mdc` — Compliance-first send gate
@@ -10,28 +18,37 @@
 
 ## Phase 1: Baseline Documentation
 
-- [ ] 1.0 Document recent rule violations (priority: high)
+- [x] 1.0 Document recent rule violations (priority: high)
 
-  - [ ] 1.1 Catalog violations from 2025-10-11 session:
+  - [x] 1.1 Catalog violations from 2025-10-11 session:
     - Script-first: used `git commit --amend` instead of `git-commit.sh`
     - Script-first: used `git push -f` instead of checking for `pr-update.sh`
     - Consent-first: multiple amend/push cycles without asking
-  - [ ] 1.2 For each violation, note:
+  - [x] 1.2 For each violation, note:
     - Which rule was violated
     - What the rule status was (`alwaysApply` true/false)
     - What should have happened vs what did happen
-  - [ ] 1.3 Identify pattern: rules present in context but not consulted before action
+  - [x] 1.3 Identify pattern: rules present in context but not consulted before action
+  - [x] 1.4 Created comprehensive discovery document analyzing 15+ rules for enforcement patterns
 
 ## Phase 2: Experimental Tests
 
-- [ ] 2.0 Experiment 1: Explicit Pre-Action Query (priority: high)
+- [x] 2.0 Create detailed test plans for all hypotheses and experiments (priority: high)
 
-  - [ ] 2.1 Hypothesis: Adding explicit query requirement will force capability consultation
-  - [ ] 2.2 Control: Current rule state (script-first in git-usage, capabilities alwaysApply)
-  - [ ] 2.3 Test: Request "commit the capabilities-sync changes"
-  - [ ] 2.4 Observe: Does assistant query capabilities.mdc before generating command?
-  - [ ] 2.5 Record: Actual behavior, commands used, whether script was used
-  - [ ] 2.6 Analyze: If violation occurred, why? (rule not consulted, consulted but ignored, etc.)
+  - [x] 2.1 Created comprehensive test plan for Hypothesis 1 (Conditional Attachment)
+  - [x] 2.2 Created comprehensive test plan for Hypothesis 2 (Send Gate Enforcement)
+  - [x] 2.3 Created comprehensive test plan for Hypothesis 3 (Query Protocol Visibility)
+  - [x] 2.4 Created comprehensive test plan for Slash Commands Experiment
+  - [x] 2.5 Created Measurement Framework implementation plan
+  - [x] 2.6 Created test plans index with execution guide and success criteria
+
+- [ ] 2.7 Execute experiments per test plans (priority: high)
+
+  - [ ] 2.7.1 Build measurement framework and establish baseline
+  - [ ] 2.7.2 Run Hypothesis 1 test (Conditional Attachment)
+  - [ ] 2.7.3 Run Hypothesis 3 test (Query Visibility)
+  - [ ] 2.7.4 Run Hypothesis 2 test (Send Gate Enforcement)
+  - [ ] 2.7.5 Run Slash Commands Experiment
 
 - [ ] 3.0 Experiment 2: Slash Command Requirement (priority: high)
 
