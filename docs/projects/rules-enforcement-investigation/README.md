@@ -1,8 +1,6 @@
 # Rules Enforcement & Effectiveness Investigation
 
-**Status**: ✅ **COMPLETE**  
-**Completed**: 2025-10-15  
-**Result**: **SUCCESS — Root cause found and fixed**
+**For current status, progress, and next steps**: See [`tasks.md`](tasks.md)
 
 ---
 
@@ -44,13 +42,25 @@
 
 **Problem**: Assistant violated script-first and consent-first rules despite proper rule configuration.
 
-**Objective**: Investigate how Cursor rules are processed and identify why violations occur.
+**Objective**: Investigate how Cursor rules are processed, identify why violations occur, and discover scalable enforcement patterns for 25+ conditional rules.
 
-**Result**: ✅ Root cause identified and fixed in <1 day using meta-test approach.
+**Status**: One fix applied (`git-usage` → `alwaysApply: true`) but not validated. Core research questions remain unanswered.
 
-**Key Finding**: Rules with `alwaysApply: false` are conditionally attached via keyword routing, which can be missed. Changing `assistant-git-usage.mdc` to `alwaysApply: true` fixes the primary issue.
+**What's Actually Complete**:
 
-**ROI**: ~20-30x (4 weeks planned → <1 day actual)
+- ✅ Measurement framework built
+- ✅ Baseline metrics established (68% overall)
+- ✅ Meta-test proved rules CAN work
+- ✅ One fix applied (not validated)
+
+**What's NOT Complete**:
+
+- ❌ Fix validation (need 20-30 commits of usage)
+- ❌ H2: Pre-send gate enforcement investigation
+- ❌ H3: Query visibility investigation
+- ❌ Slash commands experiment
+- ❌ Scalable patterns for 25 conditional rules
+- ❌ 6 rule improvements discovered during investigation
 
 ---
 
@@ -87,9 +97,11 @@
 
 **[tasks.md](tasks.md)** — Execution tracking
 
-- Phase checklists with status
-- Carryovers: 6 rule improvements identified
-- Monitoring plan for post-fix validation
+- **PRIMARY STATUS DOCUMENT** — See this for current progress
+- Discovery tasks to understand current state
+- Review checkpoints for validation gates
+- Phase checklists (6A-6D) with detailed status
+- Rule improvements from investigation findings
 
 ### Analysis & Research
 
@@ -105,7 +117,7 @@
 - 7 detailed test plans with procedures
 - H0 (meta-test) executed ✅
 - H1 (conditional attachment) confirmed ✅
-- H2, H3, slash commands deferred (optional enhancements)
+- H2, H3, slash commands: see tasks.md for execution status
 
 ---
 
@@ -139,8 +151,14 @@ Each test plan includes implementation checklist and success criteria.
 
 ## Status
 
-**Project Status**: ✅ Complete — Primary objective achieved  
-**Fix Applied**: `assistant-git-usage.mdc` changed to `alwaysApply: true`  
-**Next Steps**: See `tasks.md` for monitoring plan and rule improvement carryovers
+**Project Status**: ⚠️ ACTIVE — Incorrectly marked complete  
+**Current Phase**: 6A (Validate H1 Fix)  
+**Fix Applied**: `assistant-git-usage.mdc` changed to `alwaysApply: true` (NOT VALIDATED)  
+**Next Steps**:
 
-**Confidence**: HIGH (empirical evidence via meta-test)
+1. Validate fix over 20-30 commits
+2. Execute H2, H3, slash commands tests
+3. Discover scalable patterns for conditional rules
+4. Complete 6 rule improvements
+
+**Critical Issue**: Setting `alwaysApply: true` is not scalable for 25+ conditional rules. The investigation needs to answer its original research questions about enforcement mechanisms.

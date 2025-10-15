@@ -1,9 +1,8 @@
 ---
-status: complete
+status: active
 owner: repo-maintainers
 lastUpdated: 2025-10-15
-completedDate: 2025-10-15
-phase: complete
+phase: test-execution
 ---
 
 # Engineering Requirements Document — Rules Enforcement & Effectiveness Investigation
@@ -17,15 +16,17 @@ Investigate how Cursor rules are processed and enforced by the AI assistant to d
 3. Whether slash commands provide better adherence than intent routing
 4. How to structure rules for maximum effectiveness
 
-**Context**: Assistant violated multiple rules (script-first, consent-first) despite rules being in context (`alwaysApply: true`). Need to understand root cause and identify structural improvements.
+**Context**: Assistant violated multiple rules (script-first, consent-first) despite rules being in context. Initial investigation identified conditional attachment as one factor, but fundamental questions remain unanswered about enforcement mechanisms, pre-send gates, query protocols, and scalable patterns for 25+ conditional rules.
 
 ## 2. Goals/Objectives
 
-- Understand how rules in `.cursor/rules/*.mdc` are processed by the AI
-- Determine difference between `alwaysApply: true` vs `false` in practice
+- Understand how rules in `.cursor/rules/*.mdc` are processed and enforced by the AI
+- Determine what makes enforcement effective (beyond just `alwaysApply: true`)
+- Discover scalable enforcement patterns for 25+ conditional rules (not just critical rules)
 - Compare intent routing (current) vs slash commands (taskmaster/spec-kit) for rule adherence
+- Understand why pre-send gates and query protocols may not be working
 - Identify measurable signals for rule compliance
-- Propose structural changes to improve enforcement
+- Propose structural changes that scale across all rule types
 
 ## 3. Research Questions
 
@@ -147,58 +148,97 @@ Create post-hoc validation:
 
 Execute test plans in priority order:
 
-**Week 1: Infrastructure & Quick Wins**
+**Completed (Week 0)**:
 
-1. Build measurement framework (compliance checkers, baseline dashboard)
-2. Run Hypothesis 1 (conditional attachment) — expected +20 pts improvement
-3. Establish objective baseline for all metrics
+1. ✅ Built measurement framework (compliance checkers, baseline dashboard)
+2. ✅ Ran Hypothesis 0 (meta-test with self-improve rule)
+3. ✅ Established baseline metrics (68% overall, 71% script usage, 72% TDD, 62% branch naming)
+4. ✅ Applied H1 fix (git-usage → alwaysApply: true)
 
-**Week 2: Core Mechanisms** 4. Run Hypothesis 3 (query visibility) — expected +80 pts transparency improvement 5. Run Hypothesis 2 (send gate enforcement) — determine if gate blocks violations
+**Remaining Work**:
 
-**Week 3: Advanced Improvements** 6. Run Slash Commands Experiment — expected +25 pts routing accuracy 7. Test with/without slash commands, measure adoption
+**Phase 6A: Validate H1 Fix (2-3 weeks)**
 
-**Week 4: Integration & Validation** 8. Combine successful improvements (always-apply + visible output + slash commands) 9. Measure cumulative effect, validate no negative interactions 10. Document final recommendations and rollout plan
+1. Monitor script usage over 20-30 commits with alwaysApply: true
+2. Measure actual improvement (expect: 71% → >90%)
+3. Confirm fix effectiveness or identify gaps
+
+**Phase 6B: Core Enforcement Mechanisms (2-3 weeks)**
+
+4. Run Hypothesis 2 (send gate enforcement) — Does the pre-send gate actually block violations?
+5. Run Hypothesis 3 (query visibility) — Is "check capabilities.mdc" executed? Would visible output help?
+
+**Phase 6C: Scalable Patterns (2-3 weeks)**
+
+6. Run Slash Commands Experiment — Can explicit commands solve routing for 25 conditional rules?
+7. Compare approaches: alwaysApply vs slash commands vs improved intent routing
+
+**Phase 6D: Integration & Validation (1 week)**
+
+8. Synthesize findings into scalable enforcement patterns
+9. Document recommendations for all rule types (not just critical rules)
+10. Address 6 rule improvement gaps discovered during investigation
 
 ## 5. Acceptance Criteria
 
-### Phase 5: Test Plan Development
+### Phase 5: Test Plan Development ✅ COMPLETE
 
 **Deliverables**: Comprehensive test plans for all hypotheses and experiments
 
-- Test plans with success criteria, timelines, and risk mitigation
-- Measurement framework design with automated compliance checking
-- Analysis of 15+ rules for enforcement patterns
-- Comparison with external patterns (taskmaster/spec-kit)
-- Structural improvement proposals with rationale
+- ✅ Test plans with success criteria, timelines, and risk mitigation
+- ✅ Measurement framework design with automated compliance checking
+- ✅ Analysis of 15+ rules for enforcement patterns
+- ✅ Comparison with external patterns (taskmaster/spec-kit)
+- ✅ Structural improvement proposals with rationale
 
-**Status**: ✅ COMPLETE (see tasks.md Phase 2)
+### Phase 6A: Validate H1 Fix ⏳ IN PROGRESS
 
-### Phase 6: Test Execution
+**Deliverables**: Validate that alwaysApply fix actually solves the problem
 
-**Deliverables**: Execute tests and validate findings
+- ✅ Applied fix (git-usage → alwaysApply: true)
+- ❌ Validated fix with 20-30 commits of actual usage
+- ❌ Measured improvement (baseline 71% → target >90%)
+- ❌ Confirmed no regression in other areas
 
-- Build measurement framework (4 compliance checkers + dashboard)
-- Establish baseline metrics
-- Execute meta-test (Hypothesis 0)
-- Confirm root cause (Hypothesis 1)
-- Apply and validate primary fix
-- Document comprehensive findings
+**Success Criteria**: Script usage ≥90% after fix (vs 71% baseline)
 
-**Status**: ✅ PRIMARY OBJECTIVES COMPLETE (see tasks.md Phases 2-5)
+### Phase 6B: Core Enforcement Mechanisms ⏸️ NOT STARTED
 
-**Optional tests deferred**: H2 (send gate), H3 (query visibility), slash commands experiment
+**Deliverables**: Answer fundamental questions about how rules work
 
-### Final Deliverables
+- ❌ H2: Does pre-send gate execute and block violations?
+- ❌ H3: Is query protocol executed? Would visibility improve compliance?
+- ❌ Document which enforcement patterns work and why
 
-**Required artifacts**:
+**Success Criteria**:
 
-- Executive summary documents
-- Quantitative results (baseline metrics)
-- Recommendations with evidence
-- Measurement tools (CI-ready)
-- Fix validation
+- H2: Gate visibility >10% AND detection accuracy >80%
+- H3: Query execution confirmed AND visibility = 100%
 
-**Status**: ✅ ALL COMPLETE (see tasks.md Phase 5)
+### Phase 6C: Scalable Patterns ⏸️ NOT STARTED
+
+**Deliverables**: Discover enforcement patterns for 25+ conditional rules
+
+- ❌ Execute slash commands experiment
+- ❌ Compare: alwaysApply vs slash commands vs improved intent routing
+- ❌ Identify scalable patterns that don't require alwaysApply
+
+**Success Criteria**: Routing accuracy >95% with scalable approach (vs ~70% baseline)
+
+### Phase 6D: Integration & Final Deliverables ⏸️ NOT STARTED
+
+**Deliverables**: Synthesize findings and complete rule improvements
+
+- ❌ Synthesized recommendations for all rule types
+- ❌ Complete 6 rule improvement tasks (project-lifecycle, ERD scope, task structure, etc.)
+- ❌ CI integration guide validated
+- ❌ Final summary with validated recommendations
+
+**Success Criteria**:
+
+- All 6 rule gaps addressed
+- Scalable enforcement patterns documented
+- Overall compliance >90% validated
 
 ## 6. Risks/Constraints
 
@@ -292,13 +332,27 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 
 ## 10. Implementation Timeline
 
-**Planned**: 4 weeks (phased execution across Weeks 1-4)
+**Original Plan**: 4 weeks (phased execution)
 
-**Actual**: <1 day (2025-10-15)
+**Revised Timeline**:
 
-**Key acceleration**: Meta-test (Hypothesis 0) with self-improve rule answered fundamental question in <5 minutes, confirming Hypothesis 1 without need for planned control/experimental trials.
+- **Week 0** (2025-10-15): ✅ Test plan development, measurement framework, baseline, H0 meta-test, H1 fix applied
+- **Weeks 1-2**: Validate H1 fix effectiveness (20-30 commits)
+- **Weeks 3-4**: Execute H2 (send gate) and H3 (query visibility)
+- **Weeks 5-6**: Execute slash commands experiment
+- **Week 7**: Synthesize findings, complete 6 rule improvements
+- **Total**: ~7 weeks from start (vs 4 weeks originally planned)
 
-**See**: [`tasks.md`](tasks.md) for execution checklist and [`findings.md`](findings.md) for outcomes
+**Status**: ~15% complete (infrastructure built, one fix applied but not validated, core questions unanswered)
+
+**Key Insight**: Meta-test proved rules CAN work, but did NOT answer:
+
+- What enforcement patterns scale to 25+ conditional rules?
+- Why pre-send gates may not be working
+- Whether slash commands provide better enforcement
+- How to validate the fix actually works
+
+**See**: [`tasks.md`](tasks.md) for execution checklist
 
 ---
 
@@ -306,6 +360,6 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 
 - Owner: repo-maintainers
 - Created: 2025-10-11
-- Completed: 2025-10-15
-- Status: Primary objective complete
-- See: [`findings.md`](findings.md) for outcomes, [`tasks.md`](tasks.md) for execution details
+- Status: Active (test execution phase)
+- Current Phase: 6A (validate H1 fix)
+- Completion: ~15%
