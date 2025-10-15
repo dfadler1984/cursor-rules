@@ -1,7 +1,7 @@
 ---
 description: Assistant Git usage — commits, branch naming, changesets, and commit gates (tests/lint/types)
-alwaysApply: false
-lastReviewed: 2025-10-11
+alwaysApply: true
+lastReviewed: 2025-10-15
 healthScore:
   content: green
   usability: green
