@@ -41,7 +41,7 @@ bash .cursor/scripts/project-archive-workflow.sh --project tests-github-deletion
 - Removed `tests-github-deletion` from `git-usage-suite` sub-projects (line 62)
 - Added to Completed section:
   ```markdown
-  - [tests-github-deletion](../_archived/2025/tests-github-deletion/final-summary.md) — Test environment isolation investigation; resolved via D6 subshell isolation.
+  - [tests-github-deletion](../tests-github-deletion/final-summary.md) — Test environment isolation investigation; resolved via D6 subshell isolation.
   ```
 
 **Validation:**
