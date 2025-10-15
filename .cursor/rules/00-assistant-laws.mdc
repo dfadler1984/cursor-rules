@@ -1,7 +1,7 @@
 ---
 description: AI Assistant Laws (highest-priority behavioral contract)
 alwaysApply: true
-lastReviewed: 2025-09-10
+lastReviewed: 2025-10-15
 healthScore:
   content: green # Clear behavioral requirements, no contradictions
   usability: green # Concise laws, well-structured, easy to follow

@@ -1,6 +1,6 @@
 ---
 description: Capabilities for ERD authoring (Full default, Lite optional)
-lastReviewed: 2025-10-03
+lastReviewed: 2025-10-15
 healthScore:
   content: green
   usability: green
@@ -28,7 +28,6 @@ references:
 ## Constraints & Guards
 
 - Consent-first writes; path enforcement under docs/projects/<feature>/
-- Log ERD creation/upgrade via logging protocol
 
 ## Examples
 
@@ -37,4 +36,4 @@ references:
 
 ## Related
 
-- spec-driven.caps.mdc, logging-protocol.caps.mdc
+- spec-driven.caps.mdc

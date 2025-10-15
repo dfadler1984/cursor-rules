@@ -1,7 +1,7 @@
 ---
 description: Engineering Requirements Document (ERD) creation workflow and template for Cursor
 alwaysApply: false
-lastReviewed: 2025-09-13
+lastReviewed: 2025-10-15
 healthScore:
   content: green
   usability: green
@@ -87,6 +87,24 @@ Optional (Lite): Non-Functional (short), Success Metrics (1–3 bullets)
 - Full template: `.cursor/rules/erd-full.md` (reference-only)
 - Lite template: `.cursor/rules/erd-lite.md` (reference-only)
 
+## Process
+
+1. Receive Initial Prompt
+   - User expresses a need to create or update an ERD for a feature or change.
+2. Ask Clarifying Questions (Required)
+   - Before writing the ERD, the assistant must ask clarifying questions to understand the problem, scope, constraints, and outputs.
+   - Provide options (letters/numbers) for quick user selection.
+3. Generate ERD
+   - Use the structure defined above. Include engineering-focused sections.
+   - Omit optional sections if the user opts out.
+4. Save ERD
+   - Location: `docs/projects/<feature>/erd.md`
+   - Format: Markdown (`.md`)
+
+## Audience
+
+- Primary: Junior engineers. Keep requirements explicit, unambiguous, and testable.
+
 ## Defaults and Guardrails
 
 - Default Mode: Full (unless user explicitly says Lite/Quick)
@@ -95,139 +113,6 @@ Optional (Lite): Non-Functional (short), Success Metrics (1–3 bullets)
 - Keep outputs concise and scannable; prefer lists and numbered items
 - Omit optional sections only if the user opts out explicitly
 - Consent-first: Do not write files without explicit user direction
-  - Logging: When an ERD is created or upgraded (Lite→Full), write an assistant learning log entry per `logging-protocol.mdc`
-
-## Rule: Generating an Engineering Requirements Document (ERD)
-
-## Goal
-
-Guide the AI assistant to create a clear, actionable Engineering Requirements Document (ERD) in Markdown, adapted from a PRD-style flow but expanded for engineering needs (architecture, non-functional requirements, rollout/ops). See reference inspiration: [PRD rule](https://raw.githubusercontent.com/snarktank/ai-dev-tasks/refs/heads/main/create-prd.md).
-
-## Process
-
-1. Receive Initial Prompt
-   - User expresses a need to create or update an ERD for a feature or change.
-2. Ask Clarifying Questions (Required)
-   - Before writing the ERD, the assistant must ask clarifying questions (below) to understand the problem, scope, constraints, and outputs.
-   - Provide options (letters/numbers) for quick user selection.
-3. Generate ERD
-   - Use the structure defined below. Include engineering-focused sections.
-   - Omit optional sections if the user opts out.
-4. Save ERD
-   - Location: `docs/projects/<feature>/erd.md`
-   - Format: Markdown (`.md`)
-
-### Lite Mode (Optional)
-
-- Purpose: Produce a fast, minimal ERD for small/low-risk work, with a clear upgrade path.
-- How to enable: User asks for a "lite" or "quick" ERD, or selects Lite when prompted.
-- Output: Same path `docs/projects/<feature>/erd.md`, include a header note: `Mode: Lite`.
-
-## Clarifying Questions (pick-letter/number answers encouraged)
-
-Customize based on the prompt. Keep concise and focused:
-
-- Problem/Goal: "What user/business problem does this solve?" / "What outcome is needed?"
-- Target User: "Who primarily uses this (persona/team/system)?"
-- Scope: "Is this net-new, extension, or refactor? Any non-goals?"
-- Core Functionality: "What are the key capabilities and flows?"
-- Non-Functional: "Any performance SLOs, latency budgets, throughput, availability, security/privacy, cost targets?"
-- Architecture: "Any required patterns, constraints, or integration points to reuse?"
-- Data: "What data is read/written? New schemas/migrations? Retention/PII considerations?"
-- API/Contracts: "New or updated REST/GraphQL/events? Versioning/back-compat requirements?"
-- Ops/Rollout: "Feature flags, migrations, monitoring, rollback strategy?"
-- Testing & Acceptance: "What tests prove this works? Entry/exit criteria?"
-- Success Metrics: "How will we measure success?"
-- Output Path & Naming: "Confirm `docs/projects/<feature>/erd.md`? Provide `<feature>`."
-- Mode: "Lite or Full? (default: Full). If Lite, we’ll include essentials only."
-
-Include selectable defaults when possible, e.g. audience, sections to include/omit.
-
-## ERD Structure (Sections)
-
-Include all that apply. If the user opts out of a section, omit it from the final ERD.
-
-1. Introduction/Overview
-   - Briefly describe the feature and the problem it solves. State the goal.
-2. Goals/Objectives
-   - Specific, measurable objectives for this change.
-3. User Stories
-   - As a [type of user], I want to [action] so that [benefit].
-4. Functional Requirements
-   - Numbered list of must-have behaviors. Keep clear and testable.
-5. Non-Functional Requirements
-   - Performance/SLOs, reliability, scalability, security, privacy, compliance, cost.
-6. Architecture/Design
-   - System context, component/sequence diagrams (describe if no image), key tradeoffs.
-7. Data Model and Storage
-   - Schemas, migrations, indexing, retention/PII, backup/restore considerations.
-8. API/Contracts
-   - REST/GraphQL/event contracts, request/response types, versioning, back-compat.
-9. Integrations/Dependencies
-   - Internal/external services, libraries, feature flags, configuration.
-10. Edge Cases and Constraints
-
-- Known risks, limitations, failure modes, degraded behavior.
-
-11. Testing & Acceptance
-
-- Test strategy (unit/integration/e2e), TDD plan, acceptance criteria, test data.
-
-12. Rollout & Ops
-
-- Deployment plan, feature flagging, migration steps, monitoring/alerts, rollback.
-
-13. Success Metrics
-
-- KPIs or measurable outcomes to validate success.
-
-14. Open Questions
-
-- Outstanding decisions or unknowns.
-
-### Lite ERD Structure (Essentials Only)
-
-When Lite mode is selected, generate only these sections:
-
-1. Introduction/Overview — 1–2 paragraphs
-2. Goals/Objectives — 3–5 bullets
-3. Functional Requirements — 3–10 numbered items
-4. Acceptance Criteria — 3–7 bullets
-5. Risks/Edge Cases — top 3–5 items
-6. Rollout Note — flag/owner/date (one-liner)
-
-Optional (Lite):
-
-- Success Metrics — 1–3 bullets
-- Non-Functional — short notes (latency/availability/security/cost) if applicable
-
-Include at the end:
-
-- "Convert to Full ERD" checklist (see below)
-
-### ERD Templates
-
-- Full template: `.cursor/rules/erd-full.md`
-- Lite template: `.cursor/rules/erd-lite.md`
-
-## Output
-
-- Format: Markdown (`.md`)
-- Location: `docs/projects/<feature>/erd.md`
-- Filename: `erd.md` in `docs/projects/<feature>/`
-
-## Audience
-
-- Primary: Junior engineers. Keep requirements explicit, unambiguous, and testable.
-
-## Defaults and Guardrails
-
-- Require clarifying questions before generation.
-- Enforce filename/location convention above.
-- Include short prompts/examples for each section where useful.
-- Keep generated ERDs concise and scannable; prefer numbered lists and bullets.
-- Omit optional sections if the user requests; otherwise include all sections.
-- Lite mode is permitted for small/low-risk work; include the upgrade checklist.
 
 ## Manual Invocation & Intent Routing
 
