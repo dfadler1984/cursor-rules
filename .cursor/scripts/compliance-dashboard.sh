@@ -2,28 +2,48 @@
 # compliance-dashboard.sh
 # Aggregate compliance metrics into dashboard
 
+set -euo pipefail
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=.lib.sh
+source "$SCRIPT_DIR/.lib.sh"
+
+VERSION="0.1.0"
+
+usage() {
+  print_help_header "compliance-dashboard.sh" "$VERSION" "Aggregate compliance metrics into a dashboard view"
+  print_usage "compliance-dashboard.sh [OPTIONS]"
+  
+  print_options
+  print_option "--limit N" "Number of commits to analyze" "100"
+  print_option "-h, --help" "Show this help and exit"
+  
+  print_examples
+  print_example "Show dashboard for last 100 commits" "compliance-dashboard.sh"
+  print_example "Show dashboard for last 50 commits" "compliance-dashboard.sh --limit 50"
+  
+  print_exit_codes
+}
+
+# Defaults
 LIMIT=100
 
-# Help
-if [[ "${1:-}" == "--help" ]]; then
-  cat << EOF
-compliance-dashboard.sh - Generate compliance dashboard
-
-Usage:
-  compliance-dashboard.sh [--limit N]
-
-Flags:
-  --limit N    Number of commits (default: 100)
-  --help       Show this help
-EOF
-  exit 0
-fi
-
-# Parse --limit
-if [[ "${1:-}" == "--limit" ]] && [[ -n "${2:-}" ]]; then
-  LIMIT="$2"
-fi
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --limit)
+      LIMIT="${2:-}"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      die 2 "Unknown argument: $1"
+      ;;
+  esac
+done
 
 # Header
 echo "═══════════════════════════════════════════════════════════════"

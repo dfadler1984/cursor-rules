@@ -2,19 +2,39 @@
 # check-branch-names.sh
 # Check branch naming compliance
 
-# Help
-if [[ "${1:-}" == "--help" ]]; then
-  cat << EOF
-check-branch-names.sh - Check branch naming compliance
+set -euo pipefail
 
-Usage:
-  check-branch-names.sh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=.lib.sh
+source "$SCRIPT_DIR/.lib.sh"
 
-Flags:
-  --help       Show this help
-EOF
-  exit 0
-fi
+VERSION="0.1.0"
+
+usage() {
+  print_help_header "check-branch-names.sh" "$VERSION" "Check branch naming compliance against conventions"
+  print_usage "check-branch-names.sh [OPTIONS]"
+  
+  print_options
+  print_option "-h, --help" "Show this help and exit"
+  
+  print_examples
+  print_example "Check all branches" "check-branch-names.sh"
+  
+  print_exit_codes
+}
+
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      die 2 "Unknown argument: $1"
+      ;;
+  esac
+done
 
 # Check git repo
 if ! git rev-parse --git-dir >/dev/null 2>&1; then

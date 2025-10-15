@@ -2,28 +2,48 @@
 # check-tdd-compliance.sh
 # Check TDD compliance via spec file changes
 
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=.lib.sh
+source "$SCRIPT_DIR/.lib.sh"
+
+VERSION="0.1.0"
+
+usage() {
+  print_help_header "check-tdd-compliance.sh" "$VERSION" "Check TDD compliance by correlating impl and spec file changes"
+  print_usage "check-tdd-compliance.sh [OPTIONS]"
+  
+  print_options
+  print_option "--limit N" "Number of commits to analyze" "100"
+  print_option "-h, --help" "Show this help and exit"
+  
+  print_examples
+  print_example "Check last 100 commits" "check-tdd-compliance.sh"
+  print_example "Check last 50 commits" "check-tdd-compliance.sh --limit 50"
+  
+  print_exit_codes
+}
+
 # Defaults
 LIMIT=100
 
-# Help
-if [[ "${1:-}" == "--help" ]]; then
-  cat << EOF
-check-tdd-compliance.sh - Check TDD compliance
-
-Usage:
-  check-tdd-compliance.sh [--limit N]
-
-Flags:
-  --limit N    Number of commits to analyze (default: 100)
-  --help       Show this help
-EOF
-  exit 0
-fi
-
-# Parse --limit flag
-if [[ "${1:-}" == "--limit" ]] && [[ -n "${2:-}" ]]; then
-  LIMIT="$2"
-fi
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --limit)
+      LIMIT="${2:-}"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      die 2 "Unknown argument: $1"
+      ;;
+  esac
+done
 
 # Check git repo
 if ! git rev-parse --git-dir >/dev/null 2>&1; then
