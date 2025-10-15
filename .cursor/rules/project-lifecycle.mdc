@@ -1,7 +1,7 @@
 ---
 description: Project lifecycle — completion policy and validation (canonical; ERDs link here)
 alwaysApply: false
-lastReviewed: 2025-10-10
+lastReviewed: 2025-10-15
 healthScore:
   content: green
   usability: green
@@ -42,18 +42,55 @@ Project artifacts live under `docs/projects/<project>/`.
 - Update `docs/projects/README.md` to move the project to Completed and link its Final Summary.
 - Consider archival when stable: `docs/projects/_archived/<YYYY>/<project>/`.
 
+## Completion States
+
+Projects can be in one of three states:
+
+### Active
+
+- Work is ongoing
+- ERD has `status: active` (or no status field)
+- Located in `docs/projects/<name>/`
+
+### Complete (Active)
+
+- Primary objective achieved
+- May have open follow-ups or carryovers documented in `tasks.md`
+- ERD has `status: completed` and `completed: YYYY-MM-DD`
+- Still located in `docs/projects/<name>/` (not yet archived)
+- Use this state when:
+  - Project delivered its core value
+  - Follow-up work identified but not blocking
+  - May need monitoring or validation before archiving
+
+### Complete (Archived)
+
+- Project fully wrapped up with no pending work
+- Moved to `docs/projects/_archived/<YYYY>/<name>/`
+- All carryovers either completed or moved to new projects
+- Ready for long-term reference only
+
+**Transition Path**: Active → Complete (Active) → Complete (Archived)
+
 ## Completion Criteria
 
-A project is “complete” when:
+A project reaches "Complete (Active)" when:
 
 1. `final-summary.md` exists, non-empty, and contains:
    - Front matter with `template` and `version`
    - An `## Impact` section
 2. `tasks.md` exists and either:
    - All items are checked, or
-   - A `Carryovers` section is present
+   - A `Carryovers` section documents follow-up work
 3. Retrospective is present (standalone file or section in Final Summary)
 4. `docs/projects/README.md` lists the project under Completed with a link to `final-summary.md`
+5. ERD front matter has `status: completed` and `completed: YYYY-MM-DD`
+
+**Archival Criteria** (transition to Complete (Archived)):
+
+- All carryovers completed or moved to separate projects
+- No active monitoring or validation needed
+- Ready for long-term storage
 
 ## Validator (scoped)
 
@@ -161,6 +198,102 @@ Reference templates:
 - Single archive move only: `.cursor/scripts/project-archive.sh --project <slug> --year <YYYY> [--dry-run]`
 - Backfill legacy projects: `.cursor/scripts/project-lifecycle-migrate.sh --project <slug>`
 
+## Document Structure Guidance
+
+**Purpose**: Define clear separation between ERD, tasks.md, and findings.md to prevent scope creep and content duplication.
+
+### ERD (Engineering Requirements Document)
+
+**Scope**: Requirements and approach only
+
+**Include**:
+
+- Introduction/Overview
+- Goals/Objectives
+- Research questions (if investigative project)
+- Acceptance criteria (as narrative requirements, not checklists)
+- Success metrics and targets
+- Risks/Constraints
+- Investigation approach or implementation strategy
+- Timeline estimates
+
+**Exclude**:
+
+- Execution checklists (→ tasks.md)
+- Findings or retrospective (→ findings.md)
+- Detailed week-by-week execution plans (→ tasks.md phases)
+- Status updates or progress notes (→ tasks.md or findings.md)
+
+**Size Target**: 200-400 lines
+
+### tasks.md
+
+**Scope**: Phase sections with execution checklists only
+
+**Include**:
+
+- Phase headers with checkboxes
+- Sub-task checklists under each phase
+- `## Carryovers` section for follow-up work
+- Brief inline status notes (e.g., "✅ COMPLETE" after phase header)
+
+**Exclude**:
+
+- Detailed findings or analysis (→ findings.md)
+- Requirements or acceptance criteria (→ ERD)
+- Research questions or hypothesis details (→ ERD)
+- Retrospective content (→ findings.md)
+
+**Size Target**: <200 lines for typical projects
+
+**Pattern**: ERD acceptance criteria → tasks.md execution checklists
+
+### findings.md
+
+**Scope**: Outcomes and retrospective (created at completion)
+
+**Include**:
+
+- Root cause or primary finding
+- Research questions answered/deferred
+- Deliverables created
+- Rule gaps or meta-findings discovered
+- Investigation meta-lessons
+- Recommendations and next steps
+
+**Exclude**:
+
+- Requirements (→ ERD)
+- Active execution checklists (→ tasks.md)
+
+**Size Target**: 150-300 lines
+
+**Timing**: Create findings.md when project reaches "Complete (Active)" state
+
+### README.md
+
+**Scope**: High-level navigation and project overview only
+
+**Include**:
+
+- Brief project overview (problem, objective, result in 3-4 sentences)
+- Navigation structure pointing to other documents
+- Quick actions (commands to run, links to key sections)
+- Project status summary
+
+**Exclude**:
+
+- Detailed findings (→ findings.md)
+- Metrics and measurements (→ BASELINE-REPORT.md or similar)
+- Implementation details (→ ERD or dedicated analysis docs)
+- Test procedures (→ tests/ directory)
+
+**Anti-pattern**: Creating multiple summary documents (EXECUTIVE-SUMMARY.md, BREAKTHROUGH.md, README.md) with 70-80% content overlap
+
+**Best Practice**: README.md is the single entry point; specialized summaries only when distinct audiences require different formats (e.g., technical vs executive)
+
+**Size Target**: <200 lines (lean navigation guide)
+
 ## Task List Process (subsection)
 
 - One sub-task at a time: do not start the next until the current sub-task is completed and recorded.
@@ -171,7 +304,7 @@ Reference templates:
 - Maintenance:
   - Keep a `Relevant Files` section current with one-line purposes for created/modified files.
   - Add newly discovered tasks as they arise.
-  - Provide concise status updates (what changed, what’s next, blockers) while executing.
+  - Provide concise status updates (what changed, what's next, blockers) while executing.
 
 ## Validator and CLI (repository sweep)
 
