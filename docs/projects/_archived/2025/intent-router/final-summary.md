@@ -35,8 +35,8 @@ Established a central intent routing system that parses user inputs and routes t
 
 ### Follow-ups
 
-- [slash-commands-runtime](../../slash-commands-runtime/erd.md) — Runtime execution semantics for slash commands
-- Automated enforcement blocked on: [role-phase-mapping](../../role-phase-mapping/erd.md), [split-progress](../../split-progress/erd.md)
+- [slash-commands-runtime](../../../slash-commands-runtime/erd.md) — Runtime execution semantics for slash commands
+- Automated enforcement blocked on: [role-phase-mapping](../../../role-phase-mapping/erd.md), [split-progress](../../../split-progress/erd.md)
 
 ## Links
 

@@ -125,17 +125,17 @@
 
 - [x] 18.0 Organize scripts into subdirectories — **MIGRATED to script-refinement Task 3.0**
 
-  - **Status:** Moved to [script-refinement](../script-refinement/tasks.md) Task 3.0 for threshold-triggered execution
+  - **Status:** Moved to [script-refinement](../../../script-refinement/tasks.md) Task 3.0 for threshold-triggered execution
   - **Trigger:** When script count reaches **50+ scripts** OR clear pain points emerge
   - **Current:** 45 scripts (90% of threshold); flat structure still manageable
   - **Rationale:** Threshold-based task belongs in active project, not archived one
-  - See: [script-refinement/erd.md](../script-refinement/erd.md) Section 4.3 for full requirements
+  - See: [script-refinement/erd.md](../../../script-refinement/erd.md) Section 4.3 for full requirements
 
 - [x] 20.0 Refactor existing Unix Philosophy violators — **✅ MAJOR WORK COMPLETE (2025-10-14)**
 
   - **Status:** 3 major orchestrators complete; remaining work moved to script-refinement project
   - See: `docs/projects/scripts-unix-philosophy/erd.md` Section 11
-  - See: `docs/projects/script-refinement/erd.md` for remaining optional work
+  - See: [script-refinement/erd.md](../../../script-refinement/erd.md) for remaining optional work
   - **What was accomplished:**
     - [x] Created 9 focused scripts (all D1-D6 compliant, TDD-tested) ✅
     - [x] Created 56 tests (55 passing, 1 new format test) ✅
@@ -145,8 +145,8 @@
     - [x] 20.2.1 context-efficiency-format.sh extracted (282 lines) ✅
     - [x] 20.3 pr-create.sh deprecated with focused alternatives recommended ✅
   - **What was migrated to script-refinement (P3 optional):**
-    - [ ] 20.4 Extract checks-status.sh → Moved to script-refinement Task 1.0
-    - [ ] 20.5 Split rules-validate-format.sh → Moved to script-refinement Task 2.0
+    - [ ] 20.4 Extract checks-status.sh → Moved to [script-refinement](../../../script-refinement/erd.md) Task 1.0
+    - [ ] 20.5 Split rules-validate-format.sh → Moved to [script-refinement](../../../script-refinement/erd.md) Task 2.0
   - **Achievement:** 839 lines reduced via orchestrators (497+342 → 301+124)
   - **Current state:** 2 refinement opportunities remain (checks-status, rules-validate-format split); deferred to optional project
   - **Priority:** Core work complete ✅; remaining work is P3 polish
