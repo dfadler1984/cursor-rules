@@ -1,6 +1,6 @@
 ## Tasks — Script Refinement (Optional Polish)
 
-**Parent project:** [shell-and-script-tooling](../shell-and-script-tooling/erd.md)
+**Parent project:** [shell-and-script-tooling](../_archived/2025/shell-and-script-tooling/erd.md)
 
 ## Relevant Files
 

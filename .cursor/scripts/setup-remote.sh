@@ -166,7 +166,6 @@ fi
 printf '\nNext steps:\n'
 printf '  - Run validators: bash .cursor/scripts/help-validate.sh\n'
 printf '  - Run tests: bash .cursor/scripts/tests/run.sh\n'
-printf '  - See docs: docs/projects/shell-and-script-tooling/\n'
 
 exit 0
 

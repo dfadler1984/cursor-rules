@@ -36,7 +36,7 @@ Created a cohesive suite of 8 shell scripts to replace Node/yarn-based helpers w
 
 ### Follow-ups
 
-- Unified coordination: [shell-and-script-tooling](../../shell-and-script-tooling/erd.md) tracks cross-cutting decisions (D1-D4: Help/Version, Strict Mode, Error Semantics, Networkless)
+- Unified coordination: [shell-and-script-tooling](../shell-and-script-tooling/erd.md) tracks cross-cutting decisions (D1-D4: Help/Version, Strict Mode, Error Semantics, Networkless)
 - Adoption status for this project recorded in unified coordination tasks
 
 ## Links
@@ -44,7 +44,7 @@ Created a cohesive suite of 8 shell scripts to replace Node/yarn-based helpers w
 - ERD: `./erd.md`
 - Tasks: `./tasks.md`
 - Implementation: `.cursor/scripts/*.sh` (8 scripts + 8 test files)
-- Unified coordination: `../../shell-and-script-tooling/erd.md`
+- Unified coordination: `../shell-and-script-tooling/erd.md`
 
 ## Credits
 

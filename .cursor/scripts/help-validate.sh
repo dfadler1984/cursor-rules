@@ -143,7 +143,6 @@ if [ "$violations" -gt 0 ]; then
   printf 'Use .lib.sh help functions:\n' >&2
   printf '  print_help_header, print_usage, print_options, print_exit_codes, print_examples\n' >&2
   printf '\n' >&2
-  printf 'See: docs/projects/shell-and-script-tooling/erd.md D1\n' >&2
   exit 1
 fi
 

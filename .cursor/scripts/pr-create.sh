@@ -10,9 +10,6 @@ IFS=$'\n\t'
 #   - pr-label.sh: Add labels to existing PRs
 #   - git-context.sh: Derive git context (reusable utility)
 #
-# This script remains available for advanced template/label workflows.
-# See: docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md
-#
 # Create a GitHub Pull Request via curl using GH_TOKEN
 # Usage: .cursor/scripts/pr-create.sh --title <t> [--body <b>] [--base <branch>] [--head <branch>] \
 #        [--owner <o>] [--repo <r>] [--dry-run] [-h|--help] [--version]

@@ -1,7 +1,7 @@
 ---
 description: GitHub API automation (Octokit) — usage and troubleshooting
 alwaysApply: true
-lastReviewed: 2025-09-15
+lastReviewed: 2025-10-15
 healthScore:
   content: green
   usability: green
@@ -9,6 +9,13 @@ healthScore:
 ---
 
 # GitHub API automation — Usage
+
+## Tooling Constraint (must)
+
+**GitHub CLI (`gh`) is not installed.** Always use the repository scripts (`.cursor/scripts/pr-create.sh`, `.cursor/scripts/pr-update.sh`, `.cursor/scripts/checks-status.sh`) which use `curl` and the GitHub REST API directly.
+
+- ✅ Use: `.cursor/scripts/pr-create.sh`, `curl` with GitHub API
+- ❌ Never use: `gh pr create`, `gh pr list`, `gh api`, or any `gh` commands
 
 ## PR creation (script)
 
