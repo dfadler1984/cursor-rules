@@ -1,8 +1,9 @@
 ---
-status: active
+status: complete
 owner: repo-maintainers
 lastUpdated: 2025-10-15
-phase: test-execution
+completedDate: 2025-10-15
+phase: complete
 ---
 
 # Engineering Requirements Document — Rules Enforcement & Effectiveness Investigation
@@ -160,35 +161,44 @@ Execute test plans in priority order:
 
 ## 5. Acceptance Criteria
 
-### Phase 5: Test Plan Development (✅ COMPLETED)
+### Phase 5: Test Plan Development
 
-- [x] Documented: specific examples of rule violations with context (discovery.md Part 1-2)
-- [x] Analyzed: 15+ rules for enforcement patterns (discovery.md Part 1-3)
-- [x] Analyzed: taskmaster/spec-kit slash command patterns (discovery.md Part 5)
-- [x] Proposed: concrete structural changes with rationale (discovery.md Part 6-8)
-- [x] Created: comprehensive test plans for all hypotheses and experiments (tests/)
-- [x] Created: measurement framework design with automated compliance checking
-- [x] Documented: success criteria, timelines, and risk mitigation for each test
+**Deliverables**: Comprehensive test plans for all hypotheses and experiments
 
-### Phase 6: Test Execution (IN PROGRESS)
+- Test plans with success criteria, timelines, and risk mitigation
+- Measurement framework design with automated compliance checking
+- Analysis of 15+ rules for enforcement patterns
+- Comparison with external patterns (taskmaster/spec-kit)
+- Structural improvement proposals with rationale
 
-- [ ] Built: measurement framework (4 compliance checkers + dashboard)
-- [ ] Established: baseline metrics (script usage, TDD compliance, branch naming)
-- [ ] Tested: Hypothesis 1 (conditional attachment) with 50+ trials per group
-- [ ] Tested: Hypothesis 2 (send gate enforcement) with visibility/accuracy/blocking tests
-- [ ] Tested: Hypothesis 3 (query visibility) with visible output requirement
-- [ ] Tested: Slash commands experiment with comparative analysis
-- [ ] Validated: improvements tested with real workflow examples
-- [ ] Measured: improvement against baseline (quantitative validation)
-- [ ] Documented: findings, recommendations, and rollout plan
+**Status**: ✅ COMPLETE (see tasks.md Phase 2)
+
+### Phase 6: Test Execution
+
+**Deliverables**: Execute tests and validate findings
+
+- Build measurement framework (4 compliance checkers + dashboard)
+- Establish baseline metrics
+- Execute meta-test (Hypothesis 0)
+- Confirm root cause (Hypothesis 1)
+- Apply and validate primary fix
+- Document comprehensive findings
+
+**Status**: ✅ PRIMARY OBJECTIVES COMPLETE (see tasks.md Phases 2-5)
+
+**Optional tests deferred**: H2 (send gate), H3 (query visibility), slash commands experiment
 
 ### Final Deliverables
 
-- [ ] Executive summary of findings (what works, what doesn't, why)
-- [ ] Quantitative results: baseline vs post-improvement metrics for each test
-- [ ] Recommendations: prioritized list of changes to implement in production
-- [ ] Rollout plan: how to deploy validated improvements safely
-- [ ] CI integration: automated compliance monitoring to prevent regressions
+**Required artifacts**:
+
+- Executive summary documents
+- Quantitative results (baseline metrics)
+- Recommendations with evidence
+- Measurement tools (CI-ready)
+- Fix validation
+
+**Status**: ✅ ALL COMPLETE (see tasks.md Phase 5)
 
 ## 6. Risks/Constraints
 
@@ -282,89 +292,13 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 
 ## 10. Implementation Timeline
 
-### Completed (Phase 5)
+**Planned**: 4 weeks (phased execution across Weeks 1-4)
 
-- ✅ Discovery document with comprehensive rules analysis
-- ✅ Test plans for all hypotheses and experiments
-- ✅ Measurement framework design
-- ✅ Success criteria and execution guide
+**Actual**: <1 day (2025-10-15)
 
-### Current Phase (Phase 6: Test Execution)
+**Key acceleration**: Meta-test (Hypothesis 0) with self-improve rule answered fundamental question in <5 minutes, confirming Hypothesis 1 without need for planned control/experimental trials.
 
-**Week 1: Infrastructure & Baseline** (3-4 days)
-
-1. Implement measurement framework scripts:
-   - `check-script-usage.sh` — Parse git log for conventional commits
-   - `check-tdd-compliance.sh` — Match impl files to spec files
-   - `check-branch-names.sh` — Validate naming patterns
-   - `compliance-dashboard.sh` — Aggregate all metrics
-2. Establish baseline metrics (run all checkers on current state)
-3. Execute Hypothesis 1 test (conditional attachment):
-   - Control group: 50 trials
-   - Apply change: `assistant-git-usage.mdc` → `alwaysApply: true`
-   - Experimental group: 50 trials
-   - Compare and document results
-
-**Week 2: Core Mechanisms** (4-5 days) 4. Execute Hypothesis 3 test (query visibility):
-
-- Baseline visibility check (20 trials)
-- Add visible output requirement to rules
-- Post-change test (20 trials)
-- Compare improvement
-
-5. Execute Hypothesis 2 test (send gate enforcement):
-   - Test A: Gate visibility (20 trials)
-   - Test B: Gate accuracy (10 deliberate violations)
-   - Test C: Gate blocking (10 violations)
-   - Test D: Visible gate (if needed, 20 trials)
-
-**Week 3: Advanced Improvements** (4-5 days) 6. Execute Slash Commands Experiment:
-
-- Baseline using H1 control group data
-- Implement slash command rules
-- Test with slash commands (10 trials)
-- Test without slash commands (40 trials)
-- Comparative analysis
-
-**Week 4: Integration & Finalization** (3-4 days) 7. Integration test (combine successful improvements) 8. Final validation and measurement 9. Document findings and recommendations 10. Prepare rollout plan and CI integration
-
-### After Completion
-
-**Rollout** (1-2 weeks):
-
-- Deploy validated improvements to production rules
-- Monitor compliance metrics via CI
-- Gather user feedback
-- Refine based on real-world usage
-
-**Documentation** (ongoing):
-
-- Update rule authoring guidelines with enforcement patterns
-- Create enforcement pattern library
-- Share learnings with broader community
-
-## 11. Next Steps (Immediate)
-
-**For Test Executor**:
-
-1. Set up test environment (create data directories, backup rules)
-2. Begin Week 1 execution:
-   - Build measurement framework scripts
-   - Run baseline measurements
-   - Document baseline report
-3. Execute Hypothesis 1 test (first validation)
-
-**For Project Owner**:
-
-1. Review and approve test execution plan
-2. Allocate resources (3-4 weeks for full suite)
-3. Set expectations for deliverables and timeline
-
-**For Stakeholders**:
-
-1. Review discovery findings and test plans
-2. Provide feedback on priorities or adjustments
-3. Prepare for rollout of validated improvements
+**See**: [`tasks.md`](tasks.md) for execution checklist and [`findings.md`](findings.md) for outcomes
 
 ---
 
@@ -372,7 +306,6 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 
 - Owner: repo-maintainers
 - Created: 2025-10-11
-- Last Updated: 2025-10-15
-- Current Phase: Test Execution (Week 1)
-- Motivation: Assistant violated multiple rules despite `alwaysApply: true`; need to understand enforcement mechanisms
-- Status: Discovery complete, tests ready for execution
+- Completed: 2025-10-15
+- Status: Primary objective complete
+- See: [`findings.md`](findings.md) for outcomes, [`tasks.md`](tasks.md) for execution details

@@ -1,0 +1,311 @@
+---
+description: Standard structure template for test plans and experimental designs
+globs: **/tests/**/*.md,**/experiments/**/*.md
+alwaysApply: false
+lastReviewed: 2025-10-15
+healthScore:
+  content: green # Clear structure, evidence-based examples
+  usability: green # Scannable template, reusable format
+  maintenance: green # Recently created, valid references
+---
+
+# Test Plan Template
+
+Standard structure for test plans, hypothesis tests, and experimental designs.
+
+**Origin**: Pattern detected across 5 test plan documents in rules-enforcement-investigation project.
+
+## Required Sections
+
+### 1. Background
+
+**Purpose**: Provide context for the test
+
+**Include**:
+
+- Current state being tested
+- Hypothesis or objective
+- Why this test matters (connection to larger goal)
+- Any relevant prior findings
+
+**Example** (from `tests/hypothesis-1-conditional-attachment.md`):
+
+```markdown
+**Current State**:
+
+- `assistant-git-usage.mdc` has `alwaysApply: false`
+- Only attached when `intent-routing.mdc` detects git terms
+
+**Theory**:
+
+- If assistant initiates git action without explicit git terms
+- Then script-first protocol may not be in context
+```
+
+### 2. Test Design
+
+**Purpose**: Define test methodology
+
+**Include**:
+
+- Control group (baseline conditions)
+- Experimental group (with change applied)
+- Test scenarios (specific situations to test)
+- Measurement approach (what data to collect)
+
+**Phases** (if applicable):
+
+- Phase 1: Baseline
+- Phase 2: Implementation
+- Phase 3: Testing
+- Phase 4: Comparison/Analysis
+
+**Example** (from `tests/hypothesis-1-conditional-attachment.md`):
+
+```markdown
+### Control Group (Baseline)
+
+**Setup**:
+
+- Keep `assistant-git-usage.mdc` with `alwaysApply: false`
+
+**Test Scenarios** (10 trials each):
+
+1. Direct git request: "commit these changes"
+2. Indirect git request: "save this work"
+   ...
+```
+
+### 3. Success Criteria
+
+**Purpose**: Define what success looks like (measurable thresholds)
+
+**Include**:
+
+- Primary metrics with targets
+- Secondary metrics (if applicable)
+- Success thresholds (quantitative)
+- Failure conditions
+
+**Format**:
+
+```markdown
+### Primary Metrics
+
+**[Metric Name]**:
+
+- Baseline: X%
+- Target: >Y%
+- Success threshold: Improvement ≥Z percentage points
+```
+
+**Example** (from `tests/experiment-slash-commands.md`):
+
+```markdown
+**Routing Accuracy**:
+
+- Baseline: ~60-70% (keyword-dependent)
+- Slash commands: Target >95%
+- **Success**: Improvement ≥25 percentage points
+```
+
+### 4. Measurement Protocol
+
+**Purpose**: Define HOW to collect data and analyze results
+
+**Include**:
+
+- Data collection templates (YAML, CSV, or structured format)
+- Analysis method (calculations, comparisons)
+- Tools or scripts needed
+
+**Data Template Format**:
+
+```yaml
+# or CSV
+scenario_id: 1
+input: "[test input]"
+expected: "[expected result]"
+actual: "[actual result]"
+success: [yes/no]
+notes: "[observations]"
+```
+
+**Example** (from `tests/hypothesis-2-send-gate-enforcement.md`):
+
+````markdown
+For each of 20 responses, record:
+
+```yaml
+request_id: 1
+request: "commit these changes"
+response_contains_gate_output: false
+gate_evidence: "none"
+```
+````
+
+**Analysis**:
+
+- Gate visibility rate = (responses_with_gate_output / total_responses) × 100
+
+````
+
+### 5. Expected Outcomes
+
+**Purpose**: Define scenarios and their interpretations
+
+**Include**:
+- Scenario 1-N: Different possible results
+- Implications for each scenario
+- Next steps based on results
+- Decision trees if complex
+
+**Format**:
+```markdown
+### Scenario 1: [Hypothesis Confirmed]
+
+**Observations**:
+- [What we'd see]
+
+**Implications**:
+- [What this means]
+
+**Next Steps**:
+- [What to do next]
+````
+
+**Example** (from `tests/hypothesis-3-query-protocol-visibility.md`):
+
+```markdown
+### Scenario 1: Query Not Happening
+
+**Test A**: No query output (0%)  
+**Test B**: Random script usage pattern
+
+**Conclusion**: Query step is not being executed
+
+**Next Step**: Visible output requirement will force execution
+```
+
+### 6. Implementation Checklist
+
+**Purpose**: Step-by-step execution guide
+
+**Include**:
+
+- Pre-test setup steps
+- Test execution steps
+- Data collection steps
+- Analysis steps
+- Post-test cleanup/reporting
+
+**Format**:
+
+```markdown
+### Pre-Test Setup
+
+- [ ] Create test environment
+- [ ] Backup affected files
+- [ ] Document baseline state
+
+### Test Execution
+
+- [ ] Run scenario 1
+- [ ] Record data
+- [ ] Run scenario 2
+      ...
+```
+
+**Example** (from `tests/measurement-framework.md`):
+
+```markdown
+### Core Tools
+
+- [ ] `check-script-usage.sh`
+  - [ ] Parse git log
+  - [ ] Calculate rate
+  - [ ] Output formatted results
+```
+
+### 7. Timeline & Effort
+
+**Purpose**: Resource planning
+
+**Include**:
+
+- Estimated duration for each phase/test
+- Total effort estimate
+- Risks that might affect timeline
+
+**Example** (from `tests/hypothesis-1-conditional-attachment.md`):
+
+```markdown
+- **Control group**: 2-3 hours (50 trials + logging)
+- **Setup change**: 5 minutes
+- **Experimental group**: 2-3 hours (50 trials)
+- **Total**: ~1 day of focused testing
+```
+
+## Optional Sections
+
+### Risk Mitigation
+
+**When to include**: Complex tests, rule changes, or potential negative impacts
+
+**Example**:
+
+```markdown
+**Risk**: Rule change breaks functionality  
+**Mitigation**: Backup original; revert if issues
+```
+
+### Follow-Up Actions
+
+**When to include**: Results may trigger different paths
+
+**Example**:
+
+```markdown
+### If Hypothesis Confirmed
+
+1. Roll out improvement
+2. Monitor metrics
+
+### If Hypothesis Rejected
+
+1. Investigate why
+2. Test alternative approach
+```
+
+## Usage
+
+**When to use this template**:
+
+- Creating hypothesis tests for investigations
+- Designing experiments to validate improvements
+- Documenting A/B tests or comparisons
+- Any structured validation requiring measurement
+
+**How to use**:
+
+1. Copy structure (7 required sections)
+2. Fill in each section with test-specific details
+3. Add optional sections as needed
+4. Ensure measurement protocols are complete
+5. Define clear success criteria before executing
+
+## Examples from Rules-Enforcement-Investigation
+
+All test plans in `docs/projects/rules-enforcement-investigation/tests/` follow this structure:
+
+- `hypothesis-1-conditional-attachment.md` — Control vs experimental groups
+- `hypothesis-2-send-gate-enforcement.md` — Multi-phase testing (A/B/C/D)
+- `hypothesis-3-query-protocol-visibility.md` — Before/after comparison
+- `experiment-slash-commands.md` — 4-phase comparative experiment
+- `measurement-framework.md` — Tool implementation + validation
+
+## Related
+
+- See `rule-creation.mdc` for general rule authoring guidelines
+- See `spec-driven.mdc` for specification-driven development patterns
+- See `generate-tasks-from-erd.mdc` for task generation from requirements
