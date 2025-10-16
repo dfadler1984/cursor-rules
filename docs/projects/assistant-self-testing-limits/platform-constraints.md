@@ -7,11 +7,25 @@
 
 ## The Constraint
 
-**Problem**: Cursor's UI intercepts messages starting with `/` before they reach the assistant.
+**Problem**: Cursor's `/` prefix is for **prompt templates**, not runtime message routing.
 
-**Evidence**: User attempted `/status` and Cursor's command palette activated, creating `.cursor/commands/status` instead of sending the message to the assistant.
+**Evidence**: User attempted `/status` and Cursor correctly created `.cursor/commands/status` to store a prompt template, as designed.
 
-**Impact**: Any rule expecting `/command` syntax will fail because the assistant never receives the message.
+**How Cursor Slash Commands Actually Work** (per [Cursor 1.6 changelog](https://cursor.com/changelog/1-6)):
+- Commands are stored in `.cursor/commands/[command].md`
+- Type `/` in Agent input → opens dropdown of available commands
+- Select command → loads **prompt template** content and sends it to assistant
+- Used for reusable prompts (e.g., "run linter", "fix compile errors", "create PR with conventional commits")
+
+**What We Misunderstood**:
+- ❌ Thought: `/commit` would be sent as a message to assistant for runtime routing
+- ✅ Reality: `/commit` triggers UI to load a prompt template from `.cursor/commands/commit.md`
+
+**Impact**: Any rule expecting runtime routing via `/command` syntax cannot work because:
+1. The `/` prefix triggers Cursor's command system (UI-level)
+2. It loads a **static prompt template**, not a runtime route
+3. The assistant never sees `/command` as a message to process
+4. This is **correct platform behavior**, not a bug
 
 ---
 
@@ -46,6 +60,12 @@ Created `git-slash-commands.mdc` with enforcement protocol:
 ✅ **Immediate discovery**: Constraint apparent in 30 seconds  
 ✅ **Zero testing needed**: No trials required to identify issue
 
+### What SHOULD Have Found It
+
+🔍 **Reading platform docs first**: [Cursor 1.6 changelog](https://cursor.com/changelog/1-6) clearly explains slash commands are prompt templates, not runtime routes
+
+**Lesson**: Check official documentation before implementing platform features. Would have saved implementation time.
+
 ### Time Saved
 
 **Avoided waste**:
@@ -74,9 +94,21 @@ The rule assumed standard chat message behavior. Cursor's UI has special handlin
 
 One attempt to use the feature found a fundamental blocker. This validates the "test in production" / "real usage monitoring" approach.
 
-### 4. Testing Can't Find Unknown Constraints
+### 4. Read Platform Docs First
 
-You can't test for what you don't know to test for. Platform-specific behaviors require discovery, not testing.
+**What happened**: Implemented feature without checking official docs  
+**Cost**: ~4 hours implementation + 2 hours test protocol design  
+**Benefit**: Created reusable investigation artifacts
+
+**What should happen**: Check [Cursor changelog](https://cursor.com/changelog/1-6) and [docs](https://cursor.com/docs/agent/chat/commands) before implementing  
+**Cost**: 10 minutes reading  
+**Benefit**: Immediate understanding of platform constraints
+
+**Lesson**: Documentation > implementation > testing. Read first, then decide if implementation aligns with platform design.
+
+### 5. Testing Can't Find Design Mismatches
+
+You can't test for what you don't know to test for. Platform-specific behaviors require understanding platform design, not testing.
 
 ---
 
@@ -111,11 +143,22 @@ Document that explicit command syntax isn't viable in Cursor
 
 ## Implications for Future Experiments
 
+### Read Documentation First
+
+**Before designing any platform integration**:
+1. **Read official docs**: Check changelog, documentation, API references
+2. **Understand platform design**: How does the platform intend the feature to work?
+3. **Validate assumptions**: Does your approach align with platform design?
+4. **Test basic assumption**: One real attempt to confirm understanding
+5. **Document constraints**: Note platform-specific behaviors
+
+**Order matters**: Docs → Understanding → Design → Test
+
 ### Check Platform Constraints First
 
-Before designing experiments:
+After reading documentation:
 1. Test basic assumption with one real attempt
-2. Document any platform-specific behaviors
+2. Document any platform-specific behaviors discovered
 3. Design around constraints, not against them
 
 ### Prefer Natural Over Explicit
@@ -136,7 +179,16 @@ For UI/platform integration, one real attempt beats 50 test trials.
 
 ---
 
-**Status**: Constraint documented; slash commands marked not viable  
-**Recommendation**: Continue with H1 (alwaysApply + intent routing) approach  
-**Evidence**: One real usage attempt > hours of planned testing
+## References
+
+- [Cursor 1.6 Changelog - Custom Slash Commands](https://cursor.com/changelog/1-6) - Official announcement (September 12, 2025)
+- [Cursor Docs - Commands](https://cursor.com/docs/agent/chat/commands) - Documentation for slash commands feature
+
+---
+
+**Status**: Constraint documented; slash commands marked not viable for runtime routing  
+**Root Cause**: Misunderstood platform feature design (prompt templates vs runtime routes)  
+**Recommendation**: Continue with H1 (alwaysApply + intent routing) approach at 96% compliance  
+**Evidence**: One real usage attempt > hours of planned testing  
+**Meta-lesson**: Read platform docs before implementing features
 
