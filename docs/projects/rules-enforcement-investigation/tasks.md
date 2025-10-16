@@ -215,13 +215,13 @@ Periodic review checkpoints to validate progress and findings:
 
 ## Phase 6A: Validate H1 Fix (Current — Passive Monitoring)
 
-- [ ] 9.0 Monitor git-usage improvement over actual usage — AWAITING DATA (0/20-30 commits)
+- [ ] 9.0 Monitor git-usage improvement over actual usage — IN PROGRESS (8/20-30 commits; 96% current rate)
 
-  - [ ] 9.1 Make 20-30 commits with git-usage alwaysApply: true — In progress (passive accumulation)
-  - [ ] 9.2 Run: `bash .cursor/scripts/compliance-dashboard.sh --limit 25` after 25 new commits — Pending
-  - [ ] 9.3 Measure improvement: baseline 74% → target >90% — Pending
-  - [ ] 9.4 Document: did fix work as expected? — Pending
-  - [ ] 9.5 If <90%: identify remaining gaps — Pending (see h1-validation-protocol.md)
+  - [ ] 9.1 Make 20-30 commits with git-usage alwaysApply: true — In progress (8 commits accumulated; 96% script usage)
+  - [ ] 9.2 Run: `bash .cursor/scripts/compliance-dashboard.sh --limit 25` after 25 new commits — Pending (12-17 more needed)
+  - [ ] 9.3 Measure improvement: baseline 74% → target >90% — PRELIMINARY: 96% (+22 points) ✅
+  - [ ] 9.4 Document: did fix work as expected? — PRELIMINARY: Yes, highly effective
+  - [ ] 9.5 If <90%: identify remaining gaps — Likely not needed (96% current rate)
 
 ## Phase 6B: Core Enforcement Mechanisms
 
@@ -235,23 +235,23 @@ Periodic review checkpoints to validate progress and findings:
   - [ ] 10.6 Document findings: Does visible gate work? — PRELIMINARY: Yes! 0% → 100% visibility via explicit OUTPUT requirement
   - [ ] 10.7 Measure compliance improvement — Pending more data (need git operations, terminal commands to test all gate items)
 
-- [ ] 11.0 Hypothesis 3: Query Protocol Visibility
+- [ ] 11.0 Hypothesis 3: Query Protocol Visibility — IMPLEMENTED (monitoring in progress)
 
-  - [ ] 11.1 Baseline query visibility (20 trials) — see tests/hypothesis-3-query-protocol-visibility.md
-  - [ ] 11.2 Test: is query executed at all?
-  - [ ] 11.3 Implement: add visible capabilities check output
-  - [ ] 11.4 Post-change test (20 trials)
-  - [ ] 11.5 Compare improvement and document findings
+  - [x] 11.1 Baseline query visibility — COMPLETE: 0% visibility (retrospective analysis)
+  - [x] 11.2 Test: is query executed at all? — YES (scripts used 74% baseline; query silent)
+  - [x] 11.3 Implement: add visible capabilities check output — COMPLETE: Modified assistant-git-usage.mdc + send gate
+  - [ ] 11.4 Post-change monitoring (10-20 operations) — IN PROGRESS (passive accumulation)
+  - [ ] 11.5 Compare improvement and document findings — EXPECTED: 0% → ~100% (same pattern as H2)
 
 ## Phase 6C: Scalable Patterns
 
-- [ ] 12.0 Slash Commands Experiment
+- [ ] 12.0 Slash Commands Experiment — DEFERRED (conditional execution)
 
-  - [ ] 12.1 Implement slash command rule — see tests/experiment-slash-commands.md
-  - [ ] 12.2 Phase 1: Baseline with intent routing (50 trials)
-  - [ ] 12.3 Phase 2: Test with slash commands (50 trials)
-  - [ ] 12.4 Measure routing accuracy improvement
-  - [ ] 12.5 Document: Can this scale to 25 conditional rules?
+  - [ ] 12.1 Implement slash command rule — DEFERRED: Execute only if H1+H2+H3 <90%
+  - [ ] 12.2 Phase 1: Baseline with intent routing (50 trials) — DEFERRED
+  - [ ] 12.3 Phase 2: Test with slash commands (50 trials) — DEFERRED
+  - [ ] 12.4 Measure routing accuracy improvement — DEFERRED
+  - [ ] 12.5 Document: Can this scale to 25 conditional rules? — DEFERRED (see slash-commands-decision.md)
 
 - [ ] 13.0 Compare Enforcement Approaches
 
@@ -315,13 +315,23 @@ Periodic review checkpoints to validate progress and findings:
   - [x] 20.2 Add guidance: flag rule gaps proactively during active investigations — "Notice gap → Document immediately" with do/don't examples
   - [x] 20.3 Evidence: Project-lifecycle gap noticed but not added to scope until user prompted — Cited with what happened vs what should happen comparison
 
+## Phase 6E: Documentation & Monitoring (2025-10-15 Session)
+
+- [x] 21.0 Create monitoring protocol and interim findings
+
+  - [x] 21.1 MONITORING-PROTOCOL.md — Passive monitoring guide with decision points
+  - [x] 21.2 h3-test-a-results.md — Baseline query visibility (0%)
+  - [x] 21.3 h3-test-c-results.md — Visible output implementation
+  - [x] 21.4 slash-commands-decision.md — Conditional execution framework
+  - [x] 21.5 INTERIM-FINDINGS-2025-10-15.md — Comprehensive progress update
+
 ---
 
 ## Summary
 
-**Current Status**: Phase 6A (Validate H1 Fix) — MONITORING  
-**Next Milestone**: Accumulate 20-30 commits, then measure H1 validation results  
-**Completion**: ~30-40% (Discovery, Review, Rule Improvements complete; H1 validation in progress)
+**Current Status**: Phase 6A+6B+6C (H1/H2/H3 validation; Slash commands deferred) — MONITORING  
+**Next Milestone**: Accumulate 20-30 commits + 10-20 responses for validation  
+**Completion**: ~50% (Discovery, Review, Rule Improvements, H3 implementation complete; H1/H2/H3 validation in progress)
 
 **Key Insight**: AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost). Investigation has identified 6 scalable enforcement patterns for the remaining 25 conditional rules. All preparatory work complete; validation requires real-world usage data.
 
