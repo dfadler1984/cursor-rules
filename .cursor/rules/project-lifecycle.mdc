@@ -1,7 +1,7 @@
 ---
 description: Project lifecycle — completion policy and validation (canonical; ERDs link here)
 alwaysApply: false
-lastReviewed: 2025-10-15
+lastReviewed: 2025-10-16
 healthScore:
   content: green
   usability: green
@@ -203,7 +203,7 @@ Location: `docs/projects/<name>/erd.md`. On archival, move entire folder to `doc
 - All carryovers resolved or explicitly accepted as permanent
 - No active monitoring or validation needed
 - Historical reference only
-- Ready to declutter active projects list
+- Ready to declutter active projects listLe
 
 ## Final Summary
 
