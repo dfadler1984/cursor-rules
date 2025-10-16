@@ -177,19 +177,22 @@
 User attempted `/status` and Cursor's UI interpreted it as a command palette action, creating `.cursor/commands/status` instead of sending the message to the assistant.
 
 **Why This Matters**:
+
 - Slash commands **cannot work as designed** in Cursor's current UI
 - The `/` prefix is reserved for Cursor's command system
 - Messages starting with `/` never reach the assistant for rule processing
 - All 50+ planned test trials would have failed due to this constraint
 
-**Decision**: 
+**Decision**:
+
 - ❌ Slash commands not viable due to platform limitation
 - ✅ H1 (alwaysApply) already achieving 96% script usage (target >90%)
 - ✅ One real usage attempt found fundamental issue
 - ✅ Saved ~8-12 hours that would have been wasted on Phase 3 testing
 - ✅ Validates "real usage > prospective trials" principle
 
-**Related**: 
+**Related**:
+
 - See `../assistant-self-testing-limits/` for testing paradox documentation
 - See `../assistant-self-testing-limits/platform-constraints.md` for detailed analysis
 - This discovery validates testing-limits project: real usage revealed constraint that testing couldn't

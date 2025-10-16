@@ -12,16 +12,19 @@
 **Evidence**: User attempted `/status` and Cursor correctly created `.cursor/commands/status` to store a prompt template, as designed.
 
 **How Cursor Slash Commands Actually Work** (per [Cursor 1.6 changelog](https://cursor.com/changelog/1-6)):
+
 - Commands are stored in `.cursor/commands/[command].md`
 - Type `/` in Agent input → opens dropdown of available commands
 - Select command → loads **prompt template** content and sends it to assistant
 - Used for reusable prompts (e.g., "run linter", "fix compile errors", "create PR with conventional commits")
 
 **What We Misunderstood**:
+
 - ❌ Thought: `/commit` would be sent as a message to assistant for runtime routing
 - ✅ Reality: `/commit` triggers UI to load a prompt template from `.cursor/commands/commit.md`
 
 **Impact**: Any rule expecting runtime routing via `/command` syntax cannot work because:
+
 1. The `/` prefix triggers Cursor's command system (UI-level)
 2. It loads a **static prompt template**, not a runtime route
 3. The assistant never sees `/command` as a message to process
@@ -34,6 +37,7 @@
 ### Slash Commands Rule
 
 Created `git-slash-commands.mdc` with enforcement protocol:
+
 - `/commit` → route to `git-commit.sh`
 - `/pr` → route to `pr-create.sh`
 - `/branch` → route to `git-branch-name.sh`
@@ -69,12 +73,14 @@ Created `git-slash-commands.mdc` with enforcement protocol:
 ### Time Saved
 
 **Avoided waste**:
+
 - Phase 3 testing: 3-4 hours (50 trials)
 - Analysis: 1-2 hours
 - Debugging why tests failed: Unknown hours
 - **Total saved**: ~8-12 hours
 
 **Actual cost**:
+
 - One user attempt: 30 seconds
 - Documentation: 30 minutes
 
@@ -119,6 +125,7 @@ You can't test for what you don't know to test for. Platform-specific behaviors 
 Use `!commit` or `@commit` instead of `/commit`
 
 **Issues**:
+
 - Unknown if other prefixes also intercepted
 - Would need testing to discover
 - Adds friction vs natural language
@@ -128,6 +135,7 @@ Use `!commit` or `@commit` instead of `/commit`
 Current approach (H1: alwaysApply) already working at 96%
 
 **Advantages**:
+
 - ✅ No special syntax required
 - ✅ Natural language: "commit these changes"
 - ✅ Already proven effective
@@ -146,6 +154,7 @@ Document that explicit command syntax isn't viable in Cursor
 ### Read Documentation First
 
 **Before designing any platform integration**:
+
 1. **Read official docs**: Check changelog, documentation, API references
 2. **Understand platform design**: How does the platform intend the feature to work?
 3. **Validate assumptions**: Does your approach align with platform design?
@@ -157,6 +166,7 @@ Document that explicit command syntax isn't viable in Cursor
 ### Check Platform Constraints First
 
 After reading documentation:
+
 1. Test basic assumption with one real attempt
 2. Document any platform-specific behaviors discovered
 3. Design around constraints, not against them
@@ -191,4 +201,3 @@ For UI/platform integration, one real attempt beats 50 test trials.
 **Recommendation**: Continue with H1 (alwaysApply + intent routing) approach at 96% compliance  
 **Evidence**: One real usage attempt > hours of planned testing  
 **Meta-lesson**: Read platform docs before implementing features
-
