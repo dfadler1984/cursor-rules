@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.11.2
+
+### Patch Changes
+
+- [#138](https://github.com/dfadler1984/cursor-rules/pull/138) [`09241a8`](https://github.com/dfadler1984/cursor-rules/commit/09241a8b394e18239025bccf415e37f3eb8bd658) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add complex investigation structure guidance to project-lifecycle
+
+  - docs: Added "Complex Investigation Structure" section to project-lifecycle.mdc
+  - Defines when to use complex structure (>15 files, multiple hypotheses) vs simple projects
+  - Documents 10 folder types: findings/, analysis/, decisions/, guides/, protocols/, sessions/, test-results/, tests/, \_archived/
+  - Explains decision framework and sub-projects pattern
+  - Links to rules-enforcement-investigation example and full standard
+
+  Addresses Gap #11 from rules-enforcement-investigation.
+
 ## 0.11.1
 
 ### Patch Changes
