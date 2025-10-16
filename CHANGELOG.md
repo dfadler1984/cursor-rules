@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.10.0
+
+### Minor Changes
+
+- [#128](https://github.com/dfadler1984/cursor-rules/pull/128) [`394d9ff`](https://github.com/dfadler1984/cursor-rules/commit/394d9ff66eeeae313e461e029d8fe08674cf9550) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Rules enforcement investigation progress and 6 rule improvements
+
+  - Add lifecycle stages and pre-closure checklist to project-lifecycle.mdc
+  - Add ERD scope definition and acceptance criteria format to create-erd.mdc
+  - Add task structure guidance to generate-tasks-from-erd.mdc
+  - Add investigation gap flagging to self-improve.mdc
+  - Add visible gate output requirement to assistant-behavior.mdc
+  - Complete Discovery and Review phases of rules-enforcement investigation
+  - Execute H2 Test A (0% gate visibility baseline) and Test D Checkpoint 1 (100% visibility confirmed)
+
 ## 0.9.3
 
 ### Patch Changes
