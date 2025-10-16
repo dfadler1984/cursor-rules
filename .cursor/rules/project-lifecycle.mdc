@@ -470,6 +470,7 @@ Prefer `feat: Finalize <Project Name>` or `feat(projects): finalize <name>` for 
 ### Folder Structure
 
 **Root files** (baseline):
+
 - `README.md` - Entry point, navigation
 - `erd.md` - Requirements and scope
 - `tasks.md` - Execution tracking
@@ -477,6 +478,7 @@ Prefer `feat: Finalize <Project Name>` or `feat(projects): finalize <name>` for 
 - High-level protocols (case-by-case exceptions)
 
 **Organized folders**:
+
 - `findings/` - Individual finding documents (README + gap-##-<name>.md files)
 - `analysis/` - Deep analysis (flat files + subfolders for large topics)
 - `decisions/` - Decision documents (<topic>-decision.md)
@@ -488,11 +490,13 @@ Prefer `feat: Finalize <Project Name>` or `feat(projects): finalize <name>` for 
 - `_archived/` - Archived documents
 
 **Decision framework**:
+
 - **New file vs update**: Create new for new topic (>200 lines if added to existing)
 - **Subfolder vs flat**: Create subfolder when topic has 3+ files
 - **Sub-project vs analysis**: Create sub-project when ERD-worthy scope (5+ requirements, independent execution)
 
 **Sub-projects pattern**:
+
 - Flat siblings in `docs/projects/` (not nested)
 - Parent has `coordination.md` tracking all sub-projects
 - Each sub-project README links to parent
