@@ -211,6 +211,20 @@ These are NOT optional enhancements — they answer the fundamental research que
 - **Discovered**: 2025-10-16 when attempting to design slash commands Phase 3 testing
 - **Resolution**: Deferred slash commands testing; will rely on H1 validation results (96% current rate)
 
+### 9. Changeset policy violated when creating PR
+
+- **Issue**: Created PR #132 without changeset and without requesting skip consent
+- **Evidence**: PR created with rule changes but no `.changeset/*.md` file; PR description had unchecked "[ ] Changeset" item
+- **Impact**: Violated changeset default policy; required user correction; would have bypassed version tracking
+- **Rule violated**: `assistant-git-usage.mdc` → "When preparing a PR that includes code/rules/docs edits, include a Changeset by default"
+- **What should have happened**: Prompt to run `npx changeset` OR create `.changeset/<slug>.md` non-interactively OR ask for explicit skip consent
+- **What actually happened**: Created PR immediately without changeset or consent check
+- **Meta-observation**: While investigating rule enforcement and documenting Gaps #1-8, violated another rule
+- **Pattern**: Even high awareness of rules doesn't prevent violations; automated gates needed
+- **Files affected**: Compliance gate checklist in `assistant-behavior.mdc`
+- **Discovered**: 2025-10-16 immediately after PR #132 creation, user pointed out
+- **Resolution**: ✅ Created changeset non-interactively, pushed to PR
+
 ---
 
 ## Investigation Meta-Lessons
