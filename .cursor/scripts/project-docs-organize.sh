@@ -61,7 +61,7 @@ Options:
                           - investigation: full structure (analysis + test-execution + archive)
                           - minimal: just archived-summaries/
   --dry-run              Preview changes without executing
-  --help                 Show this help message
+  -h, --help             Show this help message
 
 Patterns:
   investigation:
@@ -81,6 +81,11 @@ Examples:
 
   # Execute full reorganization
   $(basename "$0") --project rules-enforcement-investigation
+
+Exit Codes:
+  0  Success
+  1  Invalid arguments or project not found
+  2  Git errors during reorganization
 
 Notes:
   - Uses 'git mv' to preserve file history
@@ -109,7 +114,7 @@ while [[ $# -gt 0 ]]; do
       DRY_RUN=true
       shift
       ;;
-    --help)
+    -h|--help)
       usage
       exit 0
       ;;
