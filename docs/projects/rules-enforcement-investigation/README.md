@@ -151,26 +151,34 @@ Each test plan includes implementation checklist and success criteria.
 
 ## Status
 
-**Project Status**: ✅ ACTIVE — TESTING  
-**Current Phase**: 6A + 6B (H1 Validation + H2 Test D Active)  
-**Completion**: ~45% (Discovery, Review, Rule Improvements, H2 Test A complete; H1 + H2 Test D monitoring)  
+**Project Status**: ✅ ACTIVE — MONITORING  
+**Current Phase**: 6A/6B (H1 Validation + H2/H3 Monitoring)  
+**Completion**: ~50% (Discovery, Review, Rule Improvements, Phase 6C complete; H1/H2/H3 monitoring)  
 **Fixes Applied**:
 
-- H1: `assistant-git-usage.mdc` → `alwaysApply: true` (validation in progress)
-- H2: `assistant-behavior.mdc` → visible gate output (Test D active)
+- H1: `assistant-git-usage.mdc` → `alwaysApply: true` (validation in progress, currently 96%)
+- H2: `assistant-behavior.mdc` → visible gate output (monitoring in progress)
+- H3: visible query output ("Checked capabilities.mdc...") (monitoring in progress)
 
 **What's Complete**:
 
-- ✅ All Discovery work (0.1-0.6): Analysis of 25 conditional rules, scalability study, pre-test prep for H2/H3/Slash Commands
+- ✅ All Discovery work (0.1-0.6): Analysis of 25 conditional rules, scalability study, pre-test prep
 - ✅ All Review work (R.1-R.2): Test plans validated, premature completion root causes analyzed
-- ✅ All Rule Improvements (15.0-20.0): 6 improvements applied to project-lifecycle, create-erd, generate-tasks-from-erd, self-improve rules
-- ✅ Validation protocol established (h1-validation-protocol.md)
+- ✅ All Rule Improvements (15.0-20.0): 6 improvements applied to 4 rule files
+- ✅ Phase 6C: Slash commands discovered NOT VIABLE (platform constraint); testing paradox validated
+- ✅ New project created: assistant-self-testing-limits (testing paradox + platform constraints)
+- ✅ Meta-findings: Gaps #7, #8, #9 documented during investigation
 
 **Next Steps**:
 
-1. Accumulate 20-30 commits with fix applied (passive monitoring)
-2. Measure compliance: baseline 74% → target >90%
-3. Execute H2, H3, slash commands based on validation results
-4. Synthesize scalable patterns and create decision tree
+1. Continue H1 validation (accumulate 12-22 more commits for 20-30 total)
+2. Measure sustained compliance: baseline 74% → current 96% → target >90%
+3. Continue H2/H3 monitoring passively
+4. Synthesize findings and create decision tree
+5. Final summary after validation period
 
-**Key Insight**: AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost). Investigation has identified 6 scalable enforcement patterns. All 6 rule improvements complete—preventing premature closure, defining document boundaries, strengthening self-improvement during investigations.
+**Key Insights**: 
+- AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost)
+- Slash commands not viable: Cursor's `/` is for prompt templates, not runtime routing (per [Cursor 1.6 docs](https://cursor.com/changelog/1-6))
+- Testing paradox validated: One real usage attempt found platform constraint that 50 test trials would have missed
+- H1 at 96% compliance likely sufficient without additional enforcement patterns

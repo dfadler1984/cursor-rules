@@ -1,8 +1,8 @@
 ## Tasks — Rules Enforcement & Effectiveness Investigation
 
-**Status**: ACTIVE — MONITORING | Phase: 6A (Validate H1 Fix) | ~40% Complete
+**Status**: ACTIVE — MONITORING | Phase: 6A/6B (H1 Validation + H2/H3 Monitoring) | ~50% Complete
 
-**Update**: Discovery, Review, and Rule Improvements complete! H1 fix applied; awaiting 20-30 commits for validation. H2, H3, slash commands ready to execute. All 6 rule improvements applied to project-lifecycle.mdc, create-erd.mdc, generate-tasks-from-erd.mdc, and self-improve.mdc.
+**Update**: Discovery, Review, Rule Improvements, and Phase 6C complete! H1 fix applied; awaiting 20-30 commits for validation. H2, H3 monitoring in progress. Slash commands discovered NOT VIABLE (platform constraint). All 6 rule improvements applied. Testing paradox validated by real usage.
 
 ---
 
@@ -245,16 +245,17 @@ Periodic review checkpoints to validate progress and findings:
 
 ## Phase 6C: Scalable Patterns
 
-- [x] 12.0 Slash Commands Experiment — DEFERRED (Option A: H1 sufficient)
+- [x] 12.0 Slash Commands Experiment — NOT VIABLE (Platform constraint discovered)
 
   - [x] 12.1 Implement slash command rule — COMPLETE: Created git-slash-commands.mdc with enforcement protocol
   - [x] 12.2 Update intent routing — COMPLETE: Added slash commands at highest priority
   - [x] 12.3 Validate implementation — COMPLETE: Rules validation passed
   - [x] 12.4 Document test protocol — COMPLETE: Phase 3 protocol created
   - [x] 12.5 Identify testing paradox — COMPLETE: Assistant cannot objectively self-test
-  - [x] 12.6 Decision: defer testing — COMPLETE: H1 achieving 96% (target >90%); testing would have observer bias
-  - [x] 12.7 Create testing-limits project — COMPLETE: docs/projects/assistant-self-testing-limits/
-  - [ ] 12.8 Execute Phase 3 IF H1 drops below 90% — CONDITIONAL: Only if H1 validation fails
+  - [x] 12.6 Discover platform constraint — COMPLETE: User attempt of `/status` revealed Cursor uses `/` for prompt templates, not runtime routing
+  - [x] 12.7 Create testing-limits project — COMPLETE: docs/projects/assistant-self-testing-limits/ with platform-constraints.md
+  - [x] 12.8 Document outcome — COMPLETE: Slash commands not viable; H1 (alwaysApply) at 96% remains best approach
+  - [x] 12.9 Testing paradox validated — COMPLETE: One real usage attempt > 50 planned test trials; saved ~8-12 hours
 
 - [ ] 13.0 Compare Enforcement Approaches
 
@@ -332,21 +333,34 @@ Periodic review checkpoints to validate progress and findings:
 
 ## Summary
 
-**Current Status**: Phase 6A+6B+6C (H1/H2/H3 validation; Slash commands deferred) — MONITORING  
-**Next Milestone**: Accumulate 20-30 commits + 10-20 responses for validation  
-**Completion**: ~50% (Discovery, Review, Rule Improvements, H3 implementation complete; H1/H2/H3 validation in progress)
+**Current Status**: Phase 6A+6B (H1/H2/H3 validation) — MONITORING | Phase 6C COMPLETE (Slash commands not viable)  
+**Next Milestone**: Accumulate 20-30 commits + 10-20 responses for validation; then synthesize  
+**Completion**: ~50% (Discovery, Review, Rule Improvements, Phase 6C complete; H1/H2/H3 validation in progress)
 
-**Key Insight**: AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost). Investigation has identified 6 scalable enforcement patterns for the remaining 25 conditional rules. All preparatory work complete; validation requires real-world usage data.
+**Key Insights**: 
+- AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost)
+- Slash commands NOT VIABLE: Cursor's `/` is for prompt templates (per [Cursor 1.6 docs](https://cursor.com/changelog/1-6)), not runtime routing
+- Testing paradox validated: One real usage attempt (30 seconds) found platform constraint that 50 test trials (8-12 hours) would have missed
+- H1 at 96% compliance likely sufficient; validation continues passively
 
 **What's Complete** ✅:
 
 1. ✅ Discovery tasks (0.1-0.6) — All analysis and pre-test work done
 2. ✅ Review R.1 and R.2 — Test plans validated, premature completion analyzed
 3. ✅ Rule improvements (15.0-20.0) — 6 rule improvements applied to 4 files
+4. ✅ Phase 6C — Slash commands discovered NOT VIABLE (platform constraint)
+5. ✅ Testing paradox validated — Real usage > prospective testing
 
-**What's In Progress** ⏸️: 4. ⏸️ Phase 6A (H1 validation) — Awaiting 20-30 commits for measurement
+**What's In Progress** ⏸️: 
 
-**What's Ready to Execute** ⏸️: 5. ⏸️ Phase 6B (H2 send gate) — Test plan ready, ~8-12 hours 6. ⏸️ Phase 6C (H3 query visibility + slash commands) — Test plans ready, ~14-18 hours 7. ⏸️ Phase 6D (Synthesis) — Awaits H1 validation results, ~4 hours
+6. ⏸️ Phase 6A (H1 validation) — Awaiting 12-22 more commits for measurement (8/20-30 complete; 96% current rate)
+7. ⏸️ Phase 6B (H2 monitoring) — Visible gate implemented; passive monitoring
+8. ⏸️ Phase 6B (H3 monitoring) — Visible query implemented; passive monitoring
+
+**What's Next** ⏸️: 
+
+9. ⏸️ Phase 6D (Synthesis) — After validation period; ~4-6 hours
+10. ⏸️ Final summary — After synthesis; ~2 hours
 
 **Recommended Next Steps**:
 
