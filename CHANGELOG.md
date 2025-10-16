@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.10.1
+
+### Patch Changes
+
+- [#130](https://github.com/dfadler1984/cursor-rules/pull/130) [`cf849ad`](https://github.com/dfadler1984/cursor-rules/commit/cf849ad8267433568642f148bca7bdd5cb0b4844) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add project document organizer script and reorganize investigation docs
+
+  - Created reusable project-docs-organize.sh with investigation/minimal patterns
+  - Reorganized rules-enforcement-investigation docs (34 → 7 root files, 81% reduction)
+  - Added H3 visible query output requirement to script-first protocol
+  - Documented meta-violation as validation data
+
 ## 0.10.0
 
 ### Minor Changes
