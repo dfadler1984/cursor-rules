@@ -186,6 +186,17 @@ These are NOT optional enhancements — they answer the fundamental research que
 - **Files affected**: `project-lifecycle.mdc`, `create-erd.mdc`
 - **Discovered**: 2025-10-15 during summary consolidation
 
+### 7. Documentation-before-execution pattern not automatic
+
+- **Issue**: Asked "which execution mode?" before documenting test protocol; user had to point out protocol should be documented regardless
+- **Evidence**: 2025-10-16 slash commands testing - proposed 3 execution modes but didn't document protocol first
+- **Impact**: Violated plan-first principle; required user correction; missed opportunity to model good practice during investigation
+- **Meta-observation**: Even while investigating rule enforcement, violated documentation-first pattern
+- **Recommendation**: Strengthen self-improve.mdc to treat "should document first" as first-class trigger, not afterthought
+- **Pattern**: Document → then choose execution; not "choose execution, maybe document"
+- **Files affected**: `self-improve.mdc`, potentially `spec-driven.mdc`
+- **Discovered**: 2025-10-16 during slash commands Phase 3 setup
+
 ---
 
 ## Investigation Meta-Lessons

@@ -1,7 +1,7 @@
 ---
 description: Pattern-based rule improvement with consent-gated proposals
 alwaysApply: true
-lastReviewed: 2025-10-15
+lastReviewed: 2025-10-16
 healthScore:
   content: green # Adapted from taskmaster with consent modifications
   usability: green # Clear observation vs action separation
@@ -16,6 +16,7 @@ healthScore:
 - New libraries or tools being used consistently (3+ modules)
 - Emerging best practices in the codebase
 - Recurring feedback in clarifications or code reviews
+- **User corrections to process order** (e.g., "document first", "plan before implementing")
 - **Rule gaps observed during active investigations** (see Special Cases below)
 
 ## Analysis Process
@@ -100,6 +101,21 @@ const data = await prisma.user.findMany({
 - Note patterns after major refactors
 - Identify links to relevant documentation
 - Cross-reference related rules
+
+### Process-Order Patterns
+
+When user corrects the order of operations (e.g., "should document that first", "plan before implementing"):
+
+1. **Immediate response**: Acknowledge and document the protocol/plan immediately
+2. **Pattern recognition**: This signals missing guidance about process order
+3. **Meta-observation**: Add to investigation findings if investigating process/rules
+4. **Rule update consideration**: If pattern recurs (2+ instances), queue rule improvement
+
+**Common process-order corrections**:
+- "Document the test protocol first" → Document → then choose execution mode
+- "Plan before implementing" → Create spec/plan → then implement
+- "Define acceptance criteria first" → Write criteria → then build
+- "Create test first" → Write failing test → then implement (TDD)
 
 ## Rule Deprecation
 
