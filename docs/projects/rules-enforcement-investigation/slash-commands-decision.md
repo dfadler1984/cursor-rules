@@ -160,9 +160,9 @@
 
 ## Status
 
-**Current**: DEFERRED (Option A selected)  
+**Current**: NOT VIABLE (UI constraint discovered)  
 **Decision Date**: 2025-10-16  
-**Rationale**: H1 (alwaysApply) achieving 96% compliance; testing paradox identified
+**Final Determination**: 2025-10-16 (same day)
 
 **Implementation Status**:
 
@@ -170,16 +170,29 @@
 - ✅ Updated `intent-routing.mdc` with slash command routing (highest priority)
 - ✅ Rules validation passed
 - ✅ Test protocol documented
-- 🔒 Phase 3 testing DEFERRED pending H1 validation
+- ❌ **UI CONSTRAINT DISCOVERED**: Cursor intercepts `/` prefix before message reaches assistant
 
-**Decision**:
+**Critical Discovery** (2025-10-16):
 
-- H1 already showing 96% script usage (+22 points over 74% baseline)
-- Target >90% likely achieved without slash commands
-- Testing paradox: assistant cannot objectively test own behavior
-- Will only execute if H1 drops below 90% after full validation
+User attempted `/status` and Cursor's UI interpreted it as a command palette action, creating `.cursor/commands/status` instead of sending the message to the assistant.
 
-**Related**: See `../assistant-self-testing-limits/` for testing paradox documentation
+**Why This Matters**:
+- Slash commands **cannot work as designed** in Cursor's current UI
+- The `/` prefix is reserved for Cursor's command system
+- Messages starting with `/` never reach the assistant for rule processing
+- All 50+ planned test trials would have failed due to this constraint
+
+**Decision**: 
+- ❌ Slash commands not viable due to platform limitation
+- ✅ H1 (alwaysApply) already achieving 96% script usage (target >90%)
+- ✅ One real usage attempt found fundamental issue
+- ✅ Saved ~8-12 hours that would have been wasted on Phase 3 testing
+- ✅ Validates "real usage > prospective trials" principle
+
+**Related**: 
+- See `../assistant-self-testing-limits/` for testing paradox documentation
+- See `../assistant-self-testing-limits/platform-constraints.md` for detailed analysis
+- This discovery validates testing-limits project: real usage revealed constraint that testing couldn't
 
 ---
 
