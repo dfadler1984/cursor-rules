@@ -186,6 +186,54 @@ These are NOT optional enhancements — they answer the fundamental research que
 - **Files affected**: `project-lifecycle.mdc`, `create-erd.mdc`
 - **Discovered**: 2025-10-15 during summary consolidation
 
+### 7. Documentation-before-execution pattern not automatic
+
+- **Issue**: Asked "which execution mode?" before documenting test protocol; user had to point out protocol should be documented regardless
+- **Evidence**: 2025-10-16 slash commands testing - proposed 3 execution modes but didn't document protocol first
+- **Impact**: Violated plan-first principle; required user correction; missed opportunity to model good practice during investigation
+- **Meta-observation**: Even while investigating rule enforcement, violated documentation-first pattern
+- **Recommendation**: Strengthen self-improve.mdc to treat "should document first" as first-class trigger, not afterthought
+- **Pattern**: Document → then choose execution; not "choose execution, maybe document"
+- **Files affected**: `self-improve.mdc`, potentially `spec-driven.mdc`
+- **Discovered**: 2025-10-16 during slash commands Phase 3 setup
+- **Resolution**: ✅ Added process-order trigger to self-improve.mdc
+
+### 8. Testing paradox: assistant cannot objectively self-test
+
+- **Issue**: Cannot measure own behavioral compliance without observer bias
+- **Evidence**: Slash commands Phase 3 would require issuing test requests and observing responses - but conscious testing changes behavior
+- **Impact**: Some experiments are fundamentally unmeasurable via self-testing; prospective trials invalid
+- **Analogy**: "Can you test whether you'll check your blind spot?" - the act of testing changes the behavior
+- **Valid alternatives**: Historical analysis (retrospective), natural usage monitoring (passive), user-observed validation, external validation (CI)
+- **Recommendation**: Created new project `assistant-self-testing-limits` to document valid measurement strategies
+- **Pattern**: Retrospective > prospective for self-testing; external validation when objectivity required
+- **Files affected**: Test plan template, experiment designs
+- **Discovered**: 2025-10-16 when attempting to design slash commands Phase 3 testing
+- **Resolution**: Deferred slash commands testing; will rely on H1 validation results (96% current rate)
+- **Validation**: 2025-10-16 - User attempted `/status`, discovered Cursor UI intercepts `/` prefix; slash commands not viable. One real usage attempt found fundamental constraint that 50 test trials would have missed. Testing paradox confirmed: real usage > prospective testing.
+
+### 9. Changeset policy violated when creating PR (two-part violation)
+
+- **Issue**: Created PR #132 without changeset and without requesting skip consent; then forgot to remove `skip-changeset` label after adding changeset
+- **Evidence**:
+  - Part 1: PR created with rule changes but no `.changeset/*.md` file; PR description had unchecked "[ ] Changeset" item
+  - Part 2: After adding changeset, left `skip-changeset` label on PR; required second user correction
+- **Impact**: Violated changeset default policy; required TWO user corrections; would have bypassed version tracking and CI checks
+- **Rule violated**: `assistant-git-usage.mdc` → "When preparing a PR that includes code/rules/docs edits, include a Changeset by default"
+- **What should have happened**:
+  1. Prompt to run `npx changeset` OR create `.changeset/<slug>.md` non-interactively OR ask for explicit skip consent
+  2. After adding changeset, remove any `skip-changeset` label and check the checkbox
+- **What actually happened**:
+  1. Created PR immediately without changeset or consent check
+  2. Added changeset but left `skip-changeset` label; updated description but forgot label cleanup
+- **Meta-observation**: While investigating rule enforcement and documenting Gaps #1-8, violated another rule TWICE (incomplete fix)
+- **Pattern**: Even high awareness of rules doesn't prevent violations; partial fixes require follow-up; automated gates needed
+- **Files affected**: Compliance gate checklist in `assistant-behavior.mdc`
+- **Discovered**:
+  - Part 1: 2025-10-16 immediately after PR #132 creation, user: "I noticed you submit the pr with the skip changeset flag"
+  - Part 2: 2025-10-16 after changeset added, user: "You submit the changset, but did not remove the skip changeset label"
+- **Resolution**: ✅ Created changeset non-interactively, pushed to PR; ✅ Removed `skip-changeset` label via API
+
 ---
 
 ## Investigation Meta-Lessons
