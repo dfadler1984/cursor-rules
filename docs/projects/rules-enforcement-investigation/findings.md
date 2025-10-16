@@ -234,6 +234,43 @@ These are NOT optional enhancements — they answer the fundamental research que
   - Part 2: 2025-10-16 after changeset added, user: "You submit the changset, but did not remove the skip changeset label"
 - **Resolution**: ✅ Created changeset non-interactively, pushed to PR; ✅ Removed `skip-changeset` label via API
 
+### 10. Conflated implementation failure with feature non-viability
+
+- **Issue**: Concluded "slash commands not viable" when only our runtime-routing approach failed; didn't consider Cursor's actual design (prompt templates)
+- **Evidence**: Documentation said "Slash Commands: NOT VIABLE" when we only proved runtime routing doesn't work, not that prompt templates won't work
+- **User correction**: "We did not prove that slash commands were not viable. We only proved that we weren't using them correctly."
+- **Impact**: False conclusion; dismissed potentially viable approach; analytical error in investigation
+- **What we proved**: ❌ Runtime routing via `/commit` in messages doesn't work (Cursor intercepts `/` for UI)
+- **What we didn't prove**: Whether Cursor's prompt template design could improve compliance
+- **Actual Cursor design** (per [Cursor 1.6 docs](https://cursor.com/changelog/1-6)): `/command` → loads template from `.cursor/commands/command.md` → sends template content to assistant
+- **Unexplored approach**: Create templates like `.cursor/commands/commit.md` containing "Use git-commit.sh to create conventional commit"
+- **Meta-observation**: Made analytical leap from "approach A failed" to "feature not viable"; investigation's own reasoning error
+- **Pattern**: Implementation failure ≠ feature non-viability; distinguish "how we tried" from "whether it can work"
+- **Files affected**: slash-commands-decision.md, session summary, findings, tasks, README — all say "NOT VIABLE" incorrectly
+- **Discovered**: 2025-10-16 immediately after documentation, user questioned the conclusion
+- **Resolution**: Corrected all documentation; created prompt-templates-exploration.md for future consideration
+
+### 11. Investigation documentation structure not defined
+
+- **Issue**: Created 40 files across 5 directories without clear organizational principles; files in wrong places, duplicates exist, unclear when to create new files/folders
+- **Evidence**: 
+  - Duplicate: `slash-commands-decision.md` in root AND test-execution/
+  - Mixed purposes: test-execution/ contains protocols, results, sessions, decisions, discoveries (14 files, 5 different purposes)
+  - Root clutter: 7 files in root when should have 4-5 baseline
+  - No clear folders for: decisions/, guides/, protocols/, sessions/
+- **User observation**: "Some details are being dumped into files that aren't supposed to be used for that purpose and files are being created in many places without a discernible pattern"
+- **Impact**: Hard to navigate 40 files; unclear where new docs belong; pattern not reusable; duplicates waste effort
+- **What's missing**: 
+  - Folder purpose definitions
+  - Decision framework (when to create file/folder/sub-project)
+  - Naming patterns
+  - Structure guidance for complex investigations
+- **Meta-observation**: While documenting gaps about ERD scope (Gap #5), tasks structure (Gap #3), and summary proliferation (Gap #6), created same structural issues in investigation itself
+- **Pattern**: Complex investigations need explicit structure; absence of guidance leads to organic growth without organization
+- **Files affected**: project-lifecycle.mdc needs investigation structure section
+- **Discovered**: 2025-10-16 after creating session summary, platform constraints, prompt templates exploration - user noticed pattern
+- **Resolution**: Created new project `investigation-docs-structure` to design structure standard and reorganize rules-enforcement-investigation
+
 ---
 
 ## Investigation Meta-Lessons
