@@ -2,7 +2,7 @@
 
 **Status**: ACTIVE — MONITORING | Phase: 6A/6B (H1 Validation + H2/H3 Monitoring) | ~50% Complete
 
-**Update**: Discovery, Review, Rule Improvements, and Phase 6C complete! H1 fix applied; awaiting 20-30 commits for validation. H2, H3 monitoring in progress. Slash commands discovered NOT VIABLE (platform constraint). All 6 rule improvements applied. Testing paradox validated by real usage.
+**Update**: Discovery, Review, Rule Improvements, and Phase 6C complete! H1 fix applied; awaiting 20-30 commits for validation. H2, H3 monitoring in progress. Slash commands: runtime routing wrong (Gap #10 corrected), prompt templates unexplored. All 6 rule improvements applied. Testing paradox validated by real usage. 10 meta-findings captured (Gaps #1-10).
 
 ---
 
@@ -245,17 +245,17 @@ Periodic review checkpoints to validate progress and findings:
 
 ## Phase 6C: Scalable Patterns
 
-- [x] 12.0 Slash Commands Experiment — NOT VIABLE (Platform constraint discovered)
+- [x] 12.0 Slash Commands Experiment — Runtime routing wrong; prompt templates unexplored
 
-  - [x] 12.1 Implement slash command rule — COMPLETE: Created git-slash-commands.mdc with enforcement protocol
+  - [x] 12.1 Implement slash command rule — COMPLETE: Created git-slash-commands.mdc (runtime routing approach)
   - [x] 12.2 Update intent routing — COMPLETE: Added slash commands at highest priority
   - [x] 12.3 Validate implementation — COMPLETE: Rules validation passed
   - [x] 12.4 Document test protocol — COMPLETE: Phase 3 protocol created
   - [x] 12.5 Identify testing paradox — COMPLETE: Assistant cannot objectively self-test
-  - [x] 12.6 Discover platform constraint — COMPLETE: User attempt of `/status` revealed Cursor uses `/` for prompt templates, not runtime routing
+  - [x] 12.6 Discover design mismatch — COMPLETE: User attempt of `/status` revealed Cursor uses `/` for prompt templates, not runtime routing
   - [x] 12.7 Create testing-limits project — COMPLETE: docs/projects/assistant-self-testing-limits/ with platform-constraints.md
-  - [x] 12.8 Document outcome — COMPLETE: Slash commands not viable; H1 (alwaysApply) at 96% remains best approach
-  - [x] 12.9 Testing paradox validated — COMPLETE: One real usage attempt > 50 planned test trials; saved ~8-12 hours
+  - [x] 12.8 Document Gap #10 — COMPLETE: Overcorrected to "not viable"; corrected to "runtime routing wrong, prompt templates unexplored"
+  - [x] 12.9 Testing paradox validated — COMPLETE: One real usage attempt found design mismatch; saved ~8-12 hours
 
 - [ ] 13.0 Compare Enforcement Approaches
 
@@ -337,11 +337,14 @@ Periodic review checkpoints to validate progress and findings:
 **Next Milestone**: Accumulate 20-30 commits + 10-20 responses for validation; then synthesize  
 **Completion**: ~50% (Discovery, Review, Rule Improvements, Phase 6C complete; H1/H2/H3 validation in progress)
 
-**Key Insights**: 
+**Key Insights**:
+
 - AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost)
-- Slash commands NOT VIABLE: Cursor's `/` is for prompt templates (per [Cursor 1.6 docs](https://cursor.com/changelog/1-6)), not runtime routing
-- Testing paradox validated: One real usage attempt (30 seconds) found platform constraint that 50 test trials (8-12 hours) would have missed
-- H1 at 96% compliance likely sufficient; validation continues passively
+- Slash commands runtime routing wrong: Cursor's `/` loads prompt templates (per [Cursor 1.6 docs](https://cursor.com/changelog/1-6)), not runtime routes
+- Gap #10 (analytical error): Overcorrected "our approach failed" to "feature not viable"
+- Prompt template approach unexplored (could still improve compliance or discoverability)
+- Testing paradox validated: One real usage attempt (30 seconds) found design mismatch that 50 test trials (8-12 hours) would have missed
+- H1 at 96% compliance likely sufficient; prompt templates remain future option
 
 **What's Complete** ✅:
 
@@ -351,13 +354,13 @@ Periodic review checkpoints to validate progress and findings:
 4. ✅ Phase 6C — Slash commands discovered NOT VIABLE (platform constraint)
 5. ✅ Testing paradox validated — Real usage > prospective testing
 
-**What's In Progress** ⏸️: 
+**What's In Progress** ⏸️:
 
 6. ⏸️ Phase 6A (H1 validation) — Awaiting 12-22 more commits for measurement (8/20-30 complete; 96% current rate)
 7. ⏸️ Phase 6B (H2 monitoring) — Visible gate implemented; passive monitoring
 8. ⏸️ Phase 6B (H3 monitoring) — Visible query implemented; passive monitoring
 
-**What's Next** ⏸️: 
+**What's Next** ⏸️:
 
 9. ⏸️ Phase 6D (Synthesis) — After validation period; ~4-6 hours
 10. ⏸️ Final summary — After synthesis; ~2 hours

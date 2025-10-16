@@ -165,9 +165,9 @@ Each test plan includes implementation checklist and success criteria.
 - ✅ All Discovery work (0.1-0.6): Analysis of 25 conditional rules, scalability study, pre-test prep
 - ✅ All Review work (R.1-R.2): Test plans validated, premature completion root causes analyzed
 - ✅ All Rule Improvements (15.0-20.0): 6 improvements applied to 4 rule files
-- ✅ Phase 6C: Slash commands discovered NOT VIABLE (platform constraint); testing paradox validated
+- ✅ Phase 6C: Slash commands runtime routing wrong (design mismatch); prompt templates unexplored; testing paradox validated
 - ✅ New project created: assistant-self-testing-limits (testing paradox + platform constraints)
-- ✅ Meta-findings: Gaps #7, #8, #9 documented during investigation
+- ✅ Meta-findings: Gaps #7, #8, #9, #10 documented during investigation
 
 **Next Steps**:
 
@@ -177,7 +177,8 @@ Each test plan includes implementation checklist and success criteria.
 4. Synthesize findings and create decision tree
 5. Final summary after validation period
 
-**Key Insights**: 
+**Key Insights**:
+
 - AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost)
 - Slash commands not viable: Cursor's `/` is for prompt templates, not runtime routing (per [Cursor 1.6 docs](https://cursor.com/changelog/1-6))
 - Testing paradox validated: One real usage attempt found platform constraint that 50 test trials would have missed
