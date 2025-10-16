@@ -196,6 +196,20 @@ These are NOT optional enhancements — they answer the fundamental research que
 - **Pattern**: Document → then choose execution; not "choose execution, maybe document"
 - **Files affected**: `self-improve.mdc`, potentially `spec-driven.mdc`
 - **Discovered**: 2025-10-16 during slash commands Phase 3 setup
+- **Resolution**: ✅ Added process-order trigger to self-improve.mdc
+
+### 8. Testing paradox: assistant cannot objectively self-test
+
+- **Issue**: Cannot measure own behavioral compliance without observer bias
+- **Evidence**: Slash commands Phase 3 would require issuing test requests and observing responses - but conscious testing changes behavior
+- **Impact**: Some experiments are fundamentally unmeasurable via self-testing; prospective trials invalid
+- **Analogy**: "Can you test whether you'll check your blind spot?" - the act of testing changes the behavior
+- **Valid alternatives**: Historical analysis (retrospective), natural usage monitoring (passive), user-observed validation, external validation (CI)
+- **Recommendation**: Created new project `assistant-self-testing-limits` to document valid measurement strategies
+- **Pattern**: Retrospective > prospective for self-testing; external validation when objectivity required
+- **Files affected**: Test plan template, experiment designs
+- **Discovered**: 2025-10-16 when attempting to design slash commands Phase 3 testing
+- **Resolution**: Deferred slash commands testing; will rely on H1 validation results (96% current rate)
 
 ---
 

@@ -245,15 +245,16 @@ Periodic review checkpoints to validate progress and findings:
 
 ## Phase 6C: Scalable Patterns
 
-- [ ] 12.0 Slash Commands Experiment — IN PROGRESS (empirical comparison)
+- [x] 12.0 Slash Commands Experiment — DEFERRED (Option A: H1 sufficient)
 
   - [x] 12.1 Implement slash command rule — COMPLETE: Created git-slash-commands.mdc with enforcement protocol
   - [x] 12.2 Update intent routing — COMPLETE: Added slash commands at highest priority
   - [x] 12.3 Validate implementation — COMPLETE: Rules validation passed
-  - [ ] 12.4 Phase 1: Use existing baseline — Can reuse H1 baseline (74% script usage)
-  - [ ] 12.5 Phase 3: Test with slash commands (50 trials) — READY TO START
-  - [ ] 12.6 Phase 4: Measure routing accuracy improvement — Pending trial completion
-  - [ ] 12.7 Document: Can this scale to 25 conditional rules? — Pending results
+  - [x] 12.4 Document test protocol — COMPLETE: Phase 3 protocol created
+  - [x] 12.5 Identify testing paradox — COMPLETE: Assistant cannot objectively self-test
+  - [x] 12.6 Decision: defer testing — COMPLETE: H1 achieving 96% (target >90%); testing would have observer bias
+  - [x] 12.7 Create testing-limits project — COMPLETE: docs/projects/assistant-self-testing-limits/
+  - [ ] 12.8 Execute Phase 3 IF H1 drops below 90% — CONDITIONAL: Only if H1 validation fails
 
 - [ ] 13.0 Compare Enforcement Approaches
 
