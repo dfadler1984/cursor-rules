@@ -215,21 +215,21 @@ These are NOT optional enhancements — they answer the fundamental research que
 ### 9. Changeset policy violated when creating PR (two-part violation)
 
 - **Issue**: Created PR #132 without changeset and without requesting skip consent; then forgot to remove `skip-changeset` label after adding changeset
-- **Evidence**: 
+- **Evidence**:
   - Part 1: PR created with rule changes but no `.changeset/*.md` file; PR description had unchecked "[ ] Changeset" item
   - Part 2: After adding changeset, left `skip-changeset` label on PR; required second user correction
 - **Impact**: Violated changeset default policy; required TWO user corrections; would have bypassed version tracking and CI checks
 - **Rule violated**: `assistant-git-usage.mdc` → "When preparing a PR that includes code/rules/docs edits, include a Changeset by default"
-- **What should have happened**: 
+- **What should have happened**:
   1. Prompt to run `npx changeset` OR create `.changeset/<slug>.md` non-interactively OR ask for explicit skip consent
   2. After adding changeset, remove any `skip-changeset` label and check the checkbox
-- **What actually happened**: 
+- **What actually happened**:
   1. Created PR immediately without changeset or consent check
   2. Added changeset but left `skip-changeset` label; updated description but forgot label cleanup
 - **Meta-observation**: While investigating rule enforcement and documenting Gaps #1-8, violated another rule TWICE (incomplete fix)
 - **Pattern**: Even high awareness of rules doesn't prevent violations; partial fixes require follow-up; automated gates needed
 - **Files affected**: Compliance gate checklist in `assistant-behavior.mdc`
-- **Discovered**: 
+- **Discovered**:
   - Part 1: 2025-10-16 immediately after PR #132 creation, user: "I noticed you submit the pr with the skip changeset flag"
   - Part 2: 2025-10-16 after changeset added, user: "You submit the changset, but did not remove the skip changeset label"
 - **Resolution**: ✅ Created changeset non-interactively, pushed to PR; ✅ Removed `skip-changeset` label via API
@@ -248,7 +248,28 @@ These are NOT optional enhancements — they answer the fundamental research que
 - **Pattern**: Implementation failure ≠ feature non-viability; distinguish "how we tried" from "whether it can work"
 - **Files affected**: slash-commands-decision.md, session summary, findings, tasks, README — all say "NOT VIABLE" incorrectly
 - **Discovered**: 2025-10-16 immediately after documentation, user questioned the conclusion
-- **Resolution**: Correct all documentation to clarify: runtime routing not viable; prompt template approach unexplored
+- **Resolution**: Corrected all documentation; created prompt-templates-exploration.md for future consideration
+
+### 11. Investigation documentation structure not defined
+
+- **Issue**: Created 40 files across 5 directories without clear organizational principles; files in wrong places, duplicates exist, unclear when to create new files/folders
+- **Evidence**: 
+  - Duplicate: `slash-commands-decision.md` in root AND test-execution/
+  - Mixed purposes: test-execution/ contains protocols, results, sessions, decisions, discoveries (14 files, 5 different purposes)
+  - Root clutter: 7 files in root when should have 4-5 baseline
+  - No clear folders for: decisions/, guides/, protocols/, sessions/
+- **User observation**: "Some details are being dumped into files that aren't supposed to be used for that purpose and files are being created in many places without a discernible pattern"
+- **Impact**: Hard to navigate 40 files; unclear where new docs belong; pattern not reusable; duplicates waste effort
+- **What's missing**: 
+  - Folder purpose definitions
+  - Decision framework (when to create file/folder/sub-project)
+  - Naming patterns
+  - Structure guidance for complex investigations
+- **Meta-observation**: While documenting gaps about ERD scope (Gap #5), tasks structure (Gap #3), and summary proliferation (Gap #6), created same structural issues in investigation itself
+- **Pattern**: Complex investigations need explicit structure; absence of guidance leads to organic growth without organization
+- **Files affected**: project-lifecycle.mdc needs investigation structure section
+- **Discovered**: 2025-10-16 after creating session summary, platform constraints, prompt templates exploration - user noticed pattern
+- **Resolution**: Created new project `investigation-docs-structure` to design structure standard and reorganize rules-enforcement-investigation
 
 ---
 
