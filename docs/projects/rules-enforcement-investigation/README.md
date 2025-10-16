@@ -151,14 +151,26 @@ Each test plan includes implementation checklist and success criteria.
 
 ## Status
 
-**Project Status**: ⚠️ ACTIVE — Incorrectly marked complete  
-**Current Phase**: 6A (Validate H1 Fix)  
-**Fix Applied**: `assistant-git-usage.mdc` changed to `alwaysApply: true` (NOT VALIDATED)  
+**Project Status**: ✅ ACTIVE — TESTING  
+**Current Phase**: 6A + 6B (H1 Validation + H2 Test D Active)  
+**Completion**: ~45% (Discovery, Review, Rule Improvements, H2 Test A complete; H1 + H2 Test D monitoring)  
+**Fixes Applied**:
+
+- H1: `assistant-git-usage.mdc` → `alwaysApply: true` (validation in progress)
+- H2: `assistant-behavior.mdc` → visible gate output (Test D active)
+
+**What's Complete**:
+
+- ✅ All Discovery work (0.1-0.6): Analysis of 25 conditional rules, scalability study, pre-test prep for H2/H3/Slash Commands
+- ✅ All Review work (R.1-R.2): Test plans validated, premature completion root causes analyzed
+- ✅ All Rule Improvements (15.0-20.0): 6 improvements applied to project-lifecycle, create-erd, generate-tasks-from-erd, self-improve rules
+- ✅ Validation protocol established (h1-validation-protocol.md)
+
 **Next Steps**:
 
-1. Validate fix over 20-30 commits
-2. Execute H2, H3, slash commands tests
-3. Discover scalable patterns for conditional rules
-4. Complete 6 rule improvements
+1. Accumulate 20-30 commits with fix applied (passive monitoring)
+2. Measure compliance: baseline 74% → target >90%
+3. Execute H2, H3, slash commands based on validation results
+4. Synthesize scalable patterns and create decision tree
 
-**Critical Issue**: Setting `alwaysApply: true` is not scalable for 25+ conditional rules. The investigation needs to answer its original research questions about enforcement mechanisms.
+**Key Insight**: AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost). Investigation has identified 6 scalable enforcement patterns. All 6 rule improvements complete—preventing premature closure, defining document boundaries, strengthening self-improvement during investigations.

@@ -4,7 +4,7 @@ alwaysApply: false
 lastReviewed: 2025-10-15
 healthScore:
   content: green
-  usability: yellow
+  usability: green
   maintenance: green
 ---
 
@@ -12,12 +12,153 @@ healthScore:
 
 ## Purpose
 
-Codify how projects transition to Completed without breaking links: status tagging over moves, a closure checklist, a final summary, and an index update. Provide a light validator and optional automation.
-Archiving is performed via a single full-folder move; per-file archiving is prohibited.
+Codify how projects transition through explicit lifecycle stages with clear entry/exit criteria, preventing premature closure through hard gates and validation requirements. Archiving is performed via a single full-folder move; per-file archiving is prohibited.
 
 ## Scope
 
 Applies to all projects under `docs/projects/<name>/`. Documentation-first; automation is opt-in.
+
+## Lifecycle Stages
+
+Projects move through explicit stages with defined entry/exit criteria:
+
+### 1. Scoping
+
+**Entry**: Project idea approved; ERD created  
+**Exit**: ERD complete; tasks outlined; acceptance criteria defined  
+**Artifacts**: `erd.md`, `tasks.md` initialized  
+**Status Tag**: `status: active`
+
+### 2. Implementation
+
+**Entry**: Tasks defined; work can begin  
+**Exit**: All required deliverables complete; tests passing  
+**Artifacts**: Code, tests, documentation created  
+**Status Tag**: `status: active`
+
+### 3. Validation
+
+**Entry**: Implementation complete; ready for verification  
+**Exit**: Validation criteria met (see Validation Periods below)  
+**Artifacts**: Test results, measurements, validation logs  
+**Status Tag**: `status: active` (validating)
+
+### 4. Synthesis
+
+**Entry**: Validation complete; ready to document findings  
+**Exit**: Findings documented; recommendations made  
+**Artifacts**: `findings.md`, updated `README.md`  
+**Status Tag**: `status: active` (synthesizing)
+
+### 5. Approval
+
+**Entry**: All work complete; ready for closure review  
+**Exit**: User/maintainer explicit sign-off obtained  
+**Artifacts**: Pre-closure checklist complete (see below)  
+**Status Tag**: `status: active` (pending approval)
+
+### 6. Complete (Active)
+
+**Entry**: Approved but has carryovers or requires monitoring  
+**Exit**: All carryovers resolved; no active monitoring needed  
+**Artifacts**: `final-summary.md`, carryovers documented  
+**Status Tag**: `status: completed` + `completed: YYYY-MM-DD`  
+**Note**: Project is done but not yet archived
+
+### 7. Complete (Archived)
+
+**Entry**: Complete (Active) + all carryovers resolved  
+**Exit**: N/A (terminal state)  
+**Artifacts**: All docs moved to `docs/projects/_archived/<YYYY>/<name>/`  
+**Status Tag**: `status: completed` (in archived location)
+
+## Pre-Closure Checklist (Hard Gates)
+
+**MUST complete ALL items before marking project `status: completed`**
+
+Cannot proceed to "Complete (Active)" if ANY item is unchecked:
+
+- [ ] **All acceptance criteria from ERD validated**
+  - Every criterion from ERD section (acceptance criteria) has been met
+  - Evidence documented in findings.md or validation artifacts
+- [ ] **All required deliverables complete**
+  - Code/scripts/tools delivered (if applicable)
+  - Documentation complete (README, findings, etc.)
+  - Tests passing with adequate coverage
+- [ ] **All "must complete" tasks checked off in tasks.md**
+  - Critical path tasks marked `[x]`
+  - Any unchecked tasks moved to approved Carryovers section
+  - Engineer/maintainer explicitly approved carryovers
+- [ ] **Validation period complete** (if project has applied fixes)
+  - See "Validation Periods" section below
+  - Baseline vs post-fix measurements documented
+  - Success criteria met or failure documented
+- [ ] **Success metrics achieved** (if quantitative targets specified)
+  - Baseline measurements taken
+  - Target thresholds reached
+  - Comparison documented in findings.md
+- [ ] **User/maintainer explicit approval obtained**
+  - Cannot self-declare complete
+  - User must say "this is complete" or equivalent
+  - Approval documented in tasks.md or findings.md
+- [ ] **Carryovers documented** (if any incomplete optional work)
+  - Listed in tasks.md under `## Carryovers` section
+  - Each carryover justified (why deferred)
+  - Clear whether carryover blocks archival
+- [ ] **Archive validation passing**
+  - `.cursor/scripts/project-lifecycle-validate-scoped.sh <slug>` passes
+  - OR manual checklist below complete
+
+**If ANY item unchecked**: Project is NOT complete. Update status to reflect actual stage (Implementation, Validation, Synthesis, Approval).
+
+**Archive Readiness** (for moving to Complete (Archived)):
+
+- All carryovers resolved OR explicitly accepted as permanent
+- No active monitoring needed
+- Archive script validation passes
+
+## Validation Periods (Mandatory for Projects with Applied Fixes)
+
+If a project applies a fix or change that requires real-world validation:
+
+### Validation Requirements
+
+**Duration**: Specified in ERD or reasonable default
+
+- Examples: "20-30 git operations", "1 week of usage", "50 API calls"
+
+**Measurement**: Use baseline metrics established before fix
+
+- Baseline documented
+- Target threshold specified (e.g., ">90% compliance")
+- Measurement method defined
+
+**Success Criteria**: Must meet target threshold
+
+- Success: Meets or exceeds target
+- Partial: Shows improvement but below target
+- Failure: No improvement or regression
+
+### During Validation Period
+
+**Status**: "ACTIVE — MONITORING" or Stage 3 (Validation)
+
+- Continue normal work; data accumulates naturally
+- Periodic check-ins (e.g., after 10, 20, 30 instances)
+- Document observations in validation protocol document
+
+**Cannot Mark Complete Until**:
+
+- Validation period ends (sufficient data collected)
+- AND success criteria met (or failure explicitly documented)
+
+### After Validation Period
+
+**If Success**: Proceed to Pre-Closure Checklist
+**If Partial Success**: Document remaining gaps; decide next steps
+**If Failure**: Return to Implementation; revise approach
+
+**Example**: See `docs/projects/rules-enforcement-investigation/h1-validation-protocol.md`
 
 ## Status Tagging (ERD front matter)
 
@@ -33,18 +174,36 @@ Location: `docs/projects/<name>/erd.md`. On archival, move entire folder to `doc
 
 ## Completion States & Criteria
 
-**Active** → **Complete (Active)** → **Complete (Archived)**
+**Lifecycle Flow**: Active (Stages 1-5) → Complete (Active) → Complete (Archived)
 
 **Complete (Active)** requires:
 
-1. ERD front matter: `status: completed`, `completed: YYYY-MM-DD`, `owner`
-2. All `tasks.md` items checked OR engineer-approved `Carryovers` section
-3. `final-summary.md` with template front matter + `## Impact` section
-4. Retrospective (standalone file or section in Final Summary)
-5. `docs/projects/README.md` lists project under Completed with link
-6. Tests/lint/types pass; coverage > 0% for new/changed modules
+1. ✅ Pre-Closure Checklist complete (all items checked — see above)
+2. ERD front matter: `status: completed`, `completed: YYYY-MM-DD`, `owner`
+3. All `tasks.md` items checked OR engineer-approved `Carryovers` section
+4. `final-summary.md` with template front matter + `## Impact` section
+5. Retrospective (standalone file or section in Final Summary)
+6. `docs/projects/README.md` lists project under Completed with link
+7. Tests/lint/types pass; coverage > 0% for new/changed modules
 
-**Complete (Archived)**: All carryovers resolved, no active monitoring needed, moved to `_archived/<YYYY>/`.
+**Complete (Active) vs Complete (Archived)**:
+
+- **Active**: Done but has carryovers or needs monitoring; stays in `docs/projects/<name>/`
+- **Archived**: All carryovers resolved; no monitoring needed; moved to `docs/projects/_archived/<YYYY>/<name>/`
+
+**When to stay "Complete (Active)"**:
+
+- Has approved carryovers (future improvements, nice-to-haves)
+- Requires periodic monitoring (validation period still running)
+- Referenced by other active projects
+- User prefers easy access (not ready to archive)
+
+**When to move to "Complete (Archived)"**:
+
+- All carryovers resolved or explicitly accepted as permanent
+- No active monitoring or validation needed
+- Historical reference only
+- Ready to declutter active projects list
 
 ## Final Summary
 
@@ -77,11 +236,202 @@ Update `docs/projects/README.md`: move entry from Active to Completed, point to 
 | Document        | Purpose                  | Size Target   | Must Include                                                    | Must Exclude                                       |
 | --------------- | ------------------------ | ------------- | --------------------------------------------------------------- | -------------------------------------------------- |
 | **ERD**         | Requirements & approach  | 200-400 lines | Goals, acceptance criteria (narrative), risks, approach         | Execution checklists, findings, status updates     |
-| **tasks.md**    | Execution checklists     | <200 lines    | Phase headers, sub-task checkboxes, Carryovers (if approved)    | Findings, requirements, retrospective              |
+| **tasks.md**    | Execution checklists     | <200 lines    | Phase headers, sub-task checkboxes, Carryovers (if approved)    | Findings, requirements, retrospective, questions   |
 | **findings.md** | Outcomes & retrospective | 150-300 lines | Root cause, deliverables, recommendations                       | Requirements, active checklists                    |
 | **README.md**   | Navigation & overview    | <200 lines    | Brief overview (3-4 sentences), navigation links, quick actions | Detailed findings, metrics, implementation details |
 
 **Task completion gate (blocking)**: All tasks in `tasks.md` must be checked OR engineer explicitly approves moving unchecked items to Carryovers. Assistant cannot independently defer tasks.
+
+### README.md as Single Entry Point
+
+**Purpose**: Navigation hub — one authoritative overview for the project
+
+**Structure**:
+
+```markdown
+# Project Name
+
+**Brief Overview** (3-4 sentences)
+
+- What problem does this solve?
+- What was delivered?
+- Current status?
+
+## Navigation
+
+### Quick Start (5 minutes)
+
+- Links to key sections for new readers
+
+### Deep Dive (1-2 hours)
+
+- Links to detailed technical docs
+
+### Implementation Reference
+
+- Links to tasks, ERD, findings
+
+## Quick Actions
+
+- Command examples for using deliverables
+
+## Status
+
+- Current phase, completion %, next steps
+```
+
+**Single Entry Point Policy**:
+
+- ✅ **One README.md** per project (always)
+- ❌ **Avoid multiple summaries** unless justified
+
+**When Multiple Summaries Are Justified**:
+
+- Different audiences with distinct information needs
+  - Example: Technical deep-dive for engineers, executive summary for stakeholders
+- Different formats serve different purposes
+  - Example: Interactive demo vs static documentation
+- Must articulate: "Summary X is for audience Y who needs Z information"
+
+**When Multiple Summaries Are NOT Justified** (Avoid):
+
+- Content overlap >50% (consolidate into single README)
+- Same audience, same information, slightly different framing
+- Progressive detail (use sections in single doc instead)
+- Temporal updates ("v1 summary", "v2 summary" — update the original)
+
+**Evidence of Proliferation**:
+
+- The rules-enforcement-investigation project created 3 summary documents:
+  - README.md, BREAKTHROUGH-SUMMARY.md, EXECUTIVE-SUMMARY.md
+  - Content overlap: 70-80% (all telling same story)
+  - Result: 15 total files, unclear which is authoritative, wasted consolidation effort
+
+**Correct Approach**:
+
+- README.md with navigation to different depths
+- Section 1: Quick Start (5 min)
+- Section 2: Understanding Results (10 min)
+- Section 3: Deep Dive (1-2 hours)
+- All in one file; reader chooses depth
+
+**Exception**: If project genuinely needs specialized summaries (rare), document justification in README and link prominently.
+
+### tasks.md Structure (Strict)
+
+**Purpose**: Execution tracking ONLY — phase sections with checkboxes
+
+**Format**:
+
+```markdown
+## Phase N: Phase Name
+
+- [ ] Parent Task
+  - [ ] Sub-task 1
+  - [ ] Sub-task 2
+  - [ ] Sub-task 3
+
+## Carryovers (Optional — Requires Approval)
+
+- [ ] Deferred task — Reason: not critical; future enhancement
+```
+
+**Must Include**:
+
+- Phase headers (## Phase N: Name)
+- Task checkboxes (- [ ] or - [x])
+- Sub-tasks indented under parents
+- Carryovers section (if applicable) with justifications
+
+**Must Exclude** (Put These Elsewhere):
+
+- ❌ Findings or outcomes → `findings.md`
+- ❌ Requirements or acceptance criteria → `erd.md`
+- ❌ Questions or discussion → `erd.md` (Risks section) or separate doc
+- ❌ Success criteria or metrics → `erd.md` (Acceptance Criteria section)
+- ❌ Status updates or progress notes → `README.md` or project management tool
+- ❌ Retrospective or lessons learned → `findings.md`
+- ❌ Implementation details or code snippets → code files or technical docs
+
+**Why Strict**:
+
+- Prevents content bloat (this investigation's tasks.md grew to 333 lines, 152 non-task)
+- Clear separation of concerns (checklists vs narrative vs findings)
+- Easy to scan for "what's left to do"
+- Simple completion validation (all checkboxes checked?)
+
+**Example of Bloat to Avoid**:
+
+```markdown
+## Phase 2: Implementation
+
+- [x] Build tool X
+  - Results: 95% success rate (baseline was 70%)
+  - Questions: Should we optimize further? What about edge case Y?
+  - Next steps: Consider refactor if time permits
+```
+
+**Correct Format**:
+
+```markdown
+## Phase 2: Implementation
+
+- [x] Build tool X
+- [ ] Optimize tool X (if results < 90%)
+- [ ] Handle edge case Y
+```
+
+(Results, questions, and next steps belong in `findings.md` or `README.md`)
+
+### ERD vs tasks.md: Acceptance Criteria
+
+**Separation Principle**: ERD describes requirements (what); tasks.md tracks execution (status)
+
+**In ERD** (Acceptance Criteria section):
+
+- Narrative description of success criteria
+- "The system must..." or "Deliverables include..."
+- Thresholds and targets explained
+- Context and rationale
+
+**Example (ERD)**:
+
+```markdown
+## Acceptance Criteria
+
+1. **Measurement Framework**: Create tools to measure script usage, TDD compliance, and branch naming compliance. Each tool must output rates, accept a limit parameter, and exit with appropriate codes.
+
+2. **Baseline Metrics**: Establish baseline measurements across 100 recent commits showing current compliance levels for comparison with post-fix measurements.
+
+3. **Test Plans**: Comprehensive test plans for Hypotheses 1-3 and slash commands experiment, each with measurement protocols and success criteria.
+```
+
+**In tasks.md** (Execution tracking):
+
+- Checklist derived from ERD criteria
+- One checkbox per deliverable or milestone
+- Status only (checked or unchecked)
+
+**Example (tasks.md)**:
+
+```markdown
+## Phase 4: Measurement & Validation
+
+- [x] 4.0 Create compliance measurement tools
+  - [x] 4.1 Build check-script-usage.sh
+  - [x] 4.2 Build check-tdd-compliance.sh
+  - [x] 4.3 Build check-branch-names.sh
+  - [x] 4.4 Build compliance-dashboard.sh
+  - [x] 4.5 TDD-test all scripts
+  - [x] 4.6 Establish baseline metrics
+```
+
+**Why Separate**:
+
+- ERD stable (requirements don't change often)
+- tasks.md dynamic (checkboxes change constantly)
+- Avoids duplication (one source of truth for requirements)
+- Clear transformation: narrative requirement → executable checklist
 
 ## Validators
 

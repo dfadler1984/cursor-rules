@@ -16,6 +16,7 @@ healthScore:
 - New libraries or tools being used consistently (3+ modules)
 - Emerging best practices in the codebase
 - Recurring feedback in clarifications or code reviews
+- **Rule gaps observed during active investigations** (see Special Cases below)
 
 ## Analysis Process
 
@@ -115,6 +116,80 @@ When patterns become outdated:
 - Update references to external docs
 - Maintain links between related rules
 - Document breaking changes
+
+## Special Case: Rule Investigations
+
+When actively investigating rule effectiveness or enforcement:
+
+### During Active Investigations
+
+**Observed rule gaps are first-class investigation data** (not optional enhancements):
+
+1. **Notice gap → Document immediately**
+
+   - Unclear guidance encountered? → Add to findings.md in real-time
+   - Process confusion observed? → Note as investigation evidence
+   - Rule conflict discovered? → Document the conflict immediately
+
+2. **Don't wait for user prompts**
+
+   - Bad: Wait for user to ask "did you notice X?"
+   - Good: Flag gaps as they're observed during work
+   - Proactive documentation, not reactive
+
+3. **Treat as investigation evidence**
+
+   - If investigating completion policies → completion confusion is data
+   - If investigating enforcement patterns → enforcement gaps are data
+   - If investigating rule quality → rule issues are data
+
+4. **Queue improvements as investigation proceeds**
+   - Add observed gaps to investigation scope
+   - Include in findings/outcomes
+   - Create improvement tasks from observations
+
+### Meta-Consistency Requirement
+
+**Apply findings to your own process**:
+
+- Investigating gates? → Enforce gates on self during investigation
+- Investigating completion? → Validate own completion rigorously
+- Investigating scripts? → Use scripts consistently during investigation
+
+**Why**: Violating patterns under investigation undermines credibility and misses valuable validation data
+
+### Example: Rules-Enforcement Investigation
+
+**What Happened** (incorrect):
+
+- Investigated why project-lifecycle completion is unclear
+- Noticed confusion during work
+- Didn't flag gap until user prompted
+- Result: Missed opportunity to capture real-time evidence
+
+**What Should Happen** (correct):
+
+- Notice confusion about completion states
+- Immediately add to investigation scope: "Discovered gap in project-lifecycle.mdc"
+- Document as evidence in findings.md
+- Create improvement task from observation
+- Result: Investigation captures its own meta-findings
+
+**Evidence**: 6 rule gaps discovered during rules-enforcement-investigation, but only flagged reactively (after user prompting) rather than proactively as investigation data
+
+### Checkpointing Rule Gap Observations
+
+**During Investigation**:
+
+- Real-time documentation in findings.md
+- Add to investigation scope if relevant
+- No separate consent needed (part of investigation work)
+
+**After Investigation**:
+
+- Follow normal consent-gated proposal workflow
+- Present improvements at natural checkpoint
+- Get approval before implementing
 
 ## Related
 
