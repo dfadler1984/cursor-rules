@@ -9,16 +9,17 @@
 ## Phase 1: Design Structure Standard
 
 - [ ] 1.0 Define folder purposes
+
   - [ ] 1.1 Root baseline: README, erd, tasks, findings (summary or index?)
   - [ ] 1.2 findings/ - Individual finding documents (one per gap)
   - [ ] 1.3 analysis/ - Analysis docs; when to create subfolders
   - [ ] 1.4 decisions/ - Decision documents
-  - [ ] 1.5 guides/ - Reference guides  
+  - [ ] 1.5 guides/ - Reference guides
   - [ ] 1.6 protocols/ - Test/validation protocols
   - [ ] 1.7 sessions/ - Session summaries
   - [ ] 1.8 test-results/ - Test execution data
   - [ ] 1.9 tests/ - Test plan templates (already correct)
-  - [ ] 1.10 _archived/ - Archived root docs
+  - [ ] 1.10 \_archived/ - Archived root docs
 
 - [ ] 2.0 Define decision framework
   - [ ] 2.1 When to create new file vs update existing
@@ -30,13 +31,15 @@
 ## Phase 2: Create Reorganization Plan
 
 - [ ] 3.0 Map all 40 files
+
   - [ ] 3.1 Root files (7) → determine correct location
   - [ ] 3.2 analysis/ files (6) → flat vs subfolders
-  - [ ] 3.3 archived-summaries/ (6) → move to _archived/
+  - [ ] 3.3 archived-summaries/ (6) → move to \_archived/
   - [ ] 3.4 test-execution/ (14) → split by purpose
   - [ ] 3.5 tests/ (7) → keep as-is
 
 - [ ] 4.0 Resolve duplicates
+
   - [ ] 4.1 slash-commands-decision.md (root vs test-execution) → pick canonical
   - [ ] 4.2 Identify any other duplicates
   - [ ] 4.3 Merge or archive duplicates
@@ -49,6 +52,7 @@
 ## Phase 3: Identify Sub-Projects
 
 - [ ] 6.0 Evaluate candidates
+
   - [ ] 6.1 H1 conditional attachment - is this sub-project worthy?
   - [ ] 6.2 H2 send gate investigation - separate project?
   - [ ] 6.3 H3 query visibility - separate project?
@@ -66,18 +70,21 @@
 ## Phase 4: Execute Reorganization
 
 - [ ] 8.0 Create folder structure
+
   - [ ] 8.1 Create findings/, decisions/, guides/, protocols/, sessions/, test-results/
   - [ ] 8.2 Create analysis subfolders where needed
-  - [ ] 8.3 Rename archived-summaries/ to _archived/
+  - [ ] 8.3 Rename archived-summaries/ to \_archived/
 
 - [ ] 9.0 Move files
+
   - [ ] 9.1 Move root files to correct folders
   - [ ] 9.2 Move analysis files (create subfolders if needed)
-  - [ ] 9.3 Move archived-summaries to _archived/
+  - [ ] 9.3 Move archived-summaries to \_archived/
   - [ ] 9.4 Reorganize test-execution into appropriate folders
   - [ ] 9.5 Remove duplicate files
 
 - [ ] 10.0 Update cross-references
+
   - [ ] 10.1 Update links in all moved files
   - [ ] 10.2 Update README navigation
   - [ ] 10.3 Update tasks.md references
@@ -93,6 +100,7 @@
 ## Phase 5: Document Pattern
 
 - [ ] 12.0 Update project-lifecycle.mdc
+
   - [ ] 12.1 Add "Complex Investigation Structure" section
   - [ ] 12.2 Define when to use this structure (vs simple projects)
   - [ ] 12.3 Document folder purposes
@@ -136,4 +144,3 @@
 - [ ] Pattern documented in project-lifecycle.mdc
 - [ ] Structure reusable for future complex projects
 - [ ] Navigation intuitive (find any doc quickly)
-
