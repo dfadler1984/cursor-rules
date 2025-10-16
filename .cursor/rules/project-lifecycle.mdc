@@ -1,7 +1,7 @@
 ---
 description: Project lifecycle — completion policy and validation (canonical; ERDs link here)
 alwaysApply: false
-lastReviewed: 2025-10-15
+lastReviewed: 2025-10-16
 healthScore:
   content: green
   usability: green
@@ -203,7 +203,7 @@ Location: `docs/projects/<name>/erd.md`. On archival, move entire folder to `doc
 - All carryovers resolved or explicitly accepted as permanent
 - No active monitoring or validation needed
 - Historical reference only
-- Ready to declutter active projects list
+- Ready to declutter active projects listLe
 
 ## Final Summary
 
@@ -460,6 +460,47 @@ Location: `.cursor/templates/project-lifecycle/`
 ## PR Title Guidance
 
 Prefer `feat: Finalize <Project Name>` or `feat(projects): finalize <name>` for changelog inclusion. Docs-only closures may use `docs: finalize <Project Name>`.
+
+## Complex Investigation Structure
+
+**When to use**: Investigations with multiple hypotheses, substantial testing, >15 files
+
+**When NOT to use**: Simple projects with <10 files; use basic README/erd/tasks structure
+
+### Folder Structure
+
+**Root files** (baseline):
+- `README.md` - Entry point, navigation
+- `erd.md` - Requirements and scope
+- `tasks.md` - Execution tracking
+- `coordination.md` - For umbrella projects with sub-projects
+- High-level protocols (case-by-case exceptions)
+
+**Organized folders**:
+- `findings/` - Individual finding documents (README + gap-##-<name>.md files)
+- `analysis/` - Deep analysis (flat files + subfolders for large topics)
+- `decisions/` - Decision documents (<topic>-decision.md)
+- `guides/` - Reference guides for using outputs
+- `protocols/` - Test/validation procedures
+- `sessions/` - Session summaries (YYYY-MM-DD.md)
+- `test-results/` - Test execution data (organized by hypothesis)
+- `tests/` - Test plan templates
+- `_archived/` - Archived documents
+
+**Decision framework**:
+- **New file vs update**: Create new for new topic (>200 lines if added to existing)
+- **Subfolder vs flat**: Create subfolder when topic has 3+ files
+- **Sub-project vs analysis**: Create sub-project when ERD-worthy scope (5+ requirements, independent execution)
+
+**Sub-projects pattern**:
+- Flat siblings in `docs/projects/` (not nested)
+- Parent has `coordination.md` tracking all sub-projects
+- Each sub-project README links to parent
+- When complete, outcome captured in parent's coordination.md
+
+**Example**: [rules-enforcement-investigation](../../docs/projects/rules-enforcement-investigation/) - 40 files reorganized into 10 folders + 3 sub-projects
+
+**Full standard**: See [investigation-docs-structure/structure-standard.md](../../docs/projects/investigation-docs-structure/structure-standard.md)
 
 ## Notes
 
