@@ -172,7 +172,8 @@
 - ✅ Test protocol documented
 - 🔒 Phase 3 testing DEFERRED pending H1 validation
 
-**Decision**: 
+**Decision**:
+
 - H1 already showing 96% script usage (+22 points over 74% baseline)
 - Target >90% likely achieved without slash commands
 - Testing paradox: assistant cannot objectively test own behavior

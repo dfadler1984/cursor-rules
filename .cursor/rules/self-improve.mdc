@@ -112,6 +112,7 @@ When user corrects the order of operations (e.g., "should document that first", 
 4. **Rule update consideration**: If pattern recurs (2+ instances), queue rule improvement
 
 **Common process-order corrections**:
+
 - "Document the test protocol first" → Document → then choose execution mode
 - "Plan before implementing" → Create spec/plan → then implement
 - "Define acceptance criteria first" → Write criteria → then build

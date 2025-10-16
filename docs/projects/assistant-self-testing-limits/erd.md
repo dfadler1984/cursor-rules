@@ -15,6 +15,7 @@ While executing the slash commands experiment, we discovered a fundamental limit
 **Goal**: Measure whether slash command enforcement improves routing accuracy vs intent routing
 
 **Traditional test approach**:
+
 1. Issue test request: "commit these changes"
 2. Observe: Did assistant show slash command prompt?
 3. Record: Which script was used?
@@ -22,6 +23,7 @@ While executing the slash commands experiment, we discovered a fundamental limit
 5. Compare to baseline
 
 **The problem**: The assistant IS the system under test. Any attempt to "test myself" means:
+
 - I'm consciously aware of being tested
 - I'm reading the test protocol
 - I'll follow the rules more carefully than in natural usage
@@ -43,12 +45,14 @@ While executing the slash commands experiment, we discovered a fundamental limit
 ### What We CAN Measure
 
 ✅ **Historical compliance** (retrospective):
+
 - Git log analysis: script usage in past commits
 - Compliance dashboard: `bash .cursor/scripts/compliance-dashboard.sh`
 - Baseline: 74% script usage before H1 fix
 - Current: 96% script usage after H1 fix (8 commits)
 
 ✅ **Natural usage monitoring** (passive):
+
 - Continue working normally
 - Accumulate commits/operations over time
 - Measure compliance rates after 20-30 data points
@@ -57,11 +61,13 @@ While executing the slash commands experiment, we discovered a fundamental limit
 ### What We CANNOT Measure Objectively
 
 ❌ **Prospective behavior testing**:
+
 - Cannot issue test requests and objectively observe responses
 - Cannot run 50 trials without test awareness
 - Cannot separate "following rules because testing" from "natural compliance"
 
 ❌ **A/B comparison of routing strategies**:
+
 - Would require two independent instances
 - Would need blind testing (assistant unaware of which mode)
 - Not possible within single assistant session
@@ -73,17 +79,20 @@ While executing the slash commands experiment, we discovered a fundamental limit
 ### In Scope
 
 1. **Document the testing paradox**
+
    - Why self-testing creates observer bias
    - What measurements are valid vs invalid
    - How to work within these constraints
 
 2. **Define valid measurement strategies**
+
    - Historical analysis (retrospective)
    - Natural usage monitoring (passive)
    - User-observed spot checks (qualitative)
    - External validation (CI/automated checks)
 
 3. **Update test methodology**
+
    - Rules-enforcement-investigation test plans
    - Future experiment designs
    - Measurement framework limitations
@@ -106,11 +115,13 @@ While executing the slash commands experiment, we discovered a fundamental limit
 ### Functional
 
 1. **Documentation**
+
    - Clear explanation of testing paradox
    - Examples of valid vs invalid tests
    - Guidelines for experiment design
 
 2. **Decision Framework**
+
    - Criteria for when self-testing is sufficient
    - Criteria for when external validation needed
    - Fallback strategies when ideal testing impossible
@@ -143,6 +154,7 @@ While executing the slash commands experiment, we discovered a fundamental limit
 ### Phase 1: Document the Paradox
 
 Create `testing-paradox.md`:
+
 - Explain observer bias problem
 - Examples from slash commands experiment
 - Why retrospective > prospective for self-testing
@@ -150,6 +162,7 @@ Create `testing-paradox.md`:
 ### Phase 2: Define Valid Measurement Strategies
 
 Create `measurement-strategies.md`:
+
 - Historical analysis (git log, compliance dashboard)
 - Natural usage monitoring (passive accumulation)
 - User-observed validation (spot checks)
@@ -158,6 +171,7 @@ Create `measurement-strategies.md`:
 ### Phase 3: Update Investigation
 
 Update rules-enforcement-investigation:
+
 - Document slash commands deferral rationale
 - Note testing paradox as meta-finding
 - Update test plans with measurement limitations
@@ -166,6 +180,7 @@ Update rules-enforcement-investigation:
 ### Phase 4: Create Decision Framework
 
 Create `experiment-design-guide.md`:
+
 - When is self-testing valid?
 - When is external validation needed?
 - How to work within constraints?
@@ -217,4 +232,3 @@ Create `experiment-design-guide.md`:
 - [rules-enforcement-investigation](../rules-enforcement-investigation/)
 - [Slash commands experiment](../rules-enforcement-investigation/tests/experiment-slash-commands.md)
 - [Testing paradox origin](../rules-enforcement-investigation/test-execution/slash-commands-phase3-protocol.md)
-

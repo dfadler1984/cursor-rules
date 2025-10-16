@@ -56,4 +56,3 @@
 - [ ] Rules-enforcement-investigation updated
 - [ ] Decision framework provided
 - [ ] Future experiments avoid invalid self-tests
-

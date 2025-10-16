@@ -23,15 +23,12 @@ Before executing ANY of these git operations, check if user provided slash comma
 - `/commit` → Routes to `.cursor/scripts/git-commit.sh`
   - Prompts for: type, scope (optional), description
   - Generates conventional commit message
-  
 - `/pr` → Routes to `.cursor/scripts/pr-create.sh`
   - Prompts for: title, body (optional)
   - Creates PR via GitHub API
-  
 - `/branch` → Routes to `.cursor/scripts/git-branch-name.sh`
   - Prompts for: task, type (optional), feature (optional)
   - Suggests or creates branch with naming convention
-  
 - `/pr-update` → Routes to `.cursor/scripts/pr-update.sh`
   - Prompts for: PR number or branch, changes to make
   - Updates existing PR
@@ -47,7 +44,7 @@ When user requests a high-risk git operation WITHOUT slash command:
 Use `/<command>` for this operation:
 
 - `/commit` for commits
-- `/pr` for pull requests  
+- `/pr` for pull requests
 - `/branch` for branch creation
 - `/pr-update` for PR updates
 
@@ -62,7 +59,7 @@ Proceed with slash command, or manual?
 These operations have suggested slash commands but allow fallback:
 
 - `/status` → `git status --porcelain=v1` (safe, read-only)
-- `/diff` → `git diff --stat` (safe, read-only)  
+- `/diff` → `git diff --stat` (safe, read-only)
 - `/log` → `git log --oneline -n 10` (safe, read-only)
 
 **Enforcement**: Suggest command, but allow raw git without additional prompt
@@ -70,6 +67,7 @@ These operations have suggested slash commands but allow fallback:
 ## Low-Risk Operations (No Slash Command)
 
 Read-only operations can proceed without slash commands:
+
 - `git status`, `git log`, `git diff`, `git show`, etc.
 
 ## Rationale
