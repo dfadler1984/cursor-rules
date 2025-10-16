@@ -211,19 +211,27 @@ These are NOT optional enhancements — they answer the fundamental research que
 - **Discovered**: 2025-10-16 when attempting to design slash commands Phase 3 testing
 - **Resolution**: Deferred slash commands testing; will rely on H1 validation results (96% current rate)
 
-### 9. Changeset policy violated when creating PR
+### 9. Changeset policy violated when creating PR (two-part violation)
 
-- **Issue**: Created PR #132 without changeset and without requesting skip consent
-- **Evidence**: PR created with rule changes but no `.changeset/*.md` file; PR description had unchecked "[ ] Changeset" item
-- **Impact**: Violated changeset default policy; required user correction; would have bypassed version tracking
+- **Issue**: Created PR #132 without changeset and without requesting skip consent; then forgot to remove `skip-changeset` label after adding changeset
+- **Evidence**: 
+  - Part 1: PR created with rule changes but no `.changeset/*.md` file; PR description had unchecked "[ ] Changeset" item
+  - Part 2: After adding changeset, left `skip-changeset` label on PR; required second user correction
+- **Impact**: Violated changeset default policy; required TWO user corrections; would have bypassed version tracking and CI checks
 - **Rule violated**: `assistant-git-usage.mdc` → "When preparing a PR that includes code/rules/docs edits, include a Changeset by default"
-- **What should have happened**: Prompt to run `npx changeset` OR create `.changeset/<slug>.md` non-interactively OR ask for explicit skip consent
-- **What actually happened**: Created PR immediately without changeset or consent check
-- **Meta-observation**: While investigating rule enforcement and documenting Gaps #1-8, violated another rule
-- **Pattern**: Even high awareness of rules doesn't prevent violations; automated gates needed
+- **What should have happened**: 
+  1. Prompt to run `npx changeset` OR create `.changeset/<slug>.md` non-interactively OR ask for explicit skip consent
+  2. After adding changeset, remove any `skip-changeset` label and check the checkbox
+- **What actually happened**: 
+  1. Created PR immediately without changeset or consent check
+  2. Added changeset but left `skip-changeset` label; updated description but forgot label cleanup
+- **Meta-observation**: While investigating rule enforcement and documenting Gaps #1-8, violated another rule TWICE (incomplete fix)
+- **Pattern**: Even high awareness of rules doesn't prevent violations; partial fixes require follow-up; automated gates needed
 - **Files affected**: Compliance gate checklist in `assistant-behavior.mdc`
-- **Discovered**: 2025-10-16 immediately after PR #132 creation, user pointed out
-- **Resolution**: ✅ Created changeset non-interactively, pushed to PR
+- **Discovered**: 
+  - Part 1: 2025-10-16 immediately after PR #132 creation, user: "I noticed you submit the pr with the skip changeset flag"
+  - Part 2: 2025-10-16 after changeset added, user: "You submit the changset, but did not remove the skip changeset label"
+- **Resolution**: ✅ Created changeset non-interactively, pushed to PR; ✅ Removed `skip-changeset` label via API
 
 ---
 
