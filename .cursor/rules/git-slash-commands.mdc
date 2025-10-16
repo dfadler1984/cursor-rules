@@ -1,0 +1,94 @@
+---
+description: Mandatory slash commands for Git operations (experimental enforcement pattern)
+alwaysApply: true
+lastReviewed: 2025-10-16
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Git Slash Commands (Experimental)
+
+**Purpose**: Test whether explicit slash commands create stronger forcing functions than intent routing for high-risk git operations.
+
+**Status**: EXPERIMENTAL — Part of rules-enforcement-investigation
+
+## High-Risk Operations (Mandatory Commands)
+
+Before executing ANY of these git operations, check if user provided slash command:
+
+### Mandatory Commands
+
+- `/commit` → Routes to `.cursor/scripts/git-commit.sh`
+  - Prompts for: type, scope (optional), description
+  - Generates conventional commit message
+  
+- `/pr` → Routes to `.cursor/scripts/pr-create.sh`
+  - Prompts for: title, body (optional)
+  - Creates PR via GitHub API
+  
+- `/branch` → Routes to `.cursor/scripts/git-branch-name.sh`
+  - Prompts for: task, type (optional), feature (optional)
+  - Suggests or creates branch with naming convention
+  
+- `/pr-update` → Routes to `.cursor/scripts/pr-update.sh`
+  - Prompts for: PR number or branch, changes to make
+  - Updates existing PR
+
+### Enforcement Protocol
+
+When user requests a high-risk git operation WITHOUT slash command:
+
+1. **Detect operation**: commit, PR, branch creation, PR update
+2. **Prompt for slash command**:
+
+```
+Use `/<command>` for this operation:
+
+- `/commit` for commits
+- `/pr` for pull requests  
+- `/branch` for branch creation
+- `/pr-update` for PR updates
+
+Proceed with slash command, or manual?
+```
+
+3. **On "manual"**: Fall back to script-first protocol (query capabilities.mdc → use script if available)
+4. **On slash command**: Execute immediately (no additional routing)
+
+## Medium-Risk Operations (Suggested Commands)
+
+These operations have suggested slash commands but allow fallback:
+
+- `/status` → `git status --porcelain=v1` (safe, read-only)
+- `/diff` → `git diff --stat` (safe, read-only)  
+- `/log` → `git log --oneline -n 10` (safe, read-only)
+
+**Enforcement**: Suggest command, but allow raw git without additional prompt
+
+## Low-Risk Operations (No Slash Command)
+
+Read-only operations can proceed without slash commands:
+- `git status`, `git log`, `git diff`, `git show`, etc.
+
+## Rationale
+
+- **Unambiguous**: `/commit` can't be misinterpreted
+- **Explicit**: User sees tool invocation happening
+- **Discoverable**: Prompts teach users about available commands
+- **Forcing function**: Can't be skipped by clever phrasing
+
+## Measurement
+
+This rule is part of the slash commands experiment (rules-enforcement-investigation). We're measuring:
+
+- Routing accuracy: intent routing (~70%) vs slash commands (target >95%)
+- Script usage: intent routing (74%) vs slash commands (target >90%)
+- User experience: prompt clarity, adoption rate
+
+## Related
+
+- See `assistant-git-usage.mdc` for script-first protocol
+- See `intent-routing.mdc` for slash command routing precedence
+- See `docs/projects/rules-enforcement-investigation/tests/experiment-slash-commands.md` for full test plan

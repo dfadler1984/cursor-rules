@@ -245,13 +245,15 @@ Periodic review checkpoints to validate progress and findings:
 
 ## Phase 6C: Scalable Patterns
 
-- [ ] 12.0 Slash Commands Experiment — DEFERRED (conditional execution)
+- [ ] 12.0 Slash Commands Experiment — IN PROGRESS (empirical comparison)
 
-  - [ ] 12.1 Implement slash command rule — DEFERRED: Execute only if H1+H2+H3 <90%
-  - [ ] 12.2 Phase 1: Baseline with intent routing (50 trials) — DEFERRED
-  - [ ] 12.3 Phase 2: Test with slash commands (50 trials) — DEFERRED
-  - [ ] 12.4 Measure routing accuracy improvement — DEFERRED
-  - [ ] 12.5 Document: Can this scale to 25 conditional rules? — DEFERRED (see slash-commands-decision.md)
+  - [x] 12.1 Implement slash command rule — COMPLETE: Created git-slash-commands.mdc with enforcement protocol
+  - [x] 12.2 Update intent routing — COMPLETE: Added slash commands at highest priority
+  - [x] 12.3 Validate implementation — COMPLETE: Rules validation passed
+  - [ ] 12.4 Phase 1: Use existing baseline — Can reuse H1 baseline (74% script usage)
+  - [ ] 12.5 Phase 3: Test with slash commands (50 trials) — READY TO START
+  - [ ] 12.6 Phase 4: Measure routing accuracy improvement — Pending trial completion
+  - [ ] 12.7 Document: Can this scale to 25 conditional rules? — Pending results
 
 - [ ] 13.0 Compare Enforcement Approaches
 

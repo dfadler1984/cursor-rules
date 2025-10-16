@@ -1,7 +1,7 @@
 ---
 description: Always-on intent router attaching rules via phrases, keywords, and signals
 alwaysApply: true
-lastReviewed: 2025-10-10
+lastReviewed: 2025-10-16
 healthScore:
   content: green
   usability: green
@@ -107,9 +107,20 @@ This lightweight router keeps context minimal by attaching specific rules only w
 
 ## Slash commands
 
+**Git Operations** (HIGHEST PRIORITY — experimental enforcement pattern):
+
+- `/commit` → route to `git-slash-commands.mdc` → execute `git-commit.sh`
+- `/pr` → route to `git-slash-commands.mdc` → execute `pr-create.sh`
+- `/branch` → route to `git-slash-commands.mdc` → execute `git-branch-name.sh`
+- `/pr-update` → route to `git-slash-commands.mdc` → execute `pr-update.sh`
+- `/status` → suggested (not mandatory) → `git status --porcelain=v1`
+- `/diff` → suggested (not mandatory) → `git diff --stat`
+- `/log` → suggested (not mandatory) → `git log --oneline -n 10`
+
+**Other Commands**:
+
 - `/plan <topic>` → route to `spec-driven.mdc` (plan/specify); consent-first; produce plan scaffold
 - `/tasks` → route to `project-lifecycle.mdc` (Task List Process subsection); manage/update tasks non-interactively when safe
-- `/pr` → route to `assistant-git-usage.mdc`; prefer `.cursor/scripts/pr-create.sh` with explicit consent and non-interactive flags
 
 ## File/context signals (supporting)
 
