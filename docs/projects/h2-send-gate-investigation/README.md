@@ -49,4 +49,3 @@ Investigation of whether the pre-send compliance gate in `assistant-behavior.mdc
 **Current Phase**: Test D monitoring (checkpoint 1 complete)  
 **Next**: Continue passive monitoring over 10-20 responses  
 **Expected**: Sustained 100% gate visibility, improved overall compliance
-

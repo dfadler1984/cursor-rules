@@ -44,6 +44,7 @@ Attempted to implement runtime routing via slash commands (e.g., user types `/co
 **Primary finding**: Runtime routing approach wrong; prompt template approach unexplored.
 
 **Meta-findings**:
+
 - Gap #8: Testing paradox (self-testing has observer bias)
 - Gap #10: Analytical error (overcorrected to "not viable")
 
@@ -64,4 +65,3 @@ See [../rules-enforcement-investigation/analysis/prompt-templates/exploration.md
 **Phase**: Complete (not viable)  
 **Outcome**: Runtime routing abandoned; prompt templates remain option  
 **Current approach**: H1 (alwaysApply) at 96% compliance sufficient
-
