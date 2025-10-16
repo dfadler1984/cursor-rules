@@ -11,11 +11,13 @@
 **Scenario**: Assistant proposed git commit during investigation session
 
 **What Should Have Happened** (per H3 implementation):
+
 1. Query: "Is there a script in capabilities.mdc for commit?"
 2. **OUTPUT result**: "Checked capabilities.mdc for commit: found `.cursor/scripts/git-commit.sh`"
 3. Use script: `bash .cursor/scripts/git-commit.sh ...`
 
 **What Actually Happened**:
+
 1. ❌ No query output shown
 2. ❌ Proposed raw `git commit -m "..."` directly
 3. ❌ Didn't use script until user prompted
@@ -23,6 +25,7 @@
 **User Intervention**: User asked "Should the self-improvement rule account for this?"
 
 **Corrective Action Taken**:
+
 1. Acknowledged meta-violation
 2. Output query result (late)
 3. Used `git-commit.sh` properly
@@ -71,12 +74,15 @@ Identified gap in `self-improve.mdc`:
 **Missing**: Meta-consistency requirement during investigations
 
 **Proposed**:
+
 > When investigating rule enforcement, **apply those rules to your own process**.
+>
 > - Investigating scripts? Use scripts consistently
 > - Investigating gates? Follow gates yourself
 > - Investigating visibility? Make your own checks visible
 
 **Why**: Violating patterns under investigation:
+
 - Undermines credibility
 - Misses valuable validation data
 - Reduces investigation effectiveness
@@ -127,4 +133,3 @@ Identified gap in `self-improve.mdc`:
 **Status**: Documented as H3 validation data  
 **Impact**: Confirms need for enforcement beyond definition  
 **Value**: Real-world evidence of rule compliance challenges
-
