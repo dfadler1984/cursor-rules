@@ -17,12 +17,15 @@ Defines commit message standards, minimal branch naming guidance, changeset expe
 Before ANY git operation (commit, branch, PR), explicitly check `capabilities.mdc` for available repo scripts:
 
 1. **Query**: "Is there a script in capabilities.mdc for this git operation?"
-2. **Use script if exists**:
+2. **OUTPUT result**: "Checked capabilities.mdc for [operation]: [found <path> | not found]"
+   - Example: "Checked capabilities.mdc for commit: found `.cursor/scripts/git-commit.sh`"
+   - Example: "Checked capabilities.mdc for status: not found"
+3. **Use script if exists**:
    - Commits: use `git-commit.sh` (especially with bodies/footers)
    - Branch names: use `git-branch-name.sh --task <slug> [--type <type>] [--apply]`
    - PR creation: use `pr-create.sh --title "..." [--body "..."]`
    - PR updates: use `pr-update.sh --pr <number> [--title "..."] [--body "..."]`
-3. **Raw git only if no script exists** for that operation
+4. **Raw git only if no script exists** for that operation
 
 **Rationale**: Repo scripts enforce conventions, format validation, and consistent behavior. This must be verified at pre-send gate per `assistant-behavior.mdc`.
 
