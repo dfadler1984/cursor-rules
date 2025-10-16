@@ -1,7 +1,7 @@
 ---
 description: Generate a step-by-step, junior-friendly tasks document from an ERD
 alwaysApply: false
-lastReviewed: 2025-09-12
+lastReviewed: 2025-10-15
 healthScore:
   content: green
   usability: green
@@ -13,6 +13,8 @@ healthScore:
 ## Goal
 
 Guide the assistant to create a clear, junior-friendly, step-by-step task list in Markdown from an Engineering Requirements Document (ERD), aligned with a TDD-first workflow and structure.
+
+**Scope**: tasks.md is execution tracking ONLY — phase sections with checkboxes, nothing else.
 
 ## Output
 
@@ -41,17 +43,123 @@ Guide the assistant to create a clear, junior-friendly, step-by-step task list i
 9. Save Task List
    - Save to `docs/projects/<feature>/tasks.md`.
 
+## Converting ERD Acceptance Criteria to Tasks
+
+**ERD Acceptance Criteria** (narrative requirements):
+
+- Describe what success looks like
+- Explain thresholds, targets, and rationale
+- Stay in ERD as stable requirements
+
+**tasks.md Checklists** (executable tracking):
+
+- One checkbox per deliverable or verification step
+- Derived from ERD criteria but in execution format
+- Updated frequently as work progresses
+
+**Example Transformation**:
+
+**From ERD** (Acceptance Criteria section):
+
+```markdown
+## 5. Acceptance Criteria
+
+1. **Measurement Framework**: Create tools to measure script usage, TDD compliance,
+   and branch naming. Each tool must output compliance rates, accept a --limit
+   parameter, and exit with appropriate codes for CI integration.
+```
+
+**To tasks.md** (Phase checklist):
+
+```markdown
+## Phase 4: Measurement & Validation
+
+- [ ] 4.0 Create compliance measurement tools
+  - [ ] 4.1 Build check-script-usage.sh
+  - [ ] 4.2 Build check-tdd-compliance.sh
+  - [ ] 4.3 Build check-branch-names.sh
+  - [ ] 4.4 Build compliance-dashboard.sh
+  - [ ] 4.5 Add --limit parameter to all tools
+  - [ ] 4.6 Add exit codes for CI
+  - [ ] 4.7 TDD-test all scripts
+```
+
+**Key**: ERD says "what" (requirements); tasks.md says "do step X, Y, Z" (execution)
+
+## What NOT to Include in tasks.md
+
+**Prohibited Content** (put in other documents):
+
+**❌ Findings or Outcomes** → `findings.md`
+
+```markdown
+# Don't do this in tasks.md:
+
+- [x] Build measurement framework
+  - Results: Achieved 95% accuracy (baseline was 70%)
+  - Discovery: Found 3 edge cases not in original spec
+```
+
+**❌ Questions or Discussion** → `erd.md` Risks section or separate discussion doc
+
+```markdown
+# Don't do this in tasks.md:
+
+- [ ] Implement feature X
+  - Open questions: Should we use approach A or B?
+  - Need to discuss: Performance trade-offs
+```
+
+**❌ Success Criteria or Metrics** → `erd.md` Acceptance Criteria section
+
+```markdown
+# Don't do this in tasks.md:
+
+- [x] Phase 1 Complete
+  - Success criteria: All tests passing, coverage >80%, no regressions
+  - Metrics: 47 tests, 92% coverage, 0 failures
+```
+
+**❌ Retrospective or Lessons** → `findings.md`
+
+```markdown
+# Don't do this in tasks.md:
+
+- [x] Complete implementation
+  - What went well: TDD caught 5 bugs early
+  - What to improve: Better planning for dependencies
+```
+
+**❌ Status Updates or Progress Notes** → `README.md` or comments
+
+```markdown
+# Don't do this in tasks.md:
+
+- [x] Build API client
+  - Update 2025-10-15: Finished core, working on error handling
+  - Blocked by: Waiting for API key from ops team
+```
+
+**Why Strict Separation**:
+
+- Keeps tasks.md scannable (200 lines max)
+- Clear completion signal (all boxes checked = done)
+- Prevents content duplication
+- Each document has single, clear purpose
+
+**Evidence**: The rules-enforcement-investigation project's tasks.md grew to 333 lines with 152 lines of non-task content (findings, questions, metrics, status updates).
+
 ## Output Format
 
 ```markdown
 ## Relevant Files
 
 - `path/to/potential/file1.ts`
-  - Brief description (e.g., Main module for this feature’s domain logic).
+  - Brief description (e.g., Main module for this feature's domain logic).
 - `path/to/file1.spec.ts`
   - Unit tests for `file1.ts`.
 - `components/FeatureView.tsx`
-  - UI component for the feature’s primary view.
+  - UI component for the feature's primary view.
 - `components/FeatureView.spec.tsx`
   - Unit tests for `FeatureView.tsx`.
 

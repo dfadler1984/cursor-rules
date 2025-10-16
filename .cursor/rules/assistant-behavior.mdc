@@ -164,17 +164,36 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 
 ## Compliance-first send gate (must)
 
-Before sending any message that includes actions or tool results, explicitly verify:
+Before sending any message that includes actions or tool results, OUTPUT this checklist:
 
-- Links: all URLs converted to Markdown links; PRs use `[PR #NN — title](https://example.com)`.
-- Status update: present whenever tools/edits ran this turn.
-- TODOs: reconciled before starting a new step and immediately after completing one.
-- Consent: first command per tool category obtained with exact commands listed; allowlist honored.
-- TDD gate: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
-- Scripts: before git/terminal commands, checked capabilities.mdc for repo scripts; used script if available.
-- Pattern observation: if 3+ instances of new pattern detected, queue improvement proposal for next checkpoint.
-- Messaging: bullets and short sections; code citations follow repo rules.
-- If any item fails, revise the message; do not send.
+```
+Pre-Send Gate:
+- [ ] Links: Markdown format?
+- [ ] Status: included?
+- [ ] TODOs: reconciled?
+- [ ] Consent: obtained?
+- [ ] TDD: spec updated? (if impl edits)
+- [ ] Scripts: checked capabilities.mdc?
+- [ ] Changesets: included? (if PR with code/rules/docs edits)
+- [ ] Patterns: 3+ instances queued?
+- [ ] Messaging: bullets/citations?
+
+Gate: [PASS/FAIL]
+```
+
+Then verify each item:
+
+- **Links**: all URLs converted to Markdown links; PRs use `[PR #NN — title](https://example.com)`.
+- **Status update**: present whenever tools/edits ran this turn.
+- **TODOs**: reconciled before starting a new step and immediately after completing one.
+- **Consent**: first command per tool category obtained with exact commands listed; allowlist honored.
+- **TDD gate**: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
+- **Scripts**: before git/terminal commands, checked capabilities.mdc for repo scripts; used script if available. OUTPUT: "Checked capabilities.mdc for [operation]: [found <path> | not found]"
+- **Changesets**: when preparing PR with code/rules/docs edits, changeset included OR explicit skip consent with `skip-changeset` label. Default: include changeset.
+- **Pattern observation**: if 3+ instances of new pattern detected, queue improvement proposal for next checkpoint.
+- **Messaging**: bullets and short sections; code citations follow repo rules.
+
+**If any item fails**: Mark gate as FAIL, revise the message, re-check, do not send until PASS.
 
 ### Changesets (default behavior)
 
