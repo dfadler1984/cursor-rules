@@ -48,4 +48,3 @@ Investigation of whether the "check capabilities.mdc" query protocol in `assista
 **Current Phase**: Test C implementation complete, passive monitoring  
 **Next**: Accumulate 10-20 operations for measurement  
 **Expected**: Query visibility 0% → ~100%, improved script awareness
-

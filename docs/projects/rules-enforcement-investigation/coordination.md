@@ -19,6 +19,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Objective**: Test if `alwaysApply: true` improves compliance
 
 **Resolution**:
+
 - ✅ Confirmed: 74% → 96% script usage (+22 points)
 - ✅ Primary fix validated
 - ✅ Approach: alwaysApply works for ~20 critical rules
@@ -26,6 +27,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Contribution**: Main enforcement mechanism; solves git operations compliance
 
 **Documents**:
+
 - Test plan: [tests/hypothesis-1-conditional-attachment.md](tests/hypothesis-1-conditional-attachment.md)
 - Protocol: [protocols/h1-validation.md](protocols/h1-validation.md)
 
@@ -38,6 +40,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Objective**: Validate send gate executes, detects violations, blocks them
 
 **Current State**:
+
 - ✅ Test A complete: 0% baseline gate visibility
 - ✅ Test D Checkpoint 1: 100% gate visibility after explicit OUTPUT requirement
 - ⏸️ Monitoring: Passive accumulation over 10-20 responses
@@ -47,6 +50,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Contribution**: Transparency mechanism; gate works when OUTPUT required
 
 **Documents**:
+
 - Sub-project: [h2-send-gate-investigation/](../../h2-send-gate-investigation/)
 - Test plan: [tests/hypothesis-2-send-gate-enforcement.md](tests/hypothesis-2-send-gate-enforcement.md)
 - Test results: [test-results/h2/](test-results/h2/)
@@ -62,6 +66,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Objective**: Test whether visible query output improves script usage
 
 **Current State**:
+
 - ✅ Test A complete: 0% query visibility baseline
 - ✅ Test C complete: Visible output requirement implemented
 - ⏸️ Monitoring: Passive accumulation
@@ -71,6 +76,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Contribution**: Transparency in script selection process
 
 **Documents**:
+
 - Sub-project: [h3-query-visibility/](../../h3-query-visibility/)
 - Test plan: [tests/hypothesis-3-query-protocol-visibility.md](tests/hypothesis-3-query-protocol-visibility.md)
 - Test results: [test-results/h3/](test-results/h3/)
@@ -85,16 +91,19 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Objective**: Test slash commands for runtime routing enforcement
 
 **Resolution**:
+
 - ❌ Runtime routing doesn't work: Cursor's `/` is for prompt templates
 - ✅ Platform design understood: `/command` loads `.cursor/commands/command.md`
 - 📝 Prompt template approach unexplored (future option)
 
-**Contribution**: 
+**Contribution**:
+
 - Eliminated non-viable approach (saved 8-12 hours testing)
 - Validated testing paradox (real usage > prospective trials)
 - Created assistant-self-testing-limits project
 
 **Documents**:
+
 - Sub-project: [slash-commands-runtime-routing/](../../slash-commands-runtime-routing/)
 - Test plan: [tests/experiment-slash-commands.md](tests/experiment-slash-commands.md)
 - Decision: [decisions/slash-commands.md](decisions/slash-commands.md)
@@ -110,16 +119,19 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Objective**: Document testing paradox and valid measurement strategies
 
 **Resolution**:
+
 - ✅ Testing paradox: Assistants cannot objectively self-test (observer bias)
 - ✅ Valid strategies: Historical analysis, passive monitoring, external validation
 - ✅ Platform constraints documented with official Cursor references
 
 **Contribution**:
+
 - Methodology insight: Real usage > prospective testing
 - Meta-findings: Gaps #8, #10
 - Future experiment design guidance
 
 **Documents**:
+
 - Project: [assistant-self-testing-limits/](../../assistant-self-testing-limits/)
 
 ---
@@ -135,6 +147,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 **Depends on**: H1 validation results; only pursue if H1 drops below 90% or discoverability valued
 
 **Documents**:
+
 - Exploration: [analysis/prompt-templates/exploration.md](analysis/prompt-templates/exploration.md)
 
 ---
@@ -158,6 +171,7 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 ### Next Phase
 
 **After monitoring period** (20-30 commits, 10-20 responses):
+
 - Synthesize all findings
 - Create decision tree (when to use each enforcement pattern)
 - Document scalable patterns for 25 conditional rules
@@ -170,8 +184,8 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 This coordination structure itself addresses **Gap #11**: Investigation documentation structure not defined.
 
 The sub-project pattern provides:
+
 - Clear scope boundaries
 - Independent execution
 - Explicit contribution to parent
 - Reusable for future investigations
-
