@@ -1,14 +1,15 @@
 # Assistant Self-Testing Limits
 
-**Status**: DISCOVERY  
+**Status**: COMPLETE  
 **Created**: 2025-10-16  
+**Completed**: 2025-10-16  
 **Parent Investigation**: [rules-enforcement-investigation](../rules-enforcement-investigation/)
 
 ---
 
 ## Overview
 
-Documents the fundamental limitation discovered during rules-enforcement-investigation: **an AI assistant cannot objectively test its own behavioral compliance**.
+Documents the fundamental limitation discovered during rules-enforcement-investigation: **an AI assistant cannot objectively test its own behavioral compliance through prospective self-testing trials**.
 
 ### The Testing Paradox
 
@@ -87,11 +88,16 @@ Documents the fundamental limitation discovered during rules-enforcement-investi
 
 ## Documentation
 
+### Core Deliverables ✅
+
+- **[testing-paradox.md](testing-paradox.md)** — Observer bias explained with concrete examples
+- **[measurement-strategies.md](measurement-strategies.md)** — Valid approaches and implementation patterns
+- **[experiment-design-guide.md](experiment-design-guide.md)** — Decision framework and scenario patterns
+
+### Supporting Documents
+
 - **[erd.md](erd.md)** — Engineering requirements and scope
-- **[tasks.md](tasks.md)** — Implementation checklist
-- **testing-paradox.md** (planned) — Detailed explanation
-- **measurement-strategies.md** (planned) — Valid approaches
-- **experiment-design-guide.md** (planned) — Decision framework
+- **[tasks.md](tasks.md)** — Implementation checklist (~70% → 100% complete)
 
 ---
 
