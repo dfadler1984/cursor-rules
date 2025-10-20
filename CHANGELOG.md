@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.0
+
+### Minor Changes
+
+- [#143](https://github.com/dfadler1984/cursor-rules/pull/143) [`8b1fdbc`](https://github.com/dfadler1984/cursor-rules/commit/8b1fdbc6c73552c4436afab47d3ea54ebedc7d0a) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Complete H1 validation for rules-enforcement-investigation (80% compliance), deliver assistant-self-testing-limits project (100%), and discover Cursor hooks as potential enforcement pattern. Investigation progress: ~50% → ~60%.
+
 ## 0.11.3
 
 ### Patch Changes
