@@ -2,7 +2,7 @@
 description: Standard structure template for test plans and experimental designs
 globs: **/tests/**/*.md,**/experiments/**/*.md
 alwaysApply: false
-lastReviewed: 2025-10-15
+lastReviewed: 2025-10-16
 healthScore:
   content: green # Clear structure, evidence-based examples
   usability: green # Scannable template, reusable format
@@ -303,6 +303,29 @@ All test plans in `docs/projects/rules-enforcement-investigation/tests/` follow 
 - `hypothesis-3-query-protocol-visibility.md` — Before/after comparison
 - `experiment-slash-commands.md` — 4-phase comparative experiment
 - `measurement-framework.md` — Tool implementation + validation
+
+## Measurement Validity (AI Assistant Testing)
+
+**For tests measuring AI assistant behavior** (compliance, routing, rule adherence):
+
+### ✅ Valid Approaches
+
+- **Historical analysis** (retrospective measurement of past artifacts)
+- **Natural usage monitoring** (passive accumulation, measure after threshold)
+- **User-observed validation** (qualitative spot checks)
+- **External validation** (CI, hooks, linters - automated checks)
+
+### ❌ Invalid: Prospective Self-Testing
+
+**Avoid**: "Run N test trials where assistant tests its own behavior"
+
+**Why invalid**: Observer bias — conscious test awareness changes behavior being measured
+
+**See**: [docs/projects/assistant-self-testing-limits/](../../docs/projects/assistant-self-testing-limits/) for:
+
+- [testing-paradox.md](../../docs/projects/assistant-self-testing-limits/testing-paradox.md) — Why self-testing is invalid
+- [measurement-strategies.md](../../docs/projects/assistant-self-testing-limits/measurement-strategies.md) — Valid approaches
+- [experiment-design-guide.md](../../docs/projects/assistant-self-testing-limits/experiment-design-guide.md) — Decision framework
 
 ## Related
 

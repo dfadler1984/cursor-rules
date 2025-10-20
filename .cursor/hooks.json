@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "date '+%Y-%m-%d %H:%M:%S - Hook triggered' >> /tmp/cursor-hook-test.log",
+        "description": "Test hook - logs when any file is edited"
+      }
+    ]
+  }
+}
