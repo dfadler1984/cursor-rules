@@ -73,6 +73,28 @@ bash .cursor/scripts/pr-create.sh --title "feat: add authentication" --body "Imp
 bash .cursor/scripts/pr-create.sh --title "feat: new feature" --base develop --head feature-123
 ```
 
+## Changeset Management
+
+**After creating PR with code/rules/docs changes**, sync changeset label:
+
+```bash
+# If you added a changeset, remove skip-changeset label
+bash .cursor/scripts/pr-changeset-sync.sh --pr <number>
+```
+
+**Manual label management**:
+
+```bash
+# Add skip-changeset label (docs-only PR)
+bash .cursor/scripts/pr-labels.sh --pr <number> --add skip-changeset
+
+# Remove skip-changeset label (after adding changeset)
+bash .cursor/scripts/pr-labels.sh --pr <number> --remove skip-changeset
+
+# Check current labels
+bash .cursor/scripts/pr-labels.sh --pr <number> --list
+```
+
 ## See Also
 
 - [assistant-git-usage.mdc](../.cursor/rules/assistant-git-usage.mdc) - PR creation guidance
