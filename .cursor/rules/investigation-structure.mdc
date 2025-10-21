@@ -1,0 +1,122 @@
+---
+description: Investigation project documentation structure and organization standards
+globs: docs/projects/**/*.md
+alwaysApply: false
+lastReviewed: 2025-10-20
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+---
+
+# Investigation Documentation Structure
+
+**Purpose**: Organize complex investigations (>15 files) with clear folder structure to prevent root clutter and document proliferation.
+
+**When to use**: Multi-hypothesis investigations with substantial documentation  
+**When NOT to use**: Simple projects with <10 files (use basic README/erd/tasks)
+
+## Pre-File-Creation Checklist
+
+**Before creating any new file in an investigation project**, determine category:
+
+- **Session summary**? → `sessions/YYYY-MM-DD.md`
+- **Analysis document**? → `analysis/<topic>.md` (or `analysis/<topic>/` if 3+ related files)
+- **Finding/gap**? → `findings/gap-##-<name>.md`
+- **Test results/data**? → `test-results/<hypothesis>/`
+- **Decision document**? → `decisions/<topic>-decision.md`
+- **Protocol/procedure**? → `protocols/<topic>-protocol.md`
+- **Reference guide**? → `guides/<topic>-guide.md`
+- **High-level coordination**? → Root (only if coordination.md, MONITORING-PROTOCOL.md, etc.)
+
+**Default**: If unsure, put in `analysis/` and reorganize later if folder warranted.
+
+## Root Files (Keep Minimal)
+
+**Always present** (baseline):
+- `README.md` - Entry point, navigation
+- `erd.md` - Requirements and scope
+- `tasks.md` - Execution tracking
+
+**Optional root files** (case-by-case):
+- `coordination.md` - For umbrella projects with sub-projects
+- `MONITORING-PROTOCOL.md` - High-level operational protocol
+- `findings.md` - Simple projects with 1-3 findings (use `findings/README.md` for 5+)
+
+**Threshold**: Root should have ≤7 files. If >7, reorganize into folders.
+
+## Folder Structure
+
+### findings/
+**Purpose**: Individual finding documents  
+**Pattern**: `gap-##-<short-name>.md`  
+**Example**: `gap-07-documentation-before-execution.md`
+
+### analysis/
+**Purpose**: Deep analysis of investigation topics  
+**Flat when small**: `<topic>-analysis.md`  
+**Subfolder when 3+ files**: `<topic>/analysis.md`, `<topic>/patterns.md`, etc.
+
+### sessions/
+**Purpose**: Session summaries (chronological work logs)  
+**Pattern**: `YYYY-MM-DD.md` or `YYYY-MM-DD-<topic>.md`
+
+### test-results/
+**Purpose**: Data from executing tests  
+**Structure**: Organize by hypothesis (`h1/`, `h2/`, etc.)
+
+### decisions/
+**Purpose**: Decision documents with options and rationale  
+**Pattern**: `<topic>-decision.md`
+
+### protocols/
+**Purpose**: Test and validation protocols (how to execute)  
+**Pattern**: `<hypothesis>-protocol.md`
+
+### guides/
+**Purpose**: Reference guides for using project outputs  
+**Example**: `ci-integration-guide.md`
+
+### tests/
+**Purpose**: Test plan templates (reusable methodologies)  
+**Keep as-is**: This folder structure works well
+
+## Quick Decision Tree
+
+**Creating a file?**
+
+1. **Is it a session summary?** → `sessions/YYYY-MM-DD.md`
+2. **Is it a finding/gap?** → `findings/gap-##-<name>.md`
+3. **Is it test execution data?** → `test-results/<hypothesis>/`
+4. **Is it analysis?** → `analysis/<topic>.md` (or subfolder if 3+ files)
+5. **Is it a decision?** → `decisions/<topic>-decision.md`
+6. **Is it a protocol?** → `protocols/<topic>-protocol.md`
+7. **Is it a guide?** → `guides/<topic>-guide.md`
+8. **High-level coordination?** → Root (only if truly high-level)
+
+**If unsure**: Put in `analysis/` and move later if needed.
+
+## Enforcement
+
+### Self-Check Before Creating File
+
+Ask:
+1. What category is this file? (analysis/findings/sessions/etc)
+2. Does that folder exist? (if not, create it)
+3. Will root have >7 files after this? (if yes, reorganize)
+
+### Validation
+
+**Manual check**:
+```bash
+# Count root files (should be ≤7)
+ls docs/projects/<project>/*.md | wc -l
+```
+
+**Future**: Script to validate structure (see Gap #11)
+
+## Related
+
+- See [investigation-docs-structure](docs/projects/investigation-docs-structure/structure-standard.md) for full standard
+- See [project-lifecycle.mdc](./project-lifecycle.mdc) for general project organization
+- See Gap #11 for why this rule was created (structure violated during investigation)
