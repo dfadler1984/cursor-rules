@@ -44,3 +44,13 @@ jobs:
             echo "assistant-logs/ must be listed in .gitignore" >&2
             exit 1
           fi
+      - name: Validate investigation project structure
+        run: |
+          # Find all investigation projects (those with >15 total .md files)
+          for project in docs/projects/*/; do
+            total_files=$(find "$project" -name "*.md" | wc -l | tr -d ' ')
+            if [ "$total_files" -gt 15 ]; then
+              echo "Validating structure: $project ($total_files files)"
+              bash .cursor/scripts/validate-investigation-structure.sh "$project" || exit 1
+            fi
+          done

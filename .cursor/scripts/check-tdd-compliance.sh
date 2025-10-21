@@ -66,6 +66,25 @@ while IFS= read -r sha; do
     continue
   fi
   
+  # Filter trivial changes (doc-only, minimal edits) by checking impl files specifically
+  total_additions=0
+  
+  # Get numstat for all impl files at once using diff-tree
+  while read -r added removed filepath; do
+    [[ -z "$added" || "$added" == "-" ]] && continue
+    
+    # Only count if numeric
+    if [[ "$added" =~ ^[0-9]+$ ]]; then
+      total_additions=$((total_additions + added))
+    fi
+  done < <(git diff-tree --numstat --no-commit-id "$sha" -- $impl 2>/dev/null)
+  
+  # Skip if minimal additions (likely doc/comment cleanup)
+  # Doc-only changes typically have 0-4 additions with deletions
+  if [[ $total_additions -lt 5 ]]; then
+    continue
+  fi
+  
   impl_commits=$((impl_commits + 1))
   
   # Check if corresponding spec file changed

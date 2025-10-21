@@ -1,15 +1,29 @@
-# Preliminary Hooks Findings
+# Hooks Findings — CONCLUSIVE
 
-**Date**: 2025-10-16  
-**Status**: Initial testing - inconclusive results
+**Date**: 2025-10-20  
+**Status**: Investigation complete - hooks not viable due to organization policy
 
 ---
 
-## Critical Finding: Hooks May Not Work as Expected
+## Executive Summary
 
-### Test 1 Result: Hook Did Not Trigger
+**Hooks are NOT available** for enforcement in this repository due to organization policy restrictions on experimental features.
 
-**Configuration tested**:
+**Result**: Hooks cannot be used for automated enforcement. Investigation proceeds with validated patterns: alwaysApply (96% compliance), commands/prompt templates, and external validation (CI/pre-commit).
+
+---
+
+## Root Cause: Organization Policy Restriction
+
+### Cursor Output Channel Message
+
+```
+[2025-10-20T21:03:15.405Z] Project hooks disabled (experiment flag not enabled)
+```
+
+**Meaning**: Hooks are an experimental feature requiring an opt-in flag that is controlled by organization policy.
+
+**Configuration tested (correct format per docs)**:
 
 ```json
 {
