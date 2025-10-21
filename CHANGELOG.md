@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.12.1
+
+### Patch Changes
+
+- [#145](https://github.com/dfadler1984/cursor-rules/pull/145) [`27636f8`](https://github.com/dfadler1984/cursor-rules/commit/27636f83e173745d01be8262753f8a2088cc831e) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Complete hooks, modes, and TDD compliance investigation with prompt templates implementation.
+
+  **Key findings**:
+
+  - Hooks NOT viable (organization policy blocks experiment flag)
+  - TDD compliance 92% (was 83% due to measurement error)
+  - AlwaysApply NOT needed for TDD rules (globs work, 92% sufficient)
+  - Prompt templates implemented (5 templates: commit, pr, branch, test, status)
+
+  **Changes**:
+
+  - Improved TDD compliance checker (filters doc-only changes)
+  - Added missing test (setup-remote.test.sh)
+  - Updated git-slash-commands.mdc (alwaysApply: false, template guidance)
+  - Created `.cursor/commands/` templates for discoverability
+
+  **Investigation deliverables**: 12 comprehensive analysis documents in `docs/projects/rules-enforcement-investigation/`
+
+  **Compliance**: 96% git-usage, 92% TDD, >92% overall (exceeds 90% target)
+
 ## 0.12.0
 
 ### Minor Changes
