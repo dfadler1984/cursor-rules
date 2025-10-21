@@ -36,6 +36,7 @@ DESC
   1  Structure violations detected (exceeds fail threshold)
   2  Usage error or project path invalid
 CODES
+  exit 0
 }
 
 # Defaults
