@@ -60,6 +60,6 @@ yarn test <changed-file.spec.ts>
 
 ## See Also
 
-- [tdd-first.mdc](../.cursor/rules/tdd-first.mdc) - TDD methodology
-- [testing.mdc](../.cursor/rules/testing.mdc) - Test structure and conventions
-- [test-quality.mdc](../.cursor/rules/test-quality.mdc) - Quality standards
+- [tdd-first.mdc](../rules/tdd-first.mdc) - TDD methodology
+- [testing.mdc](../rules/testing.mdc) - Test structure and conventions
+- [test-quality.mdc](../rules/test-quality.mdc) - Quality standards

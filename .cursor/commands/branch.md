@@ -44,4 +44,4 @@ bash .cursor/scripts/git-branch-name.sh --task user-profile --type feat --featur
 
 ## See Also
 
-- [assistant-git-usage.mdc](../.cursor/rules/assistant-git-usage.mdc) - Branch naming policy
+- [assistant-git-usage.mdc](../rules/assistant-git-usage.mdc) - Branch naming policy
