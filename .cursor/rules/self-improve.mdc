@@ -18,6 +18,7 @@ healthScore:
 - Recurring feedback in clarifications or code reviews
 - **User corrections to process order** (e.g., "document first", "plan before implementing")
 - **Rule gaps observed during active investigations** (see Special Cases below)
+- **Guidance exists in project docs but not in .cursor/rules/** (see Rule Creation below)
 
 ## Analysis Process
 
@@ -56,6 +57,45 @@ User responses:
 - "No"/"Skip"/"Not now" → suppress for session; do not re-ask
 - Silence → drop and continue
 
+## Rule Creation (Immediate Action Required)
+
+**When discovering guidance that should be a rule**:
+
+### Trigger: Useful Guidance Not in .cursor/rules/
+
+**If you discover**:
+- Guidance in project documentation (`docs/projects/`) that should apply during work
+- Structure standards that need enforcement
+- Patterns documented but not in rule files
+- References to "follow X standard" where X is only in a separate project
+
+**Then**:
+1. **Flag immediately**: "This guidance should be a rule file"
+2. **Check**: Does rule file exist in `.cursor/rules/`?
+3. **If NO**: Propose creating it NOW (don't wait for checkpoint)
+4. **If YES**: Link to existing rule instead
+
+**Example (Gap #11)**:
+- Discovered: `investigation-docs-structure/structure-standard.md` has clear guidance
+- Checked: NO `.cursor/rules/investigation-structure.mdc` exists
+- **Should have**: Proposed "Should I create investigation-structure.mdc?"
+- **Actually did**: Violated structure without proposing rule
+- **User caught**: "Seems like we need to create the rule file"
+
+**Lesson**: Distinguish "missing rule" from "violated rule" - create before enforcing
+
+### Decision Framework
+
+```
+Discover guidance → Check .cursor/rules/
+├─ Rule exists → Link to it, follow it
+└─ Rule missing → PROPOSE creating it immediately
+    ├─ Extract key guidance
+    ├─ Set appropriate globs/triggers
+    ├─ Make actionable (checklists, decision trees)
+    └─ Get user approval before creating
+```
+
 ## Rule Updates
 
 **Add New Rules When:**
@@ -64,6 +104,7 @@ User responses:
 - Common bugs could be prevented by a rule
 - Code reviews repeatedly mention the same feedback
 - New security or performance patterns emerge
+- **Guidance exists in project docs but not in rules/** (create rule to make it accessible)
 
 **Modify Existing Rules When:**
 
