@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.2
+
+### Patch Changes
+
+- [#147](https://github.com/dfadler1984/cursor-rules/pull/147) [`4281c79`](https://github.com/dfadler1984/cursor-rules/commit/4281c79a77f7fb1313d014ee7659a5ad44fe3b57) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Complete H1 validation for rules-enforcement-investigation. Primary fix (git-usage → alwaysApply: true) validated at 100% compliance (+26 points), exceeding 90% target. Project status updated, synthesis plan created for Phase 6D.
+
 ## 0.12.1
 
 ### Patch Changes
