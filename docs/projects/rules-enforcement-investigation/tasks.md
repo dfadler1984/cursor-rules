@@ -2,7 +2,7 @@
 
 **Status**: COMPLETE (Active) — H1 Validated at 100%; Phase 6G Carryover | 100% Core Complete
 
-**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **14 meta-findings** captured (Gaps #1-14) validating enforcement patterns through lived experience. **Phase 6G**: 6 rule improvements (20+ sub-tasks) tracked as carryover work. H2/H3 monitoring optional.
+**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **16 meta-findings** captured (Gaps #1-16, 9 violations) validating enforcement patterns through lived experience. **Gaps #15, #16**: Violated structure+script rules during completion (validates blocking enforcement need). **Phase 6G**: 7 rule improvements tracked as carryover. H2/H3 monitoring optional.
 
 ---
 
@@ -419,6 +419,15 @@ Periodic review checkpoints to validate progress and findings:
   - [ ] 29.3 Test enforcement on next investigation
   - [ ] 29.4 Document in capabilities.mdc
 
+- [ ] 30.0 Gap #15 blocking enforcement improvements (Critical - validates H2 findings)
+
+  - [ ] 30.1 Make pre-send gate **blocking** (FAIL halts message, forces revision before proceeding)
+  - [ ] 30.2 Add skip-changeset label check to gate (if changeset created, verify label removed)
+  - [ ] 30.3 Make H3 query visibility **mandatory blocking** (MUST use script if exists; API bypass → FAIL)
+  - [ ] 30.4 Add label removal reminder to git-commit workflow (when committing .changeset/ files)
+  - [ ] 30.5 Update gate verification text with label check
+  - [ ] 30.6 Document rationale: Validates H2 finding (gates need blocking, not just visibility)
+
 ---
 
 ## Summary
@@ -450,6 +459,9 @@ Periodic review checkpoints to validate progress and findings:
 10. ✅ **Gap #13 discovered** — Self-improve missed Gap #6 repetition (summary proliferation)
 11. ✅ **Gap #14 discovered** — Findings review reveals duplicates, 13+ missing tasks
 12. ✅ **Findings reviewed** — Consolidated duplicates, extracted all proposed actions to Phase 6G
+13. ✅ **Gap #15 discovered** — Changeset label violation (3rd time) + script bypass during PR #149 creation (validates need for blocking gates)
+14. ✅ **Gap #16 discovered** — findings/README.md bloat (full details embedded vs individual files per investigation-structure.mdc)
+15. ✅ **Findings reorganized** — Extracted Gaps 1-10, 14 to individual files; README 484 → 216 lines (55% reduction)
 
 **What's In Progress** ⏸️:
 
@@ -458,7 +470,7 @@ Periodic review checkpoints to validate progress and findings:
 
 **What's Next** ⏸️:
 
-13. ⏸️ Phase 6G rule improvements — 6 tasks (24.0-29.0) with 20+ sub-tasks from meta-findings
+13. ⏸️ Phase 6G rule improvements — 7 tasks (24.0-30.0) with 25+ sub-tasks from meta-findings
 14. ⏸️ User review and approval — Review Phase 6G proposals + confirm completion approach
 
 **Recommended Next Steps**:

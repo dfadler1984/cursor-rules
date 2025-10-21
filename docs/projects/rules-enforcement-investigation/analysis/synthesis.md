@@ -17,7 +17,7 @@ This investigation examined why Cursor assistant rules were violated despite pro
 - Visible gate output creates accountability (0% → 100% visibility)
 - AlwaysApply doesn't scale to all rules (+97% context cost for 44 rules)
 - Testing paradox validated: real usage > prospective testing
-- **14 meta-findings** discovered during investigation — 6 violations of documented patterns validate enforcement findings through lived experience
+- **16 meta-findings** discovered during investigation — 9 violations of documented patterns validate enforcement findings through lived experience
 
 **Recommendation**: Use AlwaysApply for ~20 critical rules; combine with visible gates/queries for transparency; rely on conditional attachment + routing for guidance rules.
 
@@ -420,7 +420,7 @@ These work fine with conditional attachment:
 
 ### 4. Rules About Rules Are Hard
 
-**Observation**: 14 meta-findings discovered during investigation — violations of project management rules while investigating rule enforcement. **6 violations of documented patterns** (Gaps #7, #9, #11, #12, #13, #14) occurred during the investigation itself.
+**Observation**: 16 meta-findings discovered during investigation — violations of project management rules while investigating rule enforcement. **9 violations of documented patterns** (Gaps #7, #9×3, #11, #12, #13, #14, #15, #16) occurred during the investigation itself.
 
 **Lesson**: **Self-referential domains are tricky** — Even maximum awareness doesn't prevent violations without forcing functions
 
@@ -543,9 +543,9 @@ These work fine with conditional attachment:
 - **Discovery** ([discovery.md](../discovery.md)) — 1,389 lines deep analysis
 - **Test plans** ([tests/](../tests/)) — 7 detailed plans (~3,500 lines, reusable template created)
 - **Synthesis** (this file) — Comprehensive findings, decision tree, 25-rule categorization
-- **Findings** ([findings/README.md](../findings/README.md)) — 14 meta-findings with 8 detailed gap documents
-  - **6 violations** of documented patterns (Gaps #7, #9, #11, #12, #13, #14)
-  - Validates core finding: Advisory guidance insufficient
+- **Findings** ([findings/README.md](../findings/README.md)) — Summary and index linking to 16 individual gap documents
+  - **9 violations** of documented patterns (Gaps #7, #9×3, #11, #12, #13, #14, #15, #16)
+  - Validates core finding: Advisory guidance, visible gates, even AlwaysApply insufficient without blocking
 - **Sessions** ([sessions/](../sessions/)) — 7 chronological summaries
 - **Analysis** ([analysis/](../analysis/)) — 12+ analytical documents including this synthesis
 - **Protocols** ([protocols/](../protocols/)) — 3 test execution protocols
@@ -561,7 +561,7 @@ These work fine with conditional attachment:
   - `create-erd.mdc` — ERD scope, acceptance criteria format
   - `generate-tasks-from-erd.mdc` — Task structure, ERD conversion
   - `self-improve.mdc` — Investigation meta-consistency, rule creation triggers
-- ⏸️ **Proposed**: 8 additional improvements (Gaps #12-14 in Phase 6G carryover)
+- ⏸️ **Proposed**: 10 additional improvements (Gaps #12-16 in Phase 6G carryover)
 
 ### Sub-Projects
 
@@ -582,7 +582,7 @@ This synthesis represents complete Phase 1 investigation with:
 - H1 validated at 100% compliance
 - Decision tree created for enforcement pattern selection
 - 25 conditional rules categorized with specific recommendations
-- 14 meta-findings documented (6 violations validate core findings)
+- 16 meta-findings documented (9 violations validate core findings)
 - All research questions addressed (3 fully answered, 2 partially, 2 deferred)
 
 ### H2/H3 Monitoring: ⏸️ OPTIONAL CONTINUATION
@@ -596,7 +596,7 @@ This synthesis represents complete Phase 1 investigation with:
 - Rationale: H1 achieves 100% compliance (exceeds target)
 - H2/H3 may add transparency but unlikely to improve beyond 100%
 - Investigation has validated findings and scalable patterns
-- 14 meta-findings already documented; 6 rule improvements applied; 8 proposed for Phase 6G carryover
+- 16 meta-findings already documented; 6 rule improvements applied; 10 proposed for Phase 6G carryover
 
 **Option B: Continue Monitoring**
 
@@ -616,15 +616,18 @@ This synthesis represents complete Phase 1 investigation with:
 
 - **Gap #12** ([findings/gap-12-self-improve-structure-blind-spot.md](../findings/gap-12-self-improve-structure-blind-spot.md)): Pre-file-creation checkpoint, visible OUTPUT requirement
 - **Gap #13** ([findings/gap-13-self-improve-missed-gap-6-repetition.md](../findings/gap-13-self-improve-missed-gap-6-repetition.md)): Pattern-aware prevention, task naming guidance
-- **Gap #14** ([analysis/findings-review-2025-10-21.md](./findings-review-2025-10-21.md)): Findings review checkpoint, proposals→tasks requirement
+- **Gap #14** ([findings/gap-14-findings-review-issues.md](../findings/gap-14-findings-review-issues.md)): Findings review checkpoint, proposals→tasks requirement
+- **Gap #15** ([findings/gap-15-changeset-label-violation-and-script-bypass.md](../findings/gap-15-changeset-label-violation-and-script-bypass.md)): Blocking gate enforcement (critical finding)
+- **Gap #16** ([findings/gap-16-findings-readme-bloat.md](../findings/gap-16-findings-readme-bloat.md)): findings/README individual files pattern
 - TDD compliance improvements: Filter doc-only changes, add missing test
 - Structure enforcement: Validate scripts and CI exist
 
 **Files to Update**:
 
-- `.cursor/rules/self-improve.mdc` (3 improvements from Gaps #12, #13, #14)
+- `.cursor/rules/self-improve.mdc` (4 improvements from Gaps #12, #13, #14, #16)
 - `.cursor/rules/project-lifecycle.mdc` (2 improvements from Gaps #13, #14)
-- `.cursor/rules/investigation-structure.mdc` (2 improvements from Gaps #12, #13)
+- `.cursor/rules/investigation-structure.mdc` (3 improvements from Gaps #12, #13, #16)
+- `.cursor/rules/assistant-behavior.mdc` (blocking gate from Gap #15)
 - `.cursor/scripts/check-tdd-compliance.sh` (filter enhancement)
 - `.cursor/scripts/setup-remote.test.sh` (new test file)
 
@@ -676,7 +679,7 @@ The investigation successfully identified root cause, validated the fix, and exc
 4. **Make requirements explicit** — "OUTPUT X" > "Verify X" (validated: 0% → 100% compliance)
 5. **Test with real usage** — Passive monitoring > prospective trials ([testing paradox](#1-testing-paradox-validated))
 6. **Simple fixes first** — One-line changes can be highly effective (H1: one line → +26 points)
-7. **Document violations immediately** — 14 meta-findings from this investigation inform future work (see [findings/README.md](../findings/README.md))
+7. **Document violations immediately** — 16 meta-findings from this investigation inform future work (see [findings/README.md](../findings/README.md) and individual gap-##-*.md files)
 
 ---
 

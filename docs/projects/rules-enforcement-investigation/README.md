@@ -54,7 +54,7 @@
 - ✅ **H1 fix validated** (74% → 100% script usage, exceeds 90% target)
 - ✅ 6 rule improvements applied
 - ✅ **Synthesis complete** (decision tree, 25-rule categorization, scalable patterns)
-- ✅ **14 meta-findings documented** (Gaps #1-14) — 6 violations validate enforcement patterns through lived experience
+- ✅ **16 meta-findings documented** (Gaps #1-16) — 9 violations validate enforcement patterns through lived experience
 
 **Optional Continuation**:
 
@@ -76,12 +76,17 @@
 
 ### Core Deliverables
 
-**[findings/README.md](findings/README.md)** — Project outcomes and retrospective
+**[findings/README.md](findings/README.md)** — Summary and index
 
-- Root cause, fix, and validation (H1: 100% compliance)
-- Research questions answered/deferred
-- **14 rule gaps discovered** during investigation (Gaps #1-14) — 6 violations of documented patterns validate enforcement findings
-- Meta-lessons about the investigation itself
+- Executive summary of findings
+- Links to all 16 individual gap documents
+- Research questions status
+- Enforcement pattern effectiveness
+- **16 rule gaps** with 9 violations validate core findings
+
+**[findings/gap-##-*.md](findings/)** — Individual gap documents (16 files)
+- Gaps #1-6: Applied in Phase 1
+- Gaps #7-16: Violations during investigation (validate enforcement findings)
 
 **[BASELINE-REPORT.md](BASELINE-REPORT.md)** — Compliance measurements
 
@@ -188,8 +193,8 @@ Each test plan includes implementation checklist and success criteria.
 - ✅ **Phase 6D: Synthesis** — Decision tree created, 25 rules categorized, scalable patterns documented
 - ✅ **Phase 6F: Documentation** — Structure reorganized (8 → 5 root files), Gap #12 documented
 - ✅ New project created: assistant-self-testing-limits (testing paradox + platform constraints)
-- ✅ Meta-findings: **14 gaps** documented (Gaps #1-14) — 6 violations validate enforcement patterns
-- ✅ **Findings review complete** — Duplicates consolidated, 13+ proposed actions extracted to Phase 6G tasks
+- ✅ Meta-findings: **16 gaps** documented (Gaps #1-16) — 9 violations validate enforcement patterns
+- ✅ **Findings reorganized** — Extracted to individual files per investigation-structure.mdc (484 → 216 lines)
 
 **Next Steps**:
 
@@ -208,5 +213,6 @@ Each test plan includes implementation checklist and success criteria.
 - AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost)
 - Slash commands runtime routing wrong; prompt templates unexplored
 - Testing paradox validated: Real usage > prospective testing
-- **14 meta-findings** validate enforcement patterns through lived experience (Gaps #1-14, including 6 violations)
-- **Phase 6G proposed**: 6 rule improvements (20+ sub-tasks) from meta-findings to prevent future violations
+- **16 meta-findings** validate enforcement patterns through lived experience (Gaps #1-16, 9 violations)
+- **Findings reorganized**: Individual gap files per investigation-structure.mdc (README 484 → 216 lines)
+- **Phase 6G proposed**: 7 rule improvements (25+ sub-tasks) from meta-findings
