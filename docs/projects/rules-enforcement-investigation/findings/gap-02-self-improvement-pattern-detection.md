@@ -27,6 +27,7 @@ During rule investigations, treat observed issues as first-class data
 ✅ **Applied in Phase 1** (Task 20.0)
 
 Updated `self-improve.mdc`:
+
 - Added "Special Case: Rule Investigations" section
 - Added "Notice gap → Document immediately" with do/don't examples
 - Cited evidence: Project-lifecycle gap noticed but not added to scope until user prompted
@@ -36,4 +37,3 @@ Updated `self-improve.mdc`:
 
 - See: `.cursor/rules/self-improve.mdc`
 - Task: 20.0 in [tasks.md](../tasks.md)
-

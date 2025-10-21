@@ -37,6 +37,7 @@ Document → then choose execution; not "choose execution, maybe document"
 ✅ **Applied in Phase 1** (Task 20.0)
 
 Updated `self-improve.mdc`:
+
 - Added process-order trigger to self-improve.mdc
 - Added to "Process-Order Patterns" section
 
@@ -49,4 +50,3 @@ Updated `self-improve.mdc`:
 
 - Task: 20.0 in [tasks.md](../tasks.md)
 - Part of rule improvements (15.0-20.0) applied in Phase 1
-

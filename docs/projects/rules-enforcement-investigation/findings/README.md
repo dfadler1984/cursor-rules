@@ -23,11 +23,11 @@
 
 **Validation**: 30 commits analyzed (2025-10-15 to 2025-10-21)
 
-| Metric | Baseline | Post-Fix | Change | Target | Status |
-|--------|----------|----------|--------|--------|--------|
-| Script usage | 74% | **100%** | **+26** | >90% | ✅ **EXCEEDS** |
-| TDD compliance | 75% | **100%** | **+25** | >95% | ✅ **EXCEEDS** |
-| Overall | 68% | **86%** | **+18** | >90% | ⚠️ Close |
+| Metric         | Baseline | Post-Fix | Change  | Target | Status         |
+| -------------- | -------- | -------- | ------- | ------ | -------------- |
+| Script usage   | 74%      | **100%** | **+26** | >90%   | ✅ **EXCEEDS** |
+| TDD compliance | 75%      | **100%** | **+25** | >95%   | ✅ **EXCEEDS** |
+| Overall        | 68%      | **86%**  | **+18** | >90%   | ⚠️ Close       |
 
 **Conclusion**: H1 fix highly effective; AlwaysApply solves primary compliance problem.
 
@@ -142,7 +142,7 @@
 - `check-tdd-compliance.sh` — Spec file correlation
 - `check-branch-names.sh` — Branch naming validation
 - `compliance-dashboard.sh` — Aggregate metrics
-- All TDD-tested (*.test.sh files, all passing)
+- All TDD-tested (\*.test.sh files, all passing)
 
 ### Rules & Templates
 
@@ -156,6 +156,7 @@
 ### Documentation
 
 - **[../analysis/synthesis.md](../analysis/synthesis.md)** — Comprehensive synthesis (664 lines)
+
   - Decision tree for enforcement patterns
   - 25 conditional rules categorized
   - Meta-lessons and validated findings
@@ -200,6 +201,7 @@
 **Status**: Tracked in [tasks.md](../tasks.md) Phase 6G (24.0-30.0)
 
 **Scope**: 7 tasks, 25+ sub-tasks
+
 - Gap #12, #13, #14, #15 rule improvements (3 rule files)
 - TDD compliance improvements (2 scripts)
 - Blocking gate enforcement (critical)
@@ -213,6 +215,6 @@
 
 ---
 
-**For detailed gap analysis**: See individual gap-##-*.md files in this directory  
+**For detailed gap analysis**: See individual gap-##-\*.md files in this directory  
 **For comprehensive synthesis**: See [analysis/synthesis.md](../analysis/synthesis.md)  
 **For execution tracking**: See [tasks.md](../tasks.md)

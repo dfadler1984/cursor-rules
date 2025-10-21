@@ -84,7 +84,8 @@
 - Enforcement pattern effectiveness
 - **16 rule gaps** with 9 violations validate core findings
 
-**[findings/gap-##-*.md](findings/)** — Individual gap documents (16 files)
+**[findings/gap-##-\*.md](findings/)** — Individual gap documents (16 files)
+
 - Gaps #1-6: Applied in Phase 1
 - Gaps #7-16: Violations during investigation (validate enforcement findings)
 

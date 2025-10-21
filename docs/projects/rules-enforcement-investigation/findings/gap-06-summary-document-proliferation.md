@@ -35,6 +35,7 @@ Define standard entry point (README.md); avoid multiple summaries unless distinc
 ✅ **Applied in Phase 1** (Task 19.0)
 
 Updated rules:
+
 - `project-lifecycle.mdc`: Added "README.md as Single Entry Point" section with structure template
 - Added Single Entry Point Policy with justified vs unjustified criteria
 - Added guidance: specialized summaries need clear justification ("Summary X for audience Y who needs Z")
@@ -58,4 +59,3 @@ Pattern: Documented the gap, violated it twice anyway (validates enforcement fin
 - Task: 19.0 in [tasks.md](../tasks.md)
 - See: [gap-13-self-improve-missed-gap-6-repetition.md](gap-13-self-improve-missed-gap-6-repetition.md)
 - See: [analysis/findings-review-2025-10-21.md](../analysis/findings-review-2025-10-21.md)
-

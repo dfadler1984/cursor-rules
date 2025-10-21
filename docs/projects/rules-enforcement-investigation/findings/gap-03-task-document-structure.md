@@ -27,6 +27,7 @@ Define tasks.md as phase sections with checklists only; all other content in ERD
 ✅ **Applied in Phase 1** (Task 16.0)
 
 Updated rules:
+
 - `project-lifecycle.mdc`: Added strict structure section with must include/exclude lists
 - `generate-tasks-from-erd.mdc`: Added "What NOT to Include" section with 5 prohibited content types
 
@@ -40,4 +41,3 @@ Evidence cited in both rules with examples.
 ## Related
 
 - Task: 16.0 in [tasks.md](../tasks.md)
-

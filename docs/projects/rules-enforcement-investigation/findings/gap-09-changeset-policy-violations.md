@@ -51,10 +51,12 @@ Created PRs without changeset or forgot to remove `skip-changeset` label after a
 ## What Actually Happened
 
 ### PR #132
+
 1. Created PR immediately without changeset or consent check
 2. Added changeset but left `skip-changeset` label; updated description but forgot label cleanup
 
 ### PR #149
+
 1. Created changeset correctly ✓
 2. Left `skip-changeset` label ✗
 3. Used curl instead of pr-labels.sh script ✗
@@ -73,6 +75,7 @@ While investigating rule enforcement and documenting Gaps #1-8, violated another
 ## Proposed Fix
 
 From Gap #15 analysis:
+
 1. Make pre-send gate **blocking** (FAIL stops message, forces revision)
 2. Add skip-changeset label check to gate (if changeset added, verify label removed)
 3. Add label removal reminder to git-commit workflow (when committing .changeset/ files)
@@ -99,4 +102,3 @@ From Gap #15 analysis:
 
 - See: [gap-15-changeset-label-violation-and-script-bypass.md](gap-15-changeset-label-violation-and-script-bypass.md)
 - Task: 30.0 in [tasks.md](../tasks.md)
-

@@ -34,7 +34,7 @@ Whether Cursor's prompt template design could improve compliance
 
 ## Actual Cursor Design
 
-Per [Cursor 1.6 docs](https://cursor.com/changelog/1-6): 
+Per [Cursor 1.6 docs](https://cursor.com/changelog/1-6):
 
 `/command` → loads template from `.cursor/commands/command.md` → sends template content to assistant
 
@@ -73,4 +73,3 @@ All said "NOT VIABLE" incorrectly
 - Sub-project: [slash-commands-runtime-routing](../../slash-commands-runtime-routing/)
 - Decision: [decisions/slash-commands.md](../decisions/slash-commands.md)
 - Analysis: [analysis/prompt-templates/](../analysis/prompt-templates/)
-

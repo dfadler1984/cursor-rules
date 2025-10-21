@@ -38,13 +38,14 @@ Retrospective > prospective for self-testing; external validation when objectivi
 ✅ **Sub-Project Created**: `assistant-self-testing-limits`
 
 Created new project to document:
+
 - Testing paradox details
 - Valid measurement strategies
 - Platform constraints with official Cursor references
 
 ## Validation
 
-2025-10-16 - User attempted `/status`, discovered Cursor UI intercepts `/` prefix; slash commands not viable. 
+2025-10-16 - User attempted `/status`, discovered Cursor UI intercepts `/` prefix; slash commands not viable.
 
 **One real usage attempt found fundamental constraint that 50 test trials would have missed.**
 
@@ -61,4 +62,3 @@ Testing paradox confirmed: **real usage > prospective testing**.
 - Sub-project: [assistant-self-testing-limits](../../assistant-self-testing-limits/)
 - Slash commands investigation
 - Methodology for all future investigations
-

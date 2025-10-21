@@ -27,6 +27,7 @@ Clarify completion states, standardize transition docs
 ✅ **Applied in Phase 1** (Task 15.0)
 
 Updated `project-lifecycle.mdc`:
+
 - Added "Complete (Active)" state definition
 - Clarified when to archive vs keep active (4 criteria each)
 - Added Pre-Closure Checklist (8 mandatory items)
@@ -37,4 +38,3 @@ Updated `project-lifecycle.mdc`:
 
 - See: `.cursor/rules/project-lifecycle.mdc`
 - Task: 15.0 in [tasks.md](../tasks.md)
-

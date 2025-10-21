@@ -679,7 +679,7 @@ The investigation successfully identified root cause, validated the fix, and exc
 4. **Make requirements explicit** — "OUTPUT X" > "Verify X" (validated: 0% → 100% compliance)
 5. **Test with real usage** — Passive monitoring > prospective trials ([testing paradox](#1-testing-paradox-validated))
 6. **Simple fixes first** — One-line changes can be highly effective (H1: one line → +26 points)
-7. **Document violations immediately** — 16 meta-findings from this investigation inform future work (see [findings/README.md](../findings/README.md) and individual gap-##-*.md files)
+7. **Document violations immediately** — 16 meta-findings from this investigation inform future work (see [findings/README.md](../findings/README.md) and individual gap-##-\*.md files)
 
 ---
 

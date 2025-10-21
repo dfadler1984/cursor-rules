@@ -31,6 +31,7 @@ ERD = requirements/what, tasks.md = execution/status
 ✅ **Applied in Phase 1** (Task 17.0)
 
 Updated rules:
+
 - `project-lifecycle.mdc`: Added "ERD vs tasks.md: Acceptance Criteria" section with examples
 - `create-erd.mdc`: Added "Acceptance Criteria Format" section with do/don't examples
 - `generate-tasks-from-erd.mdc`: Added "Converting ERD Acceptance Criteria to Tasks" section with transformation example
@@ -46,4 +47,3 @@ Evidence: ERD section 5 had checklists; cited with correct vs incorrect examples
 ## Related
 
 - Task: 17.0 in [tasks.md](../tasks.md)
-

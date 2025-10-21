@@ -35,6 +35,7 @@ Define ERD scope clearly (requirements only); create separate findings.md for re
 ✅ **Applied in Phase 1** (Task 18.0)
 
 Updated rules:
+
 - `project-lifecycle.mdc`: ERD = requirements/approach pattern
 - `create-erd.mdc`: Added "ERD Scope Definition" section at top; listed in "What ERDs Do NOT Contain" with rationale
 
@@ -48,4 +49,3 @@ Evidence: 441-line ERD bloat example; correct separation documented
 ## Related
 
 - Task: 18.0 in [tasks.md](../tasks.md)
-
