@@ -97,5 +97,5 @@ bash .cursor/scripts/pr-labels.sh --pr <number> --list
 
 ## See Also
 
-- [assistant-git-usage.mdc](../.cursor/rules/assistant-git-usage.mdc) - PR creation guidance
-- [github-api-usage.mdc](../.cursor/rules/github-api-usage.mdc) - API details and troubleshooting
+- [assistant-git-usage.mdc](../rules/assistant-git-usage.mdc) - PR creation guidance
+- [github-api-usage.mdc](../rules/github-api-usage.mdc) - API details and troubleshooting

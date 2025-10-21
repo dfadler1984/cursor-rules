@@ -50,5 +50,5 @@ bash .cursor/scripts/git-commit.sh --type <type> --description "..."
 
 ## See Also
 
-- [assistant-git-usage.mdc](../.cursor/rules/assistant-git-usage.mdc) - Git workflow
+- [assistant-git-usage.mdc](../rules/assistant-git-usage.mdc) - Git workflow
 - Type `/commit` for commit helper

@@ -15,11 +15,13 @@ mkdir -p docs/projects/<project-slug>
 ## Project Structure
 
 **Minimum (all projects)**:
+
 - `erd.md` — Engineering requirements, scope, approach
 - `tasks.md` — Phase checklists and execution tracking
 - `README.md` — Entry point and navigation
 
 **Optional (as needed)**:
+
 - `discussions.md` — Open questions and decision log
 - `findings.md` — Outcomes and retrospective (simple projects)
 - `findings/` — Individual findings (complex projects, 5+ findings)
@@ -51,9 +53,11 @@ What problem are we solving? Why now?
 ## 2. Goals
 
 ### Primary
+
 - Main objectives (must-have outcomes)
 
 ### Secondary
+
 - Nice-to-have outcomes
 
 ## 3. Current State
@@ -63,11 +67,13 @@ What exists today? What's the baseline?
 ## 4. Proposed Solutions
 
 ### Option A: <Name>
+
 **Approach**: ...
 **Pros**: ...
 **Cons**: ...
 
 ### Option B: <Name>
+
 **Approach**: ...
 **Pros**: ...
 **Cons**: ...
@@ -75,13 +81,16 @@ What exists today? What's the baseline?
 ## 5. Success Criteria
 
 ### Must Have
+
 - [ ] Criterion 1
 - [ ] Criterion 2
 
 ### Should Have
+
 - [ ] Criterion 3
 
 ### Nice to Have
+
 - [ ] Criterion 4
 
 ## 6. Non-Goals
@@ -144,6 +153,7 @@ Or manually create `tasks.md`:
 For multi-hypothesis investigations (>15 files), follow structure from `investigation-structure.mdc`:
 
 **Folders to create**:
+
 - `findings/` — Gap documents (`gap-##-<name>.md`)
 - `analysis/` — Deep analysis
 - `sessions/` — Session summaries (`YYYY-MM-DD.md`)
@@ -210,11 +220,13 @@ docs/projects/complex-investigation/
 **Pattern**: `<scope>-<topic>`
 
 **Examples**:
+
 - `shell-test-organization` (scope: shell, topic: test organization)
 - `rules-enforcement-investigation` (scope: rules, topic: enforcement investigation)
 - `pr-create-decomposition` (scope: pr-create, topic: decomposition)
 
 **Avoid**:
+
 - Dates in slugs (use creation date in ERD front matter)
 - Generic names (`project-1`, `investigation`)
 - Underscores (use hyphens)
@@ -222,6 +234,7 @@ docs/projects/complex-investigation/
 ## Lifecycle
 
 **Active**: Project in progress
+
 ```markdown
 **Status**: ACTIVE  
 **Phase**: <current-phase>  
@@ -229,6 +242,7 @@ docs/projects/complex-investigation/
 ```
 
 **Complete**: Project finished
+
 ```markdown
 **Status**: COMPLETE  
 **Completed**: YYYY-MM-DD  
@@ -236,6 +250,7 @@ docs/projects/complex-investigation/
 ```
 
 **Archived**: Moved to `_archived/<YYYY>/`
+
 ```bash
 # Archive completed project
 bash .cursor/scripts/project-archive-workflow.sh --project <slug> --year <YYYY>
@@ -243,8 +258,7 @@ bash .cursor/scripts/project-archive-workflow.sh --project <slug> --year <YYYY>
 
 ## See Also
 
-- [project-lifecycle.mdc](../.cursor/rules/project-lifecycle.mdc) — Full lifecycle guidance
-- [create-erd.mdc](../.cursor/rules/create-erd.mdc) — ERD authoring details
-- [generate-tasks-from-erd.mdc](../.cursor/rules/generate-tasks-from-erd.mdc) — Task generation
-- [investigation-structure.mdc](../.cursor/rules/investigation-structure.mdc) — Complex project organization
-
+- [project-lifecycle.mdc](../rules/project-lifecycle.mdc) — Full lifecycle guidance
+- [create-erd.mdc](../rules/create-erd.mdc) — ERD authoring details
+- [generate-tasks-from-erd.mdc](../rules/generate-tasks-from-erd.mdc) — Task generation
+- [investigation-structure.mdc](../rules/investigation-structure.mdc) — Complex project organization

@@ -51,5 +51,5 @@ bash .cursor/scripts/git-commit.sh --type feat --description "change API respons
 
 ## See Also
 
-- [assistant-git-usage.mdc](../.cursor/rules/assistant-git-usage.mdc) - Full git workflow documentation
+- [assistant-git-usage.mdc](../rules/assistant-git-usage.mdc) - Full git workflow documentation
 - [Conventional Commits](https://www.conventionalcommits.org/) - Commit message specification
