@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.13.1
+
+### Patch Changes
+
+- [#150](https://github.com/dfadler1984/cursor-rules/pull/150) [`833f326`](https://github.com/dfadler1984/cursor-rules/commit/833f326d263157150f4e0209641539a8afbff55a) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add context efficiency gauge command and rules/docs quality detection project
+
+  - New `/gauge` command for checking context health and efficiency
+  - New project: rules-docs-quality-detection with full ERD and task breakdown
+  - Project targets: duplicate detection, conflict detection, and stale content flagging
+
 ## 0.13.0
 
 ### Minor Changes
