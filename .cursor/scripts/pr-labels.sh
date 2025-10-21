@@ -140,7 +140,7 @@ API_BASE="https://api.github.com/repos/$OWNER/$REPO"
 # Execute action
 case "$ACTION" in
   add)
-    info "Adding label '$LABEL' to PR #$PR_NUMBER"
+    log_info "Adding label '$LABEL' to PR #$PR_NUMBER"
     RESPONSE=$(curl -s -w "\n%{http_code}" \
       -X POST \
       -H "Authorization: token $GITHUB_TOKEN" \
@@ -162,7 +162,7 @@ case "$ACTION" in
     ;;
     
   remove)
-    info "Removing label '$LABEL' from PR #$PR_NUMBER"
+    log_info "Removing label '$LABEL' from PR #$PR_NUMBER"
     RESPONSE=$(curl -s -w "\n%{http_code}" \
       -X DELETE \
       -H "Authorization: token $GITHUB_TOKEN" \
@@ -176,7 +176,7 @@ case "$ACTION" in
       success "Label '$LABEL' removed from PR #$PR_NUMBER"
       exit 0
     elif [[ "$HTTP_CODE" == "404" ]]; then
-      info "Label '$LABEL' not found on PR #$PR_NUMBER (already removed or never existed)"
+      log_info "Label '$LABEL' not found on PR #$PR_NUMBER (already removed or never existed)"
       exit 0
     else
       error "Failed to remove label (HTTP $HTTP_CODE)"
@@ -195,8 +195,8 @@ case "$ACTION" in
     BODY=$(echo "$RESPONSE" | sed '$d')
     
     if [[ "$HTTP_CODE" == "200" ]]; then
-      # Parse JSON and extract label names
-      echo "$BODY" | grep -o '"name":"[^"]*"' | cut -d'"' -f4
+      # Parse JSON and extract label names (handle empty array)
+      echo "$BODY" | grep -o '"name":"[^"]*"' | cut -d'"' -f4 || true
       exit 0
     else
       error "Failed to list labels (HTTP $HTTP_CODE)"
