@@ -2,18 +2,6 @@
 # PR Label Management
 #
 # Manages GitHub PR labels via API (no gh CLI dependency)
-#
-# Usage:
-#   pr-labels.sh --pr <number> --add <label>
-#   pr-labels.sh --pr <number> --remove <label>
-#   pr-labels.sh --pr <number> --list
-#   pr-labels.sh --pr <number> --has <label>
-#
-# Examples:
-#   pr-labels.sh --pr 147 --add skip-changeset
-#   pr-labels.sh --pr 147 --remove skip-changeset
-#   pr-labels.sh --pr 147 --list
-#   pr-labels.sh --pr 147 --has skip-changeset
 
 set -euo pipefail
 
@@ -22,6 +10,55 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=.lib.sh
 source "$SCRIPT_DIR/.lib.sh"
 
+# Help documentation
+show_help() {
+  cat << 'EOF'
+Usage: pr-labels.sh --pr <number> --add <label>
+       pr-labels.sh --pr <number> --remove <label>
+       pr-labels.sh --pr <number> --list
+       pr-labels.sh --pr <number> --has <label>
+
+Manage GitHub PR labels via API (no gh CLI dependency).
+
+OPTIONS:
+  --pr NUMBER              PR number (required)
+  --add LABEL             Add label to PR
+  --remove LABEL          Remove label from PR
+  --list                  List all labels on PR
+  --has LABEL             Check if label exists (exit 0 if yes, 1 if no)
+  -h, --help              Show this help
+
+EXAMPLES:
+  # Add skip-changeset label
+  pr-labels.sh --pr 147 --add skip-changeset
+
+  # Remove skip-changeset label
+  pr-labels.sh --pr 147 --remove skip-changeset
+
+  # List all labels
+  pr-labels.sh --pr 147 --list
+
+  # Check if label exists
+  pr-labels.sh --pr 147 --has skip-changeset
+
+AUTHENTICATION:
+  Requires GITHUB_TOKEN or GH_TOKEN environment variable.
+  Fine-grained token permissions: Repository Metadata (read), Pull requests (write)
+
+Exit Codes:
+  0   Success
+  1   General error or label not found (--has)
+  2   Usage error (invalid arguments)
+  3   Configuration error
+  4   Dependency missing
+  5   Network error
+  6   Timeout
+  20  Internal error
+
+EOF
+}
+
+
 # Parse arguments
 PR_NUMBER=""
 ACTION=""
@@ -29,6 +66,10 @@ LABEL=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
+    -h|--help)
+      show_help
+      exit 0
+      ;;
     --pr)
       PR_NUMBER="$2"
       shift 2
@@ -53,8 +94,9 @@ while [[ $# -gt 0 ]]; do
       shift 2
       ;;
     *)
-      error "Unknown option: $1"
+      echo "ERROR: Unknown option: $1" >&2
       echo "Usage: $0 --pr <number> [--add|--remove|--list|--has <label>]" >&2
+      echo "Run '$0 --help' for more information." >&2
       exit 1
       ;;
   esac

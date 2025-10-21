@@ -3,23 +3,58 @@
 #
 # Checks if .changeset/*.md files exist and removes skip-changeset
 # label from PR if they do.
-#
-# Usage:
-#   pr-changeset-sync.sh --pr <number>
-#
-# Example:
-#   pr-changeset-sync.sh --pr 147
 
 set -euo pipefail
 
 # Source shared library
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Help documentation
+show_help() {
+  cat << 'EOF'
+Usage: pr-changeset-sync.sh --pr <number>
+
+Sync skip-changeset label with actual changeset presence.
+Removes skip-changeset label if changeset files exist.
+
+OPTIONS:
+  --pr NUMBER             PR number (required)
+  -h, --help              Show this help
+
+EXAMPLES:
+  # Sync label for PR #147
+  pr-changeset-sync.sh --pr 147
+
+BEHAVIOR:
+  - If changeset files exist: removes skip-changeset label if present
+  - If no changeset files: warns and suggests adding changeset or label
+
+AUTHENTICATION:
+  Requires GITHUB_TOKEN or GH_TOKEN environment variable.
+  Uses pr-labels.sh internally for label operations.
+
+Exit Codes:
+  0   Success
+  1   General error
+  2   Usage error (invalid arguments)
+  3   Configuration error
+  4   Dependency missing
+  5   Network error
+  6   Timeout
+  20  Internal error
+
+EOF
+}
+
 # Parse arguments
 PR_NUMBER=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
+    -h|--help)
+      show_help
+      exit 0
+      ;;
     --pr)
       PR_NUMBER="$2"
       shift 2
@@ -27,6 +62,7 @@ while [[ $# -gt 0 ]]; do
     *)
       echo "ERROR: Unknown option: $1" >&2
       echo "Usage: $0 --pr <number>" >&2
+      echo "Run '$0 --help' for more information." >&2
       exit 1
       ;;
   esac
