@@ -44,23 +44,26 @@
 
 **Objective**: Investigate how Cursor rules are processed, identify why violations occur, and discover scalable enforcement patterns for 25+ conditional rules.
 
-**Status**: One fix applied (`git-usage` → `alwaysApply: true`) but not validated. Core research questions remain unanswered.
+**Status**: Primary fix validated at 100% compliance (+26 points, exceeds target). H2/H3 monitoring in progress. Synthesis pending.
 
-**What's Actually Complete**:
+**What's Complete**:
 
 - ✅ Measurement framework built
 - ✅ Baseline metrics established (68% overall)
 - ✅ Meta-test proved rules CAN work
-- ✅ One fix applied (not validated)
+- ✅ **H1 fix validated** (74% → 100% script usage, exceeds 90% target)
+- ✅ 6 rule improvements applied
 
-**What's NOT Complete**:
+**What's In Progress**:
 
-- ❌ Fix validation (need 20-30 commits of usage)
-- ❌ H2: Pre-send gate enforcement investigation
-- ❌ H3: Query visibility investigation
-- ❌ Slash commands experiment
-- ❌ Scalable patterns for 25 conditional rules
-- ❌ 6 rule improvements discovered during investigation
+- ⏸️ H2: Pre-send gate visibility monitoring
+- ⏸️ H3: Query visibility monitoring
+- ⏸️ Synthesis (decision tree, 25 rule categorization)
+
+**What's Deferred**:
+
+- 📝 Slash commands (platform constraint — runtime routing wrong)
+- 📝 Prompt templates (lower priority; H1 at 100%)
 
 ---
 
@@ -152,12 +155,12 @@ Each test plan includes implementation checklist and success criteria.
 ## Status
 
 **Project Status**: ✅ ACTIVE — MONITORING  
-**Current Phase**: 6A/6B (H1 Validation + H2/H3 Monitoring)  
-**Completion**: ~50% (Discovery, Review, Rule Improvements, Phase 6C complete; H1/H2/H3 monitoring)  
+**Current Phase**: 6B/6D (H2/H3 Monitoring + Synthesis Pending)  
+**Completion**: ~60% (Discovery, Review, Rule Improvements, H1 Validation, Phase 6C complete; H2/H3 monitoring; synthesis pending)  
 **Fixes Applied**:
 
-- H1: `assistant-git-usage.mdc` → `alwaysApply: true` (validation in progress, currently 96%)
-- H2: `assistant-behavior.mdc` → visible gate output (monitoring in progress)
+- H1: `assistant-git-usage.mdc` → `alwaysApply: true` — **VALIDATED at 100%** (+26 points, exceeds 90% target) ✅
+- H2: `assistant-behavior.mdc` → visible gate output (Checkpoint 1: 100% visibility; monitoring in progress)
 - H3: visible query output ("Checked capabilities.mdc...") (monitoring in progress)
 
 **What's Complete**:
@@ -165,21 +168,24 @@ Each test plan includes implementation checklist and success criteria.
 - ✅ All Discovery work (0.1-0.6): Analysis of 25 conditional rules, scalability study, pre-test prep
 - ✅ All Review work (R.1-R.2): Test plans validated, premature completion root causes analyzed
 - ✅ All Rule Improvements (15.0-20.0): 6 improvements applied to 4 rule files
+- ✅ **Phase 6A: H1 Validation** — 30 commits analyzed; 100% compliance validated (+26 points, exceeds 90% target)
 - ✅ Phase 6C: Slash commands runtime routing wrong (design mismatch); prompt templates unexplored; testing paradox validated
 - ✅ New project created: assistant-self-testing-limits (testing paradox + platform constraints)
 - ✅ Meta-findings: Gaps #7, #8, #9, #10 documented during investigation
 
 **Next Steps**:
 
-1. Continue H1 validation (accumulate 12-22 more commits for 20-30 total)
-2. Measure sustained compliance: baseline 74% → current 96% → target >90%
-3. Continue H2/H3 monitoring passively
-4. Synthesize findings and create decision tree
-5. Final summary after validation period
+1. ✅ H1 validation complete (100% compliance)
+2. Continue H2/H3 monitoring passively (10-20 responses)
+3. Execute synthesis when H2/H3 data sufficient (analysis/synthesis-plan.md)
+4. Create decision tree for enforcement patterns
+5. Categorize 25 conditional rules with recommendations
+6. Final summary after synthesis
 
 **Key Insights**:
 
+- **H1 validated at 100%**: AlwaysApply highly effective for critical rules (74% → 100%, +26 points)
 - AlwaysApply works for ~20 critical rules but doesn't scale to 44 (+97% context cost)
 - Slash commands not viable: Cursor's `/` is for prompt templates, not runtime routing (per [Cursor 1.6 docs](https://cursor.com/changelog/1-6))
 - Testing paradox validated: One real usage attempt found platform constraint that 50 test trials would have missed
-- H1 at 96% compliance likely sufficient without additional enforcement patterns
+- H1 at 100% compliance exceeds target; H2/H3 monitoring to determine if additional patterns needed

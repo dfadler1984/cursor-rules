@@ -15,16 +15,16 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 ### H1: Conditional Attachment
 
 **Location**: Parent investigation (not split)  
-**Status**: ✅ COMPLETE  
+**Status**: ✅ COMPLETE (2025-10-21)  
 **Objective**: Test if `alwaysApply: true` improves compliance
 
 **Resolution**:
 
-- ✅ Confirmed: 74% → 96% script usage (+22 points)
-- ✅ Primary fix validated
-- ✅ Approach: alwaysApply works for ~20 critical rules
+- ✅ Confirmed: 74% → **100%** script usage (+26 points) — **EXCEEDS 90% TARGET**
+- ✅ Primary fix validated with 30 commits
+- ✅ Approach: alwaysApply highly effective for ~20 critical rules
 
-**Contribution**: Main enforcement mechanism; solves git operations compliance
+**Contribution**: Main enforcement mechanism; solves git operations compliance completely
 
 **Documents**:
 
@@ -164,18 +164,19 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 
 ### Current State
 
-**Complete**: H1, Slash commands, Testing limits  
-**Monitoring**: H2, H3  
-**Proposed**: Prompt templates
+**Complete**: H1 (validated at 100%), Slash commands (platform constraint), Testing limits (paradox documented)  
+**Monitoring**: H2 (Checkpoint 1 complete — 100% visibility), H3 (passive accumulation)  
+**Proposed**: Prompt templates (lower priority given H1 at 100%)
 
 ### Next Phase
 
-**After monitoring period** (20-30 commits, 10-20 responses):
+**After H2/H3 monitoring** (10-20 responses):
 
-- Synthesize all findings
+- Synthesize all findings (H1 validated; H2/H3 results pending)
 - Create decision tree (when to use each enforcement pattern)
 - Document scalable patterns for 25 conditional rules
-- Final summary
+- Categorize conditional rules with recommendations
+- Final summary with validated lessons learned
 
 ---
 
