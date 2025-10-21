@@ -64,18 +64,21 @@ User responses:
 ### Trigger: Useful Guidance Not in .cursor/rules/
 
 **If you discover**:
+
 - Guidance in project documentation (`docs/projects/`) that should apply during work
 - Structure standards that need enforcement
 - Patterns documented but not in rule files
 - References to "follow X standard" where X is only in a separate project
 
 **Then**:
+
 1. **Flag immediately**: "This guidance should be a rule file"
 2. **Check**: Does rule file exist in `.cursor/rules/`?
 3. **If NO**: Propose creating it NOW (don't wait for checkpoint)
 4. **If YES**: Link to existing rule instead
 
 **Example (Gap #11)**:
+
 - Discovered: `investigation-docs-structure/structure-standard.md` has clear guidance
 - Checked: NO `.cursor/rules/investigation-structure.mdc` exists
 - **Should have**: Proposed "Should I create investigation-structure.mdc?"
