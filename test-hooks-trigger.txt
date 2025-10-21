@@ -1,8 +1,0 @@
-Test file created at 2025-10-16 to validate Cursor hooks functionality.
-
-EDIT 1: Testing if search_replace triggers hooks.
-
-This file exists solely to trigger the afterFileEdit hook.
-
-If hooks are working, editing this file should create/append to /tmp/cursor-hook-test.log
-

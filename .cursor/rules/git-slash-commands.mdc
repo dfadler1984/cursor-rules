@@ -1,92 +1,141 @@
 ---
-description: Mandatory slash commands for Git operations (experimental enforcement pattern)
-alwaysApply: true
-lastReviewed: 2025-10-16
+description: Prompt templates for Git operations (user-initiated workflow guidance)
+alwaysApply: false
+lastReviewed: 2025-10-20
 healthScore:
-  content: green
+  content: yellow
   usability: green
   maintenance: green
 ---
 
-# Git Slash Commands (Experimental)
+# Git Commands — Prompt Templates
 
-**Purpose**: Test whether explicit slash commands create stronger forcing functions than intent routing for high-risk git operations.
+**Purpose**: Guide users to repository scripts via Cursor's prompt template system (`.cursor/commands/`).
 
-**Status**: EXPERIMENTAL — Part of rules-enforcement-investigation
+**Status**: READY FOR IMPLEMENTATION — Templates to be created
 
-## High-Risk Operations (Mandatory Commands)
+**Background**: Cursor's `/` prefix loads prompt templates (not runtime routing). Templates provide discoverability and usage guidance for repository scripts.
 
-Before executing ANY of these git operations, check if user provided slash command:
+## Prompt Templates to Create
 
-### Mandatory Commands
+Create templates in `.cursor/commands/` directory:
 
-- `/commit` → Routes to `.cursor/scripts/git-commit.sh`
-  - Prompts for: type, scope (optional), description
-  - Generates conventional commit message
-- `/pr` → Routes to `.cursor/scripts/pr-create.sh`
-  - Prompts for: title, body (optional)
-  - Creates PR via GitHub API
-- `/branch` → Routes to `.cursor/scripts/git-branch-name.sh`
-  - Prompts for: task, type (optional), feature (optional)
-  - Suggests or creates branch with naming convention
-- `/pr-update` → Routes to `.cursor/scripts/pr-update.sh`
-  - Prompts for: PR number or branch, changes to make
-  - Updates existing PR
+### High-Priority Templates (Git Workflows)
 
-### Enforcement Protocol
+**`commit.md`** — Conventional commits helper
 
-When user requests a high-risk git operation WITHOUT slash command:
+```markdown
+Use the repository's conventional commit script:
 
-1. **Detect operation**: commit, PR, branch creation, PR update
-2. **Prompt for slash command**:
+\`\`\`bash
+bash .cursor/scripts/git-commit.sh --type <feat|fix|...> --description "..."
+\`\`\`
 
-```
-Use `/<command>` for this operation:
+**Available types**: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
 
-- `/commit` for commits
-- `/pr` for pull requests
-- `/branch` for branch creation
-- `/pr-update` for PR updates
+**With body**: Add `--body "line"` for each body line
 
-Proceed with slash command, or manual?
+**Breaking change**: Add `--breaking "description"`
+
+See: [assistant-git-usage.mdc](./assistant-git-usage.mdc)
 ```
 
-3. **On "manual"**: Fall back to script-first protocol (query capabilities.mdc → use script if available)
-4. **On slash command**: Execute immediately (no additional routing)
+**`pr.md`** — Pull request creation
 
-## Medium-Risk Operations (Suggested Commands)
+```markdown
+Create PR via repository script:
 
-These operations have suggested slash commands but allow fallback:
+\`\`\`bash
+bash .cursor/scripts/pr-create.sh --title "..." [--body "..."]
+\`\`\`
 
-- `/status` → `git status --porcelain=v1` (safe, read-only)
-- `/diff` → `git diff --stat` (safe, read-only)
-- `/log` → `git log --oneline -n 10` (safe, read-only)
+**Multi-line body**: Use ANSI-C quoting or heredoc (see assistant-git-usage.mdc)
 
-**Enforcement**: Suggest command, but allow raw git without additional prompt
+**Authentication**: Set GITHUB_TOKEN or GH_TOKEN
 
-## Low-Risk Operations (No Slash Command)
+See: [assistant-git-usage.mdc](./assistant-git-usage.mdc)
+```
 
-Read-only operations can proceed without slash commands:
+**`branch.md`** — Branch naming helper
 
-- `git status`, `git log`, `git diff`, `git show`, etc.
+```markdown
+Generate branch name via repository script:
 
-## Rationale
+\`\`\`bash
+bash .cursor/scripts/git-branch-name.sh --task <slug> [--type <feat|fix|...>] [--apply]
+\`\`\`
 
-- **Unambiguous**: `/commit` can't be misinterpreted
-- **Explicit**: User sees tool invocation happening
-- **Discoverable**: Prompts teach users about available commands
-- **Forcing function**: Can't be skipped by clever phrasing
+**Pattern**: `<login>/<type>-<feature>-<task>`
 
-## Measurement
+**Types**: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
 
-This rule is part of the slash commands experiment (rules-enforcement-investigation). We're measuring:
+See: [assistant-git-usage.mdc](./assistant-git-usage.mdc)
+```
 
-- Routing accuracy: intent routing (~70%) vs slash commands (target >95%)
-- Script usage: intent routing (74%) vs slash commands (target >90%)
-- User experience: prompt clarity, adoption rate
+### Medium-Priority Templates (Helpers)
+
+**`status.md`** — Repository status
+
+```markdown
+Check repository status:
+
+\`\`\`bash
+git status --porcelain=v1
+\`\`\`
+```
+
+**`test.md`** — Run tests with TDD guidance
+
+```markdown
+Run tests following TDD workflow:
+
+**Focused run** (specific file):
+\`\`\`bash
+yarn test <path> -t "test name"
+\`\`\`
+
+**TDD reminder**: Red → Green → Refactor
+
+See: [tdd-first.mdc](./tdd-first.mdc)
+```
+
+## Template Benefits
+
+- **Discoverability**: Users learn scripts exist via `/` prefix
+- **Guidance**: Templates show correct script usage and examples
+- **Zero context cost**: Load on-demand (not in every context)
+- **User-initiated**: Templates for workflows users explicitly request
+- **Complements alwaysApply**: Different enforcement layer
+
+## Implementation Steps
+
+1. **Create `.cursor/commands/` directory** (if not exists)
+2. **Create template files**: `commit.md`, `pr.md`, `branch.md`, `status.md`, `test.md`
+3. **Test in Cursor**: Type `/commit` and verify template loads
+4. **Measure adoption**: Track template usage over 20-30 operations
+5. **Iterate**: Add more templates based on user feedback
+
+## Measurement (After Implementation)
+
+Track effectiveness over 20-30 git operations:
+
+- Template usage rate (how often users type `/command`)
+- Script compliance when template used vs not used
+- User feedback (helpful? discoverable?)
+
+**Success criteria**:
+
+- Template usage >50% for git operations
+- Script compliance >95% when template used
+- OR: Templates improve discoverability even if compliance unchanged
+
+## History
+
+**2025-10-16**: Created as runtime routing experiment  
+**2025-10-20**: Updated to prompt template guidance (runtime routing doesn't work per Cursor design)
 
 ## Related
 
 - See `assistant-git-usage.mdc` for script-first protocol
-- See `intent-routing.mdc` for slash command routing precedence
-- See `docs/projects/rules-enforcement-investigation/tests/experiment-slash-commands.md` for full test plan
+- See [Cursor Commands Documentation](https://cursor.com/docs/agent/chat/commands) for template system
+- See `docs/projects/rules-enforcement-investigation/` for experiment findings

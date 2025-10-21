@@ -343,49 +343,56 @@ For each decision point:
 
 ---
 
-## MAJOR DISCOVERY: Cursor Hooks (2025-10-16)
+## MAJOR DISCOVERY: Cursor Hooks (2025-10-16) → NOT VIABLE (2025-10-20)
 
-**Platform feature missed during investigation**: `.cursor/hooks.json` - lifecycle-based automated enforcement
+**Platform feature discovered**: `.cursor/hooks.json` - lifecycle-based automated enforcement
 
-**Sources**:
+**Investigation Result**: ❌ **Hooks NOT available due to organization policy**
 
-- [Cursor Hooks Documentation](https://cursor.com/docs/agent/hooks)
-- [Cursor Commands Documentation](https://cursor.com/docs/agent/chat/commands)
-- [GitButler Hooks Deep Dive](https://blog.gitbutler.com/cursor-hooks-deep-dive)
+### What We Found
 
-**Capabilities discovered**:
+**Hooks exist** ([Cursor 1.7+](https://cursor.com/docs/agent/hooks)):
 
-- ✅ `afterFileEdit` hook - Run checks/scripts after any file edit
-- ✅ `stop` hook - Run actions when agent stops
-- ✅ Command blocking - Prevent sensitive commands
-- ✅ Access controls - Restrict file/directory changes
-- ✅ Prompt validation - Analyze prompts before processing
-- ✅ Auto-documentation - Generate docs on edits
-- ✅ Session logging - Record all activities
+- `afterFileEdit` hook - Run checks/scripts after any file edit
+- `stop` hook - Run actions when agent stops
+- Would be ideal for automated enforcement (TDD, validation)
+- No context cost (runs scripts externally)
 
-**Why this matters**:
+**But**: Hooks require experimental feature flag
 
-- **Stronger than alwaysApply**: Automated enforcement vs relying on assistant awareness
-- **Solves 80% → 90% gap**: Hooks can achieve near-100% compliance for deterministic checks
-- **Scalable**: No context cost (runs scripts, doesn't load rule text)
-- **Validates user intuition**: D2 decision to use "slash commands + globs + routing" aligns perfectly with hooks + commands pattern
+**Blocker**: Organization policy blocks experimental features
 
-**Impact on investigation**:
+```
+[2025-10-20T21:03:15.405Z] Project hooks disabled (experiment flag not enabled)
+```
 
-- 🔄 **All decisions need reconsideration** in light of hooks
-- 🔄 **Pattern hierarchy revised**: Hooks are now strongest enforcement pattern
-- 🔄 **Recommendations will change**: Critical/high-risk rules should use hooks, not alwaysApply
+### Testing Summary (2025-10-20)
 
-**Next steps**:
+- ✅ 5 restarts tested
+- ✅ Multiple configurations (inline commands, scripts, paths)
+- ✅ Correct schema per documentation
+- ✅ Executable scripts created
+- ❌ Hooks never triggered (experiment flag disabled)
+- ❌ Flag not available in Settings UI (org restriction)
+- ❌ **Result: Hooks cannot be used**
 
-1. ✅ Update decision-points.md (this update)
-2. ⏸️ Explore hooks capabilities in detail (create test hooks, validate functionality)
-3. ⏸️ Revise all decisions D1-D6 based on hooks capabilities
-4. ⏸️ Update synthesis with hooks as primary pattern
-5. ⏸️ Create new action plan with hooks-first approach
+### Impact on Investigation
+
+**Original hope**: Hooks would solve scalability (no context cost, near-100% enforcement)
+
+**Reality**: Must use alternative patterns:
+
+1. ✅ AlwaysApply (96% validated, limited scalability)
+2. ⏸️ Commands/prompt templates (unexplored, user-initiated)
+3. ✅ External validation (CI/pre-commit, 100% where implemented)
+
+**Decisions remain valid**: D1-D6 stand as originally decided (alwaysApply for critical rules, accept 80%+, explore templates)
 
 ---
 
-**Status**: PAUSED for hooks exploration  
+**Status**: Hooks investigation complete  
 **Discovery date**: 2025-10-16  
-**Action**: All decisions on hold pending hooks validation
+**Conclusive findings**: 2025-10-20  
+**Action**: Proceed with alwaysApply + modes review
+
+**Full findings**: See [`hooks-findings-conclusive.md`](hooks-findings-conclusive.md)
