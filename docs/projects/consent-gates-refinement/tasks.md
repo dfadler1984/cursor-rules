@@ -52,8 +52,8 @@
 
 ### Real-Session Testing
 
-- [x] Test `/commit` executes without "Proceed?" prompt in real session — ✅ VALIDATED: Committed changes without prompt (2025-10-22)
-- [ ] Test `/pr` executes without "Proceed?" prompt
+- [x] Test `/commit` executes without "Proceed?" prompt in real session — ✅ VALIDATED: Committed 4x without prompts (2025-10-22)
+- [x] Test `/pr` executes without "Proceed?" prompt — ✅ VALIDATED: Created PR #155 without prompt (2025-10-22)
 - [x] Test `/branch` executes without "Proceed?" prompt — ✅ VALIDATED: Created `dfadler1984/feat-consent-gates-core-fixes` without prompt (2025-10-22)
 - [x] Test `/allowlist` displays current session state correctly — ✅ VALIDATED: Displayed empty allowlist without prompt (2025-10-22)
 - [ ] Test natural language "show active allowlist" trigger works
