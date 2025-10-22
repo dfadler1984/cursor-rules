@@ -81,6 +81,7 @@ is_exempt() {
   
   for pattern in "${TDD_EXEMPT_PATTERNS[@]}"; do
     # Simple glob matching for file extensions and paths
+    # shellcheck disable=SC2254
     case "$file" in
       $pattern) return 0 ;;
     esac
