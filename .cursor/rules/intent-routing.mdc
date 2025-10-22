@@ -1,11 +1,11 @@
 ---
 description: Always-on intent router attaching rules via phrases, keywords, and signals
 alwaysApply: true
-lastReviewed: 2025-10-16
+lastReviewed: 2025-10-22
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
+  content: green # Accurate routing, slash command priorities clear, allowlist trigger added
+  usability: green # Well-organized sections, clear slash command documentation
+  maintenance: green # Recently reviewed, slash command bypass implemented, /allowlist added
 ---
 
 # Intent Routing Extensions (ERD Tasks)
@@ -30,6 +30,11 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - DRY RUN (plan-only)
   - Triggers: Message begins with the exact phrase `DRY RUN:` (highest priority exact phrase trigger)
   - Attach: `dry-run.mdc`, `guidance-first.mdc`
+- Session Allowlist Query
+  - Triggers: <allowlist-phrase>
+    - Phrases: show allowlist|list allowlist|show active allowlist|list session consent|what has standing consent|show session consent|active consent
+  - Behavior: Display active session standing consent grants with revoke instructions
+  - See: `assistant-behavior.mdc` → Session-scoped standing consent → Grant/Revoke/Query Syntax
 - Context Efficiency Gauge
   - Triggers: <gauge-phrase>
     - Phrases: show gauge|context efficiency|how's our context|context health|efficiency gauge|show efficiency|context score
@@ -107,7 +112,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
 
 ## Slash commands
 
-**Git Operations** (HIGHEST PRIORITY — experimental enforcement pattern):
+**Git Operations** (HIGHEST PRIORITY — bypass consent gate per `assistant-behavior.mdc`):
 
 - `/commit` → route to `git-slash-commands.mdc` → execute `git-commit.sh`
 - `/pr` → route to `git-slash-commands.mdc` → execute `pr-create.sh`
@@ -116,6 +121,12 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - `/status` → suggested (not mandatory) → `git status --porcelain=v1`
 - `/diff` → suggested (not mandatory) → `git diff --stat`
 - `/log` → suggested (not mandatory) → `git log --oneline -n 10`
+
+**Session Management**:
+
+- `/allowlist` → display active session standing consent grants
+  - Output format: bulleted list of commands with revoke instructions
+  - See: `assistant-behavior.mdc` → Session-scoped standing consent → Grant/Revoke/Query Syntax
 
 **Other Commands**:
 
