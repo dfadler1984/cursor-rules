@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 # TDD Scope Checker — validates whether a file requires TDD coverage
 # Usage: tdd-scope-check.sh <file-path>
+#        [-h|--help]
 # Exit codes: 0 = in TDD scope, 1 = exempt, 2 = error
 
 set -euo pipefail
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# shellcheck disable=SC1090
+source "$SCRIPT_DIR/.lib.sh"
 
 # Include/exclude patterns per tdd-first.mdc
 readonly TDD_INCLUDE_EXTS=(ts tsx js jsx mjs cjs sh)
@@ -29,22 +33,22 @@ readonly TDD_EXEMPT_PATTERNS=(
   "*.html"
 )
 
-print_usage() {
-  cat <<EOF
-Usage: $(basename "$0") <file-path>
+usage() {
+  cat <<'USAGE'
+Usage: tdd-scope-check.sh <file-path> [-h|--help]
 
 Check whether a file requires TDD coverage per tdd-first.mdc scope rules.
 
-Exit codes:
-  0 = File is in TDD scope (TDD required)
-  1 = File is exempt from TDD (no tests needed)
-  2 = Error (invalid input or file not found)
+Options:
+  -h, --help  Show this help and exit
 
 Examples:
-  $(basename "$0") src/parse.ts          # TDD required (exit 0)
-  $(basename "$0") docs/projects/erd.md  # Exempt (exit 1)
-  $(basename "$0") .cursor/scripts/validate.sh  # TDD required (exit 0)
-EOF
+  tdd-scope-check.sh src/parse.ts                # TDD required (exit 0)
+  tdd-scope-check.sh docs/projects/erd.md        # Exempt (exit 1)
+  tdd-scope-check.sh .cursor/scripts/validate.sh # TDD required (exit 0)
+USAGE
+  
+  print_exit_codes
 }
 
 is_excluded() {
@@ -131,7 +135,7 @@ check_tdd_scope() {
 
 main() {
   if [[ $# -eq 0 ]] || [[ "${1:-}" == "-h" ]] || [[ "${1:-}" == "--help" ]]; then
-    print_usage
+    usage
     exit 0
   fi
   
