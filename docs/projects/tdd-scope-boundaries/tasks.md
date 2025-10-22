@@ -21,8 +21,21 @@
 - [ ] Verify zero false negatives and zero false positives
 - [ ] Monitor for 1 week and adjust edge cases
 
+## Related Enhancement: Slash Command Consent
+
+**Context**: During PR workflow for this project, discovered consent friction with slash commands (`/branch`, `/commit`, `/pr`)
+
+- [x] Document policy: slash commands = explicit consent (no "Proceed?" needed)
+- [x] Update `assistant-behavior.mdc` with new section
+- [x] Update `commands.caps.mdc` with Git commands and policy reference
+- [ ] Monitor: verify slash commands execute immediately without extra confirmation
+
+**Rationale**: User typing `/commit` IS the consent; asking "Proceed?" after adds unnecessary friction.
+
 ## Related Files
 
 - `.cursor/rules/tdd-first.mdc`
 - `.cursor/rules/testing.mdc`
 - `.cursor/rules/code-style.mdc`
+- `.cursor/rules/assistant-behavior.mdc` (slash command policy)
+- `.cursor/rules/commands.caps.mdc` (command reference)
