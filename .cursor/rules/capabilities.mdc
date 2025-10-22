@@ -1,7 +1,7 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: true
-lastReviewed: 2025-10-13
+lastReviewed: 2025-10-21
 healthScore:
   content: green # Accurate capability descriptions
   usability: green # Clear list format, easy to scan
@@ -100,6 +100,7 @@ healthScore:
 
 - Author or adjust Jest specs following `testing.mdc` (structure, naming, quality).
 - Enforce TDD cycle: add failing spec → implement minimal change → run focused tests (`yarn test path -t "name"`) → refactor. See `tdd-first.mdc`.
+- Check TDD scope for a file: `[.cursor/scripts/tdd-scope-check.sh](.cursor/scripts/tdd-scope-check.sh) <file>` (exit 0 = TDD required, exit 1 = exempt).
 - Migrate tests to colocation: `[.cursor/scripts/test-colocation-migrate.sh](.cursor/scripts/test-colocation-migrate.sh)`.
 - Validate test colocation: `[.cursor/scripts/test-colocation-validate.sh](.cursor/scripts/test-colocation-validate.sh)`.
 
