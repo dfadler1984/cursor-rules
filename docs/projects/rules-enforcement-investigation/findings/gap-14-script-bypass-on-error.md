@@ -33,11 +33,12 @@ $ curl -s -H "Authorization: token $GITHUB_TOKEN" \
 
 Per `assistant-git-usage.mdc` → Script-First Default:
 
-1. ✅ Use the repo script first (`pr-labels.sh`) 
+1. ✅ Use the repo script first (`pr-labels.sh`)
 2. ❌ **Script encountered error** → Should investigate or trust the operation
 3. ❌ Instead: Bypassed with direct `curl` to "verify"
 
 **Correct behavior**:
+
 1. Run the script
 2. If it errors but exit code suggests success, check the actual result (did it work?)
 3. If the operation succeeded despite error message, note the script bug but don't bypass
@@ -52,6 +53,7 @@ Per `assistant-git-usage.mdc` → Script-First Default:
 **Pattern**: Bypass tooling when encountering errors instead of trusting/investigating
 
 **Why it happened**:
+
 1. **Error aversion**: Error message triggered distrust of the script
 2. **Verification impulse**: Wanted to "be sure" by checking directly
 3. **Missing distinction**: Didn't separate "script has cosmetic bug" from "operation failed"
@@ -62,6 +64,7 @@ Per `assistant-git-usage.mdc` → Script-First Default:
 ## Evidence
 
 **Command sequence**:
+
 ```bash
 # 1. Used script (correct)
 bash .cursor/scripts/pr-labels.sh --pr 155 --remove skip-changeset
@@ -84,6 +87,7 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
 ## Pattern Analysis
 
 **Similar to**:
+
 - Gap #12: Know the rule (ERD/tasks separation) but don't apply it
 - Gap #13: Know the rule (canonical structure) but proliferate documents
 
@@ -118,7 +122,7 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
 **Trust-first protocol** (when scripts error):
 
 1. **Run the script** (script-first principle)
-2. **Check exit code**: 
+2. **Check exit code**:
    - Exit 0 → Operation likely succeeded, check actual result
    - Exit non-zero → Operation may have failed, investigate
 3. **Verify result**: Check if the intended effect occurred (e.g., label removed)
@@ -127,6 +131,7 @@ curl -s -H "Authorization: token $GITHUB_TOKEN" \
 6. **Report bugs**: Document script bugs but don't work around them silently
 
 **Decision tree**:
+
 ```
 Script errors → Check exit code → Check effect
 ├─ Effect achieved → Trust script, note bug
@@ -139,6 +144,7 @@ Script errors → Check exit code → Check effect
 ## Success Criteria
 
 This gap is resolved when:
+
 - [ ] `pr-labels.sh` bug fixed (line 176)
 - [ ] Trust-first protocol added to script usage guidance
 - [ ] Zero instances of bypassing scripts with direct commands when scripts partially succeed
@@ -174,4 +180,3 @@ This gap is resolved when:
 - `capabilities.mdc` → What you can ask the assistant to do → Git assistance
 - `.cursor/scripts/pr-labels.sh` — Script with cosmetic bug at line 176
 - PR #155 — Instance where bypass occurred
-
