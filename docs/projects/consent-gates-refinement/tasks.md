@@ -19,7 +19,8 @@
   - Slash commands now checked BEFORE other consent gate logic
   - Clear rationale documented: typing `/commit` IS the consent
 - [x] **Implement `/allowlist` command**: Add to `intent-routing.mdc` slash commands section
-  - Added to Session Management section at line 122
+  - Added to Session Management section at line 122 in intent-routing.mdc
+  - Created cursor command file: `.cursor/commands/allowlist.md`
   - Displays active session standing consent grants
   - Includes revoke instructions in output format
 - [x] **Add natural language trigger**: Route "show allowlist" / "list active consent" to display session state
@@ -54,7 +55,7 @@
 - [x] Test `/commit` executes without "Proceed?" prompt in real session — ✅ VALIDATED: Committed changes without prompt (2025-10-22)
 - [ ] Test `/pr` executes without "Proceed?" prompt
 - [x] Test `/branch` executes without "Proceed?" prompt — ✅ VALIDATED: Created `dfadler1984/feat-consent-gates-core-fixes` without prompt (2025-10-22)
-- [ ] Test `/allowlist` displays current session state correctly
+- [x] Test `/allowlist` displays current session state correctly — ✅ VALIDATED: Displayed empty allowlist without prompt (2025-10-22)
 - [ ] Test natural language "show active allowlist" trigger works
 - [ ] Test "Grant standing consent for: git push" adds to allowlist
 - [ ] Test "Revoke consent for: git push" removes from allowlist
