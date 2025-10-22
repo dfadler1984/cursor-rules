@@ -1,6 +1,6 @@
 ---
 description: Agent-neutral commands and light intent routing overview
-lastReviewed: 2025-10-03
+lastReviewed: 2025-10-22
 healthScore:
   content: green
   usability: green
@@ -8,6 +8,7 @@ healthScore:
 references:
   - spec-driven.mdc
   - intent-routing.mdc
+  - assistant-behavior.mdc
 ---
 
 ## Capabilities
@@ -17,12 +18,25 @@ references:
 
 ## Commands
 
+### Workflow Commands
+
 - /specify: Create or update ERD/Spec after clarifications
 - /clarify: Collect questions; consolidate [NEEDS CLARIFICATION]
 - /plan: Produce plan with acceptance bundle
-- /tasks: Two-phase tasks (parents → “Go” → sub-tasks) with deps/priority/[P]
+- /tasks: Two-phase tasks (parents → "Go" → sub-tasks) with deps/priority/[P]
 - /analyze: Cross-check ERD/Spec/Plan/Tasks; add complexity; list discrepancies
 - /implement: TDD (Red → Green → Refactor); requires owner spec paths
+
+### Git Commands
+
+- /branch: Create feature branch via `git-branch-name.sh`
+- /commit: Stage and commit changes via `git-commit.sh`
+- /pr: Push branch and create pull request via `pr-create.sh`
+
+## Consent Policy
+
+- Slash commands provide **explicit consent** — execute immediately without additional confirmation prompts
+- See `assistant-behavior.mdc` → "Slash commands = explicit consent"
 
 ## Routing Notes
 

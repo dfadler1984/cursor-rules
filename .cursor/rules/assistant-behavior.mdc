@@ -1,7 +1,7 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-15
+lastReviewed: 2025-10-22
 healthScore:
   content: green # Accurate behavioral guidance, clear examples
   usability: green # Scannable format, practical checklists
@@ -94,6 +94,16 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 - Proceed without extra confirmation only when the user explicitly directs action, e.g., messages containing verbs like "implement", "edit", "refactor", "run", "create", "fix", or "codify this as a rule".
 - If the user says "Go ahead", "Yes", or similar after a plan, proceed.
 - If a message begins with `DRY RUN:`, respond with plan-and-steps only and do not execute tools or edits; ask for consent before acting.
+
+### Slash commands = explicit consent
+
+- When the user invokes a slash command (e.g., `/branch`, `/commit`, `/pr`), treat it as **direct consent** to execute the entire workflow associated with that command.
+- Do not ask for additional confirmation before running the commands required by the slash command.
+- Execute the full workflow immediately:
+  - `/branch` → run `git-branch-name.sh --apply` and switch to the branch
+  - `/commit` → stage changes, run `git-commit.sh`, and commit
+  - `/pr` → push branch (if needed), run `pr-create.sh`, and open PR
+- Rationale: Slash commands are intentional, explicit instructions; asking "proceed?" after the user typed `/commit` adds unnecessary friction.
 
 ### Composite consent-after-plan
 
