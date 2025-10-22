@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.13.2
+
+### Patch Changes
+
+- [#153](https://github.com/dfadler1984/cursor-rules/pull/153) [`6d84112`](https://github.com/dfadler1984/cursor-rules/commit/6d841127c4483d6d2f0d60437f81164d0c367684) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Define TDD scope boundaries, add slash command consent, and remove static command catalog
+
+  - **TDD Scope**: Narrowed tdd-first.mdc to code files only (_.ts, _.tsx, _.js, _.jsx, _.mjs, _.cjs, \*.sh)
+  - **TDD Validation**: Added tdd-scope-check.sh script with comprehensive test suite (24 assertions passing)
+  - **Slash Commands**: Added explicit consent policy - /branch, /commit, /pr execute immediately without "Proceed?" prompts
+  - **Command Discovery**: Removed static commands.caps.mdc; created project for dynamic discovery solution
+
 ## 0.13.1
 
 ### Patch Changes
