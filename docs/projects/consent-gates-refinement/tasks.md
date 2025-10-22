@@ -51,7 +51,7 @@
 
 ### Real-Session Testing
 
-- [ ] Test `/commit` executes without "Proceed?" prompt in real session
+- [x] Test `/commit` executes without "Proceed?" prompt in real session — ✅ VALIDATED: Committed changes without prompt (2025-10-22)
 - [ ] Test `/pr` executes without "Proceed?" prompt
 - [x] Test `/branch` executes without "Proceed?" prompt — ✅ VALIDATED: Created `dfadler1984/feat-consent-gates-core-fixes` without prompt (2025-10-22)
 - [ ] Test `/allowlist` displays current session state correctly
