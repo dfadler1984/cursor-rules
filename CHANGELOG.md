@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.14.0
+
+### Minor Changes
+
+- [#155](https://github.com/dfadler1984/cursor-rules/pull/155) [`cd52c09`](https://github.com/dfadler1984/cursor-rules/commit/cd52c094822b1ec8bb18d32c3443c6c47560a7dd) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Implement slash command consent bypass and session allowlist visibility
+
+  **Core consent improvements:**
+
+  - Slash commands (`/commit`, `/branch`, `/pr`, `/allowlist`) now bypass consent gate entirely
+  - Added `/allowlist` cursor command to display active session consent grants
+  - Documented grant/revoke syntax for session allowlist management
+  - Added natural language triggers for allowlist queries
+
+  **Impact:** Eliminates over-prompting on slash commands. Typing `/commit` is direct consent; no "Proceed?" prompt needed.
+
 ## 0.13.2
 
 ### Patch Changes
