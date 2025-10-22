@@ -1,8 +1,8 @@
 ---
 description: TDD-First — Three Laws, R/G/R, Specific→Generic; owner specs; effects seam; logging at Red/Green
-globs: **/*
-alwaysApply: true
-lastReviewed: 2025-10-06
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs,**/*.sh
+alwaysApply: false
+lastReviewed: 2025-10-21
 healthScore:
   content: green
   usability: green
@@ -12,6 +12,43 @@ healthScore:
 # Rule: TDD-First
 
 > Canonical sources: Core methodology lives here. Language specifics live in `tdd-first-js.mdc` and `tdd-first-sh.mdc`. Quality gates and coverage options live in `test-quality*.mdc`.
+
+## TDD Scope
+
+### When TDD Applies (Hard Gate)
+
+TDD is **required** for all files with executable logic:
+
+- Source code: `**/*.{ts,tsx,js,jsx,mjs,cjs}`
+- Shell scripts: `**/*.sh`
+- Excludes: `node_modules/**`, `dist/**`, `build/**`, `web/dist/**`
+
+### When TDD Does NOT Apply
+
+TDD is **not required** for:
+
+- Documentation: `**/*.md`, `**/*.mdx`
+- Configuration: `**/*.json`, `**/*.yaml`, `**/*.yml`, `**/*.toml`
+- Cursor Rules: `.cursor/rules/**/*.mdc`
+- Type definitions: `**/*.d.ts` (no runtime behavior)
+- Static assets: `**/*.css`, `**/*.html` (unless logic-bearing)
+
+### Decision Tree
+
+```
+Is the file a source file with executable logic?
+├─ Yes → TDD required (Red → Green → Refactor)
+└─ No → Is it documentation, config, or static?
+   ├─ Yes → TDD not required, proceed with edit
+   └─ Unclear → Ask once: "Does this file define behavior that should be tested?"
+```
+
+### Status Transparency
+
+When editing files, note TDD applicability in status updates:
+
+- **In scope**: "TDD: in-scope (source code)" or "TDD: in-scope (shell script)"
+- **Exempt**: "TDD: exempt (documentation)" or "TDD: exempt (configuration)"
 
 ## Pre-edit Gate
 

@@ -3,26 +3,39 @@
 ## Phase 1: Scope Definition
 
 - [ ] Document recent false positives (docs/configs triggering TDD gate)
-- [ ] Define explicit include/exclude globs for TDD scope
-- [ ] Create decision tree for TDD applicability
-- [ ] List edge cases and clarification thresholds
+- [x] Define explicit include/exclude globs for TDD scope
+- [x] Create decision tree for TDD applicability
+- [x] List edge cases and clarification thresholds
 
 ## Phase 2: Implementation
 
-- [ ] Update `tdd-first.mdc` with scope definition and decision tree
-- [ ] Add pre-edit scope check before TDD gate
-- [ ] Add status transparency: note "TDD: in-scope" or "TDD: exempt (reason)"
-- [ ] Create `.cursor/scripts/tdd-scope-check.sh <file>` validation helper
+- [x] Update `tdd-first.mdc` with scope definition and decision tree
+- [x] Add pre-edit scope check before TDD gate
+- [x] Add status transparency: note "TDD: in-scope" or "TDD: exempt (reason)"
+- [x] Create `.cursor/scripts/tdd-scope-check.sh <file>` validation helper
 
 ## Phase 3: Validation
 
-- [ ] Create TDD scope test suite with ≥10 file types
+- [x] Create TDD scope test suite with ≥10 file types (12 test cases, 24 assertions)
 - [ ] Test with real workflows: code edits (TDD), docs (no TDD), configs (no TDD)
 - [ ] Verify zero false negatives and zero false positives
 - [ ] Monitor for 1 week and adjust edge cases
+
+## Related Enhancement: Slash Command Consent
+
+**Context**: During PR workflow for this project, discovered consent friction with slash commands (`/branch`, `/commit`, `/pr`)
+
+- [x] Document policy: slash commands = explicit consent (no "Proceed?" needed)
+- [x] Update `assistant-behavior.mdc` with new section
+- [x] Update `commands.caps.mdc` with Git commands and policy reference
+- [ ] Monitor: verify slash commands execute immediately without extra confirmation
+
+**Rationale**: User typing `/commit` IS the consent; asking "Proceed?" after adds unnecessary friction.
 
 ## Related Files
 
 - `.cursor/rules/tdd-first.mdc`
 - `.cursor/rules/testing.mdc`
 - `.cursor/rules/code-style.mdc`
+- `.cursor/rules/assistant-behavior.mdc` (slash command policy)
+- `.cursor/rules/commands.caps.mdc` (command reference)
