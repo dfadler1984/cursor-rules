@@ -144,101 +144,68 @@ Create post-hoc validation:
 - Timeline: 3-4 weeks for full suite execution
 - Baseline targets: >90% script usage, >95% TDD compliance, >95% routing accuracy
 
-### Phase 6: Test Execution (CURRENT PHASE)
+### Phase 6: Test Execution
 
-Execute test plans in priority order:
+**Approach**: Execute test plans in priority order, validate hypotheses with real usage data
 
-**Completed (Week 0)**:
+**Phases**:
 
-1. ✅ Built measurement framework (compliance checkers, baseline dashboard)
-2. ✅ Ran Hypothesis 0 (meta-test with self-improve rule)
-3. ✅ Established baseline metrics (68% overall, 71% script usage, 72% TDD, 62% branch naming)
-4. ✅ Applied H1 fix (git-usage → alwaysApply: true)
+- **Phase 6A**: Validate H1 fix effectiveness (alwaysApply: true for critical rules)
+- **Phase 6B**: Test core enforcement mechanisms (send gate, query visibility)
+- **Phase 6C**: Discover scalable patterns (slash commands experiment, routing comparison)
+- **Phase 6D**: Synthesize findings and complete rule improvements
 
-**Remaining Work**:
-
-**Phase 6A: Validate H1 Fix (2-3 weeks)**
-
-1. Monitor script usage over 20-30 commits with alwaysApply: true
-2. Measure actual improvement (expect: 71% → >90%)
-3. Confirm fix effectiveness or identify gaps
-
-**Phase 6B: Core Enforcement Mechanisms (2-3 weeks)**
-
-4. Run Hypothesis 2 (send gate enforcement) — Does the pre-send gate actually block violations?
-5. Run Hypothesis 3 (query visibility) — Is "check capabilities.mdc" executed? Would visible output help?
-
-**Phase 6C: Scalable Patterns (2-3 weeks)**
-
-6. Run Slash Commands Experiment — Can explicit commands solve routing for 25 conditional rules?
-7. Compare approaches: alwaysApply vs slash commands vs improved intent routing
-
-**Phase 6D: Integration & Validation (1 week)**
-
-8. Synthesize findings into scalable enforcement patterns
-9. Document recommendations for all rule types (not just critical rules)
-10. Address 6 rule improvement gaps discovered during investigation
+**Validation approach**: Monitor 20-30 commits per hypothesis, measure compliance improvement, confirm no regressions
 
 ## 5. Acceptance Criteria
 
-### Phase 5: Test Plan Development ✅ COMPLETE
+The investigation is complete when:
 
-**Deliverables**: Comprehensive test plans for all hypotheses and experiments
+**Phase 5: Test Plan Development**
 
-- ✅ Test plans with success criteria, timelines, and risk mitigation
-- ✅ Measurement framework design with automated compliance checking
-- ✅ Analysis of 15+ rules for enforcement patterns
-- ✅ Comparison with external patterns (taskmaster/spec-kit)
-- ✅ Structural improvement proposals with rationale
+- Comprehensive test plans exist for all hypotheses and experiments with success criteria, timelines, and risk mitigation
+- Measurement framework designed with automated compliance checking
+- 15+ rules analyzed for enforcement patterns
+- External patterns (taskmaster/spec-kit) compared
+- Structural improvement proposals documented with rationale
 
-### Phase 6A: Validate H1 Fix ⏳ IN PROGRESS
+**Phase 6A: Validate H1 Fix**
 
-**Deliverables**: Validate that alwaysApply fix actually solves the problem
+- alwaysApply fix applied to git-usage rule
+- Fix validated with 20-30 commits of actual usage data
+- Improvement measured (baseline 71% → target ≥90%)
+- No regression confirmed in other areas
 
-- ✅ Applied fix (git-usage → alwaysApply: true)
-- ❌ Validated fix with 20-30 commits of actual usage
-- ❌ Measured improvement (baseline 71% → target >90%)
-- ❌ Confirmed no regression in other areas
+**Phase 6B: Core Enforcement Mechanisms**
 
-**Success Criteria**: Script usage ≥90% after fix (vs 71% baseline)
+- H2 answered: Pre-send gate execution and violation blocking behavior documented
+- H3 answered: Query protocol execution confirmed, visibility impact measured
+- Enforcement patterns that work (and why) documented
+- Gate visibility >10% AND detection accuracy >80% achieved
+- Query execution confirmed AND visibility = 100%
 
-### Phase 6B: Core Enforcement Mechanisms ⏸️ NOT STARTED
+**Phase 6C: Scalable Patterns**
 
-**Deliverables**: Answer fundamental questions about how rules work
+- Slash commands experiment executed with results
+- Comparison complete: alwaysApply vs slash commands vs improved intent routing
+- Scalable patterns identified that don't require alwaysApply for all rules
+- Routing accuracy >95% with scalable approach (vs ~70% baseline)
 
-- ❌ H2: Does pre-send gate execute and block violations?
-- ❌ H3: Is query protocol executed? Would visibility improve compliance?
-- ❌ Document which enforcement patterns work and why
+**Phase 6D: Integration & Final Deliverables**
 
-**Success Criteria**:
-
-- H2: Gate visibility >10% AND detection accuracy >80%
-- H3: Query execution confirmed AND visibility = 100%
-
-### Phase 6C: Scalable Patterns ⏸️ NOT STARTED
-
-**Deliverables**: Discover enforcement patterns for 25+ conditional rules
-
-- ❌ Execute slash commands experiment
-- ❌ Compare: alwaysApply vs slash commands vs improved intent routing
-- ❌ Identify scalable patterns that don't require alwaysApply
-
-**Success Criteria**: Routing accuracy >95% with scalable approach (vs ~70% baseline)
-
-### Phase 6D: Integration & Final Deliverables ⏸️ NOT STARTED
-
-**Deliverables**: Synthesize findings and complete rule improvements
-
-- ❌ Synthesized recommendations for all rule types
-- ❌ Complete 6 rule improvement tasks (project-lifecycle, ERD scope, task structure, etc.)
-- ❌ CI integration guide validated
-- ❌ Final summary with validated recommendations
-
-**Success Criteria**:
-
-- All 6 rule gaps addressed
-- Scalable enforcement patterns documented
+- Synthesized recommendations documented for all rule types
+- 6 rule improvement gaps addressed (project-lifecycle, ERD scope, task structure, etc.)
+- CI integration guide validated
+- Final summary with validated recommendations complete
 - Overall compliance >90% validated
+
+**Evidence of completion**:
+
+- Test plans in `tests/` directory with protocols
+- Measurement data in `test-results/` showing improvements
+- Analysis documents in `analysis/` synthesizing findings
+- Updated rules in `.cursor/rules/` with validated improvements
+- Final summary document with recommendations
 
 ## 6. Risks/Constraints
 

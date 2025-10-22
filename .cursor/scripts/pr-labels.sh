@@ -173,7 +173,7 @@ case "$ACTION" in
     BODY=$(echo "$RESPONSE" | sed '$d')
     
     if [[ "$HTTP_CODE" == "200" || "$HTTP_CODE" == "204" ]]; then
-      success "Label '$LABEL' removed from PR #$PR_NUMBER"
+      log_info "Label '$LABEL' removed from PR #$PR_NUMBER"
       exit 0
     elif [[ "$HTTP_CODE" == "404" ]]; then
       log_info "Label '$LABEL' not found on PR #$PR_NUMBER (already removed or never existed)"

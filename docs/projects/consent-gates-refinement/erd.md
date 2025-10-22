@@ -12,11 +12,28 @@ Conduct a deep dive on consent-first gating and exceptions to fix issues where c
 
 **Context**: Current consent gating has exceptions (read-only commands, session allowlists, composite consent-after-plan) but the user reports these aren't working smoothly. Need to identify specific friction points and refine the flow.
 
+**Reported issues** (collected 2025-10-22):
+
+1. **Cursor commands over-gated** (High Priority): Slash commands (e.g., `/commit`, `/branch`, `/pr`) should execute without consent prompts. Typing `/commit` is already direct consent; asking "proceed?" adds unnecessary friction.
+
+2. **Intent routing inconsistency** (Medium Priority): Same intent sometimes requires consent, sometimes doesn't, depending on routing path. Need specific examples to diagnose.
+
+3. **Session allowlist visibility** (Enhancement): Not clear which commands currently have standing consent. Need `/allowlist` command to display active grants.
+
+4. **Composite consent-after-plan** (Working as intended): Correctly re-asks consent when deviating from approved plan. No change needed.
+
+5. **Under-prompting** (Low Priority): Risky operations occasionally execute without consent. Low frequency; needs monitoring for specific examples.
+
 ### Uncertainty / Assumptions
 
-- [NEEDS CLARIFICATION: What specific consent gate failures have you observed?]
-- [NEEDS CLARIFICATION: Are gates too aggressive (blocking safe ops) or too lax (allowing risky ops)?]
+- **Clarified**: Primary issue is cursor commands (slash commands) being over-gated; should execute without consent prompt
+- **Clarified**: Mixed direction—both too aggressive (cursor commands) and occasionally too lax (risky ops, but rare)
 - Assumption: Core consent policy is in `assistant-behavior.mdc`
+- [OPEN: Need specific examples of intent routing inconsistency]
+- **Portability consideration**: Rules/scripts in this repo serve two purposes:
+  - **Repo-specific**: Project lifecycle, ERD workflows, rule management (not portable)
+  - **Reusable**: TDD rules, code style, testing conventions, consent patterns (should be portable to other projects)
+- **Platform portability**: All scripts/rules must work on Linux and macOS environments
 
 ## 2. Goals/Objectives
 
@@ -43,11 +60,13 @@ Conduct a deep dive on consent-first gating and exceptions to fix issues where c
 
 ### 4.2 Refinement Phase
 
-1. Expand safe read-only allowlist based on common operations
-2. Clarify session allowlist grant/revoke workflow
-3. Improve composite consent-after-plan detection (better signal matching)
-4. Add explicit "consent state" tracking across turns
-5. Create consent decision flowchart for assistant reference
+1. **Fix slash command bypass**: Add explicit check in `assistant-behavior.mdc` lines 22-27 to skip consent gate for cursor commands
+2. **Implement session allowlist visibility**: Add `/allowlist` cursor command and natural language trigger ("show allowlist")
+3. Expand safe read-only allowlist based on common operations
+4. Clarify session allowlist grant/revoke workflow (document explicit syntax)
+5. Improve composite consent-after-plan detection (better signal matching)
+6. Add explicit "consent state" tracking across turns
+7. Create consent decision flowchart for assistant reference
 
 ## 5. Non-Functional Requirements
 
@@ -55,24 +74,52 @@ Conduct a deep dive on consent-first gating and exceptions to fix issues where c
 - **Predictability**: Same operation should yield same consent behavior
 - **Transparency**: User always knows why consent was requested or skipped
 - **Minimal friction**: Eliminate redundant prompts for safe operations
+- **Portability**: Consent rules must distinguish repo-specific vs reusable patterns
+- **Platform compatibility**: Scripts and rules must work on Linux and macOS (POSIX-compatible where possible)
 
 ## 6. Architecture/Design
 
-### Current State (from `assistant-behavior.mdc`)
+### Current State: Exception Mechanisms
 
-- **One-shot consent**: First command per tool category requires consent
-- **Read-only exception**: Allowlisted safe commands execute without prompt
-- **Session allowlist**: User can grant standing consent for approved commands
-- **Composite consent-after-plan**: Previous plan + "go ahead" → implementation
-- **Tool category switches**: Crossing categories requires fresh consent
+**Analyzed**: `.cursor/rules/assistant-behavior.mdc` and `.cursor/rules/intent-routing.mdc` (2025-10-22)
+
+1. **One-shot consent** (lines 22-27): First command per tool category requires consent
+2. **Read-only allowlist** (lines 42-54): Imperative phrasing + safe command (git status, etc.) → execute without prompt
+3. **Session allowlist** (lines 62-82): User grants standing consent for named commands; assistant records and announces but doesn't re-prompt
+4. **Slash commands** (lines 98-106): Slash command invocation IS direct consent — **Gap: Policy exists but not enforced**
+5. **Composite consent-after-plan** (lines 108-111): Previous plan + "go ahead" → implementation without re-asking
+
+**Identified gaps**:
+
+- 🔴 **Slash commands not bypassing consent gate** (policy exists but not enforced in practice)
+- ⚠️ **No visibility mechanism** for session allowlist (user can't query active grants)
+- ⚠️ **No explicit revoke command** documented
+- ⚠️ **Deviation triggers undocumented** (what counts as deviating from a plan)
 
 ### Proposed Improvements
 
-1. **Risk-based gating**
+1. **Risk-based gating** (operations categorized by risk)
 
-   - Tier 1 (safe): read-only git, file reads, status checks → no consent
-   - Tier 2 (moderate): local edits, test runs → one-shot consent
-   - Tier 3 (risky): git push, destructive ops → always consent
+   **Tier 1 (Safe - No consent)**:
+
+   - Cursor commands: `/commit`, `/pr`, `/branch`, `/allowlist`
+   - Read-only git: `git status`, `git log`, `git diff --stat`, `git branch --show-current`
+   - File reads: `read_file`, `list_dir`, `grep`, `codebase_search`
+   - Read-only scripts: rules-list, rules-validate (without --autofix), tdd-scope-check
+
+   **Tier 2 (Moderate - One-shot per category)**:
+
+   - Local file edits: write, search_replace, delete_file
+   - Local git ops: `git add`, `git checkout -b`, `git stash`
+   - Test runs: `yarn test`, `npm test`
+   - Non-destructive scripts: git-commit.sh, git-branch-name.sh
+
+   **Tier 3 (Risky - Always ask)**:
+
+   - Remote git: `git push`, `git push --force`
+   - Destructive git: `git reset --hard`, `git clean -fd`, `git branch -D`
+   - Network: web_search, API calls
+   - Security-sensitive: secrets access, .git/ modifications
 
 2. **Consent state persistence**
 
@@ -86,9 +133,23 @@ Conduct a deep dive on consent-first gating and exceptions to fix issues where c
    - Add confidence check: if uncertain, ask once
 
 4. **Session allowlist improvements**
+
    - Standardize grant format: "Grant standing consent for: `<command>`"
-   - Add revoke command: "Revoke consent for: `<command>`"
-   - Show active allowlist on request
+   - Add revoke command: "Revoke consent for: `<command>`" (needs design/syntax clarification)
+   - Show active allowlist on request (implement `/allowlist` cursor command + natural language "show allowlist")
+   - Visibility mechanism: display active grants with format, timestamps, revoke instructions
+
+5. **Portability classification**
+
+   - Mark consent behaviors as "repo-specific" vs "portable"
+   - Repo-specific: Project lifecycle gates, ERD workflow consent, rule management operations
+   - Portable: TDD pre-edit gate, git operations, file edits, testing consent patterns
+   - Document which rules/scripts are intended for export vs local use only
+
+6. **Platform compatibility**
+   - Use POSIX-compatible shell features where possible
+   - Document Linux/macOS differences and provide alternatives
+   - Test scripts on both platforms before considering complete
 
 ## 7. Data Model and Storage
 
@@ -132,6 +193,8 @@ Conduct a deep dive on consent-first gating and exceptions to fix issues where c
 - **Multi-step workflows**: Plan → implement → test → commit (consent at each step?)
 - **Category switch mid-turn**: Local edit → git commit (requires fresh consent?)
 - **Retry after failure**: Command failed, retry with fix (re-ask consent?)
+- **Portability boundary**: Some consent behaviors apply only to this repo's workflows (e.g., project lifecycle gates) vs universal patterns (e.g., TDD pre-edit gate)
+- **Platform variations**: Command syntax differences between Linux and macOS (e.g., `stat`, `sed`, `grep` flags)
 
 ## 11. Testing & Acceptance
 
@@ -146,19 +209,39 @@ Conduct a deep dive on consent-first gating and exceptions to fix issues where c
 
 ### Acceptance Criteria
 
-- [ ] Documented: baseline consent gate issues from recent conversations
-- [ ] Classified: all common operations by risk tier
-- [ ] Implemented: risk-based gating with clear thresholds
-- [ ] Tested: consent test suite with ≥15 cases covering edge cases
-- [ ] Validated: user reports smoother consent flow with maintained safety
+The solution is complete when:
 
-## 12. Rollout & Ops
+- **Analysis complete**: Baseline issues documented, operations categorized by risk tier, exception gaps identified
+- **Core fixes implemented**: Slash commands bypass consent gate, `/allowlist` visibility mechanism exists, grant/revoke syntax documented
+- **Risk-based gating functional**: Operations categorized into safe/moderate/risky tiers with appropriate consent behavior
+- **Test coverage adequate**: Consent test suite covers ≥15 scenarios including slash commands, allowlist, edge cases
+- **User validation positive**: Smoother consent flow reported, safety maintained (zero inappropriate risky operations)
+- **Portability clarity**: Consent behaviors marked as repo-specific vs reusable (if in scope)
+- **Platform compatibility**: Scripts work on Linux and macOS (if in scope)
+- **Documentation complete**: Clear guidance on which features are reusable in other projects (if in scope)
 
-1. Document baseline consent issues (over/under-prompting examples)
-2. Implement risk tiers and update allowlists
-3. Add consent state tracking across turns
-4. Test with real workflows for 1 week
-5. Adjust based on feedback
+Evidence of completion:
+
+- Analysis documents: `baseline-issues.md`, `risk-categorization.md`, `exception-gaps.md`
+- Implementation artifacts: Modified rules files with slash command bypass, `/allowlist` command, grant/revoke syntax
+- Validation results: Real-session testing confirms reduced over-prompting without safety regression
+
+## 12. Rollout Plan
+
+**Approach**: Phased rollout with validation gates
+
+1. **Phase 1 (Analysis)**: Document baseline, categorize operations, identify gaps
+2. **Phase 2 (Implementation)**: Implement core fixes (slash command bypass, `/allowlist`, revoke syntax), defer additional refinements pending validation
+3. **Phase 3 (Validation)**: Real-session testing (1-2 weeks), collect metrics, identify any new issues
+4. **Phase 4 (Optional Refinements)**: Based on Phase 3 results, implement additional improvements if needed
+
+**Validation gates**:
+
+- After Phase 2: Core fixes must be implemented before moving to Phase 3
+- After Phase 3: Positive user validation required before considering complete
+- Portability/platform work: Optional based on Phase 3 feedback
+
+**Rollback plan**: Rules are version-controlled; can revert to previous version if new issues introduced
 
 ## 13. Success Metrics
 
@@ -182,6 +265,16 @@ Conduct a deep dive on consent-first gating and exceptions to fix issues where c
 3. **Multi-step consent**: Should workflows have "consent once for entire plan" option?
 4. **Failure retry**: If command fails, should we re-ask consent for retry?
 5. **Revoke workflow**: How should users revoke session allowlist items?
+   - Current behavior unclear: probably need to say "don't use standing consent anymore" or restart session
+   - Need explicit revoke syntax (e.g., "Revoke consent for: git push" or "Revoke all consent")
+   - Should revoke be per-command, all-at-once, or both?
+6. **Intent routing inconsistency examples**: Need concrete cases where same request yields different consent behavior
+   - Scenario A: Same request in different sessions → one asks consent, one doesn't
+   - Scenario B: Similar requests in same session → inconsistent consent prompts
+   - Related to: file types, keywords, context, intent confidence?
+7. **Portability boundary**: How do we clearly distinguish repo-specific consent rules from portable ones?
+8. **Platform testing**: What's the minimum test matrix for Linux/macOS compatibility (distros, shell versions)?
+9. **Export mechanism**: Should portable rules/scripts be extractable as a package for use in other projects?
 
 ---
 
