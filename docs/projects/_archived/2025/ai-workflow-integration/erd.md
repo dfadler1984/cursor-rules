@@ -1,5 +1,6 @@
 ---
-status: active
+status: completed
+completed: 2025-10-23
 owner: rules-maintainers
 ---
 
@@ -10,14 +11,13 @@ Mode: Full
 ## 1. Introduction/Overview
 
 Unify and improve our Cursor Rules by integrating proven workflows from three sources:
-`snarktank/ai-dev-tasks` (PRD→tasks prompts), `github/spec-kit` (Spec‑Driven Development with slash‑commands), and `eyaltoledano/claude-task-master` (task/dependency model, research, progress/logging). The outcome is a coherent, configurable ruleset that preserves our consent‑first, TDD‑first defaults while offering optional capabilities (slash‑commands, task dependencies/priority, enhanced logging/metrics).
+`snarktank/ai-dev-tasks` (PRD→tasks prompts), `github/spec-kit` (Spec‑Driven Development with slash‑commands), and `eyaltoledano/claude-task-master` (task/dependency model, research, progress/logging). The outcome is a coherent, unified ruleset that preserves our consent‑first, TDD‑first defaults with standardized capabilities (slash‑commands, task dependencies/priority, enhanced logging/metrics).
 
 ## 2. Goals/Objectives
 
-- Align ERD/spec → plan → tasks flow with Spec‑Driven patterns (optional slash‑commands).
-- Preserve our two‑phase tasks generation and task‑list process; add optional dependencies/priority and parallelizable markers.
+- Align ERD/spec → plan → tasks flow with Spec‑Driven patterns including slash‑commands.
+- Preserve our two‑phase tasks generation and task‑list process; standardize dependencies/priority and parallelizable markers.
 - Enhance self‑improvement logs with operational context (elapsed time, token I/O, dependency impact).
-- Keep configuration opt‑in via `.cursor/config.json`; default behavior unchanged.
 - Maintain repo portability (no external services; docs-first artifacts).
 - A changelog per project would be nice.
 
@@ -33,14 +33,14 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
    - Add explicit uncertainty markers: `[NEEDS CLARIFICATION: …]` when inputs are ambiguous.
    - Include a brief, numbered Clarifications section; resolve or explicitly defer items before `/implement`.
-   - Optionally recognize slash‑commands (`/specify`, `/clarify`, `/plan`) in addition to phrase triggers.
+   - Recognize slash‑commands (`/specify`, `/clarify`, `/plan`) with precedence over phrase triggers.
    - Output path remains `docs/projects/<feature>/erd.md`.
 
 2. Tasks Generation from ERD
 
    - Preserve two‑phase flow: parent tasks → wait for “Go” → detailed sub‑tasks.
-   - Optional fields: `dependencies: [ids]`, `priority: high|medium|low` per Taskmaster.
-   - Optional marker `[P]` for parallelizable tasks per Spec Kit.
+   - Standard fields: `dependencies: [ids]`, `priority: high|medium|low` per Taskmaster.
+   - Standard marker `[P]` for parallelizable tasks per Spec Kit.
    - Maintain `Relevant Files` section and TDD-first guidance.
 
 3. Task List Process
@@ -52,37 +52,27 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 4. Spec‑Driven Workflow Integration
 
-   - Document optional slash‑commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash takes precedence over phrases when present).
-   - Add an analysis gate before implementation (Spec Kit `/analyze`).
+   - Document slash‑commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash takes precedence over phrases when present).
+   - Mandatory `/analyze` gate before implementation (Spec Kit).
    - Cross‑link artifacts (spec/plan/tasks) at file tops.
 
 5. Self‑Improvement Logs
 
-   - Keep current logging approach; add optional “Operation” block: elapsed time, token I/O (if available), units processed.
-   - Add “Dependency Impact” notes: which tasks/sections were affected.
+   - Keep current logging approach; include "Operation" block: elapsed time, token I/O (if available), units processed.
+   - Include "Dependency Impact" notes: which tasks/sections were affected.
    - Respect redaction and fallback directories.
 
-6. Defaults & Configuration
+6. Unified Defaults
 
-- Defaults remain unchanged by default; features are opt‑in via `.cursor/config.json`.
-- Slash‑commands may be enabled as an option; phrase triggers remain supported.
-- Tasks may include optional `dependencies`, `priority`, and `[P]` markers.
-- Self‑improvement logging retains current behavior; optional Operation/Dependency Impact can be enabled.
+- Slash‑commands are first-class; phrase triggers remain as fallback.
+- Tasks include `dependencies`, `priority`, and `[P]` markers by default.
+- Self‑improvement logging includes Operation and Dependency Impact blocks.
 
-7. DEPRECATED - Framework Selection & Scaffolding (Integrated)
+7. Framework Selection & Scaffolding (Deprecated — Unified Approach)
 
-   - Configuration: allow choosing Spec‑Driven planning framework via repo config.
-     - Example (in `.cursor/config.json`):
-       ```json
-       {
-         "specDriven": {
-           "framework": "spec-kit|ai-dev-tasks",
-           "projectBaseDir": "docs"
-         }
-       }
-       ```
-   - Scaffolding command (docs-level): `/start-project` prompts for project name and framework; supports a temporary `--framework` flag.
-   - Monorepo support: nearest `.cursor/config.json` wins for subprojects (no name auto-suggest).
+   - Note: Original plan to support multiple framework choices has been deprecated.
+   - Unified approach: ERD → Plan → Tasks with standardized artifacts (no configuration needed).
+   - Project scaffolding via `.cursor/scripts/project-create.sh` follows unified structure.
    - Guidance only; no external installs or network required.
 
 8. Deterministic Artifact Templates & Validation (Integrated)
@@ -185,9 +175,9 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 ## 12. Rollout & Ops
 
-- Phase 0: Update rules with optional sections (no toggles).
-- Phase 1: Enable unified defaults in a demo branch; collect feedback; adjust wording.
-- Phase 2: Document unified defaults in README.
+- Phase 0: Update rules with unified workflow sections ✅
+- Phase 1: Validate unified defaults across repository ✅
+- Phase 2: Document unified defaults in project docs (in progress)
 - Rollback: Not applicable; unified defaults are docs-only.
 
 ## 13. Success Metrics

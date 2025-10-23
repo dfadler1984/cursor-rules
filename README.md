@@ -2,13 +2,37 @@
 
 This repository includes a suite of standalone shell scripts to assist with rules management, Git workflows, PR creation, and repo hygiene. Scripts target macOS with bash and prefer POSIX sh where feasible.
 
-## Unified Defaults (No Toggles)
+## Unified Workflow (No Configuration Required)
 
-- Slash‑commands recognized by default; phrase triggers remain supported
-- Tasks support `dependencies`, `priority`, and `[P]` markers
-- Assistant learning logs are deprecated; legacy content moved under `docs/projects/assistant-self-improvement/legacy/`
-- See commands overview: `.cursor/rules/commands.caps.mdc`
-- Capabilities catalog: `.cursor/rules/capabilities.mdc` (links to main rules; optional quick refs noted where helpful)
+This repository uses a **unified workflow** integrating proven practices from ai-dev-tasks, github/spec-kit, and claude-task-master. All features are standardized — no toggles or configuration needed.
+
+### Core Workflow: Specify → Plan → Tasks → Analyze → Implement
+
+1. **Specify**: Create ERD with uncertainty markers and clarifications
+2. **Plan**: Generate acceptance bundle with targets, exact changes, success criteria
+3. **Tasks**: Two-phase generation (parents → "Go" → sub-tasks) with dependencies/priority
+4. **Analyze**: Mandatory cross-check of ERD→plan→tasks coverage before implementation
+5. **Implement**: TDD-first with owner specs and effects seams
+
+### Standardized Features
+
+- **Slash Commands** (first-class): `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`
+  - Phrase triggers remain as fallback
+- **Task Metadata**: `dependencies`, `priority`, `[P]` markers included by default
+- **Logging**: Operation blocks and Dependency Impact in all improvement logs
+- **Artifacts**: Cross-linked ERD, Plan, Tasks with standard templates
+
+### Quick References
+
+- Commands overview: `.cursor/rules/git-slash-commands.mdc`
+- Capabilities catalog: `.cursor/rules/capabilities.mdc`
+- ERD creation: `.cursor/rules/create-erd.mdc`
+- Tasks generation: `.cursor/rules/generate-tasks-from-erd.mdc`
+- Spec-driven workflow: `.cursor/rules/spec-driven.mdc`
+
+### Legacy Notes
+
+- Assistant learning logs deprecated; see `docs/projects/assistant-self-improvement/legacy/`
 
 ## How to mark a project completed
 

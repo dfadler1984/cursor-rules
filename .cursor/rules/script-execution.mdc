@@ -29,11 +29,11 @@ Standardize how local scripts are executed: avoid unnecessary shell wrapping, re
 
 - Good (direct, executable):
 
-  - Command: `/abs/path/.cursor/scripts/alp-triggers.sh task-completion ...`
+  - Command: `/abs/path/.cursor/scripts/project-status.sh ai-workflow-integration`
 
 - Ask before permission change (non-exec):
 
-  - Prompt: "May I run `chmod +x /abs/path/.cursor/scripts/alp-triggers.sh` and then execute it?"
+  - Prompt: "May I run `chmod +x /abs/path/.cursor/scripts/project-status.sh` and then execute it?"
 
 - Wrapper only when required:
   - Reason: needs pipeline; Command after consent: `bash -c '"/abs/path/script.sh" | tee out.txt'`
