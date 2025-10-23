@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.17.0
+
+### Minor Changes
+
+- [#162](https://github.com/dfadler1984/cursor-rules/pull/162) [`8d6d971`](https://github.com/dfadler1984/cursor-rules/commit/8d6d9710b5cfc7592edaf1eec9c8f32415ea971e) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add project lifecycle coordination tooling and Context Efficiency Gauge enforcement
+
+  - Created project-create.sh, project-status.sh, project-complete.sh with full TDD (25+ tests)
+  - Updated capabilities.mdc with organized lifecycle scripts section
+  - Added Context Efficiency Gauge check to Pre-Send Gate for automated enforcement
+  - Fixed context-efficiency.mdc to require actual context assessment (not defaults)
+  - Created rule-introspection investigation for programmatic rule counting
+
 ## 0.16.0
 
 ### Minor Changes
