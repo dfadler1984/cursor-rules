@@ -38,24 +38,15 @@ Evaluate the relationship and value of `capabilities.mdc` (now includes a Discov
   - Rules: scan `.cursor/rules/*.mdc` for names/one-liners
   - MCP: enumerate configured servers/tools (read-only state only)
   - Local scripts: read top comments (e.g., `# Description:`) and tag as manual
-- Output shape (candidate schema)
-  - name, source (rules|mcp|local), summary, authRequired, enabled, notes (optional)
-  - `capabilities.mdc`: human-oriented catalog with a Discovery section (schema, sources, truncation, role-aware advice)
+- Output shape: see **canonical Discovery Schema** in `.cursor/rules/capabilities.mdc` → Discovery section
+- `capabilities.mdc`: human-oriented catalog with Discovery section (includes schema, sources, truncation rules)
 
-### Discovery Schema (authoritative)
+### Discovery Schema Reference
 
-All discovery outputs MUST conform to this schema. Other ERDs (e.g., MCP Synergy) should reference this section and not redefine fields.
+**The authoritative Discovery Schema lives in:**  
+`.cursor/rules/capabilities.mdc` → Discovery (rules, MCP, local scripts) → Discovery Schema (canonical)
 
-```json
-{
-  "name": "string",
-  "source": "rules|mcp|local",
-  "summary": "string",
-  "authRequired": true,
-  "enabled": true,
-  "notes": "string?"
-}
-```
+Other ERDs (e.g., MCP Synergy, platform-capabilities-generic) should reference that section, not redefine the schema.
 
 ## 7. Data Model and Storage
 

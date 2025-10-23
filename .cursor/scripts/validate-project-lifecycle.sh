@@ -119,6 +119,15 @@ for proj in "$@"; do
       echo "  [ERROR] $final: missing ## Impact section — add a '## Impact' section with brief before/after metrics" >&2
       ((failures++)) || true
     fi
+    
+    # Check for unfilled template placeholders
+    if grep -qE '<[^>]+>' "$final"; then
+      placeholders=$(grep -E '<[^>]+>' "$final" | head -3 || true)
+      echo "  [ERROR] $final: contains unfilled template placeholders — replace placeholders with project-specific content" >&2
+      echo "  Example placeholders found:" >&2
+      printf '%s\n' "$placeholders" | sed 's/^/    /' >&2
+      ((failures++)) || true
+    fi
   fi
 
   # tasks.md checks

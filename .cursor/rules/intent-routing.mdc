@@ -146,6 +146,49 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - `/plan <topic>` → route to `spec-driven.mdc` (plan/specify); consent-first; produce plan scaffold
 - `/tasks` → route to `project-lifecycle.mdc` (Task List Process subsection); manage/update tasks non-interactively when safe
 
+### Runtime Semantics
+
+**Detection:**
+
+- Commands detected when message starts with `/` + known command word
+- Known commands: `/plan`, `/tasks`, `/pr`, `/commit`, `/branch`, `/allowlist`
+- Parser handles quoted arguments and escape sequences
+
+**Execution Flow:**
+
+1. **Parse** command and arguments (quoted strings, flags, positional args)
+2. **Validate** syntax and prerequisites (git repo, project context, files exist)
+3. **Route** to appropriate workflow rule (spec-driven, project-lifecycle, assistant-git-usage)
+4. **Request consent** with transparency message (slash command invocation = explicit consent per assistant-behavior.mdc)
+5. **Execute** workflow with attached rules
+6. **Display** results, next steps, and suggest related commands
+
+**Command Specifications:**
+
+- `/plan <topic>` → Create plan scaffold in `docs/plans/` or project-specific location
+  - Spec: `docs/projects/slash-commands-runtime/plan-command-spec.md`
+- `/tasks [--project <slug>] [--mark <id>] [--add "description"] [--list]` → Manage project tasks
+  - Spec: `docs/projects/slash-commands-runtime/tasks-command-spec.md`
+- `/pr [--title "..."] [--body "..."] [--base <branch>] [--head <branch>]` → Create pull request
+  - Spec: `docs/projects/slash-commands-runtime/pr-command-spec.md`
+
+**Error Handling:**
+
+- Unknown command → suggest closest match (Levenshtein distance ≤ 2) + list available
+- Missing arguments → show usage with examples
+- Invalid format → explain expected pattern with examples
+- Execution failures → surface error with numbered troubleshooting steps
+- Spec: `docs/projects/slash-commands-runtime/error-handling-spec.md`
+
+**Consent Gate Behavior:**
+
+- Slash command invocation = explicit consent to execute (HIGHEST PRIORITY per line 128)
+- No additional "Proceed?" prompt needed
+- Still show transparency message: "This will: ..." before execution
+- Exception: Prerequisites missing (e.g., no GITHUB_TOKEN) → warn and offer options
+
+**Project:** See `docs/projects/slash-commands-runtime/` for full implementation details
+
 ## File/context signals (supporting)
 
 - If any focused/open/edited path matches `**/*.(spec|test).[tj]s?(x)`, attach `testing.mdc`, `tdd-first.mdc`, `test-quality-js.mdc`.

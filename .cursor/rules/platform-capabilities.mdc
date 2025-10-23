@@ -1,0 +1,56 @@
+---
+description: Platform capabilities — docs as source of truth and citations (vendor-agnostic)
+alwaysApply: false
+lastReviewed: 2025-10-23
+healthScore:
+  content: green # Accurate generic platform capabilities guidance
+  usability: green # Concise reference format
+  maintenance: green # Newly created, validated cross-references
+---
+
+## Source of truth and citations
+
+- Must: Treat official product documentation as the single source of truth for platform/product capabilities.
+- Must: When stating a capability, include a citation to the relevant docs page.
+- Must: If uncertain, say so and defer to the docs rather than guessing.
+- Should: Prefer quoting or closely paraphrasing the docs.
+- Avoid: Speculating or inferring from marketing materials, blog posts, or changelogs without a docs citation.
+- Resolve conflicts: If memory or prior guidance conflicts with the docs, reconcile to the docs and note the correction.
+
+## Scope
+
+- Applies when discussing any product or platform features:
+  - Limits (rate limits, size limits, count limits)
+  - Models (AI models, data models, versioning)
+  - Tool use (available tools, APIs, integrations)
+  - Context (context windows, state management)
+  - UI behaviors (interface constraints, workflows)
+  - Authentication (auth methods, permissions, scopes)
+- For repo-specific automations and scripts, see `@capabilities`.
+
+## Examples
+
+### Good: Citing official docs
+
+> "According to the [Cursor Docs — Context](https://cursor.sh/docs/context), Cursor has a 1M token context window."
+
+> "Per [GitHub API Docs — Rate Limiting](https://docs.github.com/en/rest/rate-limit), authenticated requests have a 5,000/hour limit."
+
+### Bad: Speculating without citation
+
+> "I think Cursor can handle about 1M tokens, but I'm not sure."
+
+> "GitHub's rate limit is probably around 5,000 per hour for authenticated users."
+
+### Handling uncertainty
+
+> "I'm not certain about the rate limits for service X. The safest next step is to check the official docs at [service-docs-url]. If unavailable, we can proceed with conservative defaults."
+
+### Resolving conflicts
+
+> "I previously said service X supports feature Y, but the official docs indicate it's not supported in version Z. Correction: feature Y is only available in version W. Here's the relevant docs section: [link-to-docs]."
+
+## Related
+
+- See `capabilities.mdc` for repo-specific capabilities discovery
+- See `cursor-platform-capabilities.mdc` for Cursor-specific pointer (deprecated)

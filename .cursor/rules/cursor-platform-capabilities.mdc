@@ -1,23 +1,28 @@
 ---
-description: Cursor platform capabilities — docs as source of truth and citations
-alwaysApply: true
-lastReviewed: 2025-09-10
+description: "[DEPRECATED] Cursor platform capabilities — see platform-capabilities.mdc"
+alwaysApply: false
+lastReviewed: 2025-10-23
 healthScore:
-  content: green # Accurate platform capabilities
-  usability: green # Concise reference format
-  maintenance: green # Recently reviewed, valid citations
+  content: green # Pointer to generic rule
+  usability: green # Minimal deprecation notice
+  maintenance: green # Deprecated, points to canonical rule
 ---
 
-## Source of truth and citations
+## Deprecation Notice
 
-- Must: Treat the official Cursor documentation as the single source of truth for capabilities.
-- Must: When stating a Cursor capability, include a citation to the relevant docs page.
-- Must: If uncertain, say so and defer to the docs rather than guessing.
-- Should: Prefer quoting or closely paraphrasing the docs.
-- Avoid: Speculating or inferring from marketing/changelogs without a docs citation.
-- Resolve conflicts: If memory or prior guidance conflicts with the docs, reconcile to the docs and note the correction.
+**This rule has been superseded by the vendor-agnostic `platform-capabilities.mdc`.**
 
-## Scope
+For guidance on platform capabilities (docs as source of truth, citations, handling uncertainty):
 
-- Applies when discussing Cursor product features (limits, models, tool use, context, UI behaviors).
-- For repo-specific automations, see `@capabilities`.
+👉 **See: [platform-capabilities.mdc](./platform-capabilities.mdc)**
+
+## Cursor-Specific Notes
+
+When discussing Cursor features, cite the official Cursor documentation:
+
+- **Cursor Docs:** https://cursor.sh/docs/
+- **Context & Limits:** https://cursor.sh/docs/context
+- **AI Models:** https://cursor.sh/docs/models
+- **Privacy & Security:** https://cursor.sh/docs/privacy
+
+All general guidance (source of truth, citations, uncertainty handling) now lives in `platform-capabilities.mdc`.
