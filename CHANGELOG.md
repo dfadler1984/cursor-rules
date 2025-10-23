@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.2
+
+### Patch Changes
+
+- [#167](https://github.com/dfadler1984/cursor-rules/pull/167) [`8441805`](https://github.com/dfadler1984/cursor-rules/commit/844180550a56a96ff5dcdec525ad020c5c085293) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Complete ai-workflow-integration project with unified defaults and establish portable-workflow-toolkit for enterprise use.
+
 ## 0.17.1
 
 ### Patch Changes
