@@ -40,22 +40,35 @@ This lightweight router keeps context minimal by attaching specific rules only w
     - Phrases: show gauge|context efficiency|how's our context|context health|efficiency gauge|show efficiency|context score
   - Attach: `context-efficiency.mdc`
   - Behavior: Run `.cursor/scripts/context-efficiency-gauge.sh` with estimated inputs (scope, rules count, clarification loops, issues) and display the result in the requested format (default: dashboard)
-- Create tests
-  - Triggers: <verb> + <test-term>
-    - Verbs: create|generate|add|write
-    - Test terms: test|tests|spec|specs|unit test|jest
+- Create tests / Testing
+  - Triggers: <verb> + <test-term> + [optional: target]
+    - Verbs: create|generate|add|write|improve|fix
+    - Test terms: test|tests|spec|specs|unit test|jest|coverage|assertion|assertions
+    - Targets (optional): for <module>|in <file>
   - Keywords (fallback): coverage|assert|assertion|assertions
+  - Exclusions: "how to test" (guidance), "test plan" (planning)
   - Attach: `testing.mdc`, `tdd-first.mdc`, `test-quality.mdc`
 - Refactoring
-  - Triggers: <refactor-verb>
-    - Verbs: refactor|extract|rename|reorganize
+  - Triggers: <refactor-verb> + [optional: target]
+    - Verbs: refactor|extract|rename|reorganize|restructure|simplify|optimize
+    - Targets (optional): <file>|<function>|<class>|<module>
+  - Pre-action gate: Confirm tests exist before refactoring
   - Attach: `refactoring.mdc`, `testing.mdc`
+  - Note: Refactoring should keep tests green (no TDD pre-edit unless changing behavior)
+- Analysis / Investigation
+  - Triggers: <verb> + <analysis-term>
+    - Verbs: analyze|investigate|examine|explore|compare|evaluate|assess
+    - Analysis terms: pattern|behavior|performance|issue|root cause|impact|options|trade-offs
+  - Attach: `guidance-first.mdc` (ask before implementing)
+  - Note: If analysis → implementation, confirm transition explicitly
 - Implement feature / Fix bug
-  - Triggers: <verb> + <change-term>
-    - Verbs: implement|add|fix|update
-    - Change terms: feature|bug|logic|behavior
+  - Triggers: <verb> + <change-term> + [optional: target]
+    - Verbs: implement|add|fix|update|build|create
+    - Change terms: feature|bug|logic|behavior|functionality|component|module|service
+    - Targets (optional): in <file>|for <component>|to <module>
+  - Exclusions: "should we implement" (guidance), "plan to implement" (planning), "how to implement" (guidance)
   - Consent-after-plan (composite): If the previous assistant turn proposed concrete code edits and the user replies with a consent phrase within one turn (e.g., "proceed", "go ahead", "sounds good", "do it", "ship it"), route to implementation.
-  - Attach: `tdd-first.mdc`, `code-style.mdc`
+  - Attach: `tdd-first.mdc`, `code-style.mdc`, `testing.mdc`
 - Hard gate: before any implementation edits, require the universal TDD pre-edit confirmation per `assistant-behavior.mdc` (applies repo-wide).
   - Note: Per `user-intent.mdc` policy, testing + TDD attach by default for implementation intents
 - Rules authoring/maintenance
@@ -146,12 +159,22 @@ This lightweight router keeps context minimal by attaching specific rules only w
 
 1. Exact phrase triggers (highest)
    - `DRY RUN:` prefix takes precedence over all other triggers and forces plan-only behavior
-2. Composite consent-after-plan (recent concrete plan + consent phrase within one turn)
-3. Keyword fallback (word-boundary intent words) if phrases not found
-4. File/context signals
-5. If still ambiguous and intent suggests implementation, attach testing + TDD and ask one clarifying question
+2. **Explicit intent verbs** (overrides file signals)
+   - Guidance patterns ("how", "what", "should we", "can you explain") override file signals
+   - Implementation patterns ("implement", "add", "fix", "build") confirm or override file signals
+   - Rationale: User's explicit intent more important than file context
+3. Composite consent-after-plan (recent concrete plan + consent phrase within one turn)
+4. Keyword fallback (word-boundary intent words) if phrases not found
+5. File/context signals (downgraded from tier 4)
+6. If still ambiguous and intent suggests implementation, attach testing + TDD and ask one clarifying question
 
 - If ambiguity persists after one clarifying question, do not attach additional rules and pause.
+
+### Intent Override Examples
+
+- Open `*.test.ts` + ask "How should I structure this?" → Attach: `guidance-first` (intent overrides file)
+- Open `*.test.ts` + say "Implement login test" → Attach: `testing`, `tdd-first` (intent confirms file)
+- Open `*.md` + ask "Should we add X?" → Attach: `guidance-first` (no file signal conflict)
 
 ### Role–phase and split-progress advisory
 
@@ -160,26 +183,78 @@ This lightweight router keeps context minimal by attaching specific rules only w
 
 ## Fuzzy matching & confirmation
 
-- Confidence tiers
+### Confidence Tiers
 
-  - High: exact phrase or strong synonym match → attach immediately.
-  - Medium: fuzzy match (minor typos/synonyms/partial phrase) → ask a 1‑line confirmation; attach only on explicit confirmation (e.g., “Yes”, “Go”).
-  - Low: vague/ambiguous → ask one clarifying question; do not attach.
+**High Confidence (95%+)**:
 
-- Fuzzy signals (medium confidence examples)
+- Exact phrase match (e.g., "implement feature X")
+- Strong synonym match with context confirmation
+- Action: Attach rules immediately, proceed
 
-  - Edit distance ≤2 around key phrases (e.g., "generate tasks from erd" → "gen tasks erd").
-  - Synonyms: generate|create|draft; tasks|checklist|steps; ERD|engineering requirements.
-  - Partial patterns: "tasks from erd", "erd tasks", "make tasks for <feature>".
+**Medium Confidence (60-94%)**:
 
-- Confirmation prompt (for medium confidence)
+- Fuzzy match: edit distance ≤2 around key phrases
+- Synonyms with partial context: "build" vs "implement"
+- Soft phrasing with action terms: "should we implement X?"
+- Action: Ask 1-line confirmation with explicit options
+- Format: "Are you asking for [guidance on approaches] or [implementation of X]?"
 
-  - "I think you want to generate tasks from an ERD and use the two‑phase flow (parent tasks → ‘Go’ → sub‑tasks). Proceed?"
+**Low Confidence (<60%)**:
 
-- Safeguards
-  - Never auto-create files on medium/low confidence.
-  - Prefer smallest rule set when multiple fuzzy matches; ask which rule the user means.
-  - Include which phrase triggered the prompt in the status note for transparency.
+- Vague phrasing: "we need better X"
+- Missing target or scope: "fix the errors"
+- Conflicting signals: guidance verb + implementation context
+- Action: Ask clarifying question, do not attach rules until answered
+
+### Fuzzy Signals (Medium Confidence Examples)
+
+- Edit distance ≤2 around key phrases (e.g., "generate tasks from erd" → "gen tasks erd")
+- Synonyms: generate|create|draft; tasks|checklist|steps; ERD|engineering requirements
+- Partial patterns: "tasks from erd", "erd tasks", "make tasks for <feature>"
+- Soft phrasing: "should we implement", "probably need to", "might want to"
+
+### Confirmation Prompt Templates
+
+**Guidance vs Implementation**:
+
+- "Are you looking for guidance on approaches, or would you like me to implement something specific?"
+
+**Planning vs Implementing**:
+
+- "Should I create a plan/spec first, or implement directly?"
+
+**Medium Confidence Example**:
+
+- "I think you want to generate tasks from an ERD and use the two‑phase flow (parent tasks → 'Go' → sub‑tasks). Proceed?"
+
+### Safeguards
+
+- Never auto-create files on medium/low confidence
+- Prefer smallest rule set when multiple fuzzy matches; ask which rule the user means
+- Include which phrase triggered the prompt in the status note for transparency
+
+## Multi-Intent Handling
+
+### Detection Patterns
+
+- "Plan and implement X"
+- "Create spec then build Y"
+- "Design and code Z"
+- "Analyze and fix W"
+
+### Default Resolution: Plan-First
+
+1. Detect multiple intents in single message
+2. Default to planning/analysis phase first
+3. Ask confirmation: "Should I start with [plan/spec/analysis], then [implement/build/fix]?"
+4. Attach rules for first phase only
+5. After completion, ask to proceed to second phase
+
+### Exception: User Explicit Order
+
+- "Implement first, then document" → Honor user's order (no confirmation needed)
+- "Skip planning, just build X" → Proceed directly to implementation
+- Explicit sequence indicators override default plan-first
 
 ## Few-shot routing examples
 

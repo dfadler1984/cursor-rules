@@ -2,8 +2,8 @@
 
 **Project**: rules-enforcement-investigation  
 **Status**: COMPLETE (Active) — Core investigation done; Phase 6G carryover tracked  
-**Completion**: 100% core objectives; 7 rule improvements proposed  
-**Last Updated**: 2025-10-21
+**Completion**: 100% core objectives; 8 rule improvements proposed (including Gap #17/17b)  
+**Last Updated**: 2025-10-23
 
 ---
 
@@ -53,7 +53,7 @@
 
 ---
 
-## 15 Meta-Findings (Rule Quality Improvements)
+## 17 Meta-Findings (Rule Quality Improvements)
 
 ### Applied in Phase 1 (Gaps #1-6) ✅
 
@@ -66,9 +66,9 @@
 
 **Status**: Rule improvements applied to 4 files (project-lifecycle, create-erd, generate-tasks, self-improve)
 
-### Violations During Investigation (Gaps #7-16) ⚠️
+### Violations During Investigation (Gaps #7-17) ⚠️
 
-**Pattern**: Investigation about enforcement violated patterns 9 times (8 gaps, some repeated)
+**Pattern**: Investigation about enforcement violated patterns 10 times (9 gaps, some repeated)
 
 7. **[Gap #7](gap-07-documentation-before-execution.md)** — Documentation-before-execution not automatic
 8. **[Gap #8](gap-08-testing-paradox.md)** — Testing paradox (assistant cannot objectively self-test)
@@ -80,20 +80,29 @@
 14. **[Gap #14](gap-14-findings-review-issues.md)** — Findings review reveals missing tasks and duplicates
 15. **[Gap #15](gap-15-changeset-label-violation-and-script-bypass.md)** — Changeset label violation (3rd time) + script bypass
 16. **[Gap #16](gap-16-findings-readme-bloat.md)** — findings/README.md bloat (full details vs individual files)
+17. **[Gap #17](gap-17-reactive-documentation-proactive-failure.md)** — Reactive documentation (alwaysApply rule violated during routing-optimization)
 
-**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16 = **9 total violations**
+**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16, #17, #18 = **11 total violations**
 
 **Validates Core Finding**: Advisory guidance, visible gates, even AlwaysApply violated without blocking enforcement
 
-### Proposed for Phase 6G (Gaps #12-16) ⏸️
+**Gap #17 Significance**: Discovered during routing-optimization Phase 3; validates that AlwaysApply insufficient for complex multi-step behaviors (proactive documentation pattern)
 
-**Status**: Tracked in tasks.md Phase 6G (tasks 24.0-30.0)
+**Gap #17b** (extension): Created ACTIVE-MONITORING.md without specifying enforcement mechanism; same pattern repeating immediately (create solution, miss enforcement layer)
 
-- 7 tasks with 25+ sub-tasks
-- 4 rule files to update (self-improve, project-lifecycle, investigation-structure, assistant-behavior)
-- 2 scripts to improve (check-tdd-compliance, setup-remote.test)
-- Blocking gate enforcement to implement (Gap #15 - critical)
+**Gap #18**: Script-first bypass (used curl instead of pr-labels.sh) + TDD violation (pr-labels.sh had no tests)
+
+### Proposed for Phase 6G (Gaps #12-18) ⏸️
+
+**Status**: Tracked in tasks.md Phase 6G (tasks 24.0-32.0)
+
+- 9 tasks with 35+ sub-tasks
+- 4 rule files updated (self-improve ✅, assistant-behavior ✅, project-lifecycle, investigation-structure)
+- 3 scripts to improve (check-tdd-compliance, setup-remote.test, pr-labels.sh ✅)
+- Blocking gate enforcement to implement (Gap #15, Gap #17 - critical)
 - Findings structure improvements (Gap #16)
+- Monitoring clarity enforcement (Gap #17/17b - implemented ✅)
+- Script-first enforcement review (Gap #18)
 
 ---
 

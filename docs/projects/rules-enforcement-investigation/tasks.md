@@ -2,7 +2,7 @@
 
 **Status**: COMPLETE (Active) — H1 Validated at 100%; Phase 6G Carryover | 100% Core Complete
 
-**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **16 meta-findings** captured (Gaps #1-16, 9 violations) validating enforcement patterns through lived experience. **Gaps #15, #16**: Violated structure+script rules during completion (validates blocking enforcement need). **Phase 6G**: 7 rule improvements tracked as carryover. H2/H3 monitoring optional.
+**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **18 meta-findings** captured (Gaps #1-18, 11 violations) validating enforcement patterns through lived experience. **Gap #17/17b**: Reactive documentation + solution without enforcement. **Gap #18**: Script-first bypass + TDD violation (pr-labels.sh). **Phase 6G**: 9 rule improvements tracked as carryover (tasks 24.0-32.0), 3/9 partially complete (monitoring enforcement implemented ✅).
 
 ---
 
@@ -427,6 +427,62 @@ Periodic review checkpoints to validate progress and findings:
   - [ ] 30.4 Add label removal reminder to git-commit workflow (when committing .changeset/ files)
   - [ ] 30.5 Update gate verification text with label check
   - [ ] 30.6 Document rationale: Validates H2 finding (gates need blocking, not just visibility)
+
+- [ ] 31.0 Gap #17 & #17b enforcement improvements (Proactive documentation + monitoring clarity)
+
+  - [x] 31.1 **PRIMARY**: Add explicit OUTPUT requirement to `self-improve.mdc` (investigation section) ✅
+    - Added lines 201-218: OUTPUT requirement when observing issues
+    - Format: Observed/Category/Project/Document in
+    - Rationale: H2 validated explicit OUTPUT → 100% visibility
+    - Forces ACTIVE-MONITORING.md check before documentation
+    
+  - [x] 31.2 **SECONDARY**: Add monitoring check to pre-send gate (`assistant-behavior.mdc`) ✅
+    - Added line 221: "Monitoring: checked ACTIVE-MONITORING.md? (if documenting finding)"
+    - Added verification text (line 237): When documenting findings, check scope
+    - Catches project scope confusion before sending
+    - Validation layer for OUTPUT requirement
+    
+  - [ ] 31.3 **TERTIARY**: Update self-improve.mdc to reference ACTIVE-MONITORING.md
+    - Add to investigation section: "Before documenting findings, consult ACTIVE-MONITORING.md"
+    - Link to decision tree for routing vs execution vs workflow
+    - Provides context even if OUTPUT/gate missed
+    
+  - [x] 31.4 Add solution creation checklist to `self-improve.mdc` ✅
+    - Added lines 260-280: Solution Creation Checklist section
+    - Required fields: Enforcement, Trigger, Validation
+    - Anti-pattern: Creating tools without enforcement specification
+    - Prevents future "solution without enforcement" gaps
+    
+  - [ ] 31.5 Document complexity hypothesis:
+    - Analyze: Simple rules (single action) vs complex behaviors (multi-step)
+    - Measure: Violation rate by rule complexity (action count)
+    - Findings: Does complexity correlate with violations?
+    - Recommendation: Blocking gates for complex behaviors?
+
+- [ ] 32.0 Gap #18 improvements (Script-first bypass + missing tests)
+
+  - [x] 32.1 Create pr-labels.test.sh (TDD violation corrected) ✅
+    - Created: `.cursor/scripts/pr-labels.test.sh`
+    - Tests: --help, argument validation, missing token handling
+    - Status: 6/6 tests passing
+    - Follow TDD for any script improvements
+    
+  - [ ] 32.2 Add integration tests for pr-labels.sh:
+    - Test: --remove with live API (or mocked responses)
+    - Test: Verify label actually removed (check via --list)
+    - Test: Handle 200, 204, 404 responses correctly
+    - Test: Error handling for auth failures
+    
+  - [ ] 32.3 Strengthen script-first OUTPUT enforcement:
+    - Review: Why was H3 OUTPUT requirement (capabilities check) violated?
+    - Pattern: Same as Gap #17 (OUTPUT exists, violated anyway)
+    - Consider: Make capabilities check blocking (not just visible)?
+    
+  - [ ] 32.4 Document script-first violation pattern:
+    - Gaps #14, #15, #18: Script bypassed 3 times
+    - All during multi-step complex workflows
+    - Hypothesis: Complexity correlates with script bypass rate?
+    - Recommendation: Simpler workflows or stronger enforcement?
 
 ---
 

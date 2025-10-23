@@ -156,11 +156,30 @@ Conduct a deep dive on the current intent routing implementation to identify and
 
 ## 14. Open Questions
 
-1. **Measurement**: How to automatically measure routing accuracy without manual review?
-2. **Confidence scoring**: What heuristics best predict correct routing?
-3. **Fallback behavior**: When confidence is low, should we ask or default to minimal rules?
-4. **Multi-intent**: How to handle requests with multiple intents (e.g., "plan and implement")?
+### Resolved in Phase 2 ✅
+
+1. ~~**Measurement**: How to automatically measure routing accuracy without manual review?~~
+   - **Resolved**: Manual validation with test suite (25 cases); automated script proposed for future
+2. ~~**Confidence scoring**: What heuristics best predict correct routing?~~
+   - **Resolved**: High (95%+), Medium (60-94%), Low (<60%) thresholds; fuzzy matching + soft phrasing detection
+3. ~~**Fallback behavior**: When confidence is low, should we ask or default to minimal rules?~~
+   - **Resolved**: Ask clarifying question, do not attach rules until answered
+4. ~~**Multi-intent**: How to handle requests with multiple intents (e.g., "plan and implement")?~~
+   - **Resolved**: Plan-first default with explicit exceptions; confirmation prompt for composite intents
+
+### Remaining Open Questions
+
 5. **Related to slash-commands**: Should high-ambiguity operations require slash commands for clarity?
+   - **Status**: Deferred (slash commands runtime routing not viable; prompt templates unexplored)
+
+### Minor Enhancements (Non-Blocking)
+
+6. **Guidance trigger explicitness** (Gap identified in Phase 2 validation):
+   - **Issue**: Guidance patterns documented in decision policy tier 2, but no dedicated "Guidance Requests" trigger section
+   - **Current behavior**: Works correctly (guidance-first.mdc attached via intent classification)
+   - **Recommendation**: Add explicit Guidance trigger section for consistency and documentation clarity
+   - **Impact**: Low (routing functional, documentation improvement only)
+   - **Priority**: Optional enhancement for Phase 3 or post-deployment
 
 ---
 
