@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.0
+
+### Minor Changes
+
+- [#157](https://github.com/dfadler1984/cursor-rules/pull/157) [`85f9071`](https://github.com/dfadler1984/cursor-rules/commit/85f90714d1b4c2e8d0dc2ce602e4e109cdcb10c2) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add deep validation orchestrator script with health scoring, cross-validation, and auto-fix support
+
 ## 0.14.0
 
 ### Minor Changes
