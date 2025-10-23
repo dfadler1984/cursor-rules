@@ -1,0 +1,13 @@
+{
+  "name": "chat-performance-tools",
+  "version": "1.0.0",
+  "description": "Token estimation and headroom calculation for chat performance",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "js-tiktoken": "^1.0.14"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

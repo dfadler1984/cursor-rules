@@ -1,7 +1,7 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: true
-lastReviewed: 2025-10-21
+lastReviewed: 2025-10-23
 healthScore:
   content: green # Accurate capability descriptions
   usability: green # Clear list format, easy to scan
@@ -26,6 +26,11 @@ healthScore:
 - Validate rule attachments: `[.cursor/scripts/rules-attach-validate.sh](.cursor/scripts/rules-attach-validate.sh)`
 - Validate ERD structure: `[.cursor/scripts/erd-validate.sh](.cursor/scripts/erd-validate.sh) <path>`
 - Check capabilities sync: `[.cursor/scripts/capabilities-sync.sh](.cursor/scripts/capabilities-sync.sh) [--check|--update]`
+- Deep validation and maintenance: `[.cursor/scripts/deep-rule-and-command-validate.sh](.cursor/scripts/deep-rule-and-command-validate.sh)`
+  - Orchestrates multiple validators (rules, capabilities, shellcheck, help/error format, test colocation)
+  - Performs cross-validation (rules → scripts, scripts → capabilities)
+  - Calculates health scores by category (rules, scripts, docs, tests)
+  - Flags: `--fix` (auto-repair), `--report` (JSON output), `--score-only`, `--fail-threshold N`
 
 ### Engineering docs & planning
 

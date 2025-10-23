@@ -1,7 +1,7 @@
 ---
 description: Protocol for detecting vague/oversized requests; clarify/split and seek consent
 alwaysApply: true
-lastReviewed: 2025-09-11
+lastReviewed: 2025-10-22
 healthScore:
   content: green # Accurate guidance, addresses stated purpose clearly
   usability: green # <100 lines, scannable structure, minimal duplication
@@ -59,3 +59,4 @@ healthScore:
 - See `guidance-first.mdc` for handling guidance requests.
 - See `user-intent.mdc` for intent detection patterns.
 - See `assistant-behavior.mdc` and `00-assistant-laws.mdc` for consent-first and accuracy requirements.
+- See [.cursor/docs/guides/chat-performance/prompt-tightening-patterns.md](../docs/guides/chat-performance/prompt-tightening-patterns.md) for detailed patterns and before/after examples.
