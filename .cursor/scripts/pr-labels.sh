@@ -195,8 +195,8 @@ case "$ACTION" in
     BODY=$(echo "$RESPONSE" | sed '$d')
     
     if [[ "$HTTP_CODE" == "200" ]]; then
-      # Parse JSON and extract label names (handle empty array)
-      echo "$BODY" | grep -o '"name":"[^"]*"' | cut -d'"' -f4 || true
+      # Parse JSON and extract label names (handle empty array and spacing variations)
+      echo "$BODY" | grep -o '"name"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"\([^"]*\)"$/\1/' || true
       exit 0
     else
       error "Failed to list labels (HTTP $HTTP_CODE)"
