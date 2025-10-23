@@ -30,11 +30,12 @@ Phase 3 began immediately after deploying routing optimizations to `intent-routi
 
 ---
 
-## Finding #1: Changeset Intent Contradiction
+## Finding #1: Changeset Intent Contradiction [RESOLVED ✅]
 
 **Date**: 2025-10-23  
+**Resolved**: 2025-10-23  
 **Category**: Composite action handling  
-**Severity**: Medium
+**Severity**: Medium (workflow automation)
 
 ### Quick Summary
 
@@ -45,11 +46,18 @@ User requested: "create a pr with changeset"
 - ✅ Changeset created (`.changeset/routing-optimization-phase-2.md`)
 - ✅ Changeset included in commit
 - ✅ PR created successfully
+- ✅ Label removed after root cause analysis
 
-**What failed**:
-- ❌ `skip-changeset` label applied to PR (contradicts "with changeset")
+**What failed initially**:
+- ❌ `skip-changeset` label applied to PR (contradicted "with changeset")
 
 **Root cause**: GitHub Action `.github/workflows/changeset-autolabel-docs.yml` auto-labels docs-only PRs without checking if changeset already present.
+
+**Resolution**:
+- ✅ Removed skip-changeset label from PR #159
+- ✅ Verified changeset file present in PR
+- ✅ Documented root cause and created tasks for permanent fix
+- ✅ PR #159 now correct (changeset present, no contradictory label)
 
 ### Cross-Project Impact
 
@@ -231,14 +239,20 @@ When Finding #1 was discovered, I offered to fix it immediately instead of proac
 
 ---
 
-**Status**: Findings documented and organized ✅  
-**routing-optimization**: 1 finding (composite action handling)  
+**Status**: Findings documented, organized, and resolved ✅  
+**routing-optimization**: 1 finding (Finding #1: RESOLVED ✅)  
 **Moved to rules-enforcement-investigation**: Gap #17 & #17b (execution compliance)  
-**Tasks**: 4 for Finding #1 (routing scope), 5 subtasks for Gap #17/17b enforcement (task 31.0)  
+**Resolution**: Finding #1 skip-changeset label removed, PR #159 correct  
+**Tasks**: Finding #1 immediate + investigation complete (2/4 done), follow-up tasks remain  
 **Cross-project impact**: 3 projects updated + monitoring clarity mechanism created  
 **Monitoring**: Continues during normal work
 
-**Monitoring Clarity**: Created [`ACTIVE-MONITORING.md`](../ACTIVE-MONITORING.md) to prevent project scope confusion
+**Monitoring Enforcement**: Implemented 3-tier approach ✅
+- PRIMARY: OUTPUT requirement in self-improve.mdc (lines 201-218)
+- SECONDARY: Pre-send gate item in assistant-behavior.mdc (line 221)
+- Solution creation checklist in self-improve.mdc (lines 260-280)
 
-**Gap #17b**: User identified enforcement gap - "How will you know to check ACTIVE-MONITORING?" - documented as extension validating "solution without enforcement" pattern
+**Monitoring Clarity**: Created [`ACTIVE-MONITORING.md`](../ACTIVE-MONITORING.md) with enforcement mechanisms
+
+**Gap #17b**: User identified enforcement gap - "How will you know to check ACTIVE-MONITORING?" - documented and enforcement implemented (3-tier approach)
 

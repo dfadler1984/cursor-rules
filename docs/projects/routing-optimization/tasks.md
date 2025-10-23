@@ -86,16 +86,18 @@
 
 **Finding #1: Changeset Intent Contradiction**
 
-- [ ] **Immediate**: Remove skip-changeset label from PR #159
+- [x] **Immediate**: Remove skip-changeset label from PR #159 ✅
 
-  - Verify changeset file properly included
-  - Ensure PR processed correctly by CI
+  - ✅ Label removed successfully (verified: no labels on PR)
+  - ✅ Changeset file verified present: `.changeset/routing-optimization-phase-2.md`
+  - ✅ PR now correctly shows: changeset included, no contradictory label
 
-- [ ] **Investigation**: Analyze pr-create.sh behavior
+- [x] **Investigation**: Analyze pr-create.sh behavior ✅
 
-  - Does script auto-apply skip-changeset as default?
-  - Should script check for changeset files before applying label?
-  - Document findings in phase3-findings.md
+  - ✅ Script does NOT auto-apply skip-changeset (verified: no `--label` flag in code)
+  - ✅ GitHub Action auto-applies: `.github/workflows/changeset-autolabel-docs.yml`
+  - ✅ Root cause: Workflow checks isDocsOnly, doesn't check hasChangeset
+  - ✅ Documented in phase3-findings.md
 
 - [ ] **Workflow**: Update assistant-git-usage.mdc
 
