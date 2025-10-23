@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.16.0
+
+### Minor Changes
+
+- [#159](https://github.com/dfadler1984/cursor-rules/pull/159) [`b798965`](https://github.com/dfadler1984/cursor-rules/commit/b79896585246038b2c655f69c0fe9a01c5487b63) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Optimize intent routing with 4 key improvements
+
+  - Add explicit intent override tier (guidance/implementation patterns override file signals)
+  - Implement confidence-based disambiguation (High/Medium/Low with confirmation prompts)
+  - Add multi-intent handling (plan-first default with explicit exceptions)
+  - Refine triggers for top 10 intent patterns (expanded verbs, exclusions, optional targets)
+
+  Phase 2 validation: 10/10 test cases pass (100% accuracy)
+  Expected impact: routing accuracy 68% → 88-92%
+
 ## 0.15.0
 
 ### Minor Changes
