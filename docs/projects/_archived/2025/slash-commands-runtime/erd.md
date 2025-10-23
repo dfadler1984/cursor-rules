@@ -1,7 +1,7 @@
 ---
-status: active
+status: complete
 owner: rules-maintainers
-lastUpdated: 2025-10-11
+lastUpdated: 2025-10-23
 ---
 
 # Engineering Requirements Document — Slash Commands Runtime (Lite)

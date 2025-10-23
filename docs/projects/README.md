@@ -18,13 +18,10 @@ All projects follow a **unified workflow** (ERD → Plan → Tasks → Analyze �
 - [repo-health-validation-fixes](./repo-health-validation-fixes/erd.md) — Fix validation issues (20 undocumented scripts, test colocation) to restore health score from 52/100 to 90+/100.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
-- [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
 - [rules-enforcement-investigation](./rules-enforcement-investigation/erd.md) — Investigate how rules are processed and enforced; test slash commands vs intent routing for compliance.
 - [routing-optimization](./routing-optimization/erd.md) — Deep dive on intent routing behavior and optimization opportunities.
 - [consent-gates-refinement](./consent-gates-refinement/erd.md) — Fix consent gating and exception issues for smoother UX without compromising safety.
 - [tdd-scope-boundaries](./tdd-scope-boundaries/erd.md) — Define clear TDD applicability boundaries to prevent overapplication to docs/configs.
-- [slash-commands-runtime](./slash-commands-runtime/erd.md) — Runtime execution semantics for slash commands (`/plan`, `/tasks`, `/pr`) with consent gates.
-- [productivity](./productivity/erd.md) — Automate repetitive ops with scripts while preserving safety and TDD‑first.
 - [github-workflows-utility](./github-workflows-utility/erd.md) — Audit current GitHub Actions, assess utility, and propose/add helpful workflows.
 - [role-phase-mapping](./role-phase-mapping/erd.md) — Align role guidance with phases; add phase‑readiness prompts.
 - [roles](./roles/erd.md) — Define roles and intent routing with per‑role posture and examples.
@@ -63,6 +60,9 @@ All projects follow a **unified workflow** (ERD → Plan → Tasks → Analyze �
 
 ## Completed
 
+- [productivity](../_archived/2025/productivity/final-summary.md) — Document automation guidance and script usage patterns; establish when to use scripts vs manual operations.
+- [slash-commands-runtime](../_archived/2025/slash-commands-runtime/final-summary.md) — Runtime execution semantics for slash commands (`/plan`, `/tasks`, `/pr`) with consent gates, command aliases, and comprehensive error handling.
+- [collaboration-options](./_archived/2025/collaboration-options/final-summary.md) — Documented `.github/` boundaries (config-only), PR template usage patterns, and optional remote sync providers with opt-in criteria.
 - [ai-workflow-integration](_archived/2025/ai-workflow-integration/final-summary.md) — Unified workflow integration from ai-dev-tasks, spec-kit, and claude-task-master into standardized enterprise-grade workflow (ERD → Plan → Tasks → Analyze → Implement).
 - [core-values](_archived/2025/core-values/final-summary.md) — Enhanced assistant laws with practical scenarios demonstrating Truth/Accuracy, Consistency/Transparency, and Self-Correction in real interactions.
 - [project-lifecycle-coordination](_archived/2025/project-lifecycle-coordination/final-summary.md) — Project lifecycle coordination tooling: `project-create.sh`, `project-status.sh`, `project-complete.sh` with full TDD coverage and end-to-end workflow validation.

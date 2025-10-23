@@ -3,9 +3,9 @@ description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: true
 lastReviewed: 2025-10-23
 healthScore:
-  content: green # Accurate capability descriptions
-  usability: green # Clear list format, easy to scan
-  maintenance: green # Recently reviewed, added lifecycle scripts
+  content: green # Accurate capability descriptions, canonical discovery schema
+  usability: green # Clear list format, easy to scan, formalized truncation
+  maintenance: green # Recently reviewed, canonical schema in Discovery section
 ---
 
 ## What you can ask the assistant to do
@@ -93,13 +93,34 @@ healthScore:
 
 ### Discovery (rules, MCP, local scripts)
 
-- Ask: `@capabilities` or “What can you do?”
-- Output: grouped bullets by source (rules|mcp|local), truncated with “N more…” when long
+- Ask: `@capabilities` or "What can you do?"
+- Output: grouped bullets by source (rules|mcp|local), truncated with "N more…" when long
 - Safety: read-only listing; never echo secrets; execution remains consent-gated
-- Sources:
-  - Rules: scan `.cursor/rules/*.mdc` for names/descriptions
-  - MCP: list configured servers/tools/resources and auth state
-  - Local: scan `.cursor/scripts/**/*.sh` top comments for descriptions
+
+**Sources:**
+
+- Rules: scan `.cursor/rules/*.mdc` for names/descriptions
+- MCP: list configured servers/tools/resources and auth state
+- Local: scan `.cursor/scripts/**/*.sh` top comments for descriptions
+
+**Discovery Schema (canonical):**
+
+All discovery outputs MUST conform to this schema:
+
+```json
+{
+  "name": "string",
+  "source": "rules|mcp|local",
+  "summary": "string",
+  "authRequired": boolean,
+  "enabled": boolean,
+  "notes": "string?"
+}
+```
+
+**Truncation:** Show first 10 items per source; if >10, show "... and N more <source> items"  
+**Grouping:** Always group by source (Rules → MCP → Local)  
+**Secrets:** Never echo token values, API keys, or credentials in discovery output
 
 ### Testing & TDD
 
@@ -192,4 +213,4 @@ healthScore:
 
 ### Platform reference
 
-- For Cursor platform features and constraints, see `@cursor-platform-capabilities`.
+- For product/platform features and constraints, see `@platform-capabilities`.
