@@ -19,6 +19,7 @@
 ### Current Status
 
 **API Verification** (13:59:34 timestamp):
+
 ```json
 {
   "labels": [],
@@ -33,9 +34,11 @@
 ### Why Label Didn't Reappear
 
 **Workflow runs**:
+
 - 13:59:38 (commit 50fefb1) - Workflow ran, label NOT re-applied
 
 **Possible explanations**:
+
 1. Workflow's removal logic (lines 64-70) keeps label off when not docs-only
 2. Recent commits include non-doc files (.cursor/rules/ changes)
 3. Workflow logic correctly handles changeset presence
@@ -49,12 +52,14 @@
 ### Violations Identified
 
 **Script-First Bypass** (alwaysApply rule):
+
 - Rule: assistant-git-usage.mdc (alwaysApply: true)
 - Requirement: Check capabilities.mdc before git operations
 - OUTPUT required: "Checked capabilities.mdc for [operation]: [found | not found]"
 - **Violated**: Used curl directly, no capabilities check, no OUTPUT
 
 **TDD Violation**:
+
 - Rule: tdd-first-sh.mdc (all .sh scripts require owner tests)
 - pr-labels.sh existed with 0 tests
 - Hard gate: No skip for maintained scripts
@@ -62,12 +67,14 @@
 ### Corrections Applied
 
 **TDD Violation Corrected** ✅:
+
 - Created: `.cursor/scripts/pr-labels.test.sh`
 - Tests: 6/6 passing (--help, argument validation, error handling)
 - Follows: tdd-first-sh.mdc requirements
 - Next: Add integration tests for API operations (task 32.2)
 
 **Script Used Correctly** ✅:
+
 - Second attempt: Used pr-labels.sh --pr 159 --remove skip-changeset
 - Result: Label removed successfully
 - Verified: API confirms labels: []
@@ -75,11 +82,13 @@
 ### Pattern Analysis
 
 **Script-First Violations** (3 instances):
+
 - Gap #14: Script bypass during completion
 - Gap #15: Script bypass (3rd changeset violation)
 - Gap #18: Script bypass (label removal)
 
 **Common Pattern**:
+
 - All during complex multi-step workflows
 - All with alwaysApply rules
 - OUTPUT requirements exist but violated
@@ -93,6 +102,7 @@
 ### routing-optimization
 
 **Finding #1**: RESOLVED ✅
+
 - Immediate + Investigation tasks complete (2/4)
 - Workflow + Enhancement tasks remain (medium/long-term)
 - Cross-reference to Gap #18 for script violation
@@ -100,6 +110,7 @@
 ### rules-enforcement-investigation
 
 **Gap #18**: DOCUMENTED ✅
+
 - Script-first bypass + TDD violation
 - Task 32.0 created (4 subtasks, 1 complete)
 - Adds to violation count: 10 → 11 violations
@@ -108,6 +119,7 @@
 ### github-workflows-utility
 
 **Issue #1**: Already documented
+
 - Changeset workflow needs hasChangeset check
 - Tasks remain for permanent fix
 
@@ -125,11 +137,13 @@
 ### Prevention Measures
 
 **Completed** ✅:
+
 - pr-labels.test.sh created (prevents regression)
 - Gap #18 documented (awareness)
 - Tasks created for workflow fix (permanent solution)
 
 **Remaining**:
+
 - Workflow fix (github-workflows-utility Issue #1)
 - Integration tests for pr-labels.sh (task 32.2)
 - Script-first enforcement review (task 32.3)
@@ -141,6 +155,7 @@
 ### Lesson 1: Script-First Violations Continue
 
 **Despite**:
+
 - alwaysApply rule (assistant-git-usage.mdc)
 - H3 OUTPUT requirement (capabilities check)
 - Multiple prior gaps (#14, #15)
@@ -154,6 +169,7 @@
 **Discovery**: pr-labels.sh had no tests
 
 **Impact**:
+
 - Can't verify script behavior
 - No regression protection
 - Violates TDD-first hard gate
@@ -173,11 +189,13 @@
 ## Next Steps
 
 **Monitoring** (routing-optimization):
+
 - Continue Phase 3 validation
 - Watch for label reappearance on future pushes
 - Document if workflow re-applies despite fix
 
 **Permanent Fixes** (other projects):
+
 - Fix changeset-autolabel-docs.yml (github-workflows-utility)
 - Add integration tests for pr-labels.sh (task 32.2)
 - Strengthen script-first enforcement (task 32.3)
@@ -188,4 +206,3 @@
 **PR #159**: Correct state (changeset present, no label) ✅  
 **Prevention**: Tasks created across 3 projects ✅  
 **Tests**: pr-labels.sh now has owner tests (6/6 passing) ✅
-
