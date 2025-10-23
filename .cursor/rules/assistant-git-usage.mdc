@@ -62,6 +62,7 @@ Before ANY git operation (commit, branch, PR), explicitly check `capabilities.md
 Choose commit types based on **purpose and effect**, not file format:
 
 **Rules (`.cursor/rules/*.mdc`)**:
+
 - **NOT `docs`** (even though they're markdown)
 - Use `feat` for new rules or rule enhancements (e.g., adding examples)
 - Use `fix` for rule corrections or bug fixes
@@ -69,15 +70,18 @@ Choose commit types based on **purpose and effect**, not file format:
 - **Rationale**: Rules affect assistant behavior; they are features, not documentation
 
 **Scripts (`.cursor/scripts/*`)**:
+
 - Use `feat` for new scripts or capabilities
 - Use `fix` for script bugs
 - Use `refactor` for internal improvements
 
 **Documentation (`docs/`, `README.md`)**:
+
 - Use `docs` for changes that describe existing behavior
 - Use `feat` if documenting new features alongside implementation
 
 **Example**:
+
 - ✅ `feat(laws): add practical scenario examples` (rule enhancement)
 - ✅ `fix(tdd): correct scope check logic` (rule correction)
 - ❌ `docs(laws): add examples` (incorrect; rules are features)
@@ -143,19 +147,20 @@ bash .cursor/scripts/pr-create.sh --title "…" --body "$BODY"
 ### Changeset Policy by File Type
 
 **Always require changeset** (no `skip-changeset`):
+
 - `.cursor/rules/*.mdc` changes (rules affect behavior; always warrant version bump)
 - `.cursor/scripts/*` changes (tooling changes affect workflows)
 - Code changes (any `.js`, `.ts`, `.sh` under `src/` or similar)
 
 **May skip changeset** (with explicit consent):
+
 - `docs/` markdown files (describes existing behavior)
 - `README.md` updates (unless documenting new features)
 - Comment-only changes
 - Test fixtures or example files
 
-**Rationale**: Rules are features that affect assistant behavior, not documentation. Even adding examples to existing rules improves usability and warrants a patch bump.
-    - Interactive: prompt to run `npx changeset`.
-    - Non-interactive: create `.changeset/<slug>.md` with the selected bump.
+**Rationale**: Rules are features that affect assistant behavior, not documentation. Even adding examples to existing rules improves usability and warrants a patch bump. - Interactive: prompt to run `npx changeset`. - Non-interactive: create `.changeset/<slug>.md` with the selected bump.
+
 - Author workflow:
 
   - Interactive (preferred locally): `npx changeset` → follow prompts → commit the generated file under `.changeset/`.
