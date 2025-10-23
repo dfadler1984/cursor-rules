@@ -1,3 +1,9 @@
+---
+status: completed
+completed: 2025-10-22
+owner: dfadler1984
+---
+
 # Engineering Requirements Document — Chat Performance and Quality Tools
 
 Mode: Full

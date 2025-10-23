@@ -5,7 +5,6 @@ A landing page for all projects, grouped by status.
 ## Active
 
 - [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
-- [chat-performance-and-quality-tools](./chat-performance-and-quality-tools/erd.md) — Tools to estimate token usage/headroom and maintain effective chats.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
@@ -56,6 +55,7 @@ A landing page for all projects, grouped by status.
 
 ## Completed
 
+- [chat-performance-and-quality-tools](_archived/2025/chat-performance-and-quality-tools/final-summary.md) — Chat performance tools: Context Efficiency Gauge, 7 guides, token estimation, headroom calculation. Deliverables: `.cursor/docs/guides/chat-performance/`, `.cursor/scripts/chat-performance/`.
 - [intent-router](_archived/2025/intent-router/final-summary.md) — Central intent router with consent/TDD gates and clear routing.
 - [rule-quality](_archived/2025/rule-quality/final-summary.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
 - [shell-scripts](_archived/2025/shell-scripts/final-summary.md) — Shell scripts suite with portable CLI tooling.

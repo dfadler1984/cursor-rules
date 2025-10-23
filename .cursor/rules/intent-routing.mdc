@@ -233,3 +233,4 @@ Related
 - See `guidance-first.mdc` for handling guidance requests before implementation
 - See `user-intent.mdc` for the TDD-by-default policy on implementation intents
 - See `00-assistant-laws.mdc` for accuracy and consistency requirements
+- See [.cursor/docs/guides/chat-performance/](../docs/guides/chat-performance/) for chat quality patterns (prompt tightening, task splitting, summarization, incident recovery)

@@ -280,6 +280,7 @@ Then verify each item:
 - In status updates, briefly note which signal triggered the route (explicit verb, consent-after-plan, file signal) when starting an implementation step.
 - When crossing tool boundaries, include the consent checkpoint and the exact command pending approval.
 - Include Context Efficiency Gauge when score ≤ 3 or ≥ 2 efficiency signals are true (see `context-efficiency.mdc` for scoring rubric and signals).
+- When context issues arise (latency, truncation, clarification loops), consult [.cursor/docs/guides/chat-performance/incident-playbook.md](../docs/guides/chat-performance/incident-playbook.md) for corrective actions.
 
 ## Pattern observation (always-on)
 

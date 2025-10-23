@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$comment": "Model configurations for token estimation and headroom calculation",
+  "source": "https://cursor.com/docs/models",
+  "lastSync": "2025-10-22",
+  "note": "Context limits are model maximums. Actual usable context may be lower due to system prompts, tool metadata, and provider-side buffers.",
+  "models": {
+    "gpt-3.5-turbo": {
+      "encoding": "cl100k_base",
+      "maxContext": 16385,
+      "maxOutput": 4096,
+      "provider": "openai"
+    },
+    "gpt-4": {
+      "encoding": "cl100k_base",
+      "maxContext": 8192,
+      "maxOutput": 4096,
+      "provider": "openai"
+    },
+    "gpt-4-32k": {
+      "encoding": "cl100k_base",
+      "maxContext": 32768,
+      "maxOutput": 4096,
+      "provider": "openai"
+    },
+    "gpt-4-turbo": {
+      "encoding": "cl100k_base",
+      "maxContext": 128000,
+      "maxOutput": 4096,
+      "provider": "openai"
+    },
+    "gpt-4o": {
+      "encoding": "cl100k_base",
+      "maxContext": 128000,
+      "maxOutput": 16384,
+      "provider": "openai"
+    },
+    "o1-preview": {
+      "encoding": "cl100k_base",
+      "maxContext": 128000,
+      "maxOutput": 32768,
+      "provider": "openai"
+    },
+    "o1-mini": {
+      "encoding": "cl100k_base",
+      "maxContext": 128000,
+      "maxOutput": 65536,
+      "provider": "openai"
+    },
+    "claude-3-haiku": {
+      "encoding": "cl100k_base",
+      "maxContext": 200000,
+      "maxOutput": 4096,
+      "provider": "anthropic"
+    },
+    "claude-3-sonnet": {
+      "encoding": "cl100k_base",
+      "maxContext": 200000,
+      "maxOutput": 4096,
+      "provider": "anthropic"
+    },
+    "claude-3-opus": {
+      "encoding": "cl100k_base",
+      "maxContext": 200000,
+      "maxOutput": 4096,
+      "provider": "anthropic"
+    },
+    "claude-3-5-sonnet": {
+      "encoding": "cl100k_base",
+      "maxContext": 200000,
+      "maxOutput": 8192,
+      "provider": "anthropic"
+    },
+    "claude-3-5-haiku": {
+      "encoding": "cl100k_base",
+      "maxContext": 200000,
+      "maxOutput": 8192,
+      "provider": "anthropic"
+    },
+    "claude-sonnet-4-5": {
+      "encoding": "cl100k_base",
+      "maxContext": 200000,
+      "maxOutput": 8192,
+      "provider": "anthropic"
+    }
+  }
+}
