@@ -1,11 +1,11 @@
 ---
 description: Always-on intent router attaching rules via phrases, keywords, and signals
 alwaysApply: true
-lastReviewed: 2025-10-22
+lastReviewed: 2025-10-23
 healthScore:
-  content: green # Accurate routing, slash command priorities clear, allowlist trigger added
-  usability: green # Well-organized sections, clear slash command documentation
-  maintenance: green # Recently reviewed, slash command bypass implemented, /allowlist added
+  content: green # Accurate routing, slash commands clear, gauge behavior delegated to context-efficiency.mdc
+  usability: green # Well-organized, clean separation of routing vs execution concerns
+  maintenance: green # Recently reviewed, proper rule separation maintained
 ---
 
 # Intent Routing Extensions (ERD Tasks)
@@ -37,9 +37,9 @@ This lightweight router keeps context minimal by attaching specific rules only w
   - See: `assistant-behavior.mdc` → Session-scoped standing consent → Grant/Revoke/Query Syntax
 - Context Efficiency Gauge
   - Triggers: <gauge-phrase>
-    - Phrases: show gauge|context efficiency|how's our context|context health|efficiency gauge|show efficiency|context score
-  - Attach: `context-efficiency.mdc`
-  - Behavior: Run `.cursor/scripts/context-efficiency-gauge.sh` with estimated inputs (scope, rules count, clarification loops, issues) and display the result in the requested format (default: dashboard)
+    - Phrases: show gauge|context efficiency|how's our context|context health|efficiency gauge|show efficiency|context score|show me the gauge
+  - Attach: `context-efficiency.mdc` (minimal overhead)
+  - Behavior: Follow manual invocation guidance in `context-efficiency.mdc`
 - Create tests / Testing
   - Triggers: <verb> + <test-term> + [optional: target]
     - Verbs: create|generate|add|write|improve|fix

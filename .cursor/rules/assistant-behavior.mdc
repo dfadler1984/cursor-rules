@@ -3,9 +3,9 @@ description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
 lastReviewed: 2025-10-23
 healthScore:
-  content: green # Added monitoring check to pre-send gate (Gap #17/17b enforcement)
+  content: green # Added Context Efficiency to pre-send gate; monitoring check enforced
   usability: green # Scannable format, practical checklists, clear grant/revoke syntax
-  maintenance: green # Recently reviewed, valid references, monitoring clarity added
+  maintenance: green # Recently reviewed, valid references, chat-performance tooling integrated
 ---
 
 ## Consent-first behavior
@@ -220,6 +220,7 @@ Pre-Send Gate:
 - [ ] Scripts: checked capabilities.mdc?
 - [ ] Monitoring: checked ACTIVE-MONITORING.md? (if documenting finding)
 - [ ] Changesets: included? (if PR with code/rules/docs edits)
+- [ ] Context Efficiency: gauge included if score ≤3 or ≥2 signals true?
 - [ ] Patterns: 3+ instances queued?
 - [ ] Messaging: bullets/citations?
 
@@ -236,6 +237,7 @@ Then verify each item:
 - **Scripts**: before git/terminal commands, checked capabilities.mdc for repo scripts; used script if available. OUTPUT: "Checked capabilities.mdc for [operation]: [found <path> | not found]"
 - **Monitoring**: when documenting investigation findings, checked ACTIVE-MONITORING.md for correct project scope; OUTPUT shown with category and target project. See: `docs/projects/ACTIVE-MONITORING.md`
 - **Changesets**: when preparing PR with code/rules/docs edits, changeset included OR explicit skip consent with `skip-changeset` label. Default: include changeset.
+- **Context Efficiency**: assess signals (scope concreteness, rules count, clarification loops, user issues); if score ≤3 or ≥2 signals true, include gauge line in status. See: `context-efficiency.mdc` for scoring rubric.
 - **Pattern observation**: if 3+ instances of new pattern detected, queue improvement proposal for next checkpoint.
 - **Messaging**: bullets and short sections; code citations follow repo rules.
 

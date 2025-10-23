@@ -1,7 +1,8 @@
 ---
-status: active
+status: completed
 owner: repo-maintainers
-lastUpdated: 2025-10-11
+created: 2025-10-11
+lastUpdated: 2025-10-23
 ---
 
 # Engineering Requirements Document — Project Lifecycle Coordination
@@ -151,10 +152,10 @@ Archival (when user requests)
 
 ```yaml
 ---
-status: planning|active|paused|completed|archived
+status: completed
 owner: repo-maintainers|<team>
-lastUpdated: YYYY-MM-DD
-completedDate: YYYY-MM-DD # when status → completed
+lastUpdated: 2025-10-23
+completedDate: 2025-10-23
 archivedDate: YYYY-MM-DD # when moved to _archived
 ---
 ```
@@ -269,14 +270,19 @@ archivedDate: YYYY-MM-DD # when moved to _archived
 
 ## 14. Open Questions
 
-1. **State inference**: Should assistant auto-detect state from tasks, or always trust front matter?
-2. **Completion override**: Should users be able to complete projects with incomplete tasks?
-3. **Validation strictness**: Should failed validation block completion (hard gate) or warn (soft gate)?
-4. **Multi-project workflow**: How to handle user working on multiple projects in one session?
-5. **Rollback**: If a completed project needs more work, what's the rollback flow?
+~~All questions resolved — see `implementation-plan.md` for decisions~~
+
+**Resolved**:
+
+1. **State inference**: Trust front matter; validation warns on drift
+2. **Completion override**: Soft gate with `--force` flag
+3. **Validation strictness**: Soft warnings (exit 0); hard blocks only for critical errors
+4. **Multi-project workflow**: No special handling; projects are independent
+5. **Rollback**: Manual process (update front matter + README + tasks)
 
 ---
 
 Owner: repo-maintainers  
 Created: 2025-10-11  
+Updated: 2025-10-23 (resolved open questions, added implementation plan)  
 Motivation: Issues with unclear project states and lifecycle adherence; need simple flow with tooling for automatic coordination
