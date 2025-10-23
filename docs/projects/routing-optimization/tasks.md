@@ -61,33 +61,39 @@
 **Phase 3 Findings** (see [phase3-findings.md](./phase3-findings.md)):
 
 - **Finding #1**: Changeset intent partially honored (2025-10-23)
+
   - User: "create a pr with changeset"
   - Actual: Changeset created ✅, but skip-changeset label applied ❌
-  - Severity: Medium (intent contradiction)
+  - Severity: Medium (workflow automation contradiction)
   - Root cause: GitHub Action auto-labels without checking changeset presence
-  - Tasks: 12 (4 for Finding #1)
+  - Category: Composite action handling (routing recognized intent, automation contradicted it)
+  - Tasks: 4 for routing-optimization scope
 
-- **Finding #2**: Reactive documentation (meta-gap) (2025-10-23)
-  - Issue: Offered fix-first instead of proactively suggesting document-first
-  - User correction: "First we need to document this issue"
-  - Severity: Medium (investigation methodology gap)
-  - Pattern: Same as rules-enforcement-investigation Gaps #7, #11, #12
-  - Tasks: 13 (root cause analysis, trigger analysis, rule improvements)
+- **Finding #2**: Moved to rules-enforcement-investigation → Gap #17
+  - Issue: Reactive documentation (offered fix-first, not document-first)
+  - Severity: High (alwaysApply rule violation - self-improve.mdc)
+  - Category: Execution compliance (rule loaded but ignored)
+  - Why moved: Execution issue, not routing issue (belongs in rules-enforcement-investigation)
+  - Cross-reference: Discovered during routing-optimization monitoring
+  - See: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
 
 ### Phase 3 Corrective Actions
 
 **Finding #1: Changeset Intent Contradiction**
 
 - [ ] **Immediate**: Remove skip-changeset label from PR #159
+
   - Verify changeset file properly included
   - Ensure PR processed correctly by CI
 
 - [ ] **Investigation**: Analyze pr-create.sh behavior
+
   - Does script auto-apply skip-changeset as default?
   - Should script check for changeset files before applying label?
   - Document findings in phase3-findings.md
 
 - [ ] **Workflow**: Update assistant-git-usage.mdc
+
   - Add: "with changeset" means NO skip-changeset label
   - Add: Explicit label handling guidance for PR creation
   - Add: Composite intent examples (changeset + label state)
@@ -97,45 +103,17 @@
   - Example: "PR with changeset" → has changeset, no skip-changeset label
   - Validation: Check positive (has X) AND negative (no anti-X)
 
-**Finding #2: Reactive Documentation (Meta-Gap)**
+**Finding #2: Moved to rules-enforcement-investigation (Gap #17)**
 
-- [ ] **Root Cause Analysis**: Why proactive documentation didn't trigger
-  - [ ] Review self-improve.mdc for investigation-specific guidance
-  - [ ] Check if project-type detection exists (investigation vs feature)
-  - [ ] Identify missing triggers for "document this as finding"
-  - [ ] Compare to rules-enforcement-investigation Gaps #7, #11, #12
-  - [ ] Document analysis in phase3-findings.md
+Finding #2 analysis and tasks moved to rules-enforcement-investigation project where execution compliance is monitored.
 
-- [ ] **Trigger Analysis**: When should proactive documentation occur?
-  - [ ] Project context: `docs/projects/<slug>/` with erd.md (investigation marker)
-  - [ ] Phase context: Monitoring/validation phases
-  - [ ] Failure observation: Bug/gap discovered during investigation work
-  - [ ] User correction: User redirects from fix to document
+**Why moved**: This is an execution failure (alwaysApply rule loaded but ignored), not a routing failure (wrong rules attached).
 
-- [ ] **Enforcement Analysis** (NOT rule content - guidance already exists):
-  - [ ] CONFIRMED: self-improve.mdc has investigation guidance (lines 181-254, alwaysApply: true)
-  - [ ] CONFIRMED: Explicit "Don't wait for user prompts" requirement (line 197)
-  - [ ] CONFIRMED: Violated anyway (Type 1 failure: rule loaded, ignored)
-  - [ ] **Critical question**: Why does alwaysApply work for simple rules but fail for complex behaviors?
-  
-- [ ] **Execution Gap Analysis**:
-  - [ ] Compare simple vs complex rule violations:
-    - Simple: "Use git-commit.sh for commits" → 100% compliance (single action)
-    - Complex: "Document findings proactively during investigations" → violated (multi-step behavior)
-  - [ ] Hypothesis: Complexity correlates with violation rate
-  - [ ] Measure: Count action steps in violated vs non-violated rules
-  
-- [ ] **Blocking Gates for Complex Behaviors**:
-  - [ ] Evaluate: Should investigation findings require blocking gate?
-  - [ ] Pattern: "Observed failure during investigation → MUST document before fix"
-  - [ ] Implementation: Refuse to proceed with fix until documentation confirmed
-  - [ ] Similar to: TDD pre-edit gate (MUST have spec before implementing)
-  
-- [ ] **Scope Evaluation**:
-  - [ ] Determine: Is this routing problem or execution problem?
-  - [ ] Routing: Which rules attach? (WORKING - no optimization needed here)
-  - [ ] Execution: Follow attached rules? (FAILING - different problem category)
-  - [ ] Decision: Expand routing-optimization scope OR create new project for execution compliance?
+**Cross-reference value for routing-optimization**:
+- Validates: Routing and execution are separate problem categories
+- Routing optimizations improved intent recognition ✅
+- Execution compliance needs different enforcement (blocking gates, not routing improvements)
+- See [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
 
 ## Phase 4: Optional Enhancements (Future)
 
@@ -159,6 +137,7 @@
 **Other Future Work**:
 
 - [ ] Create automated routing validation script (`routing-validate.sh`)
+
   - Parse test cases → predict expected rules → compare actual
   - Report pass/fail count, false positive rate
   - Add to CI workflow (optional)

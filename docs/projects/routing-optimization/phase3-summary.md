@@ -18,11 +18,15 @@ Phase 3 began immediately after deploying routing optimizations to `intent-routi
 
 ## Findings Count
 
-**Total**: 2 findings documented  
+**routing-optimization scope**: 1 finding  
+**Moved to rules-enforcement-investigation**: 1 finding (Gap #17)  
+
 **Severity Breakdown**:
-- High: 0
-- Medium: 2 (changeset intent contradiction, reactive documentation meta-gap)
+- High: 0 (in routing-optimization scope)
+- Medium: 1 (changeset intent contradiction - composite action handling)
 - Low: 0
+
+**Note**: Finding #2 (reactive documentation) moved to rules-enforcement-investigation as Gap #17 (execution compliance issue, not routing issue)
 
 ---
 
@@ -227,8 +231,12 @@ When Finding #1 was discovered, I offered to fix it immediately instead of proac
 
 ---
 
-**Status**: Two real-world findings documented ✅  
-**Tasks**: 25 total created (12 for Finding #1, 13 for Finding #2)  
-**Cross-project impact**: 3 projects updated  
+**Status**: Findings documented and organized ✅  
+**routing-optimization**: 1 finding (composite action handling)  
+**Moved to rules-enforcement-investigation**: Gap #17 (execution compliance)  
+**Tasks**: 4 for Finding #1 (routing scope), Gap #17 tasks in rules-enforcement-investigation  
+**Cross-project impact**: 3 projects updated + monitoring clarity mechanism created  
 **Monitoring**: Continues during normal work
+
+**Monitoring Clarity**: Created [`ACTIVE-MONITORING.md`](../ACTIVE-MONITORING.md) to prevent future project scope confusion
 

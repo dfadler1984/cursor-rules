@@ -53,7 +53,7 @@
 
 ---
 
-## 15 Meta-Findings (Rule Quality Improvements)
+## 17 Meta-Findings (Rule Quality Improvements)
 
 ### Applied in Phase 1 (Gaps #1-6) ✅
 
@@ -66,9 +66,9 @@
 
 **Status**: Rule improvements applied to 4 files (project-lifecycle, create-erd, generate-tasks, self-improve)
 
-### Violations During Investigation (Gaps #7-16) ⚠️
+### Violations During Investigation (Gaps #7-17) ⚠️
 
-**Pattern**: Investigation about enforcement violated patterns 9 times (8 gaps, some repeated)
+**Pattern**: Investigation about enforcement violated patterns 10 times (9 gaps, some repeated)
 
 7. **[Gap #7](gap-07-documentation-before-execution.md)** — Documentation-before-execution not automatic
 8. **[Gap #8](gap-08-testing-paradox.md)** — Testing paradox (assistant cannot objectively self-test)
@@ -80,10 +80,13 @@
 14. **[Gap #14](gap-14-findings-review-issues.md)** — Findings review reveals missing tasks and duplicates
 15. **[Gap #15](gap-15-changeset-label-violation-and-script-bypass.md)** — Changeset label violation (3rd time) + script bypass
 16. **[Gap #16](gap-16-findings-readme-bloat.md)** — findings/README.md bloat (full details vs individual files)
+17. **[Gap #17](gap-17-reactive-documentation-proactive-failure.md)** — Reactive documentation (alwaysApply rule violated during routing-optimization)
 
-**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16 = **9 total violations**
+**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16, #17 = **10 total violations**
 
 **Validates Core Finding**: Advisory guidance, visible gates, even AlwaysApply violated without blocking enforcement
+
+**Gap #17 Significance**: Discovered during routing-optimization Phase 3; validates that AlwaysApply insufficient for complex multi-step behaviors (proactive documentation pattern)
 
 ### Proposed for Phase 6G (Gaps #12-16) ⏸️
 
