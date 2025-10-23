@@ -29,6 +29,11 @@ Examples:
   model-configs-sync.sh --add gpt-5
   model-configs-sync.sh --update-date
 
+Exit Codes:
+  0   Success
+  1   General error (validation failed, file not found)
+  2   Usage error (invalid arguments)
+
 Manual Sync Procedure:
   1. Visit https://cursor.com/docs/models
   2. For each model, note: maxContext, maxOutput, encoding

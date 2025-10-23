@@ -39,6 +39,11 @@ Output (text format):
 
 Output (json format):
   {"tokens":1234,"method":"tiktoken","model":"gpt-4","encoding":"cl100k_base"}
+
+Exit Codes:
+  0   Success
+  1   General error (file not found, estimation failed)
+  2   Usage error (invalid arguments)
 EOF
 }
 

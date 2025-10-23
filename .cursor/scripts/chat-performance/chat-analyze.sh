@@ -59,6 +59,11 @@ Output (json format):
     "tokens": {...},
     "headroom": {...}
   }
+
+Exit Codes:
+  0   Success
+  1   General error (file not found, estimation failed)
+  2   Usage error (invalid arguments)
 EOF
 }
 
