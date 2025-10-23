@@ -74,6 +74,24 @@ test_missing_token() {
   assert_contains "$output" "GITHUB_TOKEN" "error mentions token"
 }
 
+# Test: --list parses GitHub API response with spaces (unit test of parsing logic)
+test_list_parsing_with_spaces() {
+  # Simulate the --list code path with real GitHub API response format
+  local mock_response='[
+  {
+    "id": 9404546873,
+    "name": "skip-changeset",
+    "color": "ededed"
+  }
+]'
+  
+  # Extract label name using same logic as pr-labels.sh line 199
+  local parsed
+  parsed=$(echo "$mock_response" | grep -o '"name"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"\([^"]*\)"$/\1/' || true)
+  
+  assert_contains "$parsed" "skip-changeset" "--list parses labels with spaces in JSON"
+}
+
 # Note: Live API tests require valid GITHUB_TOKEN and may affect real PRs
 # These are smoke tests for argument parsing and basic validation
 # Full API integration tests should use mock server or test repo
@@ -85,6 +103,7 @@ test_help
 test_missing_pr
 test_missing_action
 test_missing_token
+test_list_parsing_with_spaces
 
 echo
 echo "Results: $TESTS_PASSED/$TESTS_RUN passed"
