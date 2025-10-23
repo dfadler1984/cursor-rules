@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.1
+
+### Patch Changes
+
+- [#164](https://github.com/dfadler1984/cursor-rules/pull/164) [`165d626`](https://github.com/dfadler1984/cursor-rules/commit/165d6262765630e2bbb73ddaf3f98b20ab0fd39b) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Enhanced assistant laws with 5 practical scenario examples demonstrating Truth/Accuracy, Consistency/Transparency, and Self-Correction principles in real interactions.
+
 ## 0.17.0
 
 ### Minor Changes
