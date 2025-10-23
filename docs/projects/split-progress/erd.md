@@ -7,7 +7,7 @@
 
 | ERD                                                                | Owner              | Status        | Tasks                                                              | Dependencies             |
 | ------------------------------------------------------------------ | ------------------ | ------------- | ------------------------------------------------------------------ | ------------------------ |
-| `docs/projects/core-values/erd.md`                                 | rules-maintainers  | New (drafted) | `docs/projects/core-values/tasks.md`                               | —                        |
+| `docs/projects/core-values/erd.md`                                 | rules-maintainers  | Complete      | `docs/projects/core-values/tasks.md`                               | —                        |
 | `docs/projects/intent-router/erd.md`                               | rules-maintainers  | New (drafted) | `docs/projects/intent-router/tasks.md`                             | core-values              |
 | `docs/projects/roles/erd.md`                                       | rules-maintainers  | In progress   | `docs/projects/roles/tasks.md`                                     | core-values              |
 | `docs/projects/ai-workflow-integration/erd.md`                     | rules-maintainers  | In progress   | `docs/projects/ai-workflow-integration/tasks.md`                   | intent-router, tdd-first |
@@ -81,7 +81,7 @@
 - **Core Values**: `docs/projects/core-values/erd.md`
 
   - **Tasks**: `docs/projects/core-values/tasks.md`
-  - **Status**: New (drafted)
+  - **Status**: Complete
 
 - **Productivity & Automation**: `docs/projects/productivity/erd.md`
 

@@ -130,11 +130,17 @@ See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance
 
 ## Docs
 
-- Assistant Learning Protocol (ALP): `docs/projects/assistant-learning/erd.md`
-- Deterministic, Structured Outputs ERD: `docs/projects/deterministic-outputs/erd.md`
-- Rule — Deterministic Outputs: `.cursor/rules/deterministic-outputs.mdc`
+### Core Rules
+
+- **Assistant Laws** (Truth/Accuracy, Consistency/Transparency, Self-Correction): [`.cursor/rules/00-assistant-laws.mdc`](.cursor/rules/00-assistant-laws.mdc)
 - Rule — Capabilities (Discovery included): `.cursor/rules/capabilities.mdc`
 - Rule — Spec-Driven Workflow: `.cursor/rules/spec-driven.mdc`
+- Rule — Deterministic Outputs: `.cursor/rules/deterministic-outputs.mdc`
+
+### Project Documentation
+
+- Assistant Learning Protocol (ALP): `docs/projects/assistant-learning/erd.md`
+- Deterministic, Structured Outputs ERD: `docs/projects/deterministic-outputs/erd.md`
 - ERD creation rule (default: Full): `.cursor/rules/create-erd.mdc`
 - Unified Workflow (Spec → Plan → Tasks → Analyze → Implement): see `.cursor/rules/spec-driven.mdc`, `.cursor/rules/create-erd.mdc`, `.cursor/rules/generate-tasks-from-erd.mdc`, `.cursor/rules/project-lifecycle.mdc` (Task List Process subsection), `.cursor/rules/assistant-learning.mdc`.
 - Artifacts/paths: `docs/projects/<feature>/erd.md`, `docs/plans/<feature>-plan.md`, `docs/projects/<feature>/tasks.md`.
