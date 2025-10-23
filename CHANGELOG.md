@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.18.0
+
+### Minor Changes
+
+- [#169](https://github.com/dfadler1984/cursor-rules/pull/169) [`9b529ef`](https://github.com/dfadler1984/cursor-rules/commit/9b529ef96397bd03b13b9f1416f229ff12b5b2c0) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Capabilities schema formalization, vendor-agnostic platform capabilities, slash commands runtime, and multi-chat completion
+
+  Multi-chat session (3 parallel chats, 5 projects):
+
+  **Added:**
+
+  - platform-capabilities.mdc: Vendor-agnostic platform capabilities rule
+  - Slash Commands Runtime Semantics in intent-routing.mdc (40 lines)
+  - Productivity & Automation documentation (15+ scripts)
+  - Collaboration Options documentation (.github/ boundaries)
+
+  **Changed:**
+
+  - capabilities.mdc: Formalized Discovery Schema as canonical
+  - intent-routing.mdc: Added Runtime Semantics section
+
+  **Deprecated:**
+
+  - cursor-platform-capabilities.mdc: Now pointer to generic rule
+
+  **Archived:**
+
+  - 5 projects to docs/projects/\_archived/2025/ with complete final summaries
+
+  Gap findings documented: Gap #20 (CHANGELOG workflow), Gap #21 (final summary validation)
+
 ## 0.17.2
 
 ### Patch Changes
