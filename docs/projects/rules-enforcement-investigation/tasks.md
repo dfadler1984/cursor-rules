@@ -2,7 +2,7 @@
 
 **Status**: COMPLETE (Active) — H1 Validated at 100%; Phase 6G Carryover | 100% Core Complete
 
-**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **17 meta-findings** captured (Gaps #1-17, 10 violations) validating enforcement patterns through lived experience. **Gap #17/17b**: Reactive documentation + solution without enforcement (discovered during routing-optimization Phase 3; validates AlwaysApply insufficient for complex behaviors). **Phase 6G**: 8 rule improvements tracked as carryover (tasks 24.0-31.0). H2/H3 monitoring optional.
+**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **18 meta-findings** captured (Gaps #1-18, 11 violations) validating enforcement patterns through lived experience. **Gap #17/17b**: Reactive documentation + solution without enforcement. **Gap #18**: Script-first bypass + TDD violation (pr-labels.sh). **Phase 6G**: 9 rule improvements tracked as carryover (tasks 24.0-32.0), 3/9 partially complete (monitoring enforcement implemented ✅).
 
 ---
 
@@ -458,6 +458,31 @@ Periodic review checkpoints to validate progress and findings:
     - Measure: Violation rate by rule complexity (action count)
     - Findings: Does complexity correlate with violations?
     - Recommendation: Blocking gates for complex behaviors?
+
+- [ ] 32.0 Gap #18 improvements (Script-first bypass + missing tests)
+
+  - [x] 32.1 Create pr-labels.test.sh (TDD violation corrected) ✅
+    - Created: `.cursor/scripts/pr-labels.test.sh`
+    - Tests: --help, argument validation, missing token handling
+    - Status: 6/6 tests passing
+    - Follow TDD for any script improvements
+    
+  - [ ] 32.2 Add integration tests for pr-labels.sh:
+    - Test: --remove with live API (or mocked responses)
+    - Test: Verify label actually removed (check via --list)
+    - Test: Handle 200, 204, 404 responses correctly
+    - Test: Error handling for auth failures
+    
+  - [ ] 32.3 Strengthen script-first OUTPUT enforcement:
+    - Review: Why was H3 OUTPUT requirement (capabilities check) violated?
+    - Pattern: Same as Gap #17 (OUTPUT exists, violated anyway)
+    - Consider: Make capabilities check blocking (not just visible)?
+    
+  - [ ] 32.4 Document script-first violation pattern:
+    - Gaps #14, #15, #18: Script bypassed 3 times
+    - All during multi-step complex workflows
+    - Hypothesis: Complexity correlates with script bypass rate?
+    - Recommendation: Simpler workflows or stronger enforcement?
 
 ---
 

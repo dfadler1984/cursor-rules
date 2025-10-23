@@ -82,7 +82,7 @@
 16. **[Gap #16](gap-16-findings-readme-bloat.md)** — findings/README.md bloat (full details vs individual files)
 17. **[Gap #17](gap-17-reactive-documentation-proactive-failure.md)** — Reactive documentation (alwaysApply rule violated during routing-optimization)
 
-**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16, #17 = **10 total violations**
+**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16, #17, #18 = **11 total violations**
 
 **Validates Core Finding**: Advisory guidance, visible gates, even AlwaysApply violated without blocking enforcement
 
@@ -90,16 +90,19 @@
 
 **Gap #17b** (extension): Created ACTIVE-MONITORING.md without specifying enforcement mechanism; same pattern repeating immediately (create solution, miss enforcement layer)
 
-### Proposed for Phase 6G (Gaps #12-17) ⏸️
+**Gap #18**: Script-first bypass (used curl instead of pr-labels.sh) + TDD violation (pr-labels.sh had no tests)
 
-**Status**: Tracked in tasks.md Phase 6G (tasks 24.0-31.0)
+### Proposed for Phase 6G (Gaps #12-18) ⏸️
 
-- 8 tasks with 30+ sub-tasks
-- 4 rule files to update (self-improve, project-lifecycle, investigation-structure, assistant-behavior)
-- 2 scripts to improve (check-tdd-compliance, setup-remote.test)
+**Status**: Tracked in tasks.md Phase 6G (tasks 24.0-32.0)
+
+- 9 tasks with 35+ sub-tasks
+- 4 rule files updated (self-improve ✅, assistant-behavior ✅, project-lifecycle, investigation-structure)
+- 3 scripts to improve (check-tdd-compliance, setup-remote.test, pr-labels.sh ✅)
 - Blocking gate enforcement to implement (Gap #15, Gap #17 - critical)
 - Findings structure improvements (Gap #16)
-- Monitoring clarity enforcement (Gap #17/17b - ACTIVE-MONITORING.md usage)
+- Monitoring clarity enforcement (Gap #17/17b - implemented ✅)
+- Script-first enforcement review (Gap #18)
 
 ---
 

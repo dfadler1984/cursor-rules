@@ -88,16 +88,21 @@
 
 - [x] **Immediate**: Remove skip-changeset label from PR #159 ✅
 
-  - ✅ Label removed successfully (verified: no labels on PR)
+  - ✅ Label removed using pr-labels.sh --pr 159 --remove skip-changeset
+  - ✅ Verified removed: API shows labels: [], updated_at: 2025-10-23T13:53:35Z
   - ✅ Changeset file verified present: `.changeset/routing-optimization-phase-2.md`
-  - ✅ PR now correctly shows: changeset included, no contradictory label
+  - ⚠️ Note: Initial attempt used curl (script-first violation) → documented as Gap #18
+  - ✅ Corrected: Used pr-labels.sh on second attempt
+  - ⚠️ Watch for: Workflow may re-apply on next push (synchronize event)
 
-- [x] **Investigation**: Analyze pr-create.sh behavior ✅
+- [x] **Investigation**: Analyze pr-create.sh and label behavior ✅
 
-  - ✅ Script does NOT auto-apply skip-changeset (verified: no `--label` flag in code)
+  - ✅ pr-create.sh does NOT auto-apply skip-changeset (verified: no default --label)
   - ✅ GitHub Action auto-applies: `.github/workflows/changeset-autolabel-docs.yml`
   - ✅ Root cause: Workflow checks isDocsOnly, doesn't check hasChangeset
+  - ✅ Workflow runs on every push (synchronize event) → may re-apply label
   - ✅ Documented in phase3-findings.md
+  - ✅ Script-first violation documented as Gap #18 in rules-enforcement-investigation
 
 - [ ] **Workflow**: Update assistant-git-usage.mdc
 
