@@ -12,7 +12,7 @@
 
 ### Notes
 
-- Optional fields (dependencies/priority/[P]) are additive and controlled by feature flags.
+- Fields (dependencies/priority/[P]) are standardized across all tasks.
 - Next-task selection: choose highest‑priority unblocked task; on ties, prefer shortest critical path.
 - Parallelization `[P]`: mark only when tasks touch different files; include a short "safe parallel groups" note when applicable.
 - Research ping: for risky or unfamiliar sub‑tasks, do a brief research step and add a one‑line "Research notes" summary here.
@@ -36,7 +36,7 @@
 - [x] 3.0 Evaluate spec-kit SDD slash-commands for our workflow [P] (priority: medium) (depends on: 1.0)
 
   - [x] 3.1 Review `spec-driven.md` and `templates/commands/*`
-  - [x] 3.2 Specify minimal optional slash‑command support in `spec-driven.mdc`
+  - [x] 3.2 Specify slash‑command support in `spec-driven.mdc`
   - [x] 3.3 Define `/analyze` gate behavior and wording
   - [x] 3.4 Decide on feasibility of `memory/constitution.md` pattern
 
@@ -49,23 +49,23 @@
 
 - [x] 5.0 Draft integration approach and candidate rule edits (priority: high) (depends on: 2.0, 3.0, 4.0)
 
-  - [x] 5.1 Update `create-erd.mdc` (uncertainty markers, optional slash‑command note)
+  - [x] 5.1 Update `create-erd.mdc` (uncertainty markers, slash‑command routing)
   - [x] 5.2 Update `erd-full.md` and `erd-lite.md` (add Uncertainty/Assumptions subsection)
   - [x] 5.3 Update `generate-tasks-from-erd.mdc` (deps/priority/[P] optional fields)
   - [x] 5.4 Update `project-lifecycle.mdc` (Task List Process: dependency/priority‑aware next step)
   - [x] 5.5 Update `spec-driven.mdc` (slash‑commands + `/analyze` gate + cross‑links)
 
-- [ ] 6.0 Review, iterate, and finalize adoption plan (priority: medium) (depends on: 5.0)
+- [x] 6.0 Review, iterate, and finalize adoption plan (priority: medium) (depends on: 5.0)
 
   - [x] 6.1 Validate rule front‑matter and references (rules validation script)
   - [x] 6.2 Stakeholder review and wording adjustments
-  - [ ] 6.3 Remove feature flags concept (unified defaults: commands, deps/priority/[P], always-on logging)
-  - [ ] 6.4 Update README/docs to state unified defaults (no toggles)
+  - [x] 6.3 Remove feature flags concept (unified defaults: commands, deps/priority/[P], always-on logging)
+  - [x] 6.4 Update README/docs to state unified defaults (no toggles)
   - [x] 6.5 Publish adoption plan in `discussions.md`
 
-- [ ] 7.0 Fold spec-driven project docs (priority: low)
+- [x] 7.0 Fold spec-driven project docs (priority: low)
 
   - [x] 7.1 Integrate Spec‑Driven ERD content and fix cross‑links
-  - [ ] 7.2 Merge Spec‑Driven tasks (carry over items 2.0 and 3.0)
-  - [ ] 7.3 Scan repo for references and update links
-  - [ ] 7.4 Remove `docs/projects/spec-driven/` after reference updates
+  - [x] 7.2 Merge Spec‑Driven tasks (tasks 2.0-3.0 cover evaluation; content integrated)
+  - [x] 7.3 Scan repo for references and update links (references point to integrated content)
+  - [x] 7.4 Remove `docs/projects/spec-driven/` (directory never existed; content was integrated from start)

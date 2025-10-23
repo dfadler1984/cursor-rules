@@ -2,10 +2,20 @@
 
 A landing page for all projects, grouped by status.
 
+## Unified Workflow
+
+All projects follow a **unified workflow** (ERD → Plan → Tasks → Analyze → Implement) with standardized features:
+
+- Slash commands (`/specify`, `/plan`, `/tasks`, `/analyze`, `/implement`)
+- Task dependencies, priority, and parallelizable markers
+- Cross-linked artifacts with acceptance bundles
+- See [ai-workflow-integration](_archived/2025/ai-workflow-integration/erd.md) for integration details.
+
 ## Active
 
 - [rule-introspection](./rule-introspection/erd.md) — Investigate programmatic access to rule attachment state for accurate Context Efficiency Gauge readings.
-- [ai-workflow-integration](./ai-workflow-integration/erd.md) — Unify Cursor Rules by integrating proven workflows into a coherent, configurable ruleset.
+- [portable-workflow-toolkit](./portable-workflow-toolkit/erd.md) — Make full enterprise workflow portable across Fortune 500 projects with config-driven adapters (zero hardcoding, zero code changes between environments).
+- [repo-health-validation-fixes](./repo-health-validation-fixes/erd.md) — Fix validation issues (20 undocumented scripts, test colocation) to restore health score from 52/100 to 90+/100.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
@@ -53,6 +63,7 @@ A landing page for all projects, grouped by status.
 
 ## Completed
 
+- [ai-workflow-integration](_archived/2025/ai-workflow-integration/final-summary.md) — Unified workflow integration from ai-dev-tasks, spec-kit, and claude-task-master into standardized enterprise-grade workflow (ERD → Plan → Tasks → Analyze → Implement).
 - [core-values](_archived/2025/core-values/final-summary.md) — Enhanced assistant laws with practical scenarios demonstrating Truth/Accuracy, Consistency/Transparency, and Self-Correction in real interactions.
 - [project-lifecycle-coordination](_archived/2025/project-lifecycle-coordination/final-summary.md) — Project lifecycle coordination tooling: `project-create.sh`, `project-status.sh`, `project-complete.sh` with full TDD coverage and end-to-end workflow validation.
 - [chat-performance-and-quality-tools](_archived/2025/chat-performance-and-quality-tools/final-summary.md) — Chat performance tools: Context Efficiency Gauge, 7 guides, token estimation, headroom calculation. Deliverables: `.cursor/docs/guides/chat-performance/`, `.cursor/scripts/chat-performance/`.

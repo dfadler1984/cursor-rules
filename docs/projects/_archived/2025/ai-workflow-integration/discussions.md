@@ -16,7 +16,7 @@ Working topics:
 
 Setup & Integration
 
-- Our rules are file-based (no runtime deps). Optional slash-commands not yet documented.
+- Our rules are file-based (no runtime deps). Slash-commands are now first-class with phrase fallbacks.
 
 Artifacts & Templates
 
@@ -35,9 +35,9 @@ Licensing & Reuse
 
 - We cite ai-dev-tasks for inspiration. No embedded external content.
 
-Configuration & Toggles
+Unified Defaults
 
-- Feature flags for proposed additions not yet in `.cursor/config.json`.
+- All workflow enhancements are now standardized (no configuration needed).
 
 ## Baseline & Scope (Task 1.3)
 
@@ -52,14 +52,14 @@ Anchors
 
 Unified Workflow
 
-- Slash‑commands are first‑class (optional): `/constitution`, `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash > phrase precedence).
-- Tasks include `dependencies`, `priority`, and optional `[P]` for parallelization (different‑file tasks only; group safe parallel sets in tasks.md).
-- Learning logs include an Operation block and Dependency Impact by default (values may be N/A if not available).
+- Slash‑commands are first‑class: `/constitution`, `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash > phrase precedence).
+- Tasks include `dependencies`, `priority`, and `[P]` for parallelization (different‑file tasks only; group safe parallel sets in tasks.md).
+- Learning logs include Operation block and Dependency Impact by default (values may be N/A if not available).
 
-Out of Scope (initial)
+Out of Scope
 
 - Implementing agent‑specific installers or CLIs.
-- Binding to a single vendor’s workflow beyond optional slash‑commands.
+- Binding to a single vendor's workflow (slash‑commands remain agent-agnostic).
 
 ## ai-dev-tasks Evaluation (Task 2.0)
 
@@ -90,9 +90,9 @@ Out of Scope (initial)
 - Strengths: clear `/constitution`, `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` lifecycle; good templates.
 - Adoption plan: document these as optional slash‑commands in `spec-driven.mdc` without changing default triggers.
 
-  3.2 Optional slash‑command support in `spec-driven.mdc`
+  3.2 Slash‑command support in `spec-driven.mdc`
 
-- Proposal: Mention available commands and precedence (slash > phrase), ask one clarifying question on ambiguity.
+- Implemented: Commands documented with precedence (slash > phrase), clarifying questions on ambiguity.
 
   3.3 `/analyze` gate
 
@@ -107,11 +107,11 @@ Out of Scope (initial)
 4.1 Task structure (`docs/task-structure.md`)
 
 - Pros: explicit `dependencies`, `priority`, `subtasks`, `testStrategy`; tagged task lists; next‑task selection.
-- Adoption: add optional `dependencies: []` and `priority: high|medium|low` fields to our tasks output; optionally allow `[P]` parallelizable tag.
+- Adoption: added `dependencies: []` and `priority: high|medium|low` fields to tasks output; `[P]` parallelizable tag included.
 
-  4.2 Minimal additions to `generate-tasks-from-erd.mdc`
+  4.2 Additions to `generate-tasks-from-erd.mdc`
 
-- Keep two‑phase flow; add a short optional note explaining deps/priority fields and when to use them. Define next‑task selection: highest‑priority unblocked; tie → shortest critical path.
+- Kept two‑phase flow; added standard deps/priority fields and usage guidance. Defined next‑task selection: highest‑priority unblocked; tie → shortest critical path.
 
   4.3 Operational metrics patterns (`src/progress/*`, `mcp-server/src/logger.js`)
 
@@ -119,7 +119,7 @@ Out of Scope (initial)
 
   4.4 Logging enhancements
 
-- Add “Operation” (elapsed, token I/O, units processed) and “Dependency Impact” to our log schema; retain redaction and fallback behavior.
+- Added "Operation" (elapsed, token I/O, units processed) and "Dependency Impact" to log schema; retained redaction and fallback behavior.
 
 ## Stakeholder Review (Task 6.2)
 
