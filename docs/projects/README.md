@@ -9,7 +9,6 @@ A landing page for all projects, grouped by status.
 - [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
 - [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [collaboration-options](./collaboration-options/erd.md) — Collaboration surfaces with `.github/` kept config‑only; optional remote sync.
-- [core-values](./core-values/erd.md) — Always‑on guardrails: Truth/Accuracy, Consistency/Transparency, Self‑Correction, Consent‑first.
 - [rules-enforcement-investigation](./rules-enforcement-investigation/erd.md) — Investigate how rules are processed and enforced; test slash commands vs intent routing for compliance.
 - [routing-optimization](./routing-optimization/erd.md) — Deep dive on intent routing behavior and optimization opportunities.
 - [consent-gates-refinement](./consent-gates-refinement/erd.md) — Fix consent gating and exception issues for smoother UX without compromising safety.
@@ -54,6 +53,7 @@ A landing page for all projects, grouped by status.
 
 ## Completed
 
+- [core-values](_archived/2025/core-values/final-summary.md) — Enhanced assistant laws with practical scenarios demonstrating Truth/Accuracy, Consistency/Transparency, and Self-Correction in real interactions.
 - [project-lifecycle-coordination](_archived/2025/project-lifecycle-coordination/final-summary.md) — Project lifecycle coordination tooling: `project-create.sh`, `project-status.sh`, `project-complete.sh` with full TDD coverage and end-to-end workflow validation.
 - [chat-performance-and-quality-tools](_archived/2025/chat-performance-and-quality-tools/final-summary.md) — Chat performance tools: Context Efficiency Gauge, 7 guides, token estimation, headroom calculation. Deliverables: `.cursor/docs/guides/chat-performance/`, `.cursor/scripts/chat-performance/`.
 - [intent-router](_archived/2025/intent-router/final-summary.md) — Central intent router with consent/TDD gates and clear routing.
