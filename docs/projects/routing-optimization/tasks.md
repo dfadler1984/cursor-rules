@@ -64,7 +64,15 @@
   - User: "create a pr with changeset"
   - Actual: Changeset created ✅, but skip-changeset label applied ❌
   - Severity: Medium (intent contradiction)
-  - Tasks created below
+  - Root cause: GitHub Action auto-labels without checking changeset presence
+  - Tasks: 12 (4 for Finding #1)
+
+- **Finding #2**: Reactive documentation (meta-gap) (2025-10-23)
+  - Issue: Offered fix-first instead of proactively suggesting document-first
+  - User correction: "First we need to document this issue"
+  - Severity: Medium (investigation methodology gap)
+  - Pattern: Same as rules-enforcement-investigation Gaps #7, #11, #12
+  - Tasks: 13 (root cause analysis, trigger analysis, rule improvements)
 
 ### Phase 3 Corrective Actions
 
@@ -88,6 +96,46 @@
   - Pattern: "action WITH requirement" → ensure requirement + no contradictions
   - Example: "PR with changeset" → has changeset, no skip-changeset label
   - Validation: Check positive (has X) AND negative (no anti-X)
+
+**Finding #2: Reactive Documentation (Meta-Gap)**
+
+- [ ] **Root Cause Analysis**: Why proactive documentation didn't trigger
+  - [ ] Review self-improve.mdc for investigation-specific guidance
+  - [ ] Check if project-type detection exists (investigation vs feature)
+  - [ ] Identify missing triggers for "document this as finding"
+  - [ ] Compare to rules-enforcement-investigation Gaps #7, #11, #12
+  - [ ] Document analysis in phase3-findings.md
+
+- [ ] **Trigger Analysis**: When should proactive documentation occur?
+  - [ ] Project context: `docs/projects/<slug>/` with erd.md (investigation marker)
+  - [ ] Phase context: Monitoring/validation phases
+  - [ ] Failure observation: Bug/gap discovered during investigation work
+  - [ ] User correction: User redirects from fix to document
+
+- [ ] **Enforcement Analysis** (NOT rule content - guidance already exists):
+  - [ ] CONFIRMED: self-improve.mdc has investigation guidance (lines 181-254, alwaysApply: true)
+  - [ ] CONFIRMED: Explicit "Don't wait for user prompts" requirement (line 197)
+  - [ ] CONFIRMED: Violated anyway (Type 1 failure: rule loaded, ignored)
+  - [ ] **Critical question**: Why does alwaysApply work for simple rules but fail for complex behaviors?
+  
+- [ ] **Execution Gap Analysis**:
+  - [ ] Compare simple vs complex rule violations:
+    - Simple: "Use git-commit.sh for commits" → 100% compliance (single action)
+    - Complex: "Document findings proactively during investigations" → violated (multi-step behavior)
+  - [ ] Hypothesis: Complexity correlates with violation rate
+  - [ ] Measure: Count action steps in violated vs non-violated rules
+  
+- [ ] **Blocking Gates for Complex Behaviors**:
+  - [ ] Evaluate: Should investigation findings require blocking gate?
+  - [ ] Pattern: "Observed failure during investigation → MUST document before fix"
+  - [ ] Implementation: Refuse to proceed with fix until documentation confirmed
+  - [ ] Similar to: TDD pre-edit gate (MUST have spec before implementing)
+  
+- [ ] **Scope Evaluation**:
+  - [ ] Determine: Is this routing problem or execution problem?
+  - [ ] Routing: Which rules attach? (WORKING - no optimization needed here)
+  - [ ] Execution: Follow attached rules? (FAILING - different problem category)
+  - [ ] Decision: Expand routing-optimization scope OR create new project for execution compliance?
 
 ## Phase 4: Optional Enhancements (Future)
 

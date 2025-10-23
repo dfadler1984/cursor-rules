@@ -18,10 +18,10 @@ Phase 3 began immediately after deploying routing optimizations to `intent-routi
 
 ## Findings Count
 
-**Total**: 1 finding documented  
+**Total**: 2 findings documented  
 **Severity Breakdown**:
 - High: 0
-- Medium: 1 (changeset intent contradiction)
+- Medium: 2 (changeset intent contradiction, reactive documentation meta-gap)
 - Low: 0
 
 ---
@@ -178,7 +178,57 @@ User requested: "create a pr with changeset"
 
 ---
 
-**Status**: First real-world finding documented across 3 projects ✅  
-**Tasks**: 12 created to address root cause and prevent recurrence  
+## Finding #2: Reactive Documentation (Meta-Gap)
+
+**Date**: 2025-10-23  
+**Category**: Investigation methodology  
+**Severity**: Medium
+
+### Quick Summary
+
+When Finding #1 was discovered, I offered to fix it immediately instead of proactively suggesting documentation first.
+
+**What worked**:
+- ✅ Recognized the routing failure
+- ✅ Analyzed root cause correctly
+- ✅ Documented thoroughly once directed
+
+**What failed**:
+- ❌ Didn't proactively suggest documenting as finding
+- ❌ Offered immediate fix first (should be document-first for investigations)
+- ❌ Required user correction: "First we need to document this issue"
+
+**Root cause hypotheses** (to analyze):
+1. Investigation context not triggering document-first behavior
+2. Investigation methodology pattern not internalized
+3. Project-type-specific behavior not clear (investigation vs feature)
+4. Self-improvement pattern not connecting failure → investigation data
+
+### Cross-Project Impact
+
+**Projects Updated**:
+- ✅ `routing-optimization` — Finding #2 documented with 4 analysis task groups
+
+**Tasks Created** (total: 13 for Finding #2):
+- Root cause analysis: 5 tasks
+- Trigger analysis: 4 tasks
+- Rule improvements: 3 tasks (update self-improve.mdc)
+- Consider new rule: 1 task (investigation-methodology.mdc)
+
+### Related Patterns
+
+**From rules-enforcement-investigation**:
+- Gap #7: Documentation-before-execution not automatic
+- Gap #11: Structure violation during investigation
+- Gap #12: Self-improve didn't catch violations
+- Meta-lesson: "Investigation work doesn't automatically follow investigation methodology"
+
+**This Finding Validates**: Same pattern observed in routing-optimization (investigation about routing discovered routing failure but didn't proactively suggest documenting it)
+
+---
+
+**Status**: Two real-world findings documented ✅  
+**Tasks**: 25 total created (12 for Finding #1, 13 for Finding #2)  
+**Cross-project impact**: 3 projects updated  
 **Monitoring**: Continues during normal work
 
