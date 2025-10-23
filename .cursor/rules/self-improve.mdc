@@ -1,11 +1,11 @@
 ---
 description: Pattern-based rule improvement with consent-gated proposals
 alwaysApply: true
-lastReviewed: 2025-10-16
+lastReviewed: 2025-10-23
 healthScore:
-  content: green # Adapted from taskmaster with consent modifications
-  usability: green # Clear observation vs action separation
-  maintenance: green # New rule, aligned with repository standards
+  content: green # Includes investigation OUTPUT requirement, solution creation checklist
+  usability: green # Clear observation vs action separation, explicit enforcement
+  maintenance: green # Updated with Gap #17/17b enforcement mechanisms
 ---
 
 ## Rule Improvement Triggers
@@ -198,13 +198,32 @@ When actively investigating rule effectiveness or enforcement:
    - Good: Flag gaps as they're observed during work
    - Proactive documentation, not reactive
 
-3. **Treat as investigation evidence**
+3. **OUTPUT investigation finding categorization** (Required)
+
+   When observing any issue during investigation work, OUTPUT:
+
+   ```
+   Observed: [brief description]
+   Category: [routing|execution|workflow|other]
+   Project: [checked ACTIVE-MONITORING.md → project-name]
+   Document in: [findings file path]
+   ```
+
+   **Rationale**: 
+   - Explicit OUTPUT requirements achieve 100% visibility (validated: H2 findings)
+   - Forces ACTIVE-MONITORING.md check before documentation
+   - Prevents project scope confusion (routing vs execution vs workflow)
+   - See: `docs/projects/ACTIVE-MONITORING.md` for project scopes and decision tree
+
+   **Then** proceed to document in correct location.
+
+4. **Treat as investigation evidence**
 
    - If investigating completion policies → completion confusion is data
    - If investigating enforcement patterns → enforcement gaps are data
    - If investigating rule quality → rule issues are data
 
-4. **Queue improvements as investigation proceeds**
+5. **Queue improvements as investigation proceeds**
    - Add observed gaps to investigation scope
    - Include in findings/outcomes
    - Create improvement tasks from observations
@@ -237,6 +256,28 @@ When actively investigating rule effectiveness or enforcement:
 - Result: Investigation captures its own meta-findings
 
 **Evidence**: 6 rule gaps discovered during rules-enforcement-investigation, but only flagged reactively (after user prompting) rather than proactively as investigation data
+
+### Solution Creation Checklist
+
+**When proposing any new tool, guidance, or mechanism** (Required):
+
+Before considering solution complete, specify:
+
+1. **Enforcement**: How will this be used/triggered?
+   - OUTPUT requirement? Pre-send gate item? AlwaysApply? Blocking gate?
+   - Example: "ACTIVE-MONITORING.md will be checked via OUTPUT requirement in self-improve.mdc"
+
+2. **Trigger**: When does this apply?
+   - Project context? File pattern? Phase? User action?
+   - Example: "Applies during investigation work when observing issues"
+
+3. **Validation**: How to verify it's working?
+   - Measurement approach? Success criteria?
+   - Example: "100% of findings show OUTPUT with ACTIVE-MONITORING.md check"
+
+**Anti-pattern**: Creating tools/guidance without enforcement specification
+
+**Evidence**: Gap #17b (created ACTIVE-MONITORING.md without enforcement) validates this requirement
 
 ### Checkpointing Rule Gap Observations
 

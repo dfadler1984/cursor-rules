@@ -430,32 +430,28 @@ Periodic review checkpoints to validate progress and findings:
 
 - [ ] 31.0 Gap #17 & #17b enforcement improvements (Proactive documentation + monitoring clarity)
 
-  - [ ] 31.1 **PRIMARY**: Add explicit OUTPUT requirement to `self-improve.mdc` (investigation section)
-    - When observing issue during investigation work, OUTPUT:
-      ```
-      Observed: [brief description]
-      Category: [routing|execution|workflow|other]
-      Project: [checked ACTIVE-MONITORING.md → project-name]
-      Document in: [findings file path]
-      ```
+  - [x] 31.1 **PRIMARY**: Add explicit OUTPUT requirement to `self-improve.mdc` (investigation section) ✅
+    - Added lines 201-218: OUTPUT requirement when observing issues
+    - Format: Observed/Category/Project/Document in
     - Rationale: H2 validated explicit OUTPUT → 100% visibility
-    - Location: Lines 181-254 (Special Case: Rule Investigations section)
+    - Forces ACTIVE-MONITORING.md check before documentation
     
-  - [ ] 31.2 **SECONDARY**: Add monitoring check to pre-send gate (`assistant-behavior.mdc`)
-    - Add gate item: "Monitoring: Checked ACTIVE-MONITORING.md? (if documenting finding)"
-    - Validates investigation findings documented in correct project
+  - [x] 31.2 **SECONDARY**: Add monitoring check to pre-send gate (`assistant-behavior.mdc`) ✅
+    - Added line 221: "Monitoring: checked ACTIVE-MONITORING.md? (if documenting finding)"
+    - Added verification text (line 237): When documenting findings, check scope
     - Catches project scope confusion before sending
+    - Validation layer for OUTPUT requirement
     
   - [ ] 31.3 **TERTIARY**: Update self-improve.mdc to reference ACTIVE-MONITORING.md
     - Add to investigation section: "Before documenting findings, consult ACTIVE-MONITORING.md"
     - Link to decision tree for routing vs execution vs workflow
     - Provides context even if OUTPUT/gate missed
     
-  - [ ] 31.4 Add solution creation checklist to `self-improve.mdc`:
-    - When proposing any new tool/guidance/mechanism:
-    - Required: "Enforcement: [how will this be used/triggered?]"
-    - Pattern: Every solution needs enforcement specification
-    - Prevents "created X without enforcement" gaps (Gap #17b pattern)
+  - [x] 31.4 Add solution creation checklist to `self-improve.mdc` ✅
+    - Added lines 260-280: Solution Creation Checklist section
+    - Required fields: Enforcement, Trigger, Validation
+    - Anti-pattern: Creating tools without enforcement specification
+    - Prevents future "solution without enforcement" gaps
     
   - [ ] 31.5 Document complexity hypothesis:
     - Analyze: Simple rules (single action) vs complex behaviors (multi-step)

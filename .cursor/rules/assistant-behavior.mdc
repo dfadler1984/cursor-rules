@@ -1,11 +1,11 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-22
+lastReviewed: 2025-10-23
 healthScore:
-  content: green # Accurate behavioral guidance, clear examples, slash command bypass implemented
+  content: green # Added monitoring check to pre-send gate (Gap #17/17b enforcement)
   usability: green # Scannable format, practical checklists, clear grant/revoke syntax
-  maintenance: green # Recently reviewed, valid references, consent gates refined
+  maintenance: green # Recently reviewed, valid references, monitoring clarity added
 ---
 
 ## Consent-first behavior
@@ -218,6 +218,7 @@ Pre-Send Gate:
 - [ ] Consent: obtained?
 - [ ] TDD: spec updated? (if impl edits)
 - [ ] Scripts: checked capabilities.mdc?
+- [ ] Monitoring: checked ACTIVE-MONITORING.md? (if documenting finding)
 - [ ] Changesets: included? (if PR with code/rules/docs edits)
 - [ ] Patterns: 3+ instances queued?
 - [ ] Messaging: bullets/citations?
@@ -233,6 +234,7 @@ Then verify each item:
 - **Consent**: first command per tool category obtained with exact commands listed; allowlist honored.
 - **TDD gate**: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
 - **Scripts**: before git/terminal commands, checked capabilities.mdc for repo scripts; used script if available. OUTPUT: "Checked capabilities.mdc for [operation]: [found <path> | not found]"
+- **Monitoring**: when documenting investigation findings, checked ACTIVE-MONITORING.md for correct project scope; OUTPUT shown with category and target project. See: `docs/projects/ACTIVE-MONITORING.md`
 - **Changesets**: when preparing PR with code/rules/docs edits, changeset included OR explicit skip consent with `skip-changeset` label. Default: include changeset.
 - **Pattern observation**: if 3+ instances of new pattern detected, queue improvement proposal for next checkpoint.
 - **Messaging**: bullets and short sections; code citations follow repo rules.
