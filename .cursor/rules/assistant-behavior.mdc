@@ -230,7 +230,11 @@ Gate: [PASS/FAIL]
 Then verify each item:
 
 - **Links**: all URLs converted to Markdown links; PRs use `[PR #NN — title](https://example.com)`.
-- **Status update**: present whenever tools/edits ran this turn.
+- **Status update**: present whenever tools/edits ran this turn; **verify with tool output** before claiming completion:
+  - Git operations: run `git status --porcelain` and confirm working tree clean
+  - Test operations: run test command and paste results
+  - File operations: confirm paths exist before claiming created/modified
+  - Example: "Status: All changes committed. Verification: `git status --porcelain` → (empty). Working tree clean."
 - **TODOs**: reconciled before starting a new step and immediately after completing one.
 - **Consent**: first command per tool category obtained with exact commands listed; allowlist honored.
 - **TDD gate**: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
