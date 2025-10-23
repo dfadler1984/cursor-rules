@@ -46,3 +46,34 @@
   - [ ] 6.1 Inventory and proposals documented
   - [ ] 6.2 At least one new workflow merged and running successfully
   - [ ] 6.3 Noise reduction or time-to-signal improvement observed
+
+## Real-World Issues (From Other Projects)
+
+### Issue #1: changeset-autolabel-docs.yml Contradiction (2025-10-23)
+
+**Source**: routing-optimization Phase 3 validation (PR #159)  
+**Severity**: Medium
+
+**Problem**:
+- Workflow auto-applies `skip-changeset` to docs-only PRs
+- Logic: If all files match doc patterns → apply skip-changeset
+- **Gap**: Doesn't check if changeset files already present (`.changeset/*.md`)
+- Result: PR with changeset + skip-changeset label (contradiction)
+
+**Tasks**:
+
+- [ ] Fix changeset-autolabel-docs.yml workflow:
+  - [ ] Add changeset file detection (`hasChangeset = files.some(f => /^\.changeset\/.*\.md$/.test(...)`)
+  - [ ] Update logic: Only apply skip-changeset if docs-only AND no changeset
+  - [ ] Remove skip-changeset if changeset present (correct accidental labels)
+  - [ ] Add test cases for changeset presence scenarios
+
+- [ ] Update workflow documentation:
+  - [ ] Document new logic in workflow comments
+  - [ ] Add examples: docs-only + changeset → no label
+  - [ ] Update related project references
+
+**References**:
+- `docs/projects/routing-optimization/phase3-findings.md` — Finding #1 (detailed analysis)
+- `docs/projects/routing-optimization/tasks.md` — Phase 3 corrective actions
+- PR #159 — Real-world example (changeset present but skip-changeset applied)

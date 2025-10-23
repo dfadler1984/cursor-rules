@@ -50,13 +50,44 @@
 - ✅ Confidence-based disambiguation (RT-014) — 100% pass
 - ✅ Refined triggers (RT-001, RT-004, RT-017, RT-019, RT-021) — 100% pass
 
-### Phase 3 Full Validation ⏸️ READY
+### Phase 3 Full Validation 🔄 IN PROGRESS
 
-- [ ] Monitor optimizations during normal work (1 week)
+- [x] Monitor optimizations during normal work (started 2025-10-23)
 - [ ] Collect ≥50 real messages across diverse intents
 - [ ] Run full 25-case test suite (manual validation)
 - [ ] Measure post-deployment metrics vs baseline
 - [ ] Document findings and update `intent-routing.mdc` as needed
+
+**Phase 3 Findings** (see [phase3-findings.md](./phase3-findings.md)):
+
+- **Finding #1**: Changeset intent partially honored (2025-10-23)
+  - User: "create a pr with changeset"
+  - Actual: Changeset created ✅, but skip-changeset label applied ❌
+  - Severity: Medium (intent contradiction)
+  - Tasks created below
+
+### Phase 3 Corrective Actions
+
+**Finding #1: Changeset Intent Contradiction**
+
+- [ ] **Immediate**: Remove skip-changeset label from PR #159
+  - Verify changeset file properly included
+  - Ensure PR processed correctly by CI
+
+- [ ] **Investigation**: Analyze pr-create.sh behavior
+  - Does script auto-apply skip-changeset as default?
+  - Should script check for changeset files before applying label?
+  - Document findings in phase3-findings.md
+
+- [ ] **Workflow**: Update assistant-git-usage.mdc
+  - Add: "with changeset" means NO skip-changeset label
+  - Add: Explicit label handling guidance for PR creation
+  - Add: Composite intent examples (changeset + label state)
+
+- [ ] **Enhancement**: Add composite action handling to intent-routing.mdc
+  - Pattern: "action WITH requirement" → ensure requirement + no contradictions
+  - Example: "PR with changeset" → has changeset, no skip-changeset label
+  - Validation: Check positive (has X) AND negative (no anti-X)
 
 ## Phase 4: Optional Enhancements (Future)
 

@@ -134,3 +134,55 @@ This project decomposes the monolithic `pr-create.sh` (303 lines, 14 flags) into
 - Keep stdout clean (results only), logs to stderr
 - Test in isolation using focused test runs
 
+## Real-World Issues to Address (From Phase 3 Monitoring)
+
+### Issue #1: Changeset Intent Contradiction (2025-10-23)
+
+**Source**: routing-optimization Phase 3 real-world validation  
+**Context**: PR #159 creation  
+**Severity**: Medium
+
+**Problem**:
+- User requested: "create a pr with changeset"
+- Actual behavior: Changeset created ✅, but skip-changeset label applied ❌
+- Result: Contradictory state (has changeset + skip-changeset label)
+
+**Root Cause**:
+- Current `pr-create.sh` either:
+  - Auto-applies skip-changeset as default
+  - Lacks logic to detect changeset files and prevent contradictory labels
+  - Missing explicit label control for "with changeset" intent
+
+**Requirements for Decomposed Scripts**:
+
+**Phase 4 (github-pr-label.sh):**
+- [ ] Add `--remove-label NAME` flag for removing labels
+- [ ] Add `--ensure-no-label NAME` flag (idempotent: remove if present, succeed if absent)
+- [ ] Support reading labels from PR to check current state
+
+**Phase 5 (pr-create.sh wrapper):**
+- [ ] Add `--with-changeset` flag (explicit user intent)
+  - Detect changeset files in commit (`.changeset/*.md`)
+  - If found + `--with-changeset` requested: ensure NO skip-changeset label
+  - If not found + `--with-changeset` requested: warn user
+- [ ] Add changeset detection logic:
+  - Check git diff for `.changeset/*.md` files
+  - OR scan committed files in HEAD for changeset directory
+- [ ] Label application logic:
+  - Default: no labels (don't assume skip-changeset)
+  - Explicit: `--label skip-changeset` if user wants to skip
+  - Validation: error if `--with-changeset` + `--label skip-changeset` both present
+
+**Test Cases to Add**:
+```bash
+# Test: Changeset present + with-changeset flag → no skip-changeset label
+# Test: Changeset absent + with-changeset flag → warning
+# Test: Explicit skip-changeset label → applied regardless of changeset presence
+# Test: with-changeset + skip-changeset both → error (contradiction)
+```
+
+**References**:
+- `docs/projects/routing-optimization/phase3-findings.md` — Finding #1
+- `docs/projects/routing-optimization/tasks.md` — Phase 3 corrective actions
+- PR #159 — Real-world example
+
