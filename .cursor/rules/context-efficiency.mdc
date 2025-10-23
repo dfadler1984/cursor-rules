@@ -1,11 +1,11 @@
 ---
 description: Context Efficiency Gauge — qualitative heuristics and decision aid for chat context health
 alwaysApply: false
-lastReviewed: 2025-10-13
+lastReviewed: 2025-10-23
 healthScore:
-  content: green # Clear specification, accurate rubric, actionable outputs
+  content: green # Clear specification, accurate rubric, actionable outputs, manual invocation requires actual assessment
   usability: green # Scannable format, minimal sections, good examples
-  maintenance: green # New rule, current references
+  maintenance: yellow # Documented limitation: rule counting is manual and approximate; see rule-introspection project
 ---
 
 # Context Efficiency Gauge
@@ -22,6 +22,21 @@ Automatically include gauge output in status updates when:
 - ≥ 2 efficiency signals are true (vague scope, high rules count, multiple clarification loops, user-reported issues)
 
 Manual invocation: User can request gauge explicitly with `@context-efficiency` or by asking "How efficient is this chat?"
+
+**When manually invoked:**
+
+- Assess actual context state:
+  - **Rules count**: Count visible rules from function results and always-applied rules (user can see this in Cursor UI; assistant must track from context)
+  - **Scope**: Evaluate if target files/changes/criteria are concrete
+  - **Loops**: Count clarification requests in this conversation
+  - **Issues**: Note any user mentions of latency, quality, truncation
+- Run `.cursor/scripts/context-efficiency-gauge.sh` with **actual assessed values** (not defaults)
+- Format: use `--format dashboard` for manual invocations
+- Copy the ASCII dashboard output directly into your chat message as a code block
+- Do NOT add status updates, preambles, or commentary
+- The response should contain ONLY the ASCII dashboard—the gauge is self-explanatory
+
+**Limitation**: Rule counting is manual and approximate. The assistant cannot programmatically query Cursor's rule attachment system; it must track rules from function results and always-applied context. This may undercount or be inaccurate. See investigation project: `rule-introspection` for programmatic solutions.
 
 ## Scoring Rubric (1-5 scale)
 

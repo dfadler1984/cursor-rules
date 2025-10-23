@@ -206,17 +206,15 @@ format_dashboard() {
   local issues_label="none"
   [ -n "$user_issues" ] && issues_label="$user_issues"
 
-  cat <<EOF
-┌───────────────────────────────┐
-│ CONTEXT EFFICIENCY — DASHBOARD │
-├───────────────────────────────┤
-│ Gauge: [$gauge_bar] $s/5 ($lbl)     │
-│ Scope: $scope_label                 │
-│ Rules: $rules_count                      │
-│ Loops: $clarification_loops                      │
-│ Issues: $issues_label               │
-└───────────────────────────────┘
-EOF
+  printf '+-------------------------------+\n'
+  printf '| CONTEXT EFFICIENCY DASHBOARD  |\n'
+  printf '+-------------------------------+\n'
+  printf '| %-29s |\n' "Gauge: [$gauge_bar] $s/5 ($lbl)"
+  printf '| %-29s |\n' "Scope: $scope_label"
+  printf '| %-29s |\n' "Rules: $rules_count"
+  printf '| %-29s |\n' "Loops: $clarification_loops"
+  printf '| %-29s |\n' "Issues: $issues_label"
+  printf '+-------------------------------+\n'
 }
 
 format_decision_flow() {

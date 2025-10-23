@@ -117,16 +117,45 @@ Context efficiency dashboard
 Should I start a new chat?
 ```
 
-## Future Enhancement
+## CLI Usage
 
-A CLI script `.cursor/scripts/context-efficiency-gauge.sh` is planned to provide programmatic access with format options:
+The Context Efficiency Gauge script is available for programmatic access with multiple output formats:
 
 ```bash
-# Planned (not yet implemented)
+# Dashboard format (visual metrics)
 bash .cursor/scripts/context-efficiency-gauge.sh --format dashboard
+
+# Line format (one-liner, default)
 bash .cursor/scripts/context-efficiency-gauge.sh --format line
-bash .cursor/scripts/context-efficiency-gauge.sh --format decision
+
+# Decision flow (when to start new chat)
+bash .cursor/scripts/context-efficiency-gauge.sh --format decision-flow
+
+# JSON format (machine-readable)
+bash .cursor/scripts/context-efficiency-gauge.sh --format json
 ```
+
+### Advanced Usage
+
+Provide explicit signal values for custom assessment:
+
+```bash
+# Assess with specific metrics
+bash .cursor/scripts/context-efficiency-gauge.sh \
+  --scope-concrete false \
+  --rules 10 \
+  --loops 4 \
+  --issues "latency,quality" \
+  --format dashboard
+```
+
+**Parameters**:
+
+- `--scope-concrete BOOL`: Is task scope narrow? (true|false, default: true)
+- `--rules COUNT`: Number of rules attached (default: 0)
+- `--loops COUNT`: Number of clarification loops (default: 0)
+- `--issues CSV`: Comma-separated user issues (optional)
+- `--format FORMAT`: Output format (line|dashboard|decision-flow|json)
 
 ## See Also
 

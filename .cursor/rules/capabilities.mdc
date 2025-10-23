@@ -5,7 +5,7 @@ lastReviewed: 2025-10-23
 healthScore:
   content: green # Accurate capability descriptions
   usability: green # Clear list format, easy to scan
-  maintenance: green # Recently reviewed, current features
+  maintenance: green # Recently reviewed, added lifecycle scripts
 ---
 
 ## What you can ask the assistant to do
@@ -132,9 +132,23 @@ healthScore:
 
 ### Project lifecycle & archival
 
+**Project Creation:**
+
+- Create new project: `[.cursor/scripts/project-create.sh](.cursor/scripts/project-create.sh) --name <slug> [--mode full|lite] [--owner <owner>]` — Creates project directory with ERD, tasks, and README from templates.
+
+**Project Status & Coordination:**
+
+- Query project status: `[.cursor/scripts/project-status.sh](.cursor/scripts/project-status.sh) <slug> [--format json|text]` — Shows status, task completion %, and suggested next action.
+- Complete project: `[.cursor/scripts/project-complete.sh](.cursor/scripts/project-complete.sh) <slug> [--force] [--dry-run]` — Orchestrates completion workflow (validate → summary → status update).
+
+**Archival & Summaries:**
+
 - Generate final summaries: `[.cursor/scripts/final-summary-generate.sh](.cursor/scripts/final-summary-generate.sh) --project <slug> --year <YYYY> [--force] [--pre-move]`.
 - Archive projects (full workflow): `[.cursor/scripts/project-archive-workflow.sh](.cursor/scripts/project-archive-workflow.sh) --project <slug> --year <YYYY> [--dry-run]`.
 - Archive single project: `[.cursor/scripts/project-archive.sh](.cursor/scripts/project-archive.sh) --project <slug> --year <YYYY>`.
+
+**Validation:**
+
 - Backfill lifecycle artifacts: `[.cursor/scripts/project-lifecycle-migrate.sh](.cursor/scripts/project-lifecycle-migrate.sh) --project <slug>`.
 - Validate project lifecycle: `[.cursor/scripts/project-lifecycle-validate.sh](.cursor/scripts/project-lifecycle-validate.sh)`.
 - Validate scoped project: `[.cursor/scripts/project-lifecycle-validate-scoped.sh](.cursor/scripts/project-lifecycle-validate-scoped.sh) <slug>`.
