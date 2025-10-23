@@ -58,6 +58,37 @@
 - [ ] Measure post-deployment metrics vs baseline
 - [ ] Document findings and update `intent-routing.mdc` as needed
 
+## Phase 4: Optional Enhancements (Future)
+
+**Minor Gap from Phase 2 Validation**:
+
+- [ ] Add explicit Guidance trigger section to `intent-routing.mdc`
+  - **Issue**: Guidance patterns in decision policy tier 2, but no dedicated trigger section
+  - **Current**: Works correctly (guidance-first.mdc attached via intent classification)
+  - **Recommendation**: Add trigger section for consistency:
+    ```markdown
+    - Guidance Requests
+      - Triggers: <guidance-verb> + <question>
+        - Verbs: how|what|which|should we|can you explain
+        - Question patterns: how to|what's the best|should we consider
+      - Attach: guidance-first.mdc
+      - Note: Overrides file signals (tier 2 decision policy)
+    ```
+  - **Impact**: Low (documentation clarity only)
+  - **Priority**: Optional, post-Phase 3
+
+**Other Future Work**:
+
+- [ ] Create automated routing validation script (`routing-validate.sh`)
+  - Parse test cases → predict expected rules → compare actual
+  - Report pass/fail count, false positive rate
+  - Add to CI workflow (optional)
+
+- [ ] Explore prompt templates for git operations
+  - Create `.cursor/commands/*.md` templates
+  - May improve discoverability (not needed for compliance)
+  - Lower priority (H1 already at 100% via AlwaysApply)
+
 ## Related Files
 
 - `.cursor/rules/intent-routing.mdc` (archived)
