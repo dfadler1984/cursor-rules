@@ -2,8 +2,8 @@
 
 **Project**: rules-enforcement-investigation  
 **Status**: COMPLETE (Active) — Core investigation done; Phase 6G carryover tracked  
-**Completion**: 100% core objectives; 7 rule improvements proposed  
-**Last Updated**: 2025-10-21
+**Completion**: 100% core objectives; 8 rule improvements proposed (including Gap #17/17b)  
+**Last Updated**: 2025-10-23
 
 ---
 
@@ -88,15 +88,18 @@
 
 **Gap #17 Significance**: Discovered during routing-optimization Phase 3; validates that AlwaysApply insufficient for complex multi-step behaviors (proactive documentation pattern)
 
-### Proposed for Phase 6G (Gaps #12-16) ⏸️
+**Gap #17b** (extension): Created ACTIVE-MONITORING.md without specifying enforcement mechanism; same pattern repeating immediately (create solution, miss enforcement layer)
 
-**Status**: Tracked in tasks.md Phase 6G (tasks 24.0-30.0)
+### Proposed for Phase 6G (Gaps #12-17) ⏸️
 
-- 7 tasks with 25+ sub-tasks
+**Status**: Tracked in tasks.md Phase 6G (tasks 24.0-31.0)
+
+- 8 tasks with 30+ sub-tasks
 - 4 rule files to update (self-improve, project-lifecycle, investigation-structure, assistant-behavior)
 - 2 scripts to improve (check-tdd-compliance, setup-remote.test)
-- Blocking gate enforcement to implement (Gap #15 - critical)
+- Blocking gate enforcement to implement (Gap #15, Gap #17 - critical)
 - Findings structure improvements (Gap #16)
+- Monitoring clarity enforcement (Gap #17/17b - ACTIVE-MONITORING.md usage)
 
 ---
 

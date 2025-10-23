@@ -69,13 +69,18 @@
   - Category: Composite action handling (routing recognized intent, automation contradicted it)
   - Tasks: 4 for routing-optimization scope
 
-- **Finding #2**: Moved to rules-enforcement-investigation → Gap #17
-  - Issue: Reactive documentation (offered fix-first, not document-first)
-  - Severity: High (alwaysApply rule violation - self-improve.mdc)
+- **Finding #2**: Moved to rules-enforcement-investigation → Gap #17 & #17b
+  - **Gap #17**: Reactive documentation (offered fix-first, not document-first)
+    - Severity: High (alwaysApply rule violation - self-improve.mdc)
+    - AlwaysApply rule loaded, explicit "don't wait" requirement, violated anyway
+  - **Gap #17b**: Created ACTIVE-MONITORING.md without enforcement mechanism
+    - User: "How will you know to check ACTIVE-MONITORING?"
+    - Same pattern repeating immediately (create solution, miss enforcement layer)
   - Category: Execution compliance (rule loaded but ignored)
   - Why moved: Execution issue, not routing issue (belongs in rules-enforcement-investigation)
   - Cross-reference: Discovered during routing-optimization monitoring
   - See: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
+  - Enforcement recommendation: [`rules-enforcement-investigation/findings/gap-17-enforcement-recommendation.md`](../rules-enforcement-investigation/findings/gap-17-enforcement-recommendation.md)
 
 ### Phase 3 Corrective Actions
 
@@ -110,6 +115,7 @@ Finding #2 analysis and tasks moved to rules-enforcement-investigation project w
 **Why moved**: This is an execution failure (alwaysApply rule loaded but ignored), not a routing failure (wrong rules attached).
 
 **Cross-reference value for routing-optimization**:
+
 - Validates: Routing and execution are separate problem categories
 - Routing optimizations improved intent recognition ✅
 - Execution compliance needs different enforcement (blocking gates, not routing improvements)

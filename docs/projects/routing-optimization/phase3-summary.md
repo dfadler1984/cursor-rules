@@ -233,10 +233,12 @@ When Finding #1 was discovered, I offered to fix it immediately instead of proac
 
 **Status**: Findings documented and organized ✅  
 **routing-optimization**: 1 finding (composite action handling)  
-**Moved to rules-enforcement-investigation**: Gap #17 (execution compliance)  
-**Tasks**: 4 for Finding #1 (routing scope), Gap #17 tasks in rules-enforcement-investigation  
+**Moved to rules-enforcement-investigation**: Gap #17 & #17b (execution compliance)  
+**Tasks**: 4 for Finding #1 (routing scope), 5 subtasks for Gap #17/17b enforcement (task 31.0)  
 **Cross-project impact**: 3 projects updated + monitoring clarity mechanism created  
 **Monitoring**: Continues during normal work
 
-**Monitoring Clarity**: Created [`ACTIVE-MONITORING.md`](../ACTIVE-MONITORING.md) to prevent future project scope confusion
+**Monitoring Clarity**: Created [`ACTIVE-MONITORING.md`](../ACTIVE-MONITORING.md) to prevent project scope confusion
+
+**Gap #17b**: User identified enforcement gap - "How will you know to check ACTIVE-MONITORING?" - documented as extension validating "solution without enforcement" pattern
 

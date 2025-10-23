@@ -2,7 +2,7 @@
 
 **Status**: COMPLETE (Active) — H1 Validated at 100%; Phase 6G Carryover | 100% Core Complete
 
-**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **16 meta-findings** captured (Gaps #1-16, 9 violations) validating enforcement patterns through lived experience. **Gaps #15, #16**: Violated structure+script rules during completion (validates blocking enforcement need). **Phase 6G**: 7 rule improvements tracked as carryover. H2/H3 monitoring optional.
+**Update**: **INVESTIGATION COMPLETE (Active)**! H1 validated at 100% (+26 points, exceeds target). Decision tree created, 25 rules categorized, scalable patterns documented. All core phases complete (Discovery, Review, H1 Validation, Synthesis). **17 meta-findings** captured (Gaps #1-17, 10 violations) validating enforcement patterns through lived experience. **Gap #17/17b**: Reactive documentation + solution without enforcement (discovered during routing-optimization Phase 3; validates AlwaysApply insufficient for complex behaviors). **Phase 6G**: 8 rule improvements tracked as carryover (tasks 24.0-31.0). H2/H3 monitoring optional.
 
 ---
 
@@ -427,6 +427,41 @@ Periodic review checkpoints to validate progress and findings:
   - [ ] 30.4 Add label removal reminder to git-commit workflow (when committing .changeset/ files)
   - [ ] 30.5 Update gate verification text with label check
   - [ ] 30.6 Document rationale: Validates H2 finding (gates need blocking, not just visibility)
+
+- [ ] 31.0 Gap #17 & #17b enforcement improvements (Proactive documentation + monitoring clarity)
+
+  - [ ] 31.1 **PRIMARY**: Add explicit OUTPUT requirement to `self-improve.mdc` (investigation section)
+    - When observing issue during investigation work, OUTPUT:
+      ```
+      Observed: [brief description]
+      Category: [routing|execution|workflow|other]
+      Project: [checked ACTIVE-MONITORING.md → project-name]
+      Document in: [findings file path]
+      ```
+    - Rationale: H2 validated explicit OUTPUT → 100% visibility
+    - Location: Lines 181-254 (Special Case: Rule Investigations section)
+    
+  - [ ] 31.2 **SECONDARY**: Add monitoring check to pre-send gate (`assistant-behavior.mdc`)
+    - Add gate item: "Monitoring: Checked ACTIVE-MONITORING.md? (if documenting finding)"
+    - Validates investigation findings documented in correct project
+    - Catches project scope confusion before sending
+    
+  - [ ] 31.3 **TERTIARY**: Update self-improve.mdc to reference ACTIVE-MONITORING.md
+    - Add to investigation section: "Before documenting findings, consult ACTIVE-MONITORING.md"
+    - Link to decision tree for routing vs execution vs workflow
+    - Provides context even if OUTPUT/gate missed
+    
+  - [ ] 31.4 Add solution creation checklist to `self-improve.mdc`:
+    - When proposing any new tool/guidance/mechanism:
+    - Required: "Enforcement: [how will this be used/triggered?]"
+    - Pattern: Every solution needs enforcement specification
+    - Prevents "created X without enforcement" gaps (Gap #17b pattern)
+    
+  - [ ] 31.5 Document complexity hypothesis:
+    - Analyze: Simple rules (single action) vs complex behaviors (multi-step)
+    - Measure: Violation rate by rule complexity (action count)
+    - Findings: Does complexity correlate with violations?
+    - Recommendation: Blocking gates for complex behaviors?
 
 ---
 
