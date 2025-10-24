@@ -56,12 +56,12 @@ while [ "$#" -gt 0 ]; do
       WORKFLOW_URL="$2"
       shift 2
       ;;
-    --help)
+    -h|--help)
       show_help
       exit 0
       ;;
     *)
-      die "Unknown option: $1"
+      die 2 "Unknown option: $1"
       ;;
   esac
 done
