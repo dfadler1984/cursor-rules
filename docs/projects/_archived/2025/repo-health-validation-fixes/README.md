@@ -23,6 +23,13 @@ Fixed repository health validation issues discovered by `deep-rule-and-command-v
 - Script Quality: 100/100 (maintained)
 - Test Quality: 60/100 → 100/100
 
+## Badge Sanity Check (2025-10-24)
+
+- Ran `.cursor/scripts/deep-rule-and-command-validate.sh --score-only` to capture the baseline score (**100/100**).
+- Added a temporary bogus script reference in `capabilities.mdc` to trigger the cross-reference validator and re-ran the check; score dropped to **98/100**.
+- Executed `bash .cursor/scripts/tests/run.sh -k repo-health-badge -v` to ensure the badge extraction logic still passes with the lower score output.
+- Reverted the temporary reference and confirmed the score returned to **100/100**; no permanent changes were left in the repo.
+
 ## What We Fixed
 
 1. **Documentation (20 scripts)**
