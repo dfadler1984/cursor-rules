@@ -48,11 +48,11 @@ Fix validation issues discovered by `deep-rule-and-command-validate.sh` to resto
 
 ## 4. Acceptance Criteria
 
-- ✅ All scripts documented in `capabilities.mdc` (0/59 missing)
-- ✅ No broken references in rules (0 issues)
-- ✅ Test colocation validator passes
-- ✅ Health score ≥ 90/100
-- ✅ `deep-rule-and-command-validate.sh` exits with all validators passing
+- ✅ All scripts documented in `capabilities.mdc` (0/59 missing) — **Completed**
+- ✅ No broken references in rules (0 issues) — **Completed**
+- ✅ Test colocation validator passes — **Completed**
+- ✅ Health score ≥ 90/100 — **Achieved 100/100**
+- ✅ `deep-rule-and-command-validate.sh` exits with all validators passing — **Completed**
 
 ## 5. Risks/Edge Cases
 
