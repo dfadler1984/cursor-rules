@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19.4
+
+### Patch Changes
+
+- [#183](https://github.com/dfadler1984/cursor-rules/pull/183) [`bfb698f`](https://github.com/dfadler1984/cursor-rules/commit/bfb698fa9a9b1c9fb92da2483afd2f0bd63477fe) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Document the badge sanity-check procedure and validation steps.
+
 ## 0.19.3
 
 ### Patch Changes
