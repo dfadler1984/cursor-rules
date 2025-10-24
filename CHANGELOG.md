@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19.3
+
+### Patch Changes
+
+- [#180](https://github.com/dfadler1984/cursor-rules/pull/180) [`90dd9d0`](https://github.com/dfadler1984/cursor-rules/commit/90dd9d0313a10a70a100778438357139fc557910) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Route the repository health badge workflow updates through a pull request so README changes respect branch protections.
+
 ## 0.19.2
 
 ### Patch Changes
