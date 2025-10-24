@@ -36,11 +36,11 @@
 
 ### Additional Refinements
 
-- [ ] Define risk tiers with clear criteria and examples
-- [ ] Expand safe read-only allowlist based on common operations
-- [ ] Improve composite consent-after-plan signal detection
-- [ ] Add consent state tracking across turns
-- [ ] Create consent decision flowchart for assistant reference
+- [x] Define risk tiers with clear criteria and examples — Created `risk-tiers.md` with Tier 1/2/3 criteria, examples, decision flowchart
+- [x] Expand safe read-only allowlist based on common operations — Updated `assistant-behavior.mdc` with expanded git commands and read-only scripts
+- [x] Improve composite consent-after-plan signal detection — Created `composite-consent-signals.md` with high/medium confidence phrases, concreteness criteria, modification handling; updated `assistant-behavior.mdc`, `user-intent.mdc`, `intent-routing.mdc`
+- [x] Add consent state tracking across turns — Created `consent-state-tracking.md` with state model, persistence rules, reset conditions; added section to `assistant-behavior.mdc`
+- [x] Create consent decision flowchart for assistant reference — Created `consent-decision-flowchart.md` with comprehensive decision tree, matrix, templates
 
 ### Portability & Platform Compatibility
 
@@ -64,14 +64,17 @@
 
 ### Test Suite Development
 
-- [ ] Create consent test suite with ≥15 test cases covering:
-  - Slash command execution (no prompt)
-  - Read-only allowlist (imperative + safe command)
-  - Session allowlist (grant/revoke/query)
-  - Composite consent-after-plan
-  - Category switches
-  - Ambiguous requests
-  - Edge cases
+- [x] Create consent test suite with ≥15 test cases covering:
+  - Slash command execution (no prompt) — 4 tests
+  - Read-only allowlist (imperative + safe command) — 3 tests
+  - Session allowlist (grant/revoke/query) — 5 tests
+  - Composite consent-after-plan — 4 tests
+  - Risk tiers — 4 tests
+  - Category switches — 3 tests
+  - State tracking — 4 tests
+  - Ambiguous requests — 2 tests
+  - Edge cases — 4 tests
+  - **Total**: 33 test scenarios in `consent-test-suite.md`
 
 ### Platform Testing (If In Scope)
 
@@ -80,10 +83,11 @@
 
 ### Metrics Collection
 
-- [ ] Measure over-prompting reduction (compare before/after)
-- [ ] Verify safety maintained (zero inappropriate risky operations)
-- [ ] Track allowlist usage patterns
-- [ ] Monitor for 1-2 weeks, collect user feedback
+- [x] Set up monitoring infrastructure — Added to `ACTIVE-MONITORING.md`, created `validation-findings.md`
+- [ ] Measure over-prompting reduction (compare before/after) — Ongoing during monitoring period
+- [ ] Verify safety maintained (zero inappropriate risky operations) — Ongoing during monitoring period
+- [ ] Track allowlist usage patterns — Ongoing during monitoring period
+- [ ] Monitor for 1-2 weeks, collect user feedback — Started 2025-10-24, ends ~2025-11-07
 
 ### Documentation Updates
 

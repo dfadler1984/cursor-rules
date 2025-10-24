@@ -1,11 +1,11 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-23
+lastReviewed: 2025-10-24
 healthScore:
-  content: green # Added Context Efficiency to pre-send gate; monitoring check enforced
-  usability: green # Scannable format, practical checklists, clear grant/revoke syntax
-  maintenance: green # Recently reviewed, valid references, chat-performance tooling integrated
+  content: green # Blocking gates, label consistency check, mandatory script usage (Gap #15, #18)
+  usability: green # Explicit DO NOT SEND on FAIL, clear enforcement language
+  maintenance: green # Updated with blocking enforcement validation
 ---
 
 ## Consent-first behavior
@@ -56,12 +56,28 @@ healthScore:
   - Imperative phrasing (e.g., "run …", "show …").
   - Command is in the safe allowlist (read-only, local, non-interactive).
   - Announce the exact command in the status update before execution.
-- Initial safe allowlist (read-only git):
+- Safe allowlist (read-only operations):
+
+**Git (read-only)**:
+
 - git status
 - git status --porcelain=v1
 - git branch --show-current
+- git branch -a
 - git log -1 --oneline
+- git log --oneline -n 10
 - git diff --stat
+- git diff --name-only
+- git remote -v
+
+**Read-only scripts** (local, no modifications):
+
+- .cursor/scripts/rules-list.sh
+- .cursor/scripts/rules-validate.sh (without --autofix flag)
+- .cursor/scripts/tdd-scope-check.sh <file>
+- .cursor/scripts/project-status.sh <slug>
+- .cursor/scripts/git-context.sh --format text
+- .cursor/scripts/context-efficiency-score.sh
 
 #### High-certainty allowlist suggestions
 
@@ -115,6 +131,35 @@ healthScore:
     - `.cursor/scripts/links-check.sh --path docs/projects/_archived/<YYYY>/<slug>`
 - Category switches: standing consent covers the listed commands regardless of category switches; unrelated tools still require consent.
 
+### Consent state tracking across turns
+
+**Purpose**: Maintain consent context within workflows to avoid redundant prompts while preserving safety.
+
+**State persistence rules**:
+
+1. **Slash commands**: No state tracking (each invocation is fresh consent)
+2. **Tier 2 (moderate) operations**: Consent persists within workflow for same category
+   - Example: File edit consent → all subsequent edits in workflow don't re-ask
+   - Category switch → requires fresh consent
+3. **Tier 3 (risky) operations**: Never persist consent (always ask)
+4. **Session allowlist**: Persists until revoked or session end
+
+**State reset conditions**:
+
+- User stop commands: "stop", "wait", "cancel"
+- Workflow completion: task done, tests pass, PR created
+- Major context switch: different feature, different files
+- User correction: "that's wrong", "do it differently"
+- Error or failure: command execution failed
+
+**Visibility**:
+
+- Status updates announce consent source: "Using workflow consent for file edits (granted turn 45)"
+- Query commands: `/allowlist` shows session state with usage counts
+- Transparency: Always explain why consent requested or skipped
+
+**For full state tracking details**, see: `docs/projects/consent-gates-refinement/consent-state-tracking.md`
+
 ### Command invocation policy
 
 - Verbatim execution: When the user provides an exact command, execute it exactly as given. Do not wrap it in a shell or alter it unless explicitly requested or shell features are required.
@@ -141,8 +186,34 @@ Note: For multi-line PR descriptions passed to `.cursor/scripts/pr-create.sh` or
 
 ### Composite consent-after-plan
 
-- If the previous assistant message proposed concrete code edits and the user replies within one turn with a consent phrase (e.g., "proceed", "go ahead", "sounds good", "do it", "ship it"), treat it as an implementation directive.
-- When confidence is low, ask a single confirmation that names the TDD-first next step before acting.
+- If the previous assistant message proposed concrete code edits and the user replies in the immediate next turn with a consent phrase, treat it as an implementation directive.
+
+**High-confidence consent phrases** (execute immediately):
+
+- "go ahead", "proceed", "yes", "yep", "yeah"
+- "sounds good", "looks good", "do it", "ship it"
+- "make it so", "let's do it", "let's go"
+- "approved", "confirmed"
+
+**Medium-confidence phrases** (ask confirmation):
+
+- "ok", "okay", "sure", "fine", "that works"
+- Response: "Just to confirm, you want me to proceed with the plan?"
+
+**Plan concreteness criteria** (must meet ≥2 to qualify):
+
+1. Target specificity: Named files, functions, or components
+2. Change description: Specific edits with clear action
+3. Scope boundary: Clear start and end points
+4. Success criteria: Test expectations or validation steps
+
+**Modification handling**:
+
+- If user says "yes, but [change]" → Present updated plan and ask "Proceed with this adjusted version?"
+- If user says "do the first part" → Ask "Should I proceed with [specified subset] only?"
+- If plan is >3 turns old or topic changed → Don't treat as composite consent
+
+**For full signal detection details**, see: `docs/projects/consent-gates-refinement/composite-consent-signals.md`
 
 ## Minimal prompting style
 
@@ -216,7 +287,7 @@ Pre-Send Gate:
 - [ ] Status: included?
 - [ ] TODOs: reconciled?
 - [ ] Consent: obtained?
-- [ ] TDD: spec updated? (if impl edits)
+- [ ] TDD: test file exists? (if creating/editing impl sources)
 - [ ] Scripts: checked capabilities.mdc?
 - [ ] Monitoring: checked ACTIVE-MONITORING.md? (if documenting finding)
 - [ ] Changesets: included? (if PR with code/rules/docs edits)
@@ -237,15 +308,46 @@ Then verify each item:
   - Example: "Status: All changes committed. Verification: `git status --porcelain` → (empty). Working tree clean."
 - **TODOs**: reconciled before starting a new step and immediately after completing one.
 - **Consent**: first command per tool category obtained with exact commands listed; allowlist honored.
-- **TDD gate**: for implementation edits, owner spec added/updated (Red → Green → Refactor) or explicit blocker stated.
+- **TDD gate**: for implementation sources, test file must exist or be created in same batch.
+  - File pairing required:
+    - Creating/editing `*.sh` → `*.test.sh` must exist or be in same batch
+    - Creating/editing `*.ts` (not `*.mdc`) → `*.test.ts` OR `*.spec.ts` must exist or be in same batch
+    - Creating/editing `*.tsx` → `*.test.tsx` OR `*.spec.tsx` must exist or be in same batch
+  - Exemptions: `*.mdc`, `*.md`, `.lib*.sh`, `*.test.*`, `*.spec.*`, `*.config.*`
+  - If source file without test file: Gate = FAIL
+  - FAIL action: DO NOT SEND MESSAGE, show error with file name and expected test file
+  - Error template: "Cannot create/edit <file> without test file. Create <test-file> first (Red → Green → Refactor)."
+  - No exceptions: Test file requirement is absolute (no "or explicit blocker" escape hatch)
 - **Scripts**: before git/terminal commands, checked capabilities.mdc for repo scripts; used script if available. OUTPUT: "Checked capabilities.mdc for [operation]: [found <path> | not found]"
+  - **MANDATORY** (BLOCKING): If script exists for operation → MUST use script; direct API/command bypass → FAIL
+  - Gap #18 validated: Script-first violations occur even with alwaysApply rules
+  - Enforcement: Make query visibility + script usage mandatory, not advisory
 - **Monitoring**: when documenting investigation findings, checked ACTIVE-MONITORING.md for correct project scope; OUTPUT shown with category and target project. See: `docs/projects/ACTIVE-MONITORING.md`
 - **Changesets**: when preparing PR with code/rules/docs edits, changeset included OR explicit skip consent with `skip-changeset` label. Default: include changeset.
+  - **Label consistency check** (BLOCKING): If changeset created after PR → verify `skip-changeset` label removed
+  - If changeset present AND `skip-changeset` label present → FAIL (contradictory state)
+  - Correction: Use `.cursor/scripts/pr-labels.sh --pr <number> --remove skip-changeset`
 - **Context Efficiency**: assess signals (scope concreteness, rules count, clarification loops, user issues); if score ≤3 or ≥2 signals true, include gauge line in status. See: `context-efficiency.mdc` for scoring rubric.
 - **Pattern observation**: if 3+ instances of new pattern detected, queue improvement proposal for next checkpoint.
 - **Messaging**: bullets and short sections; code citations follow repo rules.
 
-**If any item fails**: Mark gate as FAIL, revise the message, re-check, do not send until PASS.
+**If any item fails**: Mark gate as FAIL. **DO NOT SEND MESSAGE**. Revise the violation, re-check all items, repeat until PASS.
+
+**Blocking enforcement** (Gap #15 validated):
+
+- Gate failures MUST halt message send
+- Visible gates create transparency but don't prevent violations
+- Blocking gates force correction before proceeding
+- No exceptions: If gate FAIL, revise first, then re-check
+
+**File pairing enforcement** (Gap #22 validated):
+
+- Creating/editing impl sources requires test file present or in same batch
+- Scope gap fixed: Covers both "creating" AND "editing" (not just editing)
+- Escape hatch removed: No "or explicit blocker" bypass
+- Mechanical prevention: FAIL = message blocked, must create test first
+- Pattern validated: Gaps #18, #22 were NEW file creation without tests → gate didn't trigger
+- Solution deployed: Gate now covers file creation, prevents TDD violations mechanically
 
 ### Changesets (default behavior)
 
@@ -267,7 +369,7 @@ Then verify each item:
 
 ## TDD pre-edit gate (all maintained sources)
 
-- Before editing any maintained source (see scope in `.cursor/rules/tdd-first.mdc`), provide a TDD confirmation with:
+- Before creating or editing any maintained source (see scope in `.cursor/rules/tdd-first.mdc`), provide a TDD confirmation with:
 
   - The owner spec/test path(s) to add/update (colocated next to each changed source)
   - A one-line failing assertion/expectation for each owner spec

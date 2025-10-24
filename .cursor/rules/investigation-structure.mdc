@@ -2,11 +2,11 @@
 description: Investigation project documentation structure and organization standards
 globs: docs/projects/**/*.md
 alwaysApply: false
-lastReviewed: 2025-10-20
+lastReviewed: 2025-10-24
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
+  content: green # Clear structure guidance with explicit OUTPUT requirement
+  usability: green # Decision tree and threshold guidance
+  maintenance: green # Updated with Gap #12 enforcement (explicit OUTPUT)
 ---
 
 # Investigation Documentation Structure
@@ -16,9 +16,18 @@ healthScore:
 **When to use**: Multi-hypothesis investigations with substantial documentation  
 **When NOT to use**: Simple projects with <10 files (use basic README/erd/tasks)
 
-## Pre-File-Creation Checklist
+## Pre-File-Creation Checklist (MUST OUTPUT)
 
-**Before creating any new file in an investigation project**, determine category:
+**Before creating any new file in an investigation project**, OUTPUT:
+
+```
+Creating: [filename]
+Category: [analysis|findings|sessions|decisions|protocols|guides|root]
+Destination: [full path]
+Root file count after: [number] (threshold: ≤7)
+```
+
+**Category decision tree**:
 
 - **Session summary**? → `sessions/YYYY-MM-DD.md`
 - **Analysis document**? → `analysis/<topic>.md` (or `analysis/<topic>/` if 3+ related files)
@@ -31,14 +40,18 @@ healthScore:
 
 **Default**: If unsure, put in `analysis/` and reorganize later if folder warranted.
 
+**Rationale**: Explicit OUTPUT requirement prevents structure violations (Gap #12 - validated through investigation experience)
+
 ## Root Files (Keep Minimal)
 
 **Always present** (baseline):
+
 - `README.md` - Entry point, navigation
 - `erd.md` - Requirements and scope
 - `tasks.md` - Execution tracking
 
 **Optional root files** (case-by-case):
+
 - `coordination.md` - For umbrella projects with sub-projects
 - `MONITORING-PROTOCOL.md` - High-level operational protocol
 - `findings.md` - Simple projects with 1-3 findings (use `findings/README.md` for 5+)
@@ -48,36 +61,44 @@ healthScore:
 ## Folder Structure
 
 ### findings/
+
 **Purpose**: Individual finding documents  
 **Pattern**: `gap-##-<short-name>.md`  
 **Example**: `gap-07-documentation-before-execution.md`
 
 ### analysis/
+
 **Purpose**: Deep analysis of investigation topics  
 **Flat when small**: `<topic>-analysis.md`  
 **Subfolder when 3+ files**: `<topic>/analysis.md`, `<topic>/patterns.md`, etc.
 
 ### sessions/
+
 **Purpose**: Session summaries (chronological work logs)  
 **Pattern**: `YYYY-MM-DD.md` or `YYYY-MM-DD-<topic>.md`
 
 ### test-results/
+
 **Purpose**: Data from executing tests  
 **Structure**: Organize by hypothesis (`h1/`, `h2/`, etc.)
 
 ### decisions/
+
 **Purpose**: Decision documents with options and rationale  
 **Pattern**: `<topic>-decision.md`
 
 ### protocols/
+
 **Purpose**: Test and validation protocols (how to execute)  
 **Pattern**: `<hypothesis>-protocol.md`
 
 ### guides/
+
 **Purpose**: Reference guides for using project outputs  
 **Example**: `ci-integration-guide.md`
 
 ### tests/
+
 **Purpose**: Test plan templates (reusable methodologies)  
 **Keep as-is**: This folder structure works well
 
@@ -101,6 +122,7 @@ healthScore:
 ### Self-Check Before Creating File
 
 Ask:
+
 1. What category is this file? (analysis/findings/sessions/etc)
 2. Does that folder exist? (if not, create it)
 3. Will root have >7 files after this? (if yes, reorganize)
@@ -108,6 +130,7 @@ Ask:
 ### Validation
 
 **Manual check**:
+
 ```bash
 # Count root files (should be ≤7)
 ls docs/projects/<project>/*.md | wc -l

@@ -174,7 +174,7 @@ if [ "$warnings" -gt 0 ]; then
     printf '  EXIT_USAGE=2, EXIT_CONFIG=3, EXIT_DEPENDENCY=4,\n' >&2
     printf '  EXIT_NETWORK=5, EXIT_TIMEOUT=6, EXIT_INTERNAL=20\n' >&2
     printf '\n' >&2
-    printf 'See: docs/projects/_archived/2025/shell-and-script-tooling/erd.md D3\n' >&2
+    printf 'See: .cursor/docs/standards/shell-exit-codes.md\n' >&2
     exit 1
   else
     # Without flag, just warn

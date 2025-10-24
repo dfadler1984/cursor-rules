@@ -82,9 +82,11 @@
 16. **[Gap #16](gap-16-findings-readme-bloat.md)** — findings/README.md bloat (full details vs individual files)
 17. **[Gap #17](gap-17-reactive-documentation-proactive-failure.md)** — Reactive documentation (alwaysApply rule violated during routing-optimization)
 
-**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16, #17, #18 = **11 total violations**
+**Evidence**: Gaps #7, #9×3, #11, #12, #13, #14, #15, #16, #17, #18, #22, #23 = **13 total violations**
 
-**Validates Core Finding**: Advisory guidance, visible gates, even AlwaysApply violated without blocking enforcement
+**Validates Core Finding**: Advisory guidance, visible gates, even AlwaysApply AND blocking enforcement violated without multi-dimensional checks
+
+**Latest Validation (Gap #23)**: **5 minutes after deploying blocking TDD enforcement (Gap #22 fix)**, modified project-archive-ready.sh without updating tests first. Blocking gate checked file existence (✅ test file exists) but NOT temporal ordering (❌ test not updated first). **Proves**: File pairing check insufficient; need temporal ordering + modification tracking.
 
 **Gap #17 Significance**: Discovered during routing-optimization Phase 3; validates that AlwaysApply insufficient for complex multi-step behaviors (proactive documentation pattern)
 
@@ -92,7 +94,43 @@
 
 **Gap #18**: Script-first bypass (used curl instead of pr-labels.sh) + TDD violation (pr-labels.sh had no tests)
 
-### Proposed for Phase 6G (Gaps #12-18) ⏸️
+**Gap #22**: **TDD violation pattern** — Created `project-archive-ready.sh` (255 lines) WITHOUT tests despite:
+
+- ✅ `tdd-first.mdc` alwaysApply loaded
+- ✅ Shell scripts explicitly in TDD scope
+- ✅ Working on rule enforcement project (routing-optimization)
+- ✅ User repeatedly pointing out violations
+- ❌ **Still implemented before testing**
+- **Validates**: Visible gates insufficient; need blocking enforcement
+- **See**: [gap-22-tdd-violation-pattern-archive-ready.md](gap-22-tdd-violation-pattern-archive-ready.md), [gap-22-quick-analysis.md](gap-22-quick-analysis.md)
+
+**Pattern Summary**: Gaps #15, #17, #18, #22 all show **execution failures** (rules loaded but violated) despite maximum awareness and visible gates
+
+### Historical/Fixed Gaps (Cross-Project Patterns) 📚
+
+**Pattern**: Gaps observed in other projects but documented here for pattern analysis
+
+**Gap #12 Variants** (ERD/Tasks Separation):
+
+- **[gap-12-audit-results-historical-audit-2025-10-22.md](gap-12-audit-results-historical-audit-2025-10-22.md)** — Repository-wide audit (172 violations across 19 projects)
+- **[gap-12-erd-task-separation-fixed-2025-10-22.md](gap-12-erd-task-separation-fixed-2025-10-22.md)** — consent-gates-refinement specific violation (FIXED)
+- **[gap-12-summary-historical-audit.md](gap-12-summary-historical-audit.md)** — Audit summary and corrective actions
+
+**Other Historical Gaps**:
+
+- **[gap-13-document-proliferation-fixed-2025-10-22.md](gap-13-document-proliferation-fixed-2025-10-22.md)** — consent-gates-refinement (6 docs → consolidated, FIXED)
+- **[gap-14-script-bypass-on-error-fixed-2025-10-22.md](gap-14-script-bypass-on-error-fixed-2025-10-22.md)** — PR #155 script bypass (FIXED, pattern documented)
+- **[gap-19-incomplete-git-status-verification-historical-core-values.md](gap-19-incomplete-git-status-verification-historical-core-values.md)** — core-values project (archived)
+- **[gap-20-changelog-manual-edit-fixed-2025-10-23.md](gap-20-changelog-manual-edit-fixed-2025-10-23.md)** — Manual CHANGELOG edit (FIXED, changesets workflow enforced)
+- **[gap-21-empty-final-summaries-fixed-2025-10-23.md](gap-21-empty-final-summaries-fixed-2025-10-23.md)** — collaboration-options archival (FIXED)
+
+**Implementation Guide**:
+
+- **[gap-17-enforcement-recommendation-implementation-guide.md](gap-17-enforcement-recommendation-implementation-guide.md)** — Three-tier enforcement for ACTIVE-MONITORING.md (implemented)
+
+**Value**: These gaps validate enforcement patterns across multiple projects and provide evidence for rules improvements
+
+### Proposed for Phase 6G (Gaps #12-18 Active Investigation Gaps) ⏸️
 
 **Status**: Tracked in tasks.md Phase 6G (tasks 24.0-32.0)
 

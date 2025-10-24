@@ -1,11 +1,11 @@
 ---
 description: Project lifecycle — completion policy and validation (canonical; ERDs link here)
 alwaysApply: false
-lastReviewed: 2025-10-16
+lastReviewed: 2025-10-24
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
+  content: green # Includes findings review checkpoint, task naming guidance
+  usability: green # Clear completion criteria and lifecycle stages
+  maintenance: green # Updated with Gap #13, #14 improvements
 ---
 
 # Project Lifecycle — Completion Policy and Validation
@@ -108,6 +108,12 @@ Cannot proceed to "Complete (Active)" if ANY item is unchecked:
 - [ ] **Archive validation passing**
   - `.cursor/scripts/project-lifecycle-validate-scoped.sh <slug>` passes
   - OR manual checklist below complete
+- [ ] **Findings Review Checkpoint** (For investigation projects only)
+  - Review all findings documents for duplicates and redundancy
+  - Extract all proposed actions from findings into tasks
+  - Identify any sub-projects or carryovers from findings
+  - Ensure findings lead to actionable improvements
+  - **Rationale**: Prevents findings proliferation and ensures documentation results in improvements (Gap #14)
 
 **If ANY item unchecked**: Project is NOT complete. Update status to reflect actual stage (Implementation, Validation, Synthesis, Approval).
 
@@ -342,6 +348,15 @@ Update `docs/projects/README.md`: move entry from Active to Completed, point to 
 - Task checkboxes (- [ ] or - [x])
 - Sub-tasks indented under parents
 - Carryovers section (if applicable) with justifications
+
+**Task Naming Guidance** (Specificity Required):
+
+- **Bad**: "Create final summary" (ambiguous - new file or enhance existing?)
+- **Good**: "Enhance README.md with executive summary section"
+- **Bad**: "Write completion document" (vague)
+- **Good**: "Update README.md status section with completion details"
+- **Principle**: Task names should specify file/location, not just intent
+- **Why**: Prevents accidental file proliferation and clarifies expected action (Gap #13)
 
 **Must Exclude** (Put These Elsewhere):
 

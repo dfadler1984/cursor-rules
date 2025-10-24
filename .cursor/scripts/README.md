@@ -85,7 +85,7 @@ Scripts degrade gracefully when these are absent.
 
 ## Architecture
 
-See [shell-and-script-tooling ERD](../../docs/projects/_archived/2025/shell-and-script-tooling/erd.md) for:
+See shell script standards documentation for:
 
 - Cross-cutting decisions (D1-D6)
 - Portability policy

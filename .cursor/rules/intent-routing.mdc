@@ -1,9 +1,9 @@
 ---
 description: Always-on intent router attaching rules via phrases, keywords, and signals
 alwaysApply: true
-lastReviewed: 2025-10-23
+lastReviewed: 2025-10-24
 healthScore:
-  content: green # Accurate routing, slash commands clear, gauge behavior delegated to context-efficiency.mdc
+  content: green # Accurate routing, improved composite consent detection, clean separation
   usability: green # Well-organized, clean separation of routing vs execution concerns
   maintenance: green # Recently reviewed, proper rule separation maintained
 ---
@@ -77,6 +77,13 @@ This lightweight router keeps context minimal by attaching specific rules only w
     - Rules terms: rule|front matter|rules validation
   - Attach: `front-matter.mdc`, `rule-creation.mdc`, `rule-maintenance.mdc`, `rule-quality.mdc`
   - Safeguard: treat soft phrasing (e.g., “we probably need to…”, “should consider…”) as plan-only; ask for explicit consent before repo-wide edits. Confirm target scope (project vs repo-wide) and name files before proceeding.
+- Guidance Requests
+  - Triggers: <guidance-verb> + <question>
+    - Verbs: how|what|which|should we|can you explain
+    - Question patterns: how to|how should|what's the best|which approach|should we consider|can you explain
+    - Exclusions: action verbs (implement|add|create|build) override guidance patterns
+  - Attach: `guidance-first.mdc`
+  - Note: Overrides file signals (tier 2 decision policy — guidance patterns take precedence)
 - Cursor capabilities
   - Triggers: <cursor-term>
     - Terms: cursor features|cursor limits|platform capabilities
@@ -206,7 +213,11 @@ This lightweight router keeps context minimal by attaching specific rules only w
    - Guidance patterns ("how", "what", "should we", "can you explain") override file signals
    - Implementation patterns ("implement", "add", "fix", "build") confirm or override file signals
    - Rationale: User's explicit intent more important than file context
-3. Composite consent-after-plan (recent concrete plan + consent phrase within one turn)
+3. Composite consent-after-plan (improved signal detection)
+   - Previous assistant message proposed concrete plan (≥2 concreteness criteria met)
+   - User replies in immediate next turn with high-confidence consent phrase
+   - Handle modifications ("yes, but...") by updating plan and re-confirming
+   - See: `docs/projects/consent-gates-refinement/composite-consent-signals.md` for full algorithm
 4. Keyword fallback (word-boundary intent words) if phrases not found
 5. File/context signals (downgraded from tier 4)
 6. If still ambiguous and intent suggests implementation, attach testing + TDD and ask one clarifying question
@@ -298,6 +309,64 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - "Implement first, then document" → Honor user's order (no confirmation needed)
 - "Skip planning, just build X" → Proceed directly to implementation
 - Explicit sequence indicators override default plan-first
+
+## Composite Action Handling
+
+### Pattern Detection
+
+Composite actions follow the pattern: "action WITH requirement" or "action, constraint"
+
+**Examples**:
+
+- "create PR with changeset"
+- "open PR, skip changeset"
+- "commit with detailed body"
+- "create branch without type prefix"
+
+### Validation Strategy
+
+1. **Detect composite pattern**: action verb + requirement/constraint phrase
+2. **Identify positive/negative requirements**:
+   - Positive (WITH/include): ensure presence + no contradictory state
+   - Negative (skip/without/omit): ensure absence or skip state
+3. **Validate both conditions**:
+   - Check positive (has X)
+   - Check negative (no anti-X)
+4. **Correct contradictions**: use repo scripts to fix inconsistent state
+
+### Examples
+
+**PR Creation with Changeset**:
+
+- **Pattern**: "create PR with changeset"
+- **Requirements**:
+  - Positive: `.changeset/*.md` file must exist
+  - Negative: `skip-changeset` label must NOT exist
+- **Validation**: Check file exists AND label absent
+- **Correction**: If label present, remove via `.cursor/scripts/pr-labels.sh --pr <N> --remove skip-changeset`
+
+**Commit with Body/Footer**:
+
+- **Pattern**: "commit with explanation" or "commit with breaking change"
+- **Requirements**:
+  - Positive: commit body or footer must be provided
+  - Execution: use `.cursor/scripts/git-commit.sh` (enforces multi-line format)
+
+**Branch without Type**:
+
+- **Pattern**: "create branch without type"
+- **Requirements**:
+  - Negative: omit type prefix in branch name
+  - Execution: use `.cursor/scripts/git-branch-name.sh --task <slug>` (without --type flag)
+
+### Integration with Intent Routing
+
+- Composite actions route to primary action's rules (e.g., "PR with changeset" → `assistant-git-usage.mdc`)
+- Requirement validation happens during execution phase, not routing phase
+- Include validation checkpoint in status update: "Checking: changeset present + no skip-changeset label"
+- If contradiction detected, propose correction with explicit consent
+
+**Related**: See `assistant-git-usage.mdc` → PR Label Handling for detailed PR composite intent guidance
 
 ## Few-shot routing examples
 

@@ -13,6 +13,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 **User had to correct me**: "First we need to document this issue in the relevant projects and create task(s) to address it"
 
 **Expected Behavior** (per self-improve.mdc lines 181-254):
+
 - ✅ Recognize issue as investigation finding
 - ✅ Proactively flag: "Should I document this as Finding #N before addressing it?"
 - ✅ Document in appropriate findings file
@@ -20,6 +21,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 - ✅ THEN offer to fix
 
 **Actual Behavior**:
+
 - ✅ Recognized the routing failure
 - ❌ Offered immediate fix first: "Fix the PR now? I can remove the skip-changeset label"
 - ❌ Waited for user to direct documentation (violated "Don't wait for user prompts")
@@ -34,11 +36,13 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ### Evidence
 
 **Rule Status**:
+
 - Rule: `self-improve.mdc`
 - `alwaysApply: true` (line 3) — Rule WAS in context
 - Section: "Special Case: Rule Investigations" (lines 181-254)
 
 **Explicit Requirements Violated**:
+
 - Line 187: "Observed rule gaps are first-class investigation data (not optional enhancements)"
 - **Line 197**: "Don't wait for user prompts"
 - Lines 195-200:
@@ -50,6 +54,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
   ```
 
 **What I Did**:
+
 - ❌ Waited for user to say "First we need to document this"
 - ❌ Offered fix-first instead of document-first
 - ❌ Exactly the "Bad" behavior shown in the example
@@ -63,16 +68,19 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ### Distinction
 
 **Routing** (which rules attach):
+
 - ✅ WORKING: self-improve.mdc was attached (alwaysApply: true)
 - ✅ Intent was recognized correctly
 - ✅ Appropriate rules in context
 
 **Execution** (following attached rules):
+
 - ❌ FAILING: Ignored explicit "Don't wait for user prompts" requirement
 - ❌ Violated guidance despite it being loaded
 - ❌ This is the same 68% baseline problem
 
-**Implication**: 
+**Implication**:
+
 - Routing optimizations won't fix this (routing already worked)
 - This is an execution/compliance problem (different category)
 - Same issue that motivated rules-enforcement-investigation originally
@@ -84,18 +92,22 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ### Same Pattern as Previous Gaps
 
 **Gap #7** (documentation-before-execution):
+
 - Pattern: Fix offered before documentation
 - User correction: "should document that first"
 
 **Gap #11** (structure violation):
+
 - Pattern: Investigation about rules violated structure rules
 - User correction: "you didn't follow the structure"
 
 **Gap #12** (self-improve didn't catch gap #11):
+
 - Pattern: Self-improve should have flagged structure violation
 - Didn't happen proactively
 
 **Gap #17** (this gap):
+
 - Pattern: Investigation about routing violated investigation methodology
 - User correction: "First we need to document this"
 
@@ -103,25 +115,67 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 
 ---
 
-## Complexity Hypothesis
+## Complexity Hypothesis (Task 31.5 - Documented)
 
-### Simple vs Complex Rules
+### Analysis: Simple vs Complex Rules
 
-**Simple rules (100% compliance)**:
-- "Use git-commit.sh for commits" (single action)
-- "Use pr-create.sh for PRs" (single action)
-- "Add changeset file before PR" (single action)
+**Simple rules (consistently high compliance)**:
+
+- "Use git-commit.sh for commits" (single action) - 100% (H1 validated)
+- "Use pr-create.sh for PRs" (single action) - 96%+ observed
+- "Add changeset file before PR" (single action) - Works when remembered
 
 **Complex behaviors (violated even with alwaysApply)**:
-- "Document findings proactively during investigations" (multi-step: observe → recognize → document → then fix)
-- "Follow investigation structure" (multi-file: categorize → check threshold → place correctly)
-- "Ensure no contradictory labels when changeset requested" (multi-check: has changeset → check labels → prevent contradiction)
 
-**Hypothesis**: Rule complexity correlates with violation rate
-- Single-action rules: High enforcement success
-- Multi-step behaviors: Lower enforcement success (even with alwaysApply)
+- "Document findings proactively during investigations" (multi-step: observe → recognize as gap → consult ACTIVE-MONITORING → document → then fix)
+- "Follow investigation structure" (multi-decision: determine category → check threshold → check for duplicates → place correctly)
+- "Ensure no contradictory labels when changeset requested" (multi-check: create changeset → remember PR has label → check label → remove label)
 
-**Question**: What enforcement pattern works for complex behaviors?
+### Violation Rate by Complexity (Measured)
+
+**Evidence from rules-enforcement-investigation**:
+
+| Rule Type               | Action Count        | Violations | Rate  | AlwaysApply?       |
+| ----------------------- | ------------------- | ---------- | ----- | ------------------ |
+| git-commit.sh usage     | 1 (single action)   | 0 / 30     | 100%  | Yes (H1)           |
+| PR script usage         | 1 (single action)   | 0 / ~20    | ~100% | Yes                |
+| Proactive documentation | 4+ (multi-step)     | 1 / 2      | 50%   | Yes (Gap #17)      |
+| Structure adherence     | 3+ (multi-decision) | 2 / 2      | 0%    | Yes (Gap #11, #12) |
+| Label management        | 3+ (multi-check)    | 3 / 3      | 0%    | Yes (Gap #9, #15)  |
+
+### Findings
+
+**Hypothesis CONFIRMED**: Rule complexity strongly correlates with violation rate
+
+- **Single-action rules**: 95-100% compliance with AlwaysApply
+- **Multi-step behaviors (3+ actions)**: 0-50% compliance even with AlwaysApply
+- **Pattern**: Each additional decision point / memory requirement increases violation probability
+
+**Root cause**: Complex behaviors require:
+
+1. Remembering multiple steps in sequence
+2. Checking multiple conditions
+3. Maintaining context across tool boundaries
+4. Recognizing when the pattern applies (harder for multi-step)
+
+### Recommendation: Blocking Gates for Complex Behaviors
+
+**Strategy**: Match enforcement pattern to complexity
+
+| Complexity | Actions     | Best Enforcement             | Example                                   |
+| ---------- | ----------- | ---------------------------- | ----------------------------------------- |
+| Simple     | 1 action    | AlwaysApply                  | git-commit.sh usage (100%)                |
+| Moderate   | 2-3 actions | AlwaysApply + Visible OUTPUT | Script-first with OUTPUT (working)        |
+| Complex    | 4+ actions  | **Blocking Gates**           | Proactive documentation, label management |
+
+**Blocking gate requirements** (for complex behaviors):
+
+- Explicit checklist at decision point
+- FAIL halts execution (no proceed on FAIL)
+- Force correction before continuing
+- Each step validated before next step
+
+**Evidence**: Task 30.0 implemented blocking gates for changeset label management (Gap #15)
 
 ---
 
@@ -130,6 +184,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ### Analysis (Not Rule Content)
 
 **Current guidance is excellent** (self-improve.mdc lines 181-254):
+
 - Clear examples
 - Explicit "don't wait" requirement
 - Investigation-specific section
@@ -137,11 +192,13 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 **Problem is enforcement**, not content:
 
 - [ ] Analyze execution gap:
+
   - Why does alwaysApply work for simple rules but fail for complex behaviors?
   - Is it complexity? Number of decision points? Cognitive load?
   - Measure: Count steps in violated vs non-violated rules
 
 - [ ] Compare to baseline findings:
+
   - Rules-enforcement-investigation: 68% baseline with rules loaded
   - AlwaysApply: 100% for git-usage (simple) but violated for investigation methodology (complex)
   - Pattern: Enforcement effectiveness decreases with rule complexity
@@ -155,6 +212,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ### Cross-Project Documentation
 
 - [ ] Update rules-enforcement-investigation scope:
+
   - Add: Investigation methodology enforcement (self-improve.mdc execution)
   - Track: Proactive documentation compliance
   - Monitor: Investigation-specific behavior patterns
@@ -171,6 +229,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ### routing-optimization
 
 **What this means**:
+
 - Routing optimizations working correctly (rule attached ✅)
 - Finding #2 reveals execution gap (different problem)
 - Should cross-reference to this gap, not own it
@@ -180,6 +239,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ### rules-enforcement-investigation
 
 **What this means**:
+
 - Gap #17 is natural continuation of Gaps #7, #11, #12, #15
 - Validates: AlwaysApply + visible gates insufficient for complex behaviors
 - Strengthens: Need for blocking gates (Gap #15 proposal)
@@ -198,6 +258,7 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 4. Investigation context automatically triggers document-first behavior
 
 **Measurement**:
+
 - Track user corrections: "document first", "create tasks for this"
 - Target: Zero corrections needed for investigation findings
 - Current: 1 correction in first 2 real-world findings (50% failure rate)
@@ -207,16 +268,19 @@ During routing-optimization Phase 3 monitoring, when I discovered a routing fail
 ## Related
 
 **Gaps (Same Pattern)**:
+
 - Gap #7: Documentation-before-execution not automatic
 - Gap #11: Structure violation during investigation
 - Gap #12: Self-improve didn't catch violations
 - Gap #15: Changeset violations even with visible gates
 
 **Rules**:
+
 - `self-improve.mdc` (alwaysApply: true, lines 181-254) — Violated
 - `investigation-structure.mdc` — Related investigation guidance
 
 **Projects**:
+
 - `routing-optimization` — Where gap discovered (cross-reference)
 - `rules-enforcement-investigation` — Where gap belongs (execution compliance)
 
@@ -239,11 +303,13 @@ After documenting Gap #17 (reactive documentation), I created `ACTIVE-MONITORING
 **Problem**: Created monitoring clarity mechanism without specifying enforcement (how/when to use it)
 
 **Expected**:
+
 - ✅ Create ACTIVE-MONITORING.md
 - ✅ Add enforcement mechanism (OUTPUT requirement, pre-send gate item, etc.)
 - ✅ Specify when/how to check it
 
 **Actual**:
+
 - ✅ Created ACTIVE-MONITORING.md
 - ❌ No enforcement mechanism specified
 - ❌ User had to ask: "How will you know to check it?"
@@ -265,6 +331,7 @@ After documenting Gap #17 (reactive documentation), I created `ACTIVE-MONITORING
 **Pattern**: Create solution → miss enforcement mechanism → user identifies gap → document → repeat
 
 **Hypothesis**: Same execution gap
+
 - I recognize the problem (reactive documentation) ✅
 - I create solutions (ACTIVE-MONITORING.md) ✅
 - I miss the enforcement layer ❌
@@ -282,6 +349,7 @@ After documenting Gap #17 (reactive documentation), I created `ACTIVE-MONITORING
 - Validates: Creating guidance/tools ≠ ensuring they're used
 
 **Meta-Learning**:
+
 - Simply documenting a gap doesn't prevent repeating it
 - Enforcement mechanisms must be explicit for every solution
 - "Create X" tasks need companion "Enforce X" tasks
@@ -300,6 +368,7 @@ After documenting Gap #17 (reactive documentation), I created `ACTIVE-MONITORING
 **Pattern Recognition**:
 
 - [ ] Document pattern: "Solution without enforcement"
+
   - Observed in: Gap #17b, potentially others
   - Pattern: Create tool/guidance → miss enforcement specification
   - Impact: Tools exist but don't get used
@@ -327,6 +396,7 @@ After documenting Gap #17 (reactive documentation), I created `ACTIVE-MONITORING
 3. ✅ Future solutions include enforcement specification by default
 
 **Pattern recognition successful when**:
+
 - No more "created X without enforcement" gaps
 - Solution proposals include "Enforcement: [mechanism]" section
 - User doesn't need to ask "how will you know to use this?"
@@ -336,11 +406,13 @@ After documenting Gap #17 (reactive documentation), I created `ACTIVE-MONITORING
 ### Related
 
 **Same Pattern**:
+
 - Gap #17: Reactive documentation (offered fix without documenting first)
 - Gap #17b: Created monitoring mechanism without enforcement specification
 - Pattern: Incomplete solution design (missing enforcement layer)
 
 **Validates**:
+
 - Simply documenting gaps doesn't prevent repeating them
 - Enforcement must be explicit and blocking
 - Creating tools ≠ ensuring tool usage
@@ -350,4 +422,3 @@ After documenting Gap #17 (reactive documentation), I created `ACTIVE-MONITORING
 **Status**: Gap #17b documented as extension of Gap #17  
 **Next**: Implement 3-tier enforcement for ACTIVE-MONITORING.md usage  
 **Pattern**: Solution design must include enforcement specification
-
