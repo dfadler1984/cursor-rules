@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19.2
+
+### Patch Changes
+
+- [#177](https://github.com/dfadler1984/cursor-rules/pull/177) [`026af50`](https://github.com/dfadler1984/cursor-rules/commit/026af50d3960f8176aa7d85b647ef597622a1bb8) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix repo health badge script to read score from the correct line
+
 ## 0.19.1
 
 ### Patch Changes
