@@ -31,7 +31,11 @@ healthScore:
   - Performs cross-validation (rules → scripts, scripts → capabilities)
   - Calculates health scores by category (rules, scripts, docs, tests)
   - Flags: `--fix` (auto-repair), `--report` (JSON output), `--score-only`, `--fail-threshold N`
-- Update repository health badge: `[.cursor/scripts/repo-health-badge.sh](.cursor/scripts/repo-health-badge.sh)`
+- Generate static SVG health badge: `[.cursor/scripts/health-badge-generate.sh](.cursor/scripts/health-badge-generate.sh)`
+  - Generates static SVG badge from validation output
+  - Color mapping: green (90-100), yellow (70-89), red (<70)
+  - Flags: `--output <path>`, `--dry-run`, `--extract-score`, `--map-color <score>`
+- Update repository health badge (shields.io): `[.cursor/scripts/repo-health-badge.sh](.cursor/scripts/repo-health-badge.sh)`
   - Runs deep validation and extracts health score
   - Generates shields.io badge URL with color mapping (red <70, yellow 70-89, green 90-100)
   - Updates README.md with badge markdown
