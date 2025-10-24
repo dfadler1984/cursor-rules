@@ -57,6 +57,52 @@
 
 ---
 
+## Nested Project Dependencies
+
+This umbrella project requires completion of nested topic projects:
+
+### Templates Project
+
+See [`templates/tasks.md`](templates/tasks.md) for:
+
+- Document inventory (ERDs, specs, plans, tasks, ADRs, READMEs, PR descriptions)
+- Template vs guidance decision matrix
+- Draft templates for selected types
+
+**Status**: In progress (inventory + drafts)
+
+### README Structure Project
+
+See [`readme/tasks.md`](readme/tasks.md) for:
+
+- Root README skeleton definition
+- Content inventory and mapping
+- README outline with links to canonical docs
+
+**Status**: Planning (structure definition)
+
+### Lifecycle Metadata Project
+
+See [`lifecycle/tasks.md`](lifecycle/tasks.md) for:
+
+- Front matter schema (status lifecycle, completion evidence, versioning)
+- Validation rules for completion gates
+- Worked examples
+
+**Status**: Planning (schema definition)
+
+## Overall Project Completion
+
+This umbrella project is complete when:
+
+- [ ] ✅ Policy rule created (`.cursor/rules/document-governance.mdc`)
+- [ ] ✅ Consent gate integrated with pre-send gate
+- [ ] ✅ All nested projects complete:
+  - [ ] Templates: Inventory + decision matrix + drafts
+  - [ ] README: Skeleton + content map + outline
+  - [ ] Lifecycle: Schema + validation rules + examples
+- [ ] ✅ Validation tooling created (optional Phase 3)
+
 ## Relevant Files
 
 - `.cursor/rules/document-governance.mdc` — Policy rule (to be created)
@@ -65,3 +111,6 @@
 - `.cursor/rules/investigation-structure.mdc` — Investigation structure guidance
 - `docs/projects/_examples/` — Example project structures
 - `.cursor/scripts/validate-document-governance.sh` — Audit script (to be created, Phase 3)
+- `docs/projects/document-governance/templates/` — Template standards
+- `docs/projects/document-governance/readme/` — README structure
+- `docs/projects/document-governance/lifecycle/` — Completion metadata

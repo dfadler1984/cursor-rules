@@ -23,9 +23,29 @@ Define role modes (Director, Manager, Engineer, Detective) and intent routing to
 
 ## 4. Acceptance Criteria
 
+### Core Requirements
+
 - Triggers list with examples per role
 - Per-role posture checklist (e.g., TDD gate in Engineer)
 - Transition rules documented; ambiguity resolution policy stated
+
+### Nested Sub-Project
+
+This project includes phase-mapping as an extension:
+
+**Phase Mapping** (`phase-mapping/`)
+
+- Status: New (drafted)
+- Scope: Align role guidance with Spec-Driven phases
+- Links: [`phase-mapping/erd.md`](phase-mapping/erd.md), [`phase-mapping/tasks.md`](phase-mapping/tasks.md)
+- Dependency: Requires core role definitions complete
+
+### Overall Completion
+
+- [ ] ✅ Core role modes defined (Director/Manager/Engineer/Detective)
+- [ ] ✅ Trigger phrases and examples documented
+- [ ] ✅ Per-role posture described with examples
+- [ ] ✅ Phase mapping complete (role advice aligned with workflow phases)
 
 ## 5. Risks/Edge Cases
 

@@ -52,6 +52,30 @@
 
 **Cross-reference**: See `docs/projects/ACTIVE-MONITORING.md` for project scope boundaries
 
+## Nested Project Dependencies
+
+### Rules Refinement Extension
+
+See [`rules-refinement/tasks.md`](rules-refinement/tasks.md) for:
+
+- Intent detection strengthening (implementation-like triggers)
+- Pre-edit TDD gate improvements
+- Status update enhancements (Red/Green micro-updates)
+- Documentation and examples (nano/micro cycle patterns)
+
+**Dependency**: Requires scope boundaries (Phase 1-2 of this project) defined first
+
+**Status**: Lite ERD, focuses on making TDD rules more explicit after scope is clear
+
+## Overall Project Completion
+
+This umbrella project is complete when:
+
+- [ ] ✅ Scope boundaries defined (which files need TDD)
+- [ ] ✅ Scope check script working and tested
+- [ ] ✅ Rules refinement complete (triggers/gates explicit)
+- [ ] ✅ Monitoring period complete (1 week with acceptable false positive/negative rates)
+
 ## Related Files
 
 - `.cursor/rules/tdd-first.mdc`
@@ -60,3 +84,4 @@
 - `.cursor/rules/assistant-behavior.mdc` (slash command policy)
 - `.cursor/rules/commands.caps.mdc` (command reference)
 - `.cursor/scripts/tdd-scope-check.sh` (validation helper)
+- `docs/projects/tdd-scope-boundaries/rules-refinement/` (enforcement improvements)
