@@ -18,42 +18,34 @@ DRY_RUN=0
 INPUT_MODE="stdin"
 
 usage() {
-  cat <<EOF
-health-badge-generate.sh (v$VERSION)
-Generate repository health badge from validation output
-
-Usage: health-badge-generate.sh [OPTIONS]
-
-DESCRIPTION
-  Generates a static SVG badge showing repository health score (0-100).
-  Reads validation output from stdin or runs deep-rule-and-command-validate.sh.
-
-  Color mapping:
-    - Green: 90-100 (healthy)
-    - Yellow: 70-89 (needs attention)
-    - Red: 0-69 (critical)
-
-OPTIONS
-  -o, --output PATH       Output badge file path (default: .github/badges/health.svg)
-  --dry-run              Print badge content to stdout without writing file
-  --extract-score        Extract score from stdin and print it (testing mode)
-  --map-color SCORE      Map score to color name (testing mode)
-  -h, --help             Show this help and exit
-  -v, --version          Show version and exit
-
-EXAMPLES
-  Generate badge from validation:
-    $ deep-rule-and-command-validate.sh | health-badge-generate.sh
-
-  Specify output path:
-    $ health-badge-generate.sh --output docs/badges/health.svg
-
-  Dry run (preview):
-    $ health-badge-generate.sh --dry-run
-
-  Extract score (testing):
-    $ echo 'Overall Health Score: 95/100' | health-badge-generate.sh --extract-score
-EOF
+  print_help_header "health-badge-generate.sh" "$VERSION" "Generate repository health badge from validation output"
+  print_usage "health-badge-generate.sh [OPTIONS]"
+  
+  echo ""
+  echo "DESCRIPTION"
+  echo "  Generates a static SVG badge showing repository health score (0-100)."
+  echo "  Reads validation output from stdin."
+  echo ""
+  echo "  Color mapping:"
+  echo "    - Green: 90-100 (healthy)"
+  echo "    - Yellow: 70-89 (needs attention)"
+  echo "    - Red: 0-69 (critical)"
+  
+  print_options
+  print_option "-o, --output PATH" "Output badge file path (default: .github/badges/health.svg)"
+  print_option "--dry-run" "Print badge content to stdout without writing file"
+  print_option "--extract-score" "Extract score from stdin and print it (testing mode)"
+  print_option "--map-color SCORE" "Map score to color name (testing mode)"
+  print_option "-h, --help" "Show this help and exit"
+  print_option "-v, --version" "Show version and exit"
+  
+  print_exit_codes
+  
+  print_examples
+  print_example "Generate badge from validation" "deep-rule-and-command-validate.sh | health-badge-generate.sh"
+  print_example "Specify output path" "health-badge-generate.sh --output docs/badges/health.svg"
+  print_example "Dry run (preview)" "health-badge-generate.sh --dry-run"
+  print_example "Extract score (testing)" "echo 'Overall Health Score: 95/100' | health-badge-generate.sh --extract-score"
 }
 
 # Extract score from validation output
