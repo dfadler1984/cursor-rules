@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19.1
+
+### Patch Changes
+
+- [#174](https://github.com/dfadler1984/cursor-rules/pull/174) [`b6d2e2a`](https://github.com/dfadler1984/cursor-rules/commit/b6d2e2a57853694e14aadc7c252a1e554026972b) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix badge workflow to create PR instead of pushing directly to main
+
 ## 0.19.0
 
 ### Minor Changes
