@@ -391,10 +391,10 @@ This analysis synthesizes evidence from the rules-enforcement-investigation proj
 
 **Evidence Sources**:
 
-- [rules-enforcement-investigation](../rules-enforcement-investigation/) — Primary evidence source
-- [findings/README.md](../rules-enforcement-investigation/findings/README.md) — 16 meta-findings
-- [analysis/synthesis.md](../rules-enforcement-investigation/analysis/synthesis.md) — Comprehensive synthesis
-- [BASELINE-REPORT.md](../rules-enforcement-investigation/BASELINE-REPORT.md) — Compliance measurements
+- [rules-enforcement-investigation](../../../rules-enforcement-investigation/) — Primary evidence source
+- [findings/README.md](../../../rules-enforcement-investigation/findings/README.md) — 16 meta-findings
+- [analysis/synthesis.md](../../../rules-enforcement-investigation/analysis/synthesis.md) — Comprehensive synthesis
+- [README.md#baseline-metrics](../../../rules-enforcement-investigation/README.md#baseline-metrics) — Compliance measurements
 
 **Related Rules**:
 

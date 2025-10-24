@@ -13,13 +13,12 @@ All projects follow a **unified workflow** (ERD → Plan → Tasks → Analyze �
 
 ## Active
 
+- [blocking-tdd-enforcement](./blocking-tdd-enforcement/erd.md) — **[CRITICAL]** Implement mechanical blocking for TDD violations. Fix scope gap (editing → creating/editing), remove escape hatch, add file pairing validation. Evidence: Gap #22 (12th violation, 5 with alwaysApply loaded).
+- [active-monitoring-formalization](./active-monitoring-formalization/erd.md) — Formalize monitoring system structure, lifecycle management, and workflows. Define where findings go, closure criteria, review processes, and integration with investigation projects.
 - [rule-introspection](./rule-introspection/erd.md) — Investigate programmatic access to rule attachment state for accurate Context Efficiency Gauge readings.
 - [portable-workflow-toolkit](./portable-workflow-toolkit/erd.md) — Make full enterprise workflow portable across Fortune 500 projects with config-driven adapters (zero hardcoding, zero code changes between environments).
 - [repo-health-validation-fixes](./repo-health-validation-fixes/erd.md) — Fix validation issues (20 undocumented scripts, test colocation) to restore health score from 52/100 to 90+/100.
-- [capabilities-rules](./capabilities-rules/erd.md) — Evaluate overlap between capabilities rules, encoding improvements, and delineation.
-- [platform-capabilities-generic](./platform-capabilities-generic/erd.md) — Genericize Cursor-specific capabilities guidance into a vendor-agnostic rule and deprecate the old file.
 - [rules-enforcement-investigation](./rules-enforcement-investigation/erd.md) — Investigate how rules are processed and enforced; test slash commands vs intent routing for compliance.
-- [routing-optimization](./routing-optimization/erd.md) — Deep dive on intent routing behavior and optimization opportunities.
 - [consent-gates-refinement](./consent-gates-refinement/erd.md) — Fix consent gating and exception issues for smoother UX without compromising safety.
 - [tdd-scope-boundaries](./tdd-scope-boundaries/erd.md) — Define clear TDD applicability boundaries to prevent overapplication to docs/configs.
 - [github-workflows-utility](./github-workflows-utility/erd.md) — Audit current GitHub Actions, assess utility, and propose/add helpful workflows.
@@ -60,6 +59,7 @@ All projects follow a **unified workflow** (ERD → Plan → Tasks → Analyze �
 
 ## Completed
 
+- [routing-optimization](_archived/2025/routing-optimization/final-summary.md) — Improved intent routing accuracy from 68% to 100% with 0% false positives. Deployed 4 critical optimizations: intent override tier, multi-intent handling, confidence scoring, and refined triggers.
 - [productivity](../_archived/2025/productivity/final-summary.md) — Document automation guidance and script usage patterns; establish when to use scripts vs manual operations.
 - [slash-commands-runtime](../_archived/2025/slash-commands-runtime/final-summary.md) — Runtime execution semantics for slash commands (`/plan`, `/tasks`, `/pr`) with consent gates, command aliases, and comprehensive error handling.
 - [collaboration-options](./_archived/2025/collaboration-options/final-summary.md) — Documented `.github/` boundaries (config-only), PR template usage patterns, and optional remote sync providers with opt-in criteria.

@@ -24,7 +24,7 @@
 **Deliverables**:
 
 - [optimization-proposal.md](./optimization-proposal.md) — Comprehensive Phase 2 proposal with 4 optimizations
-- [routing-test-suite.md](./routing-test-suite.md) — 25 test cases across 10 groups
+- [routing-test-suite.md](../../../../../.cursor/docs/tests/routing-test-suite.md) — 25 test cases across 10 groups
 - Updated `.cursor/rules/intent-routing.mdc` with:
   - Explicit intent override tier (file signals downgraded)
   - Refined triggers for top 10 intents (Implementation, Testing, Analysis, Refactoring)
@@ -89,8 +89,8 @@
   - Category: Execution compliance (rule loaded but ignored)
   - Why moved: Execution issue, not routing issue (belongs in rules-enforcement-investigation)
   - Cross-reference: Discovered during routing-optimization monitoring
-  - See: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
-  - Enforcement recommendation: [`rules-enforcement-investigation/findings/gap-17-enforcement-recommendation.md`](../rules-enforcement-investigation/findings/gap-17-enforcement-recommendation.md)
+  - See: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../../../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
+  - Enforcement recommendation: [`rules-enforcement-investigation/findings/gap-17-enforcement-recommendation-implementation-guide.md`](../../../rules-enforcement-investigation/findings/gap-17-enforcement-recommendation-implementation-guide.md)
 
 ### Phase 3 Corrective Actions
 
@@ -141,7 +141,7 @@ Finding #2 analysis and tasks moved to rules-enforcement-investigation project w
 - Validates: Routing and execution are separate problem categories
 - Routing optimizations improved intent recognition ✅
 - Execution compliance needs different enforcement (blocking gates, not routing improvements)
-- See [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
+- See [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../../../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
 
 ## Phase 4: Optional Enhancements ✅ COMPLETE (2/3 items)
 

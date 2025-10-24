@@ -1,9 +1,9 @@
 ---
 description: User intent classification and handling strategies
 alwaysApply: true
-lastReviewed: 2025-10-10
+lastReviewed: 2025-10-24
 healthScore:
-  content: green # Clear intent classification, good examples
+  content: green # Clear intent classification, improved composite consent signals
   usability: green # Well-organized patterns, actionable guidance
   maintenance: green # Recently reviewed, valid references
 ---
@@ -51,7 +51,13 @@ healthScore:
 
 **Composite signals:**
 
-- If the previous assistant message proposed concrete code edits and the user replies within one turn with a consent phrase (e.g., "proceed", "go ahead", "sounds good", "do it", "ship it"), classify as Implementation.
+- If the previous assistant message proposed concrete code edits and the user replies in the immediate next turn with a consent phrase, classify as Implementation.
+- **High-confidence phrases**: "go ahead", "proceed", "yes", "sounds good", "looks good", "do it", "ship it", "approved"
+- **Medium-confidence phrases** (confirm first): "ok", "okay", "sure", "fine"
+- **Plan must be concrete** (≥2 criteria): target specificity, change description, scope boundary, success criteria
+- **Handle modifications**: "yes, but [change]" → update plan and re-confirm
+- **Turn proximity**: immediate next turn only; stale plans (>3 turns) don't qualify
+- For full detection algorithm, see: `docs/projects/consent-gates-refinement/composite-consent-signals.md`
 
 **Behavioral Requirements:**
 

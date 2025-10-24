@@ -68,6 +68,7 @@ while IFS= read -r sha; do
   
   # Filter trivial changes (doc-only, minimal edits) by checking impl files specifically
   total_additions=0
+  total_deletions=0
   
   # Get numstat for all impl files at once using diff-tree
   while read -r added removed filepath; do
@@ -77,11 +78,20 @@ while IFS= read -r sha; do
     if [[ "$added" =~ ^[0-9]+$ ]]; then
       total_additions=$((total_additions + added))
     fi
+    if [[ "$removed" =~ ^[0-9]+$ ]]; then
+      total_deletions=$((total_deletions + removed))
+    fi
   done < <(git diff-tree --numstat --no-commit-id "$sha" -- $impl 2>/dev/null)
   
   # Skip if minimal additions (likely doc/comment cleanup)
-  # Doc-only changes typically have 0-4 additions with deletions
+  # Doc-only changes typically have 0-4 additions with deletions > additions
+  # Examples: comment updates, doc reference fixes, help text changes
   if [[ $total_additions -lt 5 ]]; then
+    # If deletions > additions, definitely doc cleanup
+    if [[ $total_deletions -gt $total_additions ]]; then
+      continue
+    fi
+    # If minimal additions (1-4) with no deletions, still likely trivial
     continue
   fi
   

@@ -243,7 +243,7 @@ User explicitly requested: "Please create a branch, commit the changes, and crea
 
 **Why Moved**: This is an **execution failure** (right rules attached but ignored), not a **routing failure** (wrong rules attached). Belongs in rules-enforcement-investigation which monitors rule execution/compliance.
 
-**See**: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
+**See**: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../../../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
 
 **Cross-Reference Context**: 
 - Discovered during routing-optimization Phase 3 monitoring
@@ -252,7 +252,7 @@ User explicitly requested: "Please create a branch, commit the changes, and crea
 
 ---
 
-**Content moved to**: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
+**Content moved to**: [`rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md`](../../../rules-enforcement-investigation/findings/gap-17-reactive-documentation-proactive-failure.md)
 
 **Why moved**: This is an execution compliance issue (alwaysApply rule violated), not a routing issue (wrong rules attached). Execution compliance is monitored by rules-enforcement-investigation.
 

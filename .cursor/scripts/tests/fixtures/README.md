@@ -4,7 +4,7 @@ This directory contains fixture data for testing scripts without network access.
 
 ## Purpose
 
-Per the [Networkless Scripts ERD](../../../../docs/projects/networkless-scripts/erd.md) and [shell-and-script-tooling D4/D5](../../../../docs/projects/shell-and-script-tooling/erd.md), all repository scripts must function without network access. Fixtures enable deterministic testing of network-dependent behaviors.
+Per the [Network Policy (D4)](../../../docs/standards/shell-network-policy.md), all repository tests must function without network access. Fixtures enable deterministic testing of network-dependent behaviors.
 
 ## Structure
 

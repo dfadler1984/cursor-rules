@@ -19,7 +19,8 @@
 - [x] Create TDD scope test suite with ≥10 file types (12 test cases, 24 assertions)
 - [ ] Test with real workflows: code edits (TDD), docs (no TDD), configs (no TDD)
 - [ ] Verify zero false negatives and zero false positives
-- [ ] Monitor for 1 week and adjust edge cases
+- [x] Setup monitoring structure (findings/ folder, ACTIVE-MONITORING.md entry)
+- [ ] Monitor for 1 week and adjust edge cases (Started: 2025-10-24, Ends: ~2025-10-31)
 
 ## Related Enhancement: Slash Command Consent
 
@@ -32,6 +33,25 @@
 
 **Rationale**: User typing `/commit` IS the consent; asking "Proceed?" after adds unnecessary friction.
 
+## Monitoring Status
+
+**Active**: Phase 3 validation monitoring (2025-10-24 to ~2025-10-31)
+
+**Where to document findings**:
+
+- Location: `docs/projects/tdd-scope-boundaries/findings/`
+- Pattern: `issue-##-<short-name>.md` (individual files, numbered)
+- See: `docs/projects/tdd-scope-boundaries/findings/README.md` for template
+
+**What to monitor**:
+
+- False negatives (code changes skip TDD gate) — **Priority: Critical**
+- False positives (docs/configs trigger TDD gate)
+- Ambiguity rate (% requiring clarification — target: <5%)
+- Edge cases (file types not covered by globs)
+
+**Cross-reference**: See `docs/projects/ACTIVE-MONITORING.md` for project scope boundaries
+
 ## Related Files
 
 - `.cursor/rules/tdd-first.mdc`
@@ -39,3 +59,4 @@
 - `.cursor/rules/code-style.mdc`
 - `.cursor/rules/assistant-behavior.mdc` (slash command policy)
 - `.cursor/rules/commands.caps.mdc` (command reference)
+- `.cursor/scripts/tdd-scope-check.sh` (validation helper)

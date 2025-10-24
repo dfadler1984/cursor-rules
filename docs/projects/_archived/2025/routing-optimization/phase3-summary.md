@@ -252,7 +252,7 @@ When Finding #1 was discovered, I offered to fix it immediately instead of proac
 - SECONDARY: Pre-send gate item in assistant-behavior.mdc (line 221)
 - Solution creation checklist in self-improve.mdc (lines 260-280)
 
-**Monitoring Clarity**: Created [`ACTIVE-MONITORING.md`](../ACTIVE-MONITORING.md) with enforcement mechanisms
+**Monitoring Clarity**: Created [`ACTIVE-MONITORING.md`](../../../ACTIVE-MONITORING.md) with enforcement mechanisms
 
 **Gap #17b**: User identified enforcement gap - "How will you know to check ACTIVE-MONITORING?" - documented and enforcement implemented (3-tier approach)
 

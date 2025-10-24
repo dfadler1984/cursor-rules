@@ -49,6 +49,13 @@ healthScore:
 - Validate cross-references: `[.cursor/scripts/rules-validate-refs.sh](.cursor/scripts/rules-validate-refs.sh)`
 - Check for stale rules: `[.cursor/scripts/rules-validate-staleness.sh](.cursor/scripts/rules-validate-staleness.sh)`
 
+**Intent routing validation:**
+
+- Validate routing logic: `[.cursor/scripts/routing-validate.sh](.cursor/scripts/routing-validate.sh) [--format json|text] [--verbose]`
+  - Validates intent routing logic against test suite
+  - Reports pass/fail counts and accuracy
+  - Proof-of-concept implementation (see `docs/projects/routing-optimization/phase3-full-validation.md` for complete validation)
+
 ### Engineering docs & planning
 
 - Main rules (catalog):
@@ -186,6 +193,12 @@ All discovery outputs MUST conform to this schema:
 
 **Archival & Summaries:**
 
+- **Archive with readiness checks** (recommended): `[.cursor/scripts/project-archive-ready.sh](.cursor/scripts/project-archive-ready.sh) --project <slug> --year <YYYY> [--dry-run] [--auto-fix]`
+  - Validates project readiness before archival
+  - Auto-fixes common issues (missing final-summary.md, Carryovers section)
+  - Runs full archival workflow only when validation passes
+  - Fixes broken links after archival
+  - Interactive or non-interactive modes available
 - Generate final summaries: `[.cursor/scripts/final-summary-generate.sh](.cursor/scripts/final-summary-generate.sh) --project <slug> --year <YYYY> [--force] [--pre-move]`.
 - Archive projects (full workflow): `[.cursor/scripts/project-archive-workflow.sh](.cursor/scripts/project-archive-workflow.sh) --project <slug> --year <YYYY> [--dry-run]`.
 - Archive single project: `[.cursor/scripts/project-archive.sh](.cursor/scripts/project-archive.sh) --project <slug> --year <YYYY>`.
