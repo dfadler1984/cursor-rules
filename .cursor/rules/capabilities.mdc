@@ -32,6 +32,14 @@ healthScore:
   - Calculates health scores by category (rules, scripts, docs, tests)
   - Flags: `--fix` (auto-repair), `--report` (JSON output), `--score-only`, `--fail-threshold N`
 
+**Rules-specific validators:**
+
+- Autofix formatting issues: `[.cursor/scripts/rules-autofix.sh](.cursor/scripts/rules-autofix.sh) [--dry-run]`
+- Validate format: `[.cursor/scripts/rules-validate-format.sh](.cursor/scripts/rules-validate-format.sh)`
+- Validate frontmatter: `[.cursor/scripts/rules-validate-frontmatter.sh](.cursor/scripts/rules-validate-frontmatter.sh)`
+- Validate cross-references: `[.cursor/scripts/rules-validate-refs.sh](.cursor/scripts/rules-validate-refs.sh)`
+- Check for stale rules: `[.cursor/scripts/rules-validate-staleness.sh](.cursor/scripts/rules-validate-staleness.sh)`
+
 ### Engineering docs & planning
 
 - Main rules (catalog):
@@ -65,9 +73,14 @@ healthScore:
 
 - Generate Conventional Commits via CLI: `[.cursor/scripts/git-commit.sh](.cursor/scripts/git-commit.sh) --type ... --description ...` (supports bodies, footers, breaking changes). See `assistant-git-usage.mdc`.
 - Suggest branch names with validated types: `[.cursor/scripts/git-branch-name.sh](.cursor/scripts/git-branch-name.sh) --task ... [--type ...] [--feature ...] [--apply]`. See `assistant-git-usage.mdc`.
+- Derive git context (owner, repo, branches): `[.cursor/scripts/git-context.sh](.cursor/scripts/git-context.sh) [--format text|json|eval]`
 - Run commit gates locally when requested: use your repo's test/lint/typecheck scripts as configured.
 - Create pull requests via shell (curl + GitHub API): `[.cursor/scripts/pr-create.sh](.cursor/scripts/pr-create.sh) --title "..." [--body "..."] [--base <branch>] [--head <branch>]`.
+- Create pull requests (simplified wrapper): `[.cursor/scripts/pr-create-simple.sh](.cursor/scripts/pr-create-simple.sh) --title "..." [--body "..."]`
 - Update pull requests: `[.cursor/scripts/pr-update.sh](.cursor/scripts/pr-update.sh) --pr <number>|--head <branch> [--title "..."] [--body "..."]`.
+- Manage PR labels: `[.cursor/scripts/pr-labels.sh](.cursor/scripts/pr-labels.sh) --pr <number> --add|--remove|--list|--has <label>`
+- Add single PR label: `[.cursor/scripts/pr-label.sh](.cursor/scripts/pr-label.sh) --pr <number> --add <label>`
+- Sync PR with changeset state: `[.cursor/scripts/pr-changeset-sync.sh](.cursor/scripts/pr-changeset-sync.sh) --pr <number>`
 - Check PR status: `[.cursor/scripts/checks-status.sh](.cursor/scripts/checks-status.sh) --pr <number> [--wait] [--timeout <seconds>]`.
 - Dispatch changesets auto-merge: `[.cursor/scripts/changesets-automerge-dispatch.sh](.cursor/scripts/changesets-automerge-dispatch.sh) --pr <number>`.
 
@@ -177,6 +190,19 @@ All discovery outputs MUST conform to this schema:
 - Validate artifacts: `[.cursor/scripts/validate-artifacts.sh](.cursor/scripts/validate-artifacts.sh) [--erd-path <path>] [--tasks-path <path>]`.
 - Template filling: `[.cursor/scripts/template-fill.sh](.cursor/scripts/template-fill.sh) --template <name> --var KEY=VALUE...`.
 
+### Compliance & quality measurement
+
+- Check branch naming compliance: `[.cursor/scripts/check-branch-names.sh](.cursor/scripts/check-branch-names.sh)`
+- Check script usage patterns: `[.cursor/scripts/check-script-usage.sh](.cursor/scripts/check-script-usage.sh)`
+- Check TDD compliance: `[.cursor/scripts/check-tdd-compliance.sh](.cursor/scripts/check-tdd-compliance.sh)`
+- Generate compliance dashboard: `[.cursor/scripts/compliance-dashboard.sh](.cursor/scripts/compliance-dashboard.sh)`
+
+### Context efficiency
+
+- Compute context efficiency score: `[.cursor/scripts/context-efficiency-score.sh](.cursor/scripts/context-efficiency-score.sh) [--scope-concrete true|false] [--rules-count N] [--clarification-loops N] [--user-issues "text"]`
+- Format context efficiency data: `[.cursor/scripts/context-efficiency-format.sh](.cursor/scripts/context-efficiency-format.sh) --score N --signals "text" [--format line|json|markdown]`
+- Orchestrate efficiency gauge: `[.cursor/scripts/context-efficiency-gauge.sh](.cursor/scripts/context-efficiency-gauge.sh) [OPTIONS]` — Combines score computation and formatting
+
 ### CI/tooling assistance
 
 - Lint GitHub workflows: `[.cursor/scripts/lint-workflows.sh](.cursor/scripts/lint-workflows.sh)`.
@@ -184,6 +210,12 @@ All discovery outputs MUST conform to this schema:
 - Run config preflight checks: `[.cursor/scripts/preflight.sh](.cursor/scripts/preflight.sh)`.
 - Check broken links: `[.cursor/scripts/links-check.sh](.cursor/scripts/links-check.sh) [--path <dir>]`.
 - Tooling inventory: `[.cursor/scripts/tooling-inventory.sh](.cursor/scripts/tooling-inventory.sh)`.
+
+### Utilities
+
+- Organize project documentation: `[.cursor/scripts/project-docs-organize.sh](.cursor/scripts/project-docs-organize.sh) <project-slug>`
+- Setup git remote: `[.cursor/scripts/setup-remote.sh](.cursor/scripts/setup-remote.sh) [--remote <name>] [--url <url>]`
+- Validate investigation structure: `[.cursor/scripts/validate-investigation-structure.sh](.cursor/scripts/validate-investigation-structure.sh) <project-path>`
 
 ### Validation gates & helpers
 
@@ -200,6 +232,7 @@ All discovery outputs MUST conform to this schema:
 ### Script libraries & helpers
 
 - Shared library: `[.cursor/scripts/.lib.sh](.cursor/scripts/.lib.sh)` — Common helpers sourced by other scripts
+- Test network library: `[.cursor/scripts/.lib-net.sh](.cursor/scripts/.lib-net.sh)` — Network fixtures and guards for testing (test files only)
 - Test/validation helpers:
   - `[.cursor/scripts/rules-validate.spec.sh](.cursor/scripts/rules-validate.spec.sh)` — Spec helper for rules validation tests
   - `[.cursor/scripts/validate-artifacts-smoke.sh](.cursor/scripts/validate-artifacts-smoke.sh)` — Smoke test for artifact validation

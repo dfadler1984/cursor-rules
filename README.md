@@ -1,5 +1,7 @@
 # Cursor Rules — Shell Scripts Suite
 
+![Repository Health](.github/badges/health.svg)
+
 This repository includes a suite of standalone shell scripts to assist with rules management, Git workflows, PR creation, and repo hygiene. Scripts target macOS with bash and prefer POSIX sh where feasible.
 
 ## Unified Workflow (No Configuration Required)
