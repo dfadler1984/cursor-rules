@@ -1,0 +1,64 @@
+name: Update Repository Health Badge
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Need write permission to commit badge updates
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run health validation and update badge
+        id: update-badge
+        run: |
+          # Make script executable if not already
+          chmod +x .cursor/scripts/repo-health-badge.sh
+          chmod +x .cursor/scripts/deep-rule-and-command-validate.sh
+
+          # Generate workflow run URL for clickable badge
+          WORKFLOW_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # Update badge with workflow link
+          .cursor/scripts/repo-health-badge.sh --workflow-url "$WORKFLOW_URL"
+
+      - name: Check for changes
+        id: check-changes
+        run: |
+          if git diff --quiet README.md; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No badge changes detected"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Badge updated"
+          fi
+
+      - name: Commit and push badge update
+        if: steps.check-changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add README.md
+          git commit -m "chore: update repository health badge [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report status
+        if: always()
+        run: |
+          if [ "${{ steps.check-changes.outputs.changed }}" = "true" ]; then
+            echo "✅ Badge updated and committed"
+          else
+            echo "ℹ️ No badge update needed"
+          fi
