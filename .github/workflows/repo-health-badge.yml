@@ -10,7 +10,8 @@ jobs:
   update-badge:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Need write permission to commit badge updates
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -31,34 +32,17 @@ jobs:
           # Update badge with workflow link
           .cursor/scripts/repo-health-badge.sh --workflow-url "$WORKFLOW_URL"
 
-      - name: Check for changes
-        id: check-changes
-        run: |
-          if git diff --quiet README.md; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "No badge changes detected"
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Badge updated"
-          fi
-
-      - name: Commit and push badge update
-        if: steps.check-changes.outputs.changed == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-
-          git add README.md
-          git commit -m "chore: update repository health badge [skip ci]"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Report status
-        if: always()
-        run: |
-          if [ "${{ steps.check-changes.outputs.changed }}" = "true" ]; then
-            echo "✅ Badge updated and committed"
-          else
-            echo "ℹ️ No badge update needed"
-          fi
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update repository health badge [skip ci]"
+          title: "chore: update repository health badge"
+          body: |
+            Automated health badge update from validation run.
+            
+            Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          branch: chore/update-health-badge
+          delete-branch: true
+          labels: skip-changeset
+          author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
