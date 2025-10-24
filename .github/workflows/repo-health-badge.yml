@@ -40,7 +40,7 @@ jobs:
           title: "chore: update repository health badge"
           body: |
             Automated health badge update from validation run.
-
+            
             Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           branch: chore/update-health-badge
           delete-branch: true

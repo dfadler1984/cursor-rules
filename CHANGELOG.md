@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.19.0
+
+### Minor Changes
+
+- [#171](https://github.com/dfadler1984/cursor-rules/pull/171) [`d623366`](https://github.com/dfadler1984/cursor-rules/commit/d623366615e55a0a47aa389eb42a13202d0f1122) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Restore repository health score to 100/100 and add auto-updating health badge
+
+  **Health Score Improvements:**
+
+  - Document 20 missing scripts in capabilities.mdc (Documentation: 0→100/100)
+  - Fix test colocation issues (Test Quality: 60→100/100)
+  - Overall health score: 52/100 → 100/100
+
+  **New Features:**
+
+  - Badge generator script with comprehensive tests (18/18 passing)
+  - GitHub Action workflow to auto-update badge on push to main
+  - Health badge displayed in root README
+  - Color-coded by score: red (<70), yellow (70-89), green (90-100)
+
+### Patch Changes
+
+- [#172](https://github.com/dfadler1984/cursor-rules/pull/172) [`6d533b5`](https://github.com/dfadler1984/cursor-rules/commit/6d533b5621cda278f5608722b36f71ede9772541) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add automated repository health badge with shields.io integration
+
 ## 0.18.0
 
 ### Minor Changes
