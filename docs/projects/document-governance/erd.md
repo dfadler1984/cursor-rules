@@ -107,7 +107,28 @@ We need a policy that defines approved document categories and requires consent 
 
 ## 5. Success Criteria
 
-### Must Have
+### Nested Sub-Projects
+
+This umbrella project coordinates document standards across topics:
+
+1. **Templates** (`templates/`)
+
+   - Status: Active (Lite ERD)
+   - Scope: Standard templates for ERD/spec/plan/tasks/ADRs
+   - Links: [`templates/erd.md`](templates/erd.md), [`templates/tasks.md`](templates/tasks.md)
+
+2. **README Structure** (`readme/`)
+
+   - Status: Active (Full ERD)
+   - Scope: Root README organization and content mapping
+   - Links: [`readme/erd.md`](readme/erd.md), [`readme/tasks.md`](readme/tasks.md)
+
+3. **Lifecycle Metadata** (`lifecycle/`)
+   - Status: Active (Full ERD)
+   - Scope: ERD completion metadata and lifecycle tracking
+   - Links: [`lifecycle/erd.md`](lifecycle/erd.md), [`lifecycle/tasks.md`](lifecycle/tasks.md)
+
+### Must Have (Policy Phase)
 
 - [ ] Approved document categories defined for simple projects
 - [ ] Approved document categories defined for investigation projects
@@ -115,18 +136,24 @@ We need a policy that defines approved document categories and requires consent 
 - [ ] Assistant provides justification and alternatives when requesting approval
 - [ ] Policy integrated into assistant behavior (rule or gate)
 
-### Should Have
+### Should Have (Validation Phase)
 
 - [ ] Validation script that audits projects for compliance
 - [ ] Migration guidance for existing projects
 - [ ] Decision tree for choosing correct document type
 - [ ] Examples of good/bad document structures
 
-### Nice to Have
+### Nice to Have (Enhancement Phase)
 
 - [ ] Auto-suggest consolidation when similar documents exist
 - [ ] Template snippets for approved document types
 - [ ] Metrics on document type usage across projects
+
+### Nested Project Completion
+
+- [ ] Templates project: Inventory complete, template drafts created
+- [ ] README project: Content map complete, README outline approved
+- [ ] Lifecycle project: Metadata schema defined, validator rules specified
 
 ## 6. Non-Goals
 

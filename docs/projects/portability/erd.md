@@ -102,7 +102,22 @@ portabilityNotes: "Optional explanation of assumptions/requirements"
 
 ## 5. Success Criteria
 
-### Must Have
+### Nested Sub-Projects
+
+This umbrella project coordinates portability work across phases:
+
+1. **Enterprise Toolkit** (`phases/enterprise-toolkit/`)
+
+   - Status: Active (queued after base taxonomy)
+   - Scope: Full-featured Fortune 500 portable workflow toolkit
+   - Links: [`phases/enterprise-toolkit/erd.md`](phases/enterprise-toolkit/erd.md), [`phases/enterprise-toolkit/tasks.md`](phases/enterprise-toolkit/tasks.md)
+
+2. **Migration Coordination** (`phases/migration-coordination/`)
+   - Status: Lite coordination project
+   - Scope: Coordinate tooling discovery, portability taxonomy, and artifact migration
+   - Links: [`phases/migration-coordination/erd.md`](phases/migration-coordination/erd.md), [`phases/migration-coordination/tasks.md`](phases/migration-coordination/tasks.md)
+
+### Must Have (Taxonomy Phase)
 
 - [ ] Clear taxonomy definition (portable/project-specific/hybrid)
 - [ ] Organizational system implemented
@@ -110,18 +125,19 @@ portabilityNotes: "Optional explanation of assumptions/requirements"
 - [ ] Documentation of portability assumptions
 - [ ] Validation tooling updated
 
-### Should Have
+### Should Have (Backfill Phase)
 
 - [ ] All rules categorized
 - [ ] All scripts categorized
 - [ ] Filtering/querying capability
 - [ ] Migration guide for future extraction
 
-### Nice to Have
+### Nice to Have (Enterprise Phase)
 
 - [ ] Automated portability checks
 - [ ] Extraction tooling for portable subset
 - [ ] Published portable toolkit (npm/repo)
+- [ ] Enterprise toolkit validated in 3 Fortune 500 environments (see [`phases/enterprise-toolkit/erd.md`](phases/enterprise-toolkit/erd.md))
 
 ## 6. Non-Goals
 

@@ -170,11 +170,31 @@ Is the file a source file with executable logic?
 
 ### Acceptance Criteria
 
+#### Scope Definition (Core)
+
 - [ ] Documented: explicit include/exclude globs for TDD scope
 - [ ] Implemented: pre-edit scope check before applying TDD gate
 - [ ] Tested: TDD scope test suite with ≥10 file types
 - [ ] Validated: zero false negatives (all code changes follow TDD)
 - [ ] Validated: zero false positives (docs don't trigger TDD gate)
+
+#### Nested Sub-Project
+
+This project includes rules-refinement for enforcement:
+
+**Rules Refinement** (`rules-refinement/`)
+
+- Status: Lite ERD
+- Scope: Make TDD triggers/gates explicit and reliable
+- Links: [`rules-refinement/erd.md`](rules-refinement/erd.md), [`rules-refinement/tasks.md`](rules-refinement/tasks.md)
+- Dependency: Requires scope boundaries (this project) defined first
+
+#### Overall Completion
+
+- [ ] ✅ TDD scope boundaries clearly defined (which files need TDD)
+- [ ] ✅ Scope check script working (`.cursor/scripts/tdd-scope-check.sh`)
+- [ ] ✅ Rules refinement complete (triggers/gates explicit and testable)
+- [ ] ✅ Monitoring period complete (1 week, zero false negatives/positives)
 
 ## 12. Rollout & Ops
 

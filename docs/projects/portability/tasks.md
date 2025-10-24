@@ -118,9 +118,41 @@
 
 ---
 
+## Nested Project Dependencies
+
+### Enterprise Toolkit Phase
+
+See [`phases/enterprise-toolkit/tasks.md`](phases/enterprise-toolkit/tasks.md) for:
+
+- Config system implementation
+- Tool adapters (GitHub, Jira, GitLab)
+- Template suite (ERD, Spec, Plan, Tasks)
+- Multi-environment validation (3 Fortune 500 projects)
+
+**Dependency**: Requires taxonomy phase (this project) complete before starting
+
+### Migration Coordination
+
+See [`phases/migration-coordination/tasks.md`](phases/migration-coordination/tasks.md) for:
+
+- Tooling discovery coordination
+- Artifact migration coordination
+- Cross-project sequencing
+
+**Runs concurrently** with taxonomy phase as coordination layer
+
+## Overall Project Completion
+
+This umbrella project is complete when:
+
+- [ ] ✅ Base taxonomy defined and validated (Phase 1-3 of this project)
+- [ ] ✅ Core artifacts categorized (Phase 2 of this project)
+- [ ] ✅ Enterprise toolkit OR migration coordination complete (one nested project validated)
+
 ## Notes
 
 - Start with Option A (metadata tags) for minimal disruption
 - Can evolve to folder separation (Option B) later if needed
 - Focus on clear taxonomy definition before backfilling
 - Prioritize core portable artifacts (TDD, testing, git workflows) first
+- Enterprise toolkit is optional future work; base taxonomy alone is valuable
