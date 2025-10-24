@@ -79,8 +79,8 @@ fi
 log_info "Running health validation..."
 VALIDATION_OUTPUT=$("$SCRIPT_DIR/deep-rule-and-command-validate.sh" --score-only 2>&1 || true)
 
-# Extract score from output (handle various formats)
-SCORE=$(echo "$VALIDATION_OUTPUT" | grep -oE '[0-9]+' | head -n1 || echo "0")
+# Extract score from "Overall Health Score: N/100" line
+SCORE=$(echo "$VALIDATION_OUTPUT" | grep "Overall Health Score:" | grep -oE '[0-9]+/100' | cut -d'/' -f1 || echo "0")
 
 if [ -z "$SCORE" ]; then
   die 1 "Failed to extract health score from validation output"
