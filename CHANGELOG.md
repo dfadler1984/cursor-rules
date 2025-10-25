@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.22.2
+
+### Patch Changes
+
+- [#204](https://github.com/dfadler1984/cursor-rules/pull/204) [`72616f9`](https://github.com/dfadler1984/cursor-rules/commit/72616f9f771a5fc59d27b885b5b41e559a001a1e) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add CI staleness check for projects README
+
+  - New workflow `.github/workflows/projects-readme-validate.yml` validates that `docs/projects/README.md` is up to date
+  - Triggers on changes to project ERDs, tasks, or the generator script
+  - Fails CI if README is out of sync with clear remediation steps
+  - Completes projects-readme-generator project (task 4.4)
+
 ## 0.22.1
 
 ### Patch Changes
