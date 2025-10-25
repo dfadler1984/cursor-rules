@@ -30,6 +30,11 @@ EXAMPLES:
   $(basename "$0") --dry-run
   $(basename "$0") --projects-dir docs/projects --out docs/projects/README.md
 
+EXIT CODES:
+  0  Success
+  1  General error
+  2  Usage error (invalid arguments)
+
 EOF
   exit 0
 }
