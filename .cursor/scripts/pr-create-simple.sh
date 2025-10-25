@@ -180,7 +180,7 @@ case "$http_status" in
       else
         log_error "PR created but description validation failed!" >&2
         log_error "You may need to update the PR manually or re-run pr-update.sh" >&2
-        exit "$EXIT_DATA"
+        exit 4
       fi
     fi
     ;;

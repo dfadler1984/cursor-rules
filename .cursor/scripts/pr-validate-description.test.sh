@@ -94,7 +94,7 @@ JSON
 test_fails_on_template_body() {
   setup_test_env
   
-  # Body with 3+ template markers
+  # Body with 2+ actual placeholder texts (not just section headers)
   local mock_response
   mock_response=$(cat <<'JSON'
 {
@@ -120,7 +120,41 @@ JSON
   
   export GH_TOKEN="mock-token"
   assert_cmd_fails bash "$TARGET_SCRIPT" --pr 197 --owner test --repo repo
-  assert_stderr_contains "default template"
+  assert_stderr_contains "template placeholders"
+  
+  rm "$tmpfile"
+}
+
+test_passes_with_standard_structure() {
+  setup_test_env
+  
+  # Body with section headers but real content (not placeholders)
+  local mock_response
+  mock_response=$(cat <<'JSON'
+{
+  "number": 200,
+  "title": "Test PR",
+  "body": "## Summary\n\nAdds three project directories.\n\n## Changes\n\n- orphaned-files project\n- rules-condensation project\n\n## Why\n\nThese were created earlier but not committed.",
+  "html_url": "https://github.com/test/repo/pull/200"
+}
+JSON
+)
+  
+  local tmpfile
+  tmpfile=$(mktemp)
+  echo "$mock_response" > "$tmpfile"
+  
+  curl() {
+    if [ "$1" = "-sS" ]; then
+      cat "$tmpfile"
+      echo "200"
+    fi
+  }
+  export -f curl
+  
+  export GH_TOKEN="mock-token"
+  assert_cmd_succeeds bash "$TARGET_SCRIPT" --pr 200 --owner test --repo repo
+  assert_stdout_contains "Validation PASSED"
   
   rm "$tmpfile"
 }

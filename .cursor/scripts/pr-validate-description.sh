@@ -118,27 +118,28 @@ if [ -z "$body" ]; then
   exit 1
 fi
 
-# Check if body matches default template (common placeholder patterns)
-default_template_markers=(
-  "## Summary"
+# Check if body matches default template (actual placeholder text, not just section headers)
+default_template_placeholders=(
   "Briefly describe what this PR changes"
-  "## Changes"
   "High-level bullets of what changed"
-  "## Why"
   "What problem does this solve"
+  "Any alternatives considered"
+  "Local checks pass"
+  "Docs updated"
+  "<behavior/outcome"
 )
 
-template_match_count=0
-for marker in "${default_template_markers[@]}"; do
+placeholder_match_count=0
+for marker in "${default_template_placeholders[@]}"; do
   if echo "$body" | grep -qF "$marker"; then
-    ((template_match_count++)) || true
+    ((placeholder_match_count++)) || true
   fi
 done
 
-# If 3+ template markers are present, likely still using default template
-if [ "$template_match_count" -ge 3 ]; then
-  log_error "Validation FAILED: PR body appears to be default template"
-  log_error "Found $template_match_count template markers (threshold: 3)"
+# If 2+ actual placeholders are present, likely still using default template
+if [ "$placeholder_match_count" -ge 2 ]; then
+  log_error "Validation FAILED: PR body contains template placeholders"
+  log_error "Found $placeholder_match_count placeholder texts (threshold: 2)"
   log_error "PR #${PR_NUMBER} likely still has placeholder content"
   exit 1
 fi
