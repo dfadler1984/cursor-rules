@@ -1,0 +1,61 @@
+name: Projects README Staleness Check
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "docs/projects/**/erd.md"
+      - "docs/projects/**/tasks.md"
+      - "docs/projects/README.md"
+      - ".cursor/scripts/generate-projects-readme.sh"
+      - ".github/workflows/projects-readme-validate.yml"
+  pull_request:
+    branches: ["**"]
+    paths:
+      - "docs/projects/**/erd.md"
+      - "docs/projects/**/tasks.md"
+      - "docs/projects/README.md"
+      - ".cursor/scripts/generate-projects-readme.sh"
+      - ".github/workflows/projects-readme-validate.yml"
+  workflow_dispatch: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check README staleness
+        run: |
+          chmod +x ./.cursor/scripts/generate-projects-readme.sh
+
+          current_readme="docs/projects/README.md"
+
+          if [ ! -f "$current_readme" ]; then
+            echo "❌ $current_readme does not exist"
+            echo ""
+            echo "To fix, run:"
+            echo "  npm run generate:projects-readme"
+            exit 1
+          fi
+
+          echo "Comparing current README with fresh generation..."
+
+          if ! ./.cursor/scripts/generate-projects-readme.sh --dry-run | diff -u "$current_readme" - > /dev/null 2>&1; then
+            echo "❌ $current_readme is stale"
+            echo ""
+            echo "Expected content differs from current file."
+            echo ""
+            echo "To fix, run:"
+            echo "  npm run generate:projects-readme"
+            echo ""
+            echo "Or manually:"
+            echo "  ./.cursor/scripts/generate-projects-readme.sh"
+            echo ""
+            echo "Diff:"
+            ./.cursor/scripts/generate-projects-readme.sh --dry-run | diff -u "$current_readme" - || true
+            exit 1
+          fi
+
+          echo "✅ $current_readme is up to date"
