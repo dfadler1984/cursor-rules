@@ -8,6 +8,9 @@ mode: full
 
 # Engineering Requirements Document: Orphaned Files Detection
 
+Mode: Lite
+
+
 **Project**: orphaned-files  
 **Status**: ACTIVE  
 **Created**: 2025-10-25  
