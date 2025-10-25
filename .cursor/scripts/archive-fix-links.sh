@@ -103,7 +103,7 @@ fi
 
 while IFS= read -r -d '' file; do
   MD_FILES+=("$file")
-done < <(find "${search_paths[@]}" -type f \( -name "*.md" -o -name "*.mdc" \) 2>/dev/null -print0 | sort -z || true)
+done < <(find "${search_paths[@]}" -type f \( -name "*.md" -o -name "*.mdc" \) -print0 2>/dev/null | sort -z || true)
 
 if [ ${#MD_FILES[@]} -eq 0 ]; then
   log_info "No markdown files found in search directories"
