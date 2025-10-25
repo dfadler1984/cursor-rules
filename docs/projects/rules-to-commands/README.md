@@ -94,7 +94,7 @@ All behavioral enforcement remains:
 
 ## Related Projects
 
-- See [ai-workflow-integration](../ai-workflow-integration/) for workflow improvements
+- See [ai-workflow-integration](../_archived/2025/ai-workflow-integration/) for workflow improvements
 - See [rules-enforcement-investigation](../rules-enforcement-investigation/) for compliance patterns
 - See [ACTIVE-MONITORING.md](../ACTIVE-MONITORING.md) for monitoring project scope definitions
 

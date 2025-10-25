@@ -216,7 +216,7 @@ The `.cursor/rules/` directory contains 60+ rule files that serve multiple purpo
 
 ## 10. Related Work
 
-- [ai-workflow-integration](../ai-workflow-integration/) — Workflow improvements
+- [ai-workflow-integration](../_archived/2025/ai-workflow-integration/) — Workflow improvements
 - [investigation-docs-structure](../investigation-docs-structure/) — Structure patterns
 - Existing `/project` command — Reference implementation
 - [Cursor Commands Documentation](https://cursor.com/docs/agent/chat/commands) — Platform docs
