@@ -14,7 +14,7 @@ IFS=$'\n\t'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/.lib.sh"
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 
 # Default values
 TITLE=""
@@ -25,6 +25,7 @@ OWNER=""
 REPO=""
 DRY_RUN=0
 OUTPUT_FORMAT="text"  # text|json
+VALIDATE=1  # Validate PR description after creation
 
 usage() {
   print_help_header "pr-create-simple.sh" "$VERSION" "Create a GitHub Pull Request (simplified)"
@@ -38,6 +39,7 @@ usage() {
   print_option "--owner OWNER" "Repository owner" "auto-detected from git"
   print_option "--repo REPO" "Repository name" "auto-detected from git"
   print_option "--format FORMAT" "Output format: text|json" "text"
+  print_option "--no-validate" "Skip post-creation description validation"
   print_option "--dry-run" "Show payload without creating PR"
   print_option "--version" "Print version and exit"
   print_option "-h, --help" "Show this help and exit"
@@ -50,6 +52,7 @@ Notes:
   - No label management (use pr-label.sh afterward)
   - Requires GH_TOKEN for actual API calls
   - Returns PR URL or JSON response
+  - Validates description after creation (disable with --no-validate)
 
 Composition:
   # Derive context, create PR, add labels
@@ -64,6 +67,7 @@ NOTES
   print_example "Create PR with auto-detect" "pr-create-simple.sh --title \"Fix bug\" --body \"Details here\""
   print_example "Specify all params" "pr-create-simple.sh --title \"Feature\" --body \"...\" --base main --head feature/x"
   print_example "Dry-run" "pr-create-simple.sh --title \"Test\" --body \"Test\" --dry-run"
+  print_example "Skip validation" "pr-create-simple.sh --title \"Test\" --body \"Test\" --no-validate"
   
   print_exit_codes
 }
@@ -78,6 +82,7 @@ while [ "$#" -gt 0 ]; do
     --owner) OWNER="${2:-}"; shift 2 ;;
     --repo) REPO="${2:-}"; shift 2 ;;
     --format) OUTPUT_FORMAT="${2:-}"; shift 2 ;;
+    --no-validate) VALIDATE=0; shift ;;
     --dry-run) DRY_RUN=1; shift ;;
     --version) printf '%s\n' "$VERSION"; exit 0 ;;
     -h|--help) usage; exit 0 ;;
@@ -163,6 +168,21 @@ case "$http_status" in
       pr_url=$(grep -o '"html_url": *"[^"]*"' "$tmpfile" | head -1 | sed 's/.*"\(https[^"]*\)".*/\1/')
       echo "$pr_url"
     fi
+    
+    # Post-creation validation
+    if [ "$VALIDATE" -eq 1 ]; then
+      pr_number=$(grep -o '"number": *[0-9]*' "$tmpfile" | head -1 | sed 's/[^0-9]//g')
+      
+      log_info "Validating PR description..." >&2
+      
+      if "$SCRIPT_DIR/pr-validate-description.sh" --pr "$pr_number" --owner "$OWNER" --repo "$REPO" >&2; then
+        : # Validation passed, continue
+      else
+        log_error "PR created but description validation failed!" >&2
+        log_error "You may need to update the PR manually or re-run pr-update.sh" >&2
+        exit "$EXIT_DATA"
+      fi
+    fi
     ;;
   *)
     log_error "PR creation failed (HTTP $http_status)"
@@ -172,4 +192,3 @@ case "$http_status" in
 esac
 
 exit 0
-
