@@ -5,6 +5,9 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Rules Folder Structure Options (Lite)
 
+Mode: Lite
+
+
 Links: `.cursor/rules/front-matter.mdc` | `.cursor/rules/rule-creation.mdc` | `.cursor/rules/rule-maintenance.mdc` | `.cursor/rules/rule-quality.mdc` | `docs/projects/project-organization/erd.md`
 
 ## 1. Introduction/Overview

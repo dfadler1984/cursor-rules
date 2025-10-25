@@ -6,6 +6,9 @@ lastUpdated: 2025-10-11
 
 # Engineering Requirements Document — TDD Scope Boundaries
 
+Mode: Lite
+
+
 ## 1. Introduction/Overview
 
 Fix overapplication of TDD-first rules to non-code changes (documentation, configuration, etc.) while maintaining TDD discipline for actual code changes.

@@ -5,6 +5,9 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Testing Coordination (Unified)
 
+Mode: Lite
+
+
 Links: `docs/projects/testing-coordination/tasks.md`
 
 ## 1. Introduction/Overview

@@ -1,6 +1,6 @@
 ---
+status: completed
 ---
-
 # Engineering Requirements Document — Shell Scripts Suite
 
 Mode: Lite

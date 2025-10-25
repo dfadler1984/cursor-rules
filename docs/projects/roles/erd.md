@@ -1,7 +1,14 @@
 ---
+status: active
+owner: repo-maintainers
+created: 2025-10-24
+lastUpdated: 2025-10-24
 ---
 
 # Engineering Requirements Document — Roles & Intent Routing (Lite)
+
+Mode: Lite
+
 
 Links: `.cursor/rules/intent-routing.mdc` | `docs/projects/roles/tasks.md` | `docs/projects/split-progress/erd.md`
 

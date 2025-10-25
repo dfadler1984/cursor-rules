@@ -7,6 +7,9 @@ lastUpdated: 2025-10-24
 
 # Engineering Requirements Document — Blocking TDD Enforcement (Lite)
 
+Mode: Lite
+
+
 ## 1. Introduction/Overview
 
 **Problem**: TDD violations persist despite alwaysApply rules and visible gates. Gap #22 (creating project-archive-ready.sh without tests) is the 12th documented violation, proving awareness + visibility ≠ prevention.

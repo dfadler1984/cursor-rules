@@ -7,6 +7,9 @@ lastUpdated: 2025-10-23
 
 # Engineering Requirements Document — Rule Introspection (Lite)
 
+Mode: Lite
+
+
 ## 1. Introduction/Overview
 
 Investigate how the assistant can programmatically access and count attached rules to provide accurate Context Efficiency Gauge readings. Currently, the assistant has no API to query Cursor's rule attachment system and must manually track rules from function results, leading to inaccurate or missing gauge data.

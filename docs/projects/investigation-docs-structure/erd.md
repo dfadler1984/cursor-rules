@@ -1,11 +1,16 @@
-# ERD: Investigation Documentation Structure
-
-**Status**: ACTIVE  
-**Created**: 2025-10-16  
-**Parent Need**: rules-enforcement-investigation has 40 files without clear organizational structure
-
+---
+status: active
+owner: repo-maintainers
+created: 2025-10-16
+lastUpdated: 2025-10-24
 ---
 
+# Engineering Requirements Document — Investigation Documentation Structure
+
+Mode: Lite
+
+
+**Parent Need**: rules-enforcement-investigation has 40 files without clear organizational structure
 ## 1. Problem Statement
 
 The rules-enforcement-investigation project has grown to 40 markdown files across 5 directories without clear organizational principles. Documents are in wrong locations, duplicates exist, and it's unclear when to create new files vs folders.
@@ -25,9 +30,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 - Duplicates waste effort
 - Unclear where new docs belong
 - Pattern not reusable for future investigations
-
----
-
 ## 2. Context
 
 ### Discovery Origin
@@ -69,9 +71,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 - Flat pattern (Option B): Create siblings in `docs/projects/`
 - Coordination: `coordination.md` in parent tracks sub-projects
 - Links: Each sub-project links to parent in README
-
----
-
 ## 3. Scope
 
 ### In Scope
@@ -103,9 +102,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 - Restructuring simple projects (most don't need this complexity)
 - Creating automation for structure validation
 - Backfilling structure to archived projects
-
----
-
 ## 4. Requirements
 
 ### Functional
@@ -138,9 +134,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 - **Clear migration**: Document what moved where
 - **Reusable**: Pattern applies to future complex investigations
 - **Simple when possible**: Don't over-structure simple projects
-
----
-
 ## 5. Acceptance Criteria
 
 1. ✅ rules-enforcement-investigation reorganized to new structure
@@ -153,9 +146,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 8. ✅ Each sub-project links to parent
 9. ✅ Navigation clear (can find any doc quickly)
 10. ✅ Pattern documented for reuse
-
----
-
 ## 6. Approach
 
 ### Phase 1: Design Structure Standard
@@ -221,9 +211,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 4. Migrate relevant files
 5. Create README with parent link
 6. Add to coordination.md
-
----
-
 ## 7. Success Metrics
 
 **Findability**: Can locate any document within 2 clicks from README  
@@ -231,17 +218,11 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 **Reusability**: Pattern documented for next complex investigation  
 **Completeness**: All 40 files accounted for, none lost  
 **Validity**: All cross-references resolve correctly
-
----
-
 ## 8. Dependencies
 
 - rules-enforcement-investigation current files
 - project-lifecycle.mdc (will be updated)
 - User decisions on edge cases
-
----
-
 ## 9. Risks
 
 **Risk**: Breaking links during reorganization  
@@ -255,9 +236,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 
 **Risk**: Making simple projects complex  
 **Mitigation**: Document when this structure applies (only complex investigations)
-
----
-
 ## 10. Timeline
 
 - **Phase 1**: 1-2 hours (design structure standard)
@@ -267,12 +245,8 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 - **Phase 5**: 1 hour (document pattern)
 - **Phase 6**: 2-4 hours (create sub-projects if appropriate)
 - **Total**: 7.5-11.5 hours
-
----
-
 ## 11. Related
 
 - [rules-enforcement-investigation](../rules-enforcement-investigation/) - Project to be reorganized
 - Gap #11 - Documentation structure not defined
 - [project-lifecycle.mdc](/.cursor/rules/project-lifecycle.mdc) - Will be updated with structure guidance
-

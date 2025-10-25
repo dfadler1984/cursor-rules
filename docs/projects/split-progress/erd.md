@@ -1,9 +1,15 @@
 ---
+status: active
+owner: repo-maintainers
+created: 2025-10-24
+lastUpdated: 2025-10-24
 ---
 
-## ERD Split Progress
+# Engineering Requirements Document — Split Progress
 
-### Index
+Mode: Lite
+
+## Index
 
 | ERD                                                                | Owner              | Status        | Tasks                                                              | Dependencies             |
 | ------------------------------------------------------------------ | ------------------ | ------------- | ------------------------------------------------------------------ | ------------------------ |

@@ -7,6 +7,9 @@ lastUpdated: 2025-10-23
 
 # Engineering Requirements Document — Repo Health Badge (Lite)
 
+Mode: Lite
+
+
 ## 1. Introduction/Overview
 
 Add a repository health badge to the root README that displays the current health score (0-100) from `deep-rule-and-command-validate.sh`. The badge should update automatically on merge to main via GitHub Actions, be visually clear (color-coded by score), and require minimal maintenance.

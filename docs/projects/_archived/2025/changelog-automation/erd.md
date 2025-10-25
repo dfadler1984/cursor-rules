@@ -1,6 +1,6 @@
 ---
+status: completed
 ---
-
 # Engineering Requirements Document — Changelog Automation (Lite)
 
 ## 1. Introduction/Overview

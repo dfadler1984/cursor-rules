@@ -1,98 +1,132 @@
 # Projects
 
-A landing page for all projects, grouped by status.
+This directory contains active and completed projects in this repository.
 
-## Unified Workflow
+## Overview
 
-All projects follow a **unified workflow** (ERD → Plan → Tasks → Analyze → Implement) with standardized features:
+Each project follows a standard structure:
 
-- Slash commands (`/specify`, `/plan`, `/tasks`, `/analyze`, `/implement`)
-- Task dependencies, priority, and parallelizable markers
-- Cross-linked artifacts with acceptance bundles
-- See [ai-workflow-integration](_archived/2025/ai-workflow-integration/erd.md) for integration details.
+- **ERD** (Engineering Requirements Document) - Defines scope, goals, and requirements
+- **Tasks** - Tracks implementation progress with dependencies and priorities
 
-## Active
+Projects are automatically indexed by scanning project directories (excluding `_archived/` and `_examples/`).
 
-- [blocking-tdd-enforcement](./blocking-tdd-enforcement/erd.md) — **[CRITICAL]** Implement mechanical blocking for TDD violations. Fix scope gap (editing → creating/editing), remove escape hatch, add file pairing validation. Evidence: Gap #22 (12th violation, 5 with alwaysApply loaded).
-- [active-monitoring-formalization](./active-monitoring-formalization/erd.md) — Formalize monitoring system structure, lifecycle management, and workflows. Define where findings go, closure criteria, review processes, and integration with investigation projects.
-- [rule-introspection](./rule-introspection/erd.md) — Investigate programmatic access to rule attachment state for accurate Context Efficiency Gauge readings.
-- [portable-workflow-toolkit](./portable-workflow-toolkit/erd.md) — Make full enterprise workflow portable across Fortune 500 projects with config-driven adapters (zero hardcoding, zero code changes between environments).
-- [repo-health-validation-fixes](./repo-health-validation-fixes/erd.md) — Fix validation issues (20 undocumented scripts, test colocation) to restore health score from 52/100 to 90+/100.
-- [rules-enforcement-investigation](./rules-enforcement-investigation/erd.md) — Investigate how rules are processed and enforced; test slash commands vs intent routing for compliance.
-- [consent-gates-refinement](./consent-gates-refinement/erd.md) — Fix consent gating and exception issues for smoother UX without compromising safety.
-- [tdd-scope-boundaries](./tdd-scope-boundaries/erd.md) — Define clear TDD applicability boundaries to prevent overapplication to docs/configs.
-- [github-workflows-utility](./github-workflows-utility/erd.md) — Audit current GitHub Actions, assess utility, and propose/add helpful workflows.
-- [role-phase-mapping](./role-phase-mapping/erd.md) — Align role guidance with phases; add phase‑readiness prompts.
-- [roles](./roles/erd.md) — Define roles and intent routing with per‑role posture and examples.
-- [rules-folder-structure-options](./rules-folder-structure-options/erd.md) — Determine structure options for `.cursor/rules/` and a low‑risk migration plan.
-- [projects-readme-generator](./projects-readme-generator/erd.md) — Automate generation of the projects index README; consistent, idempotent output.
-- [split-progress](./split-progress/erd.md) — Index of split ERDs with owners, statuses, tasks, and dependencies.
-- [document-templates](./document-templates/erd.md) — Determine recurring docs and add minimal templates where beneficial.
-- [long-term-solutions](./long-term-solutions/erd.md) — Replace manual workarounds with durable, test‑backed fixes (e.g., fix `.cursor/scripts/final-summary-generate.sh` instead of manual final summaries).
 
-## Grouped projects
+## Active Projects
 
-- [project-lifecycle-docs-hygiene](./project-lifecycle-docs-hygiene/erd.md)
+| Project | Status | ERD | Tasks |
+| --- | --- | --- | --- |
+| Engineering Requirements Document: Archived Projects Audit | active | [📄](./archived-projects-audit/erd.md) | ✅ |
+| Engineering Requirements Document — Artifact Migration System | active | [📄](./artifact-migration/erd.md) | ✅ |
+| Engineering Requirements Document — Assistant Self-Testing Limits | active | [📄](./assistant-self-testing-limits/erd.md) | ✅ |
+| Engineering Requirements Document — Blocking TDD Enforcement (Lite) | active | [📄](./blocking-tdd-enforcement/erd.md) | ✅ |
+| Engineering Requirements Document — Command Discovery Rule | active | [📄](./command-discovery-rule/erd.md) | ✅ |
+| Engineering Requirements Document — Confluence Automation | active | [📄](./confluence-automation/erd.md) | ✅ |
+| Engineering Requirements Document — Consent Gates Refinement | active | [📄](./consent-gates-refinement/erd.md) | ✅ |
+| Engineering Requirements Document — Cursor Modes Integration | active | [📄](./cursor-modes/erd.md) | ✅ |
+| Engineering Requirements Document: Document Governance Policy | active | [📄](./document-governance/erd.md) | ✅ |
+| Engineering Requirements Document — Git Usage Suite (Lite) | active | [📄](./git-usage-suite/erd.md) | ✅ |
+| Engineering Requirements Document — Git Usage via MCP (Lite) | active | [📄](./git-usage/erd.md) | ✅ |
+| Engineering Requirements Document — GitHub Workflows Utility (Lite) | active | [📄](./github-workflows-utility/erd.md) | ✅ |
+| Engineering Requirements Document — Investigation Documentation Structure | active | [📄](./investigation-docs-structure/erd.md) | ✅ |
+| Engineering Requirements Document — Jira Automation | active | [📄](./jira-automation/erd.md) | ✅ |
+| Engineering Requirements Document — Long‑term Solutions (Lite) | active | [📄](./long-term-solutions/erd.md) | ✅ |
+| Engineering Requirements Document: Portability Taxonomy | active | [📄](./portability/erd.md) | ✅ |
+| Engineering Requirements Document: PR Creation Script Decomposition | active | [📄](./pr-create-decomposition/erd.md) | ✅ |
+| Engineering Requirements Document — Pre-commit Shell Executable Bit (Lite) | active | [📄](./pre-commit-shell-executable/erd.md) | ✅ |
+| Engineering Requirements Document — Project Auto Archive Action | active | [📄](./project-auto-archive-action/erd.md) | ✅ |
+| Engineering Requirements Document — Project lifecycle & docs hygiene (Umbrella) | active | [📄](./project-lifecycle-docs-hygiene/erd.md) | ✅ |
+| Engineering Requirements Document — Project Organization Defaults and Configurability | active | [📄](./project-organization/erd.md) | ✅ |
+| Engineering Requirements Document — Projects README Generator | active | [📄](./projects-readme-generator/erd.md) | ✅ |
+| Engineering Requirements Document — Roles & Intent Routing (Lite) | active | [📄](./roles/erd.md) | ✅ |
+| Engineering Requirements Document: Rules & Documentation Quality Detection | active | [📄](./rules-docs-quality-detection/erd.md) | ✅ |
+| Engineering Requirements Document — Rules Enforcement & Effectiveness Investigation | active | [📄](./rules-enforcement-investigation/erd.md) | ✅ |
+| Engineering Requirements Document — Rules Folder Structure Options (Lite) | active | [📄](./rules-folder-structure-options/erd.md) | ✅ |
+| Engineering Requirements Document — Improve Rules Using Grok Conversation Insights | active | [📄](./rules-grok-alignment/erd.md) | ✅ |
+| Engineering Requirements Document: Rules to Commands Conversion | active | [📄](./rules-to-commands/erd.md) | ✅ |
+| Engineering Requirements Document — Script Refinement (Optional Polish) | active | [📄](./script-refinement/erd.md) | ✅ |
+| Engineering Requirements Document: Shell Test Organization | active | [📄](./shell-test-organization/erd.md) | ✅ |
+| Engineering Requirements Document — Split Progress | active | [📄](./split-progress/erd.md) | ✅ |
+| Engineering Requirements Document — TDD Scope Boundaries | active | [📄](./tdd-scope-boundaries/erd.md) | ✅ |
+| Engineering Requirements Document — Test Artifacts Cleanup on Every Run | active | [📄](./test-artifacts-cleanup/erd.md) | ✅ |
+| Engineering Requirements Document — Test Coverage (Lite) | active | [📄](./test-coverage/erd.md) | ✅ |
+| Engineering Requirements Document — Testing Coordination (Unified) | active | [📄](./testing-coordination/erd.md) | ✅ |
+| Engineering Requirements Document — Tooling Discovery | active | [📄](./tooling-discovery/erd.md) | ✅ |
+| Engineering Requirements Document — Workflows (Lite) | active | [📄](./workflows/erd.md) | ✅ |
 
-  - [project-organization](./project-organization/erd.md)
-  - [workflows](./workflows/erd.md)
-  - [readme-structure](./readme-structure/erd.md)
-  - [completion-metadata](./completion-metadata/erd.md)
+## Pending Projects
 
-- [script-refinement](./script-refinement/erd.md) — Optional Unix Philosophy polish (P3 priority, deferred from shell-and-script-tooling)
+| Project | Status | ERD | Tasks |
+| --- | --- | --- | --- |
+| Engineering Requirements Document — Active Monitoring Formalization | planning | [📄](./active-monitoring-formalization/erd.md) | ✅ |
+| Engineering Requirements Document — Assistant Self-Improvement (Ground-Up Redesign) | planning | [📄](./assistant-self-improvement/erd.md) | ✅ |
+| Engineering Requirements Document — Repo Health Badge (Lite) | planning | [📄](./repo-health-badge/erd.md) | ✅ |
+| Engineering Requirements Document — Rule Introspection (Lite) | planning | [📄](./rule-introspection/erd.md) | ✅ |
 
-- [testing-coordination](./testing-coordination/erd.md)
+## Archived Projects
 
-  - [tdd-rules-refinement](./tdd-rules-refinement/erd.md)
-  - [test-coverage](./test-coverage/erd.md)
-  - [test-artifacts-cleanup](./test-artifacts-cleanup/erd.md)
+| Project | Status | ERD | Tasks |
+| --- | --- | --- | --- |
+| Engineering Requirements Document — AI Workflow Integration | completed | [📄](./_archived/2025/ai-workflow-integration/erd.md) | ✅ |
+| Engineering Requirements Document — ALP Logging Consistency (Lite) | completed | [📄](./_archived/2025/alp-logging/erd.md) | ✅ |
+| Engineering Requirements Document — ALP Smoke (Archived) | archived | [📄](./_archived/2025/alp-smoke/erd.md) | ✅ |
+| Engineering Requirements Document — Assistant Learning: Automatic Local Logging (Archived) | archived | [📄](./_archived/2025/assistant-learning-hard-gate/erd.md) | ✅ |
+| Engineering Requirements Document — Assistant Learning Protocol (ALP) | completed | [📄](./_archived/2025/assistant-learning/erd.md) | ✅ |
+| Engineering Requirements Document — Auto‑merge Changesets Version PRs (Lite) | completed | [📄](./_archived/2025/auto-merge-bot-changeset-version/erd.md) | ✅ |
+| Engineering Requirements Document — Bash Script Standards (Lite) | completed | [📄](./_archived/2025/bash-scripts/erd.md) | ✅ |
+| Engineering Requirements Document — Capabilities Rules Evaluation | completed | [📄](./_archived/2025/capabilities-rules/erd.md) | ✅ |
+| Engineering Requirements Document — Changelog Automation (Lite) | completed | [📄](./_archived/2025/changelog-automation/erd.md) | ✅ |
+| Engineering Requirements Document — Chat Performance and Quality Tools | completed | [📄](./_archived/2025/chat-performance-and-quality-tools/erd.md) | ✅ |
+| Engineering Requirements Document — Chat Performance and Quality Tools | completed | [📄](./chat-performance-and-quality-tools/erd.md) | ✅ |
+| Engineering Requirements Document — Collaboration Options (Lite) | completed | [📄](./_archived/2025/collaboration-options/erd.md) | ✅ |
+| Engineering Requirements Document — Context Efficiency Gauge (Lite) — Merged | merged | [📄](./_archived/2025/context-efficiency-gauge/erd.md) | ✅ |
+| Engineering Requirements Document — Core Values Enhancement (Lite) | completed | [📄](./_archived/2025/core-values/erd.md) | ✅ |
+| Engineering Requirements Document — Deterministic, Structured Outputs | archived | [📄](./_archived/2025/deterministic-outputs/erd.md) | ✅ |
+| Engineering Requirements Document — Drawing Board (Lite) | completed | [📄](./_archived/2025/drawing-board/erd.md) | ✅ |
+| Engineering Requirements Document — Framework Selection (Spec Kit vs ai-dev-tasks) (Lite) | archived | [📄](./_archived/2025/framework-selection/erd.md) | ✅ |
+| Engineering Requirements Document — Intent Router (Lite) | completed | [📄](./_archived/2025/intent-router/erd.md) | ✅ |
+| ERD — Logging Destinations and Publication Strategy (Archived) | archived | [📄](./_archived/2025/logging-destinations/erd.md) | ✅ |
+| Engineering Requirements Document — MCP Synergy (Lite) | archived | [📄](./_archived/2025/mcp-synergy/erd.md) | ✅ |
+| Engineering Requirements Document — Networkless Scripts Refactor | completed | [📄](./_archived/2025/networkless-scripts/erd.md) | ✅ |
+| Engineering Requirements Document — Platform Capabilities Guidance (Genericization) | completed | [📄](./_archived/2025/platform-capabilities-generic/erd.md) | ✅ |
+| Engineering Requirements Document — PR Create Script (Lite) | archived | [📄](./_archived/2025/pr-create-script/erd.md) | ✅ |
+| Engineering Requirements Document — PR Template Automation | completed | [📄](./_archived/2025/pr-template-automation/erd.md) | ✅ |
+| Engineering Requirements Document — Productivity & Automation (Lite) | completed | [📄](./_archived/2025/productivity/erd.md) | ✅ |
+| Engineering Requirements Document — Project ERD Front Matter (Lite) | completed | [📄](./_archived/2025/project-erd-front-matter/erd.md) | ✅ |
+| Engineering Requirements Document — Project Lifecycle Coordination | completed | [📄](./_archived/2025/project-lifecycle-coordination/erd.md) | ✅ |
+| Engineering Requirements Document — Project Lifecycle Hardening (Full) | completed | [📄](./_archived/2025/project-lifecycle-hardening/erd.md) | ✅ |
+| Engineering Requirements Document — Project Lifecycle & Completion Process (Lite) | completed | [📄](./_archived/2025/project-lifecycle/erd.md) | ✅ |
+| Engineering Requirements Document — Repository Health Validation Fixes (Lite) | completed | [📄](./_archived/2025/repo-health-validation-fixes/erd.md) | ✅ |
+| Engineering Requirements Document — Routing Optimization | completed | [📄](./_archived/2025/routing-optimization/erd.md) | ✅ |
+| Engineering Requirements Document — Routing Optimization | completed | [📄](./routing-optimization/erd.md) | ✅ |
+| (Archived) Engineering Requirements Document — Rule Maintenance & Validator (Lite) | completed | [📄](./_archived/2025/rule-maintenance/erd.md) | ✅ |
+| Engineering Requirements Document — Rule Quality & Consolidation (Lite) | completed | [📄](./_archived/2025/rule-quality/erd.md) | ✅ |
+| Rules Validation Script Enhancements — Lite ERD | completed | [📄](./_archived/2025/rules-validate-script/erd.md) | ✅ |
+| Engineering Requirements Document — Script Error Handling (Lite) | completed | [📄](./_archived/2025/script-error-handling/erd.md) | ✅ |
+| Engineering Requirements Document — Script Help Generation (Lite) | completed | [📄](./_archived/2025/script-help-generation/erd.md) | ✅ |
+| Engineering Requirements Document — Script Rules (Lite) | completed | [📄](./_archived/2025/script-rules/erd.md) | ✅ |
+| Engineering Requirements Document — Script Test Hardening (Lite) | completed | [📄](./_archived/2025/script-test-hardening/erd.md) | ✅ |
+| Engineering Requirements Document — Scripts Refactor Aligned to Unix Philosophy | completed | [📄](./_archived/2025/scripts-unix-philosophy/erd.md) | ✅ |
+| Engineering Requirements Document — Shell & Script Tooling (Unified) | completed | [📄](./_archived/2025/shell-and-script-tooling/erd.md) | ✅ |
+| Engineering Requirements Document — Shell Scripts Suite | completed | [📄](./_archived/2025/shell-scripts/erd.md) | ✅ |
+| Engineering Requirements Document — ShellCheck Adoption | completed | [📄](./_archived/2025/shellcheck/erd.md) | ✅ |
+| Engineering Requirements Document — Skip Changeset Opt-In (Lite) | completed | [📄](./_archived/2025/skip-changeset-opt-in/erd.md) | ✅ |
+| Engineering Requirements Document — Slash Commands Runtime Routing | completed | [📄](./slash-commands-runtime-routing/erd.md) | — |
+| Engineering Requirements Document — Slash Commands Runtime (Lite) | completed | [📄](./_archived/2025/slash-commands-runtime/erd.md) | ✅ |
+| Engineering Requirements Document — TDD‑First (Lite) | completed | [📄](./_archived/2025/tdd-first/erd.md) | ✅ |
+| Engineering Requirements Document — Test Run Deletes `.github/` and adds `tmp-scan/` | completed | [📄](./_archived/2025/tests-github-deletion/erd.md) | ✅ |
 
-- [git-usage-suite](./git-usage-suite/erd.md)
+## Regenerating This File
 
-  - [git-usage](./git-usage/erd.md)
-  - [github-workflows-utility](./github-workflows-utility/erd.md)
+This file is automatically generated. To update it:
 
-- [tooling-portability-migration](./tooling-portability-migration/erd.md)
-  - [tooling-discovery](./tooling-discovery/erd.md)
-  - [portability](./portability/erd.md)
-  - [artifact-migration](./artifact-migration/erd.md)
+```bash
+./.cursor/scripts/generate-projects-readme.sh
+```
 
-## Completed
+Or use the npm script:
 
-- [routing-optimization](_archived/2025/routing-optimization/final-summary.md) — Improved intent routing accuracy from 68% to 100% with 0% false positives. Deployed 4 critical optimizations: intent override tier, multi-intent handling, confidence scoring, and refined triggers.
-- [productivity](../_archived/2025/productivity/final-summary.md) — Document automation guidance and script usage patterns; establish when to use scripts vs manual operations.
-- [slash-commands-runtime](../_archived/2025/slash-commands-runtime/final-summary.md) — Runtime execution semantics for slash commands (`/plan`, `/tasks`, `/pr`) with consent gates, command aliases, and comprehensive error handling.
-- [collaboration-options](./_archived/2025/collaboration-options/final-summary.md) — Documented `.github/` boundaries (config-only), PR template usage patterns, and optional remote sync providers with opt-in criteria.
-- [ai-workflow-integration](_archived/2025/ai-workflow-integration/final-summary.md) — Unified workflow integration from ai-dev-tasks, spec-kit, and claude-task-master into standardized enterprise-grade workflow (ERD → Plan → Tasks → Analyze → Implement).
-- [core-values](_archived/2025/core-values/final-summary.md) — Enhanced assistant laws with practical scenarios demonstrating Truth/Accuracy, Consistency/Transparency, and Self-Correction in real interactions.
-- [project-lifecycle-coordination](_archived/2025/project-lifecycle-coordination/final-summary.md) — Project lifecycle coordination tooling: `project-create.sh`, `project-status.sh`, `project-complete.sh` with full TDD coverage and end-to-end workflow validation.
-- [chat-performance-and-quality-tools](_archived/2025/chat-performance-and-quality-tools/final-summary.md) — Chat performance tools: Context Efficiency Gauge, 7 guides, token estimation, headroom calculation. Deliverables: `.cursor/docs/guides/chat-performance/`, `.cursor/scripts/chat-performance/`.
-- [intent-router](_archived/2025/intent-router/final-summary.md) — Central intent router with consent/TDD gates and clear routing.
-- [rule-quality](_archived/2025/rule-quality/final-summary.md) — Consolidate, validate, and streamline the ruleset with automation and routing tests.
-- [shell-scripts](_archived/2025/shell-scripts/final-summary.md) — Shell scripts suite with portable CLI tooling.
-- [assistant-learning](_archived/2025/assistant-learning/final-summary.md) — Assistant Learning Protocol for structured reflection logs, triggers, storage, and aggregation.
-- [project-lifecycle](_archived/2025/project-lifecycle/final-summary.md) — Completion via status tagging/indexing; optional archive policy and templates.
-- [framework-selection](_archived/2025/framework-selection/erd.md) — Superseded; content integrated into AI Workflow Integration.
-- [deterministic-outputs](_archived/2025/deterministic-outputs/erd.md) — Superseded; content integrated into AI Workflow Integration.
-- [pr-template-automation](_archived/2025/pr-template-automation/final-summary.md) — Default PR template injection in script + docs.
-- [tdd-first](_archived/2025/tdd-first/final-summary.md) — Enforce Red → Green → Refactor with owner specs and effects seams.
-- [skip-changeset-opt-in](_archived/2025/skip-changeset-opt-in/final-summary.md) — Make skip-changeset labeling opt-in via explicit flag.
-- [rule-maintenance](_archived/2025/rule-maintenance/final-summary.md) — Cadence and validator to keep rules healthy with actionable reports.
-- [rules-validate-script](_archived/2025/rules-validate-script/final-summary.md) — Completed.
-- [project-erd-front-matter](_archived/2025/project-erd-front-matter/final-summary.md) — Minimal ERD front matter standard and examples.
-- [auto-merge-bot-changeset-version](_archived/2025/auto-merge-bot-changeset-version/final-summary.md) — Auto‑enable GitHub Auto‑merge on Changesets “Version Packages” PRs; dual triggers + manual dispatch.
-- [pr-create-script](_archived/2025/pr-create-script/erd.md) — Improve PR creation: template control and body replace/append modes.
-- [changelog-automation](_archived/2025/changelog-automation/final-summary.md) — Automated changelog via Changesets; version sync; bot PR flow.
-- [alp-logging](_archived/2025/alp-logging/final-summary.md) — ALP logging consistency: triggers, status formats, aggregation/archival, redaction.
-- [project-lifecycle-hardening](_archived/2025/project-lifecycle-hardening/final-summary.md) — Completed.
-- [context-efficiency-gauge](_archived/2025/context-efficiency-gauge/erd.md) — Merged into Chat Performance and Quality Tools.
-- [tests-github-deletion](_archived/2025/tests-github-deletion/final-summary.md) — Test environment isolation investigation; resolved via D6 subshell isolation.
-- [shell-and-script-tooling](_archived/2025/shell-and-script-tooling/final-summary.md) — Shell script infrastructure with D1-D6 standards, validators, Unix Philosophy orchestrators. Child projects: bash-scripts, script-rules, script-help-generation, script-error-handling, script-test-hardening, shellcheck, networkless-scripts, scripts-unix-philosophy (all archived 2025-10-14).
+```bash
+npm run generate:projects-readme
+```
 
-## Archived
-
-- See `docs/projects/_archived/README.md`
-
-## Skipped
-
-- [mcp-synergy](_archived/2025/mcp-synergy/erd.md) — Archived without completion; scope deferred.

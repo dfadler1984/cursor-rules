@@ -1,11 +1,14 @@
+---
+status: active  
+owner: Dustin Fadler
+created: 2025-10-23  
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: Rules to Commands Conversion
 
-**Project**: rules-to-commands  
-**Status**: ACTIVE  
-**Created**: 2025-10-23  
-**Owner**: Dustin Fadler
+Mode: Lite
 
----
 
 ## 1. Problem Statement
 
@@ -217,7 +220,4 @@ The `.cursor/rules/` directory contains 60+ rule files that serve multiple purpo
 - [investigation-docs-structure](../investigation-docs-structure/) — Structure patterns
 - Existing `/project` command — Reference implementation
 - [Cursor Commands Documentation](https://cursor.com/docs/agent/chat/commands) — Platform docs
-
----
-
 **Links**: [README](./README.md) | [Tasks](./tasks.md) | [Analysis](./command-candidates-analysis.md)

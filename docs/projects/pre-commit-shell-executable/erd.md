@@ -1,4 +1,13 @@
+---
+status: active
+owner: repo-maintainers
+created: 2025-10-24
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document — Pre-commit Shell Executable Bit (Lite)
+
+Mode: Lite
 
 ## 1. Overview
 
@@ -37,4 +46,4 @@ Prevent committing non-executable shell scripts. A pre-commit hook blocks commit
 ## 7. Links
 
 - Tasks: docs/projects/pre-commit-shell-executable/tasks.md
-- Related: docs/projects/_archived/2025/shell-and-script-tooling/final-summary.md
+- Related: docs/projects/\_archived/2025/shell-and-script-tooling/final-summary.md

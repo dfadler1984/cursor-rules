@@ -1,5 +1,5 @@
 ---
-status: active
+status: completed
 owner: repo-maintainers
 lastUpdated: 2025-10-11
 ---

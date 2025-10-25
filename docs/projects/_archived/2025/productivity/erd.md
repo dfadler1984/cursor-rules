@@ -1,5 +1,5 @@
 ---
-status: complete
+status: completed
 owner: rules-maintainers
 lastUpdated: 2025-10-23
 ---

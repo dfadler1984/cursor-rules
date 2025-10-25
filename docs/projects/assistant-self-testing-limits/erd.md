@@ -1,11 +1,16 @@
-# ERD: Assistant Self-Testing Limits
-
-**Status**: DISCOVERY  
-**Created**: 2025-10-16  
-**Parent Investigation**: rules-enforcement-investigation
-
+---
+status: active
+owner: repo-maintainers
+created: 2025-10-16
+lastUpdated: 2025-10-24
 ---
 
+# Engineering Requirements Document — Assistant Self-Testing Limits
+
+Mode: Lite
+
+
+**Parent Investigation**: rules-enforcement-investigation
 ## 1. Problem Statement
 
 While executing the slash commands experiment, we discovered a fundamental limitation: **an AI assistant cannot objectively test its own behavioral compliance without observer bias**.
@@ -30,9 +35,6 @@ While executing the slash commands experiment, we discovered a fundamental limit
 - Results don't reflect realistic compliance
 
 **Analogy**: Like asking "Can you test whether you'll check your blind spot?" - the act of testing changes the behavior.
-
----
-
 ## 2. Context
 
 ### Discovery Origin
@@ -71,9 +73,6 @@ While executing the slash commands experiment, we discovered a fundamental limit
 - Would require two independent instances
 - Would need blind testing (assistant unaware of which mode)
 - Not possible within single assistant session
-
----
-
 ## 3. Scope
 
 ### In Scope
@@ -107,9 +106,6 @@ While executing the slash commands experiment, we discovered a fundamental limit
 - Solving the fundamental observer problem (philosophical limitation)
 - Creating external test infrastructure (different project)
 - Multi-agent testing frameworks (future consideration)
-
----
-
 ## 4. Requirements
 
 ### Functional
@@ -136,9 +132,6 @@ While executing the slash commands experiment, we discovered a fundamental limit
 - Keep documentation concise (<500 lines total)
 - Practical focus (actionable guidance)
 - Link to rules-enforcement-investigation findings
-
----
-
 ## 5. Acceptance Criteria
 
 1. ✅ Document explains testing paradox clearly
@@ -146,9 +139,6 @@ While executing the slash commands experiment, we discovered a fundamental limit
 3. ✅ Decision framework provided for future experiments
 4. ✅ Rules-enforcement-investigation updated with this insight
 5. ✅ Test plans note measurement limitations where applicable
-
----
-
 ## 6. Approach
 
 ### Phase 1: Document the Paradox
@@ -184,26 +174,17 @@ Create `experiment-design-guide.md`:
 - When is self-testing valid?
 - When is external validation needed?
 - How to work within constraints?
-
----
-
 ## 7. Success Metrics
 
 - Future experiments explicitly state measurement approach
 - Test plans note observer bias risks
 - Retrospective analysis used where appropriate
 - No time wasted on impossible self-tests
-
----
-
 ## 8. Dependencies
 
 - rules-enforcement-investigation findings
 - Existing compliance measurement tools
 - Test plan template
-
----
-
 ## 9. Risks
 
 **Risk**: Over-complicated philosophical discussion  
@@ -214,9 +195,6 @@ Create `experiment-design-guide.md`:
 
 **Risk**: Create analysis paralysis  
 **Mitigation**: Provide clear decision tree
-
----
-
 ## 10. Timeline
 
 - **Phase 1**: 30 minutes (document paradox)
@@ -224,9 +202,6 @@ Create `experiment-design-guide.md`:
 - **Phase 3**: 20 minutes (update investigation)
 - **Phase 4**: 30 minutes (decision framework)
 - **Total**: ~2 hours
-
----
-
 ## 11. Related
 
 - [rules-enforcement-investigation](../rules-enforcement-investigation/)

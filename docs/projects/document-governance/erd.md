@@ -1,11 +1,14 @@
+---
+status: active  
+owner: @dfadler1984
+created: 2025-10-23  
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: Document Governance Policy
 
-**Project**: document-governance  
-**Status**: ACTIVE  
-**Created**: 2025-10-23  
-**Owner**: @dfadler1984
+Mode: Lite
 
----
 
 ## 1. Problem Statement
 

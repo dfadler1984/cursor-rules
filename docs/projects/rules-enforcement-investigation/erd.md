@@ -1,11 +1,17 @@
 ---
 status: active
+lastUpdated: 2025-10-24
+---
+
+status: active
 owner: repo-maintainers
 lastUpdated: 2025-10-15
 phase: test-execution
----
 
 # Engineering Requirements Document — Rules Enforcement & Effectiveness Investigation
+
+Mode: Lite
+
 
 ## 1. Introduction/Overview
 
@@ -309,9 +315,6 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 - **Weeks 5-6**: Execute slash commands experiment
 - **Week 7**: Synthesize findings, complete 6 rule improvements
 - **Total**: ~7 weeks from start (vs 4 weeks originally planned)
-
-**Status**: ~15% complete (infrastructure built, one fix applied but not validated, core questions unanswered)
-
 **Key Insight**: Meta-test proved rules CAN work, but did NOT answer:
 
 - What enforcement patterns scale to 25+ conditional rules?
@@ -320,9 +323,6 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 - How to validate the fix actually works
 
 **See**: [`tasks.md`](tasks.md) for execution checklist
-
----
-
 **Project Metadata**:
 
 - Owner: repo-maintainers

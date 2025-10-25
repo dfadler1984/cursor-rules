@@ -1,10 +1,13 @@
+---
+status: active
+owner: dfadler1984
+created: 2025-10-14
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: PR Creation Script Decomposition
 
-**Project:** pr-create-decomposition  
-**Status:** Planning  
-**Owner:** dfadler1984  
-**Created:** 2025-10-14  
-**Mode:** Full
+Mode: Full
 
 ## 1. Introduction/Overview
 

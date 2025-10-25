@@ -1,11 +1,14 @@
+---
+status: active  
+owner: Repository Maintainers
+created: 2025-10-23  
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: Archived Projects Audit
 
-**Project**: archived-projects-audit  
-**Status**: ACTIVE  
-**Created**: 2025-10-23  
-**Owner**: Repository Maintainers
+Mode: Lite
 
----
 
 ## 1. Problem Statement
 

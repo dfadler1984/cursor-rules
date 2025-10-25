@@ -3,9 +3,9 @@ description: Project lifecycle — completion policy and validation (canonical; 
 alwaysApply: false
 lastReviewed: 2025-10-24
 healthScore:
-  content: green # Includes findings review checkpoint, task naming guidance
+  content: green # Includes findings review checkpoint, task naming guidance, auto-archive integration
   usability: green # Clear completion criteria and lifecycle stages
-  maintenance: green # Updated with Gap #13, #14 improvements
+  maintenance: green # Updated with Gap #13, #14 improvements and auto-archive workflow
 ---
 
 # Project Lifecycle — Completion Policy and Validation
@@ -236,6 +236,64 @@ Update `docs/projects/README.md`: move entry from Active to Completed, point to 
 - Full archival workflow (preferred end-to-end): `.cursor/scripts/project-archive-workflow.sh --project <slug> --year <YYYY> [--verify-index] [--dry-run]`
 - Single archive move only: `.cursor/scripts/project-archive.sh --project <slug> --year <YYYY> [--dry-run]`
 - Backfill legacy projects: `.cursor/scripts/project-lifecycle-migrate.sh --project <slug>`
+
+## Auto-Archive Integration (GitHub Action)
+
+**Zero-touch archival**: When a project meets completion criteria, a GitHub Action automatically archives it after PR merge.
+
+### Completion Criteria (ALL required)
+
+A project is ready for auto-archive when:
+
+1. ✅ **All tasks checked** — No unchecked `- [ ]` items in main task sections
+2. ✅ **Carryovers resolved** — Either no `## Carryovers` section exists, OR section exists but contains no unchecked items
+3. ✅ **Final summary written** — `final-summary.md` file exists in project directory
+
+### Assistant Behavior
+
+**Trigger**: When user checks the last task in `tasks.md`
+
+**Detection logic**:
+
+1. Count remaining unchecked tasks in main sections
+2. If count = 0, check carryovers status
+3. If carryovers resolved (no section or empty), prompt for final summary
+
+**Required prompt**:
+
+> "All tasks complete. Ready to write final summary for archival?"
+
+**On "yes"**:
+
+- Generate `final-summary.md` using `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> --pre-move`
+- Explain: "When you merge this PR, the auto-archive workflow will automatically archive the project to `_archived/<YYYY>/`"
+
+**On "no"**:
+
+- Explain: "Project won't auto-archive without final summary. You can generate it later with: `.cursor/scripts/final-summary-generate.sh --project <slug> --year <YYYY> --pre-move`"
+
+### Automated Workflow
+
+**Trigger**: Push to `main` after PR merge
+
+**Action behavior** (`.github/workflows/project-auto-archive.yml`):
+
+1. Detect projects meeting all 3 criteria
+2. Archive each project to `docs/projects/_archived/<current-year>/<slug>/`
+3. Update ERD `status: completed` in archived location
+4. Fix broken links automatically (`.cursor/scripts/archive-fix-links.sh`)
+5. Regenerate `docs/projects/README.md`
+6. Create PR with auto-merge enabled
+7. PR merges when CI passes
+
+**Benefits**:
+
+- Zero manual steps after project completion
+- Consistent archival (no forgotten cleanup)
+- Automatic link fixing (prevents 404s)
+- Batch efficiency (multiple projects in one PR)
+
+**Project**: See `docs/projects/project-auto-archive-action/` for full implementation details
 
 ## Document Structure (at a glance)
 

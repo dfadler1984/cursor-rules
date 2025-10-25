@@ -1,0 +1,48 @@
+name: ERD Validation
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+    paths:
+      - "docs/projects/**/erd.md"
+      - ".cursor/scripts/erd-validate.sh"
+  workflow_dispatch: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate project ERDs
+        run: |
+          chmod +x ./.cursor/scripts/erd-validate.sh
+          fail_count=0
+          for erd in docs/projects/*/erd.md; do
+            if [ -f "$erd" ]; then
+              echo "Validating: $erd"
+              if ! ./.cursor/scripts/erd-validate.sh "$erd"; then
+                fail_count=$((fail_count + 1))
+              fi
+            fi
+          done
+
+          if [ $fail_count -gt 0 ]; then
+            echo ""
+            echo "❌ $fail_count ERD(s) failed validation"
+            echo ""
+            echo "To fix, run:"
+            echo "  ./.cursor/scripts/erd-migrate-frontmatter.sh <erd-file>"
+            echo ""
+            echo "Or migrate all:"
+            echo "  for f in docs/projects/*/erd.md; do"
+            echo "    bash .cursor/scripts/erd-validate.sh \"\$f\" 2>&1 | grep -q 'front matter: status' && \\"
+            echo "      ./.cursor/scripts/erd-migrate-frontmatter.sh \"\$f\""
+            echo "  done"
+            exit 1
+          fi
+
+          echo "✅ All ERDs passed validation"

@@ -1,13 +1,13 @@
 ---
-title: Assistant Self-Improvement (Ground-Up Redesign)
-owner: repo-maintainers
 status: planning
-start: 2025-10-11
-last: 2025-10-11
-tags: [assistant, self-improvement, redesign, deprecation]
+owner: repo-maintainers
+created: 2025-10-11
+lastUpdated: 2025-10-11
 ---
 
-# Context
+# Engineering Requirements Document — Assistant Self-Improvement (Ground-Up Redesign)
+
+Mode: Lite
 
 We are deactivating legacy Assistant Learning (ALP) rules and scripts and rethinking assistant self-improvement from first principles. The previous design coupled logging, triggers, and enforcement tightly to repo rules. This project will design a simpler, opt-in, testable system with clear boundaries.
 
