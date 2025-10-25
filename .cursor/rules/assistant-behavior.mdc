@@ -291,6 +291,7 @@ Pre-Send Gate:
 - [ ] Scripts: checked capabilities.mdc?
 - [ ] Monitoring: checked ACTIVE-MONITORING.md? (if documenting finding)
 - [ ] Changesets: included? (if PR with code/rules/docs edits)
+- [ ] CI Failures: all resolved? (if PR created)
 - [ ] Context Efficiency: gauge included if score ≤3 or ≥2 signals true?
 - [ ] Patterns: 3+ instances queued?
 - [ ] Messaging: bullets/citations?
@@ -327,6 +328,17 @@ Then verify each item:
   - **Label consistency check** (BLOCKING): If changeset created after PR → verify `skip-changeset` label removed
   - If changeset present AND `skip-changeset` label present → FAIL (contradictory state)
   - Correction: Use `.cursor/scripts/pr-labels.sh --pr <number> --remove skip-changeset`
+- **CI Failures** (BLOCKING): After creating PR, check CI status and resolve ALL failing checks before considering PR complete.
+  - **Never dismiss failures as "pre-existing"** — if a check fails, fix it regardless of cause
+  - Use: `.cursor/scripts/checks-status.sh --pr <number>` to verify all checks passing
+  - **FAIL if**: Any check shows `conclusion: failure` and you haven't fixed it
+  - **Common fixes**:
+    - Changeset missing → create `.changeset/<slug>.md`
+    - Script validation → add scripts to `capabilities.mdc`
+    - Links broken → fix all broken links (use `links-check.sh --path <dir>`)
+    - Test colocation → create missing `*.test.sh` files
+  - **Blocking**: Do not claim "PR ready" or "ready to merge" while checks are failing
+  - **Rationale**: Pre-existing failures still block merges; dismissing them as "not our problem" is lazy and unprofessional
 - **Context Efficiency**: assess signals (scope concreteness, rules count, clarification loops, user issues); if score ≤3 or ≥2 signals true, include gauge line in status. See: `context-efficiency.mdc` for scoring rubric.
 - **Pattern observation**: if 3+ instances of new pattern detected, queue improvement proposal for next checkpoint.
 - **Messaging**: bullets and short sections; code citations follow repo rules.
