@@ -447,7 +447,7 @@ These work fine with conditional attachment:
 
 **Application**: Continue monitoring for 3+ instance patterns; propose improvements at checkpoints
 
-**Evidence**: Created 7 test plans → self-improve proposed template → created [test-plan-template.mdc](../../.cursor/rules/test-plan-template.mdc). Also: 14 meta-findings → 6 applied in Phase 1, 8 proposed for Phase 6G.
+**Evidence**: Created 7 test plans → self-improve proposed template → created [test-plan-template.mdc](../../../../.cursor/rules/test-plan-template.mdc). Also: 14 meta-findings → 6 applied in Phase 1, 8 proposed for Phase 6G.
 
 ### 6. AlwaysApply Has Limits
 
@@ -567,8 +567,8 @@ These work fine with conditional attachment:
 
 - ✅ [assistant-self-testing-limits](../../assistant-self-testing-limits/) — Testing paradox documentation and valid measurement strategies
 - ✅ [investigation-docs-structure](../../investigation-docs-structure/) — Structure standard for complex investigations
-- ⏸️ [h2-send-gate-investigation](../../h2-send-gate-investigation/) — Visible gate monitoring (optional continuation)
-- ⏸️ [h3-query-visibility](../../h3-query-visibility/) — Query visibility monitoring (deferred)
+- ⏸️ [h2-send-gate-investigation](../../_archived/2025/h2-send-gate-investigation/) — Visible gate monitoring (optional continuation)
+- ⏸️ [h3-query-visibility](../../_archived/2025/h3-query-visibility/) — Query visibility monitoring (deferred)
 - ❌ [slash-commands-runtime-routing](../../slash-commands-runtime-routing/) — Platform constraint documented (not viable)
 
 ---
