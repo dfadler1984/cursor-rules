@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.22.3
+
+### Patch Changes
+
+- [#207](https://github.com/dfadler1984/cursor-rules/pull/207) [`5471f38`](https://github.com/dfadler1984/cursor-rules/commit/5471f38ef452bc170c0df7e81da4f546c47e6c89) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Replace manual validation with auto-fix workflow for projects README
+
+  - New workflow `projects-readme-update.yml` auto-generates README on main
+  - New workflow `projects-readme-auto-merge.yml` enables auto-merge on generated PRs
+  - Modified `projects-readme-validate.yml` to PR-only validation
+  - Follows repo patterns (health-badge, changesets) for zero-touch maintenance
+  - Eliminates manual regeneration step, reduces rule context
+
 ## 0.22.2
 
 ### Patch Changes
