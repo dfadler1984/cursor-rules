@@ -6,6 +6,9 @@ lastUpdated: 2025-10-11
 
 # Engineering Requirements Document — Consent Gates Refinement
 
+Mode: Lite
+
+
 ## 1. Introduction/Overview
 
 Conduct a deep dive on consent-first gating and exceptions to fix issues where consent gates aren't working as expected.

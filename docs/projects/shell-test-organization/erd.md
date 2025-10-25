@@ -1,11 +1,14 @@
+---
+status: active  
+owner: Engineering
+created: 2025-10-21  
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: Shell Test Organization
 
-**Project**: shell-test-organization  
-**Status**: ACTIVE  
-**Created**: 2025-10-21  
-**Owner**: Engineering
+Mode: Lite
 
----
 
 ## 1. Problem Statement
 
@@ -14,9 +17,6 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 **Key tension**: Colocation aids maintainability (test next to code), but centralization aids discoverability (scripts folder shows only tools).
 
 **Trigger**: After creating `pr-labels.sh` + `pr-labels.test.sh`, noticed the `.cursor/scripts/` directory now mixes tools and tests, making it harder to scan what scripts are available.
-
----
-
 ## 2. Goals
 
 ### Primary
@@ -30,9 +30,6 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - Ensure the test runner (`.cursor/scripts/tests/run.sh`) works with either approach
 - Document the decision and encode it in rules if needed
 - Provide migration plan if centralization is chosen
-
----
-
 ## 3. Current State
 
 ### Directory Structure
@@ -61,9 +58,6 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - Tests colocated: `parse.ts` + `parse.spec.ts` in same folder
 - Rule enforced: `test-quality-js.mdc` requires colocation
 - CI guard: `yarn guard:no-tests-dir` fails if `__tests__/` exists
-
----
-
 ## 4. Proposed Solutions
 
 ### Option A: Keep Colocation (Status Quo)
@@ -140,9 +134,6 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - ❌ Invocation changes (`bash .cursor/scripts/pr-labels/pr-labels.sh`)
 - ❌ Significant migration effort
 - ❌ Breaks existing workflows and documentation
-
----
-
 ## 5. Investigation Approach
 
 ### Phase 1: Data Gathering
@@ -165,9 +156,6 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 2. **Proposed standard** — Recommend Option A, B, or C with rationale
 3. **Rule encoding** — Update `test-quality-sh.mdc` if pattern changes
 4. **Migration plan** — If moving, document steps and script
-
----
-
 ## 6. Success Criteria
 
 ### Must Have
@@ -189,17 +177,11 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - [ ] Survey of similar projects (external validation)
 - [ ] Helper script to create new script + test in chosen pattern
 - [ ] Metrics on discoverability improvement (if measurable)
-
----
-
 ## 7. Non-Goals
 
 - **Not** changing JS/TS test organization (stays colocated)
 - **Not** creating new test infrastructure (runner already exists)
 - **Not** rewriting tests (only moving location if needed)
-
----
-
 ## 8. Dependencies & Constraints
 
 ### Dependencies
@@ -213,18 +195,12 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - Test runner discovery pattern must remain functional
 - Cannot break existing test invocations during migration
 - Should minimize disruption to active development
-
----
-
 ## 9. Open Questions
 
 1. **How many shell tests exist?** (Need count to assess migration scope)
 2. **How often are tests edited vs scripts scanned?** (Usage pattern informs priority)
 3. **Do other Cursor rules repos centralize shell tests?** (External patterns)
 4. **What's the user experience impact?** (Quantify discoverability difference)
-
----
-
 ## 10. Timeline
 
 **Phase 1 (Data Gathering)**: 1-2 hours
@@ -240,9 +216,6 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - Create migration script, move tests, validate
 
 **Total Estimated**: 5-8 hours
-
----
-
 ## 11. Related Work
 
 - **Rules Enforcement Investigation** (`docs/projects/rules-enforcement-investigation/`)
@@ -256,13 +229,9 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - **Similar Projects**
   - JS/TS colocation: Enforced via `test-quality-js.mdc` and CI guard
   - Investigation docs structure: Recently standardized in `investigation-structure.mdc`
-
----
-
 ## References
 
 - Test runner: `.cursor/scripts/tests/run.sh`
 - Shell TDD rules: `.cursor/rules/tdd-first-sh.mdc`, `.cursor/rules/test-quality-sh.mdc`
 - Colocation enforcement (JS): `yarn guard:no-tests-dir`
 - Investigation findings: `docs/projects/rules-enforcement-investigation/findings.md`
-

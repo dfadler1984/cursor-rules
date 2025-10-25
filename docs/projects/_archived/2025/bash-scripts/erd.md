@@ -1,6 +1,6 @@
 ---
+status: completed
 ---
-
 # Engineering Requirements Document — Bash Script Standards (Lite)
 
 Links: `docs/projects/bash-scripts/tasks.md` | `docs/projects/split-progress/erd.md`

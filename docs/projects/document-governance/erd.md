@@ -1,11 +1,14 @@
+---
+status: active  
+owner: @dfadler1984
+created: 2025-10-23  
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: Document Governance Policy
 
-**Project**: document-governance  
-**Status**: ACTIVE  
-**Created**: 2025-10-23  
-**Owner**: @dfadler1984
+Mode: Lite
 
----
 
 ## 1. Problem Statement
 
@@ -207,8 +210,8 @@ This umbrella project coordinates document standards across topics:
 
 ## 10. Related Work
 
-- [project-lifecycle.mdc](../../.cursor/rules/project-lifecycle.mdc) — Project completion and structure
-- [investigation-structure.mdc](../../.cursor/rules/investigation-structure.mdc) — Investigation project organization
-- [assistant-behavior.mdc](../../.cursor/rules/assistant-behavior.mdc) — Pre-send gate and consent
+- [project-lifecycle.mdc](../../../.cursor/rules/project-lifecycle.mdc) — Project completion and structure
+- [investigation-structure.mdc](../../../.cursor/rules/investigation-structure.mdc) — Investigation project organization
+- [assistant-behavior.mdc](../../../.cursor/rules/assistant-behavior.mdc) — Pre-send gate and consent
 - `/project` command — Current project creation guidance
 - [rules-enforcement-investigation](../rules-enforcement-investigation/) — Studied enforcement patterns

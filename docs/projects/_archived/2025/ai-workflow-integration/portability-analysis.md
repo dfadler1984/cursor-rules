@@ -235,5 +235,5 @@ Use `portability` front matter field (per `portability/erd.md` taxonomy):
 
 - [Portability Taxonomy](../../../portability/erd.md) — Front matter classification system
 - [Project Organization](../../../project-organization/erd.md) — Structure conventions (cursor-rules-specific)
-- [Document Templates](../../../document-templates/erd.md) — Template discovery (cursor-rules-specific)
+- [Document Templates](../../../document-governance/erd.md) — Template discovery (cursor-rules-specific)
 - [AI Workflow Integration ERD](./erd.md) — Full integration specification

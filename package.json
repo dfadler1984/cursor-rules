@@ -6,7 +6,8 @@
     "changeset": "changeset",
     "version:changesets": "npx -y changeset version && node -e \"const fs=require('fs');const v=require('./package.json').version;fs.writeFileSync('VERSION', v+'\\n');require('child_process').execSync('git add VERSION',{stdio:'inherit'})\"",
     "validate:ghtoken": "curl -sS -o /dev/null -w \"%{http_code}\\n\" -H \"Authorization: token $GH_TOKEN\" -H \"Accept: application/vnd.github+json\" https://api.github.com",
-    "test:scripts": ".cursor/scripts/tests/run.sh -v"
+    "test:scripts": ".cursor/scripts/tests/run.sh -v",
+    "generate:projects-readme": ".cursor/scripts/generate-projects-readme.sh"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7"

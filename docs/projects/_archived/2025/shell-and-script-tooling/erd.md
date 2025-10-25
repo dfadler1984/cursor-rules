@@ -1,6 +1,6 @@
 ---
+status: completed
 ---
-
 # Engineering Requirements Document — Shell & Script Tooling (Unified)
 
 Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) | [`PROGRESS.md`](./PROGRESS.md) | [`UNIX-PHILOSOPHY-AUDIT.md`](./UNIX-PHILOSOPHY-AUDIT.md) | [`UNIX-PHILOSOPHY-AUDIT-UPDATED.md`](./UNIX-PHILOSOPHY-AUDIT-UPDATED.md) | [`REVIEW-FINDINGS.md`](./REVIEW-FINDINGS.md) | [`final-summary.md`](./final-summary.md)

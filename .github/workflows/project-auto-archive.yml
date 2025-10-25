@@ -1,0 +1,181 @@
+name: Project Auto-Archive
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Detect completed projects
+        id: detect
+        run: |
+          chmod +x ./.cursor/scripts/archive-detect-complete.sh
+          COMPLETED_JSON=$(./.cursor/scripts/archive-detect-complete.sh)
+          echo "completed=$COMPLETED_JSON" >> $GITHUB_OUTPUT
+
+          # Count projects
+          COUNT=$(echo "$COMPLETED_JSON" | jq '. | length')
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+
+          if [ "$COUNT" -eq 0 ]; then
+            echo "No projects ready for archival"
+            echo "should_archive=false" >> $GITHUB_OUTPUT
+          else
+            echo "Found $COUNT project(s) ready for archival"
+            echo "should_archive=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Archive projects
+        if: steps.detect.outputs.should_archive == 'true'
+        id: archive
+        run: |
+          chmod +x ./.cursor/scripts/project-archive.sh
+          chmod +x ./.cursor/scripts/archive-fix-links.sh
+
+          COMPLETED='${{ steps.detect.outputs.completed }}'
+          YEAR=$(date +%Y)
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+
+          # Create archive directory if needed
+          mkdir -p "docs/projects/_archived/$YEAR"
+
+          # Track archived projects for PR description
+          ARCHIVED_LIST=""
+          LINKS_FIXED=0
+
+          # Process each completed project
+          echo "$COMPLETED" | jq -r '.[] | .slug' | while read -r slug; do
+            echo "Archiving: $slug"
+            
+            # Get project title
+            title=$(echo "$COMPLETED" | jq -r ".[] | select(.slug==\"$slug\") | .title")
+            
+            # Archive the project
+            if ! ./.cursor/scripts/project-archive.sh --project "$slug" --year "$YEAR"; then
+              echo "ERROR: Failed to archive $slug"
+              exit 1
+            fi
+            
+            # Update ERD status to completed in archived location
+            erd_file="docs/projects/_archived/$YEAR/$slug/erd.md"
+            if [ -f "$erd_file" ]; then
+              sed -i 's/^status: active$/status: completed/' "$erd_file"
+              sed -i 's/^status: planning$/status: completed/' "$erd_file"
+            fi
+            
+            # Fix broken links
+            echo "Fixing links for: $slug"
+            if ./.cursor/scripts/archive-fix-links.sh \
+                --old-path "docs/projects/$slug" \
+                --new-path "docs/projects/_archived/$YEAR/$slug" 2>&1 | tee /tmp/link-fix-$slug.log; then
+              
+              # Count files with fixed links
+              fixed=$(grep -c "Fixed links" /tmp/link-fix-$slug.log || echo "0")
+              LINKS_FIXED=$((LINKS_FIXED + fixed))
+            fi
+            
+            # Add to archived list
+            ARCHIVED_LIST="${ARCHIVED_LIST}- **${slug}** — ${title}\n"
+          done
+
+          # Save for PR description
+          echo "archived_list<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$ARCHIVED_LIST" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "links_fixed=$LINKS_FIXED" >> $GITHUB_OUTPUT
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+
+      - name: Regenerate projects README
+        if: steps.detect.outputs.should_archive == 'true'
+        id: regenerate
+        run: |
+          chmod +x ./.cursor/scripts/generate-projects-readme.sh
+          ./.cursor/scripts/generate-projects-readme.sh
+
+          # Extract counts for PR description
+          ACTIVE=$(grep -A 100 "## Active Projects" docs/projects/README.md | grep -c "^\| [A-Z]" || echo "0")
+          PENDING=$(grep -A 100 "## Pending Projects" docs/projects/README.md | grep -c "^\| [A-Z]" || echo "0")
+          ARCHIVED=$(grep -A 100 "## Archived Projects" docs/projects/README.md | grep -c "^\| [A-Z]" || echo "0")
+
+          echo "active_count=$ACTIVE" >> $GITHUB_OUTPUT
+          echo "pending_count=$PENDING" >> $GITHUB_OUTPUT
+          echo "archived_count=$ARCHIVED" >> $GITHUB_OUTPUT
+
+      - name: Create PR
+        if: steps.detect.outputs.should_archive == 'true'
+        id: create_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TIMESTAMP="${{ steps.archive.outputs.timestamp }}"
+          BRANCH="bot/auto-archive-$TIMESTAMP"
+          COUNT="${{ steps.detect.outputs.count }}"
+
+          # Create branch
+          git checkout -b "$BRANCH"
+
+          # Commit all changes
+          git add -A
+          git commit -m "chore(projects): auto-archive completed projects" \
+            -m "" \
+            -m "- Archived: $COUNT project(s)" \
+            -m "- Fixed links" \
+            -m "- Updated projects README" \
+            -m "" \
+            -m "Auto-generated by project-auto-archive workflow"
+
+          # Push branch
+          git push origin "$BRANCH"
+
+          # Create PR using pr-create script
+          chmod +x ./.cursor/scripts/pr-create.sh
+          PR_BODY="Auto-archiving $COUNT completed project(s). All tasks complete, carryovers resolved, final summaries written."
+
+          PR_URL=$(./.cursor/scripts/pr-create.sh \
+            --title "chore(projects): Auto-archive completed projects ($COUNT)" \
+            --body "$PR_BODY" \
+            --head "$BRANCH" \
+            --base main)
+
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+
+      - name: Add labels and enable auto-merge
+        if: steps.detect.outputs.should_archive == 'true' && steps.create_pr.outputs.pr_url != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_URL="${{ steps.create_pr.outputs.pr_url }}"
+          PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
+
+          # Add labels
+          chmod +x ./.cursor/scripts/pr-labels.sh
+          ./.cursor/scripts/pr-labels.sh --pr "$PR_NUMBER" --add "auto-merge"
+          ./.cursor/scripts/pr-labels.sh --pr "$PR_NUMBER" --add "bot"
+          ./.cursor/scripts/pr-labels.sh --pr "$PR_NUMBER" --add "project-lifecycle"
+
+          # Enable auto-merge
+          curl -X PUT \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER/merge" \
+            -d '{"merge_method":"squash"}'
+
+          echo "✅ Auto-merge enabled for PR #$PR_NUMBER"

@@ -1,3 +1,10 @@
+---
+status: completed
+owner: repo-maintainers
+created: 2025-10-24
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document — ShellCheck Adoption
 
 Mode: Full

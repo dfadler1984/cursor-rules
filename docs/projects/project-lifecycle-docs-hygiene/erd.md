@@ -1,7 +1,14 @@
 ---
+status: active
+owner: repo-maintainers
+created: 2025-10-24
+lastUpdated: 2025-10-24
 ---
 
 # Engineering Requirements Document — Project lifecycle & docs hygiene (Umbrella)
+
+Mode: Lite
+
 
 Links: `docs/projects/project-lifecycle-docs-hygiene/tasks.md`
 

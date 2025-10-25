@@ -1,7 +1,7 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: true
-lastReviewed: 2025-10-23
+lastReviewed: 2025-10-24
 healthScore:
   content: green # Accurate capability descriptions, canonical discovery schema
   usability: green # Clear list format, easy to scan, formalized truncation
@@ -25,6 +25,9 @@ healthScore:
 - List rules and their metadata via `[.cursor/scripts/rules-list.sh](.cursor/scripts/rules-list.sh)`
 - Validate rule attachments: `[.cursor/scripts/rules-attach-validate.sh](.cursor/scripts/rules-attach-validate.sh)`
 - Validate ERD structure: `[.cursor/scripts/erd-validate.sh](.cursor/scripts/erd-validate.sh) <path>`
+- Migrate ERD to YAML front matter: `[.cursor/scripts/erd-migrate-frontmatter.sh](.cursor/scripts/erd-migrate-frontmatter.sh) <erd-file> [--dry-run]`
+- Add Mode line to ERD: `[.cursor/scripts/erd-add-mode-line.sh](.cursor/scripts/erd-add-mode-line.sh) <erd-file> [--mode lite|full] [--dry-run]`
+- Fix empty ERD front matter: `[.cursor/scripts/erd-fix-empty-frontmatter.sh](.cursor/scripts/erd-fix-empty-frontmatter.sh) <erd-file> [--status STATUS] [--owner OWNER] [--dry-run]`
 - Check capabilities sync: `[.cursor/scripts/capabilities-sync.sh](.cursor/scripts/capabilities-sync.sh) [--check|--update]`
 - Deep validation and maintenance: `[.cursor/scripts/deep-rule-and-command-validate.sh](.cursor/scripts/deep-rule-and-command-validate.sh)`
   - Orchestrates multiple validators (rules, capabilities, shellcheck, help/error format, test colocation)
@@ -202,6 +205,9 @@ All discovery outputs MUST conform to this schema:
 - Generate final summaries: `[.cursor/scripts/final-summary-generate.sh](.cursor/scripts/final-summary-generate.sh) --project <slug> --year <YYYY> [--force] [--pre-move]`.
 - Archive projects (full workflow): `[.cursor/scripts/project-archive-workflow.sh](.cursor/scripts/project-archive-workflow.sh) --project <slug> --year <YYYY> [--dry-run]`.
 - Archive single project: `[.cursor/scripts/project-archive.sh](.cursor/scripts/project-archive.sh) --project <slug> --year <YYYY>`.
+- Detect completed projects: `[.cursor/scripts/archive-detect-complete.sh](.cursor/scripts/archive-detect-complete.sh) [--projects-dir DIR]` — Returns JSON array of projects ready for archival
+- Fix broken links after archival: `[.cursor/scripts/archive-fix-links.sh](.cursor/scripts/archive-fix-links.sh) --old-path PATH --new-path PATH [--search-dir DIR] [--dry-run]`
+- Generate projects README: `[.cursor/scripts/generate-projects-readme.sh](.cursor/scripts/generate-projects-readme.sh) [--projects-dir DIR] [--out FILE] [--dry-run]`
 
 **Validation:**
 

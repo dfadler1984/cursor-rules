@@ -412,4 +412,4 @@ Example: [paste sample of desired format, if helpful]
 - See [prompt-tightening-patterns.md](./prompt-tightening-patterns.md) for making requests concrete
 - See [task-splitting-templates.md](./task-splitting-templates.md) for breaking large tasks into slices
 - See [summarize-workflow.md](./summarize-workflow.md) for reclaiming context capacity
-- See [../erd.md](../erd.md) Section 15 for Context Efficiency Gauge specification
+- See [../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 15 for Context Efficiency Gauge specification

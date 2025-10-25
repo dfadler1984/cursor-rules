@@ -1,6 +1,6 @@
 ---
+status: archived
 ---
-
 # Engineering Requirements Document — Deterministic, Structured Outputs
 
 Mode: Full

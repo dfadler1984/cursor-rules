@@ -1,6 +1,6 @@
 ---
 owner: rules-maintainers
-status: active
+status: completed
 lastUpdated: 2025-10-09
 ---
 

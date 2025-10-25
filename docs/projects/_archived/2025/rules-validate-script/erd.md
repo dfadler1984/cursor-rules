@@ -1,6 +1,6 @@
 ---
+status: completed
 ---
-
 # Rules Validation Script Enhancements — Lite ERD
 
 Mode: Lite

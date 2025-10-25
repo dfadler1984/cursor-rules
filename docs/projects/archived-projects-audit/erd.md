@@ -1,11 +1,14 @@
+---
+status: active  
+owner: Repository Maintainers
+created: 2025-10-23  
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: Archived Projects Audit
 
-**Project**: archived-projects-audit  
-**Status**: ACTIVE  
-**Created**: 2025-10-23  
-**Owner**: Repository Maintainers
+Mode: Lite
 
----
 
 ## 1. Problem Statement
 
@@ -181,7 +184,7 @@ Archived projects in `docs/projects/_archived/2025/` may have incomplete task ch
 
 ## 12. Related Work
 
-- [project-lifecycle.mdc](../../.cursor/rules/project-lifecycle.mdc) — Lifecycle guidance
-- [investigation-structure.mdc](../../.cursor/rules/investigation-structure.mdc) — Complex project organization
+- [project-lifecycle.mdc](../../../.cursor/rules/project-lifecycle.mdc) — Lifecycle guidance
+- [investigation-structure.mdc](../../../.cursor/rules/investigation-structure.mdc) — Complex project organization
 - `.cursor/scripts/project-lifecycle-validate-scoped.sh` — Automated validation
 - `.cursor/scripts/project-archive-workflow.sh` — Archival workflow

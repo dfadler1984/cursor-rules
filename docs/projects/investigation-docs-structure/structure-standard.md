@@ -235,14 +235,14 @@ Investigation broken into focused sub-projects for parallel execution and clear 
 
 ### H1: Conditional Attachment
 - **Status**: COMPLETE
-- **Location**: [h1-conditional-attachment](../h1-conditional-attachment/)
+- **Location**: [h1-conditional-attachment](../_archived/2025/h1-conditional-attachment/)
 - **Objective**: Test if alwaysApply improves compliance
 - **Resolution**: ✅ Confirmed - 74% → 96% script usage
 - **Contribution**: Primary fix for git operations
 
 ### H2: Send Gate Investigation  
 - **Status**: MONITORING
-- **Location**: [h2-send-gate-investigation](../h2-send-gate-investigation/)
+- **Location**: [h2-send-gate-investigation](../_archived/2025/h2-send-gate-investigation/)
 - **Objective**: Validate send gate executes and blocks violations
 - **Current**: Visible gate implemented; 0% → 100% visibility
 - **Contribution**: Transparency and accountability mechanism

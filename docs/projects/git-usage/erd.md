@@ -1,7 +1,14 @@
 ---
+status: active
+owner: repo-maintainers
+created: 2025-10-24
+lastUpdated: 2025-10-24
 ---
 
 # Engineering Requirements Document — Git Usage via MCP (Lite)
+
+Mode: Lite
+
 
 Links: `.cursor/rules/git-usage.mdc` | `docs/projects/git-usage/tasks.md` | `docs/projects/split-progress/erd.md`
 

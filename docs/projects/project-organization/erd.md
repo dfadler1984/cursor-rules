@@ -1,19 +1,11 @@
 ---
----
-
----
-title: Project Organization Defaults and Configurability
-slug: project-organization
-status: Proposed
+status: active
 owner: rules-maintainers
 created: 2025-10-02
-tags:
-  - repo-structure
-  - projects
-  - erd
-  - docs
-summary: Define sensible defaults for organizing ERDs, specs, plans, tasks, and decisions with configurable paths.
+lastUpdated: 2025-10-24
 ---
+
+# Engineering Requirements Document — Project Organization Defaults and Configurability
 
 Mode: Full
 

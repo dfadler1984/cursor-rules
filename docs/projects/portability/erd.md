@@ -1,11 +1,14 @@
+---
+status: active  
+owner: cursor-rules
+created: 2025-10-23  
+lastUpdated: 2025-10-24
+---
+
 # Engineering Requirements Document: Portability Taxonomy
 
-**Project**: portability  
-**Status**: ACTIVE  
-**Created**: 2025-10-23  
-**Owner**: cursor-rules
+Mode: Lite
 
----
 
 ## 1. Problem Statement
 
@@ -46,10 +49,8 @@ The cursor-rules repository contains a mix of portable (general-purpose, reusabl
 **Approach**: Add `portability` field to front matter for rules/scripts
 
 ```yaml
----
 portability: portable | project-specific | hybrid
 portabilityNotes: "Optional explanation of assumptions/requirements"
----
 ```
 
 **Pros**:

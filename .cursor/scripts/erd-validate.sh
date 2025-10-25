@@ -54,24 +54,35 @@ fi
 fail=0
 
 # Detect code fences and count front matter separators outside fences
+# Also check for empty front matter
 awk_out=$(awk -v file="$file" '
-  BEGIN{inCode=0; sepCount=0; firstNonEmptySeen=0; issues=0}
+  BEGIN{inCode=0; sepCount=0; firstNonEmptySeen=0; issues=0; inFrontMatter=0; frontMatterHasContent=0}
   /^```/ { inCode = 1 - inCode; next }
   {
     if ($0 !~ /^\s*$/ && $0 !~ /^---[ \t]*$/ && firstNonEmptySeen==0) {
       firstNonEmptySeen=NR
     }
   }
-  /^---[ \t]*$/ && !inCode {
+  /^---[ \t]*$/ && !inCode && sepCount<2 {
     sepCount++
     if (sepCount==1) {
       # Opening front matter must be the very first non-empty thing
       if (firstNonEmptySeen!=0) {
         printf "%s:%d: front matter separator not at file start\n", file, NR; issues++
       }
-    } else if (sepCount>2) {
-      printf "%s:%d: extra front matter separator detected\n", file, NR; issues++
+      inFrontMatter=1
+    } else if (sepCount==2) {
+      # Closing front matter
+      if (inFrontMatter && !frontMatterHasContent) {
+        printf "%s:%d: empty front matter (no content between --- markers)\n", file, NR; issues++
+      }
+      inFrontMatter=0
+      # Stop processing --- after front matter is closed
     }
+  }
+  inFrontMatter && /^[[:space:]]*[^[:space:]-]/ {
+    # Found non-empty, non-separator line in front matter
+    frontMatterHasContent=1
   }
   END{ if (issues>0) exit 1 }
 ' "$file") || fail=$((fail+1))

@@ -6,6 +6,9 @@ created: 2025-10-22
 
 # Engineering Requirements Document — Command Discovery Rule
 
+Mode: Lite
+
+
 ## 1. Problem Statement
 
 Deleted `commands.caps.mdc` because it was a static, redundant catalog that duplicated information from scripts and command files. However, we still need a way for users to discover:

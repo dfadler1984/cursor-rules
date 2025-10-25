@@ -354,4 +354,4 @@ To maintain consistent scoring:
 
 - See [prompt-tightening-patterns.md](./prompt-tightening-patterns.md) for making requests more specific
 - See [incident-playbook.md](./incident-playbook.md) → Incident 6 for handling quality degradation
-- See [../erd.md](../erd.md) Section 4.5 for quality rubric requirements
+- See [../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 4.5 for quality rubric requirements
