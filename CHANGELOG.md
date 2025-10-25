@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.21.0
+
+### Minor Changes
+
+- [#194](https://github.com/dfadler1984/cursor-rules/pull/194) [`67afbd3`](https://github.com/dfadler1984/cursor-rules/commit/67afbd3ff3943ea6aede2192f6545b0363642b52) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add automated projects README generator and auto-archive action
+
+  Projects README Generator:
+
+  - Automated README generation with 3-table structure (Active/Pending/Archived)
+  - ERD migration and validation tooling
+  - Fixed 65+ project ERDs (100% validation pass rate)
+  - Eliminated all unknown statuses
+  - npm script: `npm run generate:projects-readme`
+
+  Auto-Archive Action (Phases 1-3):
+
+  - Completion detection script with 3-criteria validation
+  - Automatic link fixing after archival
+  - GitHub workflow for zero-touch project archival
+  - Assistant rules integration for final-summary prompting
+
 ## 0.20.0
 
 ### Minor Changes
