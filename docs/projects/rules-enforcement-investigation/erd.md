@@ -281,9 +281,9 @@ The investigation is complete when:
 
 ### Internal Projects
 
-- [ai-workflow-integration](../ai-workflow-integration/erd.md) — Analysis of taskmaster, spec-kit patterns
+- [ai-workflow-integration](../_archived/2025/ai-workflow-integration/erd.md) — Analysis of taskmaster, spec-kit patterns
 - [intent-router](../_archived/2025/intent-router/final-summary.md) — Current intent routing implementation
-- [slash-commands-runtime](../slash-commands-runtime/erd.md) — Proposed slash command execution
+- [slash-commands-runtime](../_archived/2025/slash-commands-runtime/erd.md) — Proposed slash command execution
 
 ### Key Questions from AI Workflow Integration
 

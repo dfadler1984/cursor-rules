@@ -210,8 +210,8 @@ This umbrella project coordinates document standards across topics:
 
 ## 10. Related Work
 
-- [project-lifecycle.mdc](../../.cursor/rules/project-lifecycle.mdc) — Project completion and structure
-- [investigation-structure.mdc](../../.cursor/rules/investigation-structure.mdc) — Investigation project organization
-- [assistant-behavior.mdc](../../.cursor/rules/assistant-behavior.mdc) — Pre-send gate and consent
+- [project-lifecycle.mdc](../../../.cursor/rules/project-lifecycle.mdc) — Project completion and structure
+- [investigation-structure.mdc](../../../.cursor/rules/investigation-structure.mdc) — Investigation project organization
+- [assistant-behavior.mdc](../../../.cursor/rules/assistant-behavior.mdc) — Pre-send gate and consent
 - `/project` command — Current project creation guidance
 - [rules-enforcement-investigation](../rules-enforcement-investigation/) — Studied enforcement patterns
