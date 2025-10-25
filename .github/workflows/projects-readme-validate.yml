@@ -1,14 +1,6 @@
 name: Projects README Staleness Check
 
 on:
-  push:
-    branches: ["**"]
-    paths:
-      - "docs/projects/**/erd.md"
-      - "docs/projects/**/tasks.md"
-      - "docs/projects/README.md"
-      - ".cursor/scripts/generate-projects-readme.sh"
-      - ".github/workflows/projects-readme-validate.yml"
   pull_request:
     branches: ["**"]
     paths:

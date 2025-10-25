@@ -67,9 +67,23 @@ Implementation complete with TDD approach (Red → Green → Refactor):
 
 **CI Integration:**
 
-- `.github/workflows/projects-readme-validate.yml` — Staleness check workflow
-  - Triggers on changes to project ERDs, tasks, or the generator script
-  - Compares fresh generation with current README
-  - Fails CI if out of sync, provides clear remediation steps
+- `.github/workflows/projects-readme-update.yml` — Auto-fix workflow (runs on main)
+  - Triggers when project ERDs or tasks change on main branch
+  - Regenerates projects README automatically
+  - Creates auto-merge PR with changes
+  - Eliminates manual `npm run generate:projects-readme` step
+- `.github/workflows/projects-readme-auto-merge.yml` — Auto-merge enabler
+  - Automatically enables auto-merge on generated PRs
+  - Allows seamless integration without manual review
+- `.github/workflows/projects-readme-validate.yml` — PR validation check
+  - Runs on pull requests only
+  - Fails CI if README is stale
+  - Prevents merging PRs with outdated project index
+
+**Benefits:**
+
+- Zero manual maintenance: README stays in sync automatically
+- Reduced rule context: No manual regeneration instructions needed
+- CI safety: PRs cannot merge with stale README
 
 **All tasks complete!**
