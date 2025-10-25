@@ -36,7 +36,7 @@
   - [x] 4.1 Add ERD validator to CI (`.github/workflows/erd-validate.yml`)
   - [x] 4.2 Create ERD migration script (`.cursor/scripts/erd-migrate-frontmatter.sh`)
   - [x] 4.3 Document ERD format requirements in project README
-  - [ ] 4.4 Add README staleness check to CI
+  - [x] 4.4 Add README staleness check to CI
 
 ## Completion Notes
 
@@ -65,6 +65,11 @@ Implementation complete with TDD approach (Red → Green → Refactor):
 - Fixture-based testing
 - Graceful handling of missing erd.md
 
-**Next Steps (Optional):**
+**CI Integration:**
 
-- Task 4.0: CI validation and project lifecycle integration
+- `.github/workflows/projects-readme-validate.yml` — Staleness check workflow
+  - Triggers on changes to project ERDs, tasks, or the generator script
+  - Compares fresh generation with current README
+  - Fails CI if out of sync, provides clear remediation steps
+
+**All tasks complete!**
