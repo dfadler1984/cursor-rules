@@ -31,6 +31,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Engineering Requirements Document — Investigation Documentation Structure | active | [📄](./investigation-docs-structure/erd.md) | ✅ |
 | Engineering Requirements Document — Jira Automation | active | [📄](./jira-automation/erd.md) | ✅ |
 | Engineering Requirements Document — Long‑term Solutions (Lite) | active | [📄](./long-term-solutions/erd.md) | ✅ |
+| Engineering Requirements Document: Orphaned Files Detection | active | [📄](./orphaned-files/erd.md) | ✅ |
 | Engineering Requirements Document: Portability Taxonomy | active | [📄](./portability/erd.md) | ✅ |
 | Engineering Requirements Document: PR Creation Script Decomposition | active | [📄](./pr-create-decomposition/erd.md) | ✅ |
 | Engineering Requirements Document — Pre-commit Shell Executable Bit (Lite) | active | [📄](./pre-commit-shell-executable/erd.md) | ✅ |
@@ -39,11 +40,14 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Engineering Requirements Document — Project Organization Defaults and Configurability | active | [📄](./project-organization/erd.md) | ✅ |
 | Engineering Requirements Document — Projects README Generator | active | [📄](./projects-readme-generator/erd.md) | ✅ |
 | Engineering Requirements Document — Roles & Intent Routing (Lite) | active | [📄](./roles/erd.md) | ✅ |
+| Engineering Requirements Document — Root README Generator | active | [📄](./root-readme-generator/erd.md) | ✅ |
+| Engineering Requirements Document: Rules Condensation | active | [📄](./rules-condensation/erd.md) | ✅ |
 | Engineering Requirements Document: Rules & Documentation Quality Detection | active | [📄](./rules-docs-quality-detection/erd.md) | ✅ |
 | Engineering Requirements Document — Rules Enforcement & Effectiveness Investigation | active | [📄](./rules-enforcement-investigation/erd.md) | ✅ |
 | Engineering Requirements Document — Rules Folder Structure Options (Lite) | active | [📄](./rules-folder-structure-options/erd.md) | ✅ |
 | Engineering Requirements Document — Improve Rules Using Grok Conversation Insights | active | [📄](./rules-grok-alignment/erd.md) | ✅ |
 | Engineering Requirements Document: Rules to Commands Conversion | active | [📄](./rules-to-commands/erd.md) | ✅ |
+| Engineering Requirements Document: Shell Scripts Organization by Feature | active | [📄](./script-organization-by-feature/erd.md) | ✅ |
 | Engineering Requirements Document — Script Refinement (Optional Polish) | active | [📄](./script-refinement/erd.md) | ✅ |
 | Engineering Requirements Document: Shell Test Organization | active | [📄](./shell-test-organization/erd.md) | ✅ |
 | Engineering Requirements Document — Split Progress | active | [📄](./split-progress/erd.md) | ✅ |
@@ -111,7 +115,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Engineering Requirements Document — Shell Scripts Suite | completed | [📄](./_archived/2025/shell-scripts/erd.md) | ✅ |
 | Engineering Requirements Document — ShellCheck Adoption | completed | [📄](./_archived/2025/shellcheck/erd.md) | ✅ |
 | Engineering Requirements Document — Skip Changeset Opt-In (Lite) | completed | [📄](./_archived/2025/skip-changeset-opt-in/erd.md) | ✅ |
-| Engineering Requirements Document — Slash Commands Runtime Routing | completed | [📄](./slash-commands-runtime-routing/erd.md) | — |
+| Engineering Requirements Document — Slash Commands Runtime Routing | completed | [📄](./slash-commands-runtime-routing/erd.md) | ✅ |
 | Engineering Requirements Document — Slash Commands Runtime (Lite) | completed | [📄](./_archived/2025/slash-commands-runtime/erd.md) | ✅ |
 | Engineering Requirements Document — TDD‑First (Lite) | completed | [📄](./_archived/2025/tdd-first/erd.md) | ✅ |
 | Engineering Requirements Document — Test Run Deletes `.github/` and adds `tmp-scan/` | completed | [📄](./_archived/2025/tests-github-deletion/erd.md) | ✅ |
