@@ -49,7 +49,7 @@ while [ $# -gt 0 ]; do
       DRY_RUN=true
       shift
       ;;
-    --help)
+    -h|--help)
       usage
       ;;
     *)
