@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.22.5
+
+### Patch Changes
+
+- [#214](https://github.com/dfadler1984/cursor-rules/pull/214) [`46ff842`](https://github.com/dfadler1984/cursor-rules/commit/46ff842a8284849bcb09794ff006889eab7c3959) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Remove obsolete health-badge.yml workflow
+
+  - Deleted `.github/workflows/health-badge.yml` which was replaced by PR-based approach
+  - Old workflow committed directly to main and was failing consistently
+  - New `repo-health-badge.yml` workflow remains as canonical health badge automation
+
 ## 0.22.4
 
 ### Patch Changes
