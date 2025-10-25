@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.22.1
+
+### Patch Changes
+
+- [#200](https://github.com/dfadler1984/cursor-rules/pull/200) [`a812386`](https://github.com/dfadler1984/cursor-rules/commit/a81238671ee11f4b75b9ed3ae83aee7c47711367) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix PR validation placeholder detection and add missing project specs
+
+  **Bug Fixes:**
+
+  - Fixed PR validation script being too strict (flagged valid PRs with standard structure)
+  - Fixed undefined EXIT_DATA variable in pr-create-simple.sh
+  - Validation now checks for actual placeholder text, not section headers
+
+  **Documentation:**
+
+  - Added three missing project specifications (orphaned-files, rules-condensation, script-organization-by-feature)
+  - Regenerated projects README
+
+  **Tests:**
+
+  - Updated pr-validate-description tests to match new placeholder detection logic
+  - Added test case for valid PRs with standard structure
+
 ## 0.22.0
 
 ### Minor Changes
