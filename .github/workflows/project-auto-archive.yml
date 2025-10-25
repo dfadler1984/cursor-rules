@@ -157,7 +157,8 @@ jobs:
 
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
 
-      - name: Add labels and enable auto-merge
+      - name: Add labels
+        id: add_labels
         if: steps.detect.outputs.should_archive == 'true' && steps.create_pr.outputs.pr_url != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -169,13 +170,17 @@ jobs:
           chmod +x ./.cursor/scripts/pr-labels.sh
           ./.cursor/scripts/pr-labels.sh --pr "$PR_NUMBER" --add "auto-merge"
           ./.cursor/scripts/pr-labels.sh --pr "$PR_NUMBER" --add "bot"
+          ./.cursor/scripts/pr-labels.sh --pr "$PR_NUMBER" --add "skip-changeset"
           ./.cursor/scripts/pr-labels.sh --pr "$PR_NUMBER" --add "project-lifecycle"
 
-          # Enable auto-merge
-          curl -X PUT \
-            -H "Authorization: token $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER/merge" \
-            -d '{"merge_method":"squash"}'
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
 
-          echo "✅ Auto-merge enabled for PR #$PR_NUMBER"
+      - name: Enable auto-merge
+        if: steps.detect.outputs.should_archive == 'true' && steps.create_pr.outputs.pr_url != ''
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.AUTO_MERGE_TOKEN }}
+          pull-request-number: ${{ steps.add_labels.outputs.pr_number }}
+          merge-method: squash
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}
