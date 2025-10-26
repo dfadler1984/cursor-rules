@@ -99,7 +99,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Engineering Requirements Document — Project Lifecycle Coordination | completed | [📄](./_archived/2025/project-lifecycle-coordination/erd.md) | ✅ |
 | Engineering Requirements Document — Project Lifecycle Hardening (Full) | completed | [📄](./_archived/2025/project-lifecycle-hardening/erd.md) | ✅ |
 | Engineering Requirements Document — Project Lifecycle & Completion Process (Lite) | completed | [📄](./_archived/2025/project-lifecycle/erd.md) | ✅ |
-| Engineering Requirements Document — Projects README Generator | completed | [📄](./projects-readme-generator/erd.md) | ✅ |
+| Engineering Requirements Document — Projects README Generator | completed | [📄](./_archived/2025/projects-readme-generator/erd.md) | ✅ |
 | Engineering Requirements Document — Repository Health Validation Fixes (Lite) | completed | [📄](./_archived/2025/repo-health-validation-fixes/erd.md) | ✅ |
 | Engineering Requirements Document — Routing Optimization | completed | [📄](./_archived/2025/routing-optimization/erd.md) | ✅ |
 | Engineering Requirements Document — Routing Optimization | completed | [📄](./routing-optimization/erd.md) | ✅ |
