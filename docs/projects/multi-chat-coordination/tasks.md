@@ -65,27 +65,40 @@
 
 ### Server Implementation
 
-- [ ] Create Node.js WebSocket server script
+- [x] Create TypeScript WebSocket server (13/13 tests passing)
   - Task queue management
   - Worker registration
   - Status endpoint
-- [ ] Define message protocol (JSON schema for task/report/status messages)
-- [ ] Add connection handling (connect, disconnect, reconnect)
-- [ ] Test server in isolation (manual client)
+- [x] Define message protocol (JSON schema for task/report/status messages)
+- [x] Add connection handling (connect, disconnect, reconnect)
+- [x] Test server in isolation (9/9 tests passing)
+
+### Client Implementation
+
+- [x] Create TypeScript client library (9/9 tests passing)
+  - Event-driven architecture
+  - Type-safe message handling
+  - Auto-reconnect support
+- [x] Create CLI wrapper for shell usage
+- [x] Test client with server (integration tests passing)
 
 ### Coordinator Updates
 
-- [ ] Update coordinator rule to start server
-- [ ] Replace file writes with WebSocket sends
-- [ ] Add real-time status display
-- [ ] Test coordinator with running server
+- [x] Create Phase 2 coordinator rule (WebSocket-based)
+  - Server startup workflow
+  - Push-based task creation
+  - Real-time notification handling
+  - No polling needed
+- [ ] Test coordinator with running server (integration)
 
 ### Worker Updates
 
-- [ ] Create worker client script (WebSocket connection)
-- [ ] Update worker rule to use client for polling
-- [ ] Add connection state handling (retry on disconnect)
-- [ ] Test worker with running server
+- [x] Create Phase 2 worker rule (WebSocket-based)
+  - Server connection workflow
+  - Push-based task reception
+  - Removed polling logic
+  - Auto-assignment pattern
+- [ ] Test worker with running server (integration)
 
 ### Integration & Validation
 

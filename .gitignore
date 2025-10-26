@@ -2,3 +2,4 @@ assistant-logs/
 node_modules/
 .test-artifacts/
 docs/reviews/
+tmp/
