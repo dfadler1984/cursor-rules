@@ -3,7 +3,7 @@
 - `.cursor/scripts/generate-projects-readme.sh` — generator script
 - `.cursor/scripts/generate-projects-readme.test.sh` — tests
 - `docs/projects/README.md` — output
-- `docs/projects/projects-readme-generator/erd.md` — ERD
+- `docs/projects/_archived/2025/projects-readme-generator/erd.md` — ERD
 
 ### Notes
 
@@ -47,7 +47,7 @@ Implementation complete with TDD approach (Red → Green → Refactor):
 - `.cursor/scripts/generate-projects-readme.sh` — Main generator (206 lines)
 - `.cursor/scripts/generate-projects-readme.test.sh` — Test suite (6 tests, all passing)
 - `npm run generate:projects-readme` — Convenience script
-- `docs/projects/projects-readme-generator/README.md` — Documentation
+- `docs/projects/_archived/2025/projects-readme-generator/README.md` — Documentation
 
 **Features:**
 
