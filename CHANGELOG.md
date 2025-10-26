@@ -1,5 +1,134 @@
 # Changelog
 
+## 0.22.9
+
+### Patch Changes
+
+- [#229](https://github.com/dfadler1984/cursor-rules/pull/229) [`c55a250`](https://github.com/dfadler1984/cursor-rules/commit/c55a2507f1b9a6b7e79468b39067f7157066737f) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Strip repetitive "Engineering Requirements Document" prefix from project titles
+
+  - Improves projects README scannability by removing ~40 chars of redundant text per row
+  - Added clean_title() function to strip common prefixes
+  - Added test coverage for title cleaning
+  - Regenerated projects README with cleaned titles (~3,800 chars removed)
+
+## 0.22.8
+
+### Patch Changes
+
+- [#225](https://github.com/dfadler1984/cursor-rules/pull/225) [`b5854cc`](https://github.com/dfadler1984/cursor-rules/commit/b5854ccc503cb062180c507733779839b965eb77) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add auto-merge workflow for project archive PRs
+
+  - New workflow enables auto-merge on archive PRs automatically
+  - Follows patterns from health-badge-auto-merge and changesets-auto-merge
+  - Supports both automatic (workflow_run) and manual (workflow_dispatch) triggering
+
+## 0.22.7
+
+### Patch Changes
+
+- [#221](https://github.com/dfadler1984/cursor-rules/pull/221) [`8be5cf5`](https://github.com/dfadler1984/cursor-rules/commit/8be5cf5f8345bd4e9f987398ea509a51361d9b6d) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix auto-archive workflow JSON output format
+
+  - Fixed multiline JSON output to use heredoc format for GITHUB_OUTPUT
+  - Follows GitHub Actions best practices for multiline values
+  - Unblocks automatic archival of completed projects
+
+## 0.22.6
+
+### Patch Changes
+
+- [#217](https://github.com/dfadler1984/cursor-rules/pull/217) [`9554db2`](https://github.com/dfadler1984/cursor-rules/commit/9554db29d7a035de499501738c47c954ac592572) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix health badge path filter to prevent workflow-triggered loop
+
+  - Removed `.github/workflows/**/*.yml` from path filters
+  - Health badge now only triggers on scripts and rules changes
+  - Prevents loop where workflow changes trigger badge updates
+
+## 0.22.5
+
+### Patch Changes
+
+- [#214](https://github.com/dfadler1984/cursor-rules/pull/214) [`46ff842`](https://github.com/dfadler1984/cursor-rules/commit/46ff842a8284849bcb09794ff006889eab7c3959) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Remove obsolete health-badge.yml workflow
+
+  - Deleted `.github/workflows/health-badge.yml` which was replaced by PR-based approach
+  - Old workflow committed directly to main and was failing consistently
+  - New `repo-health-badge.yml` workflow remains as canonical health badge automation
+
+## 0.22.4
+
+### Patch Changes
+
+- [#211](https://github.com/dfadler1984/cursor-rules/pull/211) [`c815d11`](https://github.com/dfadler1984/cursor-rules/commit/c815d11eec80950a5c435cbfd94c632893c7bd66) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix health badge infinite loop and auto-archive auto-merge failure
+
+  - Health badge workflow now uses path filters to prevent infinite loop
+  - Auto-archive workflow uses correct auto-merge action (peter-evans/enable-pull-request-automerge@v3)
+  - Split auto-archive labels and auto-merge into separate steps
+  - Added skip-changeset label to auto-archive PRs
+
+## 0.22.3
+
+### Patch Changes
+
+- [#207](https://github.com/dfadler1984/cursor-rules/pull/207) [`5471f38`](https://github.com/dfadler1984/cursor-rules/commit/5471f38ef452bc170c0df7e81da4f546c47e6c89) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Replace manual validation with auto-fix workflow for projects README
+
+  - New workflow `projects-readme-update.yml` auto-generates README on main
+  - New workflow `projects-readme-auto-merge.yml` enables auto-merge on generated PRs
+  - Modified `projects-readme-validate.yml` to PR-only validation
+  - Follows repo patterns (health-badge, changesets) for zero-touch maintenance
+  - Eliminates manual regeneration step, reduces rule context
+
+## 0.22.2
+
+### Patch Changes
+
+- [#204](https://github.com/dfadler1984/cursor-rules/pull/204) [`72616f9`](https://github.com/dfadler1984/cursor-rules/commit/72616f9f771a5fc59d27b885b5b41e559a001a1e) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add CI staleness check for projects README
+
+  - New workflow `.github/workflows/projects-readme-validate.yml` validates that `docs/projects/README.md` is up to date
+  - Triggers on changes to project ERDs, tasks, or the generator script
+  - Fails CI if README is out of sync with clear remediation steps
+  - Completes projects-readme-generator project (task 4.4)
+
+## 0.22.1
+
+### Patch Changes
+
+- [#200](https://github.com/dfadler1984/cursor-rules/pull/200) [`a812386`](https://github.com/dfadler1984/cursor-rules/commit/a81238671ee11f4b75b9ed3ae83aee7c47711367) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix PR validation placeholder detection and add missing project specs
+
+  **Bug Fixes:**
+
+  - Fixed PR validation script being too strict (flagged valid PRs with standard structure)
+  - Fixed undefined EXIT_DATA variable in pr-create-simple.sh
+  - Validation now checks for actual placeholder text, not section headers
+
+  **Documentation:**
+
+  - Added three missing project specifications (orphaned-files, rules-condensation, script-organization-by-feature)
+  - Regenerated projects README
+
+  **Tests:**
+
+  - Updated pr-validate-description tests to match new placeholder detection logic
+  - Added test case for valid PRs with standard structure
+
+## 0.22.0
+
+### Minor Changes
+
+- [#197](https://github.com/dfadler1984/cursor-rules/pull/197) [`103ad86`](https://github.com/dfadler1984/cursor-rules/commit/103ad86ab663d176e047acdade444ea364940b67) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add PR description validation and root README generator project
+
+  **New Features:**
+
+  - `pr-validate-description.sh`: Validates PR descriptions after creation to prevent null/empty/template bodies
+  - Integrated validation into `pr-create-simple.sh` with `--no-validate` flag
+  - Test suite for validation script
+
+  **Documentation:**
+
+  - Root README generator project (Phase 0: Planning) with comprehensive ERD and 202 tasks
+  - Push command reference at `.cursor/commands/push.md`
+
+  **Improvements:**
+
+  - Prevents silent failures where PRs are created but descriptions aren't set
+  - Validates against null bodies, empty bodies, and template placeholders
+
 ## 0.21.0
 
 ### Minor Changes

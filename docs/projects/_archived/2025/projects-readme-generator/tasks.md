@@ -3,7 +3,7 @@
 - `.cursor/scripts/generate-projects-readme.sh` — generator script
 - `.cursor/scripts/generate-projects-readme.test.sh` — tests
 - `docs/projects/README.md` — output
-- `docs/projects/projects-readme-generator/erd.md` — ERD
+- `docs/projects/_archived/2025/projects-readme-generator/erd.md` — ERD
 
 ### Notes
 
@@ -36,7 +36,7 @@
   - [x] 4.1 Add ERD validator to CI (`.github/workflows/erd-validate.yml`)
   - [x] 4.2 Create ERD migration script (`.cursor/scripts/erd-migrate-frontmatter.sh`)
   - [x] 4.3 Document ERD format requirements in project README
-  - [ ] 4.4 Add README staleness check to CI
+  - [x] 4.4 Add README staleness check to CI
 
 ## Completion Notes
 
@@ -47,7 +47,7 @@ Implementation complete with TDD approach (Red → Green → Refactor):
 - `.cursor/scripts/generate-projects-readme.sh` — Main generator (206 lines)
 - `.cursor/scripts/generate-projects-readme.test.sh` — Test suite (6 tests, all passing)
 - `npm run generate:projects-readme` — Convenience script
-- `docs/projects/projects-readme-generator/README.md` — Documentation
+- `docs/projects/_archived/2025/projects-readme-generator/README.md` — Documentation
 
 **Features:**
 
@@ -65,6 +65,25 @@ Implementation complete with TDD approach (Red → Green → Refactor):
 - Fixture-based testing
 - Graceful handling of missing erd.md
 
-**Next Steps (Optional):**
+**CI Integration:**
 
-- Task 4.0: CI validation and project lifecycle integration
+- `.github/workflows/projects-readme-update.yml` — Auto-fix workflow (runs on main)
+  - Triggers when project ERDs or tasks change on main branch
+  - Regenerates projects README automatically
+  - Creates auto-merge PR with changes
+  - Eliminates manual `npm run generate:projects-readme` step
+- `.github/workflows/projects-readme-auto-merge.yml` — Auto-merge enabler
+  - Automatically enables auto-merge on generated PRs
+  - Allows seamless integration without manual review
+- `.github/workflows/projects-readme-validate.yml` — PR validation check
+  - Runs on pull requests only
+  - Fails CI if README is stale
+  - Prevents merging PRs with outdated project index
+
+**Benefits:**
+
+- Zero manual maintenance: README stays in sync automatically
+- Reduced rule context: No manual regeneration instructions needed
+- CI safety: PRs cannot merge with stale README
+
+**All tasks complete!**

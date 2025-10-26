@@ -1,16 +1,17 @@
-name: Update Repository Health Badge
+name: Update Projects README
 
 on:
   push:
     branches:
       - main
     paths:
-      - ".cursor/scripts/**/*.sh"
-      - ".cursor/rules/**/*.mdc"
+      - "docs/projects/**/erd.md"
+      - "docs/projects/**/tasks.md"
+      - ".cursor/scripts/generate-projects-readme.sh"
   workflow_dispatch: # Allow manual triggering
 
 jobs:
-  update-badge:
+  update-readme:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -23,26 +24,25 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Run health validation and update badge
-        id: update-badge
+      - name: Generate projects README
+        id: generate
         run: |
-          # Make script executable if not already
-          chmod +x .cursor/scripts/repo-health-badge.sh
-          chmod +x .cursor/scripts/deep-rule-and-command-validate.sh
+          chmod +x .cursor/scripts/generate-projects-readme.sh
 
-          # Generate workflow run URL for clickable badge
-          WORKFLOW_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          # Run generator (writes to docs/projects/README.md)
+          .cursor/scripts/generate-projects-readme.sh
 
-          # Update badge with workflow link
-          .cursor/scripts/repo-health-badge.sh --workflow-url "$WORKFLOW_URL"
+          echo "Generation complete"
 
-      - name: Check for README badge changes
+      - name: Check for README changes
         id: check_changes
         run: |
-          if git diff --quiet README.md; then
+          if git diff --quiet docs/projects/README.md; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes detected"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected in projects README"
           fi
 
       - name: Create Pull Request
@@ -50,15 +50,17 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: update repository health badge [skip ci]"
-          title: "chore: update repository health badge"
+          commit-message: "chore: update projects README [skip ci]"
+          title: "chore: update projects README"
           body: |
-            Automated health badge update from validation run.
+            Automated projects README update from project metadata changes.
+
+            This PR was automatically generated because project ERDs or tasks were updated.
 
             Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           add-paths: |
-            README.md
-          branch: chore/update-health-badge
+            docs/projects/README.md
+          branch: chore/update-projects-readme
           delete-branch: true
           labels: skip-changeset
           author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
