@@ -1,0 +1,9 @@
+---
+description: Spec-Driven workflow — Specify → Plan → Tasks
+alwaysApply: false
+globs: ["**/*.md"]
+---
+
+# Spec Driven
+
+Content here.

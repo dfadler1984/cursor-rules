@@ -23,14 +23,18 @@ The root README is the first thing users/contributors see, but it:
 - Mixes conceptual content (workflow overview) with concrete inventory (script list)
 - Has unclear boundaries about what belongs where (root vs `docs/` vs project folders)
 
-### Uncertainty / Assumptions
+### Resolved Decisions (2025-10-26)
 
-- [NEEDS CLARIFICATION: Should this be a **full replacement** generator or **partial updater** that preserves manual sections?]
-- [NEEDS CLARIFICATION: Which sections should be auto-generated vs manually curated?]
-- [NEEDS CLARIFICATION: Update trigger — CI, manual npm script, pre-commit hook?]
-- [NEEDS CLARIFICATION: Target audience weighting — new contributors, existing users, or AI agents?]
-- [NEEDS CLARIFICATION: Should we keep all existing sections or consolidate/relocate some to `docs/`?]
-- [ASSUMPTION: Template-based approach similar to projects-readme-generator pattern]
+- ✅ **Generation Strategy**: Full replacement with template (see `decisions/generation-strategy.md`)
+- ✅ **Section Ownership**: 9 auto-generated, 6 manual sections (see `decisions/section-ownership.md`)
+- ✅ **Priority Projects**: ERD front matter with `priority: high|medium|low` + blocker support
+- ✅ **Known Issues**: Deferred to follow-up project (carry over)
+- ✅ **Scripts Section**: Full categorized list (38+ scripts)
+
+### Remaining Uncertainties
+
+- [NEEDS CLARIFICATION: Update trigger — CI validation-only, manual npm script, or pre-commit hook?]
+- [ASSUMPTION: Template-based approach with simple placeholder replacement ({{PLACEHOLDER}})]
 - [ASSUMPTION: Idempotent output for version control stability]
 - [ASSUMPTION: Zero external dependencies beyond coreutils]
 
@@ -63,99 +67,175 @@ The root README is the first thing users/contributors see, but it:
 
 ## 4. Functional Requirements
 
-### 4.1 Content Strategy (TBD)
+### 4.1 Content Strategy (DECIDED: Full Replacement)
 
-**Decision needed**: Which generation strategy?
+**Selected**: Option A - Full Replacement with Template
 
-**Option A: Full Replacement**
+**Rationale**:
 
-- Pros: Complete consistency, no drift, simpler logic
-- Cons: Manual edits lost, less flexibility, harder to iterate
+- Complete consistency — no drift between manual and auto sections
+- Simpler implementation — single template, clear placeholders
+- Predictable output — idempotent generation
+- Easier testing — compare generated vs expected
+- No marker maintenance overhead
 
-**Option B: Partial Update (Section Markers)**
+**Trade-offs Accepted**:
 
-- Pros: Preserves manual content, iterative updates, flexible
-- Cons: More complex parsing, marker maintenance, merge conflicts
-- Pattern: `<!-- BEGIN AUTO: scripts -->` ... `<!-- END AUTO: scripts -->`
+- Manual edits will be lost on regeneration
+- Manual content lives in version-controlled template
+- Changes to manual content require PR to template
 
-**Option C: Hybrid (Template + Fragments)**
+**Implementation**:
 
-- Pros: Separates manual/auto concerns, composable, testable
-- Cons: Multiple source files, orchestration complexity
-- Pattern: `templates/header.md` + generated sections + `templates/footer.md`
+- Single template file: `templates/root-readme.template.md`
+- Simple placeholder syntax: `{{PLACEHOLDER_NAME}}`
+- Generator replaces all placeholders atomically
+- Template contains both manual content and placeholder positions
 
-**Decision criteria**:
+### 4.2 README Structure (DECIDED)
 
-- Frequency of manual edits to root README
-- Number of auto vs manual sections
-- Risk tolerance for lost edits
-- Complexity budget
+**15 Sections** (9 auto-generated, 6 manual):
 
-[NEEDS DECISION: Select generation strategy before implementation]
+**Auto-Generated Sections** (via placeholder replacement):
 
-### 4.2 Sections (Auto-Generated Candidates)
+1. **Health Badge** — `{{HEALTH_BADGE}}` from CI badge script
+2. **Supported Environments** — `{{SUPPORTED_ENVIRONMENTS}}` from package.json + shebangs
+3. **Available Rules** — `{{AVAILABLE_RULES}}` from `.cursor/rules/*.mdc` front matter
+4. **Available Scripts** — `{{AVAILABLE_SCRIPTS}}` from `.cursor/scripts/*.sh` headers
+5. **Available Commands** — `{{AVAILABLE_COMMANDS}}` from `intent-routing.mdc`
+6. **Active Projects** — `{{ACTIVE_PROJECTS}}` from `docs/projects/*/erd.md` (status: active)
+7. **Priority Projects** — `{{PRIORITY_PROJECTS}}` from ERD front matter (priority: high + blocked)
+8. **Test Stats** — `{{TEST_STATS}}` from test runner output (optional)
+9. **Documentation Structure** — `{{DOCS_STRUCTURE}}` from `docs/` scan
 
-**High Confidence (Should Auto-Generate)**:
+**Manual Sections** (encoded in template):
 
-1. **Scripts Inventory**
+1. **Repository Description** — What this repository is for
+2. **Unified Workflow** — Conceptual Specify → Plan → Tasks overview
+3. **Setup Instructions** — Prerequisites, installation, auth
+4. **What's New** — Recent changes (manual for MVP, auto later)
+5. **Changelog & Versioning** — Link to CHANGELOG.md
+6. **Workspace Security** — Link to security policy
+7. **Contributing** — How to contribute
 
-   - Source: `.cursor/scripts/*.sh` (excluding `.lib*.sh`, `*.test.sh`)
-   - Extract: Description from header comments (pattern: `# Description: ...`)
-   - Format: Categorized list (Git, Rules, Projects, CI, Validation)
-   - Link to: `docs/scripts/README.md` for full inventory
-   - [QUESTION: Show all 38+ scripts or link to docs/scripts/README.md and show top 5-10?]
+Full specification in `decisions/section-ownership.md`.
 
-2. **Health Badge**
+### 4.3 Auto-Generated Sections (Details)
 
-   - Source: Latest CI run or `.cursor/scripts/health-badge-generate.sh` output
-   - Format: Shields.io badge with score + workflow link
-   - Status: Already exists, just needs consistent placement
+**1. Scripts Inventory** (DECIDED: Full categorized list)
 
-3. **Repository Stats**
+- Source: `.cursor/scripts/*.sh` (excluding `.lib*.sh`, `*.test.sh`)
+- Extract: Description from `# Description: ...` header
+- Extract: Flags from `# Flags: ...` or `--help` output
+- Categories (derived from filename prefixes):
+  - **Git Workflows**: `git-*`, `pr-*`, `checks-*`
+  - **Rules Management**: `rules-*`
+  - **Project Lifecycle**: `project-*`, `archive-*`, `final-summary-*`
+  - **Validation**: `validate-*`, `*-validate*`, `shellcheck-*`, `lint-*`
+  - **CI & Health**: `security-*`, `health-*`, `compliance-*`
+  - **Utilities**: Everything else
+- Format: Categorized bullets with description
+- Link to: `docs/scripts/README.md` for full details
 
-   - Active projects: count from `docs/projects/` (excluding `_archived/`, `_examples/`)
-   - Total rules: count `.cursor/rules/*.mdc`
-   - Test coverage: from Jest/test runner output (if available)
-   - [QUESTION: Which stats are most valuable? Last updated date? Contributors?]
+**2. Rules Inventory**
 
-4. **Quick Links (Core Navigation)**
-   - Top 5-10 rules (most frequently referenced)
-   - Active projects link (`docs/projects/README.md`)
-   - Recent completions (last 3 archived projects?)
-   - [QUESTION: How to determine "top rules"? Frequency? Manual curation?]
+- Source: `.cursor/rules/*.mdc`
+- Extract: `description:` from YAML front matter
+- Flag: `alwaysApply: true` rules (show first)
+- Categories:
+  - Always Applied (alwaysApply: true)
+  - Workflow & Process
+  - Code Quality
+  - Git & CI
+  - Testing & TDD
+  - Documentation
+  - Security
+- Format: Categorized bullets with description
+- Link to: `.cursor/rules/` directory
 
-**Medium Confidence (Needs Discussion)**:
+**3. Commands Inventory**
 
-5. **What's New**
+- Source: `intent-routing.mdc` (slash commands section)
+- Source: `git-slash-commands.mdc`
+- Categories:
+  - Git Operations (`/commit`, `/pr`, `/branch`, etc.)
+  - Workflow (`/plan`, `/tasks`, etc.)
+  - Session Management (`/allowlist`)
+- Format: Categorized bullets with description
+- Link to: Full command reference rules
 
-   - Source: `CHANGELOG.md` top N entries? Recent archived projects?
-   - Format: Bullets with version/date
-   - [QUESTION: Manual section or auto from changelog/projects?]
+**4. Active Projects**
 
-6. **Dependencies & Auth**
-   - Source: `package.json` (optional deps), env vars referenced in scripts
-   - Format: Simple list with setup instructions
-   - [QUESTION: Keep manual or extract from package.json + script headers?]
+- Source: `docs/projects/*/erd.md`
+- Filter: `status: active` in front matter
+- Extract: Project name, description (first H1 or description field)
+- Count: Parse `tasks.md` for completion % (done/total)
+- Format: Bullets with name, description, completion %
+- Link to: `docs/projects/README.md`
 
-**Low Confidence (Probably Manual)**:
+**5. Priority Projects** (DECIDED: ERD front matter with blocker support)
 
-7. **Unified Workflow Overview**
+- Source: `docs/projects/*/erd.md` front matter
+- Filter 1: `priority: high` (any status)
+- Filter 2: `blocked: true` (separate section)
+- Extract: `blocker:` or `blockers:` field
+- Format:
 
-   - Conceptual content, philosophy, design principles
-   - Changes infrequently, high editorial value
-   - [DECISION: Keep manual]
+  ```markdown
+  **High Priority** ({{COUNT}}):
 
-8. **How-To Guides**
+  - **[name]** — [description] [completion %]
 
-   - Project completion checklist, changeset workflow
-   - Tutorial-style content
-   - [DECISION: Keep manual or link to docs/]
+  **Blocked** ({{COUNT}} need unblocking):
 
-9. **Workspace Security**
-   - Policy statements, link to detailed doc
-   - [DECISION: Keep manual with auto-link validation]
+  - **[name]** (priority: high) — [description]
+    - ⚠️ Blocker: [reason from front matter]
+  ```
 
-### 4.3 Data Sources
+- ERD front matter schema:
+  ```yaml
+  ---
+  priority: high # high|medium|low
+  blocked: true
+  blocker: "Specific reason"
+  # or:
+  blockers:
+    - "Reason 1"
+    - "Reason 2"
+  ---
+  ```
+
+**6. Supported Environments**
+
+- Source: `package.json` engines field
+- Source: Script shebangs (bash/sh/zsh detection)
+- Source: CI matrix (`.github/workflows/*.yml`)
+- Format:
+  ```markdown
+  - Node.js {{VERSION}}
+  - Bash 4+ or Zsh 5+
+  - macOS {{VERSION}} (primary), Linux (CI)
+  ```
+
+**7. Test Stats** (Optional)
+
+- Source: Test runner output (if available)
+- Extract: Coverage %, test file count
+- Format: `Coverage: {{PCT}}% ({{COUNT}} test files)`
+
+**8. Documentation Structure**
+
+- Source: Scan `docs/` directories
+- Count: Active projects, archived projects, rules, scripts
+- Format:
+  ```markdown
+  - **Scripts**: [link]
+  - **Projects**: [link] ({{ACTIVE}} active, {{ARCHIVED}} archived)
+  - **Rules**: [link] ({{COUNT}} rules)
+  - **Guides**: [link]
+  ```
+
+### 4.4 Data Sources
 
 **File Inventory**:
 
@@ -174,7 +254,7 @@ The root README is the first thing users/contributors see, but it:
 - ERD front matter: `status:`, `owner:`, `created:`
 - [QUESTION: Standardize header comment patterns for reliable extraction?]
 
-### 4.4 CLI Interface
+### 4.5 CLI Interface
 
 **Proposed Script**: `.cursor/scripts/generate-root-readme.sh`
 
@@ -204,7 +284,7 @@ The root README is the first thing users/contributors see, but it:
 ./.cursor/scripts/generate-root-readme.sh --scripts-section link-only
 ```
 
-### 4.5 Template Structure (If Hybrid Approach)
+### 4.6 Template Structure
 
 **Proposed Files**:
 
@@ -232,7 +312,7 @@ templates/
 
 [QUESTION: Use simple string replacement or more sophisticated templating?]
 
-### 4.6 Categorization & Organization
+### 4.7 Categorization & Organization
 
 **Script Categories** (for inventory section):
 
@@ -245,7 +325,7 @@ templates/
 
 [QUESTION: Use manual category mapping or extract from script headers?]
 
-### 4.7 Validation & Freshness
+### 4.8 Validation & Freshness
 
 **Staleness Detection**:
 
@@ -679,31 +759,46 @@ jobs:
 
 ## 14. Open Questions
 
-### High Priority (Block Implementation)
+### ✅ Resolved (2025-10-26)
 
-1. **Generation Strategy**: Full replacement, partial update, or hybrid?
+1. **Generation Strategy**: ✅ Full replacement with template
 
-   - Criteria: How often do we manually edit root README?
-   - Impact: Complexity, flexibility, error handling
+   - Decision: Option A (Full Replacement)
+   - See: `decisions/generation-strategy.md`
 
-2. **Scripts Section Detail Level**: Full inventory, top 10, or link-only?
+2. **Scripts Section Detail Level**: ✅ Full categorized list
 
-   - Criteria: README length constraint, contributor needs
-   - Impact: Readability, maintenance burden
+   - Decision: Show all 38+ scripts organized by category
+   - Link to `docs/scripts/README.md` for full details
 
-3. **Template Location**: Single template file or modular fragments?
+3. **Template Location**: ✅ Single template file
 
-   - Criteria: Complexity budget, testability needs
-   - Impact: File organization, composition flexibility
+   - Decision: `templates/root-readme.template.md`
+   - Simple placeholder replacement with `{{PLACEHOLDER}}`
 
-4. **Manual vs Auto Sections**: Which sections remain manual?
+4. **Manual vs Auto Sections**: ✅ 9 auto, 6 manual
 
-   - Criteria: Editorial value, change frequency
-   - Impact: Generation scope, validation complexity
+   - Decision: Documented in `decisions/section-ownership.md`
+   - Template encodes manual content + placeholder positions
 
-5. **Update Trigger**: CI auto-commit, manual script, or pre-commit hook?
-   - Criteria: Noise tolerance, freshness requirements
-   - Impact: Git history, contributor workflow
+5. **Priority Projects**: ✅ ERD front matter with blocker support
+
+   - Decision: `priority: high|medium|low` + `blocked: true` + `blocker: "reason"`
+   - See: Section 4.3 (Priority Projects)
+
+6. **Known Issues**: ✅ Deferred to follow-up project
+   - Decision: Not in MVP, captured as carry over
+   - Future: GitHub Issues API integration
+
+### High Priority (Still Blocking)
+
+1. **Update Trigger**: CI validation-only, manual script, or pre-commit hook?
+   - Criteria: Git noise tolerance, freshness requirements
+   - Impact: Contributor workflow, automation level
+   - Options:
+     - A: Manual `npm run generate:root-readme` (lowest noise)
+     - B: CI validation with `--fail-if-stale` (no auto-commits)
+     - C: Pre-commit hook auto-regenerates (highest automation)
 
 ### Medium Priority (Design Refinement)
 
