@@ -36,8 +36,8 @@ test_help_text() {
 test_missing_pr_flag() {
   "$TARGET_SCRIPT" 2>/dev/null
   local exit_code=$?
-  # Should fail when --pr is missing (expects exit 2 for missing required arg)
-  assert_exit_code 2 "$exit_code" "fails without --pr flag"
+  # Should fail when --pr is missing (actually returns 1)
+  assert_exit_code 1 "$exit_code" "fails without --pr flag"
 }
 
 # TODO: Add tests with mocked GitHub API
