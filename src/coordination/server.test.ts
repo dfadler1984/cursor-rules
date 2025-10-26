@@ -3,11 +3,15 @@
  * TDD: Red → Green → Refactor
  */
 
-import * as WebSocket from 'ws';
-import { CoordinationServer } from './server';
-import type { RegisterMessage, CreateTasksMessage, TaskCompleteMessage } from './types';
+import * as WebSocket from "ws";
+import { CoordinationServer } from "./server";
+import type {
+  RegisterMessage,
+  CreateTasksMessage,
+  TaskCompleteMessage,
+} from "./types";
 
-describe('CoordinationServer', () => {
+describe("CoordinationServer", () => {
   let server: CoordinationServer;
   let port: number;
 
@@ -20,352 +24,352 @@ describe('CoordinationServer', () => {
     await server.stop();
   });
 
-  describe('Connection', () => {
-    test('should start server on specified port', async () => {
+  describe("Connection", () => {
+    test("should start server on specified port", async () => {
       await server.start();
       expect(server.isRunning()).toBe(true);
     });
 
-    test('should accept client connections', async () => {
+    test("should accept client connections", async () => {
       await server.start();
-      
+
       const client = new WebSocket(`ws://localhost:${port}`);
-      
+
       await new Promise((resolve) => {
-        client.on('open', resolve);
+        client.on("open", resolve);
       });
 
       expect(client.readyState).toBe(WebSocket.OPEN);
       client.close();
     });
 
-    test('should send connected message on connection', async () => {
+    test("should send connected message on connection", async () => {
       await server.start();
-      
+
       const client = new WebSocket(`ws://localhost:${port}`);
-      
+
       const message = await new Promise((resolve) => {
-        client.on('message', (data) => {
+        client.on("message", (data) => {
           resolve(JSON.parse(data.toString()));
         });
       });
 
       expect(message).toMatchObject({
-        type: 'connected',
-        clientId: expect.any(String)
+        type: "connected",
+        clientId: expect.any(String),
       });
 
       client.close();
     });
   });
 
-  describe('Registration', () => {
-    test('should register coordinator', async () => {
+  describe("Registration", () => {
+    test("should register coordinator", async () => {
       await server.start();
-      
+
       const client = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg: RegisterMessage = {
-        type: 'register',
-        role: 'coordinator',
-        projectId: 'test-project'
+        type: "register",
+        role: "coordinator",
+        projectId: "test-project",
       };
 
       client.send(JSON.stringify(registerMsg));
 
-      const response = await waitForMessage(client, 'registered');
-      
+      const response = await waitForMessage(client, "registered");
+
       expect(response).toMatchObject({
-        type: 'registered',
-        role: 'coordinator',
-        projectId: 'test-project'
+        type: "registered",
+        role: "coordinator",
+        projectId: "test-project",
       });
 
       client.close();
     });
 
-    test('should register worker', async () => {
+    test("should register worker", async () => {
       await server.start();
-      
+
       const client = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg: RegisterMessage = {
-        type: 'register',
-        role: 'worker',
-        workerId: 'worker-A'
+        type: "register",
+        role: "worker",
+        workerId: "worker-A",
       };
 
       client.send(JSON.stringify(registerMsg));
 
-      const response = await waitForMessage(client, 'registered');
-      
+      const response = await waitForMessage(client, "registered");
+
       expect(response).toMatchObject({
-        type: 'registered',
-        role: 'worker',
-        workerId: 'worker-A'
+        type: "registered",
+        role: "worker",
+        workerId: "worker-A",
       });
 
       client.close();
     });
 
-    test('should reject invalid role', async () => {
+    test("should reject invalid role", async () => {
       await server.start();
-      
+
       const client = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg = {
-        type: 'register',
-        role: 'invalid'
+        type: "register",
+        role: "invalid",
       };
 
       client.send(JSON.stringify(registerMsg));
 
-      const response = await waitForMessage(client, 'error');
-      
+      const response = await waitForMessage(client, "error");
+
       expect(response).toMatchObject({
-        type: 'error',
-        error: expect.stringContaining('Invalid role')
+        type: "error",
+        error: expect.stringContaining("Invalid role"),
       });
 
       client.close();
     });
 
-    test('should require workerId for worker registration', async () => {
+    test("should require workerId for worker registration", async () => {
       await server.start();
-      
+
       const client = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg: RegisterMessage = {
-        type: 'register',
-        role: 'worker'
+        type: "register",
+        role: "worker",
       };
 
       client.send(JSON.stringify(registerMsg));
 
-      const response = await waitForMessage(client, 'error');
-      
+      const response = await waitForMessage(client, "error");
+
       expect(response).toMatchObject({
-        type: 'error',
-        error: expect.stringContaining('workerId')
+        type: "error",
+        error: expect.stringContaining("workerId"),
       });
 
       client.close();
     });
   });
 
-  describe('Task Queue', () => {
-    test('should accept tasks from coordinator', async () => {
+  describe("Task Queue", () => {
+    test("should accept tasks from coordinator", async () => {
       await server.start();
-      
+
       const coordinator = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(coordinator);
-      await registerAs(coordinator, 'coordinator', 'test-project');
+      await registerAs(coordinator, "coordinator", "test-project");
 
       const createTasksMsg: CreateTasksMessage = {
-        type: 'create_tasks',
+        type: "create_tasks",
         tasks: [
           {
-            id: 'task-001',
-            type: 'test',
-            description: 'Test task',
+            id: "task-001",
+            type: "test",
+            description: "Test task",
             context: {
-              targetFiles: ['test.md'],
-              outputFiles: ['output.md'],
-              requirements: []
+              targetFiles: ["test.md"],
+              outputFiles: ["output.md"],
+              requirements: [],
             },
             acceptance: {
-              criteria: []
+              criteria: [],
             },
-            status: 'pending',
-            createdAt: new Date().toISOString()
-          }
-        ]
+            status: "pending",
+            createdAt: new Date().toISOString(),
+          },
+        ],
       };
 
       coordinator.send(JSON.stringify(createTasksMsg));
 
-      const response = await waitForMessage(coordinator, 'tasks_created');
-      
+      const response = await waitForMessage(coordinator, "tasks_created");
+
       expect(response).toMatchObject({
-        type: 'tasks_created',
+        type: "tasks_created",
         count: 1,
-        queued: 1
+        queued: 1,
       });
 
       coordinator.close();
     });
 
-    test('should reject tasks from non-coordinator', async () => {
+    test("should reject tasks from non-coordinator", async () => {
       await server.start();
-      
+
       const worker = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(worker);
-      await registerAs(worker, 'worker', undefined, 'worker-A');
+      await registerAs(worker, "worker", undefined, "worker-A");
 
       const createTasksMsg: CreateTasksMessage = {
-        type: 'create_tasks',
-        tasks: []
+        type: "create_tasks",
+        tasks: [],
       };
 
       worker.send(JSON.stringify(createTasksMsg));
 
-      const response = await waitForMessage(worker, 'error');
-      
+      const response = await waitForMessage(worker, "error");
+
       expect(response).toMatchObject({
-        type: 'error',
-        error: expect.stringContaining('Only coordinator')
+        type: "error",
+        error: expect.stringContaining("Only coordinator"),
       });
 
       worker.close();
     });
   });
 
-  describe('Task Assignment', () => {
-    test('should auto-assign task to registered worker', async () => {
+  describe("Task Assignment", () => {
+    test("should auto-assign task to registered worker", async () => {
       await server.start();
-      
+
       const coordinator = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(coordinator);
-      await registerAs(coordinator, 'coordinator', 'test-project');
+      await registerAs(coordinator, "coordinator", "test-project");
 
       const worker = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(worker);
-      await registerAs(worker, 'worker', undefined, 'worker-A');
+      await registerAs(worker, "worker", undefined, "worker-A");
 
       // Create task
       const createTasksMsg: CreateTasksMessage = {
-        type: 'create_tasks',
+        type: "create_tasks",
         tasks: [
           {
-            id: 'task-001',
-            type: 'test',
-            description: 'Test task',
+            id: "task-001",
+            type: "test",
+            description: "Test task",
             context: {
-              targetFiles: ['test.md'],
-              outputFiles: ['output.md'],
-              requirements: []
+              targetFiles: ["test.md"],
+              outputFiles: ["output.md"],
+              requirements: [],
             },
             acceptance: {
-              criteria: []
+              criteria: [],
             },
-            status: 'pending',
-            createdAt: new Date().toISOString()
-          }
-        ]
+            status: "pending",
+            createdAt: new Date().toISOString(),
+          },
+        ],
       };
 
       coordinator.send(JSON.stringify(createTasksMsg));
-      await waitForMessage(coordinator, 'tasks_created');
+      await waitForMessage(coordinator, "tasks_created");
 
       // Worker should receive task assignment
-      const assignment = await waitForMessage(worker, 'task_assigned');
-      
+      const assignment = await waitForMessage(worker, "task_assigned");
+
       expect(assignment).toMatchObject({
-        type: 'task_assigned',
+        type: "task_assigned",
         task: expect.objectContaining({
-          id: 'task-001'
-        })
+          id: "task-001",
+        }),
       });
 
       coordinator.close();
       worker.close();
     });
 
-    test('should send no_tasks message when queue empty', async () => {
+    test("should send no_tasks message when queue empty", async () => {
       await server.start();
-      
+
       const worker = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(worker);
-      
+
       // Listen for no_tasks before registering
-      const noTasksPromise = waitForMessage(worker, 'no_tasks');
-      await registerAs(worker, 'worker', undefined, 'worker-A');
+      const noTasksPromise = waitForMessage(worker, "no_tasks");
+      await registerAs(worker, "worker", undefined, "worker-A");
 
       // Worker should receive no_tasks immediately after registration
       const response = await noTasksPromise;
-      
+
       expect(response).toMatchObject({
-        type: 'no_tasks'
+        type: "no_tasks",
       });
 
       worker.close();
     });
   });
 
-  describe('Task Completion', () => {
-    test('should handle task completion from worker', async () => {
+  describe("Task Completion", () => {
+    test("should handle task completion from worker", async () => {
       await server.start();
-      
+
       const coordinator = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(coordinator);
-      await registerAs(coordinator, 'coordinator', 'test-project');
+      await registerAs(coordinator, "coordinator", "test-project");
 
       const worker = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(worker);
-      await registerAs(worker, 'worker', undefined, 'worker-A');
+      await registerAs(worker, "worker", undefined, "worker-A");
 
       // Create and assign task
       const createTasksMsg: CreateTasksMessage = {
-        type: 'create_tasks',
+        type: "create_tasks",
         tasks: [
           {
-            id: 'task-001',
-            type: 'test',
-            description: 'Test task',
+            id: "task-001",
+            type: "test",
+            description: "Test task",
             context: {
-              targetFiles: ['test.md'],
-              outputFiles: ['output.md'],
-              requirements: []
+              targetFiles: ["test.md"],
+              outputFiles: ["output.md"],
+              requirements: [],
             },
             acceptance: {
-              criteria: []
+              criteria: [],
             },
-            status: 'pending',
-            createdAt: new Date().toISOString()
-          }
-        ]
+            status: "pending",
+            createdAt: new Date().toISOString(),
+          },
+        ],
       };
 
       coordinator.send(JSON.stringify(createTasksMsg));
-      await waitForMessage(worker, 'task_assigned');
+      await waitForMessage(worker, "task_assigned");
 
       // Complete task
       const completeMsg: TaskCompleteMessage = {
-        type: 'task_complete',
-        taskId: 'task-001',
+        type: "task_complete",
+        taskId: "task-001",
         report: {
-          taskId: 'task-001',
-          workerId: 'worker-A',
-          status: 'completed',
-          deliverables: ['output.md'],
+          taskId: "task-001",
+          workerId: "worker-A",
+          status: "completed",
+          deliverables: ["output.md"],
           contextEfficiencyScore: 5,
-          completedAt: new Date().toISOString()
-        }
+          completedAt: new Date().toISOString(),
+        },
       };
 
       // Listen for responses before sending completion
-      const ackPromise = waitForMessage(worker, 'task_complete_ack');
-      const notificationPromise = waitForMessage(coordinator, 'task_complete');
-      
+      const ackPromise = waitForMessage(worker, "task_complete_ack");
+      const notificationPromise = waitForMessage(coordinator, "task_complete");
+
       worker.send(JSON.stringify(completeMsg));
 
       // Worker should receive ack
       const ack = await ackPromise;
       expect(ack).toMatchObject({
-        type: 'task_complete_ack',
-        taskId: 'task-001'
+        type: "task_complete_ack",
+        taskId: "task-001",
       });
 
       // Coordinator should receive notification
       const notification = await notificationPromise;
       expect(notification).toMatchObject({
-        type: 'task_complete',
-        taskId: 'task-001',
-        workerId: 'worker-A'
+        type: "task_complete",
+        taskId: "task-001",
+        workerId: "worker-A",
       });
 
       coordinator.close();
@@ -373,23 +377,23 @@ describe('CoordinationServer', () => {
     });
   });
 
-  describe('Status', () => {
-    test('should return server status', async () => {
+  describe("Status", () => {
+    test("should return server status", async () => {
       await server.start();
-      
+
       const client = new WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
-      client.send(JSON.stringify({ type: 'status' }));
+      client.send(JSON.stringify({ type: "status" }));
 
-      const response = await waitForMessage(client, 'status_response');
-      
+      const response = await waitForMessage(client, "status_response");
+
       expect(response).toMatchObject({
-        type: 'status_response',
-        coordinator: 'disconnected',
+        type: "status_response",
+        coordinator: "disconnected",
         workers: [],
         queueSize: 0,
-        activeTasks: 0
+        activeTasks: 0,
       });
 
       client.close();
@@ -402,12 +406,12 @@ function waitForConnection(client: WebSocket): Promise<void> {
   return new Promise((resolve, reject) => {
     if (client.readyState === WebSocket.OPEN) {
       // Skip connected message
-      client.once('message', () => resolve());
+      client.once("message", () => resolve());
     } else {
-      client.once('open', () => {
-        client.once('message', () => resolve());
+      client.once("open", () => {
+        client.once("message", () => resolve());
       });
-      client.once('error', reject);
+      client.once("error", reject);
     }
   });
 }
@@ -418,19 +422,19 @@ function waitForMessage(client: WebSocket, messageType: string): Promise<any> {
       try {
         const message = JSON.parse(data.toString());
         if (message.type === messageType) {
-          client.off('message', handler);
+          client.off("message", handler);
           resolve(message);
         }
       } catch (error) {
-        client.off('message', handler);
+        client.off("message", handler);
         reject(error);
       }
     };
-    
-    client.on('message', handler);
-    
+
+    client.on("message", handler);
+
     setTimeout(() => {
-      client.off('message', handler);
+      client.off("message", handler);
       reject(new Error(`Timeout waiting for message type: ${messageType}`));
     }, 5000);
   });
@@ -438,18 +442,17 @@ function waitForMessage(client: WebSocket, messageType: string): Promise<any> {
 
 async function registerAs(
   client: WebSocket,
-  role: 'coordinator' | 'worker',
+  role: "coordinator" | "worker",
   projectId?: string,
   workerId?: string
 ): Promise<void> {
   const registerMsg: RegisterMessage = {
-    type: 'register',
+    type: "register",
     role,
     ...(projectId && { projectId }),
-    ...(workerId && { workerId })
+    ...(workerId && { workerId }),
   };
 
   client.send(JSON.stringify(registerMsg));
-  await waitForMessage(client, 'registered');
+  await waitForMessage(client, "registered");
 }
-

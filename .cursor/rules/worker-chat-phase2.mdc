@@ -1,0 +1,209 @@
+---
+version: 2
+alwaysApply: false
+globs: []
+description: Worker chat behavior for multi-chat coordination (Phase 2 - WebSocket)
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+lastReviewed: 2025-10-26
+---
+
+# Worker Chat Behavior (Phase 2 - WebSocket)
+
+**Purpose**: Execute isolated tasks with push-based assignment from WebSocket server (no polling needed).
+
+**When to use**: When starting a worker role in multi-chat coordination (user says "act as worker" or "connect as worker").
+
+## Phase 2 Improvements Over Phase 1
+
+- ✅ **No polling**: Server pushes tasks automatically
+- ✅ **No file operations**: Receive tasks via WebSocket
+- ✅ **Instant assignment**: Tasks pushed as soon as available
+- ✅ **True autonomy**: Execute → report → receive next (all automatic)
+
+## Role & Responsibilities
+
+As a worker chat, you:
+1. Connect to WebSocket server
+2. Register with unique worker ID
+3. Receive pushed task assignments (no polling!)
+4. Execute tasks following all relevant rules
+5. Report completion via server
+6. Receive next task automatically
+
+## Workflow
+
+### 1. Connection
+
+When user says "Connect as worker":
+
+1. **Generate worker ID**: Create unique ID (e.g., "worker-A", "worker-B")
+2. **Connect to server**: Run `ts-node src/coordination/cli.ts worker register --worker-id=<id>`
+3. **Display**: "Worker <ID> connected to server."
+4. **Listen for tasks**: Server will push tasks automatically
+
+**No polling loop needed** - server pushes when tasks available!
+
+### 2. Task Reception (Push-Based)
+
+When server sends `task_assigned` message:
+
+1. **Receive task**: Server pushes full task JSON automatically
+2. **Display summary**:
+   ```
+   Task [ID]: [description]
+   Target files: [list]
+   Output files: [list]
+   Requirements: [bullets]
+   ```
+3. **Confirm**: "Task received. Executing..."
+4. **Execute immediately**: No confirmation needed (task is pre-validated by coordinator)
+
+### 3. Task Execution
+
+Execute task following all relevant rules:
+
+1. **Apply rules**: Follow `context.relevantRules` from task
+2. **TDD cycle**: Red → Green → Refactor (for code tasks)
+3. **Generate deliverables**: Create all `context.outputFiles`
+4. **Validate locally**: Check acceptance criteria met
+
+### 4. Completion Reporting
+
+After execution:
+
+1. **Verify deliverables**: All output files exist and meet criteria
+2. **Calculate context score**: Current efficiency score
+3. **Generate report JSON**:
+   ```json
+   {
+     "taskId": "task-001",
+     "workerId": "worker-A",
+     "status": "completed",
+     "deliverables": ["path/to/output.md"],
+     "contextEfficiencyScore": 5,
+     "notes": "",
+     "completedAt": "2025-10-26T12:00:00Z"
+   }
+   ```
+4. **Save report**: Write to `tmp/coordination/reports/task-NNN-report.json`
+5. **Notify server**: Server watches reports/ and auto-detects
+6. **Display**: "Task [ID] complete. Awaiting next assignment..."
+
+**Server auto-assigns next task** - worker just waits for push!
+
+### 5. Context Monitoring
+
+Track efficiency throughout:
+- Score ≥4: Continue accepting tasks
+- Score 3: Note in report, suggest handoff after current task
+- Score ≤2: Complete task, escalate, refuse more work
+
+### 6. Escalation
+
+Escalate to coordinator when:
+- Task requirements unclear
+- Target files missing
+- Acceptance criteria impossible
+- Context score ≤2
+
+**Escalation method**: Create blocked report in reports/ directory
+
+## Task Execution Pattern
+
+**Fully autonomous cycle**:
+1. Receive task (pushed by server)
+2. Execute task
+3. Report completion (write to reports/)
+4. **Automatically receive next task** (no "check" needed)
+5. Repeat until no tasks remain
+
+**Manual intervention**: Only needed for:
+- Escalations (blocked tasks)
+- Risky file operations (if consent required)
+- Final "done" to disconnect
+
+## Commands (Phase 2)
+
+**Connect as worker**:
+```bash
+ts-node src/coordination/cli.ts worker register --worker-id=worker-A
+```
+
+**Get status** (optional check):
+```bash
+ts-node src/coordination/cli.ts worker status
+```
+
+## Context Efficiency
+
+**Always report** in completion:
+- Current score
+- Scope assessment
+- Rules loaded
+
+**Self-limit**:
+- If score <4, note in report
+- If score ≤2, refuse new tasks after current
+
+## Error Handling
+
+### Server Disconnected
+
+If server connection lost:
+1. Display: "Server disconnected. Waiting for reconnection..."
+2. Attempt reconnect (retry 3 times with backoff)
+3. If reconnect fails: Escalate to engineer
+
+### Task Push Timeout
+
+If no task received within 5 minutes after registration:
+1. Display: "No tasks assigned yet. Server may be waiting for coordinator."
+2. Suggest: "Say 'status' to check server state"
+
+### Report Delivery Failure
+
+If report write fails:
+1. Retry once
+2. If still fails: Display error, keep report in memory
+3. Escalate to engineer
+
+## Comparison: Phase 1 vs Phase 2
+
+| Aspect | Phase 1 (File) | Phase 2 (WebSocket) |
+|--------|---------------|---------------------|
+| Task receipt | Poll assigned/ | Pushed by server |
+| Completion report | Write file | Write file + server watches |
+| Next task | Manual check | Automatic push |
+| Engineer prompts | ~1 per task | 0 per task |
+
+## Example Session
+
+**User**: "Connect as worker"
+
+**Worker**:
+1. "Connecting to server as worker-A..."
+2. Registers with server
+3. **Receives task-001 (pushed automatically)**
+4. "Task 001 received: Generate summary of README.md"
+5. Executes, writes summary
+6. Writes report to reports/
+7. **Receives task-002 (pushed automatically, no prompt)**
+8. "Task 002 received: Generate summary of ERD.md"
+9. Executes, reports
+10. **Receives task-003 (pushed automatically)**
+11. Executes, reports
+12. "No more tasks. All work complete."
+
+**Manual prompts**: 1 (initial "Connect as worker")  
+**Automation**: 100%
+
+## Related
+
+- Coordinator behavior: `.cursor/rules/coordinator-chat-phase2.mdc`
+- Server: `src/coordination/server.ts`
+- Client: `src/coordination/client.ts`
+- CLI: `src/coordination/cli.ts`
+- Phase 1 (file-based): `.cursor/rules/worker-chat.mdc`
