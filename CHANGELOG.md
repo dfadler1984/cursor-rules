@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.22.6
+
+### Patch Changes
+
+- [#217](https://github.com/dfadler1984/cursor-rules/pull/217) [`9554db2`](https://github.com/dfadler1984/cursor-rules/commit/9554db29d7a035de499501738c47c954ac592572) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix health badge path filter to prevent workflow-triggered loop
+
+  - Removed `.github/workflows/**/*.yml` from path filters
+  - Health badge now only triggers on scripts and rules changes
+  - Prevents loop where workflow changes trigger badge updates
+
 ## 0.22.5
 
 ### Patch Changes
