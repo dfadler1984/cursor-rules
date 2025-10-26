@@ -33,7 +33,7 @@ describe("CoordinationServer", () => {
     test("should accept client connections", async () => {
       await server.start();
 
-      const client = new WebSocket(`ws://localhost:${port}`);
+      const client = new WebSocket.WebSocket(`ws://localhost:${port}`);
 
       await new Promise((resolve) => {
         client.on("open", resolve);
@@ -46,7 +46,7 @@ describe("CoordinationServer", () => {
     test("should send connected message on connection", async () => {
       await server.start();
 
-      const client = new WebSocket(`ws://localhost:${port}`);
+      const client = new WebSocket.WebSocket(`ws://localhost:${port}`);
 
       const message = await new Promise((resolve) => {
         client.on("message", (data) => {
@@ -67,7 +67,7 @@ describe("CoordinationServer", () => {
     test("should register coordinator", async () => {
       await server.start();
 
-      const client = new WebSocket(`ws://localhost:${port}`);
+      const client = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg: RegisterMessage = {
@@ -92,7 +92,7 @@ describe("CoordinationServer", () => {
     test("should register worker", async () => {
       await server.start();
 
-      const client = new WebSocket(`ws://localhost:${port}`);
+      const client = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg: RegisterMessage = {
@@ -117,7 +117,7 @@ describe("CoordinationServer", () => {
     test("should reject invalid role", async () => {
       await server.start();
 
-      const client = new WebSocket(`ws://localhost:${port}`);
+      const client = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg = {
@@ -140,7 +140,7 @@ describe("CoordinationServer", () => {
     test("should require workerId for worker registration", async () => {
       await server.start();
 
-      const client = new WebSocket(`ws://localhost:${port}`);
+      const client = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       const registerMsg: RegisterMessage = {
@@ -381,7 +381,7 @@ describe("CoordinationServer", () => {
     test("should return server status", async () => {
       await server.start();
 
-      const client = new WebSocket(`ws://localhost:${port}`);
+      const client = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(client);
 
       client.send(JSON.stringify({ type: "status" }));

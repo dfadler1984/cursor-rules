@@ -41,7 +41,7 @@ This overhead limits productivity gains from parallelization.
 ✅ File watching for automatic report detection  
 ✅ Push-based task assignment  
 ✅ Coordinator rule (WebSocket-based)  
-✅ Worker rule (no polling needed)  
+✅ Worker rule (no polling needed)
 
 **Next**: Run integration test (see [protocols/phase2-integration-test.md](./protocols/phase2-integration-test.md))
 
