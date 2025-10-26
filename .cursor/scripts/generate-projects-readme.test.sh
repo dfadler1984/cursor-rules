@@ -30,6 +30,39 @@ fi
 
 echo "PASS: Test 1 - Help flag works"
 
+# Test 1.5: Title cleaning strips repetitive prefix
+echo "Test 1.5: Title cleaning..."
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TEMP_DIR"' EXIT
+
+mkdir -p "$TEMP_DIR/test-project"
+cat > "$TEMP_DIR/test-project/erd.md" <<'TESTERD'
+---
+status: active
+---
+
+# Engineering Requirements Document — Test Project Name
+TESTERD
+
+output=$(bash "$SCRIPT" --projects-dir "$TEMP_DIR" --dry-run 2>&1)
+
+# Title should NOT have the prefix
+if [[ "$output" =~ "Engineering Requirements Document —" ]]; then
+  echo "FAIL: Title should have prefix stripped"
+  echo "Output: $output"
+  exit 1
+fi
+
+# Title should just be the project name
+if ! [[ "$output" =~ "Test Project Name" ]]; then
+  echo "FAIL: Title should show clean project name"
+  echo "Output: $output"
+  exit 1
+fi
+
+rm -rf "$TEMP_DIR"
+echo "PASS: Test 1.5 - Title cleaning works"
+
 # Test 2: Dry-run flag outputs to stdout, doesn't write file
 echo "Test 2: Dry-run flag..."
 set +e

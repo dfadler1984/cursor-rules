@@ -65,6 +65,21 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+# Clean title by removing repetitive prefixes
+clean_title() {
+  local title="$1"
+  
+  # Strip common prefixes (in order of specificity)
+  title="${title#(Archived) Engineering Requirements Document — }"
+  title="${title#Engineering Requirements Document — }"
+  title="${title#Engineering Requirements Document: }"
+  title="${title#Engineering Requirements Document —}"
+  title="${title#Rules Validation Script Enhancements — }"
+  title="${title#ERD — }"
+  
+  echo "$title"
+}
+
 # Extract title from erd.md (from YAML front matter or first heading)
 extract_title() {
   local erd_file="$1"
@@ -87,7 +102,7 @@ extract_title() {
       title="${line#*:}"
       title="${title#"${title%%[![:space:]]*}"}" # trim leading whitespace
       title="${title%"${title##*[![:space:]]}"}" # trim trailing whitespace
-      echo "$title"
+      clean_title "$title"
       return
     fi
   done < "$erd_file"
@@ -95,7 +110,7 @@ extract_title() {
   # Fallback to first H1 heading
   title="$(grep -m 1 '^# ' "$erd_file" | sed 's/^# //')"
   if [ -n "$title" ]; then
-    echo "$title"
+    clean_title "$title"
   fi
 }
 
