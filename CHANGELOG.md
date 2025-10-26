@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.22.7
+
+### Patch Changes
+
+- [#221](https://github.com/dfadler1984/cursor-rules/pull/221) [`8be5cf5`](https://github.com/dfadler1984/cursor-rules/commit/8be5cf5f8345bd4e9f987398ea509a51361d9b6d) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix auto-archive workflow JSON output format
+
+  - Fixed multiline JSON output to use heredoc format for GITHUB_OUTPUT
+  - Follows GitHub Actions best practices for multiline values
+  - Unblocks automatic archival of completed projects
+
 ## 0.22.6
 
 ### Patch Changes
