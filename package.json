@@ -7,11 +7,25 @@
     "version:changesets": "npx -y changeset version && node -e \"const fs=require('fs');const v=require('./package.json').version;fs.writeFileSync('VERSION', v+'\\n');require('child_process').execSync('git add VERSION',{stdio:'inherit'})\"",
     "validate:ghtoken": "curl -sS -o /dev/null -w \"%{http_code}\\n\" -H \"Authorization: token $GH_TOKEN\" -H \"Accept: application/vnd.github+json\" https://api.github.com",
     "test:scripts": ".cursor/scripts/tests/run.sh -v",
+    "test:coordination": "jest src/coordination",
+    "build:coordination": "tsc -p tsconfig.coordination.json",
+    "coordination:server": "ts-node src/coordination/server.ts",
     "generate:projects-readme": ".cursor/scripts/generate-projects-readme.sh",
     "generate:root-readme": ".cursor/scripts/generate-root-readme.sh",
     "validate:root-readme": ".cursor/scripts/validate-root-readme.sh"
   },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "chokidar": "^3.6.0"
+  },
   "devDependencies": {
-    "@changesets/cli": "^2.29.7"
+    "@changesets/cli": "^2.29.7",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.10",
+    "@types/ws": "^8.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   }
 }
