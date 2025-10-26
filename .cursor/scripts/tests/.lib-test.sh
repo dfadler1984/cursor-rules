@@ -119,6 +119,29 @@ cleanup_temp_repo() {
   rm -rf "$repo_dir"
 }
 
+assert_stderr_contains() {
+  local expected="$1"
+  shift
+  local output
+  output=$("$@" 2>&1 >/dev/null)
+  
+  if echo "$output" | grep -q "$expected"; then
+    TESTS_PASSED=$((TESTS_PASSED + 1))
+    return 0
+  else
+    TESTS_FAILED=$((TESTS_FAILED + 1))
+    echo "FAIL: Stderr should contain '$expected'" >&2
+    echo "Actual stderr: $output" >&2
+    return 1
+  fi
+}
+
+setup_test_env() {
+  # Create mock GH_TOKEN for tests
+  export GH_TOKEN="mock_token_for_testing"
+  export GITHUB_TOKEN="mock_token_for_testing"
+}
+
 # Mock GitHub API for testing
 mock_gh_api() {
   # Placeholder for GitHub API mocking
