@@ -29,7 +29,11 @@ jobs:
         run: |
           chmod +x ./.cursor/scripts/archive-detect-complete.sh
           COMPLETED_JSON=$(./.cursor/scripts/archive-detect-complete.sh)
-          echo "completed=$COMPLETED_JSON" >> $GITHUB_OUTPUT
+          
+          # Use heredoc for multiline JSON output
+          echo "completed<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMPLETED_JSON" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
           # Count projects
           COUNT=$(echo "$COMPLETED_JSON" | jq '. | length')
