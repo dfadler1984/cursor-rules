@@ -761,7 +761,7 @@ jobs:
 
 ### Internal References
 
-- Existing project: `docs/projects/projects-readme-generator/` — Pattern to follow
+- Existing project: `docs/projects/_archived/2025/projects-readme-generator/` — Pattern to follow
 - Related project: `docs/projects/document-governance/` — Content organization strategy
 - Rule: `.cursor/rules/shell-unix-philosophy.mdc` — Script design principles
 - Rule: `.cursor/rules/capabilities.mdc` — Metadata source

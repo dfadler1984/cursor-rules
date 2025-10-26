@@ -209,5 +209,5 @@ diff docs/projects/README.md /tmp/projects-readme-new.md || {
 
 ## Related Files
 
-- `docs/projects/projects-readme-generator/erd.md` — Requirements
-- `docs/projects/projects-readme-generator/tasks.md` — Implementation tasks
+- `docs/projects/_archived/2025/projects-readme-generator/erd.md` — Requirements
+- `docs/projects/_archived/2025/projects-readme-generator/tasks.md` — Implementation tasks
