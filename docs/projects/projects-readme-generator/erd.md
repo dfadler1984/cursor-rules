@@ -1,6 +1,7 @@
 ---
-status: active
+status: completed
 owner: rules-maintainers
+completedDate: 2025-10-25
 ---
 
 # Engineering Requirements Document — Projects README Generator
