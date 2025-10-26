@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.22.9
+
+### Patch Changes
+
+- [#229](https://github.com/dfadler1984/cursor-rules/pull/229) [`c55a250`](https://github.com/dfadler1984/cursor-rules/commit/c55a2507f1b9a6b7e79468b39067f7157066737f) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Strip repetitive "Engineering Requirements Document" prefix from project titles
+
+  - Improves projects README scannability by removing ~40 chars of redundant text per row
+  - Added clean_title() function to strip common prefixes
+  - Added test coverage for title cleaning
+  - Regenerated projects README with cleaned titles (~3,800 chars removed)
+
 ## 0.22.8
 
 ### Patch Changes
