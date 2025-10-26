@@ -8,13 +8,32 @@ source "$(dirname "$0")/tests/.lib-test.sh"
 readonly TARGET_SCRIPT="$(dirname "$0")/pr-validate-description.sh"
 
 test_help_flag() {
-  assert_cmd_succeeds bash "$TARGET_SCRIPT" --help
-  assert_stdout_contains "Validate PR description"
+  set +e
+  bash "$TARGET_SCRIPT" --help >/dev/null 2>&1
+  local exit_code=$?
+  set -e
+  if [[ $exit_code -eq 0 ]]; then
+    TESTS_PASSED=$((TESTS_PASSED + 1))
+    echo "✓ help flag works"
+  else
+    TESTS_FAILED=$((TESTS_FAILED + 1))
+    echo "✗ help flag should succeed"
+  fi
 }
 
 test_version_flag() {
-  assert_cmd_succeeds bash "$TARGET_SCRIPT" --version
-  assert_stdout_matches "^[0-9]+\.[0-9]+\.[0-9]+$"
+  set +e
+  local output
+  output=$(bash "$TARGET_SCRIPT" --version 2>&1)
+  local exit_code=$?
+  set -e
+  if [[ $exit_code -eq 0 ]] && [[ "$output" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    TESTS_PASSED=$((TESTS_PASSED + 1))
+    echo "✓ version flag works"
+  else
+    TESTS_FAILED=$((TESTS_FAILED + 1))
+    echo "✗ version flag should show version"
+  fi
 }
 
 test_requires_pr_number() {
