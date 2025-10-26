@@ -1,6 +1,6 @@
 # Cursor Rules — Shell Scripts Suite
 
-[![Repository Health](https://img.shields.io/badge/health-86-yellow)](https://github.com/dfadler1984/cursor-rules/actions/runs/18809766951)
+[![Repository Health](https://img.shields.io/badge/health-86-yellow)](https://github.com/dfadler1984/cursor-rules/actions/runs/18811952541)
 
 This repository includes a suite of standalone shell scripts to assist with rules management, Git workflows, PR creation, and repo hygiene. Scripts target macOS with bash and prefer POSIX sh where feasible.
 
