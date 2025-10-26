@@ -9,7 +9,7 @@
     "test:scripts": ".cursor/scripts/tests/run.sh -v",
     "test:coordination": "jest src/coordination",
     "build:coordination": "tsc -p tsconfig.coordination.json",
-    "coordination:server": "ts-node src/coordination/server.ts",
+    "coordination:server": "ts-node -P tsconfig.coordination.json src/coordination/index.ts",
     "generate:projects-readme": ".cursor/scripts/generate-projects-readme.sh",
     "generate:root-readme": ".cursor/scripts/generate-root-readme.sh",
     "validate:root-readme": ".cursor/scripts/validate-root-readme.sh"

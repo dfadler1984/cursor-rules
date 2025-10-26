@@ -33,7 +33,8 @@ export class CoordinationServer {
 
   constructor(port: number = 3100, reportsDir?: string) {
     this.port = port;
-    this.reportsDir = reportsDir || path.join(process.cwd(), "tmp/coordination/reports");
+    this.reportsDir =
+      reportsDir || path.join(process.cwd(), "tmp/coordination/reports");
   }
 
   async start(): Promise<void> {
@@ -94,7 +95,10 @@ export class CoordinationServer {
           });
         }
       } catch (error) {
-        console.error(`[Server] Error reading report ${filePath}:`, (error as Error).message);
+        console.error(
+          `[Server] Error reading report ${filePath}:`,
+          (error as Error).message
+        );
       }
     });
   }

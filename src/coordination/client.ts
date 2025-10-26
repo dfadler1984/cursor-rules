@@ -17,7 +17,7 @@ import type {
 } from "./types";
 
 export class CoordinationClient extends EventEmitter {
-  private ws: WebSocket | null = null;
+  private ws: any = null; // WebSocket instance
   private url: string;
   private connected = false;
 
@@ -28,7 +28,7 @@ export class CoordinationClient extends EventEmitter {
 
   async connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.ws = new WebSocket(this.url);
+      this.ws = new WebSocket.WebSocket(this.url);
 
       this.ws.on("open", () => {
         this.connected = true;
@@ -67,14 +67,14 @@ export class CoordinationClient extends EventEmitter {
   }
 
   async disconnect(): Promise<void> {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+    if (this.ws && this.ws.readyState === WebSocket.WebSocket.OPEN) {
       this.ws.close();
       this.connected = false;
     }
   }
 
   isConnected(): boolean {
-    return this.connected && this.ws?.readyState === WebSocket.OPEN;
+    return this.connected && this.ws?.readyState === WebSocket.WebSocket.OPEN;
   }
 
   async register(
@@ -139,7 +139,7 @@ export class CoordinationClient extends EventEmitter {
   }
 
   private send(message: any): void {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+    if (!this.ws || this.ws.readyState !== WebSocket.WebSocket.OPEN) {
       throw new Error("Not connected to server");
     }
 
@@ -148,7 +148,7 @@ export class CoordinationClient extends EventEmitter {
 
   private sendAndWait<T>(message: any, responseType: string): Promise<T> {
     return new Promise((resolve, reject) => {
-      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      if (!this.ws || this.ws.readyState !== WebSocket.WebSocket.OPEN) {
         reject(new Error("Not connected to server"));
         return;
       }
