@@ -10,7 +10,7 @@
 
 ### Related Projects
 
-- `docs/projects/projects-readme-generator/` — Sister project, pattern reference
+- `docs/projects/_archived/2025/projects-readme-generator/` — Sister project, pattern reference
 - `docs/projects/document-governance/` — Content organization strategy
 
 ---
