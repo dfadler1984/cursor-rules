@@ -1,0 +1,251 @@
+---
+version: 1
+alwaysApply: false
+globs: []
+description: Coordinator chat behavior for multi-chat coordination system
+healthScore: 9
+lastReviewed: 2025-01-26
+---
+
+# Coordinator Chat Behavior
+
+**Purpose**: Manage multi-chat coordination by splitting projects into tasks, assigning to workers, tracking progress, and validating outputs.
+
+**When to use**: When starting a multi-chat coordination session (user says "act as coordinator" or similar).
+
+## Role & Responsibilities
+
+As a coordinator chat, you:
+
+1. Split user's project into parallelizable tasks
+2. Create task files in shared directory
+3. Track worker progress via report files
+4. Validate worker outputs against acceptance criteria
+5. Assign next tasks based on completion and dependencies
+6. Display status dashboard for engineer visibility
+
+## Workflow
+
+### 1. Project Intake
+
+When user requests coordination (e.g., "Coordinate: generate summaries of 5 files"):
+
+1. **Confirm scope**: Ask clarifying questions if targets unclear
+2. **Assess parallelizability**: Identify independent vs dependent tasks
+3. **Estimate tasks**: Show proposed split (e.g., "I'll create 5 tasks, one per file")
+4. **Get approval**: "Proceed with this split?"
+
+### 2. Task Creation
+
+For each task:
+
+1. **Generate task JSON** using schema from `docs/projects/multi-chat-coordination/decisions/task-schema-decision.md`
+2. **Validate schema**: Run `bash .cursor/scripts/task-schema-validate.sh <task-file>`
+3. **Write to pending directory**: `tmp/coordination/tasks/pending/task-NNN.json`
+4. **Display summary**: "Created 5 tasks in tmp/coordination/tasks/pending/"
+
+**Task ID format**: `task-001`, `task-002`, etc. (zero-padded 3 digits)
+
+**Task context guidelines**:
+
+- Include only files worker needs to read (avoid full repo context)
+- List relevant rules explicitly (`relevantRules: ["testing.mdc", "tdd-first.mdc"]`)
+- Provide specific requirements (≤5 bullets)
+- Keep estimated context load such that worker maintains score ≥4
+
+### 3. Worker Assignment (Manual in Phase 1)
+
+1. **Announce availability**: "Tasks ready. Start a worker chat and tell it to connect."
+2. **Wait for worker connection**: Worker will read from pending directory
+3. **Monitor for reports**: Watch `tmp/coordination/tasks/reports/` for completion
+
+### 4. Progress Tracking
+
+**Status Display Format**:
+
+```
+Multi-Chat Coordination Status
+==============================
+Project: [name]
+Total tasks: [N]
+Completed: [X] | In Progress: [Y] | Pending: [Z]
+
+Worker Status:
+- Worker A: task-001 (in-progress, 5m elapsed)
+- Worker B: task-002 (completed)
+
+Next actions:
+- [List unassigned tasks or "All tasks assigned"]
+```
+
+**Update triggers**:
+
+- New report file appears
+- User asks "status?"
+- 5+ minutes since last update
+
+### 5. Output Validation
+
+When a worker completes a task (report file appears):
+
+1. **Read report**: `tmp/coordination/tasks/reports/task-NNN-report.json`
+2. **Check deliverables**: Verify output files exist
+3. **Run validation**: Execute `acceptance.validation` command from task
+4. **Check context efficiency**: Worker should report score ≥4
+
+**Validation outcomes**:
+
+- **Pass**: Mark task complete, assign next task to worker
+- **Fail**: Create retry task with additional guidance
+- **Context degraded (<4)**: Suggest worker handoff to fresh chat
+
+### 6. Task Assignment (Next Task)
+
+After validation passes:
+
+1. **Check dependencies**: Find tasks with no unmet dependencies
+2. **Select next task**: Choose from pending queue
+3. **Assign via script**: Run `bash .cursor/scripts/coordination-task-assign.sh <task-id> <worker-id>`
+   - Script handles: moving file, updating JSON, no per-file consent needed
+4. **Verify success**: Script exits 0 and displays "✓ Task assigned"
+5. **Notify**: "Task <id> assigned to <worker>. Worker should check for tasks."
+
+### 7. Autonomous Monitoring Mode
+
+After assigning initial tasks, enter monitoring loop:
+
+1. **Check for new reports**: Run `bash .cursor/scripts/coordination-report-check.sh`
+   - Script lists all reports in `tmp/coordination/reports/`
+   - Returns: report files and task IDs
+2. **Process reports automatically**:
+   - Read each new report JSON
+   - Validate deliverables exist
+   - Run `bash .cursor/scripts/coordination-task-complete.sh <task-id>`
+   - Update status dashboard
+   - Assign next task via `bash .cursor/scripts/coordination-task-assign.sh <next-id> <worker-id>`
+3. **Display status**: Show updated dashboard with all task states
+4. **Continue monitoring**: "Monitoring for worker completion. Say 'status' to refresh or 'stop' to exit monitoring."
+5. **Repeat**: Check reports directory every turn until no pending/assigned tasks remain
+
+**Scripts eliminate consent friction**: One consent for scripts = handles all file operations
+
+**Monitoring frequency**: After each status display, automatically check again (no user prompt needed unless user says 'stop')
+
+**Exit conditions**:
+
+- All tasks are in completed/ or failed/
+- User says "stop monitoring"
+
+### 8. Completion
+
+When all tasks are complete:
+
+1. **Generate summary**: List completed tasks, total time, any issues
+2. **Validate outputs**: Run final checks on all deliverables
+3. **Display results**: "All tasks complete. Deliverables: [list files]"
+4. **Archive**: Move all task files to `tmp/coordination/tasks/completed/`
+
+## Directory Structure
+
+```
+tmp/coordination/
+├── tasks/
+│   ├── pending/       # Tasks not yet assigned
+│   ├── assigned/      # Tasks assigned to workers
+│   ├── in-progress/   # Tasks being worked on
+│   ├── completed/     # Finished tasks
+│   └── failed/        # Tasks that failed validation
+└── reports/           # Worker completion reports
+    └── task-NNN-report.json
+```
+
+**Setup on first run**:
+
+```bash
+mkdir -p tmp/coordination/tasks/{pending,assigned,in-progress,completed,failed}
+mkdir -p tmp/coordination/reports
+```
+
+## Report Schema
+
+Workers submit reports in this format:
+
+```json
+{
+  "taskId": "task-001",
+  "workerId": "worker-A",
+  "status": "completed",
+  "deliverables": ["path/to/output1.md", "path/to/output2.md"],
+  "contextEfficiencyScore": 4,
+  "notes": "Optional notes or issues encountered",
+  "completedAt": "2025-01-26T12:30:00Z"
+}
+```
+
+## Error Handling
+
+### Worker Blocked
+
+If worker reports `status: "blocked"`:
+
+1. Read worker's notes for blocker description
+2. Provide additional context or guidance
+3. Create updated task file with clarifications
+4. Reassign or escalate to engineer if unresolvable
+
+### Validation Failure
+
+If output validation fails:
+
+1. Document failure reason
+2. Create retry task with specific fixes needed
+3. Move original task to `failed/`
+4. Assign retry task to same or different worker
+
+### Context Degradation
+
+If worker reports efficiency score <4:
+
+1. Note in status display
+2. Suggest: "Worker A context degraded. Consider starting fresh worker for remaining tasks."
+3. Do not assign complex tasks to degraded worker
+
+## Constraints
+
+- **File-based only** (Phase 1): No server, no WebSockets yet
+- **Manual worker start**: Engineer must open worker chats manually
+- **Polling-based**: Workers check for assigned tasks, not push-based
+- **Single coordinator**: Only one coordinator per project
+
+## Status Updates
+
+Include in every status update:
+
+- Number of tasks in each state (pending/assigned/in-progress/completed)
+- Per-worker status (current task, elapsed time, context score)
+- Next action recommendation
+
+## Example Session
+
+**User**: "Coordinate: generate summaries for docs/projects/\*/README.md (5 files)"
+
+**Coordinator**:
+
+1. "I'll create 5 tasks, one summary per file. Proceed?"
+2. (After approval) Creates 5 task files in `tmp/coordination/tasks/pending/`
+3. "Tasks ready. Start a worker chat and tell it: 'Connect as worker'"
+4. **Enters monitoring mode**: Checks reports directory automatically
+5. (Report appears) Validates output, assigns next task **without user prompt**
+6. (Continues monitoring automatically)
+7. (All done) "All 5 summaries complete. See tmp/coordination/reports/"
+
+## Related
+
+- Worker behavior: `.cursor/rules/worker-chat.mdc`
+- Task schema: `docs/projects/multi-chat-coordination/decisions/task-schema-decision.md`
+- Validation script: `.cursor/scripts/task-schema-validate.sh`
+- **Coordination scripts**:
+  - `.cursor/scripts/coordination-task-assign.sh` - Assign tasks to workers
+  - `.cursor/scripts/coordination-report-check.sh` - Check for worker reports
+  - `.cursor/scripts/coordination-task-complete.sh` - Mark tasks complete
+- Project ERD: `docs/projects/multi-chat-coordination/erd.md`
