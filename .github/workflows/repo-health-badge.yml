@@ -7,7 +7,6 @@ on:
     paths:
       - ".cursor/scripts/**/*.sh"
       - ".cursor/rules/**/*.mdc"
-      - ".github/workflows/**/*.yml"
   workflow_dispatch: # Allow manual triggering
 
 jobs:
