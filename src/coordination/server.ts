@@ -4,6 +4,9 @@
  */
 
 import * as WebSocket from "ws";
+import * as chokidar from "chokidar";
+import * as path from "path";
+import * as fs from "fs";
 import type {
   ClientInfo,
   ServerMessage,
@@ -14,6 +17,7 @@ import type {
   ActiveTask,
   WorkerStatus,
   ClientRole,
+  TaskReport,
 } from "./types";
 
 export class CoordinationServer {
@@ -24,9 +28,12 @@ export class CoordinationServer {
   private activeTasks: Map<string, ActiveTask> = new Map();
   private coordinator: { clientId: string; ws: WebSocket } | null = null;
   private running = false;
+  private watcher: chokidar.FSWatcher | null = null;
+  private reportsDir: string;
 
-  constructor(port: number = 3100) {
+  constructor(port: number = 3100, reportsDir?: string) {
     this.port = port;
+    this.reportsDir = reportsDir || path.join(process.cwd(), "tmp/coordination/reports");
   }
 
   async start(): Promise<void> {
@@ -47,6 +54,48 @@ export class CoordinationServer {
       this.wss.on("connection", (ws: WebSocket) => {
         this.handleConnection(ws);
       });
+
+      // Start file watcher for reports
+      this.startFileWatcher();
+    });
+  }
+
+  private startFileWatcher(): void {
+    // Ensure reports directory exists
+    if (!fs.existsSync(this.reportsDir)) {
+      fs.mkdirSync(this.reportsDir, { recursive: true });
+    }
+
+    console.log(`[Server] Watching for reports in: ${this.reportsDir}`);
+
+    this.watcher = chokidar.watch(
+      path.join(this.reportsDir, "task-*-report.json"),
+      {
+        persistent: true,
+        ignoreInitial: true,
+      }
+    );
+
+    this.watcher.on("add", (filePath: string) => {
+      console.log(`[Server] New report detected: ${path.basename(filePath)}`);
+
+      try {
+        const reportData = fs.readFileSync(filePath, "utf8");
+        const report: TaskReport = JSON.parse(reportData);
+
+        // Notify coordinator
+        if (this.coordinator) {
+          this.send(this.coordinator.ws, {
+            type: "report_detected",
+            taskId: report.taskId,
+            workerId: report.workerId,
+            reportPath: filePath,
+            report,
+          });
+        }
+      } catch (error) {
+        console.error(`[Server] Error reading report ${filePath}:`, (error as Error).message);
+      }
     });
   }
 
@@ -67,6 +116,12 @@ export class CoordinationServer {
           client.ws.close();
         }
       });
+
+      // Stop file watcher
+      if (this.watcher) {
+        this.watcher.close();
+        this.watcher = null;
+      }
 
       this.wss.close(() => {
         this.running = false;
