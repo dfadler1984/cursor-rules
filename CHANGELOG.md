@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.22.8
+
+### Patch Changes
+
+- [#225](https://github.com/dfadler1984/cursor-rules/pull/225) [`b5854cc`](https://github.com/dfadler1984/cursor-rules/commit/b5854ccc503cb062180c507733779839b965eb77) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add auto-merge workflow for project archive PRs
+
+  - New workflow enables auto-merge on archive PRs automatically
+  - Follows patterns from health-badge-auto-merge and changesets-auto-merge
+  - Supports both automatic (workflow_run) and manual (workflow_dispatch) triggering
+
 ## 0.22.7
 
 ### Patch Changes
