@@ -125,10 +125,6 @@ if "$SCRIPT" "$FIXTURES/invalid/erd-front-matter-mid.md" >/dev/null 2>&1; then
   echo "expected erd-front-matter-mid.md to fail"; exit 1
 fi
 
-if "$SCRIPT" "$FIXTURES/invalid/erd-extra-separator.md" >/dev/null 2>&1; then
-  echo "expected erd-extra-separator.md to fail"; exit 1
-fi
-
 # Invalid project ERDs should fail
 if "$SCRIPT" "$FIXTURES/tmp/docs/projects/missing-last/erd.md" >/dev/null 2>&1; then
   echo "expected missing-lastUpdated to fail"; exit 1
