@@ -102,10 +102,10 @@
 
 ### Integration & Validation
 
-- [ ] Run full cycle with WebSocket communication
-- [ ] Measure latency vs file-based (should be <1s per handoff)
+- [ ] Run full cycle with WebSocket communication (see `protocols/phase2-integration-test.md`)
+- [ ] Measure latency vs file-based (target: <1s per handoff)
 - [ ] Test disconnect/reconnect scenarios
-- [ ] Document in `protocols/phase2-validation-protocol.md`
+- [ ] Document findings in `protocols/phase2-integration-test.md`
 
 ### Phase 2 Acceptance
 
