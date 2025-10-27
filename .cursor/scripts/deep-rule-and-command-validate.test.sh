@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SCRIPT_UNDER_TEST="$SCRIPT_DIR/../deep-rule-and-command-validate.sh"
+SCRIPT_UNDER_TEST="$SCRIPT_DIR/deep-rule-and-command-validate.sh"
 
 echo "[TEST] deep-rule-and-command-validate.sh — Deep validation orchestrator"
 

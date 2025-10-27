@@ -1,0 +1,82 @@
+name: Auto-Update Root README
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  update-readme:
+    name: Check and Update README
+    # Only run on merged PRs that are not auto-merge PRs
+    if: github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'automerge')
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Check if README needs update
+        id: check
+        run: |
+          if ./.cursor/scripts/validate-root-readme.sh; then
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+            echo "✓ README is current"
+          else
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+            echo "README needs regeneration"
+          fi
+      
+      - name: Generate README
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          npm run generate:root-readme
+          echo "✓ README regenerated"
+      
+      - name: Create Pull Request
+        if: steps.check.outputs.needs_update == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: regenerate root README [skip ci]'
+          branch: auto-update-readme
+          delete-branch: true
+          title: 'chore: regenerate root README'
+          body: |
+            ## Summary
+            
+            Auto-generated update to root README.md after PR merge.
+            
+            ## Changes
+            
+            - Regenerated README.md using `generate-root-readme.sh`
+            - Updated sections: rules, scripts, projects, documentation structure
+            
+            ## Validation
+            
+            ```bash
+            npm run validate:root-readme
+            ```
+            
+            This PR is safe to auto-merge.
+          labels: |
+            automerge
+            skip-changeset
+          assignees: ${{ github.event.pull_request.user.login }}
+

@@ -1,0 +1,4 @@
+# No Front Matter
+
+This rule has no YAML front matter.
+Should fallback to filename.
