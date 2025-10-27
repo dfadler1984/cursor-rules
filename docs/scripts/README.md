@@ -1,6 +1,6 @@
 # Shell Scripts Reference
 
-This directory provides a reference for all shell scripts in `.cursor/scripts/`. All scripts follow the standardized patterns defined in [`.cursor/docs/standards/`](../.cursor/docs/standards/).
+This directory provides a reference for all shell scripts in `.cursor/scripts/`. All scripts follow the standardized patterns defined in [`.cursor/docs/standards/`](../../.cursor/docs/standards/).
 
 ## Quick Start
 
@@ -22,7 +22,7 @@ All 44 production scripts (plus 1 spec helper and 2 libraries) comply with:
 - **D5 (Portability)**: bash + git only; optional tools degrade gracefully
 - **D6 (Test Isolation)**: Subshell isolation prevents env leakage
 
-See: [Shell Script Migration Guide](../.cursor/docs/standards/shell-script-migration-guide.md)
+See: [Shell Script Migration Guide](../../.cursor/docs/standards/shell-script-migration-guide.md)
 
 ## Script Categories
 
@@ -155,7 +155,7 @@ When creating new scripts:
 5. Add owner tests (colocated `*.test.sh`)
 6. Run validators: `help-validate.sh`, `error-validate.sh`
 
-See: [Shell Script Migration Guide](../.cursor/docs/standards/shell-script-migration-guide.md) for detailed patterns
+See: [Shell Script Migration Guide](../../.cursor/docs/standards/shell-script-migration-guide.md) for detailed patterns
 
 ## CI Integration
 
@@ -168,8 +168,8 @@ Scripts are validated on every PR via `.github/workflows/shell-validators.yml`:
 
 ## Related Documentation
 
-- [Shell Script Standards](../.cursor/docs/standards/README.md) — Active standards (D1-D6)
-- [Migration Guide](../.cursor/docs/standards/shell-script-migration-guide.md) — Detailed migration patterns
+- [Shell Script Standards](../../.cursor/docs/standards/README.md) — Active standards (D1-D6)
+- [Migration Guide](../../.cursor/docs/standards/shell-script-migration-guide.md) — Detailed migration patterns
 - [Shell & Script Tooling Final Summary](../projects/_archived/2025/shell-and-script-tooling/final-summary.md) — Historical project overview
 
 ---
