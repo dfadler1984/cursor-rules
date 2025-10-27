@@ -137,5 +137,5 @@ Standalone shell scripts for local Confluence automation via REST API. Focus on 
 ## 10. References
 
 - [Confluence Cloud REST API Documentation](https://developer.atlassian.com/cloud/confluence/rest/v2/intro/)
-- [`.cursor/rules/shell-unix-philosophy.mdc`](../../../.cursor/rules/shell-unix-philosophy.mdc)
-- [`.cursor/scripts/.lib.sh`](../../../.cursor/scripts/.lib.sh) — Shared script helpers
+- [`.cursor/rules/shell-unix-philosophy.mdc`](../../../../.cursor/rules/shell-unix-philosophy.mdc)
+- [`.cursor/scripts/.lib.sh`](../../../../.cursor/scripts/.lib.sh) — Shared script helpers

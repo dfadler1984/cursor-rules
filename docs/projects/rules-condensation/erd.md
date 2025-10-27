@@ -197,5 +197,5 @@ The current rule set (`.cursor/rules/*.mdc`) contains significant redundancy and
 ## 11. Related Work
 
 - [rules-enforcement-investigation](../rules-enforcement-investigation/) — Evidence of duplication and overlap
-- [context-efficiency](../../.cursor/rules/context-efficiency.mdc) — Measurement framework for success criteria
-- [rule-maintenance.mdc](../../.cursor/rules/rule-maintenance.mdc) — Existing maintenance guidance to be consolidated
+- [context-efficiency](../../../.cursor/rules/context-efficiency.mdc) — Measurement framework for success criteria
+- [rule-maintenance.mdc](../../../.cursor/rules/rule-maintenance.mdc) — Existing maintenance guidance to be consolidated

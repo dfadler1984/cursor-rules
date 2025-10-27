@@ -272,8 +272,8 @@ VERSION
 
 ## 11. Related Work
 
-- [project-lifecycle.mdc](../../.cursor/rules/project-lifecycle.mdc) — Completion and archival policies
-- [investigation-structure.mdc](../../.cursor/rules/investigation-structure.mdc) — Expected file organization (useful for detecting obsolete patterns)
+- [project-lifecycle.mdc](../../../.cursor/rules/project-lifecycle.mdc) — Completion and archival policies
+- [investigation-structure.mdc](../../../.cursor/rules/investigation-structure.mdc) — Expected file organization (useful for detecting obsolete patterns)
 - [document-governance](../document-governance/) — Document lifecycle and retirement
 - [rules-enforcement-investigation](../rules-enforcement-investigation/) — Context for why this project is needed (orphan discovery)
 

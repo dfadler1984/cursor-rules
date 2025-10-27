@@ -447,7 +447,7 @@ These work fine with conditional attachment:
 
 **Application**: Continue monitoring for 3+ instance patterns; propose improvements at checkpoints
 
-**Evidence**: Created 7 test plans → self-improve proposed template → created [test-plan-template.mdc](../../../../.cursor/rules/test-plan-template.mdc). Also: 14 meta-findings → 6 applied in Phase 1, 8 proposed for Phase 6G.
+**Evidence**: Created 7 test plans → self-improve proposed template → created [test-plan-template.mdc](../../../../../.cursor/rules/test-plan-template.mdc). Also: 14 meta-findings → 6 applied in Phase 1, 8 proposed for Phase 6G.
 
 ### 6. AlwaysApply Has Limits
 

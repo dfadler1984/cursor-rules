@@ -267,9 +267,9 @@ These issues accumulate over time, degrading documentation quality and increasin
 
 **Existing tooling**:
 
-- [rules-validate.sh](../../../.cursor/scripts/rules-validate.sh) — Front matter and reference validation
-- [rules-list.sh](../../../.cursor/scripts/rules-list.sh) — Rule inventory
-- [links-check.sh](../../../.cursor/scripts/links-check.sh) — Broken link detection (may be reusable)
+- [rules-validate.sh](../../../../.cursor/scripts/rules-validate.sh) — Front matter and reference validation
+- [rules-list.sh](../../../../.cursor/scripts/rules-list.sh) — Rule inventory
+- [links-check.sh](../../../../.cursor/scripts/links-check.sh) — Broken link detection (may be reusable)
 
 **Related projects**:
 
@@ -278,9 +278,9 @@ These issues accumulate over time, degrading documentation quality and increasin
 
 **Related rules**:
 
-- [rule-maintenance.mdc](../../../.cursor/rules/rule-maintenance.mdc) — Maintenance cadence
-- [rule-quality.mdc](../../../.cursor/rules/rule-quality.mdc) — Quality standards
-- [shell-unix-philosophy.mdc](../../../.cursor/rules/shell-unix-philosophy.mdc) — Script design principles
+- [rule-maintenance.mdc](../../../../.cursor/rules/rule-maintenance.mdc) — Maintenance cadence
+- [rule-quality.mdc](../../../../.cursor/rules/rule-quality.mdc) — Quality standards
+- [shell-unix-philosophy.mdc](../../../../.cursor/rules/shell-unix-philosophy.mdc) — Script design principles
 
 **References**:
 

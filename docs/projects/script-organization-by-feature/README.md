@@ -102,9 +102,9 @@ Reorganize `.cursor/scripts/` from flat directory (100+ scripts) to feature-base
 
 ## Related Rules
 
-- [shell-unix-philosophy.mdc](../../.cursor/rules/shell-unix-philosophy.mdc) — Shell script standards
-- [test-quality-sh.mdc](../../.cursor/rules/test-quality-sh.mdc) — Shell test quality
-- [capabilities.mdc](../../.cursor/rules/capabilities.mdc) — Script capabilities catalog
+- [shell-unix-philosophy.mdc](../../../.cursor/rules/shell-unix-philosophy.mdc) — Shell script standards
+- [test-quality-sh.mdc](../../../.cursor/rules/test-quality-sh.mdc) — Shell test quality
+- [capabilities.mdc](../../../.cursor/rules/capabilities.mdc) — Script capabilities catalog
 
 ---
 

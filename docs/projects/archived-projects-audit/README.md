@@ -78,6 +78,6 @@ Selected 5 most recently archived projects:
 
 ## Related
 
-- [project-lifecycle.mdc](../../../.cursor/rules/project-lifecycle.mdc)
-- [Project Archive Workflow](../../../.cursor/scripts/project-archive-workflow.sh)
-- [Project Lifecycle Validation](../../../.cursor/scripts/project-lifecycle-validate-scoped.sh)
+- [project-lifecycle.mdc](../../../../.cursor/rules/project-lifecycle.mdc)
+- [Project Archive Workflow](../../../../.cursor/scripts/project-archive-workflow.sh)
+- [Project Lifecycle Validation](../../../../.cursor/scripts/project-lifecycle-validate-scoped.sh)

@@ -34,10 +34,10 @@ bash .cursor/scripts/check-branch-names.sh
 
 **Script Locations** (all TDD-tested with `.test.sh` companions):
 
-- [`check-script-usage.sh`](../../.cursor/scripts/check-script-usage.sh) — Analyzes commit messages for Conventional Commits format
-- [`check-tdd-compliance.sh`](../../.cursor/scripts/check-tdd-compliance.sh) — Checks if implementation changes include spec changes
-- [`check-branch-names.sh`](../../.cursor/scripts/check-branch-names.sh) — Validates branch naming convention
-- [`compliance-dashboard.sh`](../../.cursor/scripts/compliance-dashboard.sh) — Aggregates all metrics with formatted output
+- [`check-script-usage.sh`](../../../.cursor/scripts/check-script-usage.sh) — Analyzes commit messages for Conventional Commits format
+- [`check-tdd-compliance.sh`](../../../.cursor/scripts/check-tdd-compliance.sh) — Checks if implementation changes include spec changes
+- [`check-branch-names.sh`](../../../.cursor/scripts/check-branch-names.sh) — Validates branch naming convention
+- [`compliance-dashboard.sh`](../../../.cursor/scripts/compliance-dashboard.sh) — Aggregates all metrics with formatted output
 
 **Test Coverage**: Each script has a corresponding `.test.sh` file (all passing ✅)
 

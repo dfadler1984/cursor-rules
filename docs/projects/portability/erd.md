@@ -191,7 +191,7 @@ This umbrella project coordinates portability work across phases:
 
 ## 10. Related Work
 
-- [rule-creation.mdc](../../.cursor/rules/rule-creation.mdc) — Rule authoring standards
-- [front-matter.mdc](../../.cursor/rules/front-matter.mdc) — Front matter structure
-- [capabilities.mdc](../../.cursor/rules/capabilities.mdc) — Capabilities listing
-- [rules-validate.sh](../../.cursor/scripts/rules-validate.sh) — Validation tooling
+- [rule-creation.mdc](../../../.cursor/rules/rule-creation.mdc) — Rule authoring standards
+- [front-matter.mdc](../../../.cursor/rules/front-matter.mdc) — Front matter structure
+- [capabilities.mdc](../../../.cursor/rules/capabilities.mdc) — Capabilities listing
+- [rules-validate.sh](../../../.cursor/scripts/rules-validate.sh) — Validation tooling

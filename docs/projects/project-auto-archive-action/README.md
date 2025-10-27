@@ -133,7 +133,7 @@ Done! 🎉
 
 This follows the same pattern as:
 
-- **Changesets bot** — Auto-merge version PRs ([`.github/workflows/changesets.yml`](../../../.github/workflows/changesets.yml))
+- **Changesets bot** — Auto-merge version PRs ([`.github/workflows/changesets.yml`](../../../../.github/workflows/changesets.yml))
 - **Health badge** — Auto-update and merge badge PRs
 - **Auto-merge dispatch** — Trigger auto-merge on changesets PRs
 
@@ -149,4 +149,4 @@ This follows the same pattern as:
 
 - **ERD**: [`erd.md`](./erd.md) — Full requirements
 - **Tasks**: [`tasks.md`](./tasks.md) — Implementation tracking
-- **Similar**: [`.github/workflows/changesets.yml`](../../.github/workflows/changesets.yml) — Auto-merge pattern
+- **Similar**: [`.github/workflows/changesets.yml`](../../../.github/workflows/changesets.yml) — Auto-merge pattern

@@ -300,13 +300,13 @@ The `.cursor/scripts/` directory contains 100+ shell scripts in a flat structure
 
 ### Related Rules
 
-- [shell-unix-philosophy.mdc](../../.cursor/rules/shell-unix-philosophy.mdc) — Shell script standards
-- [test-quality-sh.mdc](../../.cursor/rules/test-quality-sh.mdc) — Shell test quality
-- [capabilities.mdc](../../.cursor/rules/capabilities.mdc) — Script capabilities catalog
+- [shell-unix-philosophy.mdc](../../../.cursor/rules/shell-unix-philosophy.mdc) — Shell script standards
+- [test-quality-sh.mdc](../../../.cursor/rules/test-quality-sh.mdc) — Shell test quality
+- [capabilities.mdc](../../../.cursor/rules/capabilities.mdc) — Script capabilities catalog
 
 ### Related Documentation
 
-- [.cursor/scripts/README.md](../../.cursor/scripts/README.md) — Scripts overview
+- [.cursor/scripts/README.md](../../../.cursor/scripts/README.md) — Scripts overview
 - [docs/scripts/README.md](../../docs/scripts/README.md) — Scripts documentation
 
 ---

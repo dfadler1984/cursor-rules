@@ -158,5 +158,5 @@ Standalone shell scripts for local Jira automation via REST API. Focus on issue 
 ## 10. References
 
 - [Jira Cloud REST API Documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/)
-- [`.cursor/rules/shell-unix-philosophy.mdc`](../../../.cursor/rules/shell-unix-philosophy.mdc)
-- [`.cursor/scripts/.lib.sh`](../../../.cursor/scripts/.lib.sh) — Shared script helpers
+- [`.cursor/rules/shell-unix-philosophy.mdc`](../../../../.cursor/rules/shell-unix-philosophy.mdc)
+- [`.cursor/scripts/.lib.sh`](../../../../.cursor/scripts/.lib.sh) — Shared script helpers

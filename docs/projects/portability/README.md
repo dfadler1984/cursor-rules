@@ -69,9 +69,9 @@ Portable pattern/approach, but current implementation has project-specific assum
 - **ERD**: [erd.md](./erd.md) — Full requirements
 - **Tasks**: [tasks.md](./tasks.md) — Execution checklist
 - **Related Rules**:
-  - [front-matter.mdc](../../.cursor/rules/front-matter.mdc)
-  - [rule-creation.mdc](../../.cursor/rules/rule-creation.mdc)
-  - [capabilities.mdc](../../.cursor/rules/capabilities.mdc)
+  - [front-matter.mdc](../../../.cursor/rules/front-matter.mdc)
+  - [rule-creation.mdc](../../../.cursor/rules/rule-creation.mdc)
+  - [capabilities.mdc](../../../.cursor/rules/capabilities.mdc)
 
 ## Decisions
 

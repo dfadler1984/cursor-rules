@@ -21,6 +21,6 @@ Automated detection of quality issues across `.cursor/rules/` and `docs/`:
 
 ## Quick Links
 
-- Related: [rule-maintenance.mdc](../../../.cursor/rules/rule-maintenance.mdc)
-- Related: [rule-quality.mdc](../../../.cursor/rules/rule-quality.mdc)
-- Existing validator: [rules-validate.sh](../../../.cursor/scripts/rules-validate.sh)
+- Related: [rule-maintenance.mdc](../../../../.cursor/rules/rule-maintenance.mdc)
+- Related: [rule-quality.mdc](../../../../.cursor/rules/rule-quality.mdc)
+- Existing validator: [rules-validate.sh](../../../../.cursor/scripts/rules-validate.sh)
