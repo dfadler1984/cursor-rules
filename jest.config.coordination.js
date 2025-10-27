@@ -9,4 +9,12 @@ module.exports = {
   ],
   coverageDirectory: "coverage/coordination",
   verbose: true,
+  globals: {
+    "ts-jest": {
+      tsconfig: {
+        esModuleInterop: true,
+        allowSyntheticDefaultImports: true,
+      },
+    },
+  },
 };
