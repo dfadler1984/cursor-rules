@@ -1,0 +1,227 @@
+---
+version: 2
+alwaysApply: false
+globs: []
+description: Coordinator chat behavior for multi-chat coordination (Phase 2 - WebSocket)
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+lastReviewed: 2025-10-26
+---
+
+# Coordinator Chat Behavior (Phase 2 - WebSocket)
+
+**Purpose**: Manage multi-chat coordination via WebSocket server with push-based notifications and zero manual polling.
+
+**When to use**: When starting a multi-chat coordination session (user says "act as coordinator" or similar).
+
+## Phase 2 Improvements Over Phase 1
+
+- ✅ **No polling**: Server pushes notifications to coordinator
+- ✅ **No file consent**: All operations via WebSocket API
+- ✅ **Real-time status**: Instant updates when workers complete tasks
+- ✅ **True autonomy**: 0 manual prompts per task after setup
+
+## Role & Responsibilities
+
+As a coordinator chat, you:
+
+1. Start WebSocket server
+2. Connect to server as coordinator
+3. Split user's project into parallelizable tasks
+4. Push tasks to server
+5. Receive real-time worker completion notifications
+6. Display live status dashboard
+7. Validate outputs when all tasks complete
+
+## Workflow
+
+### 1. Server Startup
+
+When user requests coordination:
+
+1. **Start server**: Run `yarn coordination:server` in background
+2. **Wait for ready**: Server logs "Ready for connections" (usually <2 seconds)
+3. **Display**: "Server started on port 3100. Ready for workers."
+
+**Command**:
+
+```bash
+yarn coordination:server &
+```
+
+### 2. Coordinator Connection
+
+After server starts:
+
+1. **Connect via CLI**: Run `ts-node src/coordination/cli.ts coordinator register --project-id=<name>`
+2. **Verify**: Receive registered message with project ID
+3. **Display**: "Coordinator connected. Project: <name>"
+
+**Alternative**: Use programmatic client if scripting
+
+### 3. Task Creation
+
+For each task:
+
+1. **Generate task JSON** using schema from Phase 1
+2. **Validate schema**: Run `bash .cursor/scripts/coordination/task-schema-validate.sh <task-file>`
+3. **Write to file**: Save tasks to temp JSON file
+4. **Push to server**: Run `ts-node src/coordination/cli.ts coordinator create-tasks <tasks-file.json>`
+5. **Display response**: Server confirms tasks queued
+
+**Server handles assignment automatically** - no manual "assign" step needed!
+
+### 4. Real-Time Monitoring
+
+After tasks pushed:
+
+1. **Subscribe to events**: Listen for `task_complete` notifications
+2. **Display updates**: Show status when notifications arrive
+3. **No polling needed**: Server pushes updates automatically
+
+**Status Display Format**:
+
+```
+Multi-Chat Coordination Status
+==============================
+Project: [name]
+Total tasks: [N]
+Completed: [X] | Active: [Y] | Queued: [Z]
+
+Worker Status:
+- Worker A: task-001 (completed, 2m ago)
+- Worker B: task-002 (in-progress, 5m elapsed)
+
+Recent Activity:
+- [timestamp] Worker A completed task-001
+- [timestamp] Task-002 assigned to Worker B
+```
+
+### 5. Worker Completion Notifications
+
+When server sends `task_complete` notification:
+
+1. **Receive notification**: Server pushes automatically (no check needed)
+2. **Read report**: Extract deliverables and context score
+3. **Validate deliverables**: Check files exist
+4. **Update dashboard**: Show new status
+5. **Server auto-assigns next task**: No coordinator action needed
+
+**Zero prompts required** - fully automated!
+
+### 6. Completion
+
+When all tasks are complete:
+
+1. **Receive final notification**: Server indicates all tasks done
+2. **Validate outputs**: Run final checks on all deliverables
+3. **Generate summary**: List completed tasks, metrics
+4. **Display results**: "All tasks complete. Deliverables: [list]"
+5. **Stop server**: Send shutdown command or Ctrl+C
+
+## Commands (Phase 2)
+
+**Start server**:
+
+```bash
+yarn coordination:server
+```
+
+**Connect as coordinator**:
+
+```bash
+ts-node src/coordination/cli.ts coordinator register --project-id=<name>
+```
+
+**Push tasks**:
+
+```bash
+ts-node src/coordination/cli.ts coordinator create-tasks <tasks.json>
+```
+
+**Get status**:
+
+```bash
+ts-node src/coordination/cli.ts coordinator status
+```
+
+## Directory Structure (Unchanged)
+
+```
+tmp/coordination/
+├── tasks/
+│   ├── pending/       # Task JSONs (for file-based fallback)
+│   └── completed/     # Archived tasks
+└── reports/           # Worker reports (server watches this)
+```
+
+## Event-Driven Pattern
+
+**Server → Coordinator notifications**:
+
+- `worker_registered`: New worker connected
+- `task_assigned`: Task given to worker
+- `task_complete`: Worker finished task
+- `report_detected`: New report file in reports/
+
+**Coordinator receives events in real-time** - no polling loop needed!
+
+## Error Handling
+
+### Server Not Running
+
+If connection fails:
+
+1. Check server is running: `ps aux | grep coordination-server`
+2. Start server if needed: `yarn coordination:server`
+3. Retry connection
+
+### Worker Disconnection
+
+Server handles automatically:
+
+- Reassigns active tasks to queue
+- Notifies coordinator of worker loss
+- Tasks can be assigned to replacement worker
+
+### Validation Failure
+
+If output validation fails:
+
+1. Document failure reason
+2. Escalate to engineer (cannot retry automatically in Phase 2)
+3. Engineer manually fixes and marks task complete
+
+## Constraints
+
+- **WebSocket-based**: Requires server running
+- **Push notifications**: Coordinator receives events automatically
+- **No file operations**: All state in server memory
+- **Single coordinator**: One coordinator per server instance
+
+## Example Session
+
+**User**: "Act as coordinator. Coordinate: generate summaries for 3 README files"
+
+**Coordinator**:
+
+1. Starts server: `yarn coordination:server` (background)
+2. Connects: Registers as coordinator
+3. Creates 3 task JSONs
+4. Pushes to server: Server queues all 3 tasks
+5. **Displays**: "Tasks queued. Start workers to begin execution."
+6. (Worker connects) Server auto-assigns task-001
+7. (Worker completes) Coordinator receives notification **automatically**
+8. (Server auto-assigns task-002) Coordinator receives notification
+9. **No manual prompts needed** - fully event-driven!
+10. (All done) "All 3 tasks complete. Deliverables: [list]"
+
+## Related
+
+- Worker behavior: `.cursor/rules/worker-chat-phase2.mdc`
+- Server implementation: `src/coordination/server.ts`
+- Client utilities: `src/coordination/client.ts`
+- CLI tool: `src/coordination/cli.ts`
+- Phase 1 (file-based): `.cursor/rules/coordinator-chat.mdc`

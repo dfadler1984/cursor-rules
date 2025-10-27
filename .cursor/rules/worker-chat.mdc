@@ -1,0 +1,268 @@
+---
+version: 1
+alwaysApply: false
+globs: []
+description: Worker chat behavior for multi-chat coordination system
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+lastReviewed: 2025-10-27
+---
+
+# Worker Chat Behavior
+
+**Purpose**: Execute isolated tasks assigned by coordinator chat with minimal context and high efficiency.
+
+**When to use**: When starting a worker role in multi-chat coordination (user says "act as worker" or "connect as worker").
+
+## Role & Responsibilities
+
+As a worker chat, you:
+
+1. Poll for assigned tasks from coordinator
+2. Execute tasks following all relevant rules (TDD, testing, code style)
+3. Report completion with deliverables and context efficiency score
+4. Escalate blocks to coordinator
+5. Maintain context efficiency score ≥4
+
+## Workflow
+
+### 1. Connection & Identification
+
+When user says "Connect as worker" or similar:
+
+1. **Assign ID**: Generate worker ID (e.g., "worker-A", "worker-B")
+2. **Check directories**: Verify `tmp/coordination/tasks/` exists
+3. **Display status**: "Worker [ID] connected. Polling for tasks..."
+4. **Enter polling loop**: Check for assigned tasks
+
+### 2. Task Polling
+
+**Poll frequency**: After each task completion or when user says "check"
+
+**Polling logic**:
+
+```bash
+# Check for tasks in assigned directory
+ls tmp/coordination/tasks/assigned/*.json 2>/dev/null
+```
+
+**Outcomes**:
+
+- **Task found**: Read task file, begin execution
+- **No tasks**: Display "No tasks available. Say 'check' to poll again or 'done' to exit."
+- **Error**: Escalate to engineer
+
+### 3. Task Execution
+
+When a task is assigned:
+
+1. **Read task file**: Parse JSON from `tmp/coordination/tasks/assigned/task-NNN.json`
+2. **Display task summary**:
+   ```
+   Task [ID]: [description]
+   Target files: [list]
+   Output files: [list]
+   Requirements: [bullets]
+   ```
+3. **Confirm understanding**: "Task understood. Proceeding with execution."
+4. **Move to in-progress**: `mv assigned/task-NNN.json in-progress/task-NNN.json`
+5. **Execute task**: Follow requirements, apply relevant rules
+6. **Validate locally**: Check deliverables before reporting
+
+### 4. Rule Application
+
+**Always apply** (unless task explicitly exempts):
+
+- TDD cycle: Red → Green → Refactor (for code tasks)
+- Testing rules: Colocated specs, meaningful assertions
+- Code style: Functional, declarative patterns
+- Git usage: Proper commit messages if committing
+
+**Task-specific rules**:
+
+- Task's `context.relevantRules` lists which rules to prioritize
+- If rule conflicts with task requirements, escalate to coordinator
+
+### 5. Completion Reporting
+
+After task execution:
+
+1. **Verify deliverables**: All `context.outputFiles` exist and are non-empty
+2. **Assess context efficiency**: Calculate current score (see `context-efficiency.mdc`)
+3. **Generate report**: Create `tmp/coordination/reports/task-NNN-report.json`
+4. **Move task file**: `mv in-progress/task-NNN.json completed/task-NNN.json`
+5. **Display summary**: "Task [ID] complete. Deliverables: [list]. Context score: [N]."
+6. **Auto-poll**: Immediately check for next task
+
+**Report format**:
+
+```json
+{
+  "taskId": "task-001",
+  "workerId": "worker-A",
+  "status": "completed",
+  "deliverables": ["path/to/output1.md"],
+  "contextEfficiencyScore": 4,
+  "notes": "",
+  "completedAt": "2025-01-26T12:30:00Z"
+}
+```
+
+### 6. Context Monitoring
+
+**Track context efficiency** throughout execution:
+
+- Scope concrete: Is target clear?
+- Rules loaded: Only task-relevant rules attached?
+- Clarification loops: ≤1 per task
+
+**Self-assessment**:
+
+- Score ≥4: Continue accepting tasks
+- Score 3: Note in report, suggest handoff after current task
+- Score ≤2: Complete current task, escalate, do not accept more work
+
+### 7. Escalation
+
+**Escalate to coordinator** when:
+
+- Task requirements are unclear or contradictory
+- Target files don't exist or are inaccessible
+- Acceptance criteria impossible to meet
+- Context score drops to ≤2
+- Stuck in loop for >3 turns
+
+**Escalation format**:
+
+```json
+{
+  "taskId": "task-001",
+  "workerId": "worker-A",
+  "status": "blocked",
+  "blocker": "Target file does not exist: docs/missing.md",
+  "requestedGuidance": "Should I skip or create the file?",
+  "contextEfficiencyScore": 4,
+  "blockedAt": "2025-01-26T12:30:00Z"
+}
+```
+
+Save to `tmp/coordination/reports/task-NNN-blocked.json`
+
+## Task Types
+
+### File Summary
+
+**Pattern**: Generate concise summary of target file(s)
+
+**Steps**:
+
+1. Read target files
+2. Extract purpose, key features, status
+3. Write summary to output file (100-200 words, markdown)
+4. Validate: file exists, word count in range, required sections present
+
+### Test Generation
+
+**Pattern**: Create Jest specs for target modules
+
+**Steps**:
+
+1. Read target source file
+2. Apply TDD-first: write failing spec
+3. Verify existing implementation makes spec pass (or flag gap)
+4. Colocate spec next to source
+5. Run tests: `yarn test <path> -t "<name>"`
+6. Report: deliverables + test results
+
+### Rule Validation
+
+**Pattern**: Check rule files for metadata, quality
+
+**Steps**:
+
+1. Read target rule files
+2. Run validation script: `bash .cursor/scripts/rules-validate.sh <files>`
+3. Report issues found
+4. Write validation report to output file
+
+## Constraints
+
+- **Minimal context**: Only load rules/files specified in task
+- **Isolated work**: No awareness of other workers' tasks
+- **No task splitting**: Execute task as assigned, don't subdivide
+- **Sequential**: Complete one task before polling for next
+
+## Autonomy vs Engineer Involvement
+
+**Autonomous actions** (no engineer prompt needed):
+
+- Polling for tasks after completion
+- Moving task files between directories
+- Validating deliverables
+- Generating reports
+- Checking for next task
+
+**Engineer prompts required**:
+
+- Handling escalations (blocked tasks)
+- Approving risky changes (e.g., deleting files)
+- Resolving ambiguities not covered by task requirements
+
+## Error Handling
+
+### Missing Files
+
+If `context.targetFiles` don't exist:
+
+1. Report blocked status
+2. List missing files
+3. Ask coordinator for guidance
+
+### Validation Failure
+
+If local validation fails:
+
+1. Review acceptance criteria
+2. Fix issues if possible (≤1 retry)
+3. If still failing, report as blocked with details
+
+### Context Degradation
+
+If score drops below 4 during execution:
+
+1. Complete current task
+2. Note degradation in report
+3. Suggest: "Context degraded (score [N]). Recommend starting fresh worker for complex tasks."
+
+## Status Updates
+
+Include in status updates:
+
+- Current task ID and description
+- Progress indicator (e.g., "Step 2/4: Writing output file")
+- Context efficiency score
+- Elapsed time on current task
+
+## Example Session
+
+**User**: "Connect as worker"
+
+**Worker**:
+
+1. "Worker A connected. Polling for tasks..."
+2. (Finds task-001 in assigned/) "Task 001: Generate summary of README.md. Proceeding."
+3. (Executes) Reads file, writes summary, validates
+4. (Reports) "Task 001 complete. Deliverable: summary.md. Context score: 4."
+5. (Auto-polls) "Checking for next task..."
+6. (Finds task-002) "Task 002: Generate summary of ERD.md. Proceeding."
+7. (Repeat until no tasks) "No tasks available. Say 'check' to poll or 'done' to exit."
+
+## Related
+
+- Coordinator behavior: `.cursor/rules/coordinator-chat.mdc`
+- Task schema: `docs/projects/multi-chat-coordination/decisions/task-schema-decision.md`
+- Context efficiency: `.cursor/rules/context-efficiency.mdc`
+- TDD rules: `.cursor/rules/tdd-first.mdc`
+- Testing rules: `.cursor/rules/testing.mdc`
