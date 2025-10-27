@@ -404,9 +404,9 @@ The `shell-validators.yml` workflow runs on every PR touching `.cursor/scripts/*
 ## Reference
 
 - **Full standards**: [`erd.md`](./erd.md)
-- **Helper library**: [`../../../../../.cursor/scripts/.lib.sh`](../../../../../.cursor/scripts/.lib.sh)
-- **Network seam**: [`../../../../../.cursor/scripts/.lib-net.sh`](../../../../../.cursor/scripts/.lib-net.sh)
-- **Test runner**: [`../../../../../.cursor/scripts/tests/run.sh`](../../../../../.cursor/scripts/tests/run.sh)
+- **Helper library**: [`../../scripts/.lib.sh`](../../scripts/.lib.sh)
+- **Network seam**: [`../../scripts/.lib-net.sh`](../../scripts/.lib-net.sh)
+- **Test runner**: [`../../scripts/tests/run.sh`](../../scripts/tests/run.sh)
 
 ## Examples
 
