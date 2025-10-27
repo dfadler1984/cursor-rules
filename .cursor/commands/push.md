@@ -246,4 +246,4 @@ bash .cursor/scripts/pr-create.sh --title "fix: resolve login issue" --body "Det
 - [branch.md](./branch.md) - Create branches
 - [commit.md](./commit.md) - Commit changes
 - [pr.md](./pr.md) - Create pull requests
-- [assistant-git-usage.mdc](../../rules/assistant-git-usage.mdc) - Full git workflow documentation
+- [assistant-git-usage.mdc](../rules/assistant-git-usage.mdc) - Full git workflow documentation
