@@ -1,11 +1,13 @@
 ---
-status: planning
+status: validated
 owner: dfadler1984
-created: 2025-01-26
+created: 2025-10-26
 mode: full
 ---
 
-# Engineering Requirements: Multi-Chat Coordination System
+<!-- Mode: full -->
+
+# Engineering Requirements Document: Multi-Chat Coordination System
 
 ## Goals
 
