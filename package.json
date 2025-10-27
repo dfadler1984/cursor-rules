@@ -10,7 +10,7 @@
     "generate:projects-readme": ".cursor/scripts/generate-projects-readme.sh",
     "generate:root-readme": ".cursor/scripts/generate-root-readme.sh",
     "test:coordination:bash": "bash .cursor/scripts/coordination/task-assign.test.sh && bash .cursor/scripts/coordination/report-check.test.sh && bash .cursor/scripts/coordination/task-complete.test.sh",
-    "test:coordination": "jest src/coordination || echo 'TypeScript tests skipped (known issue)'",
+    "test:coordination": "jest src/coordination",
     "test:scripts": ".cursor/scripts/tests/run.sh -v",
     "validate:ghtoken": "curl -sS -o /dev/null -w \"%{http_code}\\n\" -H \"Authorization: token $GH_TOKEN\" -H \"Accept: application/vnd.github+json\" https://api.github.com",
     "validate:root-readme": ".cursor/scripts/validate-root-readme.sh",
