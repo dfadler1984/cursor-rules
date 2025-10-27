@@ -5,7 +5,7 @@
 
 import * as WebSocket from "ws";
 import { CoordinationServer } from "./server";
-import type { RegisterMessage, CreateTasksMessage, TaskCompleteMessage } from "./types";
+import { RegisterMessage, CreateTasksMessage, TaskCompleteMessage } from "./types";
 
 describe("CoordinationServer", () => {
   let server: CoordinationServer;
