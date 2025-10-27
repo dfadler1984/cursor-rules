@@ -6,7 +6,6 @@ mode: full
 ---
 
 <!-- Mode: full -->
-
 # Engineering Requirements Document: Multi-Chat Coordination System
 
 ## Goals
