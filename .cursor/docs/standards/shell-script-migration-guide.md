@@ -1,6 +1,5 @@
 # Script Standardization Migration Guide
 
-This guide explains how to migrate shell scripts to adopt the cross-cutting decisions (D1-D6) defined in [`erd.md`](./erd.md).
 
 ## Overview
 
@@ -403,7 +402,6 @@ The `shell-validators.yml` workflow runs on every PR touching `.cursor/scripts/*
 
 ## Reference
 
-- **Full standards**: [`erd.md`](./erd.md)
 - **Helper library**: [`../../scripts/.lib.sh`](../../scripts/.lib.sh)
 - **Network seam**: [`../../scripts/.lib-net.sh`](../../scripts/.lib-net.sh)
 - **Test runner**: [`../../scripts/tests/run.sh`](../../scripts/tests/run.sh)
@@ -446,4 +444,3 @@ source "$(dirname "$0")/.lib.sh"
 
 ---
 
-**Questions?** See [`erd.md`](./erd.md) for detailed standards and rationale.

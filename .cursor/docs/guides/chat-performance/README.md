@@ -101,7 +101,7 @@
 
 ## Integration with Context Efficiency Gauge
 
-All guides work together with the [Context Efficiency Gauge](../.cursor/rules/context-efficiency.mdc):
+All guides work together with the [Context Efficiency Gauge](../../../../.cursor/rules/context-efficiency.mdc):
 
 - **Gauge score 4-5/5 (lean):** Continue with current approach, apply prompt tightening proactively
 - **Gauge score 3/5 (ok):** Monitor for signals (≥2 true → consider summarizing)
