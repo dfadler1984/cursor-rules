@@ -20,6 +20,9 @@ What it does:
   - Moves task JSON from pending/ to assigned/
   - Updates JSON: status="assigned", assignedTo="<worker-id>"
   - Atomic operation (no per-file consent needed)
+
+Options:
+  -h, --help    Show this help and exit
 HELP
   
   print_exit_codes

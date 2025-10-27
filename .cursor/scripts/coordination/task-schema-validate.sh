@@ -13,6 +13,9 @@ usage() {
   echo ""
   echo "Arguments:"
   echo "  task-file.json    Path to task JSON file"
+  echo ""
+  echo "Options:"
+  echo "  -h, --help    Show this help and exit"
   print_exit_codes
   echo ""
   echo "Examples:"

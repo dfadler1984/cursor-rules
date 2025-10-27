@@ -13,6 +13,9 @@ usage() {
   echo ""
   echo "Arguments:"
   echo "  task-id    Task identifier (e.g., task-001)"
+  echo ""
+  echo "Options:"
+  echo "  -h, --help    Show this help and exit"
   print_exit_codes
   echo ""
   echo "Examples:"

@@ -14,6 +14,9 @@ usage() {
   echo "Arguments:"
   echo "  role       coordinator or worker"
   echo "  command    register, create-tasks, complete-task, status"
+  echo ""
+  echo "Options:"
+  echo "  -h, --help    Show this help and exit"
   print_exit_codes
   echo ""
   echo "Examples:"
