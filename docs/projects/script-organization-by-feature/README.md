@@ -18,7 +18,6 @@ Reorganize `.cursor/scripts/` from flat directory (100+ scripts) to feature-base
 
 - [ERD (Requirements)](./erd.md) — Problem statement, goals, approach, success criteria
 - [Tasks](./tasks.md) — Phase checklists and execution tracking
-- [Migration Guide](./migration-guide.md) — Old → new path mappings (created in Phase 6)
 
 ## Proposed Structure
 

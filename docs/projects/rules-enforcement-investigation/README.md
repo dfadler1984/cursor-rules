@@ -105,7 +105,6 @@
 - Script usage: 71%, TDD: 72%, Branch naming: 62%
 - Post-fix baseline for future validation
 
-**[ci-integration-guide.md](ci-integration-guide.md)** — CI integration guide
 
 - GitHub Actions examples
 - Threshold recommendations (4 phases)

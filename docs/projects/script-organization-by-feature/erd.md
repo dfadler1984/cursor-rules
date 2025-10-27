@@ -307,7 +307,7 @@ The `.cursor/scripts/` directory contains 100+ shell scripts in a flat structure
 ### Related Documentation
 
 - [.cursor/scripts/README.md](../../../.cursor/scripts/README.md) — Scripts overview
-- [docs/scripts/README.md](../../docs/scripts/README.md) — Scripts documentation
+- [docs/scripts/README.md](../../../docs/scripts/README.md) — Scripts documentation
 
 ---
 
