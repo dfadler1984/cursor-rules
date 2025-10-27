@@ -5,8 +5,9 @@ created: 2025-10-26
 mode: full
 ---
 
-<!-- Mode: full -->
 # Engineering Requirements Document: Multi-Chat Coordination System
+
+Mode: Full
 
 ## Goals
 
