@@ -4,7 +4,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SCRIPT="$SCRIPT_DIR/coordination-task-assign.sh"
+SCRIPT="$SCRIPT_DIR/task-assign.sh"
 
 # Test fixtures
 setup() {
