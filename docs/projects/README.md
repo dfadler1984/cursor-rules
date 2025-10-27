@@ -63,6 +63,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | --- | --- | --- | --- |
 | Active Monitoring Formalization | planning | [📄](./active-monitoring-formalization/erd.md) | ✅ |
 | Assistant Self-Improvement (Ground-Up Redesign) | planning | [📄](./assistant-self-improvement/erd.md) | ✅ |
+| Multi-Chat Coordination System | validated | [📄](./multi-chat-coordination/erd.md) | ✅ |
 | Repo Health Badge (Lite) | planning | [📄](./repo-health-badge/erd.md) | ✅ |
 | Rule Introspection (Lite) | planning | [📄](./rule-introspection/erd.md) | ✅ |
 
@@ -115,6 +116,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Shell Scripts Suite | completed | [📄](./_archived/2025/shell-scripts/erd.md) | ✅ |
 | ShellCheck Adoption | completed | [📄](./_archived/2025/shellcheck/erd.md) | ✅ |
 | Skip Changeset Opt-In (Lite) | completed | [📄](./_archived/2025/skip-changeset-opt-in/erd.md) | ✅ |
+| Slash Commands Runtime Routing | completed | [📄](./slash-commands-runtime-routing/erd.md) | ✅ |
 | Slash Commands Runtime (Lite) | completed | [📄](./_archived/2025/slash-commands-runtime/erd.md) | ✅ |
 | TDD‑First (Lite) | completed | [📄](./_archived/2025/tdd-first/erd.md) | ✅ |
 | Test Run Deletes `.github/` and adds `tmp-scan/` | completed | [📄](./_archived/2025/tests-github-deletion/erd.md) | ✅ |
