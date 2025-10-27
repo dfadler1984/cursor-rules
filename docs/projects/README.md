@@ -62,6 +62,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Project | Status | ERD | Tasks |
 | --- | --- | --- | --- |
 | Active Monitoring Formalization | planning | [📄](./active-monitoring-formalization/erd.md) | ✅ |
+| Assistant Rule Adherence Investigation | planning | [📄](./assistant-rule-adherence/erd.md) | ✅ |
 | Assistant Self-Improvement (Ground-Up Redesign) | planning | [📄](./assistant-self-improvement/erd.md) | ✅ |
 | Multi-Chat Coordination System | validated | [📄](./multi-chat-coordination/erd.md) | ✅ |
 | Repo Health Badge (Lite) | planning | [📄](./repo-health-badge/erd.md) | ✅ |
