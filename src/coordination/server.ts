@@ -24,6 +24,7 @@ export class CoordinationServer {
   private wss: WebSocket.WebSocketServer | null = null;
   private port: number;
   private clients: Map<string, ClientInfo> = new Map();
+  private tasks: Map<string, Task> = new Map(); // Full task storage
   private taskQueue: string[] = [];
   private activeTasks: Map<string, ActiveTask> = new Map();
   private coordinator: { clientId: string; ws: WebSocket } | null = null;
@@ -84,6 +85,19 @@ export class CoordinationServer {
         const reportData = fs.readFileSync(filePath, "utf8");
         const report: TaskReport = JSON.parse(reportData);
 
+        // Mark task as complete in server state
+        this.activeTasks.delete(report.taskId);
+
+        // Remove from queue if still there
+        const queueIndex = this.taskQueue.indexOf(report.taskId);
+        if (queueIndex >= 0) {
+          this.taskQueue.splice(queueIndex, 1);
+        }
+
+        console.log(
+          `[Server] Task ${report.taskId} marked complete via report file`
+        );
+
         // Notify coordinator
         if (this.coordinator) {
           this.send(this.coordinator.ws, {
@@ -94,6 +108,11 @@ export class CoordinationServer {
             report,
           });
         }
+
+        // Try to assign next task to the worker if they reconnect
+        console.log(
+          `[Server] Queue now has ${this.taskQueue.length} tasks remaining`
+        );
       } catch (error) {
         console.error(
           `[Server] Error reading report ${filePath}:`,
@@ -304,12 +323,13 @@ export class CoordinationServer {
       return this.sendError(client.ws, "tasks must be a non-empty array");
     }
 
-    // Add tasks to queue
+    // Store full tasks and add IDs to queue
     tasks.forEach((task) => {
       if (!task.id) {
         console.error("[Server] Task missing id:", task);
         return;
       }
+      this.tasks.set(task.id, task); // Store full task
       this.taskQueue.push(task.id);
       console.log(`[Server] Task queued: ${task.id}`);
     });
@@ -361,6 +381,9 @@ export class CoordinationServer {
 
     // Remove from active tasks
     this.activeTasks.delete(taskId);
+
+    // Clean up from task storage
+    this.tasks.delete(taskId);
 
     // Notify coordinator
     if (this.coordinator) {
@@ -427,6 +450,13 @@ export class CoordinationServer {
 
     const taskId = this.taskQueue.shift()!;
 
+    // Look up full task
+    const task = this.tasks.get(taskId);
+    if (!task) {
+      console.error(`[Server] Task ${taskId} not found in storage`);
+      return this.assignNextTask(workerId); // Try next task
+    }
+
     // Mark as active
     this.activeTasks.set(taskId, {
       workerId,
@@ -447,24 +477,10 @@ export class CoordinationServer {
 
     console.log(`[Server] Assigning task ${taskId} to ${workerId}`);
 
-    // For tests, send minimal task
-    // In production, this would read from files
-    const task: Task = {
-      id: taskId,
-      type: "test",
-      description: "Test task",
-      context: {
-        targetFiles: [],
-        outputFiles: [],
-        requirements: [],
-      },
-      acceptance: {
-        criteria: [],
-      },
-      status: "assigned",
-      createdAt: new Date().toISOString(),
-    };
+    // Update task status
+    task.status = "assigned";
 
+    // Send FULL task to worker
     this.send(client.ws, {
       type: "task_assigned",
       task,

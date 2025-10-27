@@ -26,6 +26,7 @@ lastReviewed: 2025-10-26
 ## Role & Responsibilities
 
 As a worker chat, you:
+
 1. Connect to WebSocket server
 2. Register with unique worker ID
 3. Receive pushed task assignments (no polling!)
@@ -97,13 +98,53 @@ After execution:
 ### 5. Context Monitoring
 
 Track efficiency throughout:
+
 - Score ≥4: Continue accepting tasks
 - Score 3: Note in report, suggest handoff after current task
 - Score ≤2: Complete task, escalate, refuse more work
 
+### 5.5. Observability (File Logging Pattern)
+
+**Problem**: Background worker processes lack visibility - console output not visible when running in background.
+
+**Solution**: Dual logging (console + file)
+
+```typescript
+const LOG_FILE = path.join(
+  __dirname,
+  "../tmp/coordination/worker-${WORKER_ID}.log"
+);
+
+// Logging helper
+const log = (msg: string) => {
+  const timestamp = new Date().toISOString();
+  const line = `[${timestamp}] ${msg}`;
+  console.log(line); // Console output
+  fs.appendFileSync(LOG_FILE, line + "\n"); // File output
+};
+
+// Use in event handlers
+client.on("task_assigned", (message: any) => {
+  log(`TASK ASSIGNED: ${message.task.id}`);
+  log(`Description: ${message.task.description}`);
+  log(`Target files: ${JSON.stringify(message.task.context.targetFiles)}`);
+  log(`Output files: ${JSON.stringify(message.task.context.outputFiles)}`);
+});
+```
+
+**Benefits**:
+
+- Coordinator can monitor worker activity: `tail -f tmp/coordination/worker-*.log`
+- Workers persist activity across restarts
+- Debug issues without stopping processes
+- Zero impact on automation
+
+**When to use**: All background worker listeners should implement file logging.
+
 ### 6. Escalation
 
 Escalate to coordinator when:
+
 - Task requirements unclear
 - Target files missing
 - Acceptance criteria impossible
@@ -114,6 +155,7 @@ Escalate to coordinator when:
 ## Task Execution Pattern
 
 **Fully autonomous cycle**:
+
 1. Receive task (pushed by server)
 2. Execute task
 3. Report completion (write to reports/)
@@ -121,6 +163,7 @@ Escalate to coordinator when:
 5. Repeat until no tasks remain
 
 **Manual intervention**: Only needed for:
+
 - Escalations (blocked tasks)
 - Risky file operations (if consent required)
 - Final "done" to disconnect
@@ -128,11 +171,13 @@ Escalate to coordinator when:
 ## Commands (Phase 2)
 
 **Connect as worker**:
+
 ```bash
 ts-node src/coordination/cli.ts worker register --worker-id=worker-A
 ```
 
 **Get status** (optional check):
+
 ```bash
 ts-node src/coordination/cli.ts worker status
 ```
@@ -140,11 +185,13 @@ ts-node src/coordination/cli.ts worker status
 ## Context Efficiency
 
 **Always report** in completion:
+
 - Current score
 - Scope assessment
 - Rules loaded
 
 **Self-limit**:
+
 - If score <4, note in report
 - If score ≤2, refuse new tasks after current
 
@@ -153,6 +200,7 @@ ts-node src/coordination/cli.ts worker status
 ### Server Disconnected
 
 If server connection lost:
+
 1. Display: "Server disconnected. Waiting for reconnection..."
 2. Attempt reconnect (retry 3 times with backoff)
 3. If reconnect fails: Escalate to engineer
@@ -160,30 +208,33 @@ If server connection lost:
 ### Task Push Timeout
 
 If no task received within 5 minutes after registration:
+
 1. Display: "No tasks assigned yet. Server may be waiting for coordinator."
 2. Suggest: "Say 'status' to check server state"
 
 ### Report Delivery Failure
 
 If report write fails:
+
 1. Retry once
 2. If still fails: Display error, keep report in memory
 3. Escalate to engineer
 
 ## Comparison: Phase 1 vs Phase 2
 
-| Aspect | Phase 1 (File) | Phase 2 (WebSocket) |
-|--------|---------------|---------------------|
-| Task receipt | Poll assigned/ | Pushed by server |
-| Completion report | Write file | Write file + server watches |
-| Next task | Manual check | Automatic push |
-| Engineer prompts | ~1 per task | 0 per task |
+| Aspect            | Phase 1 (File) | Phase 2 (WebSocket)         |
+| ----------------- | -------------- | --------------------------- |
+| Task receipt      | Poll assigned/ | Pushed by server            |
+| Completion report | Write file     | Write file + server watches |
+| Next task         | Manual check   | Automatic push              |
+| Engineer prompts  | ~1 per task    | 0 per task                  |
 
 ## Example Session
 
 **User**: "Connect as worker"
 
 **Worker**:
+
 1. "Connecting to server as worker-A..."
 2. Registers with server
 3. **Receives task-001 (pushed automatically)**

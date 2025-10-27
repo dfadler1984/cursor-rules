@@ -165,7 +165,7 @@ describe("CoordinationServer", () => {
     test("should accept tasks from coordinator", async () => {
       await server.start();
 
-      const coordinator = new WebSocket(`ws://localhost:${port}`);
+      const coordinator = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(coordinator);
       await registerAs(coordinator, "coordinator", "test-project");
 
@@ -229,10 +229,64 @@ describe("CoordinationServer", () => {
   });
 
   describe("Task Assignment", () => {
+    test("should send full task context when assigning", async () => {
+      await server.start();
+
+      const coordinator = new WebSocket.WebSocket(`ws://localhost:${port}`);
+      await waitForConnection(coordinator);
+      await registerAs(coordinator, "coordinator", "test-project");
+
+      const worker = new WebSocket.WebSocket(`ws://localhost:${port}`);
+      await waitForConnection(worker);
+      await registerAs(worker, "worker", undefined, "worker-A");
+
+      // Create task with real context
+      const realTask = {
+        id: "task-001",
+        type: "file-summary",
+        description: "Generate summary of README",
+        context: {
+          targetFiles: ["docs/README.md"],
+          outputFiles: ["tmp/summary.md"],
+          requirements: ["100-200 words", "Include purpose"],
+        },
+        acceptance: {
+          criteria: ["File exists", "Word count valid"],
+        },
+        status: "pending" as const,
+        createdAt: new Date().toISOString(),
+      };
+
+      const createTasksMsg: CreateTasksMessage = {
+        type: "create_tasks",
+        tasks: [realTask],
+      };
+
+      coordinator.send(JSON.stringify(createTasksMsg));
+      await waitForMessage(coordinator, "tasks_created");
+
+      // Worker should receive FULL task context
+      const assignment = await waitForMessage(worker, "task_assigned");
+
+      expect(assignment.task).toMatchObject({
+        id: "task-001",
+        type: "file-summary",
+        description: "Generate summary of README",
+        context: {
+          targetFiles: ["docs/README.md"],
+          outputFiles: ["tmp/summary.md"],
+          requirements: ["100-200 words", "Include purpose"],
+        },
+      });
+
+      coordinator.close();
+      worker.close();
+    });
+
     test("should auto-assign task to registered worker", async () => {
       await server.start();
 
-      const coordinator = new WebSocket(`ws://localhost:${port}`);
+      const coordinator = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(coordinator);
       await registerAs(coordinator, "coordinator", "test-project");
 
@@ -304,7 +358,7 @@ describe("CoordinationServer", () => {
     test("should handle task completion from worker", async () => {
       await server.start();
 
-      const coordinator = new WebSocket(`ws://localhost:${port}`);
+      const coordinator = new WebSocket.WebSocket(`ws://localhost:${port}`);
       await waitForConnection(coordinator);
       await registerAs(coordinator, "coordinator", "test-project");
 
@@ -402,7 +456,7 @@ describe("CoordinationServer", () => {
 });
 
 // Test helpers
-function waitForConnection(client: WebSocket): Promise<void> {
+function waitForConnection(client: any): Promise<void> {
   return new Promise((resolve, reject) => {
     if (client.readyState === WebSocket.OPEN) {
       // Skip connected message
@@ -416,7 +470,7 @@ function waitForConnection(client: WebSocket): Promise<void> {
   });
 }
 
-function waitForMessage(client: WebSocket, messageType: string): Promise<any> {
+function waitForMessage(client: any, messageType: string): Promise<any> {
   return new Promise((resolve, reject) => {
     const handler = (data: WebSocket.Data) => {
       try {
@@ -441,7 +495,7 @@ function waitForMessage(client: WebSocket, messageType: string): Promise<any> {
 }
 
 async function registerAs(
-  client: WebSocket,
+  client: any,
   role: "coordinator" | "worker",
   projectId?: string,
   workerId?: string
