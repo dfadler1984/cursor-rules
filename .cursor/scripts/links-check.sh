@@ -57,7 +57,11 @@ fi
 shopt -s nullglob
 declare -a files
 if [ -d "$target" ]; then
-  while IFS= read -r -d '' f; do files+=("$f"); done < <(find "$target" -type f \( -name '*.md' -o -name '*.mdc' \) -print0)
+  while IFS= read -r -d '' f; do 
+    files+=("$f")
+  done < <(find "$target" \
+    -type d \( -name 'node_modules' -o -path '*/.cursor/scripts/tests/fixtures' \) -prune \
+    -o -type f \( -name '*.md' -o -name '*.mdc' \) -print0)
 else
   case "$target" in
     *.md|*.mdc) files+=("$target") ;;
