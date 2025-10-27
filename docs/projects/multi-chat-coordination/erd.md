@@ -28,6 +28,21 @@ mode: full
 - Chat-to-chat direct communication (coordinator is hub)
 - Production-grade scaling (3-5 workers max)
 
+## Future Requirements
+
+### Portability (Post-Validation)
+
+**Goal**: Enable copying `.cursor/` directory to other repos for reuse.
+
+**Current state**: Phase 2 TypeScript code in `src/coordination/` (outside `.cursor/`)
+
+**Options to explore** (when system proves valuable):
+1. Move to `.cursor/lib/coordination/` (new lib directory for shared code)
+2. Move to `.cursor/scripts/coordination/` (alongside other scripts)
+3. Inline into bash scripts (no TypeScript dependency)
+
+**Decision**: Deferred until pattern demonstrates material value in production use.
+
 ## User Stories
 
 ### As an Engineer

@@ -215,6 +215,26 @@
 
 ---
 
+## Future: Portability (When System Proves Valuable)
+
+**Goal**: Make coordination system portable by keeping all code in `.cursor/` directory
+
+**Current state**:
+- ✅ Phase 1: All bash scripts in `.cursor/scripts/` (portable)
+- ⚠️ Phase 2: TypeScript code in `src/coordination/` (not portable)
+
+**Options to evaluate**:
+- [ ] Move `src/coordination/` → `.cursor/lib/coordination/`
+- [ ] Move to `.cursor/scripts/coordination/` (flatten)
+- [ ] Inline Phase 2 logic into bash (no TypeScript)
+- [ ] Keep Phase 2 as-is (reference only, not for cross-repo use)
+
+**Decision criteria**: Measure real-world usage and value first
+
+**Priority**: Low (deferred until pattern demonstrates material ROI)
+
+---
+
 ## Carryovers
 
 _Items discovered during work that don't fit current phase scope_
