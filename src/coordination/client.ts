@@ -37,10 +37,10 @@ export class CoordinationClient extends EventEmitter {
       this.ws.on("message", (data: WebSocket.Data) => {
         try {
           const message = JSON.parse(data.toString());
-          
+
           // Emit specific event for message type
           this.emit(message.type, message);
-          
+
           // Also emit generic message event
           this.emit("message", message);
 
@@ -49,7 +49,10 @@ export class CoordinationClient extends EventEmitter {
             resolve();
           }
         } catch (error) {
-          console.error("[Client] Error parsing message:", (error as Error).message);
+          console.error(
+            "[Client] Error parsing message:",
+            (error as Error).message
+          );
         }
       });
 
@@ -118,7 +121,7 @@ export class CoordinationClient extends EventEmitter {
     };
 
     this.send(message);
-    
+
     return new Promise((resolve) => {
       const handler = (msg: any) => {
         if (msg.type === "task_assigned" || msg.type === "no_tasks") {
@@ -174,4 +177,3 @@ export class CoordinationClient extends EventEmitter {
     });
   }
 }
-

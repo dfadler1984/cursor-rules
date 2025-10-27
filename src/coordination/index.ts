@@ -12,10 +12,13 @@ const server = new CoordinationServer(PORT);
 
 console.log("[Server] Multi-Chat Coordination Server starting...");
 
-server.start()
+server
+  .start()
   .then(() => {
     console.log(`[Server] Server running on ws://localhost:${PORT}`);
-    console.log("[Server] Workers can connect and will receive tasks automatically");
+    console.log(
+      "[Server] Workers can connect and will receive tasks automatically"
+    );
     console.log("[Server] Press Ctrl+C to stop");
   })
   .catch((error) => {
@@ -35,4 +38,3 @@ process.on("SIGTERM", async () => {
   await server.stop();
   process.exit(0);
 });
-
