@@ -37,7 +37,7 @@ If they differ, the README is considered stale and needs regeneration.
 Options:
   --fix         Regenerate README.md if stale
   --dry-run     Show diff without writing (with --fix)
-  --help        Show this help message
+  -h, --help    Show this help message
   --version     Show script version
 
 Exit Codes:
@@ -144,7 +144,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         DRY_RUN=true
         shift
         ;;
-      --help)
+      -h|--help)
         show_help
         exit 0
         ;;

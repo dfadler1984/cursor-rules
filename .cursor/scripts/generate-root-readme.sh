@@ -203,8 +203,12 @@ Options:
   --template PATH   Path to template file (default: templates/root-readme.template.md)
   --out PATH        Output file path (default: README.md)
   --dry-run         Print to stdout without writing file
-  --help            Show this help message
+  -h, --help        Show this help message
   --version         Show script version
+
+Exit Codes:
+  0 - Success
+  1 - Error (template load failed, section generation failed, write failed)
 
 Examples:
   # Generate with defaults
@@ -864,7 +868,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         DRY_RUN=true
         shift
         ;;
-      --help)
+      -h|--help)
         show_help
         exit 0
         ;;
