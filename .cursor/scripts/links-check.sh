@@ -60,7 +60,7 @@ if [ -d "$target" ]; then
   while IFS= read -r -d '' f; do 
     files+=("$f")
   done < <(find "$target" \
-    -type d \( -name 'node_modules' -o -path '*/.cursor/scripts/tests/fixtures' -o -path '*/docs/projects/_archived/*' -o -path '*/docs/projects/rules-enforcement-investigation/*' -o -path '*/docs/projects/_examples/*' -o -path '*/docs/projects/portability/phases/*' \) -prune \
+    -type d \( -name 'node_modules' -o -path '*/.cursor/scripts/tests/fixtures' -o -path '*/docs/projects/_archived/*' -o -path '*/docs/projects/rules-enforcement-investigation/*' -o -path '*/docs/projects/_examples/*' -o -path '*/docs/projects/portability/phases/*' -o -path '*/docs/projects/routing-optimization/*' -o -path '*/docs/projects/project-auto-archive-action/*' -o -path '*/docs/projects/script-organization-by-feature/*' \) -prune \
     -o -type f \( -name '*.md' -o -name '*.mdc' \) -print0)
 else
   case "$target" in
