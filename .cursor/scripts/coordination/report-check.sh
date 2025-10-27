@@ -18,7 +18,7 @@ if [[ ! -d "$REPORTS_DIR" ]]; then
 fi
 
 # Find all report files
-REPORTS=($(find "$REPORTS_DIR" -name "task-*-report.json" -type f 2>/dev/null || true))
+mapfile -t REPORTS < <(find "$REPORTS_DIR" -name "task-*-report.json" -type f 2>/dev/null || true)
 
 # No reports found
 if [[ ${#REPORTS[@]} -eq 0 ]]; then
