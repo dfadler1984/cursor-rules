@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.22.11
+
+### Patch Changes
+
+- [#237](https://github.com/dfadler1984/cursor-rules/pull/237) [`a56d8ad`](https://github.com/dfadler1984/cursor-rules/commit/a56d8adde87247416a972f8c3f2c6d658d033c98) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Add multi-chat coordination system with file-based (Phase 1) and WebSocket (Phase 2) implementations. Phase 1 validated with 100% automation, 5.0 context efficiency, and 0.67 prompts/task. Includes coordination scripts, rules, and complete documentation.
+
 ## 0.23.0
 
 ### Minor Changes
