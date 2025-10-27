@@ -1,8 +1,43 @@
 #!/usr/bin/env bash
 # Assign a task to a worker (move pending → assigned, update JSON)
-# Usage: coordination-task-assign.sh <task-id> <worker-id>
 
 set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../.lib.sh
+source "$SCRIPT_DIR/../.lib.sh"
+
+usage() {
+  print_help_header "task-assign.sh" "Assign a task to a worker"
+  print_usage "task-assign.sh <task-id> <worker-id>"
+  
+  cat <<'HELP'
+Arguments:
+  task-id    Task identifier (e.g., task-001)
+  worker-id  Worker identifier (e.g., worker-A)
+
+What it does:
+  - Moves task JSON from pending/ to assigned/
+  - Updates JSON: status="assigned", assignedTo="<worker-id>"
+  - Atomic operation (no per-file consent needed)
+HELP
+  
+  print_exit_codes
+  
+  cat <<'EXAMPLES'
+Examples:
+  # Assign task-001 to worker-A
+  bash task-assign.sh task-001 worker-A
+EXAMPLES
+}
+
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help) usage; exit 0 ;;
+    *) break ;;
+  esac
+done
 
 TASK_ID="${1:-}"
 WORKER_ID="${2:-}"
@@ -10,14 +45,14 @@ WORKER_ID="${2:-}"
 # Error handling
 if [[ -z "$TASK_ID" ]]; then
   echo "Error: Task ID required" >&2
-  echo "Usage: coordination-task-assign.sh <task-id> <worker-id>" >&2
-  exit 1
+  usage >&2
+  exit 2
 fi
 
 if [[ -z "$WORKER_ID" ]]; then
   echo "Error: Worker ID required" >&2
-  echo "Usage: coordination-task-assign.sh <task-id> <worker-id>" >&2
-  exit 1
+  usage >&2
+  exit 2
 fi
 
 # Paths

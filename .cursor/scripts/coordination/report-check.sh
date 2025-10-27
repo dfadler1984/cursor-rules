@@ -1,11 +1,35 @@
 #!/usr/bin/env bash
 # Check for new worker reports
-# Usage: coordination-report-check.sh [--format json|text]
 
 set -euo pipefail
 
-FORMAT="${1:---format}"
-FORMAT="${2:-text}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../.lib.sh
+source "$SCRIPT_DIR/../.lib.sh"
+
+usage() {
+  print_help_header "report-check.sh" "Check for worker completion reports"
+  print_usage "report-check.sh [--format json|text]"
+  echo ""
+  echo "Options:"
+  echo "  --format FORMAT    Output format: json or text (default: text)"
+  print_exit_codes
+  echo ""
+  echo "Examples:"
+  echo "  bash report-check.sh"
+  echo "  bash report-check.sh --format json"
+}
+
+FORMAT="text"
+
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help) usage; exit 0 ;;
+    --format) FORMAT="${2:-text}"; shift 2 ;;
+    *) echo "Unknown arg: $1" >&2; usage >&2; exit 2 ;;
+  esac
+done
 
 # Paths
 COORD_DIR="tmp/coordination"

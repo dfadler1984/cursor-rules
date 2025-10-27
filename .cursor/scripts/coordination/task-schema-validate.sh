@@ -1,16 +1,38 @@
 #!/usr/bin/env bash
 # Validate multi-chat coordination task JSON schema
-# Usage: task-schema-validate.sh <task-file.json>
-# Exit 0 if valid, 1 if invalid
 
 set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../.lib.sh
+source "$SCRIPT_DIR/../.lib.sh"
+
+usage() {
+  print_help_header "task-schema-validate.sh" "Validate task JSON schema"
+  print_usage "task-schema-validate.sh <task-file.json>"
+  echo ""
+  echo "Arguments:"
+  echo "  task-file.json    Path to task JSON file"
+  print_exit_codes
+  echo ""
+  echo "Examples:"
+  echo "  bash task-schema-validate.sh tmp/coordination/tasks/pending/task-001.json"
+}
+
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help) usage; exit 0 ;;
+    *) break ;;
+  esac
+done
 
 TASK_FILE="${1:-}"
 
 if [[ -z "$TASK_FILE" ]]; then
   echo "Error: Task file required" >&2
-  echo "Usage: task-schema-validate.sh <task-file.json>" >&2
-  exit 1
+  usage >&2
+  exit 2
 fi
 
 if [[ ! -f "$TASK_FILE" ]]; then

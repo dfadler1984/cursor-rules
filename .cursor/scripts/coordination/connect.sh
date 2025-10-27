@@ -1,15 +1,33 @@
 #!/usr/bin/env bash
 # Connect to coordination server and execute client commands
-# Usage: coordination-connect.sh <role> <command> [args...]
-#
-# Roles: coordinator | worker
-# Commands:
-#   - register [--project-id ID] [--worker-id ID]
-#   - create-tasks <tasks.json>
-#   - complete-task <task-id> <report.json>
-#   - status
 
 set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../.lib.sh
+source "$SCRIPT_DIR/../.lib.sh"
+
+usage() {
+  print_help_header "connect.sh" "Connect to coordination server"
+  print_usage "connect.sh <role> <command> [args...]"
+  echo ""
+  echo "Arguments:"
+  echo "  role       coordinator or worker"
+  echo "  command    register, create-tasks, complete-task, status"
+  print_exit_codes
+  echo ""
+  echo "Examples:"
+  echo "  bash connect.sh worker register --worker-id=worker-A"
+  echo "  bash connect.sh coordinator create-tasks tasks.json"
+}
+
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help) usage; exit 0 ;;
+    *) break ;;
+  esac
+done
 
 ROLE="${1:-}"
 COMMAND="${2:-}"
@@ -17,8 +35,8 @@ shift 2 || true
 
 if [[ -z "$ROLE" ]] || [[ -z "$COMMAND" ]]; then
   echo "Error: Role and command required" >&2
-  echo "Usage: coordination-connect.sh <role> <command> [args...]" >&2
-  exit 1
+  usage >&2
+  exit 2
 fi
 
 PORT="${COORDINATION_PORT:-3100}"

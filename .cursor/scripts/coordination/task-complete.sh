@@ -1,16 +1,39 @@
 #!/usr/bin/env bash
 # Mark a task as complete (move in-progress → completed)
-# Usage: coordination-task-complete.sh <task-id>
 
 set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../.lib.sh
+source "$SCRIPT_DIR/../.lib.sh"
+
+usage() {
+  print_help_header "task-complete.sh" "Mark a task as complete"
+  print_usage "task-complete.sh <task-id>"
+  echo ""
+  echo "Arguments:"
+  echo "  task-id    Task identifier (e.g., task-001)"
+  print_exit_codes
+  echo ""
+  echo "Examples:"
+  echo "  bash task-complete.sh task-001"
+}
+
+# Parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help) usage; exit 0 ;;
+    *) break ;;
+  esac
+done
 
 TASK_ID="${1:-}"
 
 # Error handling
 if [[ -z "$TASK_ID" ]]; then
   echo "Error: Task ID required" >&2
-  echo "Usage: coordination-task-complete.sh <task-id>" >&2
-  exit 1
+  usage >&2
+  exit 2
 fi
 
 # Paths
