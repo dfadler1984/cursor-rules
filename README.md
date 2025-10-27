@@ -36,6 +36,291 @@ This repository uses a **unified workflow** integrating proven practices from ai
 
 - Assistant learning logs deprecated; see `docs/projects/assistant-self-improvement/legacy/`
 
+## Setup
+
+### Prerequisites
+
+- Node.js 18+
+- Bash 4+ or Zsh 5+
+- macOS (primary), Linux (CI)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/dfadler1984/cursor-rules.git
+   cd cursor-rules
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   yarn install
+   ```
+
+3. Make scripts executable (if needed):
+
+   ```bash
+   chmod +x .cursor/scripts/*.sh
+   ```
+
+### Authentication
+
+Some scripts require authentication tokens:
+
+- **GitHub API** (`pr-create.sh`, `pr-update.sh`, `checks-status.sh`):
+  - Set `GITHUB_TOKEN` or `GH_TOKEN` environment variable
+  - Fine-grained or classic tokens supported
+  - Minimum scope: `repo` (classic) or `Contents: Read`, `Pull requests: Write` (fine-grained)
+  - For orgs with SSO: approve token for the org
+
+For detailed auth setup, see [`docs/workspace-security.md`](./docs/workspace-security.md)
+
+## Available Rules
+
+**Always Applied** (active in all chats):
+
+- `00-assistant-laws.mdc` — AI Assistant Laws (highest-priority behavioral contract)
+- `assistant-behavior.mdc` — Core behavioral guidance for AI assistant interactions
+- `assistant-git-usage.mdc` — Assistant Git usage — commits, branch naming, changesets, and commit gates (tests/lint/types)
+- `capabilities.mdc` — Discoverable capabilities for the repo's AI assistant
+- `code-style.mdc` — Coding Standards for JS/TS
+- `dependencies.mdc` — Dependency selection policy
+- `direct-answers.mdc` — Direct answers — root-cause-first responses to direct questions
+- `favor-tooling.mdc` — Favor tooling over manual steps; use detective mode only when signals warrant it
+- `github-api-usage.mdc` — GitHub API automation (Octokit) — usage and troubleshooting
+- `github-config-only.mdc` — GitHub config boundaries — keep .github/ generic (no feature-specific content)
+- `global-defaults.mdc` — Global defaults — consent-first, status updates, TDD pre-edit gate, source-of-truth citations
+- `intent-routing.mdc` — Always-on intent router attaching rules via phrases, keywords, and signals
+- `scope-check.mdc` — Protocol for detecting vague/oversized requests; clarify/split and seek consent
+- `script-execution.mdc` — Local script execution policy — prefer direct exec; ask before chmod
+- `security.mdc` — Secrets handling and command execution safety rules
+- `self-improve.mdc` — Pattern-based rule improvement with consent-gated proposals
+- `user-intent.mdc` — User intent classification and handling strategies
+
+**Workflow {{AVAILABLE_RULES}} Process**:
+
+- `assistant-behavior.caps.mdc` — Capabilities for assistant behavior (consent-first, status updates, minimal prompts)
+- `assistant-git-usage.caps.mdc` — Capabilities for Git workflows (commits, branches, PRs, local gates)
+- `changelog.mdc` — Changelog {{AVAILABLE_RULES}} Versioning — Changesets workflow, CI behavior, and assistant usage
+- `context-efficiency.mdc` — Context Efficiency Gauge — qualitative heuristics and decision aid for chat context health
+- `create-erd.caps.mdc` — Capabilities for ERD authoring (Full default, Lite optional)
+- `create-erd.mdc` — Engineering Requirements Document (ERD) creation workflow and template for Cursor
+- `cursor-platform-capabilities.mdc` — "[DEPRECATED] Cursor platform capabilities — see platform-capabilities.mdc"
+- `deterministic-outputs.mdc` — Deterministic, structured outputs — Spec/Plan/Tasks templates, acceptance bundle, and validation rules
+- `direct-answers.caps.mdc` — Capabilities for direct answers (root-cause-first format)
+- `dry-run.mdc` — Respond with plan-only when message starts with "DRY RUN:"
+- `five-whys.mdc` — Five Whys — root-cause-first responses and corrective rule updates
+- `front-matter.mdc` — Front matter structure and usage standards for Cursor Rules
+- `generate-tasks-from-erd.caps.mdc` — Capabilities for generating a task list from an ERD (two‑phase with deps/priority/[P])
+- `generate-tasks-from-erd.mdc` — Generate a step-by-step, junior-friendly tasks document from an ERD
+- `git-slash-commands.mdc` — Prompt templates for Git operations (user-initiated workflow guidance)
+- `github-api-usage.caps.mdc` — Capabilities for GitHub API automation (PR creation via script)
+- `guidance-first.mdc` — Handle guidance requests by asking questions before proposing implementation
+- `imports.mdc` — Import placement and ordering for TS/JS modules
+- `intent-routing.caps.mdc` — Capabilities for intent routing (signals → minimal rule attachment)
+- `investigation-structure.mdc` — Investigation project documentation structure and organization standards
+- `platform-capabilities.mdc` — Platform capabilities — docs as source of truth and citations (vendor-agnostic)
+- `project-lifecycle.caps.mdc` — Capabilities for project lifecycle (completion checklist, summaries, status)
+- `project-lifecycle.mdc` — Project lifecycle — completion policy and validation (canonical; ERDs link here)
+- `refactoring.mdc` — Refactoring workflow and safeguards
+- `rule-creation.mdc` — How to create and update project rules for this repo
+- `rule-maintenance.mdc` — Rule maintenance cadence, validation, and conflict resolution for this repo
+- `rule-quality.mdc` — Rule validation checklist and detail balance for this repo
+- `shell-unix-philosophy.mdc` — Unix Philosophy enforcement for shell scripts — single responsibility, small {{AVAILABLE_RULES}} focused, composition-ready
+- `spec-driven.mdc` — Spec-Driven workflow — Specify → Plan → Tasks with deterministic artifacts and TDD coupling
+- `tdd-first-js.mdc` — TDD‑First — JS/TS extension (focused runs, owner mapping, diff coverage)
+- `tdd-first-sh.mdc` — TDD‑First — Shell extension (focused harness, owner coupling, behavior evidence)
+- `tdd-first.caps.mdc` — Capabilities for TDD-first (Three Laws; nano/micro/milli cycles; owner specs)
+- `tdd-first.mdc` — TDD-First — Three Laws, R/G/R, Specific→Generic; owner specs; effects seam; logging at Red/Green
+- `test-plan-template.mdc` — Standard structure template for test plans and experimental designs
+- `test-quality-js.mdc` — Test Quality — JS/TS (coverage>0 or diff gates, owner coupling, sabotage checks)
+- `test-quality-sh.mdc` — Test Quality — Shell (behavior evidence, focused harness, owner coupling)
+- `test-quality.caps.mdc` — Capabilities for proactive attachment of test-quality guidance
+- `test-quality.mdc` — Practical test-quality (language-agnostic core: owner coupling, meaningful failure, sabotage checks)
+- `testing.caps.mdc` — Capabilities for proactive attachment of testing guidance
+- `testing.mdc` — Testing conventions — meaningful assertions against owner modules; pointers to TDD cycles
+- `workspace-security.caps.mdc` — Capabilities for Cursor Workspace Trust and autorun prevention
+- `workspace-security.mdc` — Cursor Workspace Trust and autorun prevention policy (no folder-open autoruns)
+
+📚 **Full catalog**: See [`.cursor/rules/`](./.cursor/rules/)
+
+## Available Scripts
+
+### Git Workflows
+
+- `.cursor/scripts/checks-status.sh` — checks-status
+- `.cursor/scripts/git-branch-name.sh` — git-branch-name
+- `.cursor/scripts/git-commit.sh` — git-commit
+- `.cursor/scripts/git-context.sh` — git-context
+- `.cursor/scripts/pr-changeset-sync.sh` — pr-changeset-sync
+- `.cursor/scripts/pr-create-simple.sh` — pr-create-simple
+- `.cursor/scripts/pr-create.sh` — pr-create
+- `.cursor/scripts/pr-label.sh` — pr-label
+- `.cursor/scripts/pr-labels.sh` — pr-labels
+- `.cursor/scripts/pr-update.sh` — pr-update
+- `.cursor/scripts/pr-validate-description.sh` — pr-validate-description
+
+### Rules Management
+
+- `.cursor/scripts/rules-attach-validate.sh` — rules-attach-validate
+- `.cursor/scripts/rules-autofix.sh` — rules-autofix
+- `.cursor/scripts/rules-list.sh` — rules-list
+- `.cursor/scripts/rules-validate-format.sh` — rules-validate-format
+- `.cursor/scripts/rules-validate-frontmatter.sh` — rules-validate-frontmatter
+- `.cursor/scripts/rules-validate-refs.sh` — rules-validate-refs
+- `.cursor/scripts/rules-validate-staleness.sh` — rules-validate-staleness
+- `.cursor/scripts/rules-validate.sh` — rules-validate
+- `.cursor/scripts/rules-validate.spec.sh` — rules-validate.spec
+
+### Project Lifecycle
+
+- `.cursor/scripts/archive-detect-complete.sh` — archive-detect-complete
+- `.cursor/scripts/archive-fix-links.sh` — archive-fix-links
+- `.cursor/scripts/final-summary-generate.sh` — final-summary-generate
+- `.cursor/scripts/project-archive-ready.sh` — project-archive-ready
+- `.cursor/scripts/project-archive-workflow.sh` — project-archive-workflow
+- `.cursor/scripts/project-archive.sh` — project-archive
+- `.cursor/scripts/project-complete.sh` — project-complete
+- `.cursor/scripts/project-create.sh` — project-create
+- `.cursor/scripts/project-docs-organize.sh` — project-docs-organize
+- `.cursor/scripts/project-lifecycle-migrate.sh` — project-lifecycle-migrate
+- `.cursor/scripts/project-lifecycle-validate-scoped.sh` — project-lifecycle-validate-scoped
+- `.cursor/scripts/project-lifecycle-validate-sweep.sh` — project-lifecycle-validate-sweep
+- `.cursor/scripts/project-lifecycle-validate.sh` — project-lifecycle-validate
+- `.cursor/scripts/project-status.sh` — project-status
+
+### Validation
+
+- `.cursor/scripts/deep-rule-and-command-validate.sh` — deep-rule-and-command-validate
+- `.cursor/scripts/erd-validate.sh` — erd-validate
+- `.cursor/scripts/error-validate.sh` — error-validate
+- `.cursor/scripts/help-validate.sh` — help-validate
+- `.cursor/scripts/lint-workflows.sh` — lint-workflows
+- `.cursor/scripts/routing-validate.sh` — routing-validate
+- `.cursor/scripts/shellcheck-run.sh` — shellcheck-run
+- `.cursor/scripts/test-colocation-validate.sh` — test-colocation-validate
+- `.cursor/scripts/validate-artifacts-smoke.sh` — validate-artifacts-smoke
+- `.cursor/scripts/validate-artifacts.sh` — validate-artifacts
+- `.cursor/scripts/validate-investigation-structure.sh` — validate-investigation-structure
+- `.cursor/scripts/validate-project-lifecycle.sh` — validate-project-lifecycle
+- `.cursor/scripts/validate-root-readme.sh` — Validate that README.md is up-to-date with generator
+
+### CI {{AVAILABLE_SCRIPTS}} Health
+
+- `.cursor/scripts/compliance-dashboard.sh` — compliance-dashboard
+- `.cursor/scripts/health-badge-generate.sh` — health-badge-generate
+- `.cursor/scripts/security-scan.sh` — security-scan
+
+### Utilities
+
+- `.cursor/scripts/capabilities-sync.sh` — capabilities-sync
+- `.cursor/scripts/changesets-automerge-dispatch.sh` — changesets-automerge-dispatch
+- `.cursor/scripts/check-branch-names.sh` — check-branch-names
+- `.cursor/scripts/check-script-usage.sh` — check-script-usage
+- `.cursor/scripts/check-tdd-compliance.sh` — check-tdd-compliance
+- `.cursor/scripts/context-efficiency-format.sh` — context-efficiency-format
+- `.cursor/scripts/context-efficiency-gauge.sh` — context-efficiency-gauge
+- `.cursor/scripts/context-efficiency-score.sh` — context-efficiency-score
+- `.cursor/scripts/erd-add-mode-line.sh` — erd-add-mode-line
+- `.cursor/scripts/erd-fix-empty-frontmatter.sh` — erd-fix-empty-frontmatter
+- `.cursor/scripts/erd-migrate-frontmatter.sh` — erd-migrate-frontmatter
+- `.cursor/scripts/generate-projects-readme.sh` — generate-projects-readme
+- `.cursor/scripts/generate-root-readme.sh` — Generate repository root README.md from template
+- `.cursor/scripts/links-check.sh` — links-check
+- `.cursor/scripts/network-guard.sh` — network-guard
+- `.cursor/scripts/preflight.sh` — preflight
+- `.cursor/scripts/repo-health-badge.sh` — repo-health-badge
+- `.cursor/scripts/setup-remote.sh` — setup-remote
+- `.cursor/scripts/tdd-scope-check.sh` — tdd-scope-check
+- `.cursor/scripts/template-fill.sh` — template-fill
+- `.cursor/scripts/test-colocation-migrate.sh` — test-colocation-migrate
+- `.cursor/scripts/tooling-inventory.sh` — tooling-inventory
+
+📚 **Complete Inventory**: See [`docs/scripts/README.md`](./docs/scripts/README.md)
+
+## Available Commands
+
+[Commands section pending]
+
+📚 **Full reference**: See [`.cursor/rules/git-slash-commands.mdc`](./.cursor/rules/git-slash-commands.mdc)
+
+## Active Projects
+
+- **artifact-migration** — Engineering Requirements Document — Artifact Migration System [0% complete]
+- **assistant-self-testing-limits** — Engineering Requirements Document — Assistant Self-Testing Limits [100% complete]
+- **blocking-tdd-enforcement** — Engineering Requirements Document — Blocking TDD Enforcement (Lite) [25% complete]
+- **command-discovery-rule** — Engineering Requirements Document — Command Discovery Rule [0% complete]
+- **confluence-automation** — Engineering Requirements Document — Confluence Automation [N/A complete]
+- **consent-gates-refinement** — Engineering Requirements Document — Consent Gates Refinement [43% complete]
+- **cursor-modes** — Engineering Requirements Document — Cursor Modes Integration [0% complete]
+- **git-usage-suite** — Engineering Requirements Document — Git Usage Suite (Lite) [0% complete]
+- **git-usage** — Engineering Requirements Document — Git Usage via MCP (Lite) [33% complete]
+- **github-workflows-utility** — Engineering Requirements Document — GitHub Workflows Utility (Lite) [0% complete]
+- **investigation-docs-structure** — Engineering Requirements Document — Investigation Documentation Structure [100% complete]
+- **jira-automation** — Engineering Requirements Document — Jira Automation [N/A complete]
+- **long-term-solutions** — Engineering Requirements Document — Long‑term Solutions (Lite) [0% complete]
+- **pr-create-decomposition** — Engineering Requirements Document: PR Creation Script Decomposition [0% complete]
+- **pre-commit-shell-executable** — Engineering Requirements Document — Pre-commit Shell Executable Bit (Lite) [0% complete]
+- **project-auto-archive-action** — Engineering Requirements Document — Project Auto Archive Action [66% complete]
+- **project-lifecycle-docs-hygiene** — Engineering Requirements Document — Project lifecycle {{ACTIVE_PROJECTS}} docs hygiene (Umbrella) [8% complete]
+- **project-organization** — Engineering Requirements Document — Project Organization Defaults and Configurability [0% complete]
+- **roles** — Engineering Requirements Document — Roles {{ACTIVE_PROJECTS}} Intent Routing (Lite) [14% complete]
+- **root-readme-generator** — Engineering Requirements Document — Root README Generator [59% complete]
+- **rules-docs-quality-detection** — Engineering Requirements Document: Rules {{ACTIVE_PROJECTS}} Documentation Quality Detection [0% complete]
+- **rules-enforcement-investigation** — Engineering Requirements Document — Rules Enforcement {{ACTIVE_PROJECTS}} Effectiveness Investigation [82% complete]
+- **rules-folder-structure-options** — Engineering Requirements Document — Rules Folder Structure Options (Lite) [0% complete]
+- **rules-grok-alignment** — Engineering Requirements Document — Improve Rules Using Grok Conversation Insights [0% complete]
+- **script-organization-by-feature** — Engineering Requirements Document: Shell Scripts Organization by Feature [0% complete]
+- **script-refinement** — Engineering Requirements Document — Script Refinement (Optional Polish) [0% complete]
+- **split-progress** — Engineering Requirements Document — Split Progress [42% complete]
+- **tdd-scope-boundaries** — Engineering Requirements Document — TDD Scope Boundaries [57% complete]
+- **test-artifacts-cleanup** — Engineering Requirements Document — Test Artifacts Cleanup on Every Run [0% complete]
+- **test-coverage** — Engineering Requirements Document — Test Coverage (Lite) [0% complete]
+- **testing-coordination** — Engineering Requirements Document — Testing Coordination (Unified) [33% complete]
+- **tooling-discovery** — Engineering Requirements Document — Tooling Discovery [0% complete]
+- **workflows** — Engineering Requirements Document — Workflows (Lite) [0% complete]
+
+📚 **All projects**: See [`docs/projects/README.md`](./docs/projects/README.md)
+
+## Priority Projects
+
+No priority or blocked projects
+
+## Tests
+
+Run the test suite:
+
+```bash
+# All tests
+yarn test
+
+# Specific test file
+yarn test path/to/test
+
+# Watch mode
+yarn test --watch
+
+# Coverage
+yarn test --coverage
+```
+
+
+
+## Documentation
+
+- **Scripts**: [`docs/scripts/README.md`](./docs/scripts/README.md)
+- **Projects**: [`docs/projects/README.md`](./docs/projects/README.md) (33 active, 46 archived)
+- **Rules**: [`.cursor/rules/`](./.cursor/rules/) (59 rules)
+- **Guides**: [`docs/guides/`](./docs/guides/)
+
+## What's New
+
+- **2025-10-26**: Phase 0 complete for root-readme-generator project
+- **2025-10-25**: Added root-readme-generator project for automated README generation
+- See [`CHANGELOG.md`](./CHANGELOG.md) for full history
+
 ## How to mark a project completed
 
 1. Add front matter to the project ERD (`docs/projects/<name>/erd.md`):
@@ -52,204 +337,61 @@ This repository uses a **unified workflow** integrating proven practices from ai
 3. Add a brief final summary using the template (`docs/projects/project-lifecycle/final-summary.template.md`).
 4. Update `docs/projects/README.md`: move the project from Active to Completed. If archiving, move the project folder to `docs/projects/_archived/<YYYY>/<name>/` and update the Completed link.
 
-## Scripts
+## Changelog & Versioning
 
-**📚 Complete Script Inventory:** See [`docs/scripts/README.md`](./docs/scripts/README.md) for a comprehensive, categorized list of all 38 scripts with usage patterns, standards compliance (D1-D6), and examples.
+This repository uses [Changesets](https://github.com/changesets/changesets) for versioning:
 
-### Core Scripts
+- Add changeset: `npx changeset`
+- Version bump: `npx changeset version`
+- Publish: Automated via GitHub Actions after PR approval
 
-- `.cursor/scripts/rules-list.sh`
-  - List `.cursor/rules/*.mdc` with selected front matter fields
-  - Flags: `--dir`, `--format table|json`, `--help`, `--version`
-- `.cursor/scripts/rules-validate.sh`
-  - Validate rule front matter and references; optional autofix, json output, staleness checks, and report generation
-  - Flags: `--dir`, `--format json|text`, `--fail-on-missing-refs`, `--fail-on-stale`, `--autofix`, `--report`, `--report-out <path>`, `--help`
-  - Examples:
-    - Text (default):
-      ```bash
-      .cursor/scripts/rules-validate.sh
-      ```
-    - JSON summary:
-      ```bash
-      .cursor/scripts/rules-validate.sh --format json
-      ```
-    - Fail on missing refs:
-      ```bash
-      .cursor/scripts/rules-validate.sh --fail-on-missing-refs
-      ```
-    - Staleness strict mode (90 days):
-      ```bash
-      .cursor/scripts/rules-validate.sh --fail-on-stale
-      ```
-    - Autofix formatting-only issues:
-      ```bash
-      .cursor/scripts/rules-validate.sh --autofix
-      ```
-    - Generate review report:
-      ```bash
-      .cursor/scripts/rules-validate.sh --report
-      # or choose an output path
-      .cursor/scripts/rules-validate.sh --report-out docs/reviews/review-$(date +%F).md
-      ```
-- `.cursor/scripts/git-commit.sh`
-  - Compose Conventional Commits; supports `--dry-run`
-  - Flags: `--type`, `--scope`, `--description`, `--body`, `--footer`, `--breaking`, `--dry-run`
-- `.cursor/scripts/git-branch-name.sh`
-  - Suggest/validate branch names; `--apply` to rename current branch
-  - Flags: `--task`, `--type`, `--feature`, `--apply`
-- `.cursor/scripts/pr-create.sh`
-
-  - Create GitHub PR via API (`curl`); requires `GITHUB_TOKEN` (non-dry-run)
-  - Default behavior: prefill PR body from `.github/pull_request_template.md` (if present) or the first file in `.github/PULL_REQUEST_TEMPLATE/`
-  - Flags: `--title`, `--body`, `--base`, `--head`, `--owner`, `--repo`, `--dry-run`
-  - Template flags: `--no-template` (disable), `--template <path>` (select file), `--body-append <text>` (append under `## Context`), `--replace-body` (bypass template; set body exactly)
-  - Heuristic: if `--body` begins with `## Summary`, the script auto-switches to replace mode to avoid duplication
-  - Labeling (opt-in): `--label <name>` (repeatable) to add labels after PR creation. Use `--docs-only` as a convenience alias for `--label skip-changeset`.
-  - Dry-run output includes a `labels` array when label flags are present.
-  - Note: when template injection is active, `--body`/`--body-append` are appended under `## Context` (preserves template headings)
-
-  - Examples:
-    - Append under template (Context section):
-      ```bash
-      bash .cursor/scripts/pr-create.sh \
-        --title "feat: add auto-merge workflow" \
-        --body-append $'Summary: Enable auto-merge for bot PRs\n\nChanges:\n- Add workflow...\n' \
-        --dry-run
-      ```
-    - Replace entire body (no template):
-      ```bash
-      bash .cursor/scripts/pr-create.sh \
-        --title "feat: add auto-merge workflow" \
-        --replace-body \
-        --body $'## Summary\nOne-line summary\n\n## Changes\n- ...' \
-        --dry-run
-      ```
-    - Heuristic replace (body starts with `## Summary`):
-      ```bash
-      bash .cursor/scripts/pr-create.sh \
-        --title "feat: add auto-merge workflow" \
-        --body $'## Summary\nOne-line summary' \
-        --dry-run
-      ```
-
-- `.cursor/scripts/security-scan.sh`
-  - Best-effort `npm/yarn` audit if `package.json` exists; otherwise no-op
-- `.cursor/scripts/lint-workflows.sh`
-  - Lint `.github/workflows` with `actionlint` if installed
-- `.cursor/scripts/preflight.sh`
-  - Print presence/absence of common configs and guidance
-
-## Tests
-
-- Harness: `bash .cursor/scripts/tests/run.sh [-k keyword] [-v]`
-  - Discovers tests `.cursor/scripts/*.test.sh`
-  - `-k` filters by path substring; `-v` prints test output
-
-## Auth & dependencies
-
-- PR creation: set `GITHUB_TOKEN` in your environment
-- Optional dependencies: `jq`, `actionlint`
+See [`CHANGELOG.md`](./CHANGELOG.md) for the full version history.
 
 ## Workspace Security
 
-See `docs/workspace-security.md` for Cursor workspace trust and autorun guidance.
+This repository follows strict workspace trust policies:
 
-## Docs
+- No folder-open autoruns (no `runOn: "folderOpen"` in tasks)
+- Explicit consent for command execution
+- Scripts run via explicit user action only
 
-### Core Rules
+See [`docs/workspace-security.md`](./docs/workspace-security.md) for the full security policy.
 
-- **Assistant Laws** (Truth/Accuracy, Consistency/Transparency, Self-Correction): [`.cursor/rules/00-assistant-laws.mdc`](.cursor/rules/00-assistant-laws.mdc)
-- Rule — Capabilities (Discovery included): `.cursor/rules/capabilities.mdc`
-- Rule — Spec-Driven Workflow: `.cursor/rules/spec-driven.mdc`
-- Rule — Deterministic Outputs: `.cursor/rules/deterministic-outputs.mdc`
+## Contributing
 
-### Project Documentation
+Contributions welcome! Please:
 
-- Assistant Learning Protocol (ALP): `docs/projects/assistant-learning/erd.md`
-- Deterministic, Structured Outputs ERD: `docs/projects/deterministic-outputs/erd.md`
-- ERD creation rule (default: Full): `.cursor/rules/create-erd.mdc`
-- Unified Workflow (Spec → Plan → Tasks → Analyze → Implement): see `.cursor/rules/spec-driven.mdc`, `.cursor/rules/create-erd.mdc`, `.cursor/rules/generate-tasks-from-erd.mdc`, `.cursor/rules/project-lifecycle.mdc` (Task List Process subsection), `.cursor/rules/assistant-learning.mdc`.
-- Artifacts/paths: `docs/projects/<feature>/erd.md`, `docs/plans/<feature>-plan.md`, `docs/projects/<feature>/tasks.md`.
-- Slash-commands: `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement`.
-- Logs and summaries: `docs/assistant-learning-logs/` (local fallback). Weekly summary via CI.
-  - Log destination: set `.cursor/config.json` `logDir` to control the primary logs directory (default `assistant-logs/`); falls back to `docs/assistant-learning-logs/` if primary is not writable.
-- ERD Split Progress: `docs/projects/split-progress/erd.md`
-  - Owner Map: `docs/owner-map.md`
-  - Drawing Board ERD: `docs/projects/_archived/2025/drawing-board/erd.md`
-  - Intent Router ERD: `docs/projects/intent-router/erd.md`
-  - Framework Selection ERD: `docs/projects/framework-selection/erd.md`
-  - Role–Phase Mapping ERD: `docs/projects/role-phase-mapping/erd.md`
-  - Git Usage ERD: `docs/projects/git-usage/erd.md`
-  - Git Usage Suite: `docs/projects/git-usage-suite/erd.md`
-  - Bash Script Standards ERD: `docs/projects/bash-scripts/erd.md`
-  - Rule — TDD‑First (Core): `.cursor/rules/tdd-first.mdc`
-  - Rule — TDD‑First (JS/TS Extension): `.cursor/rules/tdd-first-js.mdc`
-  - Rule — TDD‑First (Shell Extension): `.cursor/rules/tdd-first-sh.mdc`
-  - Rule — Testing (structure, naming, quality consolidated): `.cursor/rules/testing.mdc`
-- Archived Source ERD (reference-only): `docs/projects/rules-grok-alignment/erd.md`
-- Portability ERD: `docs/projects/portability/erd.md`
-- MCP Synergy ERD: `docs/projects/mcp-synergy/erd.md`
-  - Roles & Intent Routing ERD: `docs/projects/roles/erd.md`
-  - Capabilities Catalog: see `.cursor/rules/capabilities.mdc`; project docs deprecated
-  - Spec‑Driven Workflow (integrated): `docs/projects/ai-workflow-integration/erd.md`
-  - TDD‑First ERD: `docs/projects/_archived/2025/tdd-first/erd.md`
-  - Core Values ERD: `docs/projects/core-values/erd.md`
-  - Productivity & Automation ERD: `docs/projects/productivity/erd.md`
-  - Rule Maintenance & Validator ERD: `docs/projects/rule-maintenance/erd.md`
-  - Collaboration Options ERD: `docs/projects/collaboration-options/erd.md`
-  - Context Efficiency Gauge ERD: `docs/projects/context-efficiency-gauge/erd.md`
+1. Follow the spec-driven workflow (Specify → Plan → Tasks)
+2. Use TDD approach (Red → Green → Refactor)
+3. Add tests for new scripts
+4. Run validation before committing:
 
-## Changelog & Versioning
+   ```bash
+   # Validate rules
+   ./.cursor/scripts/rules-validate.sh
 
-- Canonical version lives in `VERSION` (single line, e.g., `1.2.3`).
-- Changelog is generated in `CHANGELOG.md` via Changesets.
-- No GitHub Releases are published; updates occur via a bot PR named "Version Packages".
+   # Run tests
+   yarn test
 
-Author workflow:
+   # Lint workflows
+   ./.cursor/scripts/lint-workflows.sh
+   ```
 
-```bash
-# In your feature branch
-npx changeset
-# Follow prompts to select bump type and write a summary
-git add . && git commit -m "chore(changeset): add"
-git push
+5. Create Conventional Commits:
 
-# After your PR merges to main, a bot opens/updates a Version Packages PR.
-# Maintainers review and merge it. That PR updates CHANGELOG.md and VERSION.
-```
+   ```bash
+   ./.cursor/scripts/git-commit.sh --type feat --description "..."
+   ```
 
-## CI details:
+6. Open PR via script:
 
-- On push to `main`, the workflow opens/updates the Version Packages PR when pending changesets exist.
-- When that PR is merged, the workflow writes the computed version into `VERSION` and commits the updated `CHANGELOG.md`.
+   ```bash
+   ./.cursor/scripts/pr-create.sh --title "..." --body "..."
+   ```
 
-## What's New
+See [`.cursor/rules/assistant-git-usage.mdc`](./.cursor/rules/assistant-git-usage.mdc) for commit and PR guidelines.
 
-- Deterministic outputs (Spec/Plan/Tasks) — ERD + rules + validator shell script
-  - ERD: `docs/projects/deterministic-outputs/erd.md`
-  - Rule: `.cursor/rules/deterministic-outputs.mdc`
-  - Validator: `.cursor/scripts/validate-artifacts.sh` (+ test)
-  - Smoke test: `.cursor/scripts/validate-artifacts-smoke.sh`
-  - Workflow (manual): `.github/workflows/deterministic-outputs-validate.yml`
-  - Sample trio: `docs/specs/sample-feature-spec.md`, `docs/plans/sample-feature-plan.md`
+---
 
-## Validator (Deterministic Outputs)
-
-Run locally:
-
-```bash
-.cursor/scripts/validate-artifacts.sh --paths \
-  docs/specs/sample-feature-spec.md,docs/plans/sample-feature-plan.md
-```
-
-Expected output: "Validation passed" (exit code 0). On missing sections/links, returns non‑zero with error messages.
-
-Smoke test (default + overridden dirs):
-
-```bash
-.cursor/scripts/validate-artifacts-smoke.sh
-```
-
-## Logs — ALP (deprecated)
-
-Legacy ALP scripts and docs are archived under `docs/projects/assistant-self-improvement/legacy/`.
+**Generated**: 2025-10-27T15:15:28Z  
+**Version**: 0.22.9

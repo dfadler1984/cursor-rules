@@ -774,7 +774,8 @@ main() {
   # 1. Health Badge
   echo "  - Extracting health badge..." >&2
   local health_badge
-  health_badge=$(extract_health_badge "$OUTPUT_PATH")
+  # Extract from current README.md (if it exists), not OUTPUT_PATH (which we're about to overwrite)
+  health_badge=$(extract_health_badge "$REPO_ROOT/README.md")
   template=$(replace_placeholder "$template" "HEALTH_BADGE" "$health_badge")
   
   # 2. Supported Environments
