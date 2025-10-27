@@ -292,6 +292,6 @@ Summarizing resets gauge to optimal state:
 
 ## Related
 
-- See [../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 15 for Context Efficiency Gauge specification
+- See [../../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 15 for Context Efficiency Gauge specification
 - See [incident-playbook.md](./incident-playbook.md) for corrective actions when responses seem truncated
 - See [task-splitting-templates.md](./task-splitting-templates.md) for avoiding bloat in the first place

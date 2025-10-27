@@ -474,4 +474,4 @@ awk -F',' '{sum[$1]+=$2; count[$1]++} END {for (temp in sum) print temp, sum[tem
 
 - See [quality-rubric.md](./quality-rubric.md) for scoring response quality
 - See [prompt-tightening-patterns.md](./prompt-tightening-patterns.md) for improving prompts
-- See [../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 4.5 for prompt versioning requirements
+- See [../../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 4.5 for prompt versioning requirements

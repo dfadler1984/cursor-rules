@@ -250,4 +250,4 @@ Tight prompts directly improve gauge scores:
 
 - See [task-splitting-templates.md](./task-splitting-templates.md) for breaking large tasks into slices
 - See [incident-playbook.md](./incident-playbook.md) for corrective actions when prompts are too vague
-- See [../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 15 for Context Efficiency Gauge specification
+- See [../../../../docs/projects/chat-performance-and-quality-tools/erd.md](../../../../docs/projects/chat-performance-and-quality-tools/erd.md) Section 15 for Context Efficiency Gauge specification

@@ -2,7 +2,7 @@
 
 **Purpose**: Practical guides, recipes, and playbooks to maintain high-quality, efficient chats by managing context, tightening prompts, and recovering from common failure modes.
 
-**Source Project**: [chat-performance-and-quality-tools](../../../docs/projects/chat-performance-and-quality-tools/)  
+**Source Project**: [chat-performance-and-quality-tools](../../../../docs/projects/chat-performance-and-quality-tools/)  
 **Canonical Location**: `.cursor/docs/guides/chat-performance/` (portable)  
 **Symlink**: `docs/guides/chat-performance/` → `.cursor/docs/guides/chat-performance/` (discoverability)  
 **Status**: Permanent documentation (will remain accessible after project archival)
@@ -165,7 +165,7 @@ Each guide includes a **Quick Reference Card** for at-a-glance reminders:
 
 ## Related Project Files
 
-- **[ERD](../../../docs/projects/chat-performance-and-quality-tools/erd.md):** Full project requirements and architecture
+- **[ERD](../../../../docs/projects/chat-performance-and-quality-tools/erd.md):** Full project requirements and architecture
 - **[Tasks](../tasks.md):** Implementation checklist and progress tracking
 - **[Discovery](../discovery.md):** Initial research and open questions
 - **[Scoring Rubric](../scoring-rubric-implementation.md):** Context Efficiency Gauge algorithm details
