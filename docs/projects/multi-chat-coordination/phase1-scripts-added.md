@@ -131,9 +131,9 @@ Updated `.cursor/rules/coordinator-chat.mdc`:
 **Test command**:
 
 ```bash
-bash .cursor/scripts/coordination-task-assign.test.sh
-bash .cursor/scripts/coordination-report-check.test.sh
-bash .cursor/scripts/coordination-task-complete.test.sh
+bash .cursor/scripts/coordination/task-assign.test.sh
+bash .cursor/scripts/coordination/report-check.test.sh
+bash .cursor/scripts/coordination/task-complete.test.sh
 ```
 
 **Results**: ✅ 13/13 tests passing

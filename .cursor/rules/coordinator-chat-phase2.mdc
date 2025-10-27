@@ -64,7 +64,7 @@ After server starts:
 For each task:
 
 1. **Generate task JSON** using schema from Phase 1
-2. **Validate schema**: Run `bash .cursor/scripts/task-schema-validate.sh <task-file>`
+2. **Validate schema**: Run `bash .cursor/scripts/coordination/task-schema-validate.sh <task-file>`
 3. **Write to file**: Save tasks to temp JSON file
 4. **Push to server**: Run `ts-node src/coordination/cli.ts coordinator create-tasks <tasks-file.json>`
 5. **Display response**: Server confirms tasks queued

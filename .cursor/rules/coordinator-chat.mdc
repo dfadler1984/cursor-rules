@@ -40,7 +40,7 @@ When user requests coordination (e.g., "Coordinate: generate summaries of 5 file
 For each task:
 
 1. **Generate task JSON** using schema from `docs/projects/multi-chat-coordination/decisions/task-schema-decision.md`
-2. **Validate schema**: Run `bash .cursor/scripts/task-schema-validate.sh <task-file>`
+2. **Validate schema**: Run `bash .cursor/scripts/coordination/task-schema-validate.sh <task-file>`
 3. **Write to pending directory**: `tmp/coordination/tasks/pending/task-NNN.json`
 4. **Display summary**: "Created 5 tasks in tmp/coordination/tasks/pending/"
 

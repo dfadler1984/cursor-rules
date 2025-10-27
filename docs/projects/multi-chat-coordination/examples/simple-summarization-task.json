@@ -25,7 +25,7 @@
       "Contains all required sections",
       "Markdown formatting is valid"
     ],
-    "validation": "bash .cursor/scripts/task-schema-validate.sh"
+    "validation": "bash .cursor/scripts/coordination/task-schema-validate.sh"
   },
   "assignedTo": null,
   "status": "pending",
