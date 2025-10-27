@@ -25,7 +25,6 @@
 
 - [ ] 3.0 Create `/tasks` command
 
-  - [ ] 3.1 Create `.cursor/commands/tasks.md`
   - [ ] 3.2 Extract two-phase workflow from `generate-tasks-from-erd.mdc`
   - [ ] 3.3 Add usage examples
   - [ ] 3.4 Test command invocation
@@ -113,7 +112,6 @@
 ### Commands to Create
 
 - `.cursor/commands/erd.md` — Create ERD command
-- `.cursor/commands/tasks.md` — Generate tasks command
 - `.cursor/commands/investigation.md` — Create investigation project
 - `.cursor/commands/test-plan.md` — Create test plan
 
@@ -121,7 +119,6 @@
 
 - `docs/projects/rules-to-commands/README.md` — Entry point
 - `docs/projects/rules-to-commands/erd.md` — Full requirements
-- `docs/projects/rules-to-commands/command-candidates-analysis.md` — Detailed analysis
 
 ### Reference
 

@@ -85,7 +85,6 @@ bash .cursor/scripts/check-branch-names.sh
 
 **If script usage ≥90%**:
 - ✅ H1 validated successfully
-- Document success in findings.md
 - Proceed to synthesis
 
 **If script usage 80-89%**:

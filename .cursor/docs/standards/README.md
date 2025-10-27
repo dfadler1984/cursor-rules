@@ -35,7 +35,6 @@ Test isolation requirements:
 
 For detailed patterns on adopting these standards in new/existing scripts:
 
-**[Shell Script Migration Guide](./shell-script-migration-guide.md)**
 
 Covers:
 - How to add help documentation (D1)

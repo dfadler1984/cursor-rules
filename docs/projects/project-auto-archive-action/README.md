@@ -149,4 +149,4 @@ This follows the same pattern as:
 
 - **ERD**: [`erd.md`](./erd.md) — Full requirements
 - **Tasks**: [`tasks.md`](./tasks.md) — Implementation tracking
-- **Similar**: [`.github/workflows/changesets.yml`](../../.github/workflows/changesets.yml) — Auto-merge pattern
+- **Similar**: [`.github/workflows/changesets.yml`](../../../.github/workflows/changesets.yml) — Auto-merge pattern

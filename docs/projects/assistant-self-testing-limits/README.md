@@ -97,7 +97,6 @@ Documents the fundamental limitation discovered during rules-enforcement-investi
 ### Supporting Documents
 
 - **[erd.md](erd.md)** — Engineering requirements and scope
-- **[tasks.md](tasks.md)** — Implementation checklist (~70% → 100% complete)
 
 ---
 
@@ -105,7 +104,6 @@ Documents the fundamental limitation discovered during rules-enforcement-investi
 
 - [rules-enforcement-investigation](../rules-enforcement-investigation/) — Parent project
 - [Slash commands test plan](../rules-enforcement-investigation/tests/experiment-slash-commands.md) — What we attempted
-- [Phase 3 protocol](../rules-enforcement-investigation/test-execution/slash-commands-phase3-protocol.md) — Detailed test design
 
 ---
 

@@ -8,7 +8,6 @@
 
 ## Review Criteria
 
-Per tasks.md R.1:
 
 - **R.1.1**: Validate test plans are complete and actionable
 - **R.1.2**: Confirm success criteria are measurable
@@ -65,7 +64,6 @@ proposal_quality: "relevant"
 
 **Analysis Method**: Trigger rate calculation documented
 
-**Result**: Protocol was followed; results documented in discovery.md
 
 ### R.1.4: Gaps or Missing Scenarios? ⚠️ MINOR
 
@@ -530,9 +528,6 @@ Metric | Baseline | Slash Commands | Improvement
 
 **Recommendation**: Add references to pre-test discovery documents:
 
-- `h2-pre-test-discovery.md`
-- `h3-pre-test-discovery.md`
-- `slash-commands-pre-test-discovery.md`
 
 **Priority**: Low (nice-to-have for completeness)
 
@@ -602,7 +597,6 @@ Metric | Baseline | Slash Commands | Improvement
 1. **Update tests/README.md**:
 
    - Add references to pre-test discovery documents
-   - Link to conditional-rules-analysis.md and scalability-analysis.md
 
 2. **H2 Test Plan Enhancement**:
 
@@ -650,4 +644,3 @@ All test plans meet or exceed quality standards. Minor gaps are non-blocking and
 **Review Date**: 2025-10-15  
 **Test Plans Reviewed**: 7 (H0, H1, H2, H3, Slash Commands, Measurement Framework, README)  
 **Status**: ✅ **APPROVED FOR EXECUTION**  
-**Next Step**: Update tasks.md to check off R.1 and proceed to R.2

@@ -6,7 +6,6 @@ lastUpdated: 2025-10-14
 
 # Engineering Requirements Document — Jira Automation
 
-Links: [`tasks.md`](./tasks.md)
 
 Mode: Lite
 

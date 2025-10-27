@@ -42,9 +42,7 @@ Successfully unified and integrated proven workflow patterns from three sources 
 ## Links
 
 - ERD: `docs/projects/ai-workflow-integration/erd.md`
-- Tasks: `docs/projects/ai-workflow-integration/tasks.md`
 - Discussions: `docs/projects/ai-workflow-integration/discussions.md`
-- Portability Analysis: `docs/projects/ai-workflow-integration/portability-analysis.md`
 - Comparison Framework: `docs/projects/ai-workflow-integration/comparison-framework.md`
 - Constitution: `docs/projects/ai-workflow-integration/constitution.md`
 - Unified Example: `docs/projects/_examples/unified-flow/`

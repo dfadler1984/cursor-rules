@@ -107,7 +107,6 @@
 | **Status**          | 🔄 Active (Phase 3 validation - monitoring period)                                                                                                                                                                                               |
 | **Started**         | 2025-10-24                                                                                                                                                                                                                                       |
 | **Duration**        | 1-2 weeks (ends ~2025-11-07)                                                                                                                                                                                                                     |
-| **Findings Path**   | `docs/projects/consent-gates-refinement/validation-findings.md`                                                                                                                                                                                  |
 | **Pattern**         | `## Finding #N: <title>` sections in single file                                                                                                                                                                                                 |
 | **Scope**           | Consent gate behavior accuracy (prompting frequency, state tracking, allowlist functionality)                                                                                                                                                    |
 | **Monitors**        | • Over-prompting instances (unnecessary consent requests)<br>• Under-prompting instances (risky ops without consent)<br>• Session allowlist behavior<br>• Composite consent detection accuracy<br>• State tracking issues<br>• Category switches |
@@ -177,11 +176,9 @@ Observed issue during work:
 │
 ├─ Is this about GitHub Actions/workflows?
 │  └─ YES → github-workflows-utility
-│      Location: docs/projects/github-workflows-utility/tasks.md (Real-World Issues section)
 │
 ├─ Is this about PR creation scripts?
 │  └─ YES → pr-create-decomposition
-│      Location: docs/projects/pr-create-decomposition/tasks.md (Real-World Issues section)
 │
 ├─ Is this about TDD scope check accuracy (which files trigger TDD gate)?
 │  └─ YES → tdd-scope-boundaries
@@ -190,7 +187,6 @@ Observed issue during work:
 │
 ├─ Is this about consent gate behavior (prompting frequency, state tracking)?
 │  └─ YES → consent-gates-refinement
-│      Location: docs/projects/consent-gates-refinement/validation-findings.md
 │      Pattern: ## Finding #N: <title>
 │
 └─ Unclear?

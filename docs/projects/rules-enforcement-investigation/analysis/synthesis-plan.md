@@ -199,14 +199,12 @@ When choosing enforcement pattern for a rule:
    - Categorized recommendations for 25 rules
    - Implementation priorities
 
-2. **Update `findings.md`** — Add final results
 
    - H1: Validated at 100%
    - H2: [Results after monitoring]
    - H3: [Results after monitoring]
    - Combined effectiveness
 
-3. **Update `tasks.md`** — Mark synthesis tasks complete
 
    - Check off Phase 6D items
    - Add any carryovers (prompt templates, optional follow-ups)
@@ -295,7 +293,6 @@ What we investigated, what we found, what changed
 1. All 5 phases above executed
 2. Decision tree created and validated
 3. All 25 conditional rules categorized with recommendations
-4. Documentation updated (synthesis.md, findings.md, tasks.md, README.md)
 5. User review and approval obtained
 
 ---

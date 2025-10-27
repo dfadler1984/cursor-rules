@@ -18,7 +18,6 @@ Reorganize `.cursor/scripts/` from flat directory (100+ scripts) to feature-base
 
 - [ERD (Requirements)](./erd.md) — Problem statement, goals, approach, success criteria
 - [Tasks](./tasks.md) — Phase checklists and execution tracking
-- [Migration Guide](./migration-guide.md) — Old → new path mappings (created in Phase 6)
 
 ## Proposed Structure
 
@@ -102,9 +101,9 @@ Reorganize `.cursor/scripts/` from flat directory (100+ scripts) to feature-base
 
 ## Related Rules
 
-- [shell-unix-philosophy.mdc](../../.cursor/rules/shell-unix-philosophy.mdc) — Shell script standards
-- [test-quality-sh.mdc](../../.cursor/rules/test-quality-sh.mdc) — Shell test quality
-- [capabilities.mdc](../../.cursor/rules/capabilities.mdc) — Script capabilities catalog
+- [shell-unix-philosophy.mdc](../../../.cursor/rules/shell-unix-philosophy.mdc) — Shell script standards
+- [test-quality-sh.mdc](../../../.cursor/rules/test-quality-sh.mdc) — Shell test quality
+- [capabilities.mdc](../../../.cursor/rules/capabilities.mdc) — Script capabilities catalog
 
 ---
 

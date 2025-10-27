@@ -16,13 +16,11 @@
 
   - [x] 1.1 Walk `docs/projects/` excluding `_archived/` and `_examples/`
   - [x] 1.2 Extract title, status, owner from `erd.md` (front matter + H1)
-  - [x] 1.3 Detect presence of `tasks.md`
   - [x] 1.4 Render Markdown table (Project | Status | ERD | Tasks)
   - [x] 1.5 Support flags: `--projects-dir`, `--out`, `--dry-run`
 
 - [x] 2.0 Add tests for generator (priority: high)
 
-  - [x] 2.1 Create fixtures with mixed presence of `erd.md`/`tasks.md`
   - [x] 2.2 Verify table rows, links, and sort order
   - [x] 2.3 Verify dry-run prints to stdout and does not write
 

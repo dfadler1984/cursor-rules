@@ -32,7 +32,6 @@ last-updated: 2025-10-25
 ## Links
 
 - ERD: `../_archived/2025/projects-readme-generator/erd.md`
-- Tasks: `../_archived/2025/projects-readme-generator/tasks.md`
 
 ## Credits
 

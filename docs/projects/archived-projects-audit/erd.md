@@ -115,7 +115,6 @@ Archived projects in `docs/projects/_archived/2025/` may have incomplete task ch
 - [ ] **Completion summary is filled** (not placeholder template)
   - Template markers like `<One-paragraph summary>` or `<list>` indicate unfilled
   - Must have project-specific content
-- [ ] Final `tasks.md` state preserved (checked items reflect actual completion)
 - [ ] `README.md` shows completion status
 - [ ] ERD updated with completion date and outcome
 
@@ -161,7 +160,6 @@ Archived projects in `docs/projects/_archived/2025/` may have incomplete task ch
 ## 10. Open Questions
 
 1. Should we review `_archived/<pre-2025>` projects? (Future scope)
-2. What defines "required" vs "optional" task? (Use explicit marking in tasks.md)
 3. How to handle partially-completed tasks with working implementation? (Count as complete if functionality exists)
 
 ## 11. Timeline

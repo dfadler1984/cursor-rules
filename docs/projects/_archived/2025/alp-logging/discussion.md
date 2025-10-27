@@ -41,7 +41,6 @@ printf '%s\n' \
   'Owner: alp-logging' \
   'What Changed: Created ERD and tasks for ALP logging.' \
   'Next Step: Update assistant-behavior and assistant-learning rules.' \
-  'Links: docs/projects/alp-logging/erd.md, docs/projects/alp-logging/tasks.md' \
   'Learning: Add ALP-needed? check to the send gate.' \
 | .cursor/scripts/alp-logger.sh write-with-fallback assistant-logs 'alp-logging'
 ```

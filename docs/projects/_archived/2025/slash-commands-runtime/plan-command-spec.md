@@ -136,7 +136,6 @@ created: YYYY-MM-DD
 
 # Plan — <Topic Title>
 
-Links: [Related spec](../specs/<topic>-spec.md) | [Tasks](../projects/<topic>/tasks.md)
 
 ## 1. Overview
 

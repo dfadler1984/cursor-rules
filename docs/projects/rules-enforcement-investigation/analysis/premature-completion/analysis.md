@@ -98,7 +98,6 @@ Example checklist that should have been used:
 - [ ] All acceptance criteria from ERD validated?
 - [ ] All required deliverables complete?
 - [ ] All hypotheses tested or explicitly deferred?
-- [ ] All tasks.md sections marked complete?
 - [ ] Validation period complete (if applicable)?
 - [ ] User/maintainer approval obtained?
 
@@ -197,7 +196,6 @@ Rules are easy to violate when:
 
 2. **Task document structure issues noticed but not captured**
 
-   - tasks.md grew to 333 lines (152 lines non-task content)
    - Didn't flag as evidence of unclear guidance
    - Only documented after explicit cleanup
 
@@ -213,7 +211,6 @@ Rules are easy to violate when:
 Should have:
 
 1. Noticed gap → document immediately
-2. Add to findings.md in real-time
 3. Treat as evidence supporting investigation
 4. Queue improvement task
 
@@ -406,7 +403,6 @@ If project applies a fix/change that requires validation:
 
 ### Supporting (Add to generate-tasks-from-erd.mdc)
 
-7. **Carryovers section in tasks.md** for incomplete optional work
 8. **Critical path identification** in task generation
 9. **User approval checkpoint** before marking complete
 

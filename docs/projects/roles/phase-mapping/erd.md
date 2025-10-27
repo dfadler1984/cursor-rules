@@ -3,7 +3,6 @@
 
 # Engineering Requirements Document — Role–Phase Mapping (Lite)
 
-Links: `docs/projects/roles/erd.md` | `docs/projects/role-phase-mapping/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

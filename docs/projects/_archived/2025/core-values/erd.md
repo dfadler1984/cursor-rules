@@ -8,7 +8,6 @@ mode: lite
 
 # Engineering Requirements Document — Core Values Enhancement (Lite)
 
-Links: `.cursor/rules/00-assistant-laws.mdc` | `docs/projects/core-values/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

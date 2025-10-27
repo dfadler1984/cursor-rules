@@ -6,7 +6,6 @@ lastUpdated: 2025-10-08
 
 # Engineering Requirements Document — Intent Router (Lite)
 
-Links: `.cursor/rules/intent-routing.mdc` | `docs/projects/intent-router/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

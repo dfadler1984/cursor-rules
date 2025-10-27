@@ -313,10 +313,8 @@ See: assistant-git-usage.mdc → PR creation (curl + GitHub API)
 ```
 ✗ Failed to update tasks file
 
-Error: Permission denied: docs/projects/productivity/tasks.md
 
 Possible causes:
-1. File is read-only: chmod +w docs/projects/productivity/tasks.md
 2. File is open in another process: close and try again
 3. Directory permissions: check parent directory permissions
 

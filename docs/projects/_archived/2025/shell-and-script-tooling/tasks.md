@@ -15,16 +15,6 @@
 - [x] 1.0 Create unified project scaffold (ERD + tasks) with references
 - [x] 2.0 Add this project to `docs/projects/README.md` under Active
 - [x] 3.0 For each source project, add a backlink to this ERD
-  - [x] 3.1 `bash-scripts/tasks.md` → add link to unified project
-  - [x] 3.2 `shell-scripts/tasks.md` → add link to unified project
-  - [x] 3.3 `scripts-unix-philosophy/tasks.md` → add link to unified project
-  - [x] 3.4 `script-rules/tasks.md` → add link to unified project
-  - [x] 3.5 `script-help-generation/tasks.md` → add link to unified project
-  - [x] 3.6 `script-error-handling/tasks.md` → add link to unified project
-  - [x] 3.7 `script-test-hardening/tasks.md` → add link to unified project
-  - [x] 3.8 `shellcheck/tasks.md` → add link to unified project
-  - [x] 3.9 `networkless-scripts/tasks.md` → add link to unified project
-  - [x] 3.10 `tests-github-deletion/tasks.md` → add link to unified project (added 2025-10-13)
 - [x] 4.0 Derive cross-cutting decisions and portability policy
   - [x] 4.1 D1: Help/version flags minimums and section schema
   - [x] 4.2 D2: Strict-mode baseline and traps
@@ -68,7 +58,6 @@
   - [x] 8.5 Add suppression mechanism to network-guard for false positives
   - [x] 8.6 All migration tests passing (10 test suites, 40+ tests total)
 - [x] 10.0 Record adoption status in source projects (COMPLETE ✅)
-  - [x] 10.1 Update adoption checklist in each source project's tasks.md (bash-scripts, script-help-generation, networkless-scripts, script-error-handling, script-rules, scripts-unix-philosophy, shellcheck, script-test-hardening) ✅
   - [x] 10.2 Add backlinks from adoptions to this ERD's decision sections ✅
   - [x] 10.3 Track migration progress (scripts migrated vs total) ✅
   - Status: All 8 source projects updated with D1-D6 adoption status (all complete); backlinks to ERD sections included
@@ -125,7 +114,6 @@
 
 - [x] 18.0 Organize scripts into subdirectories — **MIGRATED to script-refinement Task 3.0**
 
-  - **Status:** Moved to [script-refinement](../../../script-refinement/tasks.md) Task 3.0 for threshold-triggered execution
   - **Trigger:** When script count reaches **50+ scripts** OR clear pain points emerge
   - **Current:** 45 scripts (90% of threshold); flat structure still manageable
   - **Rationale:** Threshold-based task belongs in active project, not archived one

@@ -38,7 +38,6 @@ Investigated and resolved test environment isolation issues causing env var leak
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 
 ## Credits

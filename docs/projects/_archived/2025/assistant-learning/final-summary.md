@@ -21,6 +21,5 @@
 ## Links
 
 - ERD: docs/projects/assistant-learning/erd.md
-- Tasks: docs/projects/assistant-learning/tasks.md
 - ADRs: docs/projects/assistant-learning/decisions/ (if any)
 - Learning Log Summary: docs/assistant-learning-logs/

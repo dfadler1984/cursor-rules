@@ -35,7 +35,6 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 
 ### H2: Send Gate Investigation
 
-**Location**: [h2-send-gate-investigation](../../h2-send-gate-investigation/)  
 **Status**: ⏸️ MONITORING  
 **Objective**: Validate send gate executes, detects violations, blocks them
 
@@ -51,7 +50,6 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 
 **Documents**:
 
-- Sub-project: [h2-send-gate-investigation/](../../h2-send-gate-investigation/)
 - Test plan: [tests/hypothesis-2-send-gate-enforcement.md](tests/hypothesis-2-send-gate-enforcement.md)
 - Test results: [test-results/h2/](test-results/h2/)
 - Protocol: [protocols/h2-test-d.md](protocols/h2-test-d.md)
@@ -61,7 +59,6 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 
 ### H3: Query Visibility
 
-**Location**: [h3-query-visibility](../../h3-query-visibility/)  
 **Status**: ⏸️ MONITORING  
 **Objective**: Test whether visible query output improves script usage
 
@@ -77,16 +74,13 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 
 **Documents**:
 
-- Sub-project: [h3-query-visibility/](../../h3-query-visibility/)
 - Test plan: [tests/hypothesis-3-query-protocol-visibility.md](tests/hypothesis-3-query-protocol-visibility.md)
 - Test results: [test-results/h3/](test-results/h3/)
-- Finding: [findings/gap-h3-query-visibility.md](findings/gap-h3-query-visibility.md)
 
 ---
 
 ### Slash Commands: Runtime Routing
 
-**Location**: [slash-commands-runtime-routing](../../slash-commands-runtime-routing/)  
 **Status**: ❌ NOT VIABLE (platform constraint)  
 **Objective**: Test slash commands for runtime routing enforcement
 
@@ -104,7 +98,6 @@ The rules-enforcement-investigation has been broken into focused sub-projects fo
 
 **Documents**:
 
-- Sub-project: [slash-commands-runtime-routing/](../../slash-commands-runtime-routing/)
 - Test plan: [tests/experiment-slash-commands.md](tests/experiment-slash-commands.md)
 - Decision: [decisions/slash-commands.md](decisions/slash-commands.md)
 - Protocol: [protocols/slash-commands-phase3.md](protocols/slash-commands-phase3.md) (not executed)

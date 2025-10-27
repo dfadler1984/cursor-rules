@@ -3,7 +3,6 @@
 **Project:** `self-improvement-pivot`  
 **ERD:** [erd.md](./erd.md)  
 **Status:** Deferred (activate only if pivot trigger fires)  
-**Parent Project:** [`self-improvement-rule-adoption`](../self-improvement-rule-adoption/erd.md)
 
 ---
 

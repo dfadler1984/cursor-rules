@@ -15,4 +15,3 @@
 ## Links
 
 - ERD: docs/projects/\_archived/2025/drawing-board/erd.md
-- Tasks: docs/projects/\_archived/2025/drawing-board/tasks.md

@@ -136,4 +136,3 @@ Use this template for new decision documents:
 ## Related
 
 - **ERD**: [`../erd.md`](../erd.md) — Full requirements with open questions
-- **Tasks**: [`../tasks.md`](../tasks.md) — Task breakdown (Phase 0 focuses on decisions)

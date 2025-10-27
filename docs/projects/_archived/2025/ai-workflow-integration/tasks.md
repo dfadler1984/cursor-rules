@@ -29,7 +29,6 @@
 - [x] 2.0 Evaluate ai-dev-tasks for PRD/tasks process portability [P] (priority: medium) (depends on: 1.0)
 
   - [x] 2.1 Review `create-prd.md`; capture strengths/gaps vs `create-erd.mdc`
-  - [x] 2.2 Review `generate-tasks.md`; compare with `generate-tasks-from-erd.mdc`
   - [x] 2.3 Review `process-task-list.md`; compare with `project-lifecycle.mdc` (Task List Process)
   - [x] 2.4 Propose importable snippets/citations and minimal diffs
 

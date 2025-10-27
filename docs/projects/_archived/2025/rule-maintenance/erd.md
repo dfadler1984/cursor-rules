@@ -6,7 +6,6 @@ owner: rules-maintainers
 
 # (Archived) Engineering Requirements Document — Rule Maintenance & Validator (Lite)
 
-Links: `.cursor/rules/rule-maintenance.mdc` | `docs/projects/_archived/2025/rule-maintenance/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

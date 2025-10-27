@@ -27,7 +27,6 @@ The repository accumulates files that are no longer referenced or useful:
 - **Abandoned experiments**: Test files, temporary docs, or prototypes left behind
 - **Manual burden**: No automated way to detect or clean up these files
 
-**Example**: `slash-commands-runtime-routing/` (visible in synthesis.md:572) marked as "not viable" but still present in repository.
 
 **Why now**: Recent investigations (rules-enforcement-investigation, project-lifecycle) revealed orphaned files. Proactive cleanup prevents future confusion and reduces repository noise.
 
@@ -56,12 +55,10 @@ The repository accumulates files that are no longer referenced or useful:
 
 **Known orphans** (from recent investigation):
 
-- `slash-commands-runtime-routing/` — Documented as "not viable" but not deleted
 - Potentially other projects marked complete but not archived
 
 **Reference patterns** (used to detect orphans):
 
-- Markdown links: `[text](path)`, `[text](path.md)`
 - Relative paths: `docs/projects/<slug>/`, `../../<slug>/`
 - Script references: `.cursor/scripts/<name>.sh`
 - Rule references: `.cursor/rules/<name>.mdc`
@@ -272,8 +269,8 @@ VERSION
 
 ## 11. Related Work
 
-- [project-lifecycle.mdc](../../.cursor/rules/project-lifecycle.mdc) — Completion and archival policies
-- [investigation-structure.mdc](../../.cursor/rules/investigation-structure.mdc) — Expected file organization (useful for detecting obsolete patterns)
+- [project-lifecycle.mdc](../../../.cursor/rules/project-lifecycle.mdc) — Completion and archival policies
+- [investigation-structure.mdc](../../../.cursor/rules/investigation-structure.mdc) — Expected file organization (useful for detecting obsolete patterns)
 - [document-governance](../document-governance/) — Document lifecycle and retirement
 - [rules-enforcement-investigation](../rules-enforcement-investigation/) — Context for why this project is needed (orphan discovery)
 

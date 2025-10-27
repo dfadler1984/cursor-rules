@@ -37,7 +37,6 @@ Identify gaps, fragility, and duplication in our developer tooling across the re
 
 ## 4. Acceptance Criteria
 
-- `docs/projects/tooling-discovery/tasks.md` contains a prioritized backlog seeded from the inventory
 - Inventory matrix drafted with at least 10 representative categories
 - Each identified gap includes: recommendation, owner, acceptance check, and estimated effort
 - No network calls or sensitive data reads during discovery; local-only, read-only

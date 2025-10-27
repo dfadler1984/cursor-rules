@@ -16,7 +16,6 @@
 
 ### Phase Mapping Extension
 
-See [`phase-mapping/tasks.md`](phase-mapping/tasks.md) for:
 
 - Role-to-phase alignment (Director→Specify, Manager→Plan, Engineer→Implement)
 - Phase-readiness prompts

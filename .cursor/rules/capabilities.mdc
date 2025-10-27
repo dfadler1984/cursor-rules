@@ -249,9 +249,11 @@ All discovery outputs MUST conform to this schema:
 - Organize project documentation: `[.cursor/scripts/project-docs-organize.sh](.cursor/scripts/project-docs-organize.sh) <project-slug>`
 - Setup git remote: `[.cursor/scripts/setup-remote.sh](.cursor/scripts/setup-remote.sh) [--remote <name>] [--url <url>]`
 - Validate investigation structure: `[.cursor/scripts/validate-investigation-structure.sh](.cursor/scripts/validate-investigation-structure.sh) <project-path>`
+- Fix broken links: `[.cursor/scripts/links-fix.sh](.cursor/scripts/links-fix.sh) [--file FILE | --dir DIR] [--apply]` - Auto-fix common broken link patterns
 
 ### Validation gates & helpers
 
+- Validate PR descriptions: `[.cursor/scripts/pr-validate-description.sh](.cursor/scripts/pr-validate-description.sh) --pr <number>` - Check PR has non-template description
 - Validate PR titles locally: use local commit message policy via `.cursor/scripts/git-commit.sh`.
 - Enforce spec-diff in CI if configured.
 - Run related tests pre-commit: use your repo's test runner configuration.

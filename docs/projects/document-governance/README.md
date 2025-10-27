@@ -24,7 +24,6 @@ Projects accumulate documents without clear guidelines, leading to inconsistent 
 ## Quick Links
 
 - [ERD](./erd.md) — Full requirements and approach
-- [Tasks](./tasks.md) — Phased execution plan
 
 ## Approach
 

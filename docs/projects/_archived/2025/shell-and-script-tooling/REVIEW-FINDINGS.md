@@ -38,7 +38,6 @@
 **Actions taken:**
 
 1. ✅ Created `UNIX-PHILOSOPHY-AUDIT.md` with honest assessment
-2. ✅ Updated `scripts-unix-philosophy/tasks.md` with "Honest Assessment" section
 3. ✅ Documented 4 major violators with specific split recommendations
 4. ✅ Created `shell-unix-philosophy.mdc` enforcement rule
 
@@ -206,9 +205,7 @@
 
 **Updated (2025-10-14):**
 
-- ✅ `scripts-unix-philosophy/tasks.md` — Honest assessment added
 - ✅ `scripts-unix-philosophy/erd.md` — Current violators documented
-- ✅ `shell-and-script-tooling/tasks.md` — Critical findings added
 - ✅ `shell-and-script-tooling/erd.md` — Phase 7 status updated
 - ✅ `UNIX-PHILOSOPHY-AUDIT-UPDATED.md` — NEW, current reality documented
 - ✅ `shell-unix-philosophy.mdc` — Enforcement rule created

@@ -334,10 +334,10 @@ Overall Score:   >90%
 
 - [BASELINE-REPORT.md](./BASELINE-REPORT.md) — Initial measurements
 - [tasks.md](./tasks.md) — Monitoring plan (item 12.0)
-- [compliance-dashboard.sh](../../.cursor/scripts/compliance-dashboard.sh) — Main script
-- [check-script-usage.sh](../../.cursor/scripts/check-script-usage.sh) — Individual checker
-- [check-tdd-compliance.sh](../../.cursor/scripts/check-tdd-compliance.sh) — Individual checker
-- [check-branch-names.sh](../../.cursor/scripts/check-branch-names.sh) — Individual checker
+- [compliance-dashboard.sh](../../../.cursor/scripts/compliance-dashboard.sh) — Main script
+- [check-script-usage.sh](../../../.cursor/scripts/check-script-usage.sh) — Individual checker
+- [check-tdd-compliance.sh](../../../.cursor/scripts/check-tdd-compliance.sh) — Individual checker
+- [check-branch-names.sh](../../../.cursor/scripts/check-branch-names.sh) — Individual checker
 
 ---
 

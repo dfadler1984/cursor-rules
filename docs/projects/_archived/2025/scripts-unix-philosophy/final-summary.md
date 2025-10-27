@@ -42,7 +42,6 @@ Refactored repository scripts to embody Unix Philosophy principles: simple progr
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 - Audit: `../shell-and-script-tooling/UNIX-PHILOSOPHY-AUDIT-UPDATED.md`
 

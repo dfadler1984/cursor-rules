@@ -127,7 +127,6 @@ Examples from baseline:
 
 **4. Consent-First Violations** (anecdotal, not measured)
 
-Examples from discovery.md:
 
 - Tool category switches without consent prompt
 - Commands executed before consent obtained
@@ -317,4 +316,3 @@ Gate: [PASS/FAIL]
 
 ### Next Step
 
-**Execute Test A** (Gate Visibility Test) — see tasks.md section 10.0

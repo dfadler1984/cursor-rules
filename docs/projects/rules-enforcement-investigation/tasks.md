@@ -10,10 +10,6 @@
 
 ### Phase 5: Test Plan Development - ✅ COMPLETE
 
-- [x] Documented violations with context (discovery.md Part 1-2)
-- [x] Analyzed 15+ rules for enforcement patterns (discovery.md Part 1-3)
-- [x] Analyzed taskmaster/spec-kit patterns (discovery.md Part 5)
-- [x] Proposed structural changes with rationale (discovery.md Part 6-8)
 - [x] Created comprehensive test plans (tests/)
 - [x] Created measurement framework design
 - [x] Documented success criteria, timelines, risk mitigation
@@ -74,7 +70,6 @@ Tasks to understand current behavior and plan remaining investigation work:
 
 - [x] 0.2 Analyze enforcement patterns in 25 conditional rules
 
-  - [x] 0.2.1 List all `alwaysApply: false` rules with descriptions — See conditional-rules-analysis.md
   - [x] 0.2.2 Categorize by risk level (critical/high/medium/low) — 1 critical (fixed), 5 high, 7 medium, 12 low
   - [x] 0.2.3 Identify which rules have violations in git history — 6 confirmed/suspected violations documented
   - [x] 0.2.4 Group rules by similar enforcement needs — 5 enforcement pattern groups identified
@@ -83,7 +78,6 @@ Tasks to understand current behavior and plan remaining investigation work:
 
   - [x] 0.3.1 Review assistant-behavior.mdc send gate implementation — 7 checklist items, "revise; do not send" policy
   - [x] 0.3.2 Identify observable signals if gate is executed — Explicit (gate output) and implicit (compliance patterns)
-  - [x] 0.3.3 List specific violations to test (from discovery.md) — Script (26%), TDD (25%), Branch (39%), Consent (anecdotal)
   - [x] 0.3.4 Design violation scenarios for test — 20 Test A scenarios, 10 Test B violations, Test C/D protocols defined
 
 - [x] 0.4 Pre-test discovery for H3 (query visibility)
@@ -95,7 +89,6 @@ Tasks to understand current behavior and plan remaining investigation work:
 
 - [x] 0.5 Pre-test discovery for slash commands
 
-  - [x] 0.5.1 Review taskmaster/spec-kit patterns from discovery.md — Explicit commands create forcing functions (vs implicit routing)
   - [x] 0.5.2 Identify which git operations to target first — 4 high-risk (commit/PR/branch/force-push), 2 medium, N low
   - [x] 0.5.3 Draft slash command rule structure — New `git-slash-commands.mdc` with 3-step enforcement protocol
   - [x] 0.5.4 Identify integration points with intent-routing — Highest priority (above exact phrases), direct routing
@@ -119,7 +112,6 @@ Periodic review checkpoints to validate progress and findings:
 
 - [x] R.2 Review premature completion root causes
 
-  - [x] R.2.1 Review findings.md "Why Was This Marked Complete?" section — 5 root causes identified (momentum, checklist, states, blind spots, self-improve)
   - [x] R.2.2 Identify what signals were missed — 5 signals: open tasks, unvalidated fix, scalability, core questions, no approval
   - [x] R.2.3 Document what would have prevented premature completion — 5 preventions: hard checklist, stages, validation period, weighting, real-time flagging
   - [x] R.2.4 Propose safeguards for future investigations — 9 recommendations for project-lifecycle/self-improve/tasks rules
@@ -278,7 +270,6 @@ Periodic review checkpoints to validate progress and findings:
 
 ## Rule Improvements from Investigation Meta-Findings
 
-**Source**: [`findings.md`](findings.md) lines 96-155
 
 **Status**: These are REQUIRED deliverables, not optional carryovers. They are substantive findings from the investigation.
 
@@ -291,22 +282,15 @@ Periodic review checkpoints to validate progress and findings:
 
 - [x] 16.0 Update task document structure guidance
 
-  - [x] 16.1 Update project-lifecycle.mdc: tasks.md = phase sections with checklists only — Added strict structure section with must include/exclude lists
-  - [x] 16.2 Update generate-tasks-from-erd.mdc: clarify no findings/questions in tasks.md — Added "What NOT to Include" section with 5 prohibited content types
-  - [x] 16.3 Evidence: tasks.md accumulated 152 lines of non-task content — Cited in both rules with examples
 
 - [x] 17.0 Clarify ERD vs tasks separation for acceptance criteria
 
-  - [x] 17.1 Update project-lifecycle.mdc: ERD describes criteria as narrative, tasks.md contains checklists — Added "ERD vs tasks.md: Acceptance Criteria" section with examples
   - [x] 17.2 Update create-erd.mdc: acceptance criteria are requirements, not execution checklists — Added "Acceptance Criteria Format" section with do/don't examples
   - [x] 17.3 Update generate-tasks-from-erd.mdc: convert ERD acceptance criteria to task checklists — Added "Converting ERD Acceptance Criteria to Tasks" section with transformation example
-  - [x] 17.4 Evidence: ERD section 5 had checklists (should be in tasks.md) — Cited with correct vs incorrect examples
 
 - [x] 18.0 Define ERD scope clearly
 
   - [x] 18.1 Update create-erd.mdc: ERD = requirements/approach only — Added "ERD Scope Definition" section at top of rule
-  - [x] 18.2 Add guidance: findings/retrospective go in separate findings.md — Listed in "What ERDs Do NOT Contain" with rationale
-  - [x] 18.3 Add guidance: detailed timeline belongs in tasks.md, not ERD section 10 — Example of scope creep to avoid; correct separation documented
   - [x] 18.4 Evidence: ERD section 11 (73 lines) contained findings, not requirements — Cited with 441-line ERD bloat example
 
 - [x] 19.0 Add guidance on summary document proliferation
@@ -328,7 +312,6 @@ Periodic review checkpoints to validate progress and findings:
   - [x] 21.1 MONITORING-PROTOCOL.md — Passive monitoring guide with decision points
   - [x] 21.2 h3-test-a-results.md — Baseline query visibility (0%)
   - [x] 21.3 h3-test-c-results.md — Visible output implementation
-  - [x] 21.4 slash-commands-decision.md — Conditional execution framework
   - [x] 21.5 INTERIM-FINDINGS-2025-10-15.md — Comprehensive progress update
 
 ## Phase 6F: Synthesis & Completion (2025-10-21 Session)
@@ -339,7 +322,6 @@ Periodic review checkpoints to validate progress and findings:
   - [x] 22.2 Update `findings/README.md` — Added H1 100% validation, Gap #12, updated status
   - [x] 22.3 Reorganize root files — Moved synthesis, action-plan, decision-points to correct folders (8 → 5 root files)
   - [x] 22.4 Document Gap #12 — Self-improve structure blind spot (validates H2 findings)
-  - [x] 22.5 Update tasks.md — Reflect completion status
   - [x] 22.6 Update README.md — Link to synthesis, reflect completion
   - [x] 22.7 ~~Create FINAL-SUMMARY.md~~ **Gap #13**: Violated Gap #6 (summary proliferation); deleted; enhancing README.md instead
 
@@ -389,7 +371,6 @@ Periodic review checkpoints to validate progress and findings:
     - Pre-file-creation OUTPUT covers category, destination, root count
     - Pattern-aware prevention (26.1) covers checking project-specific gaps
 
-- [x] 27.0 TDD compliance improvements (From tdd-compliance-findings.md) — ✅ COMPLETE (2025-10-24)
 
   - [x] 27.1 Update `check-tdd-compliance.sh`: Filter doc-only changes — Complete: Added deletions tracking, enhanced filter logic
     - Criteria: Changed lines < 5 AND deletions > additions ✅

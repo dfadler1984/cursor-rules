@@ -213,7 +213,6 @@ Add note in `rule-maintenance.mdc`:
 2. [ ] Update `capabilities.mdc` Discovery section with schema + truncation
 3. [ ] Update capabilities-rules ERD to point to canonical schema
 4. [ ] Run validation: `.cursor/scripts/rules-validate.sh`
-5. [ ] Mark tasks complete in `tasks.md`
 
 ---
 

@@ -1,7 +1,6 @@
 ## Relevant Files
 
 - `docs/projects/chat-performance-and-quality-tools/erd.md`
-- `docs/projects/chat-performance-and-quality-tools/discovery.md`
 
 ## Status
 
@@ -259,7 +258,6 @@
   - [x] Fallback mechanism tested (char-based estimation)
   - [-] Synthetic 50K/100K token transcripts deferred
 - [-] 13.3 Gauge scoring validation (deferred)
-  - [x] Gauge scoring rubric defined with clear criteria (scoring-rubric-implementation.md)
   - [x] Calibration examples provided in quality-rubric.md
   - [-] Automated scoring consistency tests deferred
 - [-] 13.4 Comprehensive stress test suite (deferred pending adoption signals)
@@ -268,7 +266,6 @@
 
 ## Removed / Blocked (Requires Provider API Access)
 
-The following features from discovery.md are not feasible without provider API response fields:
 
 - Entropy monitor (needs logprobs)
 - Adaptive buffer policy (needs finish_reason, live usage)
@@ -280,4 +277,3 @@ The following features from discovery.md are not feasible without provider API r
 - Cost/latency budgeter (latency input unreliable)
 - Tool-call validator (insufficient value without API)
 
-These are documented in discovery.md for future reference if provider API access becomes available.

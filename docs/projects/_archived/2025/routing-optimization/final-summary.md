@@ -42,12 +42,10 @@ Successfully improved intent routing accuracy from **68% baseline to 100%** (tar
 ## Key Deliverables
 
 ### Phase 1: Analysis
-- **analysis.md** — Baseline metrics, top 10 intent patterns, 8 failure modes
 - Routing performance baseline: 68% overall
 - Identified optimization opportunities across 6 intent categories
 
 ### Phase 2: Optimization
-- **optimization-proposal.md** — 4 critical optimizations with expected impact
 - **routing-test-suite.md** — 25 test cases covering 10 intent groups
 - **Updated intent-routing.mdc**:
   - Intent override tier (tier 2 in decision policy)
@@ -58,7 +56,6 @@ Successfully improved intent routing accuracy from **68% baseline to 100%** (tar
 ### Phase 3: Validation
 - **validation-session.md** — Phase 2 checkpoint: 10/10 PASS (100%)
 - **phase3-full-validation.md** — Full validation: 25/25 PASS (100%)
-- **phase3-findings.md** — Finding #1 (composite actions) + corrective actions
 - **Updated assistant-git-usage.mdc** — PR label handling, composite intents
 - **Updated intent-routing.mdc** — Composite action validation
 
@@ -166,9 +163,7 @@ Successfully improved intent routing accuracy from **68% baseline to 100%** (tar
 ### Documentation
 1. `docs/projects/routing-optimization/phase3-full-validation.md` (new)
 2. `docs/projects/routing-optimization/validation-session.md` (existing)
-3. `docs/projects/routing-optimization/phase3-findings.md` (existing)
 4. `docs/projects/routing-optimization/README.md` (updated)
-5. `docs/projects/routing-optimization/tasks.md` (updated)
 6. `docs/projects/routing-optimization/final-summary.md` (this file)
 
 ---
@@ -177,8 +172,6 @@ Successfully improved intent routing accuracy from **68% baseline to 100%** (tar
 
 | Phase   | Duration | Dates                   | Deliverables                                                |
 |---------|----------|-------------------------|-------------------------------------------------------------|
-| Phase 1 | 2-3 hrs  | 2025-10-23              | analysis.md, baseline metrics, failure modes               |
-| Phase 2 | 4-6 hrs  | 2025-10-23              | optimization-proposal.md, routing-test-suite.md, updated rules |
 | Phase 3 | 2 days   | 2025-10-23 to 2025-10-24 | phase3-full-validation.md, Finding #1 resolution           |
 | Phase 4 | 1 day    | 2025-10-24              | Guidance triggers, routing-validate.sh, updated capabilities |
 

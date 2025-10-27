@@ -58,7 +58,6 @@ Refine TDD-related rules so the assistant more reliably identifies when TDD must
 
 ## 7. Data Model and Storage
 
-- Artifacts: `erd.md`, `tasks.md` under `docs/projects/tdd-rules-refinement/`.
 
 ## 8. API/Contracts
 

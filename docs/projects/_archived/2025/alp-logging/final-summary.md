@@ -25,4 +25,3 @@ Shipped improvements per ERD objectives; see Links for details.
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`

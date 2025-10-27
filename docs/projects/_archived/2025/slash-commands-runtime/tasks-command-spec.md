@@ -113,7 +113,6 @@ Examples:
 **Check project exists:**
 
 ```bash
-Path: docs/projects/<slug>/tasks.md
 ```
 
 **If not found:**
@@ -130,15 +129,12 @@ Available projects:
 Use: /tasks --project <valid-slug>
 ```
 
-**If tasks.md missing:**
 
 ```
-Error: Tasks file not found: docs/projects/<slug>/tasks.md
 
 This project exists but has no tasks file.
 
 Would you like to:
-1. Create tasks.md with basic structure
 2. Choose a different project
 
 Reply with "1" or "2" to continue.
@@ -151,7 +147,6 @@ Reply with "1" or "2" to continue.
 **Read tasks file:**
 
 ```bash
-docs/projects/<slug>/tasks.md
 ```
 
 **Parse tasks:**
@@ -192,7 +187,6 @@ Next suggested action: Complete task 4.0
 **Process:**
 
 1. Parse task ID (e.g., "2.0", "3.1.2")
-2. Find matching task in tasks.md
 3. Replace `- [ ]` with `- [x]` for that task
 4. Request consent before making change
 
@@ -202,7 +196,6 @@ Next suggested action: Complete task 4.0
 Slash command: /tasks --mark 2.0
 
 This will:
-  File: docs/projects/<slug>/tasks.md
   Change: Mark task 2.0 as complete
     - [ ] 2.0 Implement `/plan` command
     →
@@ -225,7 +218,6 @@ Next suggested action: Begin task 3.0
 **Error (task not found):**
 
 ```
-Error: Task 2.0 not found in docs/projects/<slug>/tasks.md
 
 Available tasks:
   - [ ] 1.0 Define command parser interface
@@ -256,7 +248,6 @@ Reply with "1", "2", or "3".
 
 1. Parse task description from quoted string
 2. Determine next task ID (e.g., if last is 3.0, next is 4.0)
-3. Append to tasks.md under `## Todo` section
 4. Request consent before adding
 
 **Consent prompt:**
@@ -265,7 +256,6 @@ Reply with "1", "2", or "3".
 Slash command: /tasks --add "Add integration tests"
 
 This will:
-  File: docs/projects/<slug>/tasks.md
   Add: - [ ] 4.0 Add integration tests
 
 Proceed?
@@ -293,7 +283,6 @@ Total tasks: 10 → 11
 
 ### After completing all tasks
 
-**Detect:** All tasks in `tasks.md` marked complete
 
 **Suggest:**
 
@@ -408,7 +397,6 @@ describe("/tasks command", () => {
     expect(() =>
       detectProjectContext([
         "docs/projects/productivity/erd.md",
-        "docs/projects/slash-commands-runtime/tasks.md",
       ])
     ).toThrow("Ambiguous project context");
   });
@@ -421,14 +409,12 @@ describe("/tasks command", () => {
 
    - Detect `/tasks` or `/tasks --list`
    - Auto-detect project from open files
-   - Read tasks.md
    - Parse and format task list
    - Output with completion percentage
 
 2. **Mark task complete:**
 
    - Parse `/tasks --mark 2.0`
-   - Find task in tasks.md
    - Request consent
    - Update file (replace `[ ]` with `[x]`)
    - Output success message
@@ -437,7 +423,6 @@ describe("/tasks command", () => {
    - Parse `/tasks --add "Description"`
    - Determine next task ID
    - Request consent
-   - Append to tasks.md
    - Output success message
 
 ---

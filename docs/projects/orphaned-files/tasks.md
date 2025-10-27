@@ -18,7 +18,6 @@
 - [ ] 1.5 Reference graph builder
 
   - [ ] 1.6 Scan target directories for trackable files (`.md`, `.sh`, `.mdc`)
-  - [ ] 1.7 Extract markdown links: `[text](path)`
   - [ ] 1.8 Extract script references: `.cursor/scripts/<name>.sh`
   - [ ] 1.9 Extract rule references: `.cursor/rules/<name>.mdc`, `@<rule-name>`
   - [ ] 1.10 Normalize paths (resolve `../../`, `./`, handle absolute paths)
@@ -40,7 +39,6 @@
 - [ ] 1.21 Dry-run validation
   - [ ] 1.22 Run script with `--dry-run` on full repository
   - [ ] 1.23 Manually review first 10 detections for false positives
-  - [ ] 1.24 Verify known orphan (`slash-commands-runtime-routing/`) is detected
 
 ---
 
@@ -70,7 +68,6 @@
   - [ ] 2.14 Suggest reorganization instead of deletion for fixable patterns
 
 - [ ] 2.15 Archival suggestions
-  - [ ] 2.16 Detect complete-but-unreferenced projects (check `tasks.md` completion %)
   - [ ] 2.17 Suggest running archival workflow instead of deletion
   - [ ] 2.18 Output archival commands for candidate projects
 

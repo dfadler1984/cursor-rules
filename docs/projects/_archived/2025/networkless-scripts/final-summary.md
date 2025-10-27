@@ -38,7 +38,6 @@ Established networkless testing standard (D4) with effects seams and fixtures. C
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 
 ## Credits

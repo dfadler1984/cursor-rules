@@ -309,5 +309,4 @@
 ## Related
 
 - **ERD**: `consent-gates-refinement/erd.md`
-- **Tasks**: `consent-gates-refinement/tasks.md`
 - **Phase 3 Plan**: Real-session testing and metrics collection

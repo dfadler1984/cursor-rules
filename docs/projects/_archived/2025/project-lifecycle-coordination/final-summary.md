@@ -43,7 +43,6 @@ Created automated project lifecycle management tooling to coordinate project sta
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Implementation Plan: `./implementation-plan.md`
 
 ## Credits

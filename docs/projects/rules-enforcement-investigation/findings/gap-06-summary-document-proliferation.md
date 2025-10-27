@@ -56,6 +56,5 @@ Pattern: Documented the gap, violated it twice anyway (validates enforcement fin
 
 ## Related
 
-- Task: 19.0 in [tasks.md](../tasks.md)
 - See: [gap-13-self-improve-missed-gap-6-repetition.md](gap-13-self-improve-missed-gap-6-repetition.md)
 - See: [analysis/findings-review-2025-10-21.md](../analysis/findings-review-2025-10-21.md)

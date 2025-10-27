@@ -53,7 +53,6 @@
 ## 3. Archival Artifacts
 
 - [x] Completion summary: `final-summary.md` (40 lines, **INCOMPLETE TEMPLATE**)
-- [x] `tasks.md` preserved with final state
 - [x] `README.md`: ❌ **MISSING**
 - [x] `erd.md` updated with completion status (`status: completed`, `completedDate: 2025-10-23`)
 

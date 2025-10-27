@@ -6,7 +6,6 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Skip Changeset Opt-In (Lite)
 
-Links: `.cursor/scripts/pr-create.sh` | `docs/projects/_archived/2025/skip-changeset-opt-in/tasks.md`
 
 ## 1. Introduction/Overview
 

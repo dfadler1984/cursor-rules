@@ -21,5 +21,4 @@
 ## Links
 
 - ERD: docs/projects/\_archived/2025/rule-maintenance/erd.md
-- Tasks: docs/projects/\_archived/2025/rule-maintenance/tasks.md
 - CI: .github/workflows/rules-validate.yml

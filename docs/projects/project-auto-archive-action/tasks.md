@@ -114,8 +114,6 @@
 
   - [ ] 4.2 Test: Fixes relative links
 
-    - Fixture: `[link](docs/projects/test-proj/file.md)`
-    - Expect: `[link](docs/projects/_archived/2025/test-proj/file.md)`
 
   - [ ] 4.3 Test: Handles multiple references
 
@@ -124,7 +122,6 @@
 
   - [ ] 4.4 Test: Preserves anchor links
 
-    - Fixture: `[link](docs/projects/test-proj/file.md#section)`
     - Expect: Anchor preserved in new path
 
   - [ ] 4.5 Test: Dry-run mode

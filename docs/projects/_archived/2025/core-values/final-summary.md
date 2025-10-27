@@ -37,7 +37,6 @@ Enhanced the three assistant laws (Truth/Accuracy, Consistency/Transparency, Sel
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Enhanced file: `.cursor/rules/00-assistant-laws.mdc` (repo root)
 
 ## Credits

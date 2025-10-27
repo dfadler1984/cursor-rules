@@ -10,7 +10,6 @@ lastUpdated: 2025-10-24
 Mode: Lite
 
 
-Links: `docs/projects/project-lifecycle-docs-hygiene/tasks.md`
 
 ## 1. Introduction/Overview
 
@@ -24,10 +23,6 @@ Coordinate and harden lifecycle and documentation hygiene across the repository 
 
 ## 3. Source Projects (authoritative references)
 
-- Project Organization — `docs/projects/project-organization/erd.md` | tasks: `docs/projects/project-organization/tasks.md`
-- Workflows — `docs/projects/workflows/erd.md` | tasks: `docs/projects/workflows/tasks.md`
-- README Structure — `docs/projects/readme-structure/erd.md` | tasks: `docs/projects/readme-structure/tasks.md`
-- Completion Metadata — `docs/projects/completion-metadata/erd.md` | tasks: `docs/projects/completion-metadata/tasks.md`
 
 ## 4. Goals/Objectives
 

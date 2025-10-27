@@ -17,7 +17,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 
 ### Specific Issues
 
-1. **Duplicate files**: `slash-commands-decision.md` exists in both root and `test-execution/`
 2. **Unclear folder purposes**: `test-execution/` mixes protocols, results, sessions, discoveries, decisions
 3. **Root clutter**: 7 files in root when should have 4-5 baseline files
 4. **Missing structure**: No `decisions/`, `guides/`, `protocols/`, `sessions/` folders
@@ -52,7 +51,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 ### User Guidance Provided
 
 **Baseline root files**:
-- README.md, erd.md, tasks.md (always)
 - High-level protocols like MONITORING-PROTOCOL.md (exceptions, case-by-case)
 
 **Folder structure**:
@@ -174,9 +172,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 ### Phase 3: Identify Sub-Projects
 
 **Candidate sub-projects**:
-- h1-conditional-attachment
-- h2-send-gate-investigation  
-- h3-query-visibility
 - slash-commands-experiment (already partially exists via assistant-self-testing-limits)
 
 **For each**:
@@ -207,7 +202,6 @@ The rules-enforcement-investigation project has grown to 40 markdown files acros
 **For each identified sub-project**:
 1. Create project directory
 2. Create ERD (scope and requirements)
-3. Create tasks.md
 4. Migrate relevant files
 5. Create README with parent link
 6. Add to coordination.md

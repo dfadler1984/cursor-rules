@@ -4,7 +4,6 @@
 **Created:** 2025-10-15  
 **Owner:** @dfadler1984  
 **Project:** `self-improvement-pivot`  
-**Parent Project:** [`self-improvement-rule-adoption`](../self-improvement-rule-adoption/erd.md)
 
 ---
 
@@ -329,7 +328,6 @@ If any pivot alternative fails to improve upon the original always-on approach:
 
 ## References
 
-- Parent project: [`docs/projects/self-improvement-rule-adoption/erd.md`](../self-improvement-rule-adoption/erd.md)
 - Consent-first behavior: `.cursor/rules/assistant-behavior.mdc`
 - Intent routing (slash commands): `.cursor/rules/intent-routing.mdc`
 - Deprecated Assistant Learning Protocol: `docs/projects/assistant-self-improvement/legacy/`

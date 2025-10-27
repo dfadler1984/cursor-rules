@@ -5,7 +5,6 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Script Rules (Lite)
 
-Links: `docs/projects/script-rules/tasks.md`
 Related: `docs/projects/scripts-unix-philosophy/erd.md`, `docs/projects/script-test-hardening/erd.md`, `docs/projects/portability/erd.md`, `docs/projects/script-help-generation/erd.md`
 
 Mode: Lite

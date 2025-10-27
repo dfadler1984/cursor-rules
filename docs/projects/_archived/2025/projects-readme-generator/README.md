@@ -25,7 +25,6 @@ npm run generate:projects-readme
 - **Smart exclusions**: Skips `_archived/` and `_examples/` directories
 - **Metadata extraction**: Reads title, status, and owner from ERD YAML front matter
 - **Flexible formatting**: Handles multiple ERD formats (YAML title field or H1 heading)
-- **Task tracking**: Detects presence of `tasks.md` and shows checkmark indicator
 - **Sorted output**: Alphabetically sorted by project name (case-insensitive)
 - **Idempotent**: Stable output for version control
 
@@ -81,7 +80,6 @@ Generates a Markdown table with:
 | Project | Title from ERD (YAML `title` field or first H1)         |
 | Status  | Status from ERD YAML front matter                       |
 | ERD     | Link to `erd.md` (📄) or dash (—)                       |
-| Tasks   | Checkmark (✅) if `tasks.md` exists, dash (—) otherwise |
 
 ## Metadata Extraction
 
@@ -89,7 +87,6 @@ The script reads ERD files in this order:
 
 1. **Title**: YAML front matter `title` field → fallback to first H1 heading → fallback to folder name
 2. **Status**: YAML front matter `status` field → fallback to markdown field `**Status**:` → fallback to "unknown"
-3. **Tasks**: Checks for `tasks.md` file existence
 
 ### ERD Format Requirements
 
@@ -210,4 +207,3 @@ diff docs/projects/README.md /tmp/projects-readme-new.md || {
 ## Related Files
 
 - `docs/projects/_archived/2025/projects-readme-generator/erd.md` — Requirements
-- `docs/projects/_archived/2025/projects-readme-generator/tasks.md` — Implementation tasks

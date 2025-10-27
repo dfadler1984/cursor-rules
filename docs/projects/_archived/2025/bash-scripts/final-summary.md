@@ -36,7 +36,6 @@ Established baseline shell script standards for the repository. Defined shebang 
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 
 ## Credits

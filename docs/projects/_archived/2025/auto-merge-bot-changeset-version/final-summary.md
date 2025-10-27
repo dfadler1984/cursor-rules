@@ -21,5 +21,4 @@
 ## Links
 
 - ERD: docs/projects/\_archived/2025/auto-merge-bot-changeset-version/erd.md
-- Tasks: docs/projects/\_archived/2025/auto-merge-bot-changeset-version/tasks.md
 - Workflow: .github/workflows/changesets-auto-merge.yml

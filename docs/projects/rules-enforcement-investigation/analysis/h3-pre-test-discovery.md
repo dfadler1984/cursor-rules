@@ -396,4 +396,3 @@ fi
 
 ### Next Step
 
-**Execute Test A** (Query Visibility Baseline) — see tasks.md section 11.0

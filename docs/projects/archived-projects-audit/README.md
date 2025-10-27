@@ -11,7 +11,6 @@ Systematic audit of archived projects to verify task completion and artifact mig
 ## Quick Links
 
 - [ERD](./erd.md) — Requirements and approach
-- [Tasks](./tasks.md) — Execution tracking
 - [Audit Checklist](./audit-checklist.md) — Reusable criteria
 - [Findings](./findings/) — Issues discovered
 

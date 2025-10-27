@@ -3,7 +3,6 @@
 ## Relevant Files
 
 - `docs/projects/active-monitoring-formalization/erd.md` — Requirements
-- `docs/projects/active-monitoring-formalization/tasks.md` — This file
 
 ## Phase 1: <Phase Name>
 

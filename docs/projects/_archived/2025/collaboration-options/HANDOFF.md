@@ -23,7 +23,6 @@ Quick documentation project to clarify `.github/` boundaries and collaboration s
 ## Key Files to Review
 
 - [`docs/projects/collaboration-options/erd.md`](./erd.md) — Requirements (Lite mode)
-- [`docs/projects/collaboration-options/tasks.md`](./tasks.md) — Task list
 - [`.cursor/rules/github-config-only.mdc`](../../../../../.cursor/rules/github-config-only.mdc) — `.github/` boundaries rule
 - [`.github/`](../../../../../.github/) — Current configuration structure
 

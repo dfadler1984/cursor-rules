@@ -10,7 +10,6 @@
 ## Phase 2: Integration
 
 - [x] Update assistant rules to check project status before starting work (capabilities.mdc updated)
-- [x] Update assistant rules to update tasks.md as work progresses (capabilities.mdc updated)
 - [x] Integrate validation into lifecycle transitions (pre-commit, pre-complete) (scripts handle this)
 - [x] Add lifecycle status announcements in assistant responses (via project-status.sh)
 

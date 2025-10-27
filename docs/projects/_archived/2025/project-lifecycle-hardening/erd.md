@@ -7,7 +7,6 @@ owner: rules-maintainers
 
 Mode: Full
 
-Links: `docs/projects/project-lifecycle-hardening/tasks.md` | `.cursor/templates/project-lifecycle/`
 
 ## 1. Introduction/Overview
 
@@ -50,7 +49,6 @@ Harden the project lifecycle process for consistency, portability, and light enf
    - Scope to projects changed in a PR.
    - Checks (per changed project):
      - `docs/projects/<project>/final-summary.md` exists, non‑empty, has front matter `template` + `version`, and contains an “Impact”/metrics section.
-     - `docs/projects/<project>/tasks.md` exists and either all items are checked or a `Carryovers` section is present.
      - `retrospective.md` present at close, or a `Retrospective` section in the final summary.
      - No template files under project folders (templates must originate from `.cursor/templates/`).
    - Optionally warn (non‑blocking) if the closing PR title is not a `feat:`.
@@ -88,7 +86,6 @@ Harden the project lifecycle process for consistency, portability, and light enf
 ## 7. Data Model & Storage
 
 - Templates: `.cursor/templates/project-lifecycle/*.template.md`.
-- Artifacts: `docs/projects/<project>/erd.md`, `tasks.md`, `final-summary.md`, `retrospective.md`.
 - Index: `docs/projects/README.md` (Active/Completed lists).
 
 ## 8. Acceptance Criteria

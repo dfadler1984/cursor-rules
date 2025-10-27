@@ -1,7 +1,6 @@
 ---
 archived: true
 archivedOn: 2025-10-11
-source: docs/projects/assistant-learning-hard-gate/tasks.md
 ---
 
 ## Relevant Files
@@ -26,7 +25,6 @@ source: docs/projects/assistant-learning-hard-gate/tasks.md
 
   - [x] 2.1 Update `README.md` references to `assistant-learning.mdc`
   - [x] 2.2 Update `docs/projects/ai-workflow-integration/erd.md`
-  - [x] 2.3 Update `docs/projects/ai-workflow-integration/tasks.md`
   - [x] 2.4 Update `docs/projects/ai-workflow-integration/discussions.md`
   - [x] 2.5 Update archived reference: `docs/projects/_archived/2025/rules-validate-script/erd.md`
   - [x] 2.6 Global scan: replace remaining references to `logging-protocol.mdc`

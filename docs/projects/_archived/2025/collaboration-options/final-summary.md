@@ -43,7 +43,6 @@ Documented collaboration surfaces (PR templates, optional remote sync) while est
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - HANDOFF: `./HANDOFF.md`
 - ADR: `./decisions/adr-0001-gist-review-deferral.md`
 - Rule: `.cursor/rules/github-config-only.mdc`

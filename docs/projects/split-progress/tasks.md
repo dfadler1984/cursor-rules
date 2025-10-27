@@ -3,9 +3,7 @@
 ## Relevant Files
 
 - `docs/projects/split-progress/erd.md`
-- `docs/projects/assistant-learning/erd.md`, `docs/projects/assistant-learning/tasks.md`
 - `docs/projects/deterministic-outputs/erd.md`, `tasks/tasks-deterministic-outputs.md`
-- `docs/projects/shell-scripts/erd.md`, `docs/projects/shell-scripts/tasks.md`
 - `docs/projects/rules-grok-alignment/erd.md` (source reference only)
 
 ## Todo

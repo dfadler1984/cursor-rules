@@ -3,7 +3,6 @@ status: archived
 ---
 # Engineering Requirements Document — Framework Selection (Spec Kit vs ai-dev-tasks) (Lite)
 
-Links: `.cursor/rules/spec-driven.mdc` | `docs/projects/framework-selection/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

@@ -8,7 +8,6 @@ owner: rules-maintainers
 
 Mode: Lite
 
-Links: `docs/projects/tests-github-deletion/tasks.md`
 
 **Status:** ✅ RESOLVED (2025-10-13)
 

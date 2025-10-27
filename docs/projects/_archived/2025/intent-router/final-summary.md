@@ -41,7 +41,6 @@ Established a central intent routing system that parses user inputs and routes t
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Implementation: `.cursor/rules/intent-routing.mdc`
 
 ## Credits

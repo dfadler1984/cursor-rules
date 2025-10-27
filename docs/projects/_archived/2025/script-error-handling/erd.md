@@ -5,7 +5,6 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Script Error Handling (Lite)
 
-Links: `docs/projects/script-error-handling/tasks.md`
 Related: `docs/projects/scripts-unix-philosophy/erd.md`, `docs/projects/script-test-hardening/erd.md`, `docs/projects/shell-scripts/erd.md`, `docs/projects/script-help-generation/erd.md`
 
 Mode: Lite

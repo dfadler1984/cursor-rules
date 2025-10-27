@@ -117,7 +117,6 @@ The `.cursor/rules/` directory contains 60+ rule files that serve multiple purpo
 **Phase 1: Create Commands**
 
 1. Create `.cursor/commands/` directory (if not exists)
-2. Create command files (`erd.md`, `tasks.md`, `investigation.md`, `test-plan.md`)
 3. Extract workflow guidance from rules into command templates
 4. Add usage examples and cross-references
 
@@ -220,4 +219,3 @@ The `.cursor/rules/` directory contains 60+ rule files that serve multiple purpo
 - [investigation-docs-structure](../investigation-docs-structure/) — Structure patterns
 - Existing `/project` command — Reference implementation
 - [Cursor Commands Documentation](https://cursor.com/docs/agent/chat/commands) — Platform docs
-**Links**: [README](./README.md) | [Tasks](./tasks.md) | [Analysis](./command-candidates-analysis.md)

@@ -126,7 +126,6 @@
 **Documents**:
 
 - [`tdd-compliance-investigation.md`](tdd-compliance-investigation.md) - Investigation plan
-- [`tdd-compliance-findings.md`](tdd-compliance-findings.md) - Data analysis
 - [`tdd-option-a-results.md`](tdd-option-a-results.md) - Implementation results
 
 ---
@@ -292,7 +291,6 @@ All in `docs/projects/rules-enforcement-investigation/`:
 5. `action-plan-revised.md` - Revised plan after user feedback (investigation-first)
 6. `enforcement-patterns-recommendations.md` - Pattern decision tree & catalog
 7. `tdd-compliance-investigation.md` - Investigation plan (4 hypotheses)
-8. `tdd-compliance-findings.md` - Data analysis and root causes
 9. `tdd-option-a-results.md` - Implementation results
 10. `session-2025-10-20-summary.md` - This document
 

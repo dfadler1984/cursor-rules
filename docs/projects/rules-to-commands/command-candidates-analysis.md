@@ -111,7 +111,6 @@ Creates `docs/projects/<feature>/erd.md` with:
 ```markdown
 # Generate Tasks from ERD
 
-Creates `tasks.md` with execution checklist derived from ERD.
 
 ## Usage
 
@@ -132,7 +131,6 @@ Creates `tasks.md` with execution checklist derived from ERD.
 
 ## Output
 
-Creates `docs/projects/<feature>/tasks.md` with:
 
 - Checkbox-based task tracking
 - Parent/sub-task hierarchy
@@ -246,7 +244,6 @@ Creates structured investigation project with proper folder organization.
 docs/projects/<slug>/
 ├── README.md
 ├── erd.md
-├── tasks.md
 ├── findings/
 ├── analysis/
 ├── sessions/

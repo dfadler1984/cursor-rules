@@ -41,7 +41,6 @@
 
 - [x] 4.0 Resolve duplicates
 
-  - [x] 4.1 slash-commands-decision.md - Kept root version, removed test-execution duplicate
   - [x] 4.2 Identified all duplicates (only 1 found)
   - [x] 4.3 Removed duplicate
 
@@ -64,7 +63,6 @@
   - [x] 7.1 Defined scope (discovery docs → sub-projects)
   - [x] 7.2 Created 3 project directories
   - [x] 7.3 Created ERDs (lightweight, scope-focused)
-  - [x] 7.4 Created tasks.md (minimal, will expand as needed)
   - [x] 7.5 Created READMEs with parent links
   - [x] 7.6 Added all to parent coordination.md
 
@@ -82,7 +80,6 @@
   - [x] 9.2 Moved analysis files to subfolders (4 files)
   - [x] 9.3 Moved archived-summaries to \_archived/ (6 files)
   - [x] 9.4 Reorganized test-execution (14 files split by purpose)
-  - [x] 9.5 Removed duplicate slash-commands-decision.md
 
 - [x] 10.0 Update cross-references
 
@@ -127,7 +124,6 @@
 
 ## Resolved Questions
 
-1. **findings.md**: ✅ Moved to findings/README.md as index
 2. **Pre-test discovery**: ✅ Became sub-projects (h2, h3, slash-commands)
 3. **Meta-violations**: ✅ In findings/ as gap files
 4. **coordination.md**: ✅ In root

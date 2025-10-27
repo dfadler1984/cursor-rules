@@ -31,7 +31,6 @@ Attempted to implement runtime routing via slash commands (e.g., user types `/co
 
 ## Documents
 
-- **[discovery.md](discovery.md)** - Pre-test analysis and design
 - **Decision**: [../rules-enforcement-investigation/decisions/slash-commands.md](../rules-enforcement-investigation/decisions/slash-commands.md)
 - **Test plan**: [../rules-enforcement-investigation/tests/experiment-slash-commands.md](../rules-enforcement-investigation/tests/experiment-slash-commands.md)
 - **Protocol**: [../rules-enforcement-investigation/protocols/slash-commands-phase3.md](../rules-enforcement-investigation/protocols/slash-commands-phase3.md) (not executed)

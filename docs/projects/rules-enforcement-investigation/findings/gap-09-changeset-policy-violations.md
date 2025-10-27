@@ -101,4 +101,3 @@ From Gap #15 analysis:
 ## Related
 
 - See: [gap-15-changeset-label-violation-and-script-bypass.md](gap-15-changeset-label-violation-and-script-bypass.md)
-- Task: 30.0 in [tasks.md](../tasks.md)

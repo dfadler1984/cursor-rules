@@ -1,18 +1,15 @@
 # Gap #3: Task Document Structure Not Clearly Defined
 
 **Discovered**: 2025-10-15  
-**Context**: tasks.md cleanup  
 **Severity**: Medium (document bloat)
 
 ---
 
 ## Issue
 
-No clear guidance on what belongs in tasks.md vs ERD vs other docs
 
 ## Evidence
 
-tasks.md accumulated findings, questions, success criteria (152 lines non-task content)
 
 ## Impact
 
@@ -20,7 +17,6 @@ Tasks file became bloated with content that should be in ERD/README
 
 ## Recommendation
 
-Define tasks.md as phase sections with checklists only; all other content in ERD
 
 ## Resolution
 
@@ -40,4 +36,3 @@ Evidence cited in both rules with examples.
 
 ## Related
 
-- Task: 16.0 in [tasks.md](../tasks.md)

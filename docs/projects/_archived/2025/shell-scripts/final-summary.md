@@ -42,7 +42,6 @@ Created a cohesive suite of 8 shell scripts to replace Node/yarn-based helpers w
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Implementation: `.cursor/scripts/*.sh` (8 scripts + 8 test files)
 - Unified coordination: `../shell-and-script-tooling/erd.md`
 

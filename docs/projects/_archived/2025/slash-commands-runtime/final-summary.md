@@ -41,7 +41,6 @@ Implemented runtime execution semantics for slash commands (`/plan`, `/tasks`, `
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - PROJECT-SUMMARY.md: `./PROJECT-SUMMARY.md` (comprehensive paired project summary)
 - Integration: `.cursor/rules/intent-routing.mdc` (Runtime Semantics section)
 - Paired with: [productivity](../productivity/final-summary.md)

@@ -52,7 +52,6 @@
 **Documents**:
 
 - [`tdd-compliance-investigation.md`](tdd-compliance-investigation.md)
-- [`tdd-compliance-findings.md`](tdd-compliance-findings.md)
 - [`tdd-option-a-results.md`](tdd-option-a-results.md)
 
 ---
@@ -166,7 +165,6 @@ All in `docs/projects/rules-enforcement-investigation/`:
 5. `action-plan-revised.md` — Investigation-first approach
 6. `enforcement-patterns-recommendations.md` — Pattern catalog
 7. `tdd-compliance-investigation.md` — Investigation plan
-8. `tdd-compliance-findings.md` — Data analysis
 9. `tdd-option-a-results.md` — Implementation results
 10. `prompt-templates-implementation.md` — Template creation
 11. `session-2025-10-20-summary.md` — Session overview

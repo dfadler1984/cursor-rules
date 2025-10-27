@@ -6,7 +6,6 @@ lastUpdated: 2025-10-23
 
 # Engineering Requirements Document — Productivity & Automation (Lite)
 
-Links: `.cursor/rules/favor-tooling.mdc` | `docs/projects/productivity/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

@@ -83,7 +83,6 @@
 
 ### Metrics Collection
 
-- [x] Set up monitoring infrastructure — Added to `ACTIVE-MONITORING.md`, created `validation-findings.md`
 - [ ] Measure over-prompting reduction (compare before/after) — Ongoing during monitoring period
 - [ ] Verify safety maintained (zero inappropriate risky operations) — Ongoing during monitoring period
 - [ ] Track allowlist usage patterns — Ongoing during monitoring period

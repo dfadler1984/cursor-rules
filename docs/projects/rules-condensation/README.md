@@ -5,7 +5,6 @@
 ## Quick Links
 
 - [Engineering Requirements](./erd.md)
-- [Task List](./tasks.md)
 
 ## Overview
 
@@ -49,4 +48,3 @@ Based on rules-enforcement-investigation findings:
 **Phase**: Planning  
 **Progress**: 0%
 
-See [tasks.md](./tasks.md) for execution tracking.

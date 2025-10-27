@@ -56,7 +56,6 @@
 
 ### Rules Refinement Extension
 
-See [`rules-refinement/tasks.md`](rules-refinement/tasks.md) for:
 
 - Intent detection strengthening (implementation-like triggers)
 - Pre-edit TDD gate improvements

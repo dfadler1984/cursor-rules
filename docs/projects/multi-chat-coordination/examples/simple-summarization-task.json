@@ -1,0 +1,34 @@
+{
+  "id": "task-001",
+  "type": "file-summary",
+  "description": "Generate a concise summary of the specified file",
+  "context": {
+    "targetFiles": [
+      "docs/projects/example-project/README.md"
+    ],
+    "outputFiles": [
+      "docs/projects/example-project/summary.md"
+    ],
+    "requirements": [
+      "Summary should be 100-200 words",
+      "Include: purpose, key features, current status",
+      "Use markdown format"
+    ],
+    "relevantRules": [
+      "testing.mdc"
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "Output file exists at specified path",
+      "Word count between 100-200",
+      "Contains all required sections",
+      "Markdown formatting is valid"
+    ],
+    "validation": "bash .cursor/scripts/coordination/task-schema-validate.sh"
+  },
+  "assignedTo": null,
+  "status": "pending",
+  "createdAt": "2025-01-26T12:00:00Z",
+  "dependencies": []
+}

@@ -65,7 +65,6 @@
 ## 3. Archival Artifacts
 
 - [x] Completion summary exists: `PROJECT-SUMMARY.md` (comprehensive 397 lines)
-- [x] `tasks.md` preserved with final state
 - [x] `README.md` state: ❌ **MISSING** (file not found in archived location)
 - [x] `erd.md` updated with completion status (front matter shows `status: complete`)
 

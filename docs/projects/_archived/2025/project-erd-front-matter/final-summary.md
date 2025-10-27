@@ -25,4 +25,3 @@ Shipped improvements per ERD objectives; see Links for details.
 ## Links
 
 - ERD: `../_archived/2025/project-erd-front-matter/erd.md`
-- Tasks: `../_archived/2025/project-erd-front-matter/tasks.md`

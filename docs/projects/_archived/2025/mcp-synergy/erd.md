@@ -3,7 +3,6 @@ status: archived
 ---
 # Engineering Requirements Document — MCP Synergy (Lite)
 
-Links: `.cursor/rules/mcp-synergy.mdc` | `docs/projects/mcp-synergy/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

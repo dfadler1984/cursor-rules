@@ -21,7 +21,6 @@ Detect and clean up orphaned files in the repository — files that are not refe
 ## Quick Links
 
 - [ERD](./erd.md) — Requirements and approach
-- [Tasks](./tasks.md) — Execution checklist
 
 ## Scope
 
@@ -53,6 +52,6 @@ bash .cursor/scripts/orphaned-files-detect.sh --report --output orphaned-files-r
 
 ## Related
 
-- [project-lifecycle.mdc](../../.cursor/rules/project-lifecycle.mdc) — Project completion and archival
-- [investigation-structure.mdc](../../.cursor/rules/investigation-structure.mdc) — Expected file patterns
+- [project-lifecycle.mdc](../../../.cursor/rules/project-lifecycle.mdc) — Project completion and archival
+- [investigation-structure.mdc](../../../.cursor/rules/investigation-structure.mdc) — Expected file patterns
 - [document-governance](../document-governance/) — Document lifecycle policies

@@ -60,7 +60,6 @@
    - 🛡️ Pre-Closure Checklist (8 hard gates prevent premature completion)
    - 🛡️ Validation Periods (mandatory for projects with fixes)
    - 📋 README as single entry point (prevents summary proliferation)
-   - 📋 Strict tasks.md structure (prevents content bloat)
    - 📋 ERD vs tasks separation (prevents duplication)
 
 2. **create-erd.mdc** (+105 lines):
@@ -72,7 +71,6 @@
 3. **generate-tasks-from-erd.mdc** (+102 lines):
 
    - 🎯 Converting ERD criteria to tasks (clear transformation)
-   - 🎯 What NOT to include in tasks.md (5 prohibited types)
    - 🎯 Evidence-based examples
 
 4. **self-improve.mdc** (+67 lines):
@@ -209,13 +207,7 @@
 
 **Analysis & Discovery** (8 files, ~2,950 lines):
 
-1. conditional-rules-analysis.md (395 lines)
-2. h2-pre-test-discovery.md (235 lines)
-3. h3-pre-test-discovery.md (308 lines)
-4. slash-commands-pre-test-discovery.md (418 lines)
-5. scalability-analysis.md (382 lines)
 6. test-plans-review.md (478 lines)
-7. premature-completion-analysis.md (488 lines)
 8. h1-validation-protocol.md (249 lines)
 
 **Test Data & Monitoring** (3 files, ~950 lines): 9. h2-test-a-data.md (retrospective analysis, ~350 lines) 10. h2-test-d-protocol.md (monitoring protocol, ~250 lines) 11. h2-test-d-checkpoint-1.md (first results, ~200 lines)
@@ -344,7 +336,6 @@
 ## Files Modified/Created
 
 **Created**: 13 documents (~4,500 lines)  
-**Modified**: 5 rules (~600 lines), 2 project docs (tasks.md, README.md)  
 **Total**: 18 files touched
 
 **All validated**: ✅ Pass linters, rules-validate.sh, format checks

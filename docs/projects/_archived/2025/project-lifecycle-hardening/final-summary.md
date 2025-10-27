@@ -32,7 +32,6 @@ last-updated: 2025-10-10
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 
 ## Credits
 

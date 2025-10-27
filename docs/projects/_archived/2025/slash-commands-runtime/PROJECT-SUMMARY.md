@@ -215,7 +215,6 @@ Completed two related automation projects that streamline repetitive operations 
 
 **Modified:**
 
-- `docs/projects/productivity/tasks.md` (marked complete)
 
 ### Slash Commands Runtime Project
 
@@ -233,7 +232,6 @@ Completed two related automation projects that streamline repetitive operations 
 
 **Modified:**
 
-- `docs/projects/slash-commands-runtime/tasks.md` (all tasks complete)
 - `.cursor/rules/intent-routing.mdc` (added Runtime Semantics section)
 
 ---

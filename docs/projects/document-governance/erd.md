@@ -40,7 +40,6 @@ We need a policy that defines approved document categories and requires consent 
 
 **Existing guidance** (in `/project` command and `investigation-structure.mdc`):
 
-- Minimum set: `erd.md`, `tasks.md`, `README.md`
 - Optional set: `discussions.md`, `findings/`, `analysis/`, `sessions/`, `test-results/`, `decisions/`, `protocols/`, `guides/`
 - Distinction between simple projects (3-5 files) and investigations (15+ files)
 
@@ -118,18 +117,15 @@ This umbrella project coordinates document standards across topics:
 
    - Status: Active (Lite ERD)
    - Scope: Standard templates for ERD/spec/plan/tasks/ADRs
-   - Links: [`templates/erd.md`](templates/erd.md), [`templates/tasks.md`](templates/tasks.md)
 
 2. **README Structure** (`readme/`)
 
    - Status: Active (Full ERD)
    - Scope: Root README organization and content mapping
-   - Links: [`readme/erd.md`](readme/erd.md), [`readme/tasks.md`](readme/tasks.md)
 
 3. **Lifecycle Metadata** (`lifecycle/`)
    - Status: Active (Full ERD)
    - Scope: ERD completion metadata and lifecycle tracking
-   - Links: [`lifecycle/erd.md`](lifecycle/erd.md), [`lifecycle/tasks.md`](lifecycle/tasks.md)
 
 ### Must Have (Policy Phase)
 

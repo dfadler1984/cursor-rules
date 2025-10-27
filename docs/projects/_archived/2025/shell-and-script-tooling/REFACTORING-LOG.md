@@ -151,7 +151,6 @@ This extraction serves as the template for future refactorings:
 **See Also:**
 
 - [Unix Philosophy Audit](./UNIX-PHILOSOPHY-AUDIT.md) — Original findings
-- [scripts-unix-philosophy/tasks.md](../scripts-unix-philosophy/tasks.md) — Refactoring tasks
 - [shell-unix-philosophy.mdc](../../../../../.cursor/rules/shell-unix-philosophy.mdc) — Enforcement rule
 
 ---
@@ -246,5 +245,4 @@ rules-validate-format.sh .cursor/rules/*.mdc
 **See Also:**
 
 - [Unix Philosophy Audit](./UNIX-PHILOSOPHY-AUDIT.md) — Original findings
-- [scripts-unix-philosophy/tasks.md](../scripts-unix-philosophy/tasks.md) — Refactoring tasks
 - [shell-unix-philosophy.mdc](../../../../../.cursor/rules/shell-unix-philosophy.mdc) — Enforcement rule

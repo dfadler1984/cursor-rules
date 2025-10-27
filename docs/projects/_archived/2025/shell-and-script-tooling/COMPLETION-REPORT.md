@@ -139,18 +139,9 @@ bash .cursor/scripts/links-check.sh --path docs/projects/README.md
 **Unified project:**
 
 - `shell-and-script-tooling/erd.md` — Script count, inventory, decision threshold
-- `shell-and-script-tooling/tasks.md` — Task 19.0 reconciliation details
 
 **Source projects (8):**
 
-- `script-help-generation/tasks.md` — Template approach documented
-- `script-rules/tasks.md` — Validator merge documented
-- `script-test-hardening/tasks.md` — D6 solution documented
-- `networkless-scripts/tasks.md` — Guidance approach documented
-- `shellcheck/tasks.md` — Inline config documented
-- `bash-scripts/tasks.md` — Embedded patterns marked complete
-- `scripts-unix-philosophy/tasks.md` — Philosophy embedded in D1-D6
-- `script-error-handling/tasks.md` — Infrastructure complete
 
 **Repository files:**
 
@@ -238,7 +229,6 @@ The shell-and-script-tooling project infrastructure is **complete**. All discrep
 **Files Reference:**
 
 - Project ERD: `docs/projects/shell-and-script-tooling/erd.md`
-- Project Tasks: `docs/projects/shell-and-script-tooling/tasks.md`
 - Migration Guide: `docs/projects/shell-and-script-tooling/MIGRATION-GUIDE.md`
 - Missing Tasks Analysis: `docs/projects/shell-and-script-tooling/MISSING-TASKS-ANALYSIS.md`
 - Reconciliation Summary: `docs/projects/shell-and-script-tooling/RECONCILIATION-SUMMARY.md`

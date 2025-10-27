@@ -281,7 +281,6 @@
 2. **tdd-first-js**: 75% compliance (target: >95%)
 3. **Branch naming**: 61% compliance (related to git-usage)
 
-### Suspected Violations (evidence in discovery.md)
 
 4. **project-lifecycle.mdc**: This project marked complete prematurely
 5. **testing.mdc**: Tests with weak assertions observed
@@ -367,7 +366,6 @@
 
 ---
 
-## Next Steps (per tasks.md)
 
 1. ✅ **0.2.1**: List all conditional rules — COMPLETE
 2. ✅ **0.2.2**: Categorize by risk level — COMPLETE

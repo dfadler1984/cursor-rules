@@ -287,7 +287,6 @@
 
 **When to execute**: Separate work session(s)
 
-**Tasks**: See tasks.md Phase 6G (24.0-29.0)
 
 **Estimated**: 4-6 hours total
 
@@ -322,7 +321,6 @@
 
   - [x] README.md (navigation and overview)
   - [x] ERD (requirements and approach)
-  - [x] tasks.md (execution tracking)
   - [x] findings/README.md (14 gaps + outcomes)
   - [x] analysis/synthesis.md (comprehensive findings)
 
@@ -367,7 +365,6 @@
 
 **Files Changed**: 15+
 
-- Updated: tasks.md, README.md, findings/README.md
 - Created: analysis/synthesis.md, analysis/findings-review-2025-10-21.md, findings/gap-12.md, findings/gap-13.md
 - Deleted: FINAL-SUMMARY.md, meta-learning-structure-violation.md
 - Reorganized: 3 files moved to correct folders
@@ -464,7 +461,6 @@
 
 - [x] README.md — Navigation and status
 - [x] ERD.md — Requirements and approach
-- [x] tasks.md — Execution tracking with carryovers
 - [x] findings/README.md — Outcomes and 14 gaps
 - [x] analysis/synthesis.md — Comprehensive findings
 
@@ -487,7 +483,6 @@
 
 **Root files**: 5 (within threshold)
 
-- README.md, erd.md, tasks.md, coordination.md, MONITORING-PROTOCOL.md
 
 **Findings**: 8 files (well-organized)
 
