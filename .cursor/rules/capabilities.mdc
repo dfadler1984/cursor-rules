@@ -253,6 +253,7 @@ All discovery outputs MUST conform to this schema:
 
 ### Validation gates & helpers
 
+- Validate PR descriptions: `[.cursor/scripts/pr-validate-description.sh](.cursor/scripts/pr-validate-description.sh) --pr <number>` - Check PR has non-template description
 - Validate PR titles locally: use local commit message policy via `.cursor/scripts/git-commit.sh`.
 - Enforce spec-diff in CI if configured.
 - Run related tests pre-commit: use your repo's test runner configuration.
