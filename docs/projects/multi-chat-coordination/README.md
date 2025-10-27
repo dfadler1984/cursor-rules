@@ -82,6 +82,6 @@ This overhead limits productivity gains from parallelization.
 
 ## Related Projects
 
-- [Context Efficiency](../context-efficiency/) - Metrics and scoring
+- Context Efficiency: `.cursor/rules/context-efficiency.mdc` - Metrics and scoring
 - [Chat Performance](../../guides/chat-performance/) - Quality patterns
 - Previous work: `MULTI-CHAT-SESSION-SUMMARY.md` (manual coordination baseline)
