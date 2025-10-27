@@ -37,15 +37,15 @@ Complete two related automation projects that streamline repetitive operations w
 
 - [`docs/projects/productivity/erd.md`](./erd.md) — Requirements
 - [`docs/projects/productivity/tasks.md`](./tasks.md) — Task list
-- [`.cursor/rules/favor-tooling.mdc`](../../../../.cursor/rules/favor-tooling.mdc) — Tooling-first philosophy
-- [`.cursor/scripts/git-*.sh`](../../../../.cursor/scripts/) — Example automation scripts
+- [`.cursor/rules/favor-tooling.mdc`](../../../.cursor/rules/favor-tooling.mdc) — Tooling-first philosophy
+- [`.cursor/scripts/git-*.sh`](../../../.cursor/scripts/) — Example automation scripts
 
 ### Slash Commands Project
 
 - [`docs/projects/slash-commands-runtime/erd.md`](../slash-commands-runtime/erd.md) — Requirements
 - [`docs/projects/slash-commands-runtime/tasks.md`](../slash-commands-runtime/tasks.md) — Task list
-- [`.cursor/rules/intent-routing.mdc`](../../../../.cursor/rules/intent-routing.mdc) — Current slash command mappings
-- [`.cursor/scripts/pr-create.sh`](../../../../.cursor/scripts/pr-create.sh) — Example of script `/pr` will call
+- [`.cursor/rules/intent-routing.mdc`](../../../.cursor/rules/intent-routing.mdc) — Current slash command mappings
+- [`.cursor/scripts/pr-create.sh`](../../../.cursor/scripts/pr-create.sh) — Example of script `/pr` will call
 
 ## Acceptance Criteria
 

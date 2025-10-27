@@ -44,4 +44,4 @@ Build tools and guides to measure, monitor, and improve chat context efficiency,
 
 - See: [`tasks.md`](./tasks.md) — Complete deliverables and status
 - See: [`.cursor/docs/guides/chat-performance/`](../../../.cursor/docs/guides/chat-performance/) — Guides library
-- See: [`.cursor/scripts/chat-performance/`](../../../../.cursor/scripts/chat-performance/) — CLI tools
+- See: [`.cursor/scripts/chat-performance/`](../../../.cursor/scripts/chat-performance/) — CLI tools
