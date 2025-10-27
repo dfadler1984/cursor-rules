@@ -24,7 +24,7 @@ Created 3 coordination scripts to wrap file operations:
 **Usage**:
 
 ```bash
-bash .cursor/scripts/coordination-task-assign.sh <task-id> <worker-id>
+bash .cursor/scripts/coordination/task-assign.sh <task-id> <worker-id>
 ```
 
 **What it does**:
@@ -49,7 +49,7 @@ bash .cursor/scripts/coordination-task-assign.sh <task-id> <worker-id>
 **Usage**:
 
 ```bash
-bash .cursor/scripts/coordination-report-check.sh [--format json|text]
+bash .cursor/scripts/coordination/report-check.sh [--format json|text]
 ```
 
 **What it does**:
@@ -75,7 +75,7 @@ bash .cursor/scripts/coordination-report-check.sh [--format json|text]
 **Usage**:
 
 ```bash
-bash .cursor/scripts/coordination-task-complete.sh <task-id>
+bash .cursor/scripts/coordination/task-complete.sh <task-id>
 ```
 
 **What it does**:

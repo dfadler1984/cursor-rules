@@ -105,7 +105,7 @@ After validation passes:
 
 1. **Check dependencies**: Find tasks with no unmet dependencies
 2. **Select next task**: Choose from pending queue
-3. **Assign via script**: Run `bash .cursor/scripts/coordination-task-assign.sh <task-id> <worker-id>`
+3. **Assign via script**: Run `bash .cursor/scripts/coordination/task-assign.sh <task-id> <worker-id>`
    - Script handles: moving file, updating JSON, no per-file consent needed
 4. **Verify success**: Script exits 0 and displays "✓ Task assigned"
 5. **Notify**: "Task <id> assigned to <worker>. Worker should check for tasks."
@@ -114,15 +114,15 @@ After validation passes:
 
 After assigning initial tasks, enter monitoring loop:
 
-1. **Check for new reports**: Run `bash .cursor/scripts/coordination-report-check.sh`
+1. **Check for new reports**: Run `bash .cursor/scripts/coordination/report-check.sh`
    - Script lists all reports in `tmp/coordination/reports/`
    - Returns: report files and task IDs
 2. **Process reports automatically**:
    - Read each new report JSON
    - Validate deliverables exist
-   - Run `bash .cursor/scripts/coordination-task-complete.sh <task-id>`
+   - Run `bash .cursor/scripts/coordination/task-complete.sh <task-id>`
    - Update status dashboard
-   - Assign next task via `bash .cursor/scripts/coordination-task-assign.sh <next-id> <worker-id>`
+   - Assign next task via `bash .cursor/scripts/coordination/task-assign.sh <next-id> <worker-id>`
 3. **Display status**: Show updated dashboard with all task states
 4. **Continue monitoring**: "Monitoring for worker completion. Say 'status' to refresh or 'stop' to exit monitoring."
 5. **Repeat**: Check reports directory every turn until no pending/assigned tasks remain
@@ -243,9 +243,9 @@ Include in every status update:
 
 - Worker behavior: `.cursor/rules/worker-chat.mdc`
 - Task schema: `docs/projects/multi-chat-coordination/decisions/task-schema-decision.md`
-- Validation script: `.cursor/scripts/task-schema-validate.sh`
+- Validation script: `.cursor/scripts/coordination/task-schema-validate.sh`
 - **Coordination scripts**:
-  - `.cursor/scripts/coordination-task-assign.sh` - Assign tasks to workers
-  - `.cursor/scripts/coordination-report-check.sh` - Check for worker reports
-  - `.cursor/scripts/coordination-task-complete.sh` - Mark tasks complete
+  - `.cursor/scripts/coordination/task-assign.sh` - Assign tasks to workers
+  - `.cursor/scripts/coordination/report-check.sh` - Check for worker reports
+  - `.cursor/scripts/coordination/task-complete.sh` - Mark tasks complete
 - Project ERD: `docs/projects/multi-chat-coordination/erd.md`

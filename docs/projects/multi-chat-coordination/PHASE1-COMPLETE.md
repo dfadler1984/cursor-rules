@@ -136,10 +136,10 @@ File-based multi-chat coordination pattern **validated successfully**. Worker ex
 
 **Scripts**:
 
-- `.cursor/scripts/coordination-task-assign.sh` (+ test)
-- `.cursor/scripts/coordination-report-check.sh` (+ test)
-- `.cursor/scripts/coordination-task-complete.sh` (+ test)
-- `.cursor/scripts/task-schema-validate.sh`
+- `.cursor/scripts/coordination/task-assign.sh` (+ test)
+- `.cursor/scripts/coordination/report-check.sh` (+ test)
+- `.cursor/scripts/coordination/task-complete.sh` (+ test)
+- `.cursor/scripts/coordination/task-schema-validate.sh`
 
 **Rules**:
 

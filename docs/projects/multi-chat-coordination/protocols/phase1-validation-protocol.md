@@ -7,7 +7,7 @@
 ## Pre-Validation Checklist
 
 - [x] Task JSON schema defined
-- [x] Validation script created (`.cursor/scripts/task-schema-validate.sh`)
+- [x] Validation script created (`.cursor/scripts/coordination/task-schema-validate.sh`)
 - [x] Coordinator rule written (`.cursor/rules/coordinator-chat.mdc`)
 - [x] Worker rule written (`.cursor/rules/worker-chat.mdc`)
 - [ ] Sample task tested with validation script
@@ -48,7 +48,7 @@ mkdir -p tmp/coordination/reports
 mkdir -p tmp/coordination/summaries
 
 # Test validation script
-bash .cursor/scripts/task-schema-validate.sh \
+bash .cursor/scripts/coordination/task-schema-validate.sh \
   docs/projects/multi-chat-coordination/examples/simple-summarization-task.json
 ```
 
@@ -80,7 +80,7 @@ Output summaries to tmp/coordination/summaries/
 **Validation checks**:
 
 - [ ] 3 files exist: `tmp/coordination/tasks/pending/task-{001,002,003}.json`
-- [ ] Each passes: `bash .cursor/scripts/task-schema-validate.sh <file>`
+- [ ] Each passes: `bash .cursor/scripts/coordination/task-schema-validate.sh <file>`
 - [ ] Each has unique ID, correct targetFiles, outputFiles
 
 ### Step 3: Worker Start

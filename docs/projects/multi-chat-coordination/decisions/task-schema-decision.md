@@ -89,7 +89,7 @@ pending → assigned → in-progress → completed
 Task schema must pass:
 
 ```bash
-bash .cursor/scripts/task-schema-validate.sh <task-file.json>
+bash .cursor/scripts/coordination/task-schema-validate.sh <task-file.json>
 ```
 
 Exit 0 = valid, exit 1 = invalid (with error message)
@@ -97,6 +97,6 @@ Exit 0 = valid, exit 1 = invalid (with error message)
 ## Related
 
 - Example: `examples/simple-summarization-task.json`
-- Validation script: `.cursor/scripts/task-schema-validate.sh`
+- Validation script: `.cursor/scripts/coordination/task-schema-validate.sh`
 - Worker rule: `.cursor/rules/worker-chat.mdc`
 

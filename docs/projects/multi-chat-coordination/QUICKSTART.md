@@ -123,7 +123,7 @@ Assign task-001 to worker
 **Validate manually**:
 
 ```bash
-bash .cursor/scripts/task-schema-validate.sh tmp/coordination/tasks/pending/task-001.json
+bash .cursor/scripts/coordination/task-schema-validate.sh tmp/coordination/tasks/pending/task-001.json
 ```
 
 ### Worker context degraded (score <4)

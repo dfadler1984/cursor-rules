@@ -37,6 +37,7 @@ mode: full
 **Current state**: Phase 2 TypeScript code in `src/coordination/` (outside `.cursor/`)
 
 **Options to explore** (when system proves valuable):
+
 1. Move to `.cursor/lib/coordination/` (new lib directory for shared code)
 2. Move to `.cursor/scripts/coordination/` (alongside other scripts)
 3. Inline into bash scripts (no TypeScript dependency)
@@ -196,7 +197,7 @@ mode: full
 
 - `.cursor/rules/coordinator-chat.mdc` - Coordinator behavior
 - `.cursor/rules/worker-chat.mdc` - Worker behavior
-- `.cursor/scripts/task-schema-validate.sh` - Task format validation
+- `.cursor/scripts/coordination/task-schema-validate.sh` - Task format validation
 - `docs/projects/multi-chat-coordination/protocols/phase1-validation-protocol.md`
 - `docs/projects/multi-chat-coordination/examples/simple-summarization-task.json`
 
@@ -217,7 +218,7 @@ mode: full
 "Connect as worker and start task loop"
 
 # Validation
-bash .cursor/scripts/task-schema-validate.sh tasks/*.json
+bash .cursor/scripts/coordination/task-schema-validate.sh tasks/*.json
 ```
 
 ## Risks & Mitigations
@@ -283,4 +284,3 @@ bash .cursor/scripts/task-schema-validate.sh tasks/*.json
 - Previous: `MULTI-CHAT-SESSION-SUMMARY.md` (manual coordination baseline)
 - Context efficiency metrics: `docs/projects/context-efficiency/`
 - Chat performance patterns: `docs/guides/chat-performance/`
-

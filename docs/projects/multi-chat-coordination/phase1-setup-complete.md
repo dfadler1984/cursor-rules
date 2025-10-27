@@ -13,7 +13,7 @@
    - Includes: id, type, description, context, acceptance criteria
    - Validated design with rationale
 
-2. **Validation Script** (`.cursor/scripts/task-schema-validate.sh`)
+2. **Validation Script** (`.cursor/scripts/coordination/task-schema-validate.sh`)
 
    - Checks required fields
    - Validates status transitions
@@ -131,7 +131,7 @@ During validation testing, measure:
 **Validation**:
 
 ```bash
-bash .cursor/scripts/task-schema-validate.sh <task-file.json>
+bash .cursor/scripts/coordination/task-schema-validate.sh <task-file.json>
 ```
 
 **Directory setup**:

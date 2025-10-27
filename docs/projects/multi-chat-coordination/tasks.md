@@ -20,7 +20,7 @@
   - File-based task assignment
   - Progress tracking via report files
   - Status display format
-- [x] Create task schema validation script (`.cursor/scripts/task-schema-validate.sh`)
+- [x] Create task schema validation script (`.cursor/scripts/coordination/task-schema-validate.sh`)
 - [x] Test coordinator with sample project (3 file summaries)
 
 ### Worker Implementation
@@ -220,10 +220,12 @@
 **Goal**: Make coordination system portable by keeping all code in `.cursor/` directory
 
 **Current state**:
+
 - ✅ Phase 1: All bash scripts in `.cursor/scripts/` (portable)
 - ⚠️ Phase 2: TypeScript code in `src/coordination/` (not portable)
 
 **Options to evaluate**:
+
 - [ ] Move `src/coordination/` → `.cursor/lib/coordination/`
 - [ ] Move to `.cursor/scripts/coordination/` (flatten)
 - [ ] Inline Phase 2 logic into bash (no TypeScript)
@@ -254,4 +256,4 @@ _Items discovered during work that don't fit current phase scope_
 - Worker rule: `.cursor/rules/worker-chat.mdc`
 - Server script: `.cursor/scripts/coordination-server.js`
 - Worker client: `.cursor/scripts/worker-client.js`
-- Validation scripts: `.cursor/scripts/task-schema-validate.sh`, etc.
+- Validation scripts: `.cursor/scripts/coordination/task-schema-validate.sh`, etc.
