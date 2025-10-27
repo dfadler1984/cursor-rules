@@ -174,7 +174,6 @@ This project defines tools and guidance to maintain high-quality, efficient chat
 ## 14. References
 
 - Cursor models documentation — [Cursor models docs](https://cursor.com/docs/models)
-- Discovery notes: [discovery.md](./discovery.md)
 
 ## 15. Context Efficiency Gauge (Specification)
 

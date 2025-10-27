@@ -58,7 +58,6 @@
 **Implementation**:
 
 - **Hard blocks** (exit 1):
-  - Missing required files (erd.md, tasks.md)
   - Invalid front matter (missing status/owner)
   - Archive target already exists (prevent overwrite)
 - **Soft warnings** (exit 0, stderr message):
@@ -101,7 +100,6 @@
 1. User manually updates front matter: `status: completed` → `status: active`
 2. Updates `docs/projects/README.md` index (move from Completed → Active)
 3. Removes or updates `final-summary.md` if needed
-4. Adds entry to `tasks.md` explaining why project was reopened
 
 No script provided initially; can be added if pattern emerges.
 
@@ -125,7 +123,6 @@ project-create.sh --name <slug> [--mode full|lite] [--owner <owner>] [--root <pa
 2. Create: `docs/projects/<slug>/`
 3. Generate:
    - `erd.md` with front matter (status=planning, owner, created date)
-   - `tasks.md` with placeholder structure
    - `README.md` with navigation links
 4. Output: Paths created, suggest next steps
 
@@ -156,7 +153,6 @@ project-status.sh <slug> [--format json|text] [--root <path>]
 **Behavior**:
 
 1. Read: `docs/projects/<slug>/erd.md` front matter
-2. Count: tasks in `tasks.md` (total vs completed checkboxes)
 3. Detect: mismatches (status vs completion %)
 4. Output: status, completion %, next action suggestion
 5. Exit: 0 (always; informational only)
@@ -372,7 +368,6 @@ lastUpdated: <YYYY-MM-DD>
 ## Relevant Files
 
 - `docs/projects/<slug>/erd.md` — Requirements
-- `docs/projects/<slug>/tasks.md` — This file
 
 ## Phase 1: <Phase Name>
 
@@ -401,7 +396,6 @@ lastUpdated: <YYYY-MM-DD>
 ## Quick Links
 
 - [ERD](./erd.md) — Requirements and design
-- [Tasks](./tasks.md) — Execution tracking
 - [Final Summary](./final-summary.md) — Outcomes (completed projects only)
 
 ## Overview

@@ -68,7 +68,6 @@
 ## Quick Navigation
 
 - **ERD**: [erd.md](./erd.md) — Requirements and design
-- **Tasks**: [tasks.md](./tasks.md) — Implementation phases
 - **Evidence**: [Gap #22 docs](../rules-enforcement-investigation/findings/gap-22-tdd-violation-pattern-archive-ready.md)
 
 ---

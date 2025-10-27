@@ -52,7 +52,6 @@ Audit and evaluate the utility of all GitHub Actions workflows used (or missing)
 
 ## 7. Data Model and Storage
 
-- Artifacts: this `erd.md`, `tasks.md`, inventory report, and proposed YAML drafts under `docs/projects/github-workflows-utility/`.
 
 ## 8. Integrations/Dependencies
 

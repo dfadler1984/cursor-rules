@@ -42,7 +42,6 @@ Successfully generalized Cursor-specific `cursor-platform-capabilities.mdc` into
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Completion Summary: `./COMPLETION-SUMMARY.md` — Detailed deliverables
 - New generic rule: `.cursor/rules/platform-capabilities.mdc`
 - Deprecated rule: `.cursor/rules/cursor-platform-capabilities.mdc` (now pointer)

@@ -27,15 +27,12 @@ Successfully completed two related projects to improve capabilities encoding and
    - Added pointer to canonical schema location in `capabilities.mdc`
 
 3. **Analysis Document**
-   - Created `analysis.md` documenting comparison, gaps, and decisions
    - Decision: Keep separate with clear scopes (no consolidation needed)
 
 ### Files Modified
 
 - ✅ `.cursor/rules/capabilities.mdc` — Added Discovery Schema (canonical)
 - ✅ `docs/projects/capabilities-rules/erd.md` — Points to canonical schema
-- ✅ `docs/projects/capabilities-rules/tasks.md` — All tasks complete
-- ✅ `docs/projects/capabilities-rules/analysis.md` — New analysis document
 
 ### Validation
 
@@ -74,7 +71,6 @@ Successfully completed two related projects to improve capabilities encoding and
 - ✅ `.cursor/rules/platform-capabilities.mdc` — New generic rule
 - ✅ `.cursor/rules/cursor-platform-capabilities.mdc` — Deprecated to pointer
 - ✅ `.cursor/rules/capabilities.mdc` — Updated platform reference
-- ✅ `docs/projects/platform-capabilities-generic/tasks.md` — All tasks complete
 
 ### Validation
 

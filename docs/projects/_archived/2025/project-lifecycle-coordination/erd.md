@@ -48,7 +48,6 @@ Improve project lifecycle adherence and create simple tooling so the assistant c
 1. **Project creation**
 
    - Script: `.cursor/scripts/project-create.sh --name <slug> [--mode full|lite]`
-   - Output: `docs/projects/<slug>/erd.md` + `tasks.md` from template
    - Auto-add to projects README under "Active"
 
 2. **Task coordination**
@@ -96,12 +95,10 @@ Improve project lifecycle adherence and create simple tooling so the assistant c
 ```
 Project Creation
 ├─ User: "Create project for X"
-├─ Assistant: Run project-create.sh → erd.md + tasks.md
 ├─ Auto-add to projects README
 └─ State: planning
 
 Work Phase
-├─ Assistant: Check tasks.md before starting
 ├─ Update checkboxes as work progresses
 ├─ Run scoped validation before commits
 └─ State: active
@@ -180,7 +177,6 @@ archivedDate: YYYY-MM-DD # when moved to _archived
 
 ```bash
 .cursor/scripts/project-create.sh --name <slug> [--mode full|lite]
-# Output: docs/projects/<slug>/erd.md + tasks.md
 # Side effect: Add to projects README
 ```
 
@@ -228,8 +224,6 @@ archivedDate: YYYY-MM-DD # when moved to _archived
 
 ### Test Cases
 
-1. **Create project**: Run `project-create.sh --name test-proj` → erd.md + tasks.md created, added to README
-2. **Status check**: Run `project-status.sh test-proj` → returns status, completion %, next action
 3. **Task tracking**: Assistant updates checkboxes as work progresses
 4. **Validation gate**: Incomplete tasks → validation fails → completion blocked
 5. **Completion flow**: All tasks done → `project-complete.sh` → final summary + status update
@@ -239,7 +233,6 @@ archivedDate: YYYY-MM-DD # when moved to _archived
 
 - [ ] Implemented: `project-create.sh`, `project-status.sh`, `project-complete.sh`
 - [ ] Integrated: Assistant checks project status before starting work
-- [ ] Integrated: Assistant updates tasks.md as work progresses
 - [ ] Integrated: Validation runs before lifecycle transitions
 - [ ] Tested: Full lifecycle flow (create → work → complete → archive)
 - [ ] Validated: Zero manual lifecycle coordination required

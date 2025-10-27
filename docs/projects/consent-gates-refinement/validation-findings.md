@@ -114,7 +114,6 @@ What needs to change to address this
 
 - **Project**: `consent-gates-refinement/`
 - **ERD**: `consent-gates-refinement/erd.md`
-- **Tasks**: `consent-gates-refinement/tasks.md`
 - **Phase 2 Summary**: `consent-gates-refinement/phase2-summary.md`
 - **Test Suite**: `consent-gates-refinement/consent-test-suite.md`
 - **Specifications**:

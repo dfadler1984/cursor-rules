@@ -5,7 +5,6 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — PR Create Script (Lite)
 
-Links: `.cursor/scripts/pr-create.sh` | `docs/projects/pr-create-script/tasks.md`
 
 ## 1. Introduction/Overview
 

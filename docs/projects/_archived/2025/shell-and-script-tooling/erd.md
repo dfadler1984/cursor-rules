@@ -3,7 +3,6 @@ status: completed
 ---
 # Engineering Requirements Document — Shell & Script Tooling (Unified)
 
-Links: [`tasks.md`](./tasks.md) | [`MIGRATION-GUIDE.md`](./MIGRATION-GUIDE.md) | [`PROGRESS.md`](./PROGRESS.md) | [`UNIX-PHILOSOPHY-AUDIT.md`](./UNIX-PHILOSOPHY-AUDIT.md) | [`UNIX-PHILOSOPHY-AUDIT-UPDATED.md`](./UNIX-PHILOSOPHY-AUDIT-UPDATED.md) | [`REVIEW-FINDINGS.md`](./REVIEW-FINDINGS.md) | [`final-summary.md`](./final-summary.md)
 
 ## 1. Introduction/Overview
 
@@ -19,15 +18,7 @@ Unify and coordinate shell/script-related initiatives across the repository by r
 
 ## 3. Source Projects (authoritative references)
 
-- Bash Script Standards — `docs/projects/bash-scripts/erd.md` | tasks: `docs/projects/bash-scripts/tasks.md`
 - Shell Scripts Suite — `docs/projects/_archived/2025/shell-scripts/final-summary.md` | **Completed 2025-10-11**
-- Scripts & Unix Philosophy — `docs/projects/scripts-unix-philosophy/erd.md` | tasks: `docs/projects/scripts-unix-philosophy/tasks.md`
-- Script Rules (best practices) — `docs/projects/script-rules/erd.md` | tasks: `docs/projects/script-rules/tasks.md`
-- Script Help Generation — `docs/projects/script-help-generation/erd.md` | tasks: `docs/projects/script-help-generation/tasks.md`
-- Script Error Handling — `docs/projects/script-error-handling/erd.md` | tasks: `docs/projects/script-error-handling/tasks.md`
-- Script Test Hardening — `docs/projects/script-test-hardening/erd.md` | tasks: `docs/projects/script-test-hardening/tasks.md`
-- ShellCheck Adoption — `docs/projects/shellcheck/erd.md` | tasks: `docs/projects/shellcheck/tasks.md`
-- Networkless Scripts — `docs/projects/networkless-scripts/erd.md` | tasks: `docs/projects/networkless-scripts/tasks.md`
 - Tests GitHub Deletion — `docs/projects/_archived/2025/tests-github-deletion/final-summary.md` | **Status: ARCHIVED (2025-10-13)**
 
 ## 4. Goals/Objectives
@@ -107,7 +98,6 @@ Unify and coordinate shell/script-related initiatives across the repository by r
   - **Remaining (P3):** 2 optional refinements moved to [script-refinement](../../../script-refinement/erd.md)
     - checks-status.sh extraction
     - rules-validate-format.sh split
-  - See: `UNIX-EXTRACTION-COMPLETE.md`, `REVIEW-FINDINGS.md`, `scripts-unix-philosophy/tasks.md` Phase 4
 
 ## 7. Risks/Edge Cases
 
@@ -192,7 +182,6 @@ These proposals centralize defaults; adoptions occur in source projects with exp
 
 Adoption workflow:
 
-- Record each adoption under `docs/projects/<source>/tasks.md` with a backlink to this section and status.
 - Keep source ERDs authoritative for detailed behavior and validators.
 
 ## 11. Future Considerations

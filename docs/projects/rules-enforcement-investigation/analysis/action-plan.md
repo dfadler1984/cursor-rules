@@ -295,7 +295,6 @@ Investigation complete when ALL of the following are done:
 - [ ] **Synthesis written** (recommendations finalized based on validation)
 - [ ] **Final summary complete** (executive summary + reusable patterns documented)
 - [ ] **All artifacts validated** (rules-validate.sh passing, no broken links)
-- [ ] **Status updated** (tasks.md, README.md, findings.md all reflect completion)
 
 ---
 

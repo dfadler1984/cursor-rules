@@ -174,7 +174,6 @@
   - [ ] 7.11 Update rules README with consolidation notes
   - [ ] 7.12 Document deprecated rules (if any)
   - [ ] 7.13 Update CHANGELOG.md with consolidation summary
-  - [ ] 7.14 Create final summary in findings.md
 
 ## Phase 8: Rollout & Cleanup (1-2 hours)
 

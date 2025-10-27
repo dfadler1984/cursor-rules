@@ -62,7 +62,6 @@ This overhead limits productivity gains from parallelization.
 
 - **[Quick Start Guide](./QUICKSTART.md)** ← Start here!
 - [Engineering Requirements (ERD)](./erd.md)
-- [Task Tracker](./tasks.md)
 - [Decisions](./decisions/)
 - [Protocols](./protocols/)
 - [Examples](./examples/)
@@ -76,7 +75,6 @@ This overhead limits productivity gains from parallelization.
 ## Navigation
 
 - **Planning artifacts**: See ERD for full requirements
-- **Execution tracking**: See tasks.md for phased implementation plan
 - **Design decisions**: See decisions/ for protocol and architecture choices
 - **Validation protocols**: See protocols/ for testing procedures per phase
 

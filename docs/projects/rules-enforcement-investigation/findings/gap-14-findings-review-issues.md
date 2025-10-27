@@ -18,7 +18,6 @@ During findings review, discovered duplicate files (violated Gap #6 again), 13+ 
    - `meta-learning-structure-violation.md`
    - Both describe same issue with 70% content overlap
 
-2. **Missing tasks**: 13+ proposed actions from Gaps #11, #12, #13, TDD findings, H2 findings never tracked in tasks.md
 
 3. **No checkpoint**: No "findings review" checkpoint in project-lifecycle.mdc to catch this
 
@@ -69,7 +68,6 @@ Even after documenting 13 gaps, violated patterns during documentation itself
 - `.cursor/rules/project-lifecycle.mdc`
 - `.cursor/rules/self-improve.mdc`
 - `.cursor/rules/investigation-structure.mdc`
-- `tasks.md`
 
 ## Resolution
 
@@ -84,5 +82,4 @@ Even after documenting 13 gaps, violated patterns during documentation itself
 ## Related
 
 - Analysis: [analysis/findings-review-2025-10-21.md](../analysis/findings-review-2025-10-21.md)
-- Task: 28.0 in [tasks.md](../tasks.md)
 - Related gaps: #6, #11, #12, #13

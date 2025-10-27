@@ -1,7 +1,6 @@
 # Rules Enforcement Investigation — Test Plans Index
 
 **Project**: [rules-enforcement-investigation](../erd.md)  
-**Discovery Document**: [discovery.md](../discovery.md)  
 **Purpose**: Comprehensive test plans for validating rule enforcement improvements
 
 ---
@@ -257,7 +256,6 @@ tests/
     baseline/
       script-usage-baseline.csv
       tdd-compliance-baseline.csv
-    h1-conditional-attachment/
       control-group.csv
       experimental-group.csv
       comparison.yaml
@@ -310,8 +308,6 @@ tests/
 For questions about test plans, file issues or discuss in:
 
 - **Project ERD**: [erd.md](../erd.md)
-- **Tasks**: [tasks.md](../tasks.md)
-- **Discovery**: [discovery.md](../discovery.md)
 
 ---
 

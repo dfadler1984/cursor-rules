@@ -36,7 +36,6 @@ Create a focused, maintainable rules system by consolidating overlapping guidanc
   - Merge `testing`, `testing-structure`, `testing-naming`, `test-quality` → `testing.mdc` (subsections); retain `testing.caps.mdc`
   - Fold `critical-thinking.caps.mdc` into `direct-answers.mdc` (Root‑cause‑first section) — done
   - Fold `task-list-process.mdc` into `project-lifecycle.mdc` (or subsection) — done
-  - Fold `capabilities-discovery.mdc` into `capabilities.mdc` (Discovery section) — done
 - Add `global-defaults.mdc` and replace repeated blocks elsewhere with links — done
   - Consolidate `.caps.mdc` quick refs:
     - Keep a small set of high‑value quick refs (CLI/trigger heavy): `assistant-git-usage`, `github-api-usage`, `commands`, `intent-routing`, `tdd-first`, `create-erd`, `generate-tasks-from-erd`, `project-lifecycle`, `testing` (one‑screen overview). Optional: `direct-answers`, `logging-protocol`, `workspace-security`.

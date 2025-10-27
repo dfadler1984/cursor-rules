@@ -35,7 +35,6 @@ A lightweight, zero-dependency scoring system (1-5 scale: lean → bloated) base
   - Decision flow chart ("Should I start a new chat?")
 - **Integration:** Surfaces in assistant status updates when score ≤3/5 or ≥2 signals true
 
-**Algorithm Details:** [scoring-rubric-implementation.md](./scoring-rubric-implementation.md)
 
 ---
 
@@ -83,9 +82,6 @@ Documentation for developers and chat users (permanent location):
 ### For Contributors (Want to Understand the Project?)
 
 1. **Requirements & Architecture:** [erd.md](./erd.md)
-2. **Task Tracking:** [tasks.md](./tasks.md)
-3. **Research Notes:** [discovery.md](./discovery.md)
-4. **Gauge Algorithm:** [scoring-rubric-implementation.md](./scoring-rubric-implementation.md)
 
 ---
 
@@ -144,7 +140,6 @@ echo "Sample text" | .cursor/scripts/chat-performance/chat-analyze.sh --format j
 
 ### Why Defer Provider API Features?
 
-Many desirable features (entropy monitoring, real-time usage, finish_reason analysis) require access to provider API response fields that are not available in the current environment. These are documented in [discovery.md](./discovery.md) for future consideration if API access becomes available.
 
 ---
 
@@ -154,9 +149,6 @@ Many desirable features (entropy monitoring, real-time usage, finish_reason anal
 chat-performance-and-quality-tools/         ← Project files (will archive)
 ├── README.md                               ← You are here
 ├── erd.md                                  ← Requirements and architecture
-├── tasks.md                                ← Task tracking (All tiers complete)
-├── discovery.md                            ← Research notes
-├── scoring-rubric-implementation.md        ← Gauge algorithm specification
 └── guides/                                 ← Original guide development location
     └── (7 guides)                          ← Promoted to permanent location (see below)
 
@@ -220,7 +212,6 @@ If you discover:
 2. Update `MODEL_CONFIGS` in `.cursor/scripts/chat-performance/token-estimator.js`
 3. Run tests: `cd .cursor/scripts/chat-performance && npm test`
 4. Update help text in `token-estimate.sh` and `chat-analyze.sh`
-5. Update README and tasks.md with new model count
 
 **Current Status (13 models):**
 
@@ -271,7 +262,4 @@ If you discover:
 ## Links
 
 - **Full Requirements:** [erd.md](./erd.md)
-- **Task Progress:** [tasks.md](./tasks.md)
 - **User Guides:** [.cursor/docs/guides/chat-performance/](../../../../../.cursor/docs/guides/chat-performance/) (permanent location)
-- **Research:** [discovery.md](./discovery.md)
-- **Algorithm:** [scoring-rubric-implementation.md](./scoring-rubric-implementation.md)

@@ -8,7 +8,6 @@ lastUpdated: 2025-10-14
 
 Mode: Lite
 
-Links: [`tasks.md`](./tasks.md)
 
 ## 1. Introduction/Overview
 

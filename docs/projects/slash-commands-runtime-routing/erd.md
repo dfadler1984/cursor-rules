@@ -34,5 +34,4 @@ Project closed as not viable. Slash command approach abandoned in favor of inten
 ## References
 
 - See: [`README.md`](./README.md) — Full investigation details
-- See: [`discovery.md`](./discovery.md) — Platform constraint discovery
 - Related: [assistant-self-testing-limits](../assistant-self-testing-limits/) — Testing methodology insights

@@ -28,4 +28,3 @@ References
 
 - `docs/projects/ai-workflow-integration/erd.md`
 - `docs/projects/ai-workflow-integration/discussions.md`
-- `docs/projects/ai-workflow-integration/tasks.md`

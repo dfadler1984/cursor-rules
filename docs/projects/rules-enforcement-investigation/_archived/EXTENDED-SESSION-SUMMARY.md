@@ -39,8 +39,6 @@
    - Pre-Closure Checklist (8 mandatory hard gates)
    - Validation Periods section
    - README as single entry point policy
-   - Strict tasks.md structure
-   - ERD vs tasks.md separation
 
 2. ✅ `create-erd.mdc` (+105 lines)
 
@@ -51,7 +49,6 @@
 3. ✅ `generate-tasks-from-erd.mdc` (+102 lines)
 
    - Converting ERD criteria to task checklists
-   - What NOT to include in tasks.md
    - Evidence-based examples
 
 4. ✅ `self-improve.mdc` (+67 lines)
@@ -99,13 +96,7 @@
 
 **Analysis Documents** (8 files):
 
-1. conditional-rules-analysis.md
-2. h2-pre-test-discovery.md
-3. h3-pre-test-discovery.md
-4. slash-commands-pre-test-discovery.md
-5. scalability-analysis.md
 6. test-plans-review.md
-7. premature-completion-analysis.md
 8. h1-validation-protocol.md
 
 **Test Data & Protocols** (3 files): 9. h2-test-a-data.md (retrospective analysis) 10. h2-test-d-protocol.md (visible gate monitoring) 11. SESSION-SUMMARY-2025-10-15.md

@@ -46,7 +46,6 @@ Unified shell script infrastructure project that established comprehensive stand
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Migration Guide: `./MIGRATION-GUIDE.md`
 - Audit Documents: `./UNIX-PHILOSOPHY-AUDIT-UPDATED.md`, `./REVIEW-FINDINGS.md`
 

@@ -157,7 +157,6 @@ bash .cursor/scripts/compliance-dashboard.sh --limit 30
 
 ### Conditional Tests (Deferred)
 
-4. **Slash commands**: Execute only if H1+H2+H3 <90% (see `slash-commands-decision.md`)
 5. **Scalability synthesis**: Create decision tree for 25 conditional rules
 
 ### Documentation

@@ -15,7 +15,6 @@ Completed a full audit of the `shell-and-script-tooling` unified project and all
 - **Documented:** 37 scripts
 - **Actual:** 38 production scripts
 - **Discrepancy:** `rules-validate.spec.sh` (spec helper) was uncounted
-- **Resolution:** Updated ERD and tasks.md to reflect 38 scripts (37 validated + 1 spec helper)
 
 ### Source Project Reconciliation
 
@@ -129,19 +128,10 @@ All 9 active source projects reviewed and updated:
 ### Unified Project Files (3)
 
 - `docs/projects/shell-and-script-tooling/erd.md`
-- `docs/projects/shell-and-script-tooling/tasks.md`
 - `docs/projects/shell-and-script-tooling/PROGRESS.md` (no changes needed; already accurate)
 
 ### Source Project Task Files (8)
 
-- `docs/projects/script-help-generation/tasks.md`
-- `docs/projects/script-rules/tasks.md`
-- `docs/projects/script-test-hardening/tasks.md`
-- `docs/projects/networkless-scripts/tasks.md`
-- `docs/projects/shellcheck/tasks.md`
-- `docs/projects/bash-scripts/tasks.md`
-- `docs/projects/scripts-unix-philosophy/tasks.md`
-- `docs/projects/script-error-handling/tasks.md`
 
 ### New Files Created (3)
 

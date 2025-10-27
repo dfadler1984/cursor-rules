@@ -7,7 +7,6 @@
 - [x] Document common failure modes (ambiguous signals, conflicting triggers)
 - [x] Measure baseline: false-positive rate, context overhead, time-to-route
 
-**Deliverable**: [analysis.md](./analysis.md) — Comprehensive baseline analysis with:
 
 - Current routing performance: 68% baseline (script usage 74%, TDD 75%, branch naming 61%)
 - Top 10 intent patterns with accuracy rates
@@ -23,7 +22,6 @@
 
 **Deliverables**:
 
-- [optimization-proposal.md](./optimization-proposal.md) — Comprehensive Phase 2 proposal with 4 optimizations
 - [routing-test-suite.md](../../../../../.cursor/docs/tests/routing-test-suite.md) — 25 test cases across 10 groups
 - Updated `.cursor/rules/intent-routing.mdc` with:
   - Explicit intent override tier (file signals downgraded)
@@ -68,7 +66,6 @@
 - ✅ All 4 critical optimizations validated
 - ✅ All 10 intent groups tested (Implementation, Guidance, Intent Override, Multi-Intent, Confidence, Analysis, Testing, Refactoring, Git, Lifecycle)
 
-**Phase 3 Findings** (see [phase3-findings.md](./phase3-findings.md)):
 
 - **Finding #1**: Changeset intent partially honored (2025-10-23)
 
@@ -111,7 +108,6 @@
   - ✅ GitHub Action auto-applies: `.github/workflows/changeset-autolabel-docs.yml`
   - ✅ Root cause: Workflow checks isDocsOnly, doesn't check hasChangeset
   - ✅ Workflow runs on every push (synchronize event) → may re-apply label
-  - ✅ Documented in phase3-findings.md
   - ✅ Script-first violation documented as Gap #18 in rules-enforcement-investigation
 
 - [x] **Workflow**: Update assistant-git-usage.mdc ✅

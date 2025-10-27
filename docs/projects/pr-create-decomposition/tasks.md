@@ -182,7 +182,5 @@ This project decomposes the monolithic `pr-create.sh` (303 lines, 14 flags) into
 ```
 
 **References**:
-- `docs/projects/routing-optimization/phase3-findings.md` — Finding #1
-- `docs/projects/routing-optimization/tasks.md` — Phase 3 corrective actions
 - PR #159 — Real-world example
 

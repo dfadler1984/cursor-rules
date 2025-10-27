@@ -44,7 +44,6 @@ Streamlined the rules system by consolidating overlapping guidance, strengthenin
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Discussions: `./discussions.md`
 - Implementation: `.cursor/rules/global-defaults.mdc`, `.cursor/rules/testing.mdc`, `.cursor/scripts/rules-validate.sh`
 

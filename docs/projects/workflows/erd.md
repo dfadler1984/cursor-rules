@@ -50,7 +50,6 @@ Investigate and define “workflows” as encoded, repeatable ways of doing task
 
 ## 7. Data Model and Storage
 
-- Artifacts: `erd.md`, `tasks.md` under `docs/projects/workflows/`.
 - Optional: small templates under `.cursor/templates/workflows/` (future work).
 
 ## 8. API/Contracts

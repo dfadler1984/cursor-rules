@@ -396,7 +396,6 @@ These work fine with conditional attachment:
 
 **Application**: Prefer historical analysis, passive monitoring, and external validation over self-administered tests.
 
-**Evidence**: Slash commands — user attempted `/status` (30 seconds) → discovered platform constraint that 50 test trials (8-12 hours) would have missed. See [slash-commands-runtime-routing](../../slash-commands-runtime-routing/) and [assistant-self-testing-limits](../../assistant-self-testing-limits/).
 
 ### 2. Investigation-First Saves Time
 
@@ -457,7 +456,6 @@ These work fine with conditional attachment:
 
 **Solution**: Combine enforcement patterns (AlwaysApply for critical, visible gates for transparency, routing for the rest)
 
-**Evidence**: Current state — 19 alwaysApply rules (~34k tokens). If all 44 → ~67k tokens (+97%). Practical limit: ~20 rules. See discovery task 0.6 in [tasks.md](../tasks.md).
 
 ### 7. Explicit Requirements > Soft Guidance
 
@@ -517,7 +515,6 @@ These work fine with conditional attachment:
 **Q7: Does visible query output improve enforcement?**  
 → ⏸️ **H3 monitoring deferred** (H1 already 100%; H3 unlikely to improve beyond that)  
 → 🎯 **Transparency value TBD** (may be useful for awareness, not compliance)  
-→ See: [H3 validation results](#h3-query-visibility----no-data-yet)
 
 ---
 
@@ -540,7 +537,6 @@ These work fine with conditional attachment:
 
 ### Documentation (Comprehensive)
 
-- **Discovery** ([discovery.md](../discovery.md)) — 1,389 lines deep analysis
 - **Test plans** ([tests/](../tests/)) — 7 detailed plans (~3,500 lines, reusable template created)
 - **Synthesis** (this file) — Comprehensive findings, decision tree, 25-rule categorization
 - **Findings** ([findings/README.md](../findings/README.md)) — Summary and index linking to 16 individual gap documents
@@ -567,9 +563,6 @@ These work fine with conditional attachment:
 
 - ✅ [assistant-self-testing-limits](../../assistant-self-testing-limits/) — Testing paradox documentation and valid measurement strategies
 - ✅ [investigation-docs-structure](../../investigation-docs-structure/) — Structure standard for complex investigations
-- ⏸️ [h2-send-gate-investigation](../../_archived/2025/h2-send-gate-investigation/) — Visible gate monitoring (optional continuation)
-- ⏸️ [h3-query-visibility](../../_archived/2025/h3-query-visibility/) — Query visibility monitoring (deferred)
-- ❌ [slash-commands-runtime-routing](../../slash-commands-runtime-routing/) — Platform constraint documented (not viable)
 
 ---
 
@@ -610,7 +603,6 @@ This synthesis represents complete Phase 1 investigation with:
 
 ### Phase 6G: Rule Improvements — ⏸️ CARRYOVER
 
-**Status**: Fully documented in tasks.md Phase 6G (tasks 24.0-29.0)
 
 **Scope**: 6 tasks, 20+ sub-tasks
 

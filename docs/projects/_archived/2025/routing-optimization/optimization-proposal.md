@@ -1,7 +1,6 @@
 # Routing Optimization — Phase 2 Proposal
 
 **Date**: 2025-10-23  
-**Based on**: [analysis.md](./analysis.md) baseline findings  
 **Status**: Proposed optimizations for implementation
 
 ---
@@ -92,7 +91,6 @@ This document proposes targeted optimizations to improve intent routing accuracy
 
 **Evidence**:
 
-- Failure Mode 6 (analysis.md): Guidance vs implementation confusion
 - Soft phrasing ("should consider", "we probably need") misinterpreted
 - Observed in rules-authoring scenarios (Gap #11 finding)
 
@@ -179,7 +177,6 @@ This document proposes targeted optimizations to improve intent routing accuracy
 
 **Evidence**:
 
-- Failure Mode 7 (analysis.md): Multi-intent requests
 - No explicit handling in intent-routing.mdc
 - Observed in project work: plan requested but implementation started
 

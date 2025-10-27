@@ -26,4 +26,3 @@ last-updated: 2025-10-06
 ## Links
 
 - ERD: docs/projects/\_archived/2025/skip-changeset-opt-in/erd.md
-- Tasks: docs/projects/\_archived/2025/skip-changeset-opt-in/tasks.md

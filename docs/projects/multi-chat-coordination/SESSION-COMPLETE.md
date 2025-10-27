@@ -126,7 +126,6 @@ src/coordination/
 docs/projects/multi-chat-coordination/
 ├── README.md (updated)
 ├── erd.md (4 phases)
-├── tasks.md (execution tracker)
 ├── QUICKSTART.md (Phase 1 guide)
 ├── PHASE1-COMPLETE.md (validation results)
 ├── PHASE2-FINDINGS.md (exploration results)

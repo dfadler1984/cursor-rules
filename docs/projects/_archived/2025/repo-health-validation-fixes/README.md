@@ -7,8 +7,6 @@
 ## Quick Links
 
 - [ERD](./erd.md) — Requirements and design
-- [Tasks](./tasks.md) — Execution tracking
-- [Findings](./findings.md) — Process observations from prior session
 
 ## Overview
 

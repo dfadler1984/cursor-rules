@@ -20,31 +20,26 @@
    - Measurement tools working correctly
    - No gaps identified
 
-2. **Conditional Rules Analysis** (0.2) → `conditional-rules-analysis.md`
 
    - 25 conditional rules categorized by risk (1 critical, 5 high, 7 medium, 12 low)
    - 5 enforcement pattern groups identified
    - **Key finding**: alwaysApply doesn't scale (+97% context cost)
 
-3. **H2 Pre-Test Discovery** (0.3) → `h2-pre-test-discovery.md`
 
    - Send gate structure analyzed (7 checklist items)
    - 20 visibility test scenarios + 10 violation scenarios ready
    - Observable signals identified
 
-4. **H3 Pre-Test Discovery** (0.4) → `h3-pre-test-discovery.md`
 
    - Query protocol reviewed (3-step process)
    - No visible query evidence in git history
    - 20 test scenarios designed
 
-5. **Slash Commands Pre-Test** (0.5) → `slash-commands-pre-test-discovery.md`
 
    - External patterns analyzed (Taskmaster/Spec-kit)
    - Complete rule structure drafted
    - Integration design complete
 
-6. **Scalability Analysis** (0.6) → `scalability-analysis.md`
    - Context cost: 34k tokens (current) vs 67k (all always-apply)
    - 6 scalable enforcement patterns identified
    - Decision framework created
@@ -61,7 +56,6 @@
    - Minor gaps identified (all non-blocking)
    - **Assessment**: Approved for execution
 
-2. **Premature Completion Analysis** (R.2) → `premature-completion-analysis.md`
    - 5 root causes identified
    - 5 missed signals documented
    - 5 prevention strategies proposed
@@ -115,13 +109,7 @@
 
 ### Documents Created (8 new files, ~3,000 lines)
 
-1. conditional-rules-analysis.md (395 lines)
-2. h2-pre-test-discovery.md (235 lines)
-3. h3-pre-test-discovery.md (308 lines)
-4. slash-commands-pre-test-discovery.md (418 lines)
-5. scalability-analysis.md (382 lines)
 6. test-plans-review.md (478 lines)
-7. premature-completion-analysis.md (488 lines)
 8. h1-validation-protocol.md (249 lines)
 9. SESSION-SUMMARY-2025-10-15.md (this summary)
 
@@ -133,7 +121,6 @@
    - Pre-Closure Checklist (47 lines)
    - Validation Periods (37 lines)
    - README as single entry point (62 lines)
-   - tasks.md structure (46 lines)
    - ERD vs tasks separation (44 lines)
    - **Total added**: ~294 lines
    - **Health**: content: green → green, usability: yellow → green
@@ -182,15 +169,12 @@
 
 **Problem**: Content bloat when boundaries are unclear
 
-- tasks.md: 333 lines (152 non-task content)
 - ERD: 441 lines (73-line findings section)
 - 3 overlapping summaries (70-80% duplicate)
 
 **Solution**: Strict separation
 
 - ERD = requirements (narrative, stable)
-- tasks.md = checklists (execution, dynamic)
-- findings.md = outcomes (retrospective)
 - README.md = navigation (single entry point)
 
 ### 3. Hard Gates Prevent Premature Closure
@@ -456,22 +440,12 @@ _(Note: Earlier estimate of 40% may be slightly optimistic; conservative estimat
 **Core Deliverables** (permanent):
 
 - ✅ erd.md (366 lines) — Requirements and approach
-- ✅ tasks.md (333 lines) — Execution tracking, 40% complete
-- ✅ findings.md (268 lines) — Outcomes and retrospective
 - ✅ README.md (174 lines) — Navigation and overview
-- ✅ BASELINE-REPORT.md (baseline metrics)
 - ✅ ci-integration-guide.md (CI integration)
 
 **Analysis Documents** (reference):
 
-- ✅ discovery.md (1,400+ lines) — Deep technical analysis
-- ✅ conditional-rules-analysis.md (395 lines)
-- ✅ scalability-analysis.md (382 lines)
-- ✅ h2-pre-test-discovery.md (235 lines)
-- ✅ h3-pre-test-discovery.md (308 lines)
-- ✅ slash-commands-pre-test-discovery.md (418 lines)
 - ✅ test-plans-review.md (478 lines)
-- ✅ premature-completion-analysis.md (488 lines)
 - ✅ h1-validation-protocol.md (249 lines)
 - ✅ SESSION-SUMMARY-2025-10-15.md
 - ✅ PROGRESS-UPDATE-2025-10-15.md (this doc)

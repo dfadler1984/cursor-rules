@@ -7,7 +7,6 @@ owner: rules-maintainers
 
 Mode: Full
 
-Links: `docs/projects/readme-structure/tasks.md` | `docs/projects/README.md`
 
 ## 1. Introduction/Overview
 

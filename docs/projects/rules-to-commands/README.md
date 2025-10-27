@@ -21,8 +21,6 @@ Review all `.cursor/rules/*.mdc` files to identify which rules would work better
 ## Quick Links
 
 - [ERD](./erd.md) — Full requirements and approach
-- [Tasks](./tasks.md) — Execution checklist
-- [Analysis](./command-candidates-analysis.md) — Detailed review and recommendations
 
 ## Current Status
 
@@ -100,4 +98,3 @@ All behavioral enforcement remains:
 
 ---
 
-**Navigation**: [Projects Index](../README.md) | [ERD](./erd.md) | [Tasks](./tasks.md)

@@ -1,6 +1,5 @@
 # Rules Enforcement & Effectiveness Investigation
 
-**For current status, progress, and next steps**: See [`tasks.md`](tasks.md)
 
 ---
 
@@ -11,28 +10,24 @@
 **New to this project?** Start here:
 
 1. Read the **Quick Summary** section below (what was found, what was fixed)
-2. Read [`findings.md`](findings.md) for outcomes and 5 rule gaps discovered
 3. View baseline: `bash .cursor/scripts/compliance-dashboard.sh --limit 100`
 
 ### 📊 Understanding Results (10 minutes)
 
 **Want to understand the metrics?**
 
-- [`BASELINE-REPORT.md`](BASELINE-REPORT.md) — Measured compliance scores (68% overall)
 - Review what improved and what needs attention
 
 ### 🔬 Deep Dive (1-2 hours)
 
 **Want comprehensive technical details?**
 
-- [`discovery.md`](discovery.md) — Full analysis of 15+ rules, 6 enforcement patterns, structural improvements
 - Sections 10-11 contain the meta-test results that proved the root cause
 
 ### 📋 Implementation Reference
 
 **Executing or tracking work?**
 
-- [`tasks.md`](tasks.md) — Phase checklists, status, and carryovers for follow-up work
 - [`erd.md`](erd.md) — Original requirements and investigation approach
 - [`tests/`](tests/) — 7 detailed test plans (H0, H1 executed; H2, H3, slash commands deferred)
 
@@ -105,7 +100,6 @@
 - Gaps #1-6: Applied in Phase 1
 - Gaps #7-16: Violations during investigation (validate enforcement findings)
 
-**[BASELINE-REPORT.md](BASELINE-REPORT.md)** — Compliance measurements
 
 - Overall: 68% (target: >90%)
 - Script usage: 71%, TDD: 72%, Branch naming: 62%
@@ -125,7 +119,6 @@
 - Acceptance criteria and success metrics
 - Test plan structure and timeline
 
-**[tasks.md](tasks.md)** — Execution tracking
 
 - **PRIMARY STATUS DOCUMENT** — See this for current progress
 - Discovery tasks to understand current state
@@ -135,7 +128,6 @@
 
 ### Analysis & Research
 
-**[discovery.md](discovery.md)** — Deep technical analysis
 
 - Analysis of 15+ rules for enforcement patterns
 - 6 enforcement patterns (strong → weak)
@@ -147,7 +139,6 @@
 - 7 detailed test plans with procedures
 - H0 (meta-test) executed ✅
 - H1 (conditional attachment) confirmed ✅ — Validated at 100%
-- H2, H3: monitoring optional (see tasks.md)
 - Slash commands: platform constraint documented ✅
 
 **[analysis/synthesis.md](analysis/synthesis.md)** — Comprehensive synthesis

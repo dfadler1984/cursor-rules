@@ -220,7 +220,6 @@ macOS with bash and prefer POSIX sh where feasible.
 - Scan `docs/projects/*/erd.md`
 - Filter: `status: active` in front matter
 - Extract: project name, description (first H1 or description field)
-- Count tasks: parse `tasks.md` completion ratio
 
 **Format**:
 
@@ -460,6 +459,5 @@ blockers:
 3. ✅ Decide Priority Projects approach
 4. ✅ Decide Known Issues approach
 5. [ ] Update ERD with all decisions
-6. [ ] Update tasks.md to mark Phase 0 complete and reflect decisions
 7. [ ] Create initial template skeleton
 8. [ ] Begin Phase 1 implementation

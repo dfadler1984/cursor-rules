@@ -32,7 +32,6 @@ Reusable checklist for auditing archived projects.
 - [ ] Rule files mentioned in tasks exist in `.cursor/rules/`
 - [ ] Or: explicitly marked as skipped/deferred in tasks
 
-**Expected rules**: (list from tasks.md)
 
 **Actual locations**: (verify in `.cursor/rules/`)
 
@@ -43,7 +42,6 @@ Reusable checklist for auditing archived projects.
 - [ ] Script files mentioned in tasks exist in `.cursor/scripts/`
 - [ ] Or: explicitly marked as skipped/deferred in tasks
 
-**Expected scripts**: (list from tasks.md)
 
 **Actual locations**: (verify in `.cursor/scripts/`)
 
@@ -54,7 +52,6 @@ Reusable checklist for auditing archived projects.
 - [ ] Documentation artifacts exist in expected `docs/` locations
 - [ ] Or: explicitly marked as skipped/deferred
 
-**Expected docs**: (list from tasks.md)
 
 **Actual locations**: (verify paths)
 
@@ -65,7 +62,6 @@ Reusable checklist for auditing archived projects.
 - [ ] Tests colocated with implementations
 - [ ] Or: explicitly deferred with rationale
 
-**Expected tests**: (list from tasks.md)
 
 **Actual locations**: (verify colocation)
 
@@ -76,7 +72,6 @@ Reusable checklist for auditing archived projects.
 ## 3. Archival Artifacts
 
 - [ ] `COMPLETION-SUMMARY.md` exists
-- [ ] `tasks.md` preserved with final state
 - [ ] `README.md` shows completion status
 - [ ] `erd.md` updated with completion date and outcome
 
@@ -135,4 +130,3 @@ Reusable checklist for auditing archived projects.
 2. Fill in project-specific details
 3. Work through checklist systematically
 4. Document findings in `findings/` if substantial
-5. Create remediation tasks in `tasks.md`

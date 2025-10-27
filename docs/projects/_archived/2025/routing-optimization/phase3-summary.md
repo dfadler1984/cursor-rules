@@ -173,7 +173,6 @@ User requested: "create a pr with changeset"
 ### Continue Phase 3 Monitoring
 
 - [ ] Collect ≥50 messages across diverse intents
-- [ ] Document additional findings in phase3-findings.md
 - [ ] Update metrics as data accumulates
 
 ### Address Finding #1

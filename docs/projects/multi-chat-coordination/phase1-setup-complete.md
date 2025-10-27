@@ -47,7 +47,6 @@
 docs/projects/multi-chat-coordination/
 ├── README.md                    # Entry point
 ├── erd.md                       # Full requirements
-├── tasks.md                     # Execution tracker
 ├── QUICKSTART.md                # How to run Phase 1
 ├── phase1-setup-complete.md     # This file
 ├── decisions/
@@ -87,7 +86,6 @@ Follow [QUICKSTART.md](./QUICKSTART.md) to run the first coordinated project:
 **If successful**:
 
 1. Document findings in `protocols/phase1-validation-protocol.md`
-2. Mark Phase 1 complete in `tasks.md`
 3. Begin Phase 2 planning (WebSocket server)
 
 **If needs adjustment**:
@@ -151,7 +149,6 @@ ls tmp/coordination/reports/
 ## Related Files
 
 - Full requirements: [erd.md](./erd.md)
-- Task tracker: [tasks.md](./tasks.md)
 - Validation protocol: [protocols/phase1-validation-protocol.md](./protocols/phase1-validation-protocol.md)
 
 ---

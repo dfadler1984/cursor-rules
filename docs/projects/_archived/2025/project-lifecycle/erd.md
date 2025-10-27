@@ -10,7 +10,6 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Project Lifecycle & Completion Process (Lite)
 
-Links: `docs/projects/project-lifecycle/tasks.md` | `.cursor/templates/project-lifecycle/completion-checklist.template.md` | `.cursor/templates/project-lifecycle/final-summary.template.md` | `docs/projects/project-lifecycle/final-summary.md`
 
 ## 1. Introduction/Overview
 
@@ -28,7 +27,6 @@ Define a lightweight, consistent process to mark projects as completed without b
 1. Status Tagging
 
    - Add front matter fields: `status: active|completed`, `completed: YYYY-MM-DD`, `owner`.
-   - Apply to `erd.md` and optionally `tasks.md`.
 
 2. Indexing
 

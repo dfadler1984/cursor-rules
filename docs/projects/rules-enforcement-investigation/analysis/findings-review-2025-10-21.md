@@ -11,7 +11,6 @@
 **Found Issues**:
 
 1. ✅ **Duplicate findings files** (2 files about Gap #11)
-2. ⚠️ **Proposed actions not tracked** (13+ action items from gaps not in tasks.md)
 3. ⚠️ **No sub-projects for rule improvements** (Gaps #12, #13 have detailed proposals)
 4. ⚠️ **Self-improvement meta-gap** (documented 13 gaps but violated structure again)
 
@@ -81,7 +80,6 @@
 
 ### Problem
 
-**13+ action items proposed in findings** but **not in tasks.md**:
 
 #### From Gap #11 (Structure Violation)
 
@@ -92,7 +90,6 @@
 3. Add CI guard for root proliferation
 4. Create pre-commit hook for structure
 
-**Status in tasks.md**: ❌ Not tracked
 
 **Note**: Some of these were completed (investigation-structure.mdc created, script exists) but not tracked as tasks.
 
@@ -104,7 +101,6 @@
 2. Add visible OUTPUT to investigation-structure.mdc
 3. Consider AlwaysApply for investigation-structure (if investigation active)
 
-**Status in tasks.md**: ❌ Not tracked
 
 #### From Gap #13 (Summary Proliferation Repetition)
 
@@ -114,7 +110,6 @@
 2. Project-lifecycle.mdc: Clarify task naming ("Enhance README" not "Create summary")
 3. Investigation-structure.mdc: Link checklist to project-specific gaps
 
-**Status in tasks.md**: ❌ Not tracked
 
 #### From H2 Finding (Changeset Violation)
 
@@ -124,17 +119,14 @@
 2. Monitor gate completeness
 3. Create gate maintenance checklist
 
-**Status in tasks.md**: Partially tracked (gate updated, monitoring not tracked)
 
 #### From TDD Findings
 
-**Proposed** (tdd-compliance-findings.md):
 
 1. Improve compliance checker to filter doc-only changes
 2. Add missing test for setup-remote.sh
 3. Consider external validation (CI) - deferred
 
-**Status in tasks.md**: ❌ Not tracked
 
 ### Impact
 
@@ -226,7 +218,6 @@
 **Option A: Tasks Only** (simpler)
 
 - Add Phase 6G tasks (see Issue 2)
-- Track in existing tasks.md
 - No separate project needed
 
 **Option B: Sub-Project** (more structure)
@@ -254,7 +245,6 @@
 
 1. **Gap #6 violated again** (before Gap #13): Duplicate findings files
 2. **Investigation-structure not followed**: Created findings without checking for duplicates
-3. **Proposed actions not tracked**: 13+ items from gaps not in tasks.md
 
 **This is Gap #14**: "Findings review reveals violation of documented patterns"
 
@@ -330,10 +320,8 @@
 - gap-12-self-improve-structure-blind-spot.md
 - gap-13-self-improve-missed-gap-6-repetition.md
 - gap-h2-send-gate.md
-- gap-h3-query-visibility.md
 - meta-learning-structure-violation.md ← DUPLICATE of gap-11
 - pattern-missing-vs-violated-rules.md
-- tdd-compliance-findings.md
 - README.md
 
 **Issues**:
@@ -350,13 +338,10 @@
 
 - `gap-##-<name>.md` — For documented gaps (needs fixing)
 - `pattern-<name>.md` — For pattern observations (reusable insights)
-- `<topic>-findings.md` — For analysis results (TDD, H2, H3)
 
 **Actions**:
 
 1. Delete `meta-learning-structure-violation.md` (duplicate)
-2. Consider: Rename `gap-h2-send-gate.md` → `h2-findings.md` (it's not a "gap", it's test results)
-3. Consider: Rename `gap-h3-query-visibility.md` → `h3-findings.md` (same reason)
 
 **Rationale**:
 
@@ -378,7 +363,6 @@
 
 ### Priority 2: Extract Tasks ⏸️
 
-**Action**: Add Phase 6G to tasks.md with all proposed actions from gaps
 
 - 13+ items from Gaps #11, #12, #13, TDD findings
 - Track as deliverables, not orphaned proposals
@@ -396,8 +380,6 @@
 
 **Action**: Rename H2/H3 findings files (if agreed)
 
-- `gap-h2-send-gate.md` → `h2-findings.md`
-- `gap-h3-query-visibility.md` → `h3-findings.md`
 - Rationale: Not "gaps" but validation data
 
 ---
@@ -408,7 +390,6 @@
 
 1. ✅ No duplicates (1 file per topic)
 2. ✅ Consistent naming (gap-##, pattern-, h2-findings)
-3. ✅ All proposed actions tracked in tasks.md
 4. ✅ Checkpoints prevent recurrence
 
 **Process is improved when**:

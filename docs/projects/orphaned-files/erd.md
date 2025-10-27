@@ -27,7 +27,6 @@ The repository accumulates files that are no longer referenced or useful:
 - **Abandoned experiments**: Test files, temporary docs, or prototypes left behind
 - **Manual burden**: No automated way to detect or clean up these files
 
-**Example**: `slash-commands-runtime-routing/` (visible in synthesis.md:572) marked as "not viable" but still present in repository.
 
 **Why now**: Recent investigations (rules-enforcement-investigation, project-lifecycle) revealed orphaned files. Proactive cleanup prevents future confusion and reduces repository noise.
 
@@ -56,7 +55,6 @@ The repository accumulates files that are no longer referenced or useful:
 
 **Known orphans** (from recent investigation):
 
-- `slash-commands-runtime-routing/` — Documented as "not viable" but not deleted
 - Potentially other projects marked complete but not archived
 
 **Reference patterns** (used to detect orphans):

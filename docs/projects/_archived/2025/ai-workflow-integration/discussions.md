@@ -53,7 +53,6 @@ Anchors
 Unified Workflow
 
 - Slash‑commands are first‑class: `/constitution`, `/specify`, `/clarify`, `/plan`, `/tasks`, `/analyze`, `/implement` (slash > phrase precedence).
-- Tasks include `dependencies`, `priority`, and `[P]` for parallelization (different‑file tasks only; group safe parallel sets in tasks.md).
 - Learning logs include Operation block and Dependency Impact by default (values may be N/A if not available).
 
 Out of Scope
@@ -68,7 +67,6 @@ Out of Scope
 - Strengths: clear clarifying‑questions discipline; junior‑friendly structure; easy file prompting.
 - Gaps vs ours: we already target ERD with engineering sections; action: keep our ERD, borrow the explicit clarifications tone and citation link.
 
-  2.2 `generate-tasks.md`
 
 - Strengths: explicit two‑phase (parents → “Go” → sub‑tasks) matches our model.
 - Gaps vs ours: ours already adds TDD emphasis and relevant files; action: no change beyond reaffirming two‑phase flow and citations.
@@ -210,7 +208,6 @@ Signals:
   Scope: files=2, modules=1
   Decision: ModifyRule
   QualityCheck: actionable ✅ current refs ✅ consistent ✅
-  References: spec-kit/spec-driven.md, ai-dev-tasks/generate-tasks.md
   ReviewAfter: 2025-10-17
 
 Operation:
@@ -225,7 +222,6 @@ Operation:
 Dependency Impact:
 
 - RulesAffected: .cursor/rules/generate-tasks-from-erd.mdc, .cursor/rules/task-list-process.mdc
-- DocsAffected: docs/projects/ai-workflow-integration/tasks.md
 - AffectedTasks: 2.0, 5.0
 - Unblocked: 3.0
 - Added/Removed: N/A

@@ -18,7 +18,6 @@ Formalize the active monitoring system to provide clear structure, lifecycle man
 ## Quick Links
 
 - **[ERD](erd.md)** — Requirements and approach
-- **[Tasks](tasks.md)** — Execution tracking
 - **[ACTIVE-MONITORING.md](../ACTIVE-MONITORING.md)** — Current monitoring coordination file
 
 ---

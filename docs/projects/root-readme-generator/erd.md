@@ -8,7 +8,6 @@ created: 2025-10-25
 
 Mode: Full
 
-Links: `docs/projects/root-readme-generator/tasks.md` | `README.md`
 
 ## 1. Introduction/Overview
 
@@ -169,7 +168,6 @@ Full specification in `decisions/section-ownership.md`.
 - Source: `docs/projects/*/erd.md`
 - Filter: `status: active` in front matter
 - Extract: Project name, description (first H1 or description field)
-- Count: Parse `tasks.md` for completion % (done/total)
 - Format: Bullets with name, description, completion %
 - Link to: `docs/projects/README.md`
 

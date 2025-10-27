@@ -28,7 +28,6 @@ This project is a reference-only aggregator for Git/GitHub operational guidance 
 
 ## 4. Acceptance
 
-- `docs/projects/git-usage-suite/erd.md` and `docs/projects/git-usage-suite/tasks.md` exist.
 - References above resolve to existing, non-archived docs.
 
 ## 5. Ownership

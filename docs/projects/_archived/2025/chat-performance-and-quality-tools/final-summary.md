@@ -52,7 +52,6 @@ This project delivered comprehensive tools and documentation for maintaining hig
 ## Links
 
 - ERD: `../_archived/2025/chat-performance-and-quality-tools/erd.md`
-- Tasks: `../_archived/2025/chat-performance-and-quality-tools/tasks.md`
 - Guides (permanent): `.cursor/docs/guides/chat-performance/`
 - CLI Tools (permanent): `.cursor/scripts/chat-performance/`
 

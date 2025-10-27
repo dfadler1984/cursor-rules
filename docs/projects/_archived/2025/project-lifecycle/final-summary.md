@@ -26,6 +26,5 @@ last-updated: 2025-10-04
 ## Links
 
 - ERD: docs/projects/project-lifecycle/erd.md
-- Tasks: docs/projects/project-lifecycle/tasks.md
 - ADRs: docs/projects/project-lifecycle/decisions/ (if any)
 - Learning Log Summary: docs/assistant-learning-logs/

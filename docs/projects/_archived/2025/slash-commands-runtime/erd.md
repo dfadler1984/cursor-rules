@@ -6,7 +6,6 @@ lastUpdated: 2025-10-23
 
 # Engineering Requirements Document — Slash Commands Runtime (Lite)
 
-Links: `.cursor/rules/intent-routing.mdc` | `docs/projects/slash-commands-runtime/tasks.md` | `docs/projects/intent-router/` (archived)
 
 ## 1. Introduction/Overview
 

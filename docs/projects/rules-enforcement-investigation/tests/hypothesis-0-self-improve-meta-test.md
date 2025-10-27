@@ -243,7 +243,6 @@ timing_correct: [TO BE OBSERVED] # at checkpoint, not before
 ```yaml
 session_id: rules-enforcement-investigation-planning
 work_completed:
-  - Created discovery.md (1,252 lines)
   - Created 5 test plan documents (~2,500 lines total)
   - Updated ERD and tasks
 patterns_present:

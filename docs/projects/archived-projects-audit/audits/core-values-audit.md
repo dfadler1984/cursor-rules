@@ -54,7 +54,6 @@
 ## 3. Archival Artifacts
 
 - [x] Completion summary: `final-summary.md` (46 lines, **COMPLETE** ✅)
-- [x] `tasks.md` preserved with final state (includes carryovers)
 - [x] `README.md`: ❌ **MISSING**
 - [x] `erd.md` updated with completion status (`status: completed`, `completed: 2025-10-23`, `created: 2025-01-15`)
 

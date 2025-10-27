@@ -55,7 +55,6 @@ Replace short‑term manual workarounds with durable, automated, and test‑back
 
 ## 7. Data Model and Storage
 
-- Artifacts: `erd.md`, `tasks.md` in this folder.
 - Inputs: existing docs and generator scripts; no external data stores.
 - Optional future doc: `docs/guides/long-term-vs-workaround.md` (decision checklist).
 
@@ -80,7 +79,6 @@ Replace short‑term manual workarounds with durable, automated, and test‑back
 - A focused failing test is added first for ` .cursor/scripts/final-summary-generate.sh` capturing a real gap.
 - The script is fixed minimally to pass; test turns green.
 - A drift check exists and is runnable locally; optional CI gate added.
-- Evidence recorded in `tasks.md` with commands and outputs.
 
 ## 12. Rollout & Ops
 

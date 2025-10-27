@@ -39,7 +39,6 @@ Integrated ShellCheck linting across all shell scripts achieving zero errors and
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 - Details: `../shell-and-script-tooling/SHELLCHECK-PHASE2-3-COMPLETE.md`
 

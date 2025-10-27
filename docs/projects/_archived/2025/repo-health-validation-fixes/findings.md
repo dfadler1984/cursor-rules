@@ -103,7 +103,6 @@
 **What should have happened** (per `self-improve.mdc`):
 - Document gaps as observed during work
 - Treat violations as investigation evidence
-- Create findings.md in real-time
 
 **Rule violated**: `.cursor/rules/self-improve.mdc` → "Notice gap → Document immediately"
 
@@ -111,7 +110,6 @@
 
 **Impact**: Missed learning opportunity; required user prompting to surface issues
 
-**Corrective action**: Creating this findings.md now; enforce real-time logging going forward
 
 ---
 

@@ -3,7 +3,6 @@
 ## Relevant Files
 
 - `docs/projects/rule-introspection/erd.md` — Requirements
-- `docs/projects/rule-introspection/tasks.md` — This file
 - `.cursor/rules/context-efficiency.mdc` — Context Efficiency Gauge specification
 - `.cursor/scripts/context-efficiency-gauge.sh` — Gauge script
 

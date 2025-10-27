@@ -6,7 +6,6 @@
 ## Quick Links
 
 - [ERD](./erd.md) — Requirements and design
-- [Tasks](./tasks.md) — Execution tracking
 
 ## Overview
 

@@ -186,7 +186,6 @@ Templates serve as:
 
 ## Related
 
-- [Slash Commands Decision](../slash-commands-decision.md) — Runtime routing attempt + correction
 - [Platform Constraints](../../assistant-self-testing-limits/platform-constraints.md) — Design mismatch analysis
 - [Cursor 1.6 Changelog](https://cursor.com/changelog/1-6) — Official slash commands documentation
 

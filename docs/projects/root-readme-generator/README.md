@@ -163,10 +163,7 @@ npm run generate:root-readme
 
 **Causes**:
 
-- Project has no `tasks.md` file
-- `tasks.md` has no task items (`- [ ]` or `- [x]`)
 
-**Solution**: Ensure project has properly formatted `tasks.md` with task checkboxes
 
 ### Scripts/Rules Not Appearing
 
@@ -292,7 +289,6 @@ npm run generate:root-readme
 ## Documentation
 
 - **ERD**: [`erd.md`](./erd.md) — Full requirements, architecture, open questions
-- **Tasks**: [`tasks.md`](./tasks.md) — Detailed task breakdown with TDD approach
 - **Decisions**: `decisions/` (TBD) — Decision documents for key choices
 
 ## Contributing

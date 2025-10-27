@@ -21,7 +21,6 @@ Detect and clean up orphaned files in the repository — files that are not refe
 ## Quick Links
 
 - [ERD](./erd.md) — Requirements and approach
-- [Tasks](./tasks.md) — Execution checklist
 
 ## Scope
 

@@ -139,7 +139,6 @@ Unify and improve our Cursor Rules by integrating proven workflows from three so
 
 ## 7. Data Model and Storage
 
-- Artifacts: `erd.md`, `tasks.md` under `docs/projects/<feature>/`.
 - Logs: `assistant-logs/` (default) or configured `logDir`.
 - No databases; all text artifacts in repo.
 
@@ -209,7 +208,6 @@ docs/projects/README.md
 
 # Engineering Requirements Document — Spec‑Driven Workflow (Lite) — Integrated
 
-Links: `.cursor/rules/spec-driven.mdc` | `docs/projects/ai-workflow-integration/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

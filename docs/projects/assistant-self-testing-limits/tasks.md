@@ -27,9 +27,7 @@
 ## Phase 3: Update Investigation ✅ (Mostly Complete)
 
 - [x] 3.0 Update rules-enforcement-investigation
-  - [x] 3.1 Add testing paradox to findings.md (Gap #8) — Already documented
   - [x] 3.3 Note measurement limitations in test plans — Covered in findings
-  - [x] 3.4 Update tasks.md to reflect deferral — Slash commands marked deferred
 
 ## Phase 4: Decision Framework ✅
 

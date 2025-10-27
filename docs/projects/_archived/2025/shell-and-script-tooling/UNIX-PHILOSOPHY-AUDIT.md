@@ -242,7 +242,6 @@ PATHS="${PATHS:-.cursor/scripts}"
 
 ### Priority 1: Acknowledge Reality
 
-**Update `scripts-unix-philosophy/tasks.md`:**
 
 - Mark current status as "Infrastructure complete; scripts not refactored"
 - Add note: "D1-D6 provide foundation; actual script refactoring deferred"
@@ -329,7 +328,6 @@ PATHS="${PATHS:-.cursor/scripts}"
 
 ## Next Steps
 
-1. **Update project status** — Honest acknowledgment in `scripts-unix-philosophy/tasks.md`
 2. **Mark as future work** — Optional refactoring backlog (not blocking completion)
 3. **Document findings** — Link this audit from project ERD
 4. **Establish guidelines** — Size targets and composition convention for new scripts

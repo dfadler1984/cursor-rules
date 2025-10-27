@@ -74,6 +74,4 @@
   - [ ] Update related project references
 
 **References**:
-- `docs/projects/routing-optimization/phase3-findings.md` — Finding #1 (detailed analysis)
-- `docs/projects/routing-optimization/tasks.md` — Phase 3 corrective actions
 - PR #159 — Real-world example (changeset present but skip-changeset applied)

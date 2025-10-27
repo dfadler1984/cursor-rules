@@ -9,9 +9,6 @@
 
 ## Quick Navigation
 
-**For Status & Progress** → [`tasks.md`](./tasks.md)  
-**For Baseline Analysis** → [`analysis.md`](./analysis.md)  
-**For Optimization Details** → [`optimization-proposal.md`](./optimization-proposal.md)  
 **For Test Suite** → [`routing-test-suite.md`](../../../../../.cursor/docs/tests/routing-test-suite.md)
 
 ---
@@ -36,7 +33,6 @@ This project analyzes and optimizes the intent routing system that determines wh
 
 ### ✅ Phase 1: Analysis (Complete)
 
-**Deliverable**: [`analysis.md`](./analysis.md) — Comprehensive baseline with:
 
 - Routing performance: 68% baseline (script usage 74%, TDD 75%, branch 61%)
 - Top 10 intent patterns with accuracy rates (Implementation 75%, Guidance 90%+, etc.)
@@ -56,7 +52,6 @@ This project analyzes and optimizes the intent routing system that determines wh
 
 **Deliverables**:
 
-1. **[`optimization-proposal.md`](./optimization-proposal.md)** — Comprehensive proposal with:
 
    - 4 key optimizations (intent override, confidence scoring, multi-intent, refined triggers)
    - Implementation plan (5 phases: 2A-2E)
@@ -240,7 +235,6 @@ This project analyzes and optimizes the intent routing system that determines wh
 5. ✅ **Comprehensive documentation**:
    - [phase3-full-validation.md](./phase3-full-validation.md)
    - [validation-session.md](./validation-session.md)
-   - [phase3-findings.md](./phase3-findings.md)
 
 ### Phase 4: Optional Enhancements ✅ COMPLETE (2/3 items)
 
@@ -271,10 +265,7 @@ This project analyzes and optimizes the intent routing system that determines wh
 
 ## Questions or Issues?
 
-**For task status** → See [`tasks.md`](./tasks.md)  
-**For technical details** → See [`optimization-proposal.md`](./optimization-proposal.md)  
 **For test cases** → See [`routing-test-suite.md`](../../../../../.cursor/docs/tests/routing-test-suite.md)  
-**For evidence** → See [`analysis.md`](./analysis.md)
 
 ---
 

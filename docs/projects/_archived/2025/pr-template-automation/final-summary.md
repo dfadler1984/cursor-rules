@@ -20,6 +20,5 @@
 ## Links
 
 - ERD: docs/projects/pr-template-automation/erd.md
-- Tasks: docs/projects/pr-template-automation/tasks.md
 - Script: .cursor/scripts/pr-create.sh
 - Rule: .cursor/rules/github-api-usage.caps.mdc

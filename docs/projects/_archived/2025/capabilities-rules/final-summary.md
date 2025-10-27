@@ -42,8 +42,6 @@ Evaluated and improved capabilities discovery encoding by formalizing the Discov
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
-- Analysis: `./analysis.md` — Comparative analysis and decision rationale
 - Completion Summary: `./COMPLETION-SUMMARY.md` — Detailed deliverables
 - Paired with: [platform-capabilities-generic](../platform-capabilities-generic/final-summary.md)
 

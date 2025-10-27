@@ -13,12 +13,10 @@
 **Always present**:
 - `README.md` - Entry point, navigation
 - `erd.md` - Requirements and scope
-- `tasks.md` - Execution tracking
 
 **Optional root files** (case-by-case):
 - `coordination.md` - For umbrella projects with sub-projects
 - `MONITORING-PROTOCOL.md` - High-level operational protocol
-- `findings/README.md` OR `findings.md` - Findings summary/index
 
 ---
 
@@ -37,7 +35,6 @@
 **When to use**: 
 - Create individual files when findings are substantial (>50 lines each)
 - Use README as index when many findings (5+)
-- For simple projects with 1-3 findings, single `findings.md` in root is fine
 
 **Naming pattern**: `gap-##-<kebab-case-short-name>.md`
 
@@ -54,13 +51,10 @@
 **Structure**:
 ```
 analysis/
-├── discovery.md              # Overall discovery (flat)
 ├── conditional-rules/        # Large topic (subfolder)
-│   ├── analysis.md
 │   ├── patterns.md
 │   └── _archived/
 ├── scalability/              # Large topic (subfolder)
-│   └── analysis.md
 └── _archived/                # Archived analysis docs
 ```
 
@@ -70,7 +64,6 @@ analysis/
 - Topic has own archived docs
 
 **Naming**: 
-- Flat files: `<topic>-analysis.md`
 - Subfolders: `<topic>/` with descriptive file names inside
 
 ### decisions/
@@ -81,7 +74,6 @@ analysis/
 - `<topic>-decision.md` - One file per major decision
 - Includes: options considered, criteria, choice, rationale
 
-**Example**: `slash-commands-decision.md`
 
 **Format**:
 - Background/context
@@ -206,14 +198,10 @@ test-results/
 
 **Parent project** (`rules-enforcement-investigation/`):
 - `coordination.md` in root - tracks all sub-projects
-- High-level erd.md and tasks.md
 - Aggregate findings/README.md
 - Links to sub-projects
 
 **Sub-projects** (siblings in `docs/projects/`):
-- `h1-conditional-attachment/`
-- `h2-send-gate-investigation/`
-- `h3-query-visibility/`
 - `slash-commands-experiment/` (runtime routing attempt)
 - `prompt-templates-experiment/` (if pursued)
 
@@ -235,14 +223,12 @@ Investigation broken into focused sub-projects for parallel execution and clear 
 
 ### H1: Conditional Attachment
 - **Status**: COMPLETE
-- **Location**: [h1-conditional-attachment](../_archived/2025/h1-conditional-attachment/)
 - **Objective**: Test if alwaysApply improves compliance
 - **Resolution**: ✅ Confirmed - 74% → 96% script usage
 - **Contribution**: Primary fix for git operations
 
 ### H2: Send Gate Investigation  
 - **Status**: MONITORING
-- **Location**: [h2-send-gate-investigation](../_archived/2025/h2-send-gate-investigation/)
 - **Objective**: Validate send gate executes and blocks violations
 - **Current**: Visible gate implemented; 0% → 100% visibility
 - **Contribution**: Transparency and accountability mechanism
@@ -302,9 +288,6 @@ How sub-project findings feed into parent investigation synthesis.
 | Category | Pattern | Example |
 |----------|---------|---------|
 | Findings | `gap-##-<short-name>.md` | `gap-07-documentation-before-execution.md` |
-| Analysis (flat) | `<topic>-analysis.md` | `scalability-analysis.md` |
-| Analysis (folder) | `<topic>/analysis.md` | `conditional-rules/analysis.md` |
-| Decisions | `<topic>-decision.md` | `slash-commands-decision.md` |
 | Guides | `<topic>-guide.md` | `ci-integration-guide.md` |
 | Protocols | `<topic>-protocol.md` | `h1-validation-protocol.md` |
 | Sessions | `YYYY-MM-DD.md` | `2025-10-16.md` |
@@ -317,14 +300,10 @@ How sub-project findings feed into parent investigation synthesis.
 ### Current → Proposed Mapping
 
 **Root** (7 → 4-5 files):
-- ✅ Keep: README.md, erd.md, tasks.md, MONITORING-PROTOCOL.md
 - 📝 Keep: coordination.md (create new)
 - ➡️ Move: ci-integration-guide.md → guides/
-- ➡️ Move: slash-commands-decision.md → decisions/
-- ➡️ Move: findings.md → findings/README.md
 
 **analysis/** (6 files → reorganize):
-- ✅ Keep flat: discovery.md, test-plans-review.md
 - 📁 Create folders: conditional-rules/, scalability/, premature-completion/, prompt-templates/
 
 **archived-summaries/** → **_archived/**:
@@ -343,10 +322,6 @@ How sub-project findings feed into parent investigation synthesis.
 
 ### Sub-Projects to Create
 
-1. `h1-conditional-attachment/` - H1 test and validation
-2. `h2-send-gate-investigation/` - H2 tests A-D
-3. `h3-query-visibility/` - H3 tests A-C
-4. `slash-commands-runtime-routing/` - Failed runtime routing attempt
 5. `prompt-templates-experiment/` - Future: proper slash command usage
 
 ---

@@ -5,7 +5,6 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Repository Health Validation Fixes (Lite)
 
-**Links**: [tasks.md](./tasks.md)
 
 ## 1. Introduction/Overview
 

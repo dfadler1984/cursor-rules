@@ -46,7 +46,6 @@ Adopt ShellCheck as a standard linter for all shell scripts under `.cursor/scrip
    - Provide a workflow example `shellcheck.yml` that runs on PRs touching `*.sh`.
    - CI prints annotations or a concise report and fails on new issues.
 4. Documentation
-   - ERD + `tasks.md` describe scope, commands, and CI option.
 
 ## 5. Non-Functional Requirements
 

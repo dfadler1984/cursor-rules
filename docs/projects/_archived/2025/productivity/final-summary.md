@@ -40,7 +40,6 @@ Documented automation guidance and script usage patterns for the repository's 15
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - HANDOFF: `./HANDOFF.md`
 - Paired with: [slash-commands-runtime](../slash-commands-runtime/final-summary.md)
 

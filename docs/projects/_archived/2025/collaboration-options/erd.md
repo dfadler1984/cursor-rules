@@ -8,7 +8,6 @@ completedDate: 2025-10-23
 
 # Engineering Requirements Document — Collaboration Options (Lite)
 
-Links: `.cursor/rules/github-config-only.mdc` | `docs/projects/collaboration-options/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 

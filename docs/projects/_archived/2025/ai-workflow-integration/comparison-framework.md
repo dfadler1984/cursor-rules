@@ -33,7 +33,6 @@ Evaluate `ai-dev-tasks`, `spec-kit`, and `claude-task-master` to inform targeted
 ## Artifacts to Produce
 
 - ERD (done)
-- Updated `tasks.md` with sub‑tasks and dependencies/priority markers (optional) and cross‑link headers
 - Proposed rule diffs (paths + short descriptions)
 - Logging enhancements outline (Operation block + Dependency Impact)
 - Acceptance checks outline for a demo dry‑run

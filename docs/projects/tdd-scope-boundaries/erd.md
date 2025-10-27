@@ -189,7 +189,6 @@ This project includes rules-refinement for enforcement:
 
 - Status: Lite ERD
 - Scope: Make TDD triggers/gates explicit and reliable
-- Links: [`rules-refinement/erd.md`](rules-refinement/erd.md), [`rules-refinement/tasks.md`](rules-refinement/tasks.md)
 - Dependency: Requires scope boundaries (this project) defined first
 
 #### Overall Completion

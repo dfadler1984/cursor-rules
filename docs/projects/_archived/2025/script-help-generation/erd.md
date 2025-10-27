@@ -5,7 +5,6 @@ owner: rules-maintainers
 
 # Engineering Requirements Document — Script Help Generation (Lite)
 
-Links: `docs/projects/script-help-generation/tasks.md`
 Related: `docs/projects/scripts-unix-philosophy/erd.md`, `docs/projects/script-test-hardening/erd.md`, `docs/projects/shell-scripts/erd.md`
 
 Mode: Lite

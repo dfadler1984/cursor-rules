@@ -37,7 +37,6 @@ Standardized help documentation across all shell scripts using template function
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 
 ## Credits

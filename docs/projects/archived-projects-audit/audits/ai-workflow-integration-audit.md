@@ -47,7 +47,6 @@
 - [x] Multiple analysis documents present:
   - `comparison-framework.md`
   - `discussions.md`
-  - `portability-analysis.md`
   - `constitution.md`
 
 **Status**: ✅ PASS
@@ -63,7 +62,6 @@
 ## 3. Archival Artifacts
 
 - [x] Completion summary: `final-summary.md` (57 lines, **COMPLETE** ✅)
-- [x] `tasks.md` preserved with final state
 - [x] `README.md`: ❌ **MISSING**
 - [x] `erd.md` updated with completion status (`status: completed`, `completed: 2025-10-23`)
 

@@ -25,4 +25,3 @@ Add a repository-local validator (.cursor/scripts/rules-validate.sh) that scans 
 ## Links
 
 - ERD: `../_archived/2025/rules-validate-script/erd.md`
-- Tasks: `../_archived/2025/rules-validate-script/tasks.md`

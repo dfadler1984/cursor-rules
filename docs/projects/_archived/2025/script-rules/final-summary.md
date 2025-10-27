@@ -36,7 +36,6 @@ Defined best practices and validation requirements for shell scripts. Work was c
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 
 ## Credits

@@ -77,7 +77,6 @@
 
 **Use all three approaches**:
 
-1. **Option C (Now)**: Document expected behavior based on gate logic ✅ (done in tasks.md)
 2. **Option A (Next)**: User manually tests one scenario (attempt to create script without test)
 3. **Option B (Ongoing)**: Monitor for 1 week, track violations
 
@@ -105,7 +104,6 @@
 
 **Phase 2 approach**: Combination of logical review + user manual testing + monitoring
 
-**Next step**: Update tasks.md to reflect testing approach, then request user to test one scenario
 
 ---
 

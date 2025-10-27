@@ -234,4 +234,3 @@ Shell script tests are currently colocated with their source scripts (e.g., `pr-
 - Test runner: `.cursor/scripts/tests/run.sh`
 - Shell TDD rules: `.cursor/rules/tdd-first-sh.mdc`, `.cursor/rules/test-quality-sh.mdc`
 - Colocation enforcement (JS): `yarn guard:no-tests-dir`
-- Investigation findings: `docs/projects/rules-enforcement-investigation/findings.md`

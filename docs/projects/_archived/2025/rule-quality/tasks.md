@@ -11,12 +11,10 @@
 ## Todo
 
 - [x] 1.0 Draft ERD and Discussions capturing consolidation/validation workflow
-- [x] 2.0 Add tasks.md and link project from projects index
 - [x] 3.0 Create `global-defaults.mdc` and update cross-links
 - [x] 4.0 Merge testing family into `testing.mdc`; keep `testing.caps.mdc`
 - [x] 4.1 Fold `critical-thinking.mdc` into `direct-answers.mdc`; add deprecation header + pointer
 - [x] 4.2 Fold `task-list-process.mdc` into `project-lifecycle.mdc` (decide thin stub vs removal); update cross-links
-- [x] 4.3 Fold `capabilities-discovery.mdc` into `capabilities.mdc` (Discovery section); add deprecation header + pointer
 - [x] 5.0 Add validation script (front matter, links, globs breadth, duplication, caps pairing)
 - [x] 5.1 Link hygiene sweep and redirects after consolidations (fix internal references; update "See also")
 - [x] 5.2 Update `.cursor/rules/capabilities.mdc` to reflect new structure (moved up from optional)

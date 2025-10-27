@@ -202,8 +202,6 @@ User attempted `/status` and Cursor's UI interpreted it as a command palette act
 ## Documentation Reference
 
 - **Full test plan**: `tests/experiment-slash-commands.md`
-- **Inspiration**: `discovery.md` → Part 5 (Taskmaster/Spec-kit patterns)
-- **Enforcement patterns**: `discovery.md` → Part 3 (6 patterns identified)
 - **H1 validation**: `h1-validation-protocol.md`
 - **H2 results**: `h2-test-d-checkpoint-1.md`
 - **H3 results**: `h3-test-c-results.md`

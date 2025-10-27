@@ -5,12 +5,10 @@ Note: This project was merged into `docs/projects/chat-performance-and-quality-t
 For ongoing work, see:
 
 - `docs/projects/chat-performance-and-quality-tools/erd.md` → "15. Context Efficiency Gauge (Presentation Layer)"
-- `docs/projects/chat-performance-and-quality-tools/tasks.md` → "Gauge (Presentation Layer)"
 
 ## Relevant Files
 
 - `docs/projects/_archived/2025/context-efficiency-gauge/erd.md`
-- `docs/projects/_archived/2025/context-efficiency-gauge/tasks.md`
 
 ## Todo (closed — tracked under chat-performance)
 

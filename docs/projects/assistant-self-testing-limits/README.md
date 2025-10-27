@@ -97,7 +97,6 @@ Documents the fundamental limitation discovered during rules-enforcement-investi
 ### Supporting Documents
 
 - **[erd.md](erd.md)** — Engineering requirements and scope
-- **[tasks.md](tasks.md)** — Implementation checklist (~70% → 100% complete)
 
 ---
 

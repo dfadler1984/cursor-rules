@@ -150,7 +150,6 @@ File-based multi-chat coordination pattern **validated successfully**. Worker ex
 
 - `docs/projects/multi-chat-coordination/README.md`
 - `docs/projects/multi-chat-coordination/erd.md`
-- `docs/projects/multi-chat-coordination/tasks.md`
 - `docs/projects/multi-chat-coordination/QUICKSTART.md`
 - `docs/projects/multi-chat-coordination/decisions/task-schema-decision.md`
 - `docs/projects/multi-chat-coordination/protocols/phase1-validation-protocol.md`

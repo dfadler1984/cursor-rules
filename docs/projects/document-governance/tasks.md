@@ -63,7 +63,6 @@ This umbrella project requires completion of nested topic projects:
 
 ### Templates Project
 
-See [`templates/tasks.md`](templates/tasks.md) for:
 
 - Document inventory (ERDs, specs, plans, tasks, ADRs, READMEs, PR descriptions)
 - Template vs guidance decision matrix
@@ -73,7 +72,6 @@ See [`templates/tasks.md`](templates/tasks.md) for:
 
 ### README Structure Project
 
-See [`readme/tasks.md`](readme/tasks.md) for:
 
 - Root README skeleton definition
 - Content inventory and mapping
@@ -83,7 +81,6 @@ See [`readme/tasks.md`](readme/tasks.md) for:
 
 ### Lifecycle Metadata Project
 
-See [`lifecycle/tasks.md`](lifecycle/tasks.md) for:
 
 - Front matter schema (status lifecycle, completion evidence, versioning)
 - Validation rules for completion gates

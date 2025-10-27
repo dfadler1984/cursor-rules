@@ -37,7 +37,6 @@ Established strict error handling and exit code standards for all shell scripts.
 ## Links
 
 - ERD: `./erd.md`
-- Tasks: `./tasks.md`
 - Parent: `../shell-and-script-tooling/final-summary.md`
 
 ## Credits

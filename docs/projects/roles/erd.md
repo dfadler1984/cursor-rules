@@ -10,7 +10,6 @@ lastUpdated: 2025-10-24
 Mode: Lite
 
 
-Links: `.cursor/rules/intent-routing.mdc` | `docs/projects/roles/tasks.md` | `docs/projects/split-progress/erd.md`
 
 ## 1. Introduction/Overview
 
@@ -44,7 +43,6 @@ This project includes phase-mapping as an extension:
 
 - Status: New (drafted)
 - Scope: Align role guidance with Spec-Driven phases
-- Links: [`phase-mapping/erd.md`](phase-mapping/erd.md), [`phase-mapping/tasks.md`](phase-mapping/tasks.md)
 - Dependency: Requires core role definitions complete
 
 ### Overall Completion

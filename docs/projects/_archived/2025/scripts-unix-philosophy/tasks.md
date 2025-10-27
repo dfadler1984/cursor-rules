@@ -107,7 +107,6 @@
   - **Status:** Complete ✅ (orchestrator created, all tests passing)
 
 - [x] 10.0 Refactor `checks-status.sh` — **MIGRATED to script-refinement Task 1.0**
-  - **Status:** Moved to [script-refinement](../../../script-refinement/tasks.md) Task 1.0 for optional future work
   - **Priority:** P3 (Optional polish, not urgent)
   - See: [script-refinement/erd.md](../../../script-refinement/erd.md) Section 4.1 for full requirements
 

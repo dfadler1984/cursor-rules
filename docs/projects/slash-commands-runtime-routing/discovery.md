@@ -10,7 +10,6 @@
 ### Source Documents
 
 **Primary**: `docs/projects/ai-workflow-integration/erd.md`  
-**Analysis**: `discovery.md` Part 5 (lines 660-723)
 
 ### Taskmaster Pattern
 

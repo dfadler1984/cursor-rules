@@ -375,7 +375,6 @@ Phase 1 **fails** if:
 
 1. Worker check for task-003
 2. Document final metrics above
-3. Mark Phase 1 complete in tasks.md
 
 **Phase 2 Planning** (next session):
 

@@ -110,7 +110,6 @@ Successfully built and deployed a **complete portable script infrastructure** wi
 ### Modified Documentation (2 files)
 
 - `docs/projects/shell-and-script-tooling/erd.md` — Added D5, status summary
-- `docs/projects/shell-and-script-tooling/tasks.md` — Phases 1-3 marked complete
 
 ## Session Statistics
 

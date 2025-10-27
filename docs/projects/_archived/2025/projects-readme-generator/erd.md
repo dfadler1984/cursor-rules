@@ -21,7 +21,6 @@ Automate generation of `docs/projects/README.md` so the projects index stays cur
 ## 3. User Stories
 
 - As a maintainer, I can regenerate the projects index in seconds.
-- As a contributor, I can discover active projects with clear links to `erd.md` and `tasks.md`.
 
 ## 4. Functional Requirements
 
@@ -34,7 +33,6 @@ Automate generation of `docs/projects/README.md` so the projects index stays cur
 
    - Read project title from the first top-level heading in `erd.md` when present; fallback to folder name.
    - Read `status` and optional `owner` from YAML front matter in `erd.md` when present; fallback to `unknown`.
-   - Detect presence of `tasks.md`.
 
 3. Output
 
@@ -52,7 +50,6 @@ Automate generation of `docs/projects/README.md` so the projects index stays cur
 
 - Portability: POSIX shell compatible; no external binaries beyond coreutils
 - Performance: completes in < 1s on this repo
-- Reliability: gracefully handles missing `erd.md`/`tasks.md` and reports counts
 
 ## 6. Architecture/Design
 

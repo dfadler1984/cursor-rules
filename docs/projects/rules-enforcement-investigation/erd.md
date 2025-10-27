@@ -121,7 +121,6 @@ Create post-hoc validation:
 
 **Deliverables**:
 
-1. **Discovery Document** ([discovery.md](discovery.md)) — 1,252 lines
 
    - Analyzed 15+ rules for enforcement patterns
    - Identified 6 patterns (strong → weak)
@@ -322,7 +321,6 @@ From `docs/projects/ai-workflow-integration/erd.md`:
 - Whether slash commands provide better enforcement
 - How to validate the fix actually works
 
-**See**: [`tasks.md`](tasks.md) for execution checklist
 **Project Metadata**:
 
 - Owner: repo-maintainers

@@ -35,7 +35,6 @@
 
 **Conditional Rules**: 25 (alwaysApply: false)
 
-- See `conditional-rules-analysis.md` for complete list
 
 **Capabilities files** (no alwaysApply field): 13
 

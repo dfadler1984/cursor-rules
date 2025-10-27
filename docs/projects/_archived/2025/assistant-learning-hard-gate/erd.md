@@ -107,7 +107,6 @@ We renamed the rule file from `logging-protocol.mdc` to `assistant-learning.mdc`
 - Replace references to `.cursor/rules/logging-protocol.mdc` with `.cursor/rules/assistant-learning.mdc` in:
   - `README.md`
   - `docs/projects/ai-workflow-integration/erd.md`
-  - `docs/projects/ai-workflow-integration/tasks.md`
   - `docs/projects/ai-workflow-integration/discussions.md`
 - Any other docs mentioning `logging-protocol.mdc` (none remaining)
 

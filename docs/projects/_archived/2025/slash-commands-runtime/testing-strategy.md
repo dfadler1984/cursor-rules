@@ -122,7 +122,6 @@ Expected: Body contains real newline character
    Input: /tasks --project productivity --mark 2.0
    Expected:
    - Request consent
-   - Update tasks.md ([ ] → [x])
    - Display updated completion %
    ```
 
@@ -133,7 +132,6 @@ Expected: Body contains real newline character
    Expected:
    - Determine next task ID
    - Request consent
-   - Append to tasks.md
    ```
 
 4. **Ambiguous context:**
