@@ -45,7 +45,6 @@ Add a repository health badge to the root README that displays the current healt
 3. **Badge Display**
 
    - Location: Root README.md, near top (after title/description)
-   - Format: `![Health Score](badge-url)`
    - Clicking badge links to latest validation run or score details
 
 4. **Score Storage** (choose one approach)

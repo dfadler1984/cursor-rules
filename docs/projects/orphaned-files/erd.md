@@ -61,7 +61,6 @@ The repository accumulates files that are no longer referenced or useful:
 
 **Reference patterns** (used to detect orphans):
 
-- Markdown links: `[text](path)`, `[text](path.md)`
 - Relative paths: `docs/projects/<slug>/`, `../../<slug>/`
 - Script references: `.cursor/scripts/<name>.sh`
 - Rule references: `.cursor/rules/<name>.mdc`

@@ -206,4 +206,3 @@ Create `experiment-design-guide.md`:
 
 - [rules-enforcement-investigation](../rules-enforcement-investigation/)
 - [Slash commands experiment](../rules-enforcement-investigation/tests/experiment-slash-commands.md)
-- [Testing paradox origin](../rules-enforcement-investigation/test-execution/slash-commands-phase3-protocol.md)

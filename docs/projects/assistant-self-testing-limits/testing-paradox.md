@@ -61,7 +61,6 @@ Then:
 
 ### What We Planned
 
-**Test Design** (from slash-commands-phase3-protocol.md):
 
 > Execute 50 test trials:
 >

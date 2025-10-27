@@ -184,7 +184,6 @@ For UI/platform integration, one real attempt beats 50 test trials.
 ## Related
 
 - [Testing Paradox](./README.md) — Why self-testing is limited
-- [Slash Commands Decision](../rules-enforcement-investigation/slash-commands-decision.md) — Full investigation
 - [Rules Enforcement Investigation](../rules-enforcement-investigation/) — Parent project
 
 ---
