@@ -1,0 +1,8 @@
+---
+
+description: Missing closing delimiter
+alwaysApply: true
+
+# Malformed Front Matter
+
+Missing closing ---

@@ -1,0 +1,9 @@
+---
+description: TDD-First — Three Laws, R/G/R, owner specs
+alwaysApply: true
+globs: ["**/*.ts", "**/*.tsx"]
+---
+
+# TDD First
+
+Test content here.

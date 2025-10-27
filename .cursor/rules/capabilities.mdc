@@ -239,6 +239,11 @@ All discovery outputs MUST conform to this schema:
 - Check broken links: `[.cursor/scripts/links-check.sh](.cursor/scripts/links-check.sh) [--path <dir>]`.
 - Tooling inventory: `[.cursor/scripts/tooling-inventory.sh](.cursor/scripts/tooling-inventory.sh)`.
 
+### Documentation & README Generation
+
+- Generate root README: `[.cursor/scripts/generate-root-readme.sh](.cursor/scripts/generate-root-readme.sh) [--template PATH] [--out PATH] [--dry-run]` — Generate repository root README.md from template with auto-generated sections
+- Validate root README: `[.cursor/scripts/validate-root-readme.sh](.cursor/scripts/validate-root-readme.sh) [--fix] [--dry-run]` — Validate README.md freshness and optionally regenerate if stale
+
 ### Utilities
 
 - Organize project documentation: `[.cursor/scripts/project-docs-organize.sh](.cursor/scripts/project-docs-organize.sh) <project-slug>`

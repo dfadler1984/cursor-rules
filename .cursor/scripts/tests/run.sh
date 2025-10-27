@@ -86,10 +86,16 @@ failed_list=()
 outputs_dir="$(mktemp -d 2>/dev/null || mktemp -d -t sh-tests)"
 
 # Run each test in a subshell for environment isolation (D6)
+current=0
+total=${#TESTS[@]}
+
 for t in "${TESTS[@]}"; do
-  if [ $VERBOSE -eq 1 ]; then
-    log_info "Running: $t"
-  fi
+  current=$((current + 1))
+  test_name=$(basename "$t")
+  
+  # Always show progress
+  printf "[%d/%d] %s" "$current" "$total" "$test_name" >&2
+  
   out="$outputs_dir/$(basename "$t").out"
   set +e
   (
@@ -101,10 +107,11 @@ for t in "${TESTS[@]}"; do
   ) >"$out" 2>&1
   status=$?
   set -e
+  
   if [ $status -eq 0 ]; then
     passes=$((passes + 1))
+    printf " ✓\n" >&2
     if [ $VERBOSE -eq 1 ]; then
-      printf 'PASS %s\n' "$t"
       cat "$out"
       printf '\n'
     else
@@ -113,8 +120,8 @@ for t in "${TESTS[@]}"; do
   else
     fails=$((fails + 1))
     failed_list+=("$t")
+    printf " ✗ (exit=%d)\n" "$status" >&2
     if [ $VERBOSE -eq 1 ]; then
-      printf 'FAIL %s (exit=%d)\n' "$t" "$status"
       cat "$out"
       printf '\n'
     else
