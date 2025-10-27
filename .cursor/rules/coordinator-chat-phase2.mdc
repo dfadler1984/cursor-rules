@@ -26,6 +26,7 @@ lastReviewed: 2025-10-26
 ## Role & Responsibilities
 
 As a coordinator chat, you:
+
 1. Start WebSocket server
 2. Connect to server as coordinator
 3. Split user's project into parallelizable tasks
@@ -45,6 +46,7 @@ When user requests coordination:
 3. **Display**: "Server started on port 3100. Ready for workers."
 
 **Command**:
+
 ```bash
 yarn coordination:server &
 ```
@@ -80,6 +82,7 @@ After tasks pushed:
 3. **No polling needed**: Server pushes updates automatically
 
 **Status Display Format**:
+
 ```
 Multi-Chat Coordination Status
 ==============================
@@ -121,21 +124,25 @@ When all tasks are complete:
 ## Commands (Phase 2)
 
 **Start server**:
+
 ```bash
 yarn coordination:server
 ```
 
 **Connect as coordinator**:
+
 ```bash
 ts-node src/coordination/cli.ts coordinator register --project-id=<name>
 ```
 
 **Push tasks**:
+
 ```bash
 ts-node src/coordination/cli.ts coordinator create-tasks <tasks.json>
 ```
 
 **Get status**:
+
 ```bash
 ts-node src/coordination/cli.ts coordinator status
 ```
@@ -153,6 +160,7 @@ tmp/coordination/
 ## Event-Driven Pattern
 
 **Server → Coordinator notifications**:
+
 - `worker_registered`: New worker connected
 - `task_assigned`: Task given to worker
 - `task_complete`: Worker finished task
@@ -165,6 +173,7 @@ tmp/coordination/
 ### Server Not Running
 
 If connection fails:
+
 1. Check server is running: `ps aux | grep coordination-server`
 2. Start server if needed: `yarn coordination:server`
 3. Retry connection
@@ -172,6 +181,7 @@ If connection fails:
 ### Worker Disconnection
 
 Server handles automatically:
+
 - Reassigns active tasks to queue
 - Notifies coordinator of worker loss
 - Tasks can be assigned to replacement worker
@@ -179,6 +189,7 @@ Server handles automatically:
 ### Validation Failure
 
 If output validation fails:
+
 1. Document failure reason
 2. Escalate to engineer (cannot retry automatically in Phase 2)
 3. Engineer manually fixes and marks task complete
@@ -195,6 +206,7 @@ If output validation fails:
 **User**: "Act as coordinator. Coordinate: generate summaries for 3 README files"
 
 **Coordinator**:
+
 1. Starts server: `yarn coordination:server` (background)
 2. Connects: Registers as coordinator
 3. Creates 3 task JSONs

@@ -3,8 +3,11 @@ version: 1
 alwaysApply: false
 globs: []
 description: Coordinator chat behavior for multi-chat coordination system
-healthScore: 9
-lastReviewed: 2025-01-26
+healthScore:
+  content: green
+  usability: green
+  maintenance: green
+lastReviewed: 2025-10-27
 ---
 
 # Coordinator Chat Behavior
