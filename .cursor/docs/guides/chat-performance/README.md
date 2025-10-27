@@ -166,9 +166,6 @@ Each guide includes a **Quick Reference Card** for at-a-glance reminders:
 ## Related Project Files
 
 - **[ERD](../../../../docs/projects/chat-performance-and-quality-tools/erd.md):** Full project requirements and architecture
-- **[Tasks](../tasks.md):** Implementation checklist and progress tracking
-- **[Discovery](../discovery.md):** Initial research and open questions
-- **[Scoring Rubric](../scoring-rubric-implementation.md):** Context Efficiency Gauge algorithm details
 
 ---
 
