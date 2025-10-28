@@ -12,6 +12,7 @@ on:
 jobs:
   update-badge:
     runs-on: ubuntu-latest
+    environment: AUTO_MERGE_TOKEN
     permissions:
       contents: write
       pull-requests: write
@@ -20,7 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTO_MERGE_TOKEN }}
           fetch-depth: 0
 
       - name: Run health validation and update badge
@@ -49,7 +50,7 @@ jobs:
         if: steps.check_changes.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTO_MERGE_TOKEN }}
           commit-message: "chore: update repository health badge [skip ci]"
           title: "chore: update repository health badge"
           body: |

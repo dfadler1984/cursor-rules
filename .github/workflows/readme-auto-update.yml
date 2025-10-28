@@ -11,6 +11,7 @@ jobs:
     # Only run on merged PRs that are not auto-merge PRs
     if: github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'automerge')
     runs-on: ubuntu-latest
+    environment: AUTO_MERGE_TOKEN
     
     permissions:
       contents: write
@@ -53,7 +54,7 @@ jobs:
         if: steps.check.outputs.needs_update == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTO_MERGE_TOKEN }}
           commit-message: 'chore: regenerate root README [skip ci]'
           branch: auto-update-readme
           delete-branch: true

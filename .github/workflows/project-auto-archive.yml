@@ -13,6 +13,7 @@ permissions:
 jobs:
   auto-archive:
     runs-on: ubuntu-latest
+    environment: AUTO_MERGE_TOKEN
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -127,7 +128,7 @@ jobs:
         if: steps.detect.outputs.should_archive == 'true'
         id: create_pr
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}
         run: |
           TIMESTAMP="${{ steps.archive.outputs.timestamp }}"
           BRANCH="bot/auto-archive-$TIMESTAMP"
@@ -165,7 +166,7 @@ jobs:
         id: add_labels
         if: steps.detect.outputs.should_archive == 'true' && steps.create_pr.outputs.pr_url != ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}
         run: |
           PR_URL="${{ steps.create_pr.outputs.pr_url }}"
           PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
