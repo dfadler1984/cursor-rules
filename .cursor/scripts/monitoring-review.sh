@@ -13,32 +13,22 @@ SCRIPT_NAME="monitoring-review.sh"
 CONFIG_PATH="docs/active-monitoring.yaml"
 
 show_help() {
-    cat << 'EOF'
-Usage: monitoring-review.sh --project <slug> [options]
-
-Review monitoring logs and findings for a project. Show unreviewed items and optionally mark them as reviewed.
-
-OPTIONS:
-    --project <slug>        Project slug (must exist in active-monitoring.yaml)
-    --mark-reviewed         Mark all unreviewed items as reviewed
-    --reviewer <name>       Reviewer name (for mark-reviewed, defaults to current user)
-    --help                  Show this help message
-
-EXAMPLES:
-    monitoring-review.sh --project blocking-tdd-enforcement
-    monitoring-review.sh --project rules-enforcement --mark-reviewed
-    monitoring-review.sh --project consent-gates --mark-reviewed --reviewer "John Doe"
-
-REQUIREMENTS:
-    - active-monitoring.yaml must exist in current directory
-    - Project must have active monitoring entry
-    - Project monitoring/ directories must exist
-
-OUTPUT:
-    Shows: Unreviewed logs and findings with summary
-    With --mark-reviewed: Updates front matter with review status
+    print_help_header "monitoring-review.sh" "Review monitoring logs and findings for a project"
     
-EOF
+    print_usage "monitoring-review.sh --project <slug> [options]"
+    
+    print_options \
+        "--project <slug>" "Project slug (must exist in active-monitoring.yaml)" \
+        "--mark-reviewed" "Mark all unreviewed items as reviewed" \
+        "--reviewer <name>" "Reviewer name (for mark-reviewed, defaults to current user)" \
+        "--help" "Show this help message"
+    
+    print_exit_codes
+    
+    print_examples \
+        "monitoring-review.sh --project blocking-tdd-enforcement" \
+        "monitoring-review.sh --project rules-enforcement --mark-reviewed" \
+        "monitoring-review.sh --project consent-gates --mark-reviewed --reviewer \"John Doe\""
 }
 
 validate_requirements() {
@@ -262,7 +252,7 @@ main() {
                 reviewer="$2"
                 shift 2
                 ;;
-            --help)
+            -h|--help)
                 show_help
                 exit 0
                 ;;

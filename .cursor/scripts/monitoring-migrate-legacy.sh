@@ -14,34 +14,21 @@ LEGACY_FILE="docs/projects/ACTIVE-MONITORING.md"
 NEW_CONFIG="docs/active-monitoring.yaml"
 
 show_help() {
-    cat << 'EOF'
-Usage: monitoring-migrate-legacy.sh [options]
-
-Migrate from ACTIVE-MONITORING.md to the new YAML-based monitoring system.
-
-OPTIONS:
-    --dry-run               Show what would be done without making changes
-    --backup-suffix <sfx>   Backup suffix (default: .backup.YYYY-MM-DD)
-    --help                  Show this help message
-
-EXAMPLES:
-    monitoring-migrate-legacy.sh --dry-run
-    monitoring-migrate-legacy.sh
-    monitoring-migrate-legacy.sh --backup-suffix .pre-migration
-
-REQUIREMENTS:
-    - docs/projects/ACTIVE-MONITORING.md must exist
-    - Run from repository root
-    - yq must be installed for YAML operations
-
-ACTIONS:
-    1. Creates active-monitoring.yaml from ACTIVE-MONITORING.md content
-    2. Creates monitoring/ structure for active projects
-    3. Migrates existing findings to new structure with front matter
-    4. Backs up original ACTIVE-MONITORING.md
-    5. Generates migration report
+    print_help_header "monitoring-migrate-legacy.sh" "Migrate from ACTIVE-MONITORING.md to the new YAML-based monitoring system"
     
-EOF
+    print_usage "monitoring-migrate-legacy.sh [options]"
+    
+    print_options \
+        "--dry-run" "Show what would be done without making changes" \
+        "--backup-suffix <sfx>" "Backup suffix (default: .backup.YYYY-MM-DD)" \
+        "--help" "Show this help message"
+    
+    print_exit_codes
+    
+    print_examples \
+        "monitoring-migrate-legacy.sh --dry-run" \
+        "monitoring-migrate-legacy.sh" \
+        "monitoring-migrate-legacy.sh --backup-suffix .pre-migration"
 }
 
 validate_requirements() {
@@ -378,7 +365,7 @@ main() {
                 backup_suffix="$2"
                 shift 2
                 ;;
-            --help)
+            -h|--help)
                 show_help
                 exit 0
                 ;;

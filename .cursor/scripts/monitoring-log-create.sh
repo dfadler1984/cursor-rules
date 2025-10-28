@@ -13,32 +13,22 @@ SCRIPT_NAME="monitoring-log-create.sh"
 CONFIG_PATH="docs/active-monitoring.yaml"
 
 show_help() {
-    cat << 'EOF'
-Usage: monitoring-log-create.sh --project <slug> --observation <description> [options]
-
-Create a monitoring log with timestamped observation and auto-incrementing ID.
-
-OPTIONS:
-    --project <slug>        Project slug (must exist in active-monitoring.yaml)
-    --observation <desc>    Description of the observation
-    --context <context>     Work context (optional, defaults to current work)
-    --observer <name>       Observer name (optional, defaults to Assistant)
-    --help                  Show this help message
-
-EXAMPLES:
-    monitoring-log-create.sh --project blocking-tdd-enforcement --observation "Created file without test"
-    monitoring-log-create.sh --project rules-enforcement --observation "Pre-send gate bypassed" --context "Working on PR creation"
-
-REQUIREMENTS:
-    - active-monitoring.yaml must exist in current directory
-    - Project must have active monitoring entry
-    - Project monitoring/logs/ directory must exist
-
-OUTPUT:
-    Creates: docs/projects/<project>/monitoring/logs/log-###-<description-slug>.md
-    Format: Front matter + structured content
+    print_help_header "monitoring-log-create.sh" "Create a monitoring log with timestamped observation and auto-incrementing ID"
     
-EOF
+    print_usage "monitoring-log-create.sh --project <slug> --observation <description> [options]"
+    
+    print_options \
+        "--project <slug>" "Project slug (must exist in active-monitoring.yaml)" \
+        "--observation <desc>" "Description of the observation" \
+        "--context <context>" "Work context (optional, defaults to current work)" \
+        "--observer <name>" "Observer name (optional, defaults to Assistant)" \
+        "-h, --help" "Show this help message"
+    
+    print_exit_codes
+    
+    print_examples \
+        "monitoring-log-create.sh --project blocking-tdd-enforcement --observation \"Created file without test\"" \
+        "monitoring-log-create.sh --project rules-enforcement --observation \"Pre-send gate bypassed\" --context \"Working on PR creation\""
 }
 
 validate_requirements() {
@@ -292,7 +282,7 @@ main() {
                 observer="$2"
                 shift 2
                 ;;
-            --help)
+            -h|--help)
                 show_help
                 exit 0
                 ;;

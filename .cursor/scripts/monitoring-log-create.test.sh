@@ -48,14 +48,27 @@ cleanup_test_workspace() {
 test_help_flag() {
     echo "=== Test: Help flag ==="
     
+    # Test --help flag
     local output
     output=$("${SCRIPT_DIR}/monitoring-log-create.sh" --help 2>&1) || true
     
     if [[ "${output}" =~ "Usage:" ]]; then
-        echo "✓ Help flag shows usage"
+        echo "✓ --help flag shows usage"
     else
-        echo "✗ Help flag failed"
+        echo "✗ --help flag failed"
         echo "Output: ${output}"
+        return 1
+    fi
+    
+    # Test -h flag
+    local output_short
+    output_short=$("${SCRIPT_DIR}/monitoring-log-create.sh" -h 2>&1) || true
+    
+    if [[ "${output_short}" =~ "Usage:" ]]; then
+        echo "✓ -h flag shows usage"
+    else
+        echo "✗ -h flag failed"
+        echo "Output: ${output_short}"
         return 1
     fi
 }

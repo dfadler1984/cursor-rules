@@ -13,33 +13,23 @@ SCRIPT_NAME="monitoring-finding-create.sh"
 CONFIG_PATH="docs/active-monitoring.yaml"
 
 show_help() {
-    cat << 'EOF'
-Usage: monitoring-finding-create.sh --project <slug> --title <pattern-name> [options]
-
-Create a monitoring finding with auto-incrementing ID and structured template.
-
-OPTIONS:
-    --project <slug>        Project slug (must exist in active-monitoring.yaml)
-    --title <pattern>       Pattern name for the finding
-    --severity <level>      Severity level (critical|high|medium|low, default: medium)
-    --status <status>       Status (open|in-progress|resolved, default: open)
-    --source-logs <ids>     Comma-separated log IDs (e.g., "001,003,007")
-    --help                  Show this help message
-
-EXAMPLES:
-    monitoring-finding-create.sh --project blocking-tdd-enforcement --title "tdd-gate-scope-gap"
-    monitoring-finding-create.sh --project rules-enforcement --title "script-bypass-pattern" --severity critical --source-logs "001,005,012"
-
-REQUIREMENTS:
-    - active-monitoring.yaml must exist in current directory
-    - Project must have active monitoring entry
-    - Project monitoring/findings/ directory must exist
-
-OUTPUT:
-    Creates: docs/projects/<project>/monitoring/findings/finding-###-<pattern-slug>.md
-    Format: Front matter + structured analysis template
+    print_help_header "monitoring-finding-create.sh" "Create a monitoring finding with auto-incrementing ID and structured template"
     
-EOF
+    print_usage "monitoring-finding-create.sh --project <slug> --title <pattern-name> [options]"
+    
+    print_options \
+        "--project <slug>" "Project slug (must exist in active-monitoring.yaml)" \
+        "--title <pattern>" "Pattern name for the finding" \
+        "--severity <level>" "Severity level (critical|high|medium|low, default: medium)" \
+        "--status <status>" "Status (open|in-progress|resolved, default: open)" \
+        "--source-logs <ids>" "Comma-separated log IDs (e.g., \"001,003,007\")" \
+        "--help" "Show this help message"
+    
+    print_exit_codes
+    
+    print_examples \
+        "monitoring-finding-create.sh --project blocking-tdd-enforcement --title \"tdd-gate-scope-gap\"" \
+        "monitoring-finding-create.sh --project rules-enforcement --title \"script-bypass-pattern\" --severity critical --source-logs \"001,005,012\""
 }
 
 validate_requirements() {
@@ -439,7 +429,7 @@ main() {
                 source_logs="$2"
                 shift 2
                 ;;
-            --help)
+            -h|--help)
                 show_help
                 exit 0
                 ;;
