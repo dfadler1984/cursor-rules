@@ -105,6 +105,8 @@ For detailed auth setup, see [`docs/workspace-security.md`](./docs/workspace-sec
 - `assistant-git-usage.caps.mdc` — Capabilities for Git workflows (commits, branches, PRs, local gates)
 - `changelog.mdc` — Changelog {{AVAILABLE_RULES}} Versioning — Changesets workflow, CI behavior, and assistant usage
 - `context-efficiency.mdc` — Context Efficiency Gauge — qualitative heuristics and decision aid for chat context health
+- `coordinator-chat-phase2.mdc` — Coordinator chat behavior for multi-chat coordination (Phase 2 - WebSocket)
+- `coordinator-chat.mdc` — Coordinator chat behavior for multi-chat coordination system
 - `create-erd.caps.mdc` — Capabilities for ERD authoring (Full default, Lite optional)
 - `create-erd.mdc` — Engineering Requirements Document (ERD) creation workflow and template for Cursor
 - `cursor-platform-capabilities.mdc` — "[DEPRECATED] Cursor platform capabilities — see platform-capabilities.mdc"
@@ -141,6 +143,8 @@ For detailed auth setup, see [`docs/workspace-security.md`](./docs/workspace-sec
 - `test-quality.mdc` — Practical test-quality (language-agnostic core: owner coupling, meaningful failure, sabotage checks)
 - `testing.caps.mdc` — Capabilities for proactive attachment of testing guidance
 - `testing.mdc` — Testing conventions — meaningful assertions against owner modules; pointers to TDD cycles
+- `worker-chat-phase2.mdc` — Worker chat behavior for multi-chat coordination (Phase 2 - WebSocket)
+- `worker-chat.mdc` — Worker chat behavior for multi-chat coordination system
 - `workspace-security.caps.mdc` — Capabilities for Cursor Workspace Trust and autorun prevention
 - `workspace-security.mdc` — Cursor Workspace Trust and autorun prevention policy (no folder-open autoruns)
 
@@ -216,6 +220,9 @@ For detailed auth setup, see [`docs/workspace-security.md`](./docs/workspace-sec
 ### Utilities
 
 - `.cursor/scripts/capabilities-sync.sh` — capabilities-sync
+- `.cursor/scripts/changelog-backfill.sh` — changelog-backfill
+- `.cursor/scripts/changelog-diff.sh` — changelog-diff
+- `.cursor/scripts/changelog-update.sh` — changelog-update
 - `.cursor/scripts/changesets-automerge-dispatch.sh` — changesets-automerge-dispatch
 - `.cursor/scripts/check-branch-names.sh` — check-branch-names
 - `.cursor/scripts/check-script-usage.sh` — check-script-usage
@@ -229,6 +236,11 @@ For detailed auth setup, see [`docs/workspace-security.md`](./docs/workspace-sec
 - `.cursor/scripts/generate-projects-readme.sh` — generate-projects-readme
 - `.cursor/scripts/generate-root-readme.sh` — Generate repository root README.md from template
 - `.cursor/scripts/links-check.sh` — links-check
+- `.cursor/scripts/links-fix.sh` — links-fix
+- `.cursor/scripts/monitoring-finding-create.sh` — monitoring-finding-create
+- `.cursor/scripts/monitoring-log-create.sh` — monitoring-log-create
+- `.cursor/scripts/monitoring-migrate-legacy.sh` — monitoring-migrate-legacy
+- `.cursor/scripts/monitoring-review.sh` — monitoring-review
 - `.cursor/scripts/network-guard.sh` — network-guard
 - `.cursor/scripts/preflight.sh` — preflight
 - `.cursor/scripts/repo-health-badge.sh` — repo-health-badge
@@ -253,7 +265,7 @@ For detailed auth setup, see [`docs/workspace-security.md`](./docs/workspace-sec
 - **blocking-tdd-enforcement** — Engineering Requirements Document — Blocking TDD Enforcement (Lite) [25% complete]
 - **command-discovery-rule** — Engineering Requirements Document — Command Discovery Rule [0% complete]
 - **confluence-automation** — Engineering Requirements Document — Confluence Automation [N/A complete]
-- **consent-gates-refinement** — Engineering Requirements Document — Consent Gates Refinement [43% complete]
+- **consent-gates-monitoring** — Engineering Requirements Document — Consent Gates Monitoring [6% complete]
 - **cursor-modes** — Engineering Requirements Document — Cursor Modes Integration [0% complete]
 - **git-usage-suite** — Engineering Requirements Document — Git Usage Suite (Lite) [0% complete]
 - **git-usage** — Engineering Requirements Document — Git Usage via MCP (Lite) [33% complete]
@@ -264,12 +276,12 @@ For detailed auth setup, see [`docs/workspace-security.md`](./docs/workspace-sec
 - **pr-create-decomposition** — Engineering Requirements Document: PR Creation Script Decomposition [0% complete]
 - **pre-commit-shell-executable** — Engineering Requirements Document — Pre-commit Shell Executable Bit (Lite) [0% complete]
 - **project-auto-archive-action** — Engineering Requirements Document — Project Auto Archive Action [66% complete]
-- **project-lifecycle-docs-hygiene** — Engineering Requirements Document — Project lifecycle {{ACTIVE_PROJECTS}} docs hygiene (Umbrella) [8% complete]
+- **project-lifecycle-docs-hygiene** — Engineering Requirements Document — Project lifecycle {{ACTIVE_PROJECTS}} docs hygiene (Umbrella) [9% complete]
 - **project-organization** — Engineering Requirements Document — Project Organization Defaults and Configurability [0% complete]
 - **roles** — Engineering Requirements Document — Roles {{ACTIVE_PROJECTS}} Intent Routing (Lite) [14% complete]
 - **root-readme-generator** — Engineering Requirements Document — Root README Generator [59% complete]
 - **rules-docs-quality-detection** — Engineering Requirements Document: Rules {{ACTIVE_PROJECTS}} Documentation Quality Detection [0% complete]
-- **rules-enforcement-investigation** — Engineering Requirements Document — Rules Enforcement {{ACTIVE_PROJECTS}} Effectiveness Investigation [82% complete]
+- **rules-enforcement-investigation** — Engineering Requirements Document — Rules Enforcement {{ACTIVE_PROJECTS}} Effectiveness Investigation [90% complete]
 - **rules-folder-structure-options** — Engineering Requirements Document — Rules Folder Structure Options (Lite) [0% complete]
 - **rules-grok-alignment** — Engineering Requirements Document — Improve Rules Using Grok Conversation Insights [0% complete]
 - **script-organization-by-feature** — Engineering Requirements Document: Shell Scripts Organization by Feature [0% complete]
@@ -312,7 +324,7 @@ yarn test --coverage
 
 - **Scripts**: [`docs/scripts/README.md`](./docs/scripts/README.md)
 - **Projects**: [`docs/projects/README.md`](./docs/projects/README.md) (33 active, 46 archived)
-- **Rules**: [`.cursor/rules/`](./.cursor/rules/) (59 rules)
+- **Rules**: [`.cursor/rules/`](./.cursor/rules/) (63 rules)
 - **Guides**: [`docs/guides/`](./docs/guides/)
 
 ## What's New
@@ -393,5 +405,5 @@ See [`.cursor/rules/assistant-git-usage.mdc`](./.cursor/rules/assistant-git-usag
 
 ---
 
-**Generated**: 2025-10-27T15:15:28Z  
-**Version**: 0.22.9
+**Generated**: 2025-10-28T14:13:12Z  
+**Version**: 0.23.1
