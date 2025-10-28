@@ -133,6 +133,8 @@ jobs:
           TIMESTAMP="${{ steps.archive.outputs.timestamp }}"
           BRANCH="bot/auto-archive-$TIMESTAMP"
           COUNT="${{ steps.detect.outputs.count }}"
+          OWNER="${{ github.repository_owner }}"
+          REPO="${{ github.event.repository.name }}"
 
           # Create branch
           git checkout -b "$BRANCH"
@@ -150,15 +152,23 @@ jobs:
           # Push branch
           git push origin "$BRANCH"
 
-          # Create PR using pr-create script
-          chmod +x ./.cursor/scripts/pr-create.sh
+          # Create or update PR using idempotent script
+          chmod +x ./.cursor/scripts/pr-create-or-update.sh
           PR_BODY="Auto-archiving $COUNT completed project(s). All tasks complete, carryovers resolved, final summaries written."
 
-          PR_URL=$(./.cursor/scripts/pr-create.sh \
+          PR_URL=$(./.cursor/scripts/pr-create-or-update.sh \
             --title "chore(projects): Auto-archive completed projects ($COUNT)" \
             --body "$PR_BODY" \
+            --title-pattern "chore(projects): Auto-archive completed projects" \
+            --branch-prefix "bot/auto-archive-" \
+            --owner "${OWNER}" \
+            --repo "${REPO}" \
             --head "$BRANCH" \
-            --base main)
+            --base main \
+            --label "auto-merge" \
+            --label "bot" \
+            --label "skip-changeset" \
+            --label "project-lifecycle")
 
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
 

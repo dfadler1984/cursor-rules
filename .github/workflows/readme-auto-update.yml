@@ -50,34 +50,47 @@ jobs:
           npm run generate:root-readme
           echo "✓ README regenerated"
       
-      - name: Create Pull Request
+      - name: Create or Update Pull Request
         if: steps.check.outputs.needs_update == 'true'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.AUTO_MERGE_TOKEN }}
-          commit-message: 'chore: regenerate root README [skip ci]'
-          branch: auto-update-readme
-          delete-branch: true
-          title: 'chore: regenerate root README'
-          body: |
-            ## Summary
-            
-            Auto-generated update to root README.md after PR merge.
-            
-            ## Changes
-            
-            - Regenerated README.md using `generate-root-readme.sh`
-            - Updated sections: rules, scripts, projects, documentation structure
-            
-            ## Validation
-            
-            ```bash
-            npm run validate:root-readme
-            ```
-            
-            This PR is safe to auto-merge.
-          labels: |
-            automerge
-            skip-changeset
-          assignees: ${{ github.event.pull_request.user.login }}
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}
+        run: |
+          chmod +x ./.cursor/scripts/pr-create-or-update.sh
+          
+          OWNER="${{ github.repository_owner }}"
+          REPO="${{ github.event.repository.name }}"
+          BRANCH="auto-update-readme"
+          
+          # Ensure branch exists with changes
+          git checkout -b "$BRANCH" || git checkout "$BRANCH"
+          git add README.md
+          git commit -m "chore: regenerate root README [skip ci]" || true
+          git push -f origin "$BRANCH"
+          
+          ./.cursor/scripts/pr-create-or-update.sh \
+            --title "chore: regenerate root README" \
+            --body "## Summary
+
+Auto-generated update to root README.md after PR merge.
+
+## Changes
+
+- Regenerated README.md using \`generate-root-readme.sh\`
+- Updated sections: rules, scripts, projects, documentation structure
+
+## Validation
+
+\`\`\`bash
+npm run validate:root-readme
+\`\`\`
+
+This PR is safe to auto-merge." \
+            --title-pattern "chore: regenerate root README" \
+            --branch-prefix "auto-update-readme" \
+            --owner "$OWNER" \
+            --repo "$REPO" \
+            --head "$BRANCH" \
+            --base main \
+            --label "automerge" \
+            --label "skip-changeset"
 

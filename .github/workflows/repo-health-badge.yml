@@ -46,20 +46,32 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Create Pull Request
+      - name: Create or Update Pull Request
         if: steps.check_changes.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.AUTO_MERGE_TOKEN }}
-          commit-message: "chore: update repository health badge [skip ci]"
-          title: "chore: update repository health badge"
-          body: |
-            Automated health badge update from validation run.
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}
+        run: |
+          chmod +x ./.cursor/scripts/pr-create-or-update.sh
+          
+          OWNER="${{ github.repository_owner }}"
+          REPO="${{ github.event.repository.name }}"
+          BRANCH="chore/update-health-badge"
+          
+          # Ensure branch exists with changes
+          git checkout -b "$BRANCH" || git checkout "$BRANCH"
+          git add README.md
+          git commit -m "chore: update repository health badge [skip ci]" || true
+          git push -f origin "$BRANCH"
+          
+          ./.cursor/scripts/pr-create-or-update.sh \
+            --title "chore: update repository health badge" \
+            --body "Automated health badge update from validation run.
 
-            Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          add-paths: |
-            README.md
-          branch: chore/update-health-badge
-          delete-branch: true
-          labels: skip-changeset
-          author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --title-pattern "chore: update repository health badge" \
+            --branch-prefix "chore/update-health-badge" \
+            --owner "$OWNER" \
+            --repo "$REPO" \
+            --head "$BRANCH" \
+            --base main \
+            --label "skip-changeset"
