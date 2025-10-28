@@ -156,7 +156,7 @@ jobs:
           PR_BODY="Auto-archiving $COUNT completed project(s). All tasks complete, carryovers resolved, final summaries written."
 
           PR_URL=$(./.cursor/scripts/pr-create-or-update.sh \
-            --title "chore(projects): Auto-archive completed projects ($COUNT)" \
+            --title "chore(projects): Auto-archive completed projects" \
             --body "$PR_BODY" \
             --title-pattern "chore(projects): Auto-archive completed projects" \
             --branch-prefix "bot/auto-archive-projects" \
