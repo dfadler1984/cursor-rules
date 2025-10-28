@@ -93,7 +93,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Logging Destinations and Publication Strategy (Archived) | archived | [📄](./_archived/2025/logging-destinations/erd.md) | ✅ |
 | MCP Synergy (Lite) | archived | [📄](./_archived/2025/mcp-synergy/erd.md) | ✅ |
 | Networkless Scripts Refactor | completed | [📄](./_archived/2025/networkless-scripts/erd.md) | ✅ |
-| Per-Project Changelog | completed | [📄](./per-project-changelog/erd.md) | ✅ |
+| Per-Project Changelog | completed | [📄](./_archived/2025/per-project-changelog/erd.md) | ✅ |
 | Platform Capabilities Guidance (Genericization) | completed | [📄](./_archived/2025/platform-capabilities-generic/erd.md) | ✅ |
 | PR Create Script (Lite) | archived | [📄](./_archived/2025/pr-create-script/erd.md) | ✅ |
 | PR Template Automation | completed | [📄](./_archived/2025/pr-template-automation/erd.md) | ✅ |

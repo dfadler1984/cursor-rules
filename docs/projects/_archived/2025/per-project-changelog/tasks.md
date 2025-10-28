@@ -6,7 +6,7 @@
 
 ## Relevant Files
 
-- `docs/projects/per-project-changelog/erd.md`
+- `docs/projects/_archived/2025/per-project-changelog/erd.md`
 - `.cursor/templates/project-lifecycle/CHANGELOG.template.md` ✅ Created
 - `.cursor/rules/project-lifecycle.mdc` ✅ Updated
 - `.cursor/scripts/project-create.sh` ✅ Updated
