@@ -156,6 +156,9 @@ mark_file_as_reviewed() {
     
     # Replace original file
     mv "${temp_file}" "${file_path}"
+    
+    # Ensure file is flushed to disk
+    sync
 }
 
 mark_items_as_reviewed() {

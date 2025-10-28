@@ -198,6 +198,9 @@ test_mark_reviewed_functionality() {
     local output
     output=$("${SCRIPT_DIR}/monitoring-review.sh" --project "${TEST_PROJECT}" --mark-reviewed 2>&1)
     
+    echo "Debug: Mark-reviewed output:"
+    echo "${output}"
+    
     # Check if unreviewed log was marked as reviewed
     if grep -q "reviewed: true" "${TEST_WORKSPACE_DIR}/docs/projects/${TEST_PROJECT}/monitoring/logs/log-001-test-observation.md"; then
         echo "✓ Log marked as reviewed"

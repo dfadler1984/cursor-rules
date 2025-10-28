@@ -164,7 +164,8 @@ test_findings_migration() {
     local output
     output=$("${SCRIPT_DIR}/monitoring-migrate-legacy.sh" --dry-run 2>&1)
     
-    if [[ "${output}" =~ "Would migrate.*findings" || "${output}" =~ "migrate.*findings" || "${output}" =~ "findings.*migrate" ]]; then
+    # Check for any migration-related output (more flexible pattern)
+    if [[ "${output}" =~ "findings" && "${output}" =~ "migrate" ]]; then
         echo "✓ Findings migration planned"
     else
         echo "✗ Findings migration not planned"
@@ -208,7 +209,7 @@ test_backup_creation() {
     local output
     output=$("${SCRIPT_DIR}/monitoring-migrate-legacy.sh" --dry-run 2>&1)
     
-    if [[ "${output}" =~ "Would backup.*ACTIVE-MONITORING.md" ]]; then
+    if echo "${output}" | grep -q "Would backup.*ACTIVE-MONITORING.md"; then
         echo "✓ Backup creation planned"
     else
         echo "✗ Backup creation not planned"
