@@ -80,9 +80,11 @@ Complex projects (especially investigations with >15 files) can include a `CHANG
 
 | Project                                         | Status    | ERD                                            | Tasks |
 | ----------------------------------------------- | --------- | ---------------------------------------------- | ----- |
-| Active Monitoring Formalization                 | planning  | [📄](./active-monitoring-formalization/erd.md) | ✅    |
+| Active Monitoring Formalization                 | paused    | [📄](./active-monitoring-formalization/erd.md) | ✅    |
+| Assistant Rule Adherence Investigation          | planning  | [📄](./assistant-rule-adherence/erd.md)        | ✅    |
 | Assistant Self-Improvement (Ground-Up Redesign) | planning  | [📄](./assistant-self-improvement/erd.md)      | ✅    |
 | Multi-Chat Coordination System                  | validated | [📄](./multi-chat-coordination/erd.md)         | ✅    |
+| Per-Project Changelog                           | planning  | [📄](./per-project-changelog/erd.md)           | ✅    |
 | Repo Health Badge (Lite)                        | planning  | [📄](./repo-health-badge/erd.md)               | ✅    |
 | Rule Introspection (Lite)                       | planning  | [📄](./rule-introspection/erd.md)              | ✅    |
 
