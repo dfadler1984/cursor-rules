@@ -208,10 +208,17 @@ test_mark_reviewed_functionality() {
     fi
     
     # Check if finding was marked as reviewed
-    if grep -q "reviewed: true" "${TEST_WORKSPACE_DIR}/docs/projects/${TEST_PROJECT}/monitoring/findings/finding-001-test-pattern.md"; then
+    local finding_file="${TEST_WORKSPACE_DIR}/docs/projects/${TEST_PROJECT}/monitoring/findings/finding-001-test-pattern.md"
+    if [[ -f "${finding_file}" ]] && grep -q "reviewed: true" "${finding_file}"; then
         echo "✓ Finding marked as reviewed"
     else
         echo "✗ Finding not marked as reviewed"
+        if [[ -f "${finding_file}" ]]; then
+            echo "Finding file exists but not marked as reviewed:"
+            grep "reviewed:" "${finding_file}" || echo "No reviewed field found"
+        else
+            echo "Finding file does not exist: ${finding_file}"
+        fi
         cleanup_test_workspace
         return 1
     fi

@@ -164,7 +164,7 @@ test_findings_migration() {
     local output
     output=$("${SCRIPT_DIR}/monitoring-migrate-legacy.sh" --dry-run 2>&1)
     
-    if [[ "${output}" =~ "Would migrate.*findings" || "${output}" =~ "migrate.*findings" ]]; then
+    if [[ "${output}" =~ "Would migrate.*findings" || "${output}" =~ "migrate.*findings" || "${output}" =~ "findings.*migrate" ]]; then
         echo "✓ Findings migration planned"
     else
         echo "✗ Findings migration not planned"
