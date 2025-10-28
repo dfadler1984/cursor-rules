@@ -101,14 +101,20 @@ if [ -n "$MATCHING_PR" ] && [ "$MATCHING_PR" != "null" ]; then
     printf '{"action":"update","pr_number":%s,"title":"%s"}\n' "$MATCHING_PR" "$TITLE"
     exit 0
   fi
-  bash "$(dirname "$0")/pr-update.sh" --pr "$MATCHING_PR" --title "$TITLE" --body "$BODY" --owner "$OWNER" --repo "$REPO"
+  
+  # Update existing PR and extract URL
+  response=$(bash "$(dirname "$0")/pr-update.sh" --pr "$MATCHING_PR" --title "$TITLE" --body "$BODY" --owner "$OWNER" --repo "$REPO")
+  printf '%s' "$response" | jq -r '.html_url'
 else
   if [ $DRY_RUN -eq 1 ]; then
     printf '{"action":"create","title":"%s","head":"%s"}\n' "$TITLE" "$HEAD"
     exit 0
   fi
+  
+  # Create new PR and extract URL
   CREATE_CMD=("$(dirname "$0")/pr-create.sh" --title "$TITLE" --body "$BODY" --owner "$OWNER" --repo "$REPO" --base "$BASE" --head "$HEAD" --no-template)
   [ ${#LABELS[@]} -gt 0 ] && for lbl in "${LABELS[@]}"; do CREATE_CMD+=(--label "$lbl"); done
-  bash "${CREATE_CMD[@]}"
+  response=$(bash "${CREATE_CMD[@]}")
+  printf '%s' "$response" | jq -r '.html_url'
 fi
 
