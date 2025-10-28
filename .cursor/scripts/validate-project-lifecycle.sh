@@ -155,6 +155,16 @@ for proj in "$@"; do
     fi
   fi
 
+  # CHANGELOG advisory check (optional, recommended for complex projects)
+  changelog="$proj_dir/CHANGELOG.md"
+  if [[ ! -f "$changelog" ]]; then
+    # Check if this is a complex project (investigation with substantial files)
+    file_count=$(find "$proj_dir" -type f -name "*.md" | wc -l | tr -d ' ')
+    if [[ $file_count -gt 15 ]]; then
+      echo "  [WARN] Complex project (>15 files) without CHANGELOG.md — consider adding one for project history tracking" >&2
+    fi
+  fi
+
   # ensure no templates exist under project dir
   if find "$proj_dir" -maxdepth 1 -type f -name "*.template.md" | grep -q .; then
     echo "  [ERROR] $proj_dir: template files should not live under project directory" >&2

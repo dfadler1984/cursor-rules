@@ -1,7 +1,12 @@
 # Active Project Monitoring
 
+> **⚠️ DEPRECATED**: This file has been migrated to `docs/active-monitoring.yaml`  
+> **New system**: Use YAML config + monitoring/ directories in projects  
+> **Migration date**: 2025-10-28  
+> **Removal date**: ~2025-11-04 (after 7-day validation period)
+
 **Purpose**: Track which projects are actively monitoring for issues and where to document findings  
-**Last Updated**: 2025-10-24
+**Last Updated**: 2025-10-24 (DEPRECATED - see active-monitoring.yaml)
 
 ---
 

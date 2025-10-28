@@ -87,3 +87,50 @@ set -e
 [ $rc2 -eq 0 ] || { echo "expected success after fixes" >&2; echo "$out_ok" >&2; exit 1; }
 echo "[TEST] OK: validator behavior checks"
 
+# Test: CHANGELOG advisory check for complex projects
+echo "[TEST] CHANGELOG advisory check for complex projects"
+mkdir -p "$workdir/docs/projects/complex"
+
+# Create minimal valid project
+cat > "$workdir/docs/projects/complex/final-summary.md" <<'MD'
+---
+template: project-lifecycle/final-summary
+version: 1.0.0
+---
+
+# Final Summary
+
+## Impact
+- Done
+
+## Retrospective
+- Learned
+MD
+
+cat > "$workdir/docs/projects/complex/tasks.md" <<'MD'
+## Tasks
+- [x] All done
+
+## Carryovers
+- None
+MD
+
+# Create 20 markdown files to exceed threshold
+for i in {1..20}; do
+  echo "# File $i" > "$workdir/docs/projects/complex/file-$i.md"
+done
+
+# Run validator - should warn about missing CHANGELOG
+set +e
+out_complex=$(PROJECTS_ROOT="$workdir/docs/projects" "$script" complex 2>&1)
+rc_complex=$?
+set -e
+
+# Should succeed (warning only, not error)
+[ $rc_complex -eq 0 ] || { echo "should succeed with warning" >&2; echo "$out_complex" >&2; exit 1; }
+
+# Should warn about missing CHANGELOG
+echo "$out_complex" | grep -qi "CHANGELOG.md" || { echo "should warn about missing CHANGELOG for complex project" >&2; echo "$out_complex" >&2; exit 1; }
+
+echo "[TEST] OK: CHANGELOG advisory check"
+

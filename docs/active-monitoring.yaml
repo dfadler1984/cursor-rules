@@ -1,0 +1,108 @@
+version: "1.0"
+lastUpdated: "2025-10-27"
+
+# Active monitoring entries (migrated from ACTIVE-MONITORING.md)
+monitoring:
+  blocking-tdd-enforcement:
+    status: active
+    started: "2025-10-24"  # Inferred from legacy file
+    duration: "continuous"
+    endDate: null
+    logsPath: "docs/projects/blocking-tdd-enforcement/monitoring/logs"
+    findingsPath: "docs/projects/blocking-tdd-enforcement/monitoring/findings"
+    scope:
+      - "Migrated from ACTIVE-MONITORING.md"
+    outOfScope:
+      - "See project documentation for details"
+    monitors:
+      - "Legacy monitoring target"
+    crossReferences: []
+  rules-enforcement-investigation:
+    status: active
+    started: "2025-10-24"  # Inferred from legacy file
+    duration: "continuous"
+    endDate: null
+    logsPath: "docs/projects/rules-enforcement-investigation/monitoring/logs"
+    findingsPath: "docs/projects/rules-enforcement-investigation/monitoring/findings"
+    scope:
+      - "Migrated from ACTIVE-MONITORING.md"
+    outOfScope:
+      - "See project documentation for details"
+    monitors:
+      - "Legacy monitoring target"
+    crossReferences: []
+  tdd-scope-boundaries:
+    status: active
+    started: "2025-10-24"  # Inferred from legacy file
+    duration: "continuous"
+    endDate: null
+    logsPath: "docs/projects/tdd-scope-boundaries/monitoring/logs"
+    findingsPath: "docs/projects/tdd-scope-boundaries/monitoring/findings"
+    scope:
+      - "Migrated from ACTIVE-MONITORING.md"
+    outOfScope:
+      - "See project documentation for details"
+    monitors:
+      - "Legacy monitoring target"
+    crossReferences: []
+  consent-gates-refinement:
+    status: active
+    started: "2025-10-24"  # Inferred from legacy file
+    duration: "continuous"
+    endDate: null
+    logsPath: "docs/projects/consent-gates-refinement/monitoring/logs"
+    findingsPath: "docs/projects/consent-gates-refinement/monitoring/findings"
+    scope:
+      - "Migrated from ACTIVE-MONITORING.md"
+    outOfScope:
+      - "See project documentation for details"
+    monitors:
+      - "Legacy monitoring target"
+    crossReferences: []
+
+# Completed/archived monitoring (migrated)
+completed:
+  routing-optimization:
+    status: "archived"
+    started: "2025-10-23"
+    completed: "2025-10-24"
+    archivedTo: "docs/projects/_archived/2025/routing-optimization"
+    finalResults: "100% routing accuracy achieved"
+    
+  assistant-self-improvement:
+    status: "paused"
+    started: "2025-10-15"
+    paused: "2025-10-24"
+    reason: "Auto-logging deprecated"
+
+# Decision tree (migrated from ACTIVE-MONITORING.md lines 164-194)
+routing:
+  categories:
+    - name: "routing"
+      description: "Wrong rules attached"
+      symptom: "Intent misread, wrong rules attached"
+    - name: "execution" 
+      description: "Right rules attached but ignored"
+      symptom: "Rule loaded but pre-edit gate skipped"
+    - name: "workflow"
+      description: "Automation contradiction"
+      symptom: "GitHub Actions, PR scripts"
+  rules:
+    - symptom: "TDD gate BLOCKING (file pairing enforcement)"
+      project: "blocking-tdd-enforcement"
+    - symptom: "FOLLOWING attached rules"
+      project: "rules-enforcement-investigation"
+    - symptom: "TDD scope check accuracy"
+      project: "tdd-scope-boundaries"
+    - symptom: "consent gate behavior"
+      project: "consent-gates-refinement"
+
+# System configuration
+staleness:
+  timeBased: 30        # days without logs before stale
+  durationGrace: 14    # days past endDate before stale
+  newMonitoringGrace: 60  # days grace for new monitoring
+
+constraints:
+  maxActiveProjects: 5
+  maxConfigLines: 300  # lines before archival needed

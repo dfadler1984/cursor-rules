@@ -1,0 +1,101 @@
+name: Changelog Phase Reminder
+
+on:
+  pull_request:
+    paths:
+      - "docs/projects/*/tasks.md"
+    types: [opened, synchronize]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  detect-phase-completion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect completed phases
+        id: detect
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          # Get changed tasks.md files
+          CHANGED_TASKS=$(git diff --name-only "origin/$BASE_REF...$HEAD_REF" | grep 'docs/projects/.*/tasks.md' || true)
+
+          if [ -z "$CHANGED_TASKS" ]; then
+            echo "No tasks.md changes detected"
+            echo "phases_completed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          COMPLETED_PHASES=""
+
+          for tasks_file in $CHANGED_TASKS; do
+            # Extract project name
+            PROJECT=$(echo "$tasks_file" | sed 's|docs/projects/||' | sed 's|/tasks.md||')
+            
+            # Check if any phases were newly marked COMPLETE
+            DIFF=$(git diff "origin/$BASE_REF...$HEAD_REF" -- "$tasks_file")
+            
+            # Look for lines changing to COMPLETE
+            NEW_COMPLETE=$(echo "$DIFF" | grep "^+.*## Phase.*COMPLETE" || true)
+            
+            if [ -n "$NEW_COMPLETE" ]; then
+              PHASE_NAME=$(echo "$NEW_COMPLETE" | sed 's/^+//' | sed 's/^## //' | sed -E 's/\s*[(]?✅?\s*COMPLETE[)]?.*$//')
+              COMPLETED_PHASES="${COMPLETED_PHASES}* **${PROJECT}**: ${PHASE_NAME}\n"
+            fi
+          done
+
+          if [ -n "$COMPLETED_PHASES" ]; then
+            {
+              echo "phases_completed=true"
+              echo "completed_list<<EOF"
+              echo -e "$COMPLETED_PHASES"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+          else
+            echo "phases_completed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Comment on PR
+        if: steps.detect.outputs.phases_completed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const completedPhases = process.env.COMPLETED_LIST;
+
+            const body = [
+              '## 📝 Phase Completion Detected',
+              '',
+              'The following phases were marked complete:',
+              '',
+              completedPhases,
+              '',
+              '### Update Changelog',
+              '',
+              'Consider updating the project changelog(s):',
+              '',
+              '```bash',
+              '# Interactive mode (review before appending)',
+              'bash .cursor/scripts/changelog-update.sh --project <project-name>',
+              '',
+              '# Auto mode (append without prompts)',
+              'bash .cursor/scripts/changelog-update.sh --project <project-name> --mode auto',
+              '```',
+              '',
+              'See: [Per-Project Changelog Documentation](../../docs/projects/per-project-changelog/)'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
+        env:
+          COMPLETED_LIST: ${{ steps.detect.outputs.completed_list }}

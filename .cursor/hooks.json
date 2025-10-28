@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "echo 'Hook triggered!' >> /tmp/cursor-hook-test.log",
+        "description": "Log to verify hook runs"
+      }
+    ]
+  }
+}

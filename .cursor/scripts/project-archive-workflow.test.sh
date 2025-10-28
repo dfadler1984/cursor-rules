@@ -44,6 +44,29 @@ echo "$out" | grep -qi "project-lifecycle-validate-sweep.sh\|project-lifecycle-v
 echo "$out" | grep -qi "links-check.sh" || { echo "should run links check"; echo "$out"; exit 1; }
 echo "$out" | grep -q "_archived/2025/my-proj/final-summary.md" || { echo "should print Completed index entry pointing to final-summary.md"; echo "$out"; exit 1; }
 
+# Test: Detects CHANGELOG.md presence in dry-run
+cat > "$WORKDIR/docs/projects/my-proj/CHANGELOG.md" <<'CHANGELOG'
+# Changelog — My Proj
+
+## [Unreleased]
+
+### In Progress
+- Testing
+
+## [Phase 1] - 2025-10-01
+### Summary
+Done.
+CHANGELOG
+
+set +e
+out_changelog="$(bash "$SCRIPT" --project my-proj --year 2025 --root "$WORKDIR" --dry-run 2>&1)"
+status_cl=$?
+set -e
+
+[ $status_cl -eq 0 ] || { echo "dry-run with changelog should succeed"; echo "$out_changelog"; exit 1; }
+echo "$out_changelog" | grep -qi "CHANGELOG.md" || { echo "should mention CHANGELOG.md when present"; echo "$out_changelog"; exit 1; }
+
+echo "All tests passed"
 exit 0
 
 

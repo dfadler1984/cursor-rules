@@ -86,6 +86,36 @@ if [ ! -f "$TASKS" ]; then
   exit 1
 fi
 
+# Check for CHANGELOG.md and prompt for final entry
+CHANGELOG="$SRC/CHANGELOG.md"
+if [ -f "$CHANGELOG" ] && [ $DRY_RUN -eq 0 ]; then
+  echo ""
+  echo "Project has CHANGELOG.md"
+  echo "Would you like to add a final archival entry? (y/N)"
+  read -r response
+  case "$response" in
+    [yY][eE][sS]|[yY])
+      echo ""
+      echo "Please update $CHANGELOG with a final entry marking the project as archived."
+      echo "Add an entry under [Unreleased] or create a final dated section."
+      echo ""
+      echo "Example:"
+      echo "## [Archived] - $DATE"
+      echo ""
+      echo "### Summary"
+      echo "Project complete and archived. See final-summary.md for outcomes."
+      echo ""
+      echo "Press ENTER when ready to continue..."
+      read -r
+      ;;
+    *)
+      echo "Skipping changelog update"
+      ;;
+  esac
+elif [ -f "$CHANGELOG" ] && [ $DRY_RUN -eq 1 ]; then
+  echo "Note: Project has CHANGELOG.md (will prompt for final entry if not dry-run)"
+fi
+
 # Commands we will run (post-move summary is default)
 GEN_CMD=".cursor/scripts/final-summary-generate.sh --project $PROJECT --year $YEAR --root $ROOT --date $DATE"
 MOVE_CMD=".cursor/scripts/project-archive.sh --project $PROJECT --year $YEAR --root $ROOT"

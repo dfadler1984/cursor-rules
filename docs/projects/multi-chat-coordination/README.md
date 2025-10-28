@@ -62,6 +62,7 @@ This overhead limits productivity gains from parallelization.
 
 - **[Quick Start Guide](./QUICKSTART.md)** ← Start here!
 - [Engineering Requirements (ERD)](./erd.md)
+- [CHANGELOG](./CHANGELOG.md) — Project evolution and decisions
 - [Decisions](./decisions/)
 - [Protocols](./protocols/)
 - [Examples](./examples/)

@@ -1,11 +1,11 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: true
-lastReviewed: 2025-10-24
+lastReviewed: 2025-10-28
 healthScore:
-  content: green # Accurate capability descriptions, canonical discovery schema
+  content: green # Accurate capability descriptions, includes changelog automation
   usability: green # Clear list format, easy to scan, formalized truncation
-  maintenance: green # Recently reviewed, canonical schema in Discovery section
+  maintenance: green # Updated with per-project changelog automation
 ---
 
 ## What you can ask the assistant to do
@@ -193,6 +193,9 @@ All discovery outputs MUST conform to this schema:
 
 - Query project status: `[.cursor/scripts/project-status.sh](.cursor/scripts/project-status.sh) <slug> [--format json|text]` — Shows status, task completion %, and suggested next action.
 - Complete project: `[.cursor/scripts/project-complete.sh](.cursor/scripts/project-complete.sh) <slug> [--force] [--dry-run]` — Orchestrates completion workflow (validate → summary → status update).
+- Update project changelog: `[.cursor/scripts/changelog-update.sh](.cursor/scripts/changelog-update.sh) --project <slug> [--mode auto|interactive|dry-run] [--since <date>]` — Auto-generate changelog entries from tasks, commits, and decisions. Detects phase completions, categorizes tasks, and formats entries.
+- Backfill archived project changelog: `[.cursor/scripts/changelog-backfill.sh](.cursor/scripts/changelog-backfill.sh) --project <slug> --year <YYYY> [--mode auto|interactive|dry-run]` — Generate changelogs for archived projects.
+- Compare changelog phases: `[.cursor/scripts/changelog-diff.sh](.cursor/scripts/changelog-diff.sh) --project <slug> --from <phase> --to <phase> [--format text|markdown]` — Show differences between changelog milestones.
 
 **Archival & Summaries:**
 

@@ -105,6 +105,39 @@ echo "$out10" | grep -q "Usage:" || { echo "Test 10 failed: Usage message missin
 echo "$out10" | grep -q -- "--name" || { echo "Test 10 failed: --name option not documented"; exit 1; }
 echo "$out10" | grep -q -- "--mode" || { echo "Test 10 failed: --mode option not documented"; exit 1; }
 
+# Test 11: --with-changelog flag creates CHANGELOG.md
+# Setup: Copy template to test workspace
+mkdir -p "$WORKDIR/.cursor/templates/project-lifecycle"
+cp "$ROOT_DIR/.cursor/templates/project-lifecycle/CHANGELOG.template.md" "$WORKDIR/.cursor/templates/project-lifecycle/"
+
+set +e
+out11=$(bash "$SCRIPT" --name "changelog-project" --with-changelog --root "$WORKDIR" 2>&1)
+status11=$?
+set -e
+[ $status11 -eq 0 ] || { echo "Test 11 failed: expected exit 0, got $status11"; echo "$out11"; exit 1; }
+
+# Verify CHANGELOG.md created
+[ -f "$WORKDIR/docs/projects/changelog-project/CHANGELOG.md" ] || { echo "Test 11 failed: CHANGELOG.md not created"; ls -la "$WORKDIR/docs/projects/changelog-project/"; exit 1; }
+
+# Verify template placeholders replaced
+grep -q "# Changelog — Changelog Project" "$WORKDIR/docs/projects/changelog-project/CHANGELOG.md" || { echo "Test 11 failed: title placeholder not replaced"; exit 1; }
+
+# Verify date replaced
+grep -qE "[0-9]{4}-[0-9]{2}-[0-9]{2}" "$WORKDIR/docs/projects/changelog-project/CHANGELOG.md" || { echo "Test 11 failed: date placeholder not replaced"; exit 1; }
+
+# Test 12: without --with-changelog flag, no CHANGELOG.md created
+set +e
+out12=$(bash "$SCRIPT" --name "no-changelog-project" --root "$WORKDIR" 2>&1)
+status12=$?
+set -e
+[ $status12 -eq 0 ] || { echo "Test 12 failed: expected exit 0, got $status12"; echo "$out12"; exit 1; }
+
+# Verify CHANGELOG.md NOT created
+if [ -f "$WORKDIR/docs/projects/no-changelog-project/CHANGELOG.md" ]; then
+  echo "Test 12 failed: CHANGELOG.md should not be created without flag"
+  exit 1
+fi
+
 # Cleanup
 rm -rf "$WORKDIR"
 
