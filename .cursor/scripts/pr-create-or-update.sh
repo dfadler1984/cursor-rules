@@ -20,6 +20,41 @@ HEAD=""
 DRY_RUN=0
 LABELS=()
 
+usage() {
+  print_usage "pr-create-or-update.sh --title <title> --title-pattern <pattern> --branch-prefix <prefix> [OPTIONS]"
+  
+  print_options
+  print_option "--title TITLE" "PR title (required)"
+  print_option "--body BODY" "PR body (required)"
+  print_option "--title-pattern PATTERN" "Pattern to match existing PRs (required)"
+  print_option "--branch-prefix PREFIX" "Branch prefix to match (required)"
+  print_option "--owner OWNER" "Repository owner (required)"
+  print_option "--repo REPO" "Repository name (required)"
+  print_option "--head BRANCH" "Head branch (required)"
+  print_option "--base BRANCH" "Base branch" "main"
+  print_option "--label NAME" "Apply label (repeatable, for new PRs only)"
+  print_option "--dry-run" "Print action without executing"
+  print_option "--version" "Print version and exit"
+  print_option "-h, --help" "Show this help and exit"
+  
+  cat <<'NOTES'
+
+Notes:
+  - Requires GH_TOKEN in env for API calls
+  - Checks for existing PRs matching pattern + prefix + bot user
+  - If found: updates title/body on existing PR
+  - If not found: creates new PR with all options
+  - Prevents duplicate PRs during workflow runs
+
+NOTES
+  
+  print_examples
+  print_example "Create or update archive PR" "pr-create-or-update.sh --title 'chore: archive (1)' --body 'Details' --title-pattern 'chore: archive' --branch-prefix 'bot/archive-' --owner org --repo repo --head bot/archive-123 --base main"
+  print_example "With labels" "pr-create-or-update.sh --title 'chore: update' --body 'Body' --title-pattern 'chore: update' --branch-prefix 'bot/update-' --owner org --repo repo --head bot/update-456 --label skip-changeset"
+  
+  print_exit_codes
+}
+
 while [ $# -gt 0 ]; do
   case "$1" in
     --title) TITLE="${2:-}"; shift 2 ;;
@@ -32,6 +67,8 @@ while [ $# -gt 0 ]; do
     --head) HEAD="${2:-}"; shift 2 ;;
     --label) LABELS+=("${2:-}"); shift 2 ;;
     --dry-run) DRY_RUN=1; shift ;;
+    --version) printf '%s\n' "$VERSION"; exit 0 ;;
+    -h|--help) usage; exit 0 ;;
     *) die 2 "Unknown argument: $1" ;;
   esac
 done
