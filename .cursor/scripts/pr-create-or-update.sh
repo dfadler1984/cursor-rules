@@ -92,8 +92,7 @@ fi
 MATCHING_PR=$(printf '%s' "$pr_json" | jq -r --arg pattern "$TITLE_PATTERN" --arg prefix "$BRANCH_PREFIX" '
   .[] | select(
     (.title | startswith($pattern)) and
-    (.head.ref | startswith($prefix)) and
-    (.user.login == "github-actions[bot]")
+    (.head.ref | startswith($prefix))
   ) | .number' | head -1 || true)
 
 if [ -n "$MATCHING_PR" ] && [ "$MATCHING_PR" != "null" ]; then
