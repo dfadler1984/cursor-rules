@@ -56,11 +56,6 @@
 - [x] Test `/pr` executes without "Proceed?" prompt — ✅ VALIDATED: Created PR #155 without prompt (2025-10-22)
 - [x] Test `/branch` executes without "Proceed?" prompt — ✅ VALIDATED: Created `dfadler1984/feat-consent-gates-core-fixes` without prompt (2025-10-22)
 - [x] Test `/allowlist` displays current session state correctly — ✅ VALIDATED: Displayed empty allowlist without prompt (2025-10-22)
-- [ ] Test natural language "show active allowlist" trigger works
-- [ ] Test "Grant standing consent for: git push" adds to allowlist
-- [ ] Test "Revoke consent for: git push" removes from allowlist
-- [ ] Test "Revoke all consent" clears entire allowlist
-- [ ] Monitor for intent routing inconsistency examples (collect specific cases)
 
 ### Test Suite Development
 
@@ -76,30 +71,61 @@
   - Edge cases — 4 tests
   - **Total**: 33 test scenarios in `consent-test-suite.md`
 
-### Platform Testing (If In Scope)
-
-- [ ] Test scripts on Linux environment (bash, common distros)
-- [ ] Test scripts on macOS environment (zsh, current OS version)
-
-### Metrics Collection
-
-- [ ] Measure over-prompting reduction (compare before/after) — Ongoing during monitoring period
-- [ ] Verify safety maintained (zero inappropriate risky operations) — Ongoing during monitoring period
-- [ ] Track allowlist usage patterns — Ongoing during monitoring period
-- [ ] Monitor for 1-2 weeks, collect user feedback — Started 2025-10-24, ends ~2025-11-07
-
-### Documentation Updates
-
-- [ ] Update `assistant-behavior.mdc` if refinements needed based on validation
-- [ ] Mark portability classifications (repo-specific vs reusable) if in scope
-- [ ] Document Linux/macOS differences if platform work in scope
-
 ## Phase 4: Optional Refinements (Based on Phase 3 Results)
 
 - [ ] Formalize risk-based gating thresholds (if validation shows gaps)
 - [ ] Improve composite consent detection (if misses observed)
 - [ ] Add consent state tracking across turns (if confusion occurs)
 - [ ] Create consent decision flowchart (if helpful for debugging)
+
+## Carryovers
+
+**All observational/optional validation tasks moved to new project** (2025-10-28)
+
+**→ See**: [consent-gates-monitoring](../consent-gates-monitoring/) for detailed tracking
+
+### Summary of Deferred Items
+
+**Extracted to consent-gates-monitoring** (34 observational tasks):
+
+1. **Natural Language Triggers** (5 tasks)
+
+   - Test "show active allowlist" and similar phrases
+   - Opportunistic testing when convenient
+
+2. **Session Allowlist Workflows** (3 tasks)
+
+   - Grant/revoke/clear workflow validation
+   - Document as used during normal work
+
+3. **Metrics Collection** (4 tasks)
+
+   - Over-prompting reduction measurement
+   - Allowlist usage patterns
+   - Composite consent accuracy
+   - Safety validation (zero inappropriate risky ops)
+
+4. **Intent Routing Consistency** (1 task)
+
+   - Document inconsistency examples if observed
+
+5. **State Tracking Observations** (2 tasks)
+
+   - Unexpected state resets
+   - Persistence confusion
+
+6. **Platform Testing** (2 tasks) — Optional scope
+
+   - Linux/macOS compatibility (if prioritized)
+
+7. **Portability Classification** (2 tasks) — Optional scope
+   - Mark repo-specific vs reusable (if reuse pattern emerges)
+
+**Monitoring Approach**: Passive observation over 3-6 months (2025-10-28 to ~2026-04-28)
+
+**Completion Justification**: Primary objective (slash commands) validated; remaining items are observational best-effort
+
+**Approval**: All carryovers approved for extraction (early completion assessment, Option 3, 2025-10-28)
 
 ## Related Files
 
