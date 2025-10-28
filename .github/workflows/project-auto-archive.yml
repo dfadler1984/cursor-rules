@@ -30,7 +30,7 @@ jobs:
         run: |
           chmod +x ./.cursor/scripts/archive-detect-complete.sh
           COMPLETED_JSON=$(./.cursor/scripts/archive-detect-complete.sh)
-          
+
           # Use heredoc for multiline JSON output
           echo "completed<<EOF" >> $GITHUB_OUTPUT
           echo "$COMPLETED_JSON" >> $GITHUB_OUTPUT
