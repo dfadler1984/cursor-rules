@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.23.2
+
+### Patch Changes
+
+- [#258](https://github.com/dfadler1984/cursor-rules/pull/258) [`1eca7c9`](https://github.com/dfadler1984/cursor-rules/commit/1eca7c9a0d138728bb451ba02b8328d1f19a2963) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Fix automated PR queue backup with two improvements:
+
+  1. Use AUTO_MERGE_TOKEN for PR creation (PRs created with GITHUB_TOKEN don't trigger CI workflows)
+  2. Add idempotent PR creation (check-then-update pattern prevents duplicate PRs)
+
 ## 0.23.1
 
 ### Patch Changes
