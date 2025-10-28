@@ -102,8 +102,10 @@ if [ -n "$MATCHING_PR" ] && [ "$MATCHING_PR" != "null" ]; then
   fi
   
   # Update existing PR and extract URL
-  response=$(bash "$(dirname "$0")/pr-update.sh" --pr "$MATCHING_PR" --title "$TITLE" --body "$BODY" --owner "$OWNER" --repo "$REPO")
-  printf '%s' "$response" | jq -r '.html_url'
+  response=$(bash "$(dirname "$0")/pr-update.sh" --pr "$MATCHING_PR" --title "$TITLE" --body "$BODY" --owner "$OWNER" --repo "$REPO") || die 1 "pr-update.sh failed"
+  url=$(printf '%s' "$response" | jq -r '.html_url' 2>/dev/null) || die 1 "Failed to extract html_url from response"
+  [ -n "$url" ] && [ "$url" != "null" ] || die 1 "Invalid URL in response"
+  printf '%s\n' "$url"
 else
   if [ $DRY_RUN -eq 1 ]; then
     printf '{"action":"create","title":"%s","head":"%s"}\n' "$TITLE" "$HEAD"
@@ -113,7 +115,9 @@ else
   # Create new PR and extract URL
   CREATE_CMD=("$(dirname "$0")/pr-create.sh" --title "$TITLE" --body "$BODY" --owner "$OWNER" --repo "$REPO" --base "$BASE" --head "$HEAD" --no-template)
   [ ${#LABELS[@]} -gt 0 ] && for lbl in "${LABELS[@]}"; do CREATE_CMD+=(--label "$lbl"); done
-  response=$(bash "${CREATE_CMD[@]}")
-  printf '%s' "$response" | jq -r '.html_url'
+  response=$(bash "${CREATE_CMD[@]}") || die 1 "pr-create.sh failed"
+  url=$(printf '%s' "$response" | jq -r '.html_url' 2>/dev/null) || die 1 "Failed to extract html_url from response"
+  [ -n "$url" ] && [ "$url" != "null" ] || die 1 "Invalid URL in response"
+  printf '%s\n' "$url"
 fi
 
