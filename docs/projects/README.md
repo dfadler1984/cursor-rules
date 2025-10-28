@@ -22,7 +22,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Blocking TDD Enforcement (Lite) | active | [📄](./blocking-tdd-enforcement/erd.md) | ✅ |
 | Command Discovery Rule | active | [📄](./command-discovery-rule/erd.md) | ✅ |
 | Confluence Automation | active | [📄](./confluence-automation/erd.md) | ✅ |
-| Consent Gates Refinement | active | [📄](./consent-gates-refinement/erd.md) | ✅ |
+| Consent Gates Monitoring | active | [📄](./consent-gates-monitoring/erd.md) | ✅ |
 | Cursor Modes Integration | active | [📄](./cursor-modes/erd.md) | ✅ |
 | Document Governance Policy | active | [📄](./document-governance/erd.md) | ✅ |
 | Git Usage Suite (Lite) | active | [📄](./git-usage-suite/erd.md) | ✅ |
@@ -84,6 +84,7 @@ Projects are automatically indexed by scanning project directories (excluding `_
 | Chat Performance and Quality Tools | completed | [📄](./_archived/2025/chat-performance-and-quality-tools/erd.md) | ✅ |
 | Chat Performance and Quality Tools | completed | [📄](./chat-performance-and-quality-tools/erd.md) | ✅ |
 | Collaboration Options (Lite) | completed | [📄](./_archived/2025/collaboration-options/erd.md) | ✅ |
+| Consent Gates Refinement | completed | [📄](./consent-gates-refinement/erd.md) | ✅ |
 | Context Efficiency Gauge (Lite) — Merged | merged | [📄](./_archived/2025/context-efficiency-gauge/erd.md) | ✅ |
 | Core Values Enhancement (Lite) | completed | [📄](./_archived/2025/core-values/erd.md) | ✅ |
 | Deterministic, Structured Outputs | archived | [📄](./_archived/2025/deterministic-outputs/erd.md) | ✅ |
