@@ -1,11 +1,11 @@
 ---
 description: Project lifecycle — completion policy and validation (canonical; ERDs link here)
 alwaysApply: false
-lastReviewed: 2025-10-24
+lastReviewed: 2025-10-27
 healthScore:
-  content: green # Includes findings review checkpoint, task naming guidance, auto-archive integration
+  content: green # Includes findings review, task naming, auto-archive, per-project changelog guidance
   usability: green # Clear completion criteria and lifecycle stages
-  maintenance: green # Updated with Gap #13, #14 improvements and auto-archive workflow
+  maintenance: green # Updated with per-project changelog section
 ---
 
 # Project Lifecycle — Completion Policy and Validation
@@ -529,6 +529,92 @@ A project is ready for auto-archive when:
 Location: `.cursor/templates/project-lifecycle/`
 
 - `final-summary.template.md`, `completion-checklist.template.md`, `retrospective.template.md`, `archive-checklist.template.md`
+- `CHANGELOG.template.md` — Per-project changelog (optional, recommended for investigations)
+
+## Per-Project Changelog (Optional)
+
+**Purpose**: Track project evolution, decisions, and milestones in a structured format.
+
+**When to use**:
+
+- Complex investigations (>15 files)
+- Projects spanning multiple sessions or weeks
+- When returning contributors need quick context on "what's changed"
+
+**When NOT to use**:
+
+- Simple projects (<10 files) — use README updates instead
+- Projects with comprehensive session summaries already
+
+### Format
+
+Use the template at `.cursor/templates/project-lifecycle/CHANGELOG.template.md`:
+
+- Keep-a-Changelog inspired format
+- Project-specific categories: Added, Changed, Decisions, Removed, Fixed
+- Organized by phases (matching `tasks.md` phases)
+- High-level entries only (not every commit)
+
+### When to Update
+
+- End of significant work sessions
+- After major decisions or scope changes
+- Before phase transitions
+- During project completion/archival
+
+### Example Structure
+
+```markdown
+# Changelog — Project Title
+
+## [Unreleased]
+
+### Added
+
+- New features or capabilities
+
+### Changed
+
+- Scope changes, approach pivots
+
+### Decisions
+
+- Key decisions with rationale
+
+## [Phase 1: Discovery] - 2025-10-20
+
+### Summary
+
+Completed initial research and prototyping.
+
+### Added
+
+- Created ERD with 3 solution options
+- Built proof-of-concept validator
+
+### Decisions
+
+- Chose Option B (simpler, faster to implement)
+- Deferred auto-generation to Phase 2
+```
+
+### Integration
+
+- **Project creation**: Use `--with-changelog` flag in `project-create.sh` (when available)
+- **Archival**: `project-archive-workflow.sh` prompts for final changelog entry
+- **Validation**: Completed projects should have changelog OR explicit skip reason
+
+### Tips
+
+- Link to detailed session summaries or findings when relevant
+- Focus on "what changed" and "why" (not implementation details)
+- Use past tense for completed work
+- Remove empty categories in phase sections
+
+### Related
+
+- See `docs/projects/per-project-changelog/` for full implementation project
+- See template at `.cursor/templates/project-lifecycle/CHANGELOG.template.md`
 
 ## PR Title Guidance
 

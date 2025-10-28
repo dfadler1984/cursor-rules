@@ -1,11 +1,11 @@
 ---
 description: Protocol for detecting vague/oversized requests; clarify/split and seek consent
 alwaysApply: true
-lastReviewed: 2025-10-22
+lastReviewed: 2025-10-28
 healthScore:
-  content: green # Accurate guidance, addresses stated purpose clearly
-  usability: green # <100 lines, scannable structure, minimal duplication
-  maintenance: green # Recently reviewed, valid cross-references
+  content: green # Accurate guidance with priority decision requirements
+  usability: green # Clear structure with "Never assume priority" section
+  maintenance: green # Updated with explicit priority/scope decision guidance
 ---
 
 ## Quick Checklist
@@ -52,7 +52,31 @@ healthScore:
 ### Exceptions
 
 - Trivial docs/typos or isolated additive files: fast-track; still surface surprises (e.g., formatter diffs).
-- Guidance questions: ask first; don’t create files without explicit consent.
+- Guidance questions: ask first; don't create files without explicit consent.
+
+### Priority/Scope Decisions (Never Assume)
+
+**NEVER decide what is "Must Have", "Should Have", "Nice to Have", or "Carryover" without explicit user input.**
+
+When creating ERDs, project plans, or proposals:
+
+1. **Present options** with trade-offs, not assumptions
+2. **Ask explicitly** about priorities: "Is automatic generation required, or is manual acceptable?"
+3. **No defaults on priority**: Don't assume features are "optional" or "enhancements"
+4. **User decides** what's in scope vs deferred
+
+**Bad Pattern** (assumption):
+
+- "Manual is fine for Lite mode; automation is a nice-to-have"
+- Placing features in "Nice to Have" section without asking
+
+**Good Pattern** (explicit):
+
+- "Should changelog generation be manual or automatic?"
+- "This could be manual (simpler, 6 hours) or automatic (complex, 15 hours). Which do you prefer?"
+- If user says "proceed" without clarifying, ask: "Manual or automatic generation?"
+
+**Rationale**: Only the user knows their priorities, constraints, and urgency. Making assumptions wastes their time and creates misaligned deliverables.
 
 ### References
 

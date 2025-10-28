@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Test comment for hooks validation
 set -euo pipefail
 IFS=$'\n\t'
 

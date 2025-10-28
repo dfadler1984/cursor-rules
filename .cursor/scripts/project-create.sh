@@ -10,23 +10,27 @@ ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 usage() {
   cat <<'USAGE'
-Usage: project-create.sh --name <slug> [--mode full|lite] [--owner <owner>] [--root <path>]
+Usage: project-create.sh --name <slug> [--mode full|lite] [--owner <owner>] [--with-changelog] [--root <path>]
 
 Create a new project directory with ERD, tasks, and README from templates.
 
 Options:
-  --name <slug>    Project slug (kebab-case, required)
-  --mode <mode>    ERD mode: full (default) or lite
-  --owner <owner>  Project owner (default: repo-maintainers)
-  --root <path>    Repository root override (defaults to detected root)
-  -h, --help       Show this help
+  --name <slug>       Project slug (kebab-case, required)
+  --mode <mode>       ERD mode: full (default) or lite
+  --owner <owner>     Project owner (default: repo-maintainers)
+  --with-changelog    Include per-project CHANGELOG.md (optional, recommended for investigations)
+  --root <path>       Repository root override (defaults to detected root)
+  -h, --help          Show this help
 
 Examples:
   # Create full project
   project-create.sh --name my-project --owner my-team
   
-  # Create lite project
-  project-create.sh --name quick-fix --mode lite
+  # Create lite project with changelog
+  project-create.sh --name quick-fix --mode lite --with-changelog
+  
+  # Create investigation project with changelog
+  project-create.sh --name complex-investigation --with-changelog
 USAGE
   
   print_exit_codes
@@ -36,12 +40,14 @@ NAME=""
 MODE="full"
 OWNER="repo-maintainers"
 ROOT="$ROOT_DIR"
+WITH_CHANGELOG=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --name) NAME="${2-}"; shift 2 ;;
     --mode) MODE="${2-}"; shift 2 ;;
     --owner) OWNER="${2-}"; shift 2 ;;
+    --with-changelog) WITH_CHANGELOG=1; shift 1 ;;
     --root) ROOT="${2-}"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown argument: $1" >&2; usage; exit 2 ;;
@@ -257,12 +263,33 @@ cat > "$README_FILE" <<EOF
 - <Related project or doc>
 EOF
 
+# Optionally create CHANGELOG.md from template
+if [ "$WITH_CHANGELOG" -eq 1 ]; then
+  CHANGELOG_FILE="$PROJECT_DIR/CHANGELOG.md"
+  CHANGELOG_TEMPLATE="$ROOT/.cursor/templates/project-lifecycle/CHANGELOG.template.md"
+  
+  if [ -f "$CHANGELOG_TEMPLATE" ]; then
+    # Copy template and replace placeholders
+    sed -e "s/{{PROJECT_TITLE}}/$DISPLAY_NAME/g" \
+        -e "s/YYYY-MM-DD/$CREATED_DATE/g" \
+        "$CHANGELOG_TEMPLATE" > "$CHANGELOG_FILE"
+    
+    echo "Created CHANGELOG.md from template"
+  else
+    echo "Warning: CHANGELOG template not found at $CHANGELOG_TEMPLATE" >&2
+    echo "Skipping CHANGELOG creation" >&2
+  fi
+fi
+
 echo "Project created successfully at: $PROJECT_DIR"
 echo ""
 echo "Next steps:"
 echo "  1. Fill in ERD sections: $ERD_FILE"
 echo "  2. Add project to docs/projects/README.md under 'Active Projects'"
 echo "  3. Generate tasks: See .cursor/rules/generate-tasks-from-erd.mdc"
+if [ "$WITH_CHANGELOG" -eq 1 ]; then
+  echo "  4. Update CHANGELOG.md at end of each session or phase transition"
+fi
 
 exit 0
 

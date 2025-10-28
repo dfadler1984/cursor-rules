@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Testing project hook after restart
 set -euo pipefail
 IFS=$'\n\t'
 

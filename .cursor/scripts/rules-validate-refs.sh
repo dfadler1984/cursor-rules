@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Testing beforeFileEdit hook blocking
 set -euo pipefail
 IFS=$'\n\t'
 

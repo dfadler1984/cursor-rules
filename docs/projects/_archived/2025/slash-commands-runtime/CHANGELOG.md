@@ -1,0 +1,127 @@
+# Changelog — Slash Commands Runtime
+
+All notable changes to this project will be documented in this file.
+
+The format is inspired by [Keep a Changelog](https://keepachangelog.com/),
+adapted for project lifecycle tracking.
+
+---
+
+## Usage Instructions
+
+**When to update**:
+
+- End of significant work sessions
+- After major decisions or scope changes
+- Before phase transitions
+- During project completion/archival
+
+**Categories**:
+
+- **Added** — New features, approaches, artifacts
+- **Changed** — Scope changes, refactors, approach pivots
+- **Decisions** — Key decisions with rationale
+- **Removed** — Deprecated approaches, out-of-scope items
+- **Fixed** — Corrections to findings, protocols, or artifacts
+
+**Tips**:
+
+- Keep entries high-level (not every commit)
+- Link to detailed session summaries or findings when relevant
+- Focus on "what changed" and "why" (not implementation details)
+- Use past tense for completed work
+
+---
+
+## [Unreleased]
+
+### Added
+
+- _New features or capabilities added to the project_
+
+### Changed
+
+- _Changes to existing functionality, scope, or approach_
+
+### Decisions
+
+- _Key decisions made with rationale_
+
+### Removed
+
+- _Features, approaches, or items removed from scope_
+
+### Fixed
+
+- _Corrections to findings, protocols, or artifacts_
+
+---
+
+
+---
+
+## [Phase X] - 2025-10-27
+
+### Summary
+
+TODO: Add phase summary
+
+### Added
+
+- 1.0 Define command parser interface (priority: high)
+- 2.0 Implement `/plan` command (priority: high) (depends on: 1.0)
+- 3.0 Implement `/tasks` command (priority: high) (depends on: 1.0)
+- 4.0 Implement `/pr` command (priority: high) (depends on: 1.0)
+- 5.0 Error handling and help (priority: medium) (depends on: 2.0, 3.0, 4.0)
+- 6.0 Integration with intent-routing (priority: medium) (depends on: 2.0, 3.0, 4.0)
+- 7.0 Testing (priority: medium) (depends on: 5.0)
+
+### Changed
+
+- 8.0 Optional enhancements (priority: low) [COMPLETED]
+## [Phase 1] - 2025-01-01
+
+### Summary
+
+_Brief phase summary: what was accomplished and key outcomes_
+
+### Added
+
+- Created project structure (ERD, tasks, README)
+- Initial template and documentation
+
+### Changed
+
+- _Scope or approach changes during this phase_
+
+### Decisions
+
+- _Key decisions made during this phase_
+
+---
+
+## Template Notes
+
+**Replace placeholders**:
+
+- `Slash Commands Runtime` → Your project title
+- `2025-01-01` → Actual dates
+- `[Phase N]` → Actual phase names/numbers
+
+**Remove**:
+
+- This "Usage Instructions" section after first use
+- This "Template Notes" section
+- Empty categories (if no entries for that category in a phase)
+
+**Phase naming**:
+
+- Use descriptive names: `[Phase 1: Discovery]`, `[Phase 2: Implementation]`
+- Or simple numbers: `[Phase 1]`, `[Phase 2]`
+- Match phase names from your `tasks.md` file
+
+**Unreleased section**:
+
+- Keep this section for ongoing work
+- Move entries to a dated phase section when phase completes
+- Always have an `[Unreleased]` section at the top (even if empty)

@@ -1,6 +1,6 @@
 # Active Monitoring Formalization
 
-**Status**: ACTIVE — Planning Phase  
+**Status**: PAUSED — Pending Enforcement Strategy Decision  
 **Owner**: repo-maintainers  
 **Created**: 2025-10-24
 

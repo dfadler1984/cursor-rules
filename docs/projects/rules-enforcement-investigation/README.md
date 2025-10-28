@@ -1,6 +1,5 @@
 # Rules Enforcement & Effectiveness Investigation
 
-
 ---
 
 ## Navigation
@@ -10,7 +9,7 @@
 **New to this project?** Start here:
 
 1. Read the **Quick Summary** section below (what was found, what was fixed)
-3. View baseline: `bash .cursor/scripts/compliance-dashboard.sh --limit 100`
+2. View baseline: `bash .cursor/scripts/compliance-dashboard.sh --limit 100`
 
 ### 📊 Understanding Results (10 minutes)
 
@@ -29,6 +28,8 @@
 **Executing or tracking work?**
 
 - [`erd.md`](erd.md) — Original requirements and investigation approach
+- [`tasks.md`](tasks.md) — Task tracking and completion status
+- [`CHANGELOG.md`](CHANGELOG.md) — Project evolution, decisions, and milestones
 - [`tests/`](tests/) — 7 detailed test plans (H0, H1 executed; H2, H3, slash commands deferred)
 
 ---
@@ -100,11 +101,9 @@
 - Gaps #1-6: Applied in Phase 1
 - Gaps #7-16: Violations during investigation (validate enforcement findings)
 
-
 - Overall: 68% (target: >90%)
 - Script usage: 71%, TDD: 72%, Branch naming: 62%
 - Post-fix baseline for future validation
-
 
 - GitHub Actions examples
 - Threshold recommendations (4 phases)
@@ -118,7 +117,6 @@
 - Acceptance criteria and success metrics
 - Test plan structure and timeline
 
-
 - **PRIMARY STATUS DOCUMENT** — See this for current progress
 - Discovery tasks to understand current state
 - Review checkpoints for validation gates
@@ -126,7 +124,6 @@
 - Rule improvements from investigation findings
 
 ### Analysis & Research
-
 
 - Analysis of 15+ rules for enforcement patterns
 - 6 enforcement patterns (strong → weak)
