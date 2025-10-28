@@ -191,9 +191,15 @@ mark_items_as_reviewed() {
                     mark_file_as_reviewed "${finding_file}" "${reviewer}"
                     log_info "Marked as reviewed: $(basename "${finding_file}")"
                     ((marked_count++))
+                else
+                    log_info "Debug: $(basename "${finding_file}") already reviewed or no 'reviewed: false' found"
                 fi
+            else
+                log_info "Debug: $(basename "${finding_file}") is not a file"
             fi
         done
+    else
+        log_info "Debug: Findings directory not found: ${findings_path}"
     fi
     
     echo

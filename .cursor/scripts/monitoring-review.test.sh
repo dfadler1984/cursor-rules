@@ -201,6 +201,9 @@ test_mark_reviewed_functionality() {
     echo "Debug: Mark-reviewed output:"
     echo "${output}"
     
+    echo "Debug: Finding file check:"
+    ls -la "${TEST_WORKSPACE_DIR}/docs/projects/${TEST_PROJECT}/monitoring/findings/"
+    
     # Check if unreviewed log was marked as reviewed
     if grep -q "reviewed: true" "${TEST_WORKSPACE_DIR}/docs/projects/${TEST_PROJECT}/monitoring/logs/log-001-test-observation.md"; then
         echo "✓ Log marked as reviewed"
