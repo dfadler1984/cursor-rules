@@ -5,9 +5,9 @@ created: 2025-10-28
 lastUpdated: 2025-10-28
 ---
 
-# Engineering Requirements Document — Consent Gates Monitoring (Lite)
+# Engineering Requirements Document — Consent Gates Monitoring
 
-**Mode**: Lite  
+Mode: Lite  
 **Type**: Observational monitoring  
 **Parent Project**: [consent-gates-refinement](../consent-gates-refinement/)
 
