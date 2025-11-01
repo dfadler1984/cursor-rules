@@ -1,0 +1,139 @@
+---
+description: tasks.md structure and execution tracking standards for projects
+globs: docs/projects/**/tasks.md
+alwaysApply: false
+lastReviewed: 2025-11-01
+healthScore:
+  content: green # Clear strict structure, anti-bloat guidance
+  usability: green # Scannable format with examples
+  maintenance: green # Newly created from consolidation
+---
+
+# Project tasks.md Standards
+
+Standards for tasks.md: strict structure, execution tracking only, and separation from other concerns.
+
+## Purpose
+
+Execution tracking ONLY — phase sections with checkboxes
+
+## Format
+
+```markdown
+## Phase N: Phase Name
+
+- [ ] Parent Task
+  - [ ] Sub-task 1
+  - [ ] Sub-task 2
+  - [ ] Sub-task 3
+
+## Carryovers (Optional — Requires Approval)
+
+- [ ] Deferred task — Reason: not critical; future enhancement
+```
+
+## Must Include
+
+- Phase headers (## Phase N: Name)
+- Task checkboxes (- [ ] or - [x])
+- Sub-tasks indented under parents
+- Carryovers section (if applicable) with justifications
+
+## Task Naming Guidance (Specificity Required)
+
+- **Bad**: "Create final summary" (ambiguous - new file or enhance existing?)
+- **Good**: "Enhance README.md with executive summary section"
+- **Bad**: "Write completion document" (vague)
+- **Good**: "Update README.md status section with completion details"
+- **Principle**: Task names should specify file/location, not just intent
+- **Why**: Prevents accidental file proliferation and clarifies expected action
+
+## Must Exclude (Put These Elsewhere)
+
+- ❌ Findings or outcomes → `findings.md`
+- ❌ Requirements or acceptance criteria → `erd.md`
+- ❌ Questions or discussion → `erd.md` (Risks section) or separate doc
+- ❌ Success criteria or metrics → `erd.md` (Acceptance Criteria section)
+- ❌ Status updates or progress notes → `README.md` or project management tool
+- ❌ Retrospective or lessons learned → `findings.md`
+- ❌ Implementation details or code snippets → code files or technical docs
+
+## Why Strict
+
+- Prevents content bloat
+- Clear separation of concerns (checklists vs narrative vs findings)
+- Easy to scan for "what's left to do"
+- Simple completion validation (all checkboxes checked?)
+
+## Example of Bloat to Avoid
+
+```markdown
+## Phase 2: Implementation
+
+- [x] Build tool X
+  - Results: 95% success rate (baseline was 70%)
+  - Questions: Should we optimize further? What about edge case Y?
+  - Next steps: Consider refactor if time permits
+```
+
+## Correct Format
+
+```markdown
+## Phase 2: Implementation
+
+- [x] Build tool X
+- [ ] Optimize tool X (if results < 90%)
+- [ ] Handle edge case Y
+```
+
+(Results, questions, and next steps belong in `findings.md` or `README.md`)
+
+## ERD vs tasks.md: Acceptance Criteria
+
+**Separation Principle**: ERD describes requirements (what); tasks.md tracks execution (status)
+
+### In ERD (Acceptance Criteria section)
+
+- Narrative description of success criteria
+- "The system must..." or "Deliverables include..."
+- Thresholds and targets explained
+- Context and rationale
+
+**Example (ERD)**:
+
+```markdown
+## Acceptance Criteria
+
+1. **Measurement Framework**: Create tools to measure script usage, TDD compliance, and branch naming compliance. Each tool must output rates, accept a limit parameter, and exit with appropriate codes.
+
+2. **Baseline Metrics**: Establish baseline measurements across 100 recent commits showing current compliance levels for comparison with post-fix measurements.
+```
+
+### In tasks.md (Execution tracking)
+
+- Checklist derived from ERD criteria
+- One checkbox per deliverable or milestone
+- Status only (checked or unchecked)
+
+**Example (tasks.md)**:
+
+```markdown
+## Phase 4: Measurement & Validation
+
+- [x] 4.0 Create compliance measurement tools
+  - [x] 4.1 Build check-script-usage.sh
+  - [x] 4.2 Build check-tdd-compliance.sh
+  - [x] 4.3 Build check-branch-names.sh
+```
+
+### Why Separate
+
+- ERD stable (requirements don't change often)
+- tasks.md dynamic (checkboxes change constantly)
+- Avoids duplication (one source of truth for requirements)
+- Clear transformation: narrative requirement → executable checklist
+
+## Related
+
+- See `project-readme-standards.mdc` for README.md structure
+- See `project-lifecycle.mdc` for lifecycle stages, completion criteria, and task completion gates

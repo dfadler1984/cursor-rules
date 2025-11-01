@@ -1,11 +1,11 @@
 ---
 description: Core behavioral guidance for AI assistant interactions
 alwaysApply: true
-lastReviewed: 2025-10-24
+lastReviewed: 2025-11-01
 healthScore:
-  content: green # Blocking gates, label consistency check, mandatory script usage (Gap #15, #18)
-  usability: green # Explicit DO NOT SEND on FAIL, clear enforcement language
-  maintenance: green # Updated with blocking enforcement validation
+  content: green # Consent gates, blocking enforcement, script-first protocol
+  usability: green # Reduced from 456→~421 lines, redundant sections extracted
+  maintenance: green # Deep maintenance 2025-11-01, changesets/TDD/scope-check references extracted
 ---
 
 ## Consent-first behavior
@@ -349,41 +349,16 @@ Then verify each item:
 - Pattern validated: Gaps #18, #22 were NEW file creation without tests → gate didn't trigger
 - Solution deployed: Gate now covers file creation, prevents TDD violations mechanically
 
-### Changesets (default behavior)
-
-- When preparing a PR that includes code/rules/docs edits, include a Changeset by default.
-- Preferred: prompt to run `npx changeset` interactively; otherwise, create `.changeset/<slug>.md` non‑interactively.
-- Only skip with explicit maintainer consent and a `skip-changeset` label.
+**For changeset requirements**, see `assistant-git-usage.mdc`
 
 ## If you already started
 
 - If you inadvertently took action without consent, stop, summarize what changed, and ask whether to keep, adjust, or revert. Offer to revert immediately.
 - Single attempt per gate: Do not re-ask the same consent/clarification within the same interaction; if unanswered, pause and do not escalate.
 
-## Scope check preface
+**Before edits/commands**, apply scope check per `scope-check.mdc`
 
-- Before performing edits, running commands, or changing todos, apply the scope-check quick checklist from `.cursor/rules/scope-check.mdc`:
-  - Write a 1–2 bullet scope check naming the top risk(s).
-  - Ask ≤3 precise questions or propose a minimal slice (+ 1–2 follow-ups).
-  - State the exact next edit/command and expected effect; ask consent.
-
-## TDD pre-edit gate (all maintained sources)
-
-- Before creating or editing any maintained source (see scope in `.cursor/rules/tdd-first.mdc`), provide a TDD confirmation with:
-
-  - The owner spec/test path(s) to add/update (colocated next to each changed source)
-  - A one-line failing assertion/expectation for each owner spec
-
-  Then proceed in order:
-
-  1. Red: add or update the failing spec and run the focused test
-  2. Green: implement the minimal change to pass
-  3. Re-run focused tests and report results before further edits
-  4. Refactor while keeping tests green
-
-- If a test file does not exist, create it before any implementation edits.
-- No skip path: if direct integration is brittle, extract a pure resolver (effects seam per `tdd-first.mdc`) and test the resolver first.
-- If tests cannot be run or consent is required, pause and ask one targeted unblocker question.
+**For TDD pre-edit requirements**, see `tdd-first.mdc`
 
 ## Status transparency
 

@@ -1,11 +1,11 @@
 ---
 description: Engineering Requirements Document (ERD) creation workflow and template for Cursor
 alwaysApply: false
-lastReviewed: 2025-10-15
+lastReviewed: 2025-11-01
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
+  content: green # Clear structure, Full/Lite modes, separation guidance
+  usability: green # Section numbering fixed in examples
+  maintenance: green # Deep maintenance 2025-11-01, structural fixes applied
 ---
 
 # Rule: ERD Creation (Default: Full)
@@ -65,15 +65,15 @@ Guide the assistant to create clear, actionable Engineering Requirements Documen
 ```markdown
 # Don't do this in ERD:
 
-## 11. Findings and Carryovers (73 lines)
-
-We discovered that conditional attachment is the root cause...
-[extensive retrospective and lessons learned]
-
 ## 10. Timeline and Phases (detailed week-by-week)
 
 Week 1: Days 1-2 baseline, Days 3-4 implement, Day 5 test...
 [detailed execution plan]
+
+## 11. Findings and Carryovers (73 lines)
+
+We discovered that conditional attachment is the root cause...
+[extensive retrospective and lessons learned]
 ```
 
 **Correct Separation**:

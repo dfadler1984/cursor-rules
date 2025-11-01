@@ -6,8 +6,8 @@ description: Worker chat behavior for multi-chat coordination (Phase 2 - WebSock
 healthScore:
   content: green
   usability: green
-  maintenance: green
-lastReviewed: 2025-10-26
+  maintenance: green # Deep maintenance 2025-11-01
+lastReviewed: 2025-11-01
 ---
 
 # Worker Chat Behavior (Phase 2 - WebSocket)
