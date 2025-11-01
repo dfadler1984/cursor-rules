@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.23.3
+
+### Patch Changes
+
+- [#274](https://github.com/dfadler1984/cursor-rules/pull/274) [`57ac64d`](https://github.com/dfadler1984/cursor-rules/commit/57ac64ddf8d843b2ab7ac1f0a36eeb53f4f2425c) Thanks [@dfadler1984](https://github.com/dfadler1984)! - Comprehensive deep rule maintenance: extract off-scope content, reduce file sizes, fix structural issues. 16 files modified (680→330, 423→332, 363→197, etc.), 3 new focused rule files created. Total ~871 lines reduced while preserving all information through extraction and referencing.
+
 ## 0.23.2
 
 ### Patch Changes
