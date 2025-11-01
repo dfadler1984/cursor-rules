@@ -2,11 +2,11 @@
 description: Standard structure template for test plans and experimental designs
 globs: **/tests/**/*.md,**/experiments/**/*.md
 alwaysApply: false
-lastReviewed: 2025-10-16
+lastReviewed: 2025-11-01
 healthScore:
-  content: green # Clear structure, evidence-based examples
-  usability: green # Scannable template, reusable format
-  maintenance: green # Recently created, valid references
+  content: green # Clear structure, 7 required sections, validity guidance
+  usability: green # Reduced from 334→~240 lines, condensed examples
+  maintenance: green # Deep maintenance 2025-11-01, verbosity reduced
 ---
 
 # Test Plan Template
@@ -28,19 +28,7 @@ Standard structure for test plans, hypothesis tests, and experimental designs.
 - Why this test matters (connection to larger goal)
 - Any relevant prior findings
 
-**Example** (from `tests/hypothesis-1-conditional-attachment.md`):
-
-```markdown
-**Current State**:
-
-- `assistant-git-usage.mdc` has `alwaysApply: false`
-- Only attached when `intent-routing.mdc` detects git terms
-
-**Theory**:
-
-- If assistant initiates git action without explicit git terms
-- Then script-first protocol may not be in context
-```
+**Example**: Current state description, hypothesis statement, relevance to investigation goal.
 
 ### 2. Test Design
 
@@ -60,21 +48,7 @@ Standard structure for test plans, hypothesis tests, and experimental designs.
 - Phase 3: Testing
 - Phase 4: Comparison/Analysis
 
-**Example** (from `tests/hypothesis-1-conditional-attachment.md`):
-
-```markdown
-### Control Group (Baseline)
-
-**Setup**:
-
-- Keep `assistant-git-usage.mdc` with `alwaysApply: false`
-
-**Test Scenarios** (10 trials each):
-
-1. Direct git request: "commit these changes"
-2. Indirect git request: "save this work"
-   ...
-```
+**Example**: Control group baseline conditions, experimental group changes, test scenarios list, measurement methods.
 
 ### 3. Success Criteria
 
@@ -99,15 +73,7 @@ Standard structure for test plans, hypothesis tests, and experimental designs.
 - Success threshold: Improvement ≥Z percentage points
 ```
 
-**Example** (from `tests/experiment-slash-commands.md`):
-
-```markdown
-**Routing Accuracy**:
-
-- Baseline: ~60-70% (keyword-dependent)
-- Slash commands: Target >95%
-- **Success**: Improvement ≥25 percentage points
-```
+**Example**: Metric name, baseline value, target value, success threshold with quantitative improvement target.
 
 ### 4. Measurement Protocol
 
@@ -131,61 +97,38 @@ success: [yes/no]
 notes: "[observations]"
 ```
 
-**Example** (from `tests/hypothesis-2-send-gate-enforcement.md`):
-
-````markdown
-For each of 20 responses, record:
-
-```yaml
-request_id: 1
-request: "commit these changes"
-response_contains_gate_output: false
-gate_evidence: "none"
-```
-````
-
-**Analysis**:
-
-- Gate visibility rate = (responses_with_gate_output / total_responses) × 100
-
-````
+**Example**: Data template format (YAML/CSV), fields to capture, analysis calculations.
 
 ### 5. Expected Outcomes
 
 **Purpose**: Define scenarios and their interpretations
 
 **Include**:
+
 - Scenario 1-N: Different possible results
 - Implications for each scenario
 - Next steps based on results
 - Decision trees if complex
 
 **Format**:
+
 ```markdown
 ### Scenario 1: [Hypothesis Confirmed]
 
 **Observations**:
+
 - [What we'd see]
 
 **Implications**:
+
 - [What this means]
 
 **Next Steps**:
+
 - [What to do next]
-````
-
-**Example** (from `tests/hypothesis-3-query-protocol-visibility.md`):
-
-```markdown
-### Scenario 1: Query Not Happening
-
-**Test A**: No query output (0%)  
-**Test B**: Random script usage pattern
-
-**Conclusion**: Query step is not being executed
-
-**Next Step**: Visible output requirement will force execution
 ```
+
+**Example**: Scenario name, observations, implications, next steps based on results.
 
 ### 6. Implementation Checklist
 
@@ -216,16 +159,7 @@ gate_evidence: "none"
       ...
 ```
 
-**Example** (from `tests/measurement-framework.md`):
-
-```markdown
-### Core Tools
-
-- [ ] `check-script-usage.sh`
-  - [ ] Parse git log
-  - [ ] Calculate rate
-  - [ ] Output formatted results
-```
+**Example**: Pre-test setup, test execution steps, data collection, analysis, cleanup checklist.
 
 ### 7. Timeline & Effort
 
@@ -237,45 +171,12 @@ gate_evidence: "none"
 - Total effort estimate
 - Risks that might affect timeline
 
-**Example** (from `tests/hypothesis-1-conditional-attachment.md`):
-
-```markdown
-- **Control group**: 2-3 hours (50 trials + logging)
-- **Setup change**: 5 minutes
-- **Experimental group**: 2-3 hours (50 trials)
-- **Total**: ~1 day of focused testing
-```
+**Example**: Per-phase durations, total effort, timeline risks.
 
 ## Optional Sections
 
-### Risk Mitigation
-
-**When to include**: Complex tests, rule changes, or potential negative impacts
-
-**Example**:
-
-```markdown
-**Risk**: Rule change breaks functionality  
-**Mitigation**: Backup original; revert if issues
-```
-
-### Follow-Up Actions
-
-**When to include**: Results may trigger different paths
-
-**Example**:
-
-```markdown
-### If Hypothesis Confirmed
-
-1. Roll out improvement
-2. Monitor metrics
-
-### If Hypothesis Rejected
-
-1. Investigate why
-2. Test alternative approach
-```
+- **Risk Mitigation**: For complex tests or rule changes — document risks and mitigation strategies
+- **Follow-Up Actions**: When results trigger different paths — define next steps per outcome scenario
 
 ## Usage
 
@@ -306,26 +207,11 @@ All test plans in `docs/projects/rules-enforcement-investigation/tests/` follow 
 
 ## Measurement Validity (AI Assistant Testing)
 
-**For tests measuring AI assistant behavior** (compliance, routing, rule adherence):
+**Valid**: Historical analysis, natural usage monitoring, user-observed validation, external validation (CI/hooks/linters)
 
-### ✅ Valid Approaches
+**Invalid**: Prospective self-testing (observer bias — consciousness of testing changes measured behavior)
 
-- **Historical analysis** (retrospective measurement of past artifacts)
-- **Natural usage monitoring** (passive accumulation, measure after threshold)
-- **User-observed validation** (qualitative spot checks)
-- **External validation** (CI, hooks, linters - automated checks)
-
-### ❌ Invalid: Prospective Self-Testing
-
-**Avoid**: "Run N test trials where assistant tests its own behavior"
-
-**Why invalid**: Observer bias — conscious test awareness changes behavior being measured
-
-**See**: [docs/projects/assistant-self-testing-limits/](../../docs/projects/assistant-self-testing-limits/) for:
-
-- [testing-paradox.md](../../docs/projects/assistant-self-testing-limits/testing-paradox.md) — Why self-testing is invalid
-- [measurement-strategies.md](../../docs/projects/assistant-self-testing-limits/measurement-strategies.md) — Valid approaches
-- [experiment-design-guide.md](../../docs/projects/assistant-self-testing-limits/experiment-design-guide.md) — Decision framework
+**See**: `docs/projects/assistant-self-testing-limits/` for detailed measurement strategies and decision frameworks
 
 ## Related
 

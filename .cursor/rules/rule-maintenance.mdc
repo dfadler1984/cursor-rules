@@ -2,11 +2,11 @@
 description: Rule maintenance cadence, validation, and conflict resolution for this repo
 globs: .cursor/rules/**
 alwaysApply: false
-lastReviewed: 2025-10-15
+lastReviewed: 2025-11-01
 healthScore:
-  content: green # Accurate maintenance procedures
+  content: green # Accurate maintenance procedures, off-scope content check added
   usability: green # Clear checklist format, actionable steps
-  maintenance: green # Recently reviewed, current validation script
+  maintenance: green # Deep maintenance 2025-11-01, off-scope content detection added
 ---
 
 ## Cadence
@@ -19,7 +19,6 @@ healthScore:
 - Examples are still accurate; `globs` target intended files.
 - Cross-references resolve; no contradictory guidance.
 - Update `lastReviewed` on any substantive edit.
-  \- Off-scope content: Rules must not embed unrelated workflows/policies. Reference the authoritative rule instead (e.g., archival policy lives in [project-lifecycle.mdc](./project-lifecycle.mdc)).
 
 ## Date verification
 
@@ -31,6 +30,8 @@ healthScore:
 ## Content relevance review
 
 - **Scope alignment**: Does the content match the rule's stated purpose and `globs`?
+  - Check for off-scope content: workflows, policies, or guidance unrelated to the rule's purpose
+  - If found, ask user if they'd like to remove it or reference the authoritative rule instead
 - **Detail balance**: Is the level of detail appropriate for the target audience and use case?
 - **Organization**: Are sections logically ordered and easy to navigate?
 - **Actionability**: Can someone follow the guidance without additional context?

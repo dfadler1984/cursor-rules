@@ -1,11 +1,11 @@
 ---
 description: Always-on intent router attaching rules via phrases, keywords, and signals
 alwaysApply: true
-lastReviewed: 2025-10-24
+lastReviewed: 2025-11-01
 healthScore:
-  content: green # Accurate routing, improved composite consent detection, clean separation
-  usability: green # Well-organized, clean separation of routing vs execution concerns
-  maintenance: green # Recently reviewed, proper rule separation maintained
+  content: green # Accurate routing, clean separation of routing vs execution
+  usability: green # Reduced from 423→~324 lines, execution details extracted
+  maintenance: green # Deep maintenance 2025-11-01, execution details moved to git-slash-commands
 ---
 
 # Intent Routing Extensions (ERD Tasks)
@@ -153,48 +153,7 @@ This lightweight router keeps context minimal by attaching specific rules only w
 - `/plan <topic>` → route to `spec-driven.mdc` (plan/specify); consent-first; produce plan scaffold
 - `/tasks` → route to `project-lifecycle.mdc` (Task List Process subsection); manage/update tasks non-interactively when safe
 
-### Runtime Semantics
-
-**Detection:**
-
-- Commands detected when message starts with `/` + known command word
-- Known commands: `/plan`, `/tasks`, `/pr`, `/commit`, `/branch`, `/allowlist`
-- Parser handles quoted arguments and escape sequences
-
-**Execution Flow:**
-
-1. **Parse** command and arguments (quoted strings, flags, positional args)
-2. **Validate** syntax and prerequisites (git repo, project context, files exist)
-3. **Route** to appropriate workflow rule (spec-driven, project-lifecycle, assistant-git-usage)
-4. **Request consent** with transparency message (slash command invocation = explicit consent per assistant-behavior.mdc)
-5. **Execute** workflow with attached rules
-6. **Display** results, next steps, and suggest related commands
-
-**Command Specifications:**
-
-- `/plan <topic>` → Create plan scaffold in `docs/plans/` or project-specific location
-  - Spec: `docs/projects/slash-commands-runtime/plan-command-spec.md`
-- `/tasks [--project <slug>] [--mark <id>] [--add "description"] [--list]` → Manage project tasks
-  - Spec: `docs/projects/slash-commands-runtime/tasks-command-spec.md`
-- `/pr [--title "..."] [--body "..."] [--base <branch>] [--head <branch>]` → Create pull request
-  - Spec: `docs/projects/slash-commands-runtime/pr-command-spec.md`
-
-**Error Handling:**
-
-- Unknown command → suggest closest match (Levenshtein distance ≤ 2) + list available
-- Missing arguments → show usage with examples
-- Invalid format → explain expected pattern with examples
-- Execution failures → surface error with numbered troubleshooting steps
-- Spec: `docs/projects/slash-commands-runtime/error-handling-spec.md`
-
-**Consent Gate Behavior:**
-
-- Slash command invocation = explicit consent to execute (HIGHEST PRIORITY per line 128)
-- No additional "Proceed?" prompt needed
-- Still show transparency message: "This will: ..." before execution
-- Exception: Prerequisites missing (e.g., no GITHUB_TOKEN) → warn and offer options
-
-**Project:** See `docs/projects/slash-commands-runtime/` for full implementation details
+**For slash command execution behavior, error handling, and specifications**, see `git-slash-commands.mdc` and `docs/projects/slash-commands-runtime/`
 
 ## File/context signals (supporting)
 
@@ -312,61 +271,11 @@ This lightweight router keeps context minimal by attaching specific rules only w
 
 ## Composite Action Handling
 
-### Pattern Detection
+**Pattern detection**: "action WITH requirement" (e.g., "create PR with changeset", "commit with body")
 
-Composite actions follow the pattern: "action WITH requirement" or "action, constraint"
+**Routing**: Route to primary action's rules; requirement validation happens during execution
 
-**Examples**:
-
-- "create PR with changeset"
-- "open PR, skip changeset"
-- "commit with detailed body"
-- "create branch without type prefix"
-
-### Validation Strategy
-
-1. **Detect composite pattern**: action verb + requirement/constraint phrase
-2. **Identify positive/negative requirements**:
-   - Positive (WITH/include): ensure presence + no contradictory state
-   - Negative (skip/without/omit): ensure absence or skip state
-3. **Validate both conditions**:
-   - Check positive (has X)
-   - Check negative (no anti-X)
-4. **Correct contradictions**: use repo scripts to fix inconsistent state
-
-### Examples
-
-**PR Creation with Changeset**:
-
-- **Pattern**: "create PR with changeset"
-- **Requirements**:
-  - Positive: `.changeset/*.md` file must exist
-  - Negative: `skip-changeset` label must NOT exist
-- **Validation**: Check file exists AND label absent
-- **Correction**: If label present, remove via `.cursor/scripts/pr-labels.sh --pr <N> --remove skip-changeset`
-
-**Commit with Body/Footer**:
-
-- **Pattern**: "commit with explanation" or "commit with breaking change"
-- **Requirements**:
-  - Positive: commit body or footer must be provided
-  - Execution: use `.cursor/scripts/git-commit.sh` (enforces multi-line format)
-
-**Branch without Type**:
-
-- **Pattern**: "create branch without type"
-- **Requirements**:
-  - Negative: omit type prefix in branch name
-  - Execution: use `.cursor/scripts/git-branch-name.sh --task <slug>` (without --type flag)
-
-### Integration with Intent Routing
-
-- Composite actions route to primary action's rules (e.g., "PR with changeset" → `assistant-git-usage.mdc`)
-- Requirement validation happens during execution phase, not routing phase
-- Include validation checkpoint in status update: "Checking: changeset present + no skip-changeset label"
-- If contradiction detected, propose correction with explicit consent
-
-**Related**: See `assistant-git-usage.mdc` → PR Label Handling for detailed PR composite intent guidance
+**For validation strategies and detailed examples**, see `assistant-git-usage.mdc` → PR Label Handling and Composite Intent Validation
 
 ## Few-shot routing examples
 

@@ -1,11 +1,11 @@
 ---
 description: Pattern-based rule improvement with consent-gated proposals
 alwaysApply: true
-lastReviewed: 2025-10-24
+lastReviewed: 2025-11-01
 healthScore:
-  content: green # Includes investigation OUTPUT, pre-file-creation checkpoint, solution creation checklist
-  usability: green # Clear observation vs action separation, explicit enforcement
-  maintenance: green # Updated with Gap #12, #17/17b enforcement mechanisms
+  content: green # Core pattern recognition, rule creation/updates
+  usability: green # Reduced from 363→~190 lines, investigation workflows extracted
+  maintenance: green # Deep maintenance 2025-11-01, investigation workflows moved to investigation-workflow.mdc
 ---
 
 ## Rule Improvement Triggers
@@ -180,180 +180,14 @@ When patterns become outdated:
 
 ## Special Case: Rule Investigations
 
-When actively investigating rule effectiveness or enforcement:
+**For investigation-specific workflows**, see `investigation-workflow.mdc`:
 
-### During Active Investigations
-
-**Observed rule gaps are first-class investigation data** (not optional enhancements):
-
-1. **Notice gap → Document immediately**
-
-   - Unclear guidance encountered? → Add to findings.md in real-time
-   - Process confusion observed? → Note as investigation evidence
-   - Rule conflict discovered? → Document the conflict immediately
-
-2. **Don't wait for user prompts**
-
-   - Bad: Wait for user to ask "did you notice X?"
-   - Good: Flag gaps as they're observed during work
-   - Proactive documentation, not reactive
-
-3. **Consult ACTIVE-MONITORING.md before documenting findings**
-
-   **Before documenting any investigation finding**, check `docs/projects/ACTIVE-MONITORING.md` to determine:
-
-   - Which project the finding belongs to (routing-optimization vs rules-enforcement-investigation vs other)
-   - Category classification (routing|execution|workflow|other)
-   - Decision tree for scope confusion cases
-
-   **Rationale**: Prevents cross-project documentation confusion (Gap #17 validated this need)
-
-4. **OUTPUT investigation finding categorization** (Required)
-
-   When observing any issue during investigation work, OUTPUT:
-
-   ```
-   Observed: [brief description]
-   Category: [routing|execution|workflow|other]
-   Project: [checked ACTIVE-MONITORING.md → project-name]
-   Document in: [findings file path]
-   ```
-
-   **Rationale**:
-
-   - Explicit OUTPUT requirements achieve 100% visibility (validated: H2 findings)
-   - Forces ACTIVE-MONITORING.md check before documentation
-   - Prevents project scope confusion (routing vs execution vs workflow)
-   - See: `docs/projects/ACTIVE-MONITORING.md` for project scopes and decision tree
-
-   **Then** proceed to document in correct location.
-
-5. **Pre-file-creation checkpoint** (Investigation Projects)
-
-   **Trigger**: Before creating any file in `docs/projects/<investigation>/`
-
-   **OUTPUT the category determination** (Required):
-
-   ```
-   Creating: [filename]
-   Category: [analysis|findings|sessions|decisions|protocols|guides|root]
-   Destination: [full path]
-   Root file count after: [number] (threshold: ≤7)
-   ```
-
-   **Then** create file at determined location.
-
-   **Rationale**:
-
-   - Explicit OUTPUT creates accountability (validated: H2 findings - 0% → 100% visibility)
-   - Same pattern as investigation finding OUTPUT (lines 210-227)
-   - Prevents structure violations (Gap #12 validated this need)
-   - See: `investigation-structure.mdc` for category decision tree
-
-6. **Treat as investigation evidence**
-
-   - If investigating completion policies → completion confusion is data
-   - If investigating enforcement patterns → enforcement gaps are data
-   - If investigating rule quality → rule issues are data
-
-7. **Queue improvements as investigation proceeds**
-
-   - Add observed gaps to investigation scope
-   - Include in findings/outcomes
-   - Create improvement tasks from observations
-
-8. **Pattern-aware prevention** (Before actions that could violate recently documented gaps)
-
-   **Trigger**: Before file creation, multi-step operations, or workflow executions
-
-   **Check**:
-
-   1. List gaps documented in current session
-   2. Before action, verify it doesn't violate any documented gap
-   3. OUTPUT the check result
-
-   **Example**:
-
-   ```
-   Action: Creating summary file
-   Gap check: Gap #6 says "avoid multiple summaries"
-   Existing: README.md
-   Question: Distinct audience? [Yes/No]
-   If No: Enhance README instead
-   ```
-
-   **Rationale**:
-
-   - Prevents immediate repetition of documented patterns (Gap #13 validates this need)
-   - Creates accountability through explicit check
-   - Links documentation to prevention
-
-### Meta-Consistency Requirement
-
-**Apply findings to your own process**:
-
-- Investigating gates? → Enforce gates on self during investigation
-- Investigating completion? → Validate own completion rigorously
-- Investigating scripts? → Use scripts consistently during investigation
-
-**Why**: Violating patterns under investigation undermines credibility and misses valuable validation data
-
-### Example: Rules-Enforcement Investigation
-
-**What Happened** (incorrect):
-
-- Investigated why project-lifecycle completion is unclear
-- Noticed confusion during work
-- Didn't flag gap until user prompted
-- Result: Missed opportunity to capture real-time evidence
-
-**What Should Happen** (correct):
-
-- Notice confusion about completion states
-- Immediately add to investigation scope: "Discovered gap in project-lifecycle.mdc"
-- Document as evidence in findings.md
-- Create improvement task from observation
-- Result: Investigation captures its own meta-findings
-
-**Evidence**: 6 rule gaps discovered during rules-enforcement-investigation, but only flagged reactively (after user prompting) rather than proactively as investigation data
-
-### Solution Creation Checklist
-
-**When proposing any new tool, guidance, or mechanism** (Required):
-
-Before considering solution complete, specify:
-
-1. **Enforcement**: How will this be used/triggered?
-
-   - OUTPUT requirement? Pre-send gate item? AlwaysApply? Blocking gate?
-   - Example: "ACTIVE-MONITORING.md will be checked via OUTPUT requirement in self-improve.mdc"
-
-2. **Trigger**: When does this apply?
-
-   - Project context? File pattern? Phase? User action?
-   - Example: "Applies during investigation work when observing issues"
-
-3. **Validation**: How to verify it's working?
-   - Measurement approach? Success criteria?
-   - Example: "100% of findings show OUTPUT with ACTIVE-MONITORING.md check"
-
-**Anti-pattern**: Creating tools/guidance without enforcement specification
-
-**Evidence**: Gap #17b (created ACTIVE-MONITORING.md without enforcement) validates this requirement
-
-### Checkpointing Rule Gap Observations
-
-**During Investigation**:
-
-- Real-time documentation in findings.md
-- Add to investigation scope if relevant
-- No separate consent needed (part of investigation work)
-
-**After Investigation**:
-
-- Follow normal consent-gated proposal workflow
-- Present improvements at natural checkpoint
-- Get approval before implementing
+- OUTPUT requirements for finding categorization
+- Pre-file-creation checkpoints
+- ACTIVE-MONITORING.md consultation protocol
+- Pattern-aware prevention
+- Meta-consistency requirements
+- Solution creation checklist
 
 ## Related
 

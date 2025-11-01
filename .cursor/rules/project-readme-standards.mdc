@@ -1,0 +1,89 @@
+---
+description: README.md structure and single entry point policy for projects
+globs: docs/projects/**/README.md
+alwaysApply: false
+lastReviewed: 2025-11-01
+healthScore:
+  content: green # Clear standards, evidence-based examples
+  usability: green # Scannable format, actionable guidance
+  maintenance: green # Newly created from consolidation
+---
+
+# Project README.md Standards
+
+Standards for project README.md files: structure, single entry point policy, and anti-patterns.
+
+## Purpose
+
+Navigation hub — one authoritative overview for the project
+
+## Structure
+
+```markdown
+# Project Name
+
+**Brief Overview** (3-4 sentences)
+
+- What problem does this solve?
+- What was delivered?
+- Current status?
+
+## Navigation
+
+### Quick Start (5 minutes)
+
+- Links to key sections for new readers
+
+### Deep Dive (1-2 hours)
+
+- Links to detailed technical docs
+
+### Implementation Reference
+
+- Links to tasks, ERD, findings
+
+## Quick Actions
+
+- Command examples for using deliverables
+
+## Status
+
+- Current phase, completion %, next steps
+```
+
+## Single Entry Point Policy
+
+- ✅ **One README.md** per project (always)
+- ❌ **Avoid multiple summaries** unless justified
+
+### When Multiple Summaries Are Justified
+
+- Different audiences with distinct information needs
+  - Example: Technical deep-dive for engineers, executive summary for stakeholders
+- Different formats serve different purposes
+  - Example: Interactive demo vs static documentation
+- Must articulate: "Summary X is for audience Y who needs Z information"
+
+### When Multiple Summaries Are NOT Justified (Avoid)
+
+- Content overlap >50% (consolidate into single README)
+- Same audience, same information, slightly different framing
+- Progressive detail (use sections in single doc instead)
+- Temporal updates ("v1 summary", "v2 summary" — update the original)
+
+### Correct Approach
+
+- README.md with navigation to different depths
+- Section 1: Quick Start (5 min)
+- Section 2: Understanding Results (10 min)
+- Section 3: Deep Dive (1-2 hours)
+- All in one file; reader chooses depth
+
+### Exception
+
+If project genuinely needs specialized summaries (rare), document justification in README and link prominently.
+
+## Related
+
+- See `project-tasks-standards.mdc` for tasks.md structure
+- See `project-lifecycle.mdc` for lifecycle stages and completion criteria

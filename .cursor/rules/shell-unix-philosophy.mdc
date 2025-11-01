@@ -5,10 +5,10 @@ globs:
   - "!.cursor/scripts/**/*.test.sh"
 alwaysApply: false
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
-lastReviewed: 2025-10-13
+  content: green # Clear principles, size targets, split decision tree
+  usability: green # Reduced from 324→~235 lines, condensed examples
+  maintenance: green # Deep maintenance 2025-11-01, verbosity reduced
+lastReviewed: 2025-11-01
 ---
 
 # Shell Scripts — Unix Philosophy Enforcement
@@ -177,70 +177,15 @@ When a script grows beyond targets, use this decision tree:
 
 ## Refactoring Examples
 
-### Example 1: Split by Responsibility
+**Split by responsibility**: Multi-job script → separate focused scripts (e.g., `rules-validate.sh` → `rules-validate-frontmatter.sh`, `rules-validate-refs.sh`)
 
-**Before:** `rules-validate.sh` (497 lines, 6+ jobs)
+**Split by I/O**: Compute + formatting → composable pipeline (e.g., `script | script-format --dashboard`)
 
-```bash
-# One script doing everything
-rules-validate.sh --check-frontmatter --check-refs --autofix --format json
-```
-
-**After:** Focused utilities
-
-```bash
-# Separate concerns, composable
-rules-validate-frontmatter.sh --format json
-rules-validate-refs.sh --fail-on-missing
-rules-autofix.sh --dry-run
-```
-
-### Example 2: Split by I/O Concern
-
-**Before:** `context-efficiency-gauge.sh` (342 lines, compute + 4 formats)
-
-```bash
-# One script, internal branching
-context-efficiency-gauge.sh --format dashboard
-```
-
-**After:** Compute + format separation
-
-```bash
-# Compose via pipes
-context-efficiency-score --rules 5 --loops 2 | \
-  context-efficiency-format --dashboard
-```
-
-### Example 3: Extract Complex Flags
-
-**Before:** `pr-create.sh` with template, label, body logic
-
-**After:**
-
-```bash
-# Focused tools
-pr-create.sh --title "..." --body "..."
-pr-label.sh --pr 123 --label skip-changeset
-pr-template-fill.sh < template.md
-```
+**Extract complex flags**: Single script with many flags → focused tools per concern (e.g., `pr-create.sh`, `pr-label.sh`, `pr-template-fill.sh`)
 
 ## Integration with Existing Standards
 
-This rule works with:
-
-- **D1-D6 (shell-and-script-tooling):** Technical foundation
-
-  - D1: Help documentation
-  - D2: Strict mode
-  - D3: Exit codes
-  - D4: Networkless tests
-  - D5: Portability
-  - D6: Test isolation
-
-- **TDD-First (Shell):** Owner tests couple to single responsibility
-  - Each focused script → one focused test file
-  - Easier to test small, pure utilities
+Works with D1-D6 (shell-and-script-tooling) for technical foundation and TDD-First (Shell) for owner tests coupling to single responsibility.
 
 ## Assistant Behavior
 
@@ -261,49 +206,13 @@ This rule works with:
 
 ### When script exceeds thresholds
 
-**Propose split with:**
-
-- Current script analysis (lines, flags, responsibilities)
-- Suggested split (focused scripts with names)
-- Composition example (how to use together)
-- Migration path (backward compatibility if needed)
-
-**Example proposal:**
-
-> "The current script is 282 lines with 14 flags handling PR creation, labeling, and template management. I recommend splitting into:
->
-> - `pr-create` (core: title, body, base, head)
-> - `pr-label` (apply labels to existing PRs)
-> - `pr-template-fill` (template handling)
->
-> Composition: `pr-create ... | tee pr-url.txt && pr-label --pr $(cat pr-url.txt) --label skip-changeset`
->
-> Proceed with split?"
+Propose split with: current analysis (lines/flags/responsibilities), suggested focused scripts, composition example, migration path.
 
 ## Validation
 
-### Manual checks
+**Manual**: Check sizes (`wc -l *.sh | awk '$1 > 200'`), count flags, verify stdout/stderr separation
 
-```bash
-# Check script sizes
-wc -l .cursor/scripts/*.sh | awk '$1 > 200 {print}'
-
-# Count flags per script
-for s in .cursor/scripts/*.sh; do
-  echo "$s: $(grep -c '^\s*--.*) ' "$s") flags"
-done | awk -F: '$2 > 10'
-
-# Verify stdout/stderr separation
-grep -n 'echo\|printf' script.sh # Should mostly be in usage()
-```
-
-### Automated checks (future)
-
-Consider adding to `shell-validators.yml`:
-
-- Script size validator (warn > 200, fail > 300)
-- Flag count validator (warn > 8)
-- Stdout pollution detector (non-result output to stdout)
+**Automated** (future): Script size validator, flag count validator, stdout pollution detector
 
 ## References
 

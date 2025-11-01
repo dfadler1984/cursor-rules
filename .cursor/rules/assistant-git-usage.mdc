@@ -1,11 +1,11 @@
 ---
 description: Assistant Git usage — commits, branch naming, changesets, and commit gates (tests/lint/types)
 alwaysApply: true
-lastReviewed: 2025-10-23
+lastReviewed: 2025-11-01
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
+  content: green # Script-first default, Conventional Commits, changeset policy
+  usability: green # Reduced from 259→~230 lines, condensed PR label handling
+  maintenance: green # Deep maintenance 2025-11-01, verbosity reduced
 ---
 
 # Assistant Git Usage
@@ -140,44 +140,14 @@ bash .cursor/scripts/pr-create.sh --title "…" --body "$BODY"
 
 ### PR Label Handling (composite intents)
 
-When creating PRs with explicit requirements (e.g., "with changeset", "skip changeset"), ensure label state matches intent:
-
 **Composite Intent Pattern**: "action WITH requirement"
 
-- **Positive requirement** (e.g., "with changeset"):
-  - Ensure requirement present (`.changeset/*.md` file exists)
-  - Ensure NO contradictory labels (no `skip-changeset` label)
-- **Negative requirement** (e.g., "skip changeset"):
-  - Ensure `skip-changeset` label applied
-  - Ensure no changeset file present
+- Positive requirement: Ensure requirement present + NO contradictory labels
+- Negative requirement: Ensure skip label applied + no requirement file
 
-**Examples**:
+**Validation**: Check positive (has X) AND negative (no anti-X). Use `.cursor/scripts/pr-labels.sh` to correct contradictions.
 
-- "Create PR with changeset" → Has `.changeset/*.md` file + NO `skip-changeset` label
-- "Create PR, skip changeset" → Has `skip-changeset` label + no `.changeset/*.md` file
-
-**Validation Strategy**:
-
-- Check positive (has X) AND negative (no anti-X)
-- If GitHub Actions auto-apply contradictory labels, use `.cursor/scripts/pr-labels.sh` to correct
-
-**Script Usage**:
-
-```bash
-# Add label
-.cursor/scripts/pr-labels.sh --pr <number> --add <label>
-
-# Remove label
-.cursor/scripts/pr-labels.sh --pr <number> --remove <label>
-
-# List labels
-.cursor/scripts/pr-labels.sh --pr <number> --list
-
-# Check for specific label
-.cursor/scripts/pr-labels.sh --pr <number> --has <label>
-```
-
-**Note**: The `skip-changeset` label may be auto-applied by CI workflows (e.g., `.github/workflows/changeset-autolabel-docs.yml`) on push events. If user explicitly requests a changeset, verify and remove contradictory labels after PR creation.
+**Note**: CI workflows may auto-apply labels; verify and remove contradictions after PR creation.
 
 ## Changesets (must)
 

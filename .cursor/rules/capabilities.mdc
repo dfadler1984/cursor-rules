@@ -1,11 +1,11 @@
 ---
 description: Discoverable capabilities for the repo's AI assistant
 alwaysApply: true
-lastReviewed: 2025-10-28
+lastReviewed: 2025-11-01
 healthScore:
-  content: green # Accurate capability descriptions, includes changelog automation
-  usability: green # Clear list format, easy to scan, formalized truncation
-  maintenance: green # Updated with per-project changelog automation
+  content: green # Comprehensive capability catalog
+  usability: green # Reduced from 287→~247 lines, condensed descriptions
+  maintenance: green # Deep maintenance 2025-11-01, verbosity reduced
 ---
 
 ## What you can ask the assistant to do
@@ -29,20 +29,9 @@ healthScore:
 - Add Mode line to ERD: `[.cursor/scripts/erd-add-mode-line.sh](.cursor/scripts/erd-add-mode-line.sh) <erd-file> [--mode lite|full] [--dry-run]`
 - Fix empty ERD front matter: `[.cursor/scripts/erd-fix-empty-frontmatter.sh](.cursor/scripts/erd-fix-empty-frontmatter.sh) <erd-file> [--status STATUS] [--owner OWNER] [--dry-run]`
 - Check capabilities sync: `[.cursor/scripts/capabilities-sync.sh](.cursor/scripts/capabilities-sync.sh) [--check|--update]`
-- Deep validation and maintenance: `[.cursor/scripts/deep-rule-and-command-validate.sh](.cursor/scripts/deep-rule-and-command-validate.sh)`
-  - Orchestrates multiple validators (rules, capabilities, shellcheck, help/error format, test colocation)
-  - Performs cross-validation (rules → scripts, scripts → capabilities)
-  - Calculates health scores by category (rules, scripts, docs, tests)
-  - Flags: `--fix` (auto-repair), `--report` (JSON output), `--score-only`, `--fail-threshold N`
-- Generate static SVG health badge: `[.cursor/scripts/health-badge-generate.sh](.cursor/scripts/health-badge-generate.sh)`
-  - Generates static SVG badge from validation output
-  - Color mapping: green (90-100), yellow (70-89), red (<70)
-  - Flags: `--output <path>`, `--dry-run`, `--extract-score`, `--map-color <score>`
-- Update repository health badge (shields.io): `[.cursor/scripts/repo-health-badge.sh](.cursor/scripts/repo-health-badge.sh)`
-  - Runs deep validation and extracts health score
-  - Generates shields.io badge URL with color mapping (red <70, yellow 70-89, green 90-100)
-  - Updates README.md with badge markdown
-  - Flags: `--dry-run`, `--workflow-url <url>`
+- Deep validation and maintenance: `[.cursor/scripts/deep-rule-and-command-validate.sh](.cursor/scripts/deep-rule-and-command-validate.sh)` — Orchestrates validators, cross-validation, health scores
+- Generate static SVG health badge: `[.cursor/scripts/health-badge-generate.sh](.cursor/scripts/health-badge-generate.sh)` — Static SVG badge from validation
+- Update repository health badge: `[.cursor/scripts/repo-health-badge.sh](.cursor/scripts/repo-health-badge.sh)` — Shields.io badge with health score
 
 **Rules-specific validators:**
 
@@ -54,54 +43,22 @@ healthScore:
 
 **Intent routing validation:**
 
-- Validate routing logic: `[.cursor/scripts/routing-validate.sh](.cursor/scripts/routing-validate.sh) [--format json|text] [--verbose]`
-  - Validates intent routing logic against test suite
-  - Reports pass/fail counts and accuracy
-  - Proof-of-concept implementation (see `docs/projects/routing-optimization/phase3-full-validation.md` for complete validation)
+- Validate routing logic: `[.cursor/scripts/routing-validate.sh](.cursor/scripts/routing-validate.sh)` — Intent routing validation against test suite
 
 ### Engineering docs & planning
 
-- Main rules (catalog):
-
-  - `spec-driven.mdc`
-  - `create-erd.mdc`
-  - `generate-tasks-from-erd.mdc`
-  - `project-lifecycle.mdc`
-  - `testing.mdc`
-  - `intent-routing.mdc`
-  - `tdd-first.mdc`
-  - `assistant-behavior.mdc`
-  - `direct-answers.mdc`
-  - `code-style.mdc`
-  - `shell-unix-philosophy.mdc`
-  - `refactoring.mdc`
-  - `front-matter.mdc`
-  - `rule-creation.mdc`
-  - `rule-maintenance.mdc`
-  - `rule-quality.mdc`
-  - `capabilities.mdc`
-  - `workspace-security.mdc`
-  - `security.mdc`
-  - `github-config-only.mdc`
-  - `imports.mdc`
-
-- Quick references (optional, when helpful):
-  - `assistant-git-usage.caps.mdc`, `github-api-usage.caps.mdc`, `commands.caps.mdc`, `intent-routing.caps.mdc`, `tdd-first.caps.mdc`, `create-erd.caps.mdc`, `generate-tasks-from-erd.caps.mdc`, `project-lifecycle.caps.mdc`, `testing.caps.mdc`, optionally `direct-answers.caps.mdc`, `workspace-security.caps.mdc`.
+- Main rules: `spec-driven.mdc`, `create-erd.mdc`, `generate-tasks-from-erd.mdc`, `project-lifecycle.mdc`, `testing.mdc`, `intent-routing.mdc`, `tdd-first.mdc`, `assistant-behavior.mdc`, `direct-answers.mdc`, `code-style.mdc`, `shell-unix-philosophy.mdc`, `refactoring.mdc`, `front-matter.mdc`, `rule-creation.mdc`, `rule-maintenance.mdc`, `rule-quality.mdc`, `capabilities.mdc`, `workspace-security.mdc`, `security.mdc`, `github-config-only.mdc`, `imports.mdc`
+- Quick references: `*.caps.mdc` files (assistant-git-usage, github-api-usage, commands, intent-routing, tdd-first, create-erd, generate-tasks-from-erd, project-lifecycle, testing, direct-answers, workspace-security)
 
 ### Git assistance
 
-- Generate Conventional Commits via CLI: `[.cursor/scripts/git-commit.sh](.cursor/scripts/git-commit.sh) --type ... --description ...` (supports bodies, footers, breaking changes). See `assistant-git-usage.mdc`.
-- Suggest branch names with validated types: `[.cursor/scripts/git-branch-name.sh](.cursor/scripts/git-branch-name.sh) --task ... [--type ...] [--feature ...] [--apply]`. See `assistant-git-usage.mdc`.
-- Derive git context (owner, repo, branches): `[.cursor/scripts/git-context.sh](.cursor/scripts/git-context.sh) [--format text|json|eval]`
-- Run commit gates locally when requested: use your repo's test/lint/typecheck scripts as configured.
-- Create pull requests via shell (curl + GitHub API): `[.cursor/scripts/pr-create.sh](.cursor/scripts/pr-create.sh) --title "..." [--body "..."] [--base <branch>] [--head <branch>]`.
-- Create pull requests (simplified wrapper): `[.cursor/scripts/pr-create-simple.sh](.cursor/scripts/pr-create-simple.sh) --title "..." [--body "..."]`
-- Update pull requests: `[.cursor/scripts/pr-update.sh](.cursor/scripts/pr-update.sh) --pr <number>|--head <branch> [--title "..."] [--body "..."]`.
-- Manage PR labels: `[.cursor/scripts/pr-labels.sh](.cursor/scripts/pr-labels.sh) --pr <number> --add|--remove|--list|--has <label>`
-- Add single PR label: `[.cursor/scripts/pr-label.sh](.cursor/scripts/pr-label.sh) --pr <number> --add <label>`
-- Sync PR with changeset state: `[.cursor/scripts/pr-changeset-sync.sh](.cursor/scripts/pr-changeset-sync.sh) --pr <number>`
-- Check PR status: `[.cursor/scripts/checks-status.sh](.cursor/scripts/checks-status.sh) --pr <number> [--wait] [--timeout <seconds>]`.
-- Dispatch changesets auto-merge: `[.cursor/scripts/changesets-automerge-dispatch.sh](.cursor/scripts/changesets-automerge-dispatch.sh) --pr <number>`.
+- Generate Conventional Commits: `[.cursor/scripts/git-commit.sh](.cursor/scripts/git-commit.sh)` — See `assistant-git-usage.mdc`
+- Suggest branch names: `[.cursor/scripts/git-branch-name.sh](.cursor/scripts/git-branch-name.sh)` — See `assistant-git-usage.mdc`
+- Derive git context: `[.cursor/scripts/git-context.sh](.cursor/scripts/git-context.sh)`
+- Create/update pull requests: `[.cursor/scripts/pr-create.sh](.cursor/scripts/pr-create.sh)`, `[.cursor/scripts/pr-update.sh](.cursor/scripts/pr-update.sh)`, `[.cursor/scripts/pr-create-simple.sh](.cursor/scripts/pr-create-simple.sh)`, `[.cursor/scripts/pr-create-or-update.sh](.cursor/scripts/pr-create-or-update.sh)`
+- Manage PR labels: `[.cursor/scripts/pr-labels.sh](.cursor/scripts/pr-labels.sh)`, `[.cursor/scripts/pr-label.sh](.cursor/scripts/pr-label.sh)`, `[.cursor/scripts/pr-changeset-sync.sh](.cursor/scripts/pr-changeset-sync.sh)`
+- Check PR status: `[.cursor/scripts/checks-status.sh](.cursor/scripts/checks-status.sh)`
+- Dispatch changesets auto-merge: `[.cursor/scripts/changesets-automerge-dispatch.sh](.cursor/scripts/changesets-automerge-dispatch.sh)`
 
 ### Intent routing & user intent
 
@@ -125,34 +82,7 @@ healthScore:
 
 ### Discovery (rules, MCP, local scripts)
 
-- Ask: `@capabilities` or "What can you do?"
-- Output: grouped bullets by source (rules|mcp|local), truncated with "N more…" when long
-- Safety: read-only listing; never echo secrets; execution remains consent-gated
-
-**Sources:**
-
-- Rules: scan `.cursor/rules/*.mdc` for names/descriptions
-- MCP: list configured servers/tools/resources and auth state
-- Local: scan `.cursor/scripts/**/*.sh` top comments for descriptions
-
-**Discovery Schema (canonical):**
-
-All discovery outputs MUST conform to this schema:
-
-```json
-{
-  "name": "string",
-  "source": "rules|mcp|local",
-  "summary": "string",
-  "authRequired": boolean,
-  "enabled": boolean,
-  "notes": "string?"
-}
-```
-
-**Truncation:** Show first 10 items per source; if >10, show "... and N more <source> items"  
-**Grouping:** Always group by source (Rules → MCP → Local)  
-**Secrets:** Never echo token values, API keys, or credentials in discovery output
+Ask: `@capabilities` or "What can you do?" — Output grouped by source (rules|mcp|local), truncated >10 items, read-only, no secrets echoed
 
 ### Testing & TDD
 
@@ -164,15 +94,7 @@ All discovery outputs MUST conform to this schema:
 
 ### Shell Scripts & Unix Philosophy
 
-- Enforce Unix Philosophy principles for shell scripts (see `shell-unix-philosophy.mdc`):
-  - Single responsibility (do one thing well)
-  - Size targets: < 150 lines (warn at 200, fail at 300)
-  - Flag limits: ≤ 6-8 flags (warn at 10+)
-  - Composition: results → stdout, logs → stderr
-  - Policy/mechanism separation
-- Validate shell scripts: `[.cursor/scripts/help-validate.sh](.cursor/scripts/help-validate.sh)`, `[.cursor/scripts/error-validate.sh](.cursor/scripts/error-validate.sh)`, `[.cursor/scripts/network-guard.sh](.cursor/scripts/network-guard.sh)`
-- Run ShellCheck: `[.cursor/scripts/shellcheck-run.sh](.cursor/scripts/shellcheck-run.sh)`
-- Propose splits when scripts exceed thresholds (e.g., > 200 lines, 10+ flags, multiple responsibilities)
+Enforce Unix Philosophy per `shell-unix-philosophy.mdc`. Validate: `[.cursor/scripts/help-validate.sh](.cursor/scripts/help-validate.sh)`, `[.cursor/scripts/error-validate.sh](.cursor/scripts/error-validate.sh)`, `[.cursor/scripts/network-guard.sh](.cursor/scripts/network-guard.sh)`, `[.cursor/scripts/shellcheck-run.sh](.cursor/scripts/shellcheck-run.sh)`
 
 ### Imports & formatting
 
@@ -246,6 +168,13 @@ All discovery outputs MUST conform to this schema:
 
 - Generate root README: `[.cursor/scripts/generate-root-readme.sh](.cursor/scripts/generate-root-readme.sh) [--template PATH] [--out PATH] [--dry-run]` — Generate repository root README.md from template with auto-generated sections
 - Validate root README: `[.cursor/scripts/validate-root-readme.sh](.cursor/scripts/validate-root-readme.sh) [--fix] [--dry-run]` — Validate README.md freshness and optionally regenerate if stale
+
+### Investigation Monitoring
+
+- Create finding documents: `[.cursor/scripts/monitoring-finding-create.sh](.cursor/scripts/monitoring-finding-create.sh) --project <slug> --title <pattern-name>`
+- Create observation logs: `[.cursor/scripts/monitoring-log-create.sh](.cursor/scripts/monitoring-log-create.sh) --project <slug> --observation <description>`
+- Review monitoring data: `[.cursor/scripts/monitoring-review.sh](.cursor/scripts/monitoring-review.sh) --project <slug>`
+- Migrate legacy monitoring: `[.cursor/scripts/monitoring-migrate-legacy.sh](.cursor/scripts/monitoring-migrate-legacy.sh)`
 
 ### Utilities
 

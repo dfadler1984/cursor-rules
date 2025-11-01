@@ -2,11 +2,11 @@
 description: TDD-First — Three Laws, R/G/R, Specific→Generic; owner specs; effects seam; logging at Red/Green
 globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.mjs,**/*.cjs,**/*.sh
 alwaysApply: false
-lastReviewed: 2025-10-21
+lastReviewed: 2025-11-01
 healthScore:
-  content: green
-  usability: green
-  maintenance: green
+  content: green # Three Laws, cycles, owner specs, effects seam
+  usability: green # Reduced from 254→~222 lines, condensed examples
+  maintenance: green # Deep maintenance 2025-11-01, verbosity reduced
 ---
 
 # Rule: TDD-First
@@ -186,44 +186,11 @@ async function main() {
 
 ## Examples
 
-### Bug fix
-
-```ts
-// 1. Red: Test the bug
-it("handles empty input gracefully", () => {
-  expect(() => processInput("")).not.toThrow();
-});
-
-// 2. Green: Fix the bug
-function processInput(input) {
-  if (!input) return null;
-  // ... rest of logic
-}
-```
-
-### New feature
-
-```ts
-// 1. Red: Test the new behavior
-it("validates CSV format for globs", () => {
-  expect(validateGlobs("['invalid']")).toThrow(/invalid format/);
-  expect(validateGlobs("valid,pattern")).not.toThrow();
-});
-
-// 2. Green: Implement validation
-function validateGlobs(globs) {
-  if (/[\[\]]/.test(globs)) {
-    throw new Error("invalid format; expected CSV");
-  }
-}
-```
+Red → Green cycle: Write failing test for desired behavior, implement minimal code to pass, refactor while keeping tests green.
 
 ## Anti-patterns
 
-- **Implement first, test later**: Leads to incomplete test coverage
-- **Manual verification**: Inefficient and error-prone
-- **Skip tests for "simple" changes**: Simple changes break things too
-- **Assertion gaps**: Tests must assert observable behavior of the system under test (SUT). Avoid placeholders or existence-only checks. Couple assertions to the owner module’s public API, not incidental internals.
+Implement first test later, manual verification, skip tests for "simple" changes, assertion gaps (must assert observable behavior, not placeholders).
 
 ## Do / Don’t
 
