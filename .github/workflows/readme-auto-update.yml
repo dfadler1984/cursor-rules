@@ -11,28 +11,27 @@ jobs:
     # Only run on merged PRs that are not auto-merge PRs
     if: github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'automerge')
     runs-on: ubuntu-latest
-    environment: AUTO_MERGE_TOKEN
-    
+
     permissions:
       contents: write
       pull-requests: write
-    
+
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
-      
+          node-version: "18"
+          cache: "yarn"
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      
+
       - name: Check if README needs update
         id: check
         run: |
@@ -43,13 +42,13 @@ jobs:
             echo "needs_update=true" >> $GITHUB_OUTPUT
             echo "README needs regeneration"
           fi
-      
+
       - name: Generate README
         if: steps.check.outputs.needs_update == 'true'
         run: |
           npm run generate:root-readme
           echo "✓ README regenerated"
-      
+
       - name: Create or Update Pull Request
         if: steps.check.outputs.needs_update == 'true'
         env:
@@ -58,12 +57,12 @@ jobs:
           OWNER="${{ github.repository_owner }}"
           REPO="${{ github.event.repository.name }}"
           BRANCH="auto-update-readme"
-          
+
           git checkout -b "$BRANCH" || git checkout "$BRANCH"
           git add README.md
           git commit -m "chore: regenerate root README [skip ci]" || true
           git push -f origin "$BRANCH"
-          
+
           chmod +x ./.cursor/scripts/pr-create-or-update.sh
           ./.cursor/scripts/pr-create-or-update.sh \
             --title "chore: regenerate root README" \
@@ -76,4 +75,3 @@ jobs:
             --base main \
             --label "automerge" \
             --label "skip-changeset"
-

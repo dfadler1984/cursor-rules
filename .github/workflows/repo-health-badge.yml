@@ -12,7 +12,6 @@ on:
 jobs:
   update-badge:
     runs-on: ubuntu-latest
-    environment: AUTO_MERGE_TOKEN
     permissions:
       contents: write
       pull-requests: write
@@ -54,12 +53,12 @@ jobs:
           OWNER="${{ github.repository_owner }}"
           REPO="${{ github.event.repository.name }}"
           BRANCH="chore/update-health-badge"
-          
+
           git checkout -b "$BRANCH" || git checkout "$BRANCH"
           git add README.md
           git commit -m "chore: update repository health badge [skip ci]" || true
           git push -f origin "$BRANCH"
-          
+
           chmod +x ./.cursor/scripts/pr-create-or-update.sh
           ./.cursor/scripts/pr-create-or-update.sh \
             --title "chore: update repository health badge" \
